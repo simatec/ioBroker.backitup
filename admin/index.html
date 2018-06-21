@@ -1,0 +1,89 @@
+<html>
+<!-- This file is deprecated!!!!! Please use index_m.html -->
+<!-- This file is required only for backward compatibility and will be deleted soon -->
+<!-- these 4 files always have to be included -->
+<link rel="stylesheet" type="text/css" href="../../lib/css/themes/jquery-ui/redmond/jquery-ui.min.css"/>
+<script type="text/javascript" src="../../lib/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery-ui-1.10.3.full.min.js"></script>
+
+
+<!-- optional: use jqGrid
+<link rel="stylesheet" type="text/css" href="../../lib/css/jqGrid/ui.jqgrid-4.5.4.css"/>
+<script type="text/javascript" src="../../lib/js/jqGrid/jquery.jqGrid-4.5.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/jqGrid/i18n/grid.locale-all.js"></script>
+-->
+
+<!-- optional: use multiselect
+<link rel="stylesheet" type="text/css" href="../../lib/css/jquery.multiselect-1.13.css"/>
+<script type="text/javascript" src="../../lib/js/jquery.multiselect-1.13.min.js"></script>
+-->
+
+<!-- these two file always have to be included -->
+<link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
+<script type="text/javascript" src="../../js/translate.js"></script>
+<script type="text/javascript" src="../../js/adapter-settings.js"></script>
+<script type="text/javascript" src="words.js"></script>
+
+
+<!-- you have to define 2 functions in the global scope: -->
+<script type="text/javascript">
+
+    // the function loadSettings has to exist ...
+    function load(settings, onChange) {
+        // example: select elements with id=key and class=value and insert value
+       if (!settings) return;
+        $('.value').each(function () {
+            var $key = $(this);
+            var id = $key.attr('id');
+            if ($key.attr('type') === 'checkbox') {
+		// do not call onChange direct, because onChange could expect some arguments
+                $key.prop('checked', settings[id]).change(function() {
+                    onChange();
+                });
+            } else {
+		// do not call onChange direct, because onChange could expect some arguments
+                $key.val(settings[id]).change(function() {
+                    onChange();
+                }).keyup(function() {
+                    onChange();
+                });
+            }
+        });
+        onChange(false);
+    }
+
+    // ... and the function save has to exist.
+    // you have to make sure the callback is called with the settings object as first param!
+    function save(callback) {
+        // example: select elements with class=value and build settings object
+        var obj = {};
+        $('.value').each(function () {
+            var $this = $(this);
+			if ($this.attr('type') === 'checkbox') {
+				obj[$this.attr('id')] = $this.prop('checked');
+			} else {
+				obj[$this.attr('id')] = $this.val();
+			}
+        });
+        callback(obj);
+    }
+</script>
+
+<!-- you have to put your config page in a div with id adapter-container -->
+<div id="adapter-container">
+
+    <table><tr>
+        <td><img src="backitup.png"/></td>
+        <td><h3 class="translate">backitup adapter settings</h3></td>
+    </tr></table>
+    <p>
+        <span><label for="test1" class="translate">test1</label></span><input class="value" id="test1"/><br>
+        <span><label for="test2" class="translate">test2</label></span><input class="value" id="test2"/><br>
+    </p>
+
+    <p class="translate">on save adapter restarts with new config immediately</p>
+
+</div>
+
+</html>

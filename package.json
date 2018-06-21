@@ -1,0 +1,41 @@
+{
+  "name": "iobroker.backitup",
+  "version": "0.0.1",
+  "description": "backitup",
+  "author": {
+    "name": "simatec",
+    "email": "nais@gmx.net"
+  },
+  "contributors": [
+    {
+      "name": "simatec",
+      "email": "nais@gmx.net"
+    }
+  ],
+  "homepage": "https://github.com/ioBroker/ioBroker.backitup",
+  "license": "MIT",
+  "keywords": [
+    "ioBroker",
+    "backitup",
+    "Smart Home",
+    "home automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ioBroker/ioBroker.backitup"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "mocha": "^4.1.0",
+    "chai": "^4.1.2"
+  },
+  "main": "main.js",
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha --exit"
+  },
+  "bugs": {
+    "url": "https://github.com/ioBroker/ioBroker.backitup/issues"
+  },
+  "readmeFilename": "README.md"
+}

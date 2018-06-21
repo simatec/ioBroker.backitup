@@ -1,0 +1,277 @@
+<html>
+<head>
+<!-- these 4 files always have to be included -->
+<link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+<link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
+
+<script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+
+<!-- these files always have to be included -->
+<script type="text/javascript" src="../../js/translate.js"></script>
+<script type="text/javascript" src="../../lib/js/materialize.js"></script>
+<script type="text/javascript" src="../../js/adapter-settings.js"></script>
+<script type="text/javascript" src="words.js"></script>
+ <style>
+  .m .col .select-wrapper+label {
+   top: -26px;
+  }
+     .m span{
+         font-size: 0.9em;
+     }
+ </style>
+<!-- you have to define 2 functions in the global scope: -->
+<script type="text/javascript">
+
+    // the function loadSettings has to exist ...
+    function load(settings, onChange) {
+        // example: select elements with id=key and class=value and insert value
+       if (!settings) return;
+        $('.value').each(function () {
+            var $key = $(this);
+            var id = $key.attr('id');
+            if ($key.attr('type') === 'checkbox') {
+		        // do not call onChange direct, because onChange could expect some arguments
+                $key.prop('checked', settings[id]).change(function() {
+                    onChange();
+                });
+            } else {
+		        // do not call onChange direct, because onChange could expect some arguments
+                $key.val(settings[id]).change(function() {
+                    onChange();
+                }).keyup(function() {
+                    onChange();
+                });
+            }
+        });
+        onChange(false);
+        M.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
+    }
+
+    // ... and the function save has to exist.
+    // you have to make sure the callback is called with the settings object as first param!
+    function save(callback) {
+        // example: select elements with class=value and build settings object
+        var obj = {};
+        $('.value').each(function () {
+            var $this = $(this);
+            if ($this.attr('type') === 'checkbox') {
+                obj[$this.attr('id')] = $this.prop('checked');
+            } else {
+                obj[$this.attr('id')] = $this.val();
+            }
+        });
+        callback(obj);
+    }
+</script>
+</head>
+<body>
+    <!-- you have to put your config page in a div with id adapter-container -->
+    <div class="m adapter-container">
+
+		<div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s2"><a href="#tab-minimal-backup" class="translate active">Standard Backup</a></li>
+                <li class="tab col s2 tab-ccu-backup"><a href="#tab-komplett-backup" class="translate">Komplett Backup</a></li>
+                <li class="tab col s2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
+                <li class="tab col s2 tab-nas"><a href="#tab-nas" class="translate">NAS Einstellungen</a></li>
+            </ul>
+        </div>
+        <div class="row">
+            <!-- Forms are the standard way to receive user inputted data.
+         Learn more http://materializecss.com/forms.html-->
+            <div class="row">
+                <div class="input-field col s6">
+                    <img src="backitup.png" class="logo">
+                </div>
+            </div>
+            <!-- Anfang Minimal Backup -->
+        <div id="tab-minimal-backup"  class="col s12 page">
+            <div class="row">
+                <div class="input-field col s3">
+                    <input class="value" id="mBackupState" type="checkbox" />
+                    <label for="Standard Backup" class="translate">Standard Backup</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6 l2">
+                    <input class="value" id="mBackupZeit" type="text">
+                    <label for="Backup Startzeit in "hh:mm"">Backupzeit</label>
+                    <span class="translate">Backup Startzeit in hh:mm</span>
+                </div>
+                <div class="input-field col s12 m4 l2">
+                    <input type="number" class="value" id="mBackupTageZyklus" min="1" max="100" />
+                    <label for="Backup ausfuehren alle X-Tage" class="translate">Tage</label>
+                    <!-- Important: label must come directly after input. Label is important. -->
+                    <span class="translate">Backup ausfuehren alle X-Tage</span>
+                </div>
+                <div class="input-field col s12 m4 l2">
+				    <input type="number" class="value" id="minimal.BackupLoeschenNach" min="1" max="100" />
+				    <label for="alte Backups loeschen nach X-Tagen" class="translate">Tage</label>
+				    <!-- Important: label must come directly after input. Label is important. -->
+				    <span class="translate">alte Standard-Backups loeschen nach X-Tagen</span>
+                </div>
+                <div class="input-field col s12 m6 l2">
+				    <input class="value" id="minimal-NamensZusatz" type="text">
+				    <label for="NamensZusatz">Name</label>
+				    <span class="translate">NamensZusatz</span>
+                </div>
+            </div>
+       	</div>
+			<!-- Ende Minimal Backup -->
+			<!-- Anfang Komplett Backup -->
+        <div id="tab-komplett-backup"  class="col s12 page">
+            <div class="row">
+			    <div class="input-field col s3">
+			        <input class="value" id="komplett-BackupState" type="checkbox" />
+			        <label for="Komplett Backup" class="translate">Komplett Backup</label>
+			    </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6 l2">
+                    <input class="value" id="komplett-BackupZeit" type="text">
+                    <label for="Backup Startzeit in "hh:mm"">Backupzeit</label>
+                    <span class="translate">Backup Startzeit in hh:mm</span>
+                </div>
+                <div class="input-field col s12 m4 l2">
+                    <input type="number" class="value" id="komplett-BackupTageZyklus" min="1" max="100"/>
+                    <label for="Backup ausfuehren alle X-Tage" class="translate">Tage</label>
+                    <!-- Important: label must come directly after input. Label is important. -->
+                    <span class="translate">Backup ausfuehren alle X-Tage</span>
+                </div>
+                <div class="input-field col s12 m4 l2">
+				    <input type="number" class="value" id="komplett-BackupLoeschenNach" min="1" max="100" />
+				    <label for="alte Backups loeschen nach X-Tagen" class="translate">Tage</label>
+				    <!-- Important: label must come directly after input. Label is important. -->
+				    <span class="translate">alte Komplett-Backups loeschen nach X-Tagen</span>
+                </div>
+                <div class="input-field col s12 m6 l2">
+				    <input class="value" id="komplett-NamensZusatz" type="text">
+				    <label for="NamensZusatz">Name</label>
+				    <span class="translate">NamensZusatz</span>
+                </div>
+            </div>
+			<!-- Ende Komplett Backup -->
+			<!-- Anfang Mysql Backup -->
+            <div class="row">
+                <div class="input-field col s12 m6 l2">
+                    <input class="value" id="Mysql-DbName" type="text">
+                    <label for="MySQL Datenbank Name">Name</label>
+                    <span class="translate">MySQL Datenbank Name</span>
+                </div>
+                <div class="input-field col s12 m6 l2">
+                    <input class="value" id="Mysql-DbUser" type="text">
+                    <label for="MySql Username">Username</label>
+                    <span class="translate">MySql Username</span>
+                </div>
+                <div class="input-field col s12 m6 l2">
+                    <input class="value" id="Mysql-DbPw" type="text">
+                    <label for="MySql Passwort">Passwort</label>
+                    <span class="translate">MySql Passwort</span>
+                </div>
+                <div class="input-field col s12 m4 l2">
+				    <input type="number" class="value" id="Mysql-BackupLoeschenNach" min="1" max="100" />
+				    <label for="alte Backups loeschen nach X-Tagen" class="translate">Tage</label>
+				    <!-- Important: label must come directly after input. Label is important. -->
+				    <span class="translate">alte MySQL Backups loeschen nach X-Tagen</span>
+                </div>
+            </div>
+		</div>
+			<!-- Ende Mysql Backup -->
+			<!-- Anfang CCU Backup -->
+        <div id="tab-ccu-backup"  class="col s12 page">
+            <div class="row">
+			    <div class="input-field col s3">
+			        <input class="value" id="ccu-BackupState" type="checkbox" />
+			        <label for="Homematic-CCU Backup" class="translate">Homematic-CCU Backup</label>
+			    </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6 l2">
+                    <input class="value" id="ccu-BackupZeit" type="text">
+                    <label for="Backup Startzeit in "hh:mm"">Backupzeit</label>
+                    <span class="translate">Backup Startzeit in hh:mm</span>
+                </div>
+                <div class="input-field col s12 m4 l2">
+                    <input type="number" class="value" id="ccu-BackupTageZyklus" min="1" max="100"/>
+                    <label for="Backup ausfuehren alle X-Tage" class="translate">Tage</label>
+                    <!-- Important: label must come directly after input. Label is important. -->
+                    <span class="translate">Backup ausfuehren alle X-Tage</span>
+                </div>
+                <div class="input-field col s12 m4 l2">
+				    <input type="number" class="value" id="ccu-BackupLoeschenNach" min="1" max="100" />
+				    <label for="alte Backups loeschen nach X-Tagen" class="translate">Tage</label>
+				    <!-- Important: label must come directly after input. Label is important. -->
+				    <span class="translate">alte CCU-Backups loeschen nach X-Tagen</span>
+                </div>
+                <div class="input-field col s12 m6 l2">
+				    <input class="value" id="ccu-NamensZusatz" type="text">
+				    <label for="NamensZusatz">Name</label>
+				    <span class="translate">NamensZusatz</span>
+                </div>
+            </div>
+            <div class="row">
+				<div class="input-field col s12 m6 l2">
+                    <input class="value" id="ccu-CcuIp" type="text">
+                    <label for="IP der CCU">IP-Adresse</label>
+                    <span class="translate">IP der CCU</span>
+                </div>
+				<div class="input-field col s12 m6 l2">
+                    <input class="value" id="ccu-CcuUser" type="text">
+                    <label for="Username der CCU">Username</label>
+                    <span class="translate">Username</span>
+                </div>
+				<div class="input-field col s12 m6 l2">
+                    <input class="value" id="ccu-CcuUser" type="text">
+                    <label for="Passwort der CCU">Passwort</label>
+                    <span class="translate">Passwort</span>
+                </div>
+            </div>
+		</div>
+			<!-- Ende CCU Backup -->
+			<!-- Anfang NAS -->
+        <div id="tab-nas"  class="col s12 page">
+            <div class="row">
+			    <div class="input-field col s3">
+			        <input class="value" id="CifsMount" type="checkbox" />
+			        <label for="CIFS Mount" class="translate">CIFS Mount</label>
+			    </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6 l2">
+                    <input class="value" id="FtpHost" type="text">
+                    <label for="FTP Host">FTP Host</label>
+                    <span class="translate">FTP Host</span>
+                </div>
+                <div class="input-field col s12 m6 l2">
+				    <input class="value" id="FtpDir" type="text">
+				    <label for="FTP Dir">FTP Dir</label>
+				    <span class="translate">FTP Dir</span>
+                </div>
+            </div>
+            <div class="row">
+				<div class="input-field col s12 m6 l2">
+                    <input class="value" id="FtpUser" type="text">
+                    <label for="FTP Username">Username</label>
+                    <span class="translate">FTP Username</span>
+                </div>
+				<div class="input-field col s12 m6 l2">
+                    <input class="value" id="FtpPw" type="text">
+                    <label for="FTP Passwort">Passwort</label>
+                    <span class="translate">FTP Passwort</span>
+                </div>
+            </div>
+		</div>
+			<!-- Ende NAS -->
+
+            <div class="row">
+                <div class="col s12">
+                    <p class="translate">on save adapter restarts with new config immediately</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

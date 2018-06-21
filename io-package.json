@@ -1,0 +1,54 @@
+{
+    "common": {
+        "name": "backitup",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "initial adapter",
+                "de": "Initiale Version"
+            }
+        },
+		"title": "BackitUp",
+        "titleLang": {
+            "en": "ioBroker Backupadapter",
+            "de": "ioBrokerBackup-Adapter"
+        },
+        "desc": {
+            "en": "backitup",
+            "de": "ioBroker Backitup Adapter"
+        },
+        "authors": [
+            "simatec <nais@gmx.net>"
+        ],
+        "docs": {
+            "en": "docs/en/admin.md",
+            "de": "docs/de/admin.md"
+        },
+        "platform": "Javascript/Node.js",
+        "mode": "daemon",
+        "icon": "backitup.png",
+        "materialize": true,
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.backitup/master/admin/backitup.png",
+        "keywords": ["Backup", "IoBroker", "Homematic"],
+        "readme": "https://github.com/ioBroker/ioBroker.backitup/blob/master/README.md",
+        "loglevel": "info",
+        "type": "general",
+        "license": "MIT",
+        "messagebox": false,
+        "restartAdapters": ["vis"]
+    },
+    "native": {
+        "test1": true,
+        "test2": 42,
+        "mySelect": "auto",
+        "mBackupState": false,
+        "mBackupZeit": "02:00",
+	"mBackupTageZyklus": 1
+	
+
+    },
+    "objects": [
+
+    ]
+}
