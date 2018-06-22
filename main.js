@@ -1,40 +1,10 @@
-/**
- *
- * backitup adapter
- *
- *
- *  file io-package.json comments:
- *
- *  {
- *      "common": {
- *          "name":         "backitup",                  // name has to be set and has to be equal to adapters folder name and main file name excluding extension
- *          "version":      "0.0.0",                    // use "Semantic Versioning"! see http://semver.org/
- *          "title":        "Node.js backitup Adapter",  // Adapter title shown in User Interfaces
- *          "authors":  [                               // Array of authord
- *              "name <mail@backitup.com>"
- *          ]
- *          "desc":         "backitup adapter",          // Adapter description shown in User Interfaces. Can be a language object {de:"...",ru:"..."} or a string
- *          "platform":     "Javascript/Node.js",       // possible values "javascript", "javascript/Node.js" - more coming
- *          "mode":         "daemon",                   // possible values "daemon", "schedule", "subscribe"
- *          "materialize":  true,                       // support of admin3
- *          "schedule":     "0 0 * * *"                 // cron-style schedule. Only needed if mode=schedule
- *          "loglevel":     "info"                      // Adapters Log Level
- *      },
- *      "native": {                                     // the native object is available via adapter.config in your adapters code - use it for configuration
- *          "test1": true,
- *          "test2": 42,
- *          "mySelect": "auto"
- *      }
- *  }
- *
- */
-
 /* jshint -W097 */// jshint strict:false
 /*jslint node: true */
 'use strict';
 
 // you have to require the utils module and call adapter function
 const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
+const { exec } = require('child_process');
 
 // you have to call the adapter function and pass a options object
 // name has to be set and has to be equal to adapters folder name and main file name excluding extension
@@ -138,7 +108,7 @@ var instanz = 'adapter.config.';  // instanz = instanz + instance +'.';    //   
 var pfad0 =   '.System.Iobroker.Backup.';					        // Pfad innerhalb der Instanz
 
 
-var bash_script = 'bash /opt/iobroker/backitup.sh ';        // Pfad zu backup.sh Datei
+var bash_script = 'bash /opt/iobroker/node_modules/iobroker.backitup/backitup.sh ';        // Pfad zu backup.sh Datei
 
 var anzahl_eintraege_history = 25;                          // Anzahl der Einträge in der History
 
@@ -216,26 +186,26 @@ var history_array = [];                                // Array für das anlegen 
 // Objekte
 // =============================================================================
 // Objekt zur Prüfung ob Auto_Backup aktiv ist.
-adapter.setObject('System.Iobroker.Backup.Auto_Backup', {type: 'state', common: {name: 'Automatisches Backup', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('System.Iobroker.Backup.Auto_Backup', {type: 'state', common: {name: 'Automatisches Backup', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
 
 // Neu seit V2 Objekt zur Erstellung der enum.functions Einträge
-adapter.setObject('System.Iobroker.Backup.Konfiguration.Konfig_abgeschlossen', {type: 'state', common: {name: 'Alle benoetigten Objekte erstellt', type: 'boolean', def: 'false', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('System.Iobroker.Backup.Konfiguration.Konfig_abgeschlossen', {type: 'state', common: {name: 'Alle benoetigten Objekte erstellt', type: 'boolean', def: 'false', role: 'indicator'}, native: {}});
 
 // Neu seit V2 Objekt zum Prüfen ob IoBroker wegen einem kompletten Backup neu gestartet ist.
-adapter.setObject('System.Iobroker.Backup.Konfiguration.IoRestart_komp_Bkp', {type: 'state', common: {name: 'Restart IoBroker wegen komplett Backup', type: 'boolean', def: 'false', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('System.Iobroker.Backup.Konfiguration.IoRestart_komp_Bkp', {type: 'state', common: {name: 'Restart IoBroker wegen komplett Backup', type: 'boolean', def: 'false', role: 'indicator'}, native: {}});
 
 //Neu seit V2 HistoryLog für die ausgeführen Backups
-adapter.setObject('System.Iobroker.Backup.History.' + 'Backup_history', {type: 'state', common: {name: 'History der Backups', type: 'string', def: '<span class="bkptyp_komplett">Noch kein Backup</span>', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('System.Iobroker.Backup.History.' + 'Backup_history', {type: 'state', common: {name: 'History der Backups', type: 'string', def: '<span class="bkptyp_komplett">Noch kein Backup</span>', role: 'indicator'}, native: {}});
 
 //Neu seit V2 einen separaten Zeitstempel für jeden Backuptyp
-adapter.setObject('System.Iobroker.Backup.History.letztes_minimal_Backup', {type: 'state', common: {name: 'Letztes minimal Backup', type: 'string', def: 'Noch kein Backup', role: 'indicator'}, native: {}});
-adapter.setObject('System.Iobroker.Backup.History.letztes_komplett_Backup', {type: 'state', common: {name: 'Letztes komplett Backup', type: 'string', def: 'Noch kein Backup', role: 'indicator'}, native: {}});
-adapter.setObject('System.Iobroker.Backup.History.letztes_ccu_Backup', {type: 'state', common: {name: 'Letztes CCU Backup', type: 'string', def: 'Noch kein Backup', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('System.Iobroker.Backup.History.letztes_minimal_Backup', {type: 'state', common: {name: 'Letztes minimal Backup', type: 'string', def: 'Noch kein Backup', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('System.Iobroker.Backup.History.letztes_komplett_Backup', {type: 'state', common: {name: 'Letztes komplett Backup', type: 'string', def: 'Noch kein Backup', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('System.Iobroker.Backup.History.letztes_ccu_Backup', {type: 'state', common: {name: 'Letztes CCU Backup', type: 'string', def: 'Noch kein Backup', role: 'indicator'}, native: {}});
 
 //Neu seit V2 ein jetzt Backup durchführen für jeden Backuptyp
-adapter.setObject('System.Iobroker.Backup.OneClick.start_minimal_Backup', {type: 'state', common: {name: 'Minimal Backup ausfuehren', type: 'boolean', def: 'false', role: 'indicator'}, native: {}});
-adapter.setObject('System.Iobroker.Backup.OneClick.start_komplett_Backup', {type: 'state', common: {name: 'Komplett Backup ausfuehren', type: 'boolean', def: 'false', role: 'indicator'}, native: {}});
-adapter.setObject('System.Iobroker.Backup.OneClick.start_ccu_Backup', {type: 'state', common: {name: 'CCU Backup ausfuehren', type: 'boolean', def: 'false', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('System.Iobroker.Backup.OneClick.start_minimal_Backup', {type: 'state', common: {name: 'Minimal Backup ausfuehren', type: 'boolean', def: 'false', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('System.Iobroker.Backup.OneClick.start_komplett_Backup', {type: 'state', common: {name: 'Komplett Backup ausfuehren', type: 'boolean', def: 'false', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('System.Iobroker.Backup.OneClick.start_ccu_Backup', {type: 'state', common: {name: 'CCU Backup ausfuehren', type: 'boolean', def: 'false', role: 'indicator'}, native: {}});
 
 
 // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -288,7 +258,7 @@ function BackupStellen() {
 
 // ###################################### Ab hier müssen noch Fehler gesucht werden und Anpssungen gemacht werden (deshalb auskommentiert) ###############################################
 //           if(adapter.getState(instanz + Bkp[0] +'_BackupState'), true) {
-//               var BkpUhrZeit = adapter.getState(instanz + Bkp[0] + '_BackupZeit'), sid.split(':');
+//               var BkpUhrZeit = adapter.getState(instanz + Bkp[0] + '_BackupZeit').val.split(':');
 //               if(logging) log('Ein '+Bkp[0]+' Backup wurde um '+adapter.getState(instanz + Bkp[0] +'_BackupZeit').val+' Uhr jeden '+adapter.getState(instanz + Bkp[0] +'_BackupTageZyklus').val+' Tag  aktiviert');
 //                if(BkpZeit_Schedule[Bkp[0]]) clearSchedule(BkpZeit_Schedule[Bkp[0]]);
 //
