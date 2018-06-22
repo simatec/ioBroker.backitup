@@ -127,7 +127,7 @@ var Backup = [];                                        // Array für die Definit
 
     Backup[0] = [];
     Backup[0][0] = 'minimal';   // Backup Typ (nicht verändern!)
-    Backup[0][1] = adapter.getState(adapter.config.minimal_NamensZusatz);        	// Names Zusatz, wird an den Dateinamen angehängt bspw. Master/Slave (falls gewünscht, ansonsten leer lassen)
+    Backup[0][1] = adapter.config.minimal_NamensZusatz;        	// Names Zusatz, wird an den Dateinamen angehängt bspw. Master/Slave (falls gewünscht, ansonsten leer lassen)
     Backup[0][2] = adapter.getState(adapter.config.minimal_BackupLoeschenNach);  	// Alte Backups löschen nach X Tagen (falls gewünscht, ansonsten leer lassen)
     Backup[0][3] = adapter.getState(adapter.config.FtpHost);             	// FTP-Host
     Backup[0][4] = adapter.getState(adapter.config.FtpDir);              	// genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server (falls gewünscht, ansonsten leer lassen)
@@ -257,19 +257,21 @@ function BackupStellen() {
         // ######################### Ende wird nicht mehr benötigt #####################################
 
 // ###################################### Ab hier müssen noch Fehler gesucht werden und Anpssungen gemacht werden (deshalb auskommentiert) ###############################################
-//           if(adapter.getState(instanz + Bkp[0] +'_BackupState'), true) {
-//               var BkpUhrZeit = adapter.getState(instanz + Bkp[0] + '_BackupZeit').val.split(':');
-//               if(logging) log('Ein '+Bkp[0]+' Backup wurde um '+adapter.getState(instanz + Bkp[0] +'_BackupZeit').val+' Uhr jeden '+adapter.getState(instanz + Bkp[0] +'_BackupTageZyklus').val+' Tag  aktiviert');
-//                if(BkpZeit_Schedule[Bkp[0]]) clearSchedule(BkpZeit_Schedule[Bkp[0]]);
-//
-//                BkpZeit_Schedule[Bkp[0]] = schedule('10 '+BkpUhrZeit[1] + ' ' + BkpUhrZeit[0] + ' */'+adapter.getState(instanz + Bkp[0] +'_BackupTageZyklus').val+' * * ', function (){backup_erstellen(Bkp[0], Bkp[1], Bkp[2], Bkp[3], Bkp[4], Bkp[5], Bkp[6], Bkp[7], Bkp[8], Bkp[9], Bkp[10], Bkp[11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN)});
-//
-//                if(debugging) log('10 '+BkpUhrZeit[1] + ' ' + BkpUhrZeit[0] + ' */'+adapter.getState(instanz + Bkp[0] +'_BackupTageZyklus').val+' * * ');
-//            }
-//            else{
-//                if(logging) log ('Das '+Bkp[0]+' Backup wurde deaktiviert');
-//                if(BkpZeit_Schedule[Bkp[0]]) clearSchedule(BkpZeit_Schedule[Bkp[0]]);
-//            }
+           if(adapter.getState(instanz + Bkp[0] +'_BackupState'), true) {
+               var BkpUhrZeit = adapter.getState(instanz + Bkp[0] + '_BackupZeit'), split(':');
+               adapter.log.info('BkpUhrZeit: ' + BkpUhrZeit);
+               //var BkpUhrZeit = (BkpUhrZeit.split(':'));
+               if(logging) adapter.log.info('Ein '+Bkp[0]+' Backup wurde um '+adapter.getState(instanz + Bkp[0] +'_BackupZeit')+' Uhr jeden '+adapter.getState(instanz + Bkp[0] +'_BackupTageZyklus')+' Tag  aktiviert');
+                if(BkpZeit_Schedule[Bkp[0]]) clearSchedule(BkpZeit_Schedule[Bkp[0]]);
+
+                //BkpZeit_Schedule[Bkp[0]] = adapter.schedule('10 '+BkpUhrZeit[1] + ' ' + BkpUhrZeit[0] + ' */'+adapter.getState(instanz + Bkp[0] +'_BackupTageZyklus')+' * * ', function (){backup_erstellen(Bkp[0], Bkp[1], Bkp[2], Bkp[3], Bkp[4], Bkp[5], Bkp[6], Bkp[7], Bkp[8], Bkp[9], Bkp[10], Bkp[11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN)});
+
+                //if(debugging) adapter.log.info('10 '+BkpUhrZeit[1] + ' ' + BkpUhrZeit[0] + ' */'+adapter.getState(instanz + Bkp[0] +'_BackupTageZyklus')+' * * ');
+            //}
+            //else{
+                //if(logging) adapter.log.info ('Das '+Bkp[0]+' Backup wurde deaktiviert');
+                //if(BkpZeit_Schedule[Bkp[0]]) clearSchedule(BkpZeit_Schedule[Bkp[0]]);
+            }
 
             // -----------------------------------------------------------------------------
             //  Erstellen der Aufzählungen für die Backupdatenpunkte
