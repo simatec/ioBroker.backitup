@@ -90,30 +90,30 @@
         <div id="tab-minimal-backup"  class="col s12 page">
             <div class="row">
                 <div class="input-field col s3">
-                    <input class="value" id="mBackupState" type="checkbox" />
+                    <input class="value" id="minimal_BackupState" type="checkbox" />
                     <label for="Standard Backup" class="translate">Standard Backup</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12 m6 l2">
-                    <input class="value" id="mBackupZeit" type="text">
+                    <input class="value" id="minimal_BackupZeit" type="text">
                     <label for="Backup Startzeit in "hh:mm"">Backupzeit</label>
                     <span class="translate">Backup Startzeit in hh:mm</span>
                 </div>
                 <div class="input-field col s12 m4 l2">
-                    <input type="number" class="value" id="mBackupTageZyklus" min="1" max="100" />
+                    <input type="number" class="value" id="minimal_BackupTageZyklus" min="1" max="100" />
                     <label for="Backup ausfuehren alle X-Tage" class="translate">Tage</label>
                     <!-- Important: label must come directly after input. Label is important. -->
                     <span class="translate">Backup ausfuehren alle X-Tage</span>
                 </div>
                 <div class="input-field col s12 m4 l2">
-				    <input type="number" class="value" id="minimal.BackupLoeschenNach" min="1" max="100" />
+				    <input type="number" class="value" id="minimal_BackupLoeschenNach" min="1" max="100" />
 				    <label for="alte Backups loeschen nach X-Tagen" class="translate">Tage</label>
 				    <!-- Important: label must come directly after input. Label is important. -->
 				    <span class="translate">alte Standard-Backups loeschen nach X-Tagen</span>
                 </div>
                 <div class="input-field col s12 m6 l2">
-				    <input class="value" id="minimal-NamensZusatz" type="text">
+				    <input class="value" id="minimal_NamensZusatz" type="text">
 				    <label for="NamensZusatz">Name</label>
 				    <span class="translate">NamensZusatz</span>
                 </div>
@@ -124,54 +124,60 @@
         <div id="tab-komplett-backup"  class="col s12 page">
             <div class="row">
 			    <div class="input-field col s3">
-			        <input class="value" id="komplett-BackupState" type="checkbox" />
+			        <input class="value" id="komplett_BackupState" type="checkbox" />
 			        <label for="Komplett Backup" class="translate">Komplett Backup</label>
 			    </div>
             </div>
             <div class="row">
                 <div class="input-field col s12 m6 l2">
-                    <input class="value" id="komplett-BackupZeit" type="text">
+                    <input class="value" id="komplett_BackupZeit" type="text">
                     <label for="Backup Startzeit in "hh:mm"">Backupzeit</label>
                     <span class="translate">Backup Startzeit in hh:mm</span>
                 </div>
                 <div class="input-field col s12 m4 l2">
-                    <input type="number" class="value" id="komplett-BackupTageZyklus" min="1" max="100"/>
+                    <input type="number" class="value" id="komplett_BackupTageZyklus" min="1" max="100"/>
                     <label for="Backup ausfuehren alle X-Tage" class="translate">Tage</label>
                     <!-- Important: label must come directly after input. Label is important. -->
                     <span class="translate">Backup ausfuehren alle X-Tage</span>
                 </div>
                 <div class="input-field col s12 m4 l2">
-				    <input type="number" class="value" id="komplett-BackupLoeschenNach" min="1" max="100" />
+				    <input type="number" class="value" id="komplett_BackupLoeschenNach" min="1" max="100" />
 				    <label for="alte Backups loeschen nach X-Tagen" class="translate">Tage</label>
 				    <!-- Important: label must come directly after input. Label is important. -->
 				    <span class="translate">alte Komplett-Backups loeschen nach X-Tagen</span>
                 </div>
                 <div class="input-field col s12 m6 l2">
-				    <input class="value" id="komplett-NamensZusatz" type="text">
+				    <input class="value" id="komplett_NamensZusatz" type="text">
 				    <label for="NamensZusatz">Name</label>
 				    <span class="translate">NamensZusatz</span>
                 </div>
+            </div>
+            <div class="row">
+			    <div class="input-field col s3">
+			        <input class="value" id="IoStopStart" type="checkbox" />
+			        <label for="Stop ioBroker bei Backup" class="translate">Stop ioBroker bei Backup</label>
+			    </div>
             </div>
 			<!-- Ende Komplett Backup -->
 			<!-- Anfang Mysql Backup -->
             <div class="row">
                 <div class="input-field col s12 m6 l2">
-                    <input class="value" id="Mysql-DbName" type="text">
+                    <input class="value" id="MysqlDbName" type="text">
                     <label for="MySQL Datenbank Name">Name</label>
                     <span class="translate">MySQL Datenbank Name</span>
                 </div>
                 <div class="input-field col s12 m6 l2">
-                    <input class="value" id="Mysql-DbUser" type="text">
+                    <input class="value" id="MysqlDbUser" type="text">
                     <label for="MySql Username">Username</label>
                     <span class="translate">MySql Username</span>
                 </div>
                 <div class="input-field col s12 m6 l2">
-                    <input class="value" id="Mysql-DbPw" type="text">
+                    <input class="value" id="MysqlDbPw" type="text">
                     <label for="MySql Passwort">Passwort</label>
                     <span class="translate">MySql Passwort</span>
                 </div>
                 <div class="input-field col s12 m4 l2">
-				    <input type="number" class="value" id="Mysql-BackupLoeschenNach" min="1" max="100" />
+				    <input type="number" class="value" id="MysqlBackupLoeschenNach" min="1" max="100" />
 				    <label for="alte Backups loeschen nach X-Tagen" class="translate">Tage</label>
 				    <!-- Important: label must come directly after input. Label is important. -->
 				    <span class="translate">alte MySQL Backups loeschen nach X-Tagen</span>
@@ -183,47 +189,47 @@
         <div id="tab-ccu-backup"  class="col s12 page">
             <div class="row">
 			    <div class="input-field col s3">
-			        <input class="value" id="ccu-BackupState" type="checkbox" />
+			        <input class="value" id="ccu_BackupState" type="checkbox" />
 			        <label for="Homematic-CCU Backup" class="translate">Homematic-CCU Backup</label>
 			    </div>
             </div>
             <div class="row">
                 <div class="input-field col s12 m6 l2">
-                    <input class="value" id="ccu-BackupZeit" type="text">
+                    <input class="value" id="ccu_BackupZeit" type="text">
                     <label for="Backup Startzeit in "hh:mm"">Backupzeit</label>
                     <span class="translate">Backup Startzeit in hh:mm</span>
                 </div>
                 <div class="input-field col s12 m4 l2">
-                    <input type="number" class="value" id="ccu-BackupTageZyklus" min="1" max="100"/>
+                    <input type="number" class="value" id="ccu_BackupTageZyklus" min="1" max="100"/>
                     <label for="Backup ausfuehren alle X-Tage" class="translate">Tage</label>
                     <!-- Important: label must come directly after input. Label is important. -->
                     <span class="translate">Backup ausfuehren alle X-Tage</span>
                 </div>
                 <div class="input-field col s12 m4 l2">
-				    <input type="number" class="value" id="ccu-BackupLoeschenNach" min="1" max="100" />
+				    <input type="number" class="value" id="ccu_BackupLoeschenNach" min="1" max="100" />
 				    <label for="alte Backups loeschen nach X-Tagen" class="translate">Tage</label>
 				    <!-- Important: label must come directly after input. Label is important. -->
 				    <span class="translate">alte CCU-Backups loeschen nach X-Tagen</span>
                 </div>
                 <div class="input-field col s12 m6 l2">
-				    <input class="value" id="ccu-NamensZusatz" type="text">
+				    <input class="value" id="ccu_NamensZusatz" type="text">
 				    <label for="NamensZusatz">Name</label>
 				    <span class="translate">NamensZusatz</span>
                 </div>
             </div>
             <div class="row">
 				<div class="input-field col s12 m6 l2">
-                    <input class="value" id="ccu-CcuIp" type="text">
+                    <input class="value" id="ccuCcuIp" type="text">
                     <label for="IP der CCU">IP-Adresse</label>
                     <span class="translate">IP der CCU</span>
                 </div>
 				<div class="input-field col s12 m6 l2">
-                    <input class="value" id="ccu-CcuUser" type="text">
+                    <input class="value" id="ccuCcuUser" type="text">
                     <label for="Username der CCU">Username</label>
                     <span class="translate">Username</span>
                 </div>
 				<div class="input-field col s12 m6 l2">
-                    <input class="value" id="ccu-CcuUser" type="text">
+                    <input class="value" id="ccuCcuPw" type="text">
                     <label for="Passwort der CCU">Passwort</label>
                     <span class="translate">Passwort</span>
                 </div>
@@ -264,12 +270,6 @@
             </div>
 		</div>
 			<!-- Ende NAS -->
-
-            <div class="row">
-                <div class="col s12">
-                    <p class="translate">on save adapter restarts with new config immediately</p>
-                </div>
-            </div>
         </div>
     </div>
 </body>
