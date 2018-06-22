@@ -12,7 +12,7 @@
       "email": "nais@gmx.net"
     }
   ],
-  "homepage": "https://github.com/ioBroker/ioBroker.backitup",
+  "homepage": "https://github.com/simatec/ioBroker.backitup",
   "license": "MIT",
   "keywords": [
     "ioBroker",
@@ -22,7 +22,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ioBroker/ioBroker.backitup"
+    "url": "https://github.com/simatec/ioBroker.backitup"
   },
   "dependencies": {},
   "devDependencies": {
@@ -35,7 +35,7 @@
     "test": "node node_modules/mocha/bin/mocha --exit"
   },
   "bugs": {
-    "url": "https://github.com/ioBroker/ioBroker.backitup/issues"
+    "url": "https://github.com/simatec/ioBroker.backitup/issues"
   },
   "readmeFilename": "README.md"
 }
