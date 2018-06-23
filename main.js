@@ -227,14 +227,16 @@ function BackupStellen() {
 // ###################################### Ab hier müssen noch Fehler gesucht werden und Anpssungen gemacht werden (deshalb auskommentiert) ###############################################
            if(adapter.config[Bkp[0]+'_BackupState'] === true) {
               //adapter.log.info('Zeit: ' +adapter.config[Bkp[0]+'_BackupZeit']);
-
+				var schedule = require('node-schedule');
+				var parser = require('cron-parser');
                let BkpUhrZeit = (adapter.config[Bkp[0]+'_BackupZeit']).split(':');
                adapter.log.info('BkpUhrZeit: ' +BkpUhrZeit);
                if(logging) adapter.log.info('Ein '+Bkp[0]+' Backup wurde um '+adapter.config[Bkp[0]+'_BackupZeit']+' Uhr jeden '+adapter.config[Bkp[0]+'_BackupTageZyklus']+' Tag  aktiviert');
                 if(BkpZeit_Schedule[Bkp[0]]) schedule.clearScheduleJob(BkpZeit_Schedule[Bkp[0]]);
-
-                BkpZeit_Schedule[Bkp[0]] = schedule.scheduleJob('10 '+BkpUhrZeit[1] + ' ' + BkpUhrZeit[0] + ' */'+adapter.config[Bkp[0]+'_BackupTageZyklus']+' * * ', function (){backup_erstellen(Bkp[0], Bkp[1], Bkp[2], Bkp[3], Bkp[4], Bkp[5], Bkp[6], Bkp[7], Bkp[8], Bkp[9], Bkp[10], Bkp[11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN)});
-				adapter.log.info('BkpZeit_Schedule: ' +schedule.scheduleJob);
+                BkpZeit_Schedule[Bkp[0]] = schedule.Job('10 '+BkpUhrZeit[1] + ' ' +BkpUhrZeit[0] + ' */'+adapter.config[Bkp[0]+'_BackupTageZyklus']+' * * ', function (){backup_erstellen(Bkp[0], Bkp[1], Bkp[2], Bkp[3], Bkp[4], Bkp[5], Bkp[6], Bkp[7], Bkp[8], Bkp[9], Bkp[10], Bkp[11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN)});
+				
+				adapter.log.info('BkpZeit_Schedule: ' +BkpZeit_Schedule[Bkp[0]]);
+				
                 if(debugging) adapter.log.info('10 '+BkpUhrZeit[1] + ' ' + BkpUhrZeit[0] + ' */'+adapter.config[Bkp[0]+'_BackupTageZyklus']+' * * ');
             }
             else {
