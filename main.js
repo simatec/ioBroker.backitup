@@ -33,6 +33,7 @@ adapter.on('objectChange', function (id, obj) {
     adapter.log.info('objectChange ' + id + ' ' + JSON.stringify(obj));
 });
 
+/*
 // is called if a subscribed state changes
 adapter.on('stateChange', function (id, state) {
     // Warning, state can be null if it was deleted
@@ -43,7 +44,7 @@ adapter.on('stateChange', function (id, state) {
         adapter.log.info('ack is not set!');
     }
 });
-
+*/
 // Some message was sent to adapter instance over message box. Used by email, pushover, text2speech, ...
 adapter.on('message', function (obj) {
     if (typeof obj === 'object' && obj.message) {
@@ -188,20 +189,6 @@ let history_array = [];                                         // Array f√ºr da
 // Objekt zur Pr≈∏fung ob Auto_Backup aktiv ist.
 
 // ########################## Testbereich Anfang ###################################
-adapter.log.info('--------------------------------------- Anfang Log ---------------------------------');
-
-adapter.setObjectNotExists('History.letztes_ccu_Backup', {type: 'state', common: {name: 'Letztes CCU Backup', type: 'state', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
-if('History.letztes_ccu_Backup'.val) {
-    adapter.setState('History.letztes_ccu_Backup', { val: 'test', ack: true });
-};
-
-adapter.getState('History.letztes_ccu_Backup', function (err, state) {
-    adapter.log.info(
-          state.val
-    ); 
-
-}); 
-
 //Test SetState
 //adapter.setState('History.letztes_ccu_Backup', { val: 'funktioniert des zeug', ack: true });
 
@@ -216,7 +203,6 @@ adapter.getState('state.name', function (err, state) {
 });
 */
 
-adapter.log.info('--------------------------------------- Ende Log ---------------------------------');
 
 
 /* Beispeil zum Anlegen der Datenpunkte
@@ -236,29 +222,43 @@ adapter.setObjectNotExists('test.state', {
 */
 // ########################## Testbereich Ende ###################################
 
-// Objekte anlegen
+// W¸rde ich in die Konfigoberfl‰che integrieren
 adapter.setObjectNotExists('Auto_Backup', {type: 'state', common: {name: 'Automatisches Backup', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
-adapter.setObjectNotExists('Auto_Backup_test', {type: 'state', common: {name: 'Automatisches Backup', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
 
-// Neu seit V2 Objekt zur Erstellung der enum.functions Eintr√§ge
-adapter.setObjectNotExists('Konfiguration.Konfig_abgeschlossen', {type: 'state', common: {name: 'Alle benoetigten Objekte erstellt', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
-
-// Neu seit V2 Objekt zum Pr√ºfen ob IoBroker wegen einem kompletten Backup neu gestartet ist.
+// W¸rde ich in die Konfigoberfl‰che integrieren --- Objekt zum Pr√ºfen ob IoBroker wegen einem kompletten Backup neu gestartet ist.
 adapter.setObjectNotExists('Konfiguration.IoRestart_komp_Bkp', {type: 'state', common: {name: 'Restart IoBroker wegen komplett Backup', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
 
-//Neu seit V2 HistoryLog f√ºr die ausgef√ºhren Backups
-adapter.setObjectNotExists('History.' + 'Backup_history', {type: 'state', common: {name: 'History der Backups', type: 'string', state: '<span class="bkptyp_komplett">Noch kein Backup</span>', role: 'indicator'}, native: {}});
-
+//Neu seit V2 HistoryLog f¸r die ausgef√ºhren Backups
+adapter.setObjectNotExists('History.Backup_history', {type: 'state', common: {name: 'History der Backups', type: 'string', state: '<span class="bkptyp_komplett">Noch kein Backup</span>', role: 'indicator'}, native: {}});
+adapter.getState('History.letztes_ccu_Backup', function (err, state) {
+    if(state ===null  || state.val===null) {adapter.setState('History.Backup_history', { val: '<span class="bkptyp_komplett">Noch keine Backups erstellt</span>', ack: true });}
+});
 //Neu seit V2 einen separaten Zeitstempel f√ºr jeden Backuptyp
 adapter.setObjectNotExists('History.letztes_minimal_Backup', {type: 'state', common: {name: 'Letztes minimal Backup', type: 'string', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
+adapter.getState('History.letztes_minimal_Backup', function (err, state) {
+    if(state ===null  || state.val===null) {adapter.setState('History.letztes_minimal_Backup', { val: 'Noch keine Backups erstellt', ack: true });}
+});
 adapter.setObjectNotExists('History.letztes_komplett_Backup', {type: 'state', common: {name: 'Letztes komplett Backup', type: 'string', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
+adapter.getState('History.letztes_komplett_Backup', function (err, state) {
+    if(state ===null  || state.val===null) {adapter.setState('History.letztes_komplett_Backup', { val: 'Noch keine Backups erstellt', ack: true });}
+});
 adapter.setObjectNotExists('History.letztes_ccu_Backup', {type: 'state', common: {name: 'Letztes CCU Backup', type: 'state', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
-
+adapter.getState('History.letztes_ccu_Backup', function (err, state) {
+    if(state ===null  || state.val===null) {adapter.setState('History.letztes_ccu_Backup', { val: 'Noch keine Backups erstellt', ack: true });}
+});
 //Neu seit V2 ein jetzt Backup durchf√ºhren f√ºr jeden Backuptyp
 adapter.setObjectNotExists('OneClick.start_minimal_Backup', {type: 'state', common: {name: 'Minimal Backup ausfuehren', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
+adapter.getState('OneClick.start_minimal_Backup', function (err, state) {
+    if(state ===null  || state.val===null) {adapter.setState('OneClick.start_minimal_Backup', { val:false, ack: true });}
+});
 adapter.setObjectNotExists('OneClick.start_komplett_Backup', {type: 'state', common: {name: 'Komplett Backup ausfuehren', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
+adapter.getState('OneClick.start_komplett_Backup', function (err, state) {
+    if(state ===null  || state.val===null) {adapter.setState('OneClick.start_komplett_Backup', { val:false, ack: true });}
+});
 adapter.setObjectNotExists('OneClick.start_ccu_Backup', {type: 'state', common: {name: 'CCU Backup ausfuehren', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
-
+adapter.getState('OneClick.start_ccu_Backup', function (err, state) {
+    if(state ===null  || state.val===null) {adapter.setState('OneClick.start_ccu_Backup', { val:false, ack: true });}
+});
 
 // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -267,7 +267,7 @@ adapter.setObjectNotExists('OneClick.start_ccu_Backup', {type: 'state', common: 
 
 // #############################################################################
 // #                                                                           #
-// #  Funktion zum anlegen eines Schedules f√ºr Backupzeit                      #
+// #  Funktion zum anlegen eines Schedules f¸r Backupzeit                      #
 // #                                                                           #
 // #############################################################################
 
@@ -284,8 +284,7 @@ function BackupStellen() {
                 if(BkpZeit_Schedule[Bkp[0]]) schedule.clearScheduleJob(BkpZeit_Schedule[Bkp[0]]);
                
                 BkpZeit_Schedule[Bkp[0]] = schedule.scheduleJob('10 '+BkpUhrZeit[1] + ' ' +BkpUhrZeit[0] + ' */'+adapter.config[Bkp[0]+'_BackupTageZyklus']+' * * ', function (){
-                	backup_erstellen(Bkp[0], Bkp[1], Bkp[2], Bkp[3], Bkp[4], Bkp[5], Bkp[6], Bkp[7], Bkp[8], Bkp[9], Bkp[10], Bkp[11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN
-                	)
+                	backup_erstellen(Bkp[0], Bkp[1], Bkp[2], Bkp[3], Bkp[4], Bkp[5], Bkp[6], Bkp[7], Bkp[8], Bkp[9], Bkp[10], Bkp[11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN);
                 });
                
                 if(debugging) adapter.log.info('10 '+BkpUhrZeit[1] + ' ' + BkpUhrZeit[0] + ' */'+adapter.config[Bkp[0]+'_BackupTageZyklus']+' * * ');
@@ -295,51 +294,6 @@ function BackupStellen() {
                 
                 if(BkpZeit_Schedule[Bkp[0]]) schedule.clearScheduleJob(BkpZeit_Schedule[Bkp[0]]);
             }
-
-            // -----------------------------------------------------------------------------
-            //  Erstellen der Aufzaehlungen f√ºr die Backupdatenpunkte
-            // -----------------------------------------------------------------------------
-            adapter.getState('Konfiguration.Konfig_abgeschlossen', function (err, state) {
-                    if (state.val === true) {
-
-                            Enum_ids.push(+adapter.config[Bkp[0]+'_BackupState']);
-                            Enum_ids.push(+adapter.config[Bkp[0]+'_BackupZeit']);
-                            Enum_ids.push(+adapter.config[Bkp[0]+'_BackupTageZyklus']);
-
-                            Enum_ids.push(+adapter.config[Bkp[0]+'_NamensZusatz']);
-                            Enum_ids.push(+adapter.config[Bkp[0]+'_BackupLoeschenNach']);
-                            Enum_ids.push(adapter.config.FtpHost);
-                            Enum_ids.push(adapter.config.FtpDir);
-                            Enum_ids.push(adapter.config.FtpUser);
-                            Enum_ids.push(adapter.config.FtpPw);
-                            Enum_ids.push(adapter.config.CifsMount);
-
-                        if(Bkp[0] == 'ccu') {
-                            Enum_ids.push(adapter.config.CcuIp);
-                            Enum_ids.push(adapter.config.CcuUser);
-                            Enum_ids.push(adapter.config.CcuPw);
-                        }
-                        if(Bkp[0] == 'komplett') {
-                            Enum_ids.push(adapter.config.IoStopStart);
-                            Enum_ids.push(adapter.config.MysqlDbName);
-                            Enum_ids.push(adapter.config.MysqlDbUser);
-                            Enum_ids.push(adapter.config.MysqlDbPasswort);
-                            Enum_ids.push(adapter.config.MysqlLoeschenNach);
-                        }
-                    }   
-            });
-
-            adapter.getState('Konfiguration.Konfig_abgeschlossen', function (err, state) {
-                    if (state.val === true) {
-                            var Enum_obj = {};
-                            Enum_obj.type = 'enum';
-                            Enum_obj.common = {};
-                            Enum_obj.common.name = 'BackItUp';
-                            Enum_obj.common.members = Enum_ids;
-                            adapter.setObject('enum.functions.BackItUp', Enum_obj);
-                    }
-            });
-            adapter.setState('Konfiguration.Konfig_abgeschlossen', true);
     });
 }
 
@@ -361,8 +315,8 @@ function backup_erstellen(typ, name, zeit, host, pfad, user, passwd, ccuip, ccuu
 
     let ftp_bkp_u;
     if(host === '') ftp_bkp_u = 'NEIN'; else ftp_bkp_u = 'JA';
-// geht nicht    backup_history_anlegen(formatDate(new Date(), 'DD.MM.YYYY') +' um '+ formatDate(new Date(), 'hh:mm:ss')+' Uhr',typ,ftp_bkp_u);
-        new Backup_history_anlegen(new DatumUhrzeitString(new Date()));
+//  geht nicht    backup_history_anlegen(formatDate(new Date(), 'DD.MM.YYYY') +' um '+ formatDate(new Date(), 'hh:mm:ss')+' Uhr',typ,ftp_bkp_u);
+    new Backup_history_anlegen(new DatumUhrzeitString(new Date()));
 
     exec((bash_script+' "'+typ+'|'+name+'|'+zeit+'|'+host+'|'+pfad+'|'+user+'|'+passwd+'|'+ccuip+'|'+ccuusr+'|'+ccupw+'|'+cifsmnt+'|'+bkpiors+'|'+mysqldb+'|'+mysqlusr+'|'+mysqlpw+'|'+mysqlln+'"'), function(err, stdout, stderr) {
         if(logging){
@@ -449,30 +403,33 @@ if(!adapter.getObject('enum.functions.BackItUp') || !adapter.getObject('System.I
 // #  - Bei Aktivierung start des jeweiligen Backups                           #
 // #                                                                           #
 // #############################################################################
-adapter.on({id: 'System.Iobroker.Backup.OneClick.start_minimal_Backup', change: "ne"}, function (dp) {
-    if(dp.state.val === true){
+
+adapter.subscribeStates('OneClick*'); // subscribe on all variables of this adapter instance with pattern "adapterName.X.memory*"
+
+// Wird ausgef¸hrt wenn sich ein State ‰ndert
+adapter.on('stateChange', function (id, state) {
+    
+    if (id == 'backitup.0.OneClick.start_minimal_Backup' && state.val === true ){
         adapter.log.info('OneClick Minimal Backup gestartet');
         backup_erstellen(Backup[0][0], Backup[0][1], Backup[0][2], Backup[0][3], Backup[0][4], Backup[0][5], Backup[0][6], Backup[0][7], Backup[0][8], Backup[0][9], Backup[0][10], Backup[0][11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN);
         if(debugging)adapter.log.info('backup_erstellen('+Backup[0][0]+','+Backup[0][1]+','+Backup[0][2]+','+Backup[0][3]+','+Backup[0][4]+','+Backup[0][5]+','+Backup[0][6]+','+Backup[0][7]+','+Backup[0][8]+','+Backup[0][9]+','+Backup[0][10]+','+Backup[0][11]+','+Mysql_DBname+','+Mysql_User+','+Mysql_PW+','+Mysql_LN+')');
-        adapter.setStateDelayed('System.Iobroker.Backup.OneClick.start_minimal_Backup', false, 20000);
+        setTimeout(function(){ adapter.setState('OneClick.start_minimal_Backup', false, true); }, 20000);
     }
-});
-adapter.on({id: 'System.Iobroker.Backup.OneClick.start_komplett_Backup', change: "ne"}, function (dp) {
-    if(dp.state.val === true){
+    if (id == 'backitup.0.OneClick.start_komplett_Backup' && state.val === true ){
         adapter.log.info('OneClick Komplett Backup gestartet');
         backup_erstellen(Backup[1][0], Backup[1][1], Backup[1][2], Backup[1][3], Backup[1][4], Backup[1][5], Backup[1][6], Backup[1][7], Backup[1][8], Backup[1][9], Backup[1][10], Backup[1][11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN);
         if(debugging)adapter.log.info('backup_erstellen('+Backup[1][0]+','+Backup[1][1]+','+Backup[1][2]+','+Backup[1][3]+','+Backup[1][4]+','+Backup[1][5]+','+Backup[1][6]+','+Backup[1][7]+','+Backup[1][8]+','+Backup[1][9]+','+Backup[1][10]+','+Backup[1][11]+','+Mysql_DBname+','+Mysql_User+','+Mysql_PW+','+Mysql_LN+')');
-        adapter.setStateDelayed('System.Iobroker.Backup.OneClick.start_komplett_Backup', false, 5000);
+        setTimeout(function(){ adapter.setState('OneClick.start_komplett_Backup', false, true); }, 5000);
     }
-});
-adapter.on({id: 'System.Iobroker.Backup.OneClick.start_ccu_Backup', change: "ne"}, function (dp) {
-    if(dp.state.val === true){
+    if (id == 'backitup.0.OneClick.start_ccu_Backup' && state.val === true ){
         adapter.log.info('OneClick CCU Backup gestartet');
         backup_erstellen(Backup[2][0], Backup[2][1], Backup[2][2], Backup[2][3], Backup[2][4], Backup[2][5], Backup[2][6], Backup[2][7], Backup[2][8], Backup[2][9], Backup[2][10], Backup[2][11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN);
         if(debugging)adapter.log.info('backup_erstellen('+Backup[2][0]+','+Backup[2][1]+','+Backup[2][2]+','+Backup[2][3]+','+Backup[2][4]+','+Backup[2][5]+','+Backup[2][6]+','+Backup[2][7]+','+Backup[2][8]+','+Backup[2][9]+','+Backup[2][10]+','+Backup[2][11]+','+Mysql_DBname+','+Mysql_User+','+Mysql_PW+','+Mysql_LN+')');
-        adapter.setStateDelayed('System.Iobroker.Backup.OneClick.start_ccu_Backup', false, 20000);
+        setTimeout(function(){ adapter.setState('OneClick.start_ccu_Backup', false, true); }, 20000);
     }
+   
 });
+
 // #############################################################################
 // #                                                                           #
 // #  Beobachten aller Backupdatenpunkte                                       #
