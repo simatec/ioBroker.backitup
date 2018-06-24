@@ -102,7 +102,7 @@ function main() {
 	adapter.log.info('config FtpPw: ' + adapter.config.FtpPw);
 */
 // -----------------------------------------------------------------------------
-// allgemeine Variablen
+// allgemeine Variablen - Anlegen
 // -----------------------------------------------------------------------------
 const logging = true;                                                 // Logging on/off
 const debugging = false;										        // Detailiertere Loggings
