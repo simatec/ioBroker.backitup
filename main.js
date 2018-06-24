@@ -192,7 +192,6 @@ let history_array = [];                                // Array fuer das anlegen
 adapter.log.info('--------------------------------------- Anfang Log ---------------------------------');
 
 adapter.getState('History.letztes_ccu_Backup', function (err, state) {
-    
     adapter.log.info(
           state.val
     ); 
@@ -200,7 +199,7 @@ adapter.getState('History.letztes_ccu_Backup', function (err, state) {
 }); 
 
 //Test SetState
-adapter.setState('History.letztes_ccu_Backup', { val: 'funktioniert des zeug', ack: true });
+//adapter.setState('History.letztes_ccu_Backup', { val: 'funktioniert des zeug', ack: true });
 
 /*
 adapter.getState('state.name', function (err, state) {
