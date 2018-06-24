@@ -105,13 +105,13 @@ function main() {
 // allgemeine Variablen
 // -----------------------------------------------------------------------------
 const logging = true;                                                 // Logging on/off
-const debugging = false;										        // Detailiertere Loggings
+const debugging = false;										      // Detailiertere Loggings
 const instanz = 'backitup.0.';                                                              //
 
 
 const bash_script = 'bash /opt/iobroker/node_modules/iobroker.backitup/backitup.sh ';        // Pfad zu backup.sh Datei
 
-const anzahl_eintraege_history = 25;                          // Anzahl der EintrŠge in der History
+const anzahl_eintraege_history = 25;                          // Anzahl der Einträge in der History
 
 
 //#################################################################################################
@@ -122,74 +122,78 @@ const anzahl_eintraege_history = 25;                          // Anzahl der Eint
 //#################################################################################################
 
 
-let Backup = [];                                        // Array fŸr die Definition der Backuptypen und deren Details
+let Backup = [];                                                // Array für die Definition der Backuptypen und deren Details
 
 // Konfigurationen für das Standard-IoBroker Backup
-
     Backup[0] = [];
-    Backup[0][0] = 'minimal';   // Backup Typ (nicht verŠndern!)
-    Backup[0][1] = adapter.config.minimal_NamensZusatz;        	// Names Zusatz, wird an den Dateinamen angehŠngt bspw. Master/Slave (falls gewŸnscht, ansonsten leer lassen)
-    Backup[0][2] = adapter.getState(adapter.config.minimal_BackupLoeschenNach);  	// Alte Backups lšschen nach X Tagen (falls gewŸnscht, ansonsten leer lassen)
-    Backup[0][3] = adapter.getState(adapter.config.FtpHost);             	// FTP-Host
-    Backup[0][4] = adapter.getState(adapter.config.FtpDir);              	// genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server (falls gewŸnscht, ansonsten leer lassen)
-    Backup[0][5] = adapter.getState(adapter.config.FtpUser);             	// Username fŸr FTP Server - Verbindung
-    Backup[0][6] = adapter.getState(adapter.config.FtpPw);               	// Passwort fŸr FTP Server - Verbindung
-    Backup[0][7] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
-    Backup[0][8] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
-    Backup[0][9] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
-    Backup[0][10] = adapter.getState(adapter.config.CifsMount);         	// Festlegen ob CIFS-Mount genutzt werden soll
-    Backup[0][11] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
+    Backup[0][0] = 'minimal';                                   // Backup Typ (nicht verändern!)
+    Backup[0][1] = adapter.config.minimal_NamensZusatz;        	// Names Zusatz, wird an den Dateinamen angehängt
+    Backup[0][2] = adapter.config.minimal_BackupLoeschenNach;  	// Alte Backups löschen nach X Tagen
+    Backup[0][3] = adapter.config.FtpHost;             	        // FTP-Host
+    Backup[0][4] = adapter.config.FtpDir;              	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
+    Backup[0][5] = adapter.config.FtpUser;             	        // Username für FTP Server - Verbindung
+    Backup[0][6] = adapter.config.FtpPw;               	        // Passwort für FTP Server - Verbindung
+    Backup[0][7] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
+    Backup[0][8] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
+    Backup[0][9] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
+    Backup[0][10] = adapter.config.CifsMount;         	        // Festlegen ob CIFS-Mount genutzt werden soll
+    Backup[0][11] = '';                                         // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
 
 
-// Konfigurationen fŸr das Komplette-IoBroker Backup
+// Konfigurationen für das Komplette-IoBroker Backup
 
     Backup[1] = [];
-    Backup[1][0] = 'komplett';  // Backup Typ (nicht verŠndern)
-    Backup[1][1] = adapter.getState(adapter.config.komplett_NamensZusatz);       	// Names Zusatz, wird an den Dateinamen angehŠngt bspw. Master/Slave (falls gewŸnscht, ansonsten leer lassen)
-    Backup[1][2] = adapter.getState(adapter.config.komplett_BackupLoeschenNach); 	// Alte Backups lšschen nach X Tagen (falls gewŸnscht, ansonsten leer lassen)
-    Backup[1][3] = adapter.getState(adapter.config.FtpHost);            	// FTP-Host
-    Backup[1][4] = adapter.getState(adapter.config.FtpDir);             	// genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server (falls gewŸnscht, ansonsten leer lassen)
-    Backup[1][5] = adapter.getState(adapter.config.FtpUser);            	// Username fŸr FTP Server - Verbindung
-    Backup[1][6] = adapter.getState(adapter.config.FtpPw);              	// Passwort fŸr FTP Server - Verbindung
-    Backup[1][7] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
-    Backup[1][8] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
-    Backup[1][9] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
-    Backup[1][10] = adapter.getState(adapter.config.CifsMount);       		// Festlegen ob CIFS-Mount genutzt werden soll
-    Backup[1][11] = adapter.getState(adapter.config.IoStopStart);         	// Festlegen ob IoBroker gestoppt/gestartet wird
+    Backup[1][0] = 'komplett';                                  // Backup Typ (nicht verändern)
+    Backup[1][1] = adapter.config.komplett_NamensZusatz;       	// Names Zusatz, wird an den Dateinamen angehängt
+    Backup[1][2] = adapter.config.komplett_BackupLoeschenNach; 	// Alte Backups löschen nach X Tagen
+    Backup[1][3] = adapter.config.FtpHost;            	        // FTP-Host
+    Backup[1][4] = adapter.config.FtpDir;             	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
+    Backup[1][5] = adapter.config.FtpUser;            	        // Username für FTP Server - Verbindung
+    Backup[1][6] = adapter.config.FtpPw;              	        // Passwort für FTP Server - Verbindung
+    Backup[1][7] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
+    Backup[1][8] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
+    Backup[1][9] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
+    Backup[1][10] = adapter.config.CifsMount;       		    // Festlegen ob CIFS-Mount genutzt werden soll
+    Backup[1][11] = adapter.config.IoStopStart;         	    // Festlegen ob IoBroker gestoppt/gestartet wird
 
-// Konfiguration fŸr das CCU / pivCCU / Raspberrymatic Backup
+// Konfiguration für das CCU / pivCCU / Raspberrymatic Backup
 
     Backup[2] = [];
-    Backup[2][0] = 'ccu'; // Backup Typ (nicht verŠndern)
-    Backup[2][1] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
-    Backup[2][2] = adapter.getState(adapter.config.ccu_BackupLoeschenNach); // Alte Backups lšschen nach X Tagen (falls gewŸnscht, ansonsten leer lassen)
-    Backup[2][3] = adapter.getState(adapter.config.FtpHost);            	// FTP-Host
-    Backup[2][4] = adapter.getState(adapter.config.FtpDir);             	// genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server (falls gewŸnscht, ansonsten leer lassen)
-    Backup[2][5] = adapter.getState(adapter.config.FtpUser);            	// Username fŸr FTP Server - Verbindung
-    Backup[2][6] = adapter.getState(adapter.config.FtpPw);              	// Passwort fŸr FTP Server - Verbindung
-    Backup[2][7] = adapter.getState(adapter.config.ccuCcuIp);              // IP-Adresse der CCU
-    Backup[2][8] = adapter.getState(adapter.config.ccuCcuUser);            // Username der CCU
-    Backup[2][9] = adapter.getState(adapter.config.ccuCcuPw);              // Passwort der CCU
-    Backup[2][10] = adapter.getState(adapter.config.CifsMount);         	// Festlegen ob CIFS-Mount genutzt werden soll
-    Backup[2][11] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
+    Backup[2][0] = 'ccu';                                       // Backup Typ (nicht verändern)
+    Backup[2][1] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
+    Backup[2][2] = adapter.config.ccu_BackupLoeschenNach;       // Alte Backups löschen nach X Tagen
+    Backup[2][3] = adapter.config.FtpHost;            	        // FTP-Host
+    Backup[2][4] = adapter.config.FtpDir;             	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
+    Backup[2][5] = adapter.config.FtpUser;            	        // Username für FTP Server - Verbindung
+    Backup[2][6] = adapter.config.FtpPw;              	        // Passwort für FTP Server - Verbindung
+    Backup[2][7] = adapter.config.ccuCcuIp;                     // IP-Adresse der CCU
+    Backup[2][8] = adapter.config.ccuCcuUser;                   // Username der CCU
+    Backup[2][9] = adapter.config.ccuCcuPw;                     // Passwort der CCU
+    Backup[2][10] = adapter.config.CifsMount;         	        // Festlegen ob CIFS-Mount genutzt werden soll
+    Backup[2][11] = '';                                         // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
 
-const Mysql_DBname = adapter.getState(adapter.config.MysqlDbName);           // Name der Datenbank (wenn nicht verwendet leer lassen!)
-const Mysql_User = adapter.getState(adapter.config.MysqlDbUser);           	// Benutzername fŸr Datenbank (wenn nicht verwendet leer lassen!)
-const Mysql_PW = adapter.getState(adapter.config.MysqlDbPw);           		// Passwort fŸr Datenbank (wenn nicht verwendet leer lassen!)
-const Mysql_LN = adapter.getState(adapter.config.MysqlBackupLoeschenNach); 	// DB-Backup lšschen nach (wenn nicht verwendet leer lassen!)
+const Mysql_DBname = adapter.config.MysqlDbName;                // Name der Datenbank
+const Mysql_User = adapter.config.MysqlDbUser;           	    // Benutzername für Datenbank
+const Mysql_PW = adapter.config.MysqlDbPw;           		    // Passwort für Datenbank
+const Mysql_LN = adapter.config.MysqlBackupLoeschenNach; 	    // DB-Backup löschen nach X Tagen
 
-let BkpZeit_Schedule = [];                              // Array fuer die Backup Zeiten
+let BkpZeit_Schedule = [];                                      // Array für die Backup Zeiten
 
-let Enum_ids =[];                                       // Array fuer die ID's die spŠter in der enum.function erstellt werden
+let Enum_ids =[];                                               // Array für die ID's die später in der enum.function erstellt werden
 
-let history_array = [];                                // Array fuer das anlegen der Backup-Historie
+let history_array = [];                                         // Array für das anlegen der Backup-Historie
 // =============================================================================
 // Objekte
 // =============================================================================
 // Objekt zur PrŸfung ob Auto_Backup aktiv ist.
 
-
+// ########################## Testbereich Anfang ###################################
 adapter.log.info('--------------------------------------- Anfang Log ---------------------------------');
+
+adapter.setObjectNotExists('History.letztes_ccu_Backup', {type: 'state', common: {name: 'Letztes CCU Backup', type: 'state', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
+if('History.letztes_ccu_Backup'.val) {
+    adapter.setState('History.letztes_ccu_Backup', { val: 'test', ack: true });
+};
 
 adapter.getState('History.letztes_ccu_Backup', function (err, state) {
     adapter.log.info(
@@ -230,25 +234,27 @@ adapter.setObjectNotExists('test.state', {
             native: {}
         });
 */
+// ########################## Testbereich Ende ###################################
 
+// Objekte anlegen
 adapter.setObjectNotExists('Auto_Backup', {type: 'state', common: {name: 'Automatisches Backup', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
 adapter.setObjectNotExists('Auto_Backup_test', {type: 'state', common: {name: 'Automatisches Backup', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
 
-// Neu seit V2 Objekt zur Erstellung der enum.functions EintrŠge
+// Neu seit V2 Objekt zur Erstellung der enum.functions Einträge
 adapter.setObjectNotExists('Konfiguration.Konfig_abgeschlossen', {type: 'state', common: {name: 'Alle benoetigten Objekte erstellt', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
 
-// Neu seit V2 Objekt zum PrŸfen ob IoBroker wegen einem kompletten Backup neu gestartet ist.
+// Neu seit V2 Objekt zum Prüfen ob IoBroker wegen einem kompletten Backup neu gestartet ist.
 adapter.setObjectNotExists('Konfiguration.IoRestart_komp_Bkp', {type: 'state', common: {name: 'Restart IoBroker wegen komplett Backup', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
 
-//Neu seit V2 HistoryLog fŸr die ausgefŸhren Backups
+//Neu seit V2 HistoryLog für die ausgeführen Backups
 adapter.setObjectNotExists('History.' + 'Backup_history', {type: 'state', common: {name: 'History der Backups', type: 'string', state: '<span class="bkptyp_komplett">Noch kein Backup</span>', role: 'indicator'}, native: {}});
 
-//Neu seit V2 einen separaten Zeitstempel fŸr jeden Backuptyp
+//Neu seit V2 einen separaten Zeitstempel für jeden Backuptyp
 adapter.setObjectNotExists('History.letztes_minimal_Backup', {type: 'state', common: {name: 'Letztes minimal Backup', type: 'string', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
 adapter.setObjectNotExists('History.letztes_komplett_Backup', {type: 'state', common: {name: 'Letztes komplett Backup', type: 'string', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
 adapter.setObjectNotExists('History.letztes_ccu_Backup', {type: 'state', common: {name: 'Letztes CCU Backup', type: 'state', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
 
-//Neu seit V2 ein jetzt Backup durchfŸhren fŸr jeden Backuptyp
+//Neu seit V2 ein jetzt Backup durchführen für jeden Backuptyp
 adapter.setObjectNotExists('OneClick.start_minimal_Backup', {type: 'state', common: {name: 'Minimal Backup ausfuehren', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
 adapter.setObjectNotExists('OneClick.start_komplett_Backup', {type: 'state', common: {name: 'Komplett Backup ausfuehren', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
 adapter.setObjectNotExists('OneClick.start_ccu_Backup', {type: 'state', common: {name: 'CCU Backup ausfuehren', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
@@ -261,7 +267,7 @@ adapter.setObjectNotExists('OneClick.start_ccu_Backup', {type: 'state', common: 
 
 // #############################################################################
 // #                                                                           #
-// #  Funktion zum anlegen eines Schedules fŸr Backupzeit                      #
+// #  Funktion zum anlegen eines Schedules für Backupzeit                      #
 // #                                                                           #
 // #############################################################################
 
@@ -269,74 +275,77 @@ function BackupStellen() {
     adapter.setState('Auto_Backup', false);
     Backup.forEach(function(Bkp) {
 
-// ###################################### Ab hier mŸssen noch Fehler gesucht werden und Anpssungen gemacht werden (deshalb auskommentiert) ###############################################
            if(adapter.config[Bkp[0]+'_BackupState'] === true) {
-              //adapter.log.info('Zeit: ' +adapter.config[Bkp[0]+'_BackupZeit']);
-			    var schedule = require('node-schedule');
-			    var parser = require('cron-parser');
-			    
-                let BkpUhrZeit = (adapter.config[Bkp[0]+'_BackupZeit']).split(':');
-                adapter.log.info('BkpUhrZeit: ' +BkpUhrZeit);
+
+			    let BkpUhrZeit = (adapter.config[Bkp[0]+'_BackupZeit']).split(':');
+
                 if(logging) adapter.log.info('Ein '+Bkp[0]+' Backup wurde um '+adapter.config[Bkp[0]+'_BackupZeit']+' Uhr jeden '+adapter.config[Bkp[0]+'_BackupTageZyklus']+' Tag  aktiviert');
+               
                 if(BkpZeit_Schedule[Bkp[0]]) schedule.clearScheduleJob(BkpZeit_Schedule[Bkp[0]]);
-                BkpZeit_Schedule[Bkp[0]] = schedule.Job('10 '+BkpUhrZeit[1] + ' ' +BkpUhrZeit[0] + ' */'+adapter.config[Bkp[0]+'_BackupTageZyklus']+' * * ', function (){backup_erstellen(Bkp[0], Bkp[1], Bkp[2], Bkp[3], Bkp[4], Bkp[5], Bkp[6], Bkp[7], Bkp[8], Bkp[9], Bkp[10], Bkp[11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN)});
-				
-				adapter.log.info('BkpZeit_Schedule: ' +BkpZeit_Schedule[Bkp[0]]);
-				
+               
+                BkpZeit_Schedule[Bkp[0]] = schedule.scheduleJob('10 '+BkpUhrZeit[1] + ' ' +BkpUhrZeit[0] + ' */'+adapter.config[Bkp[0]+'_BackupTageZyklus']+' * * ', function (){
+                	backup_erstellen(Bkp[0], Bkp[1], Bkp[2], Bkp[3], Bkp[4], Bkp[5], Bkp[6], Bkp[7], Bkp[8], Bkp[9], Bkp[10], Bkp[11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN
+                	)
+                });
+               
                 if(debugging) adapter.log.info('10 '+BkpUhrZeit[1] + ' ' + BkpUhrZeit[0] + ' */'+adapter.config[Bkp[0]+'_BackupTageZyklus']+' * * ');
             }
             else {
                 if(logging) adapter.log.info ('Das '+Bkp[0]+' Backup wurde deaktiviert');
+                
                 if(BkpZeit_Schedule[Bkp[0]]) schedule.clearScheduleJob(BkpZeit_Schedule[Bkp[0]]);
             }
 
             // -----------------------------------------------------------------------------
-            //  Erstellen der Aufzaehlungen fŸr die Backupdatenpunkte
+            //  Erstellen der Aufzaehlungen für die Backupdatenpunkte
             // -----------------------------------------------------------------------------
-            if(!adapter.getState('System.Iobroker.Backup.Konfiguration.Konfig_abgeschlossen')) {
+            adapter.getState('Konfiguration.Konfig_abgeschlossen', function (err, state) {
+                    if (state.val === true) {
 
-                Enum_ids.push(instanz + Bkp[0] +'_BackupState');
-                Enum_ids.push(instanz + Bkp[0] +'_BackupZeit');
-                Enum_ids.push(instanz + Bkp[0] +'_BackupTageZyklus');
+                            Enum_ids.push(+adapter.config[Bkp[0]+'_BackupState']);
+                            Enum_ids.push(+adapter.config[Bkp[0]+'_BackupZeit']);
+                            Enum_ids.push(+adapter.config[Bkp[0]+'_BackupTageZyklus']);
 
-                Enum_ids.push(instanz + Bkp[0] +'_NamensZusatz');
-                Enum_ids.push(instanz + Bkp[0] +'_BackupLoeschenNach');
-                Enum_ids.push(adapter.config.FtpHost);
-                Enum_ids.push(adapter.config.FtpDir);
-                Enum_ids.push(adapter.config.FtpUser);
-                Enum_ids.push(adapter.config.FtpPw);
-                Enum_ids.push(adapter.config.CifsMount);
+                            Enum_ids.push(+adapter.config[Bkp[0]+'_NamensZusatz']);
+                            Enum_ids.push(+adapter.config[Bkp[0]+'_BackupLoeschenNach']);
+                            Enum_ids.push(adapter.config.FtpHost);
+                            Enum_ids.push(adapter.config.FtpDir);
+                            Enum_ids.push(adapter.config.FtpUser);
+                            Enum_ids.push(adapter.config.FtpPw);
+                            Enum_ids.push(adapter.config.CifsMount);
 
-                if(Bkp[0] == 'ccu') {
-                    Enum_ids.push(adapter.config.CcuIp);
-                    Enum_ids.push(adapter.config.CcuUser);
-                    Enum_ids.push(adapter.config.CcuPw);
-                }
-                if(Bkp[0] == 'komplett') {
-                    Enum_ids.push(adapter.config.IoStopStart);
-                    Enum_ids.push(adapter.config.MysqlDbName);
-                    Enum_ids.push(adapter.config.MysqlDbUser);
-                    Enum_ids.push(adapter.config.MysqlDbPasswort);
-                    Enum_ids.push(adapter.config.MysqlLoeschenNach);
-                }
-            }
+                        if(Bkp[0] == 'ccu') {
+                            Enum_ids.push(adapter.config.CcuIp);
+                            Enum_ids.push(adapter.config.CcuUser);
+                            Enum_ids.push(adapter.config.CcuPw);
+                        }
+                        if(Bkp[0] == 'komplett') {
+                            Enum_ids.push(adapter.config.IoStopStart);
+                            Enum_ids.push(adapter.config.MysqlDbName);
+                            Enum_ids.push(adapter.config.MysqlDbUser);
+                            Enum_ids.push(adapter.config.MysqlDbPasswort);
+                            Enum_ids.push(adapter.config.MysqlLoeschenNach);
+                        }
+                    }   
+            });
 
+            adapter.getState('Konfiguration.Konfig_abgeschlossen', function (err, state) {
+                    if (state.val === true) {
+                            var Enum_obj = {};
+                            Enum_obj.type = 'enum';
+                            Enum_obj.common = {};
+                            Enum_obj.common.name = 'BackItUp';
+                            Enum_obj.common.members = Enum_ids;
+                            adapter.setObject('enum.functions.BackItUp', Enum_obj);
+                    }
+            });
+            adapter.setState('Konfiguration.Konfig_abgeschlossen', true);
     });
-
-    if(!adapter.getState('Konfiguration.Konfig_abgeschlossen')) {
-        var Enum_obj = {};
-        Enum_obj.type = 'enum';
-        Enum_obj.common = {};
-        Enum_obj.common.name = 'BackItUp';
-        Enum_obj.common.members = Enum_ids;
-        adapter.setObject('enum.functions.BackItUp', Enum_obj);
-    }
-adapter.setState('Konfiguration.Konfig_abgeschlossen', true);
 }
 
 // #############################################################################
 // #                                                                           #
-// #  Funktion zum AusfŸhren des Backups mit obigen Einstellungen              #
+// #  Funktion zum Ausführen des Backups mit obigen Einstellungen              #
 // #                                                                           #
 // #############################################################################
 
@@ -480,56 +489,13 @@ $('state(functions=BackItUp)').on(function(obj) {
 // #############################################################################
 ScriptStart();
 */
+
 // ############## Ende backitup #########################
-
-    // The adapters config (in the instance object everything under the attribute "native") is accessible via
-    // adapter.config:
-
 /*
-    /**
-     *
-     *      For every state in the system there has to be also an object of type state
-     *
-     *      Here a simple backitup for a boolean variable named "testVariable"
-     *
-     *      Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
-     *
-     */
-/*
-    adapter.setObject('testVariable', {
-        type: 'state',
-        common: {
-            name: 'testVariable',
-            type: 'boolean',
-            role: 'indicator'
-        },
-        native: {}
-    });
-    // in this backitup all states changes inside the adapters namespace are subscribed
-    adapter.subscribeStates('*');
-    /**
-     *   setState examples
-     *
-     *   you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
-     *
-     */
-/*
-    // the variable testVariable is set to true as command (ack=false)
-    adapter.setState('testVariable', true);
-    // same thing, but the value is flagged "ack"
-    // ack should be always set to true if the value is received from or acknowledged from the target system
-    adapter.setState('testVariable', {val: true, ack: true});
-    // same thing, but the state is deleted after 30s (getState will return null afterwards)
-    adapter.setState('testVariable', {val: true, ack: true, expire: 30});
-    // examples for the checkPassword/checkGroup functions
-    adapter.checkPassword('admin', 'iobroker', function (res) {
-        console.log('check user admin pw ioboker: ' + res);
-    });
-*/
     adapter.checkGroup('admin', 'admin', function (res) {
         console.log('check group user admin group admin: ' + res);
     });
-
+*/
 
 
 }
