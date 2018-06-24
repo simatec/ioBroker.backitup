@@ -68,6 +68,7 @@ function main() {
 // ############## Anfang backitup #########################
 
 // config zum testen in Log schreiben
+/*
     adapter.log.info('config minimal_BackupState: '    + adapter.config.minimal_BackupState);
     adapter.log.info('config minimal_BackupZeit: '    + adapter.config.minimal_BackupZeit);
     adapter.log.info('config minimal_BackupTageZyklus: ' + adapter.config.minimal_BackupTageZyklus);
@@ -99,114 +100,152 @@ function main() {
 	adapter.log.info('config FtpDir: ' + adapter.config.FtpDir);
 	adapter.log.info('config FtpUser: ' + adapter.config.FtpUser);
 	adapter.log.info('config FtpPw: ' + adapter.config.FtpPw);
-
+*/
 // -----------------------------------------------------------------------------
 // allgemeine Variablen
 // -----------------------------------------------------------------------------
-var logging = true;                                                 // Logging on/off
-var debugging = false;										        // Detailiertere Loggings
-var instanz = 'adapter.config.';  // instanz = instanz + instance +'.';    //                                                            //
-var pfad0 =   '.System.Iobroker.Backup.';					        // Pfad innerhalb der Instanz
+const logging = true;                                                 // Logging on/off
+const debugging = false;										        // Detailiertere Loggings
+const instanz = 'backitup.0.';                                                              //
 
 
-var bash_script = 'bash /opt/iobroker/node_modules/iobroker.backitup/backitup.sh ';        // Pfad zu backup.sh Datei
+const bash_script = 'bash /opt/iobroker/node_modules/iobroker.backitup/backitup.sh ';        // Pfad zu backup.sh Datei
 
-var anzahl_eintraege_history = 25;                          // Anzahl der EintrŠge in der History
+const anzahl_eintraege_history = 25;                          // Anzahl der EintrÅ ge in der History
 
 
 //#################################################################################################
 //###                                                                                           ###
-//###  Ab hier nichts mehr Šndern alle Einstellungen sind in den angelegten Datenpunkten oder   ###
-//###  den paar wenigen obigen Variablen zu tŠtigen                                             ###
+//###  Ab hier nichts mehr Å ndern alle Einstellungen sind in den angelegten Datenpunkten oder   ###
+//###  den paar wenigen obigen Variablen zu tÅ tigen                                             ###
 //###                                                                                           ###
 //#################################################################################################
 
 
-var Backup = [];                                        // Array fŸr die Definition der Backuptypen und deren Details
+let Backup = [];                                        // Array fÅ¸r die Definition der Backuptypen und deren Details
 
-// Konfigurationen fŸr das Standard-IoBroker Backup
+// Konfigurationen fÃ¼r das Standard-IoBroker Backup
 
     Backup[0] = [];
-    Backup[0][0] = 'minimal';   // Backup Typ (nicht verŠndern!)
-    Backup[0][1] = adapter.config.minimal_NamensZusatz;        	// Names Zusatz, wird an den Dateinamen angehŠngt bspw. Master/Slave (falls gewŸnscht, ansonsten leer lassen)
-    Backup[0][2] = adapter.getState(adapter.config.minimal_BackupLoeschenNach);  	// Alte Backups lšschen nach X Tagen (falls gewŸnscht, ansonsten leer lassen)
+    Backup[0][0] = 'minimal';   // Backup Typ (nicht verÅ ndern!)
+    Backup[0][1] = adapter.config.minimal_NamensZusatz;        	// Names Zusatz, wird an den Dateinamen angehÅ ngt bspw. Master/Slave (falls gewÅ¸nscht, ansonsten leer lassen)
+    Backup[0][2] = adapter.getState(adapter.config.minimal_BackupLoeschenNach);  	// Alte Backups lÅ¡schen nach X Tagen (falls gewÅ¸nscht, ansonsten leer lassen)
     Backup[0][3] = adapter.getState(adapter.config.FtpHost);             	// FTP-Host
-    Backup[0][4] = adapter.getState(adapter.config.FtpDir);              	// genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server (falls gewŸnscht, ansonsten leer lassen)
-    Backup[0][5] = adapter.getState(adapter.config.FtpUser);             	// Username fŸr FTP Server - Verbindung
-    Backup[0][6] = adapter.getState(adapter.config.FtpPw);               	// Passwort fŸr FTP Server - Verbindung
-    Backup[0][7] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
-    Backup[0][8] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
-    Backup[0][9] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
+    Backup[0][4] = adapter.getState(adapter.config.FtpDir);              	// genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server (falls gewÅ¸nscht, ansonsten leer lassen)
+    Backup[0][5] = adapter.getState(adapter.config.FtpUser);             	// Username fÅ¸r FTP Server - Verbindung
+    Backup[0][6] = adapter.getState(adapter.config.FtpPw);               	// Passwort fÅ¸r FTP Server - Verbindung
+    Backup[0][7] = ''; // Nicht benÅ¡tigt bei diesem BKP-Typ (nicht verÅ ndern!)
+    Backup[0][8] = ''; // Nicht benÅ¡tigt bei diesem BKP-Typ (nicht verÅ ndern!)
+    Backup[0][9] = ''; // Nicht benÅ¡tigt bei diesem BKP-Typ (nicht verÅ ndern!)
     Backup[0][10] = adapter.getState(adapter.config.CifsMount);         	// Festlegen ob CIFS-Mount genutzt werden soll
-    Backup[0][11] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
+    Backup[0][11] = ''; // Nicht benÅ¡tigt bei diesem BKP-Typ (nicht verÅ ndern!)
 
 
-// Konfigurationen fŸr das Komplette-IoBroker Backup
+// Konfigurationen fÅ¸r das Komplette-IoBroker Backup
 
     Backup[1] = [];
-    Backup[1][0] = 'komplett';  // Backup Typ (nicht verŠndern)
-    Backup[1][1] = adapter.getState(adapter.config.komplett_NamensZusatz);       	// Names Zusatz, wird an den Dateinamen angehŠngt bspw. Master/Slave (falls gewŸnscht, ansonsten leer lassen)
-    Backup[1][2] = adapter.getState(adapter.config.komplett_BackupLoeschenNach); 	// Alte Backups lšschen nach X Tagen (falls gewŸnscht, ansonsten leer lassen)
+    Backup[1][0] = 'komplett';  // Backup Typ (nicht verÅ ndern)
+    Backup[1][1] = adapter.getState(adapter.config.komplett_NamensZusatz);       	// Names Zusatz, wird an den Dateinamen angehÅ ngt bspw. Master/Slave (falls gewÅ¸nscht, ansonsten leer lassen)
+    Backup[1][2] = adapter.getState(adapter.config.komplett_BackupLoeschenNach); 	// Alte Backups lÅ¡schen nach X Tagen (falls gewÅ¸nscht, ansonsten leer lassen)
     Backup[1][3] = adapter.getState(adapter.config.FtpHost);            	// FTP-Host
-    Backup[1][4] = adapter.getState(adapter.config.FtpDir);             	// genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server (falls gewŸnscht, ansonsten leer lassen)
-    Backup[1][5] = adapter.getState(adapter.config.FtpUser);            	// Username fŸr FTP Server - Verbindung
-    Backup[1][6] = adapter.getState(adapter.config.FtpPw);              	// Passwort fŸr FTP Server - Verbindung
-    Backup[1][7] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
-    Backup[1][8] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
-    Backup[1][9] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
+    Backup[1][4] = adapter.getState(adapter.config.FtpDir);             	// genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server (falls gewÅ¸nscht, ansonsten leer lassen)
+    Backup[1][5] = adapter.getState(adapter.config.FtpUser);            	// Username fÅ¸r FTP Server - Verbindung
+    Backup[1][6] = adapter.getState(adapter.config.FtpPw);              	// Passwort fÅ¸r FTP Server - Verbindung
+    Backup[1][7] = ''; // Nicht benÅ¡tigt bei diesem BKP-Typ (nicht verÅ ndern!)
+    Backup[1][8] = ''; // Nicht benÅ¡tigt bei diesem BKP-Typ (nicht verÅ ndern!)
+    Backup[1][9] = ''; // Nicht benÅ¡tigt bei diesem BKP-Typ (nicht verÅ ndern!)
     Backup[1][10] = adapter.getState(adapter.config.CifsMount);       		// Festlegen ob CIFS-Mount genutzt werden soll
     Backup[1][11] = adapter.getState(adapter.config.IoStopStart);         	// Festlegen ob IoBroker gestoppt/gestartet wird
 
-// Konfiguration fŸr das CCU / pivCCU / Raspberrymatic Backup
+// Konfiguration fÅ¸r das CCU / pivCCU / Raspberrymatic Backup
 
     Backup[2] = [];
-    Backup[2][0] = 'ccu'; // Backup Typ (nicht verŠndern)
-    Backup[2][1] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
-    Backup[2][2] = adapter.getState(adapter.config.ccu_BackupLoeschenNach); // Alte Backups lšschen nach X Tagen (falls gewŸnscht, ansonsten leer lassen)
+    Backup[2][0] = 'ccu'; // Backup Typ (nicht verÅ ndern)
+    Backup[2][1] = ''; // Nicht benÅ¡tigt bei diesem BKP-Typ (nicht verÅ ndern!)
+    Backup[2][2] = adapter.getState(adapter.config.ccu_BackupLoeschenNach); // Alte Backups lÅ¡schen nach X Tagen (falls gewÅ¸nscht, ansonsten leer lassen)
     Backup[2][3] = adapter.getState(adapter.config.FtpHost);            	// FTP-Host
-    Backup[2][4] = adapter.getState(adapter.config.FtpDir);             	// genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server (falls gewŸnscht, ansonsten leer lassen)
-    Backup[2][5] = adapter.getState(adapter.config.FtpUser);            	// Username fŸr FTP Server - Verbindung
-    Backup[2][6] = adapter.getState(adapter.config.FtpPw);              	// Passwort fŸr FTP Server - Verbindung
+    Backup[2][4] = adapter.getState(adapter.config.FtpDir);             	// genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server (falls gewÅ¸nscht, ansonsten leer lassen)
+    Backup[2][5] = adapter.getState(adapter.config.FtpUser);            	// Username fÅ¸r FTP Server - Verbindung
+    Backup[2][6] = adapter.getState(adapter.config.FtpPw);              	// Passwort fÅ¸r FTP Server - Verbindung
     Backup[2][7] = adapter.getState(adapter.config.ccuCcuIp);              // IP-Adresse der CCU
     Backup[2][8] = adapter.getState(adapter.config.ccuCcuUser);            // Username der CCU
     Backup[2][9] = adapter.getState(adapter.config.ccuCcuPw);              // Passwort der CCU
     Backup[2][10] = adapter.getState(adapter.config.CifsMount);         	// Festlegen ob CIFS-Mount genutzt werden soll
-    Backup[2][11] = ''; // Nicht benštigt bei diesem BKP-Typ (nicht verŠndern!)
+    Backup[2][11] = ''; // Nicht benÅ¡tigt bei diesem BKP-Typ (nicht verÅ ndern!)
 
-var Mysql_DBname = adapter.getState(adapter.config.MysqlDbName);           // Name der Datenbank (wenn nicht verwendet leer lassen!)
-var Mysql_User = adapter.getState(adapter.config.MysqlDbUser);           	// Benutzername fŸr Datenbank (wenn nicht verwendet leer lassen!)
-var Mysql_PW = adapter.getState(adapter.config.MysqlDbPw);           		// Passwort fŸr Datenbank (wenn nicht verwendet leer lassen!)
-var Mysql_LN = adapter.getState(adapter.config.MysqlBackupLoeschenNach); 	// DB-Backup lšschen nach (wenn nicht verwendet leer lassen!)
+const Mysql_DBname = adapter.getState(adapter.config.MysqlDbName);           // Name der Datenbank (wenn nicht verwendet leer lassen!)
+const Mysql_User = adapter.getState(adapter.config.MysqlDbUser);           	// Benutzername fÅ¸r Datenbank (wenn nicht verwendet leer lassen!)
+const Mysql_PW = adapter.getState(adapter.config.MysqlDbPw);           		// Passwort fÅ¸r Datenbank (wenn nicht verwendet leer lassen!)
+const Mysql_LN = adapter.getState(adapter.config.MysqlBackupLoeschenNach); 	// DB-Backup lÅ¡schen nach (wenn nicht verwendet leer lassen!)
 
-var BkpZeit_Schedule = [];                              // Array fŸr die Backup Zeiten
+let BkpZeit_Schedule = [];                              // Array fuer die Backup Zeiten
 
-var Enum_ids =[];                                       // Array fŸr die ID's die spŠter in der enum.function erstellt werden
+let Enum_ids =[];                                       // Array fuer die ID's die spÅ ter in der enum.function erstellt werden
 
-var history_array = [];                                // Array fŸr das anlegen der Backup-Historie
+let history_array = [];                                // Array fuer das anlegen der Backup-Historie
 // =============================================================================
 // Objekte
 // =============================================================================
-// Objekt zur PrŸfung ob Auto_Backup aktiv ist.
-adapter.setObjectNotExists('System.Iobroker.Backup.Auto_Backup', {type: 'state', common: {name: 'Automatisches Backup', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
+// Objekt zur PrÅ¸fung ob Auto_Backup aktiv ist.
 
-// Neu seit V2 Objekt zur Erstellung der enum.functions EintrŠge
-adapter.setObjectNotExists('System.Iobroker.Backup.Konfiguration.Konfig_abgeschlossen', {type: 'state', common: {name: 'Alle benoetigten Objekte erstellt', type: 'boolean', def: 'false', role: 'indicator'}, native: {}});
 
-// Neu seit V2 Objekt zum PrŸfen ob IoBroker wegen einem kompletten Backup neu gestartet ist.
-adapter.setObjectNotExists('System.Iobroker.Backup.Konfiguration.IoRestart_komp_Bkp', {type: 'state', common: {name: 'Restart IoBroker wegen komplett Backup', type: 'boolean', def: 'false', role: 'indicator'}, native: {}});
+adapter.log.info('--------------------------------------- Anfang Log ---------------------------------');
 
-//Neu seit V2 HistoryLog fŸr die ausgefŸhren Backups
-adapter.setObjectNotExists('System.Iobroker.Backup.History.' + 'Backup_history', {type: 'state', common: {name: 'History der Backups', type: 'string', def: '<span class="bkptyp_komplett">Noch kein Backup</span>', role: 'indicator'}, native: {}});
+adapter.log.info(adapter.getState(adapter.name+'.'+adapter.instance+".History.letztes_ccu_Backup")); // ack ist true oder false
 
-//Neu seit V2 einen separaten Zeitstempel fŸr jeden Backuptyp
-adapter.setObjectNotExists('System.Iobroker.Backup.History.letztes_minimal_Backup', {type: 'state', common: {name: 'Letztes minimal Backup', type: 'string', def: 'Noch kein Backup', role: 'indicator'}, native: {}});
-adapter.setObjectNotExists('System.Iobroker.Backup.History.letztes_komplett_Backup', {type: 'state', common: {name: 'Letztes komplett Backup', type: 'string', def: 'Noch kein Backup', role: 'indicator'}, native: {}});
-adapter.setObjectNotExists('System.Iobroker.Backup.History.letztes_ccu_Backup', {type: 'state', common: {name: 'Letztes CCU Backup', type: 'string', def: 'Noch kein Backup', role: 'indicator'}, native: {}});
+//Test SetState
+//adapter.setState('History.letztes_ccu_Backup', { val: 'funktioniert des zeug', ack: true });
+/*
+adapter.getState('state.name', function (err, state) {
+        // err prÃ¼fen, wenn err gesetzt dann Fehler
+        // state checken, kann leer/null/undefined sein!
+        // sonst state.val
+        if (state.val === 'whatever') {
+           ... logik
+        }
+});
+*/
 
-//Neu seit V2 ein jetzt Backup durchfŸhren fŸr jeden Backuptyp
-adapter.setObjectNotExists('System.Iobroker.Backup.OneClick.start_minimal_Backup', {type: 'state', common: {name: 'Minimal Backup ausfuehren', type: 'boolean', def: 'false', role: 'indicator'}, native: {}});
-adapter.setObjectNotExists('System.Iobroker.Backup.OneClick.start_komplett_Backup', {type: 'state', common: {name: 'Komplett Backup ausfuehren', type: 'boolean', def: 'false', role: 'indicator'}, native: {}});
-adapter.setObjectNotExists('System.Iobroker.Backup.OneClick.start_ccu_Backup', {type: 'state', common: {name: 'CCU Backup ausfuehren', type: 'boolean', def: 'false', role: 'indicator'}, native: {}});
+adapter.log.info('--------------------------------------- Ende Log ---------------------------------');
+
+
+/* Beispeil zum Anlegen der Datenpunkte
+adapter.setObjectNotExists('test.state', {
+            type: 'state',
+            common: {
+               name: 'STATE of ',
+                desc: 'Boolean datapoint for switches for ',
+                type: 'boolean',
+                role: 'switch',
+                def: false,
+                read: true,
+                write: true
+            },
+            native: {}
+        });
+*/
+
+adapter.setObjectNotExists('Auto_Backup', {type: 'state', common: {name: 'Automatisches Backup', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('Auto_Backup_test', {type: 'state', common: {name: 'Automatisches Backup', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
+
+// Neu seit V2 Objekt zur Erstellung der enum.functions EintrÅ ge
+adapter.setObjectNotExists('Konfiguration.Konfig_abgeschlossen', {type: 'state', common: {name: 'Alle benoetigten Objekte erstellt', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
+
+// Neu seit V2 Objekt zum PrÅ¸fen ob IoBroker wegen einem kompletten Backup neu gestartet ist.
+adapter.setObjectNotExists('Konfiguration.IoRestart_komp_Bkp', {type: 'state', common: {name: 'Restart IoBroker wegen komplett Backup', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
+
+//Neu seit V2 HistoryLog fÅ¸r die ausgefÅ¸hren Backups
+adapter.setObjectNotExists('History.' + 'Backup_history', {type: 'state', common: {name: 'History der Backups', type: 'string', state: '<span class="bkptyp_komplett">Noch kein Backup</span>', role: 'indicator'}, native: {}});
+
+//Neu seit V2 einen separaten Zeitstempel fÅ¸r jeden Backuptyp
+adapter.setObjectNotExists('History.letztes_minimal_Backup', {type: 'state', common: {name: 'Letztes minimal Backup', type: 'string', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('History.letztes_komplett_Backup', {type: 'state', common: {name: 'Letztes komplett Backup', type: 'string', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('History.letztes_ccu_Backup', {type: 'state', common: {name: 'Letztes CCU Backup', type: 'string', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
+
+//Neu seit V2 ein jetzt Backup durchfÅ¸hren fÅ¸r jeden Backuptyp
+adapter.setObjectNotExists('OneClick.start_minimal_Backup', {type: 'state', common: {name: 'Minimal Backup ausfuehren', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('OneClick.start_komplett_Backup', {type: 'state', common: {name: 'Komplett Backup ausfuehren', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('OneClick.start_ccu_Backup', {type: 'state', common: {name: 'CCU Backup ausfuehren', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
 
 
 // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -216,22 +255,23 @@ adapter.setObjectNotExists('System.Iobroker.Backup.OneClick.start_ccu_Backup', {
 
 // #############################################################################
 // #                                                                           #
-// #  Funktion zum anlegen eines Schedules fŸr Backupzeit                      #
+// #  Funktion zum anlegen eines Schedules fÅ¸r Backupzeit                      #
 // #                                                                           #
 // #############################################################################
 
 function BackupStellen() {
-    adapter.setState('System.Iobroker.Backup.Auto_Backup', false);
+    adapter.setState('Auto_Backup', false);
     Backup.forEach(function(Bkp) {
 
-// ###################################### Ab hier mŸssen noch Fehler gesucht werden und Anpssungen gemacht werden (deshalb auskommentiert) ###############################################
+// ###################################### Ab hier mÅ¸ssen noch Fehler gesucht werden und Anpssungen gemacht werden (deshalb auskommentiert) ###############################################
            if(adapter.config[Bkp[0]+'_BackupState'] === true) {
               //adapter.log.info('Zeit: ' +adapter.config[Bkp[0]+'_BackupZeit']);
-				var schedule = require('node-schedule');
-				var parser = require('cron-parser');
-               let BkpUhrZeit = (adapter.config[Bkp[0]+'_BackupZeit']).split(':');
-               adapter.log.info('BkpUhrZeit: ' +BkpUhrZeit);
-               if(logging) adapter.log.info('Ein '+Bkp[0]+' Backup wurde um '+adapter.config[Bkp[0]+'_BackupZeit']+' Uhr jeden '+adapter.config[Bkp[0]+'_BackupTageZyklus']+' Tag  aktiviert');
+			    var schedule = require('node-schedule');
+			    var parser = require('cron-parser');
+			    
+                let BkpUhrZeit = (adapter.config[Bkp[0]+'_BackupZeit']).split(':');
+                adapter.log.info('BkpUhrZeit: ' +BkpUhrZeit);
+                if(logging) adapter.log.info('Ein '+Bkp[0]+' Backup wurde um '+adapter.config[Bkp[0]+'_BackupZeit']+' Uhr jeden '+adapter.config[Bkp[0]+'_BackupTageZyklus']+' Tag  aktiviert');
                 if(BkpZeit_Schedule[Bkp[0]]) schedule.clearScheduleJob(BkpZeit_Schedule[Bkp[0]]);
                 BkpZeit_Schedule[Bkp[0]] = schedule.Job('10 '+BkpUhrZeit[1] + ' ' +BkpUhrZeit[0] + ' */'+adapter.config[Bkp[0]+'_BackupTageZyklus']+' * * ', function (){backup_erstellen(Bkp[0], Bkp[1], Bkp[2], Bkp[3], Bkp[4], Bkp[5], Bkp[6], Bkp[7], Bkp[8], Bkp[9], Bkp[10], Bkp[11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN)});
 				
@@ -245,7 +285,7 @@ function BackupStellen() {
             }
 
             // -----------------------------------------------------------------------------
-            //  Erstellen der AufzŠhlungen fŸr die Backupdatenpunkte
+            //  Erstellen der Aufzaehlungen fÅ¸r die Backupdatenpunkte
             // -----------------------------------------------------------------------------
             if(!adapter.getState('System.Iobroker.Backup.Konfiguration.Konfig_abgeschlossen')) {
 
@@ -277,7 +317,7 @@ function BackupStellen() {
 
     });
 
-    if(!adapter.getState('System.Iobroker.Backup.Konfiguration.Konfig_abgeschlossen')) {
+    if(!adapter.getState('Konfiguration.Konfig_abgeschlossen')) {
         var Enum_obj = {};
         Enum_obj.type = 'enum';
         Enum_obj.common = {};
@@ -285,12 +325,12 @@ function BackupStellen() {
         Enum_obj.common.members = Enum_ids;
         adapter.setObject('enum.functions.BackItUp', Enum_obj);
     }
-adapter.setState('System.Iobroker.Backup.Konfiguration.Konfig_abgeschlossen', true);
+adapter.setState('Konfiguration.Konfig_abgeschlossen', true);
 }
 
 // #############################################################################
 // #                                                                           #
-// #  Funktion zum AusfŸhren des Backups mit obigen Einstellungen              #
+// #  Funktion zum AusfÅ¸hren des Backups mit obigen Einstellungen              #
 // #                                                                           #
 // #############################################################################
 
@@ -300,7 +340,7 @@ function backup_erstellen(typ, name, zeit, host, pfad, user, passwd, ccuip, ccuu
     if(debugging) adapter.log.info(bash_script+'"'+typ+'|'+name+'|'+zeit+'|'+host+'|'+pfad+'|'+user+'|'+passwd+'|'+ccuip+'|'+ccuusr+'|'+ccupw+'|'+cifsmnt+'|'+bkpiors+'|'+mysqldb+'|'+mysqlusr+'|'+mysqlpw+'|'+mysqlln+'"');
 
     if(typ == 'komplett' && bkpiors === true){
-        adapter.setState(instanz + pfad0 + 'IoRestart_komp_Bkp', true);
+        adapter.setState(instanz + 'IoRestart_komp_Bkp', true);
     }
     adapter.setState('System.Iobroker.BackupHistory.letztes_'+typ+'_Backup', new DatumUhrzeitString(new Date()));
 
@@ -342,7 +382,7 @@ function DatumUhrzeitString(date) {
 
 // #############################################################################
 // #                                                                           #
-// #  BackupdurchfŸhrung in History eintragen                                  #
+// #  BackupdurchfÅ¸hrung in History eintragen                                  #
 // #                                                                           #
 // #############################################################################
 
@@ -360,7 +400,7 @@ function Backup_history_anlegen(zeitstempel,typ,ftp_bkp_u) {
 
 // #############################################################################
 // #                                                                           #
-// #  AblŠufe nach Neustart des Backupscripts                                  #
+// #  AblÅ ufe nach Neustart des Backupscripts                                  #
 // #                                                                           #
 // #############################################################################
 
@@ -380,7 +420,7 @@ function WerteAktualisieren() {
 */
 // #############################################################################
 // #                                                                           #
-// #  Beim ersten Start alle benštigten Datenpunkte / Enum.funcitons erstellen #
+// #  Beim ersten Start alle benÅ¡tigten Datenpunkte / Enum.funcitons erstellen #
 // #                                                                           #
 // #############################################################################
 
