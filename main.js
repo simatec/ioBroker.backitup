@@ -102,7 +102,7 @@ function main() {
 	adapter.log.info('config FtpPw: ' + adapter.config.FtpPw);
 */
 // -----------------------------------------------------------------------------
-// allgemeine Variablen - Anlegen
+// allgemeine Variablen 
 // -----------------------------------------------------------------------------
 const logging = true;                                                 // Logging on/off
 const debugging = false;										        // Detailiertere Loggings
@@ -186,7 +186,7 @@ let history_array = [];                                // Array fuer das anlegen
 // =============================================================================
 // Objekte
 // =============================================================================
-// Objekt zur PrÅ¸fung ob Auto_Backup aktiv ist.
+// Objekt zur Prüfung ob Auto_Backup aktiv ist.
 
 
 adapter.log.info('--------------------------------------- Anfang Log ---------------------------------');
