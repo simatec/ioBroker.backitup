@@ -102,7 +102,7 @@ function main() {
 	adapter.log.info('config FtpPw: ' + adapter.config.FtpPw);
 */
 // -----------------------------------------------------------------------------
-// allgemeine Variablen 
+// allgemeine Variablen
 // -----------------------------------------------------------------------------
 const logging = true;                                                 // Logging on/off
 const debugging = false;										        // Detailiertere Loggings
@@ -186,15 +186,21 @@ let history_array = [];                                // Array fuer das anlegen
 // =============================================================================
 // Objekte
 // =============================================================================
-// Objekt zur Pr�fung ob Auto_Backup aktiv ist.
+// Objekt zur PrŸfung ob Auto_Backup aktiv ist.
 
 
 adapter.log.info('--------------------------------------- Anfang Log ---------------------------------');
 
-adapter.log.info(adapter.getState(adapter.name+'.'+adapter.instance+".History.letztes_ccu_Backup")); // ack ist true oder false
+adapter.getState('History.letztes_ccu_Backup', function (err, state) {
+    adapter.log.info(
+          state.val
+    ); 
+
+}); 
 
 //Test SetState
 //adapter.setState('History.letztes_ccu_Backup', { val: 'funktioniert des zeug', ack: true });
+
 /*
 adapter.getState('state.name', function (err, state) {
         // err prüfen, wenn err gesetzt dann Fehler
@@ -240,7 +246,7 @@ adapter.setObjectNotExists('History.' + 'Backup_history', {type: 'state', common
 //Neu seit V2 einen separaten Zeitstempel fŸr jeden Backuptyp
 adapter.setObjectNotExists('History.letztes_minimal_Backup', {type: 'state', common: {name: 'Letztes minimal Backup', type: 'string', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
 adapter.setObjectNotExists('History.letztes_komplett_Backup', {type: 'state', common: {name: 'Letztes komplett Backup', type: 'string', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
-adapter.setObjectNotExists('History.letztes_ccu_Backup', {type: 'state', common: {name: 'Letztes CCU Backup', type: 'string', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
+adapter.setObjectNotExists('History.letztes_ccu_Backup', {type: 'state', common: {name: 'Letztes CCU Backup', type: 'state', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
 
 //Neu seit V2 ein jetzt Backup durchfŸhren fŸr jeden Backuptyp
 adapter.setObjectNotExists('OneClick.start_minimal_Backup', {type: 'state', common: {name: 'Minimal Backup ausfuehren', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
