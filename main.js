@@ -68,40 +68,6 @@ function main() {
 
 // ############## Anfang backitup #########################
 
-// config zum testen in Log schreiben
-/*
-    adapter.log.info('config minimal_BackupState: '    + adapter.config.minimal_BackupState);
-    adapter.log.info('config minimal_BackupZeit: '    + adapter.config.minimal_BackupZeit);
-    adapter.log.info('config minimal_BackupTageZyklus: ' + adapter.config.minimal_BackupTageZyklus);
-    adapter.log.info('config minimal_BackupState: ' + adapter.config.minimal_BackupState);
-    adapter.log.info('config minimal_BackupZeit: ' + adapter.config.minimal_BackupZeit);
-	adapter.log.info('config minimal_BackupTageZyklus: ' + adapter.config.minimal_BackupTageZyklus);
-	adapter.log.info('config minimal_BackupLoeschenNach: ' + adapter.config.minimal_BackupLoeschenNach);
-	adapter.log.info('config minimal_NamensZusatz: ' + adapter.config.minimal_NamensZusatz);
-	adapter.log.info('config komplett_BackupState: ' + adapter.config.komplett_BackupState);
-	adapter.log.info('config komplett_BackupZeit: ' + adapter.config.komplett_BackupZeit);
-	adapter.log.info('config komplett_BackupTageZyklus: ' + adapter.config.komplett_BackupTageZyklus);
-	adapter.log.info('config komplett_BackupLoeschenNach: ' + adapter.config.komplett_BackupLoeschenNach);
-	adapter.log.info('config komplett_NamensZusatz: ' + adapter.config.komplett_NamensZusatz);
-	adapter.log.info('config IoStopStart: ' + adapter.config.IoStopStart);
-	adapter.log.info('config MysqlDbName: ' + adapter.config.MysqlDbName);
-	adapter.log.info('config MysqlDbUser: ' + adapter.config.MysqlDbUser);
-	adapter.log.info('config MysqlDbPw: ' + adapter.config.MysqlDbPw);
-	adapter.log.info('config MysqlBackupLoeschenNach: ' + adapter.config.MysqlBackupLoeschenNach);
-	adapter.log.info('config ccu_BackupState: ' + adapter.config.ccu_BackupState);
-	adapter.log.info('config ccu_BackupZeit: ' + adapter.config.ccu_BackupZeit);
-	adapter.log.info('config ccu_BackupTageZyklus: ' + adapter.config.ccu_BackupTageZyklus);
-	adapter.log.info('config ccu_BackupLoeschenNach: ' + adapter.config.ccu_BackupLoeschenNach);
-	adapter.log.info('config ccu_NamensZusatz: ' + adapter.config.ccu_NamensZusatz);
-	adapter.log.info('config ccuCcuIp: ' + adapter.config.ccuCcuIp);
-	adapter.log.info('config ccuCcuUser: ' + adapter.config.ccuCcuUser);
-	adapter.log.info('config ccuCcuPw: ' + adapter.config.ccuCcuPw);
-	adapter.log.info('config CifsMount: ' + adapter.config.CifsMount);
-	adapter.log.info('config FtpHost: ' + adapter.config.FtpHost);
-	adapter.log.info('config FtpDir: ' + adapter.config.FtpDir);
-	adapter.log.info('config FtpUser: ' + adapter.config.FtpUser);
-	adapter.log.info('config FtpPw: ' + adapter.config.FtpPw);
-*/
 // -----------------------------------------------------------------------------
 // allgemeine Variablen
 // -----------------------------------------------------------------------------
@@ -186,7 +152,7 @@ let history_array = [];                                         // Array fÃ¼r da
 // =============================================================================
 // Objekte
 // =============================================================================
-// Objekt zur PrÅ¸fung ob Auto_Backup aktiv ist.
+// Objekt zur PrÃ¼fung ob Auto_Backup aktiv ist.
 
 // ########################## Testbereich Anfang ###################################
 //Test SetState
@@ -222,15 +188,15 @@ adapter.setObjectNotExists('test.state', {
 */
 // ########################## Testbereich Ende ###################################
 
-// Würde ich in die Konfigoberfläche integrieren
+// Wï¿½rde ich in die Konfigoberflï¿½che integrieren
 adapter.setObjectNotExists('Auto_Backup', {type: 'state', common: {name: 'Automatisches Backup', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
 
-// Würde ich in die Konfigoberfläche integrieren --- Objekt zum PrÃ¼fen ob IoBroker wegen einem kompletten Backup neu gestartet ist.
+// Wï¿½rde ich in die Konfigoberflï¿½che integrieren --- Objekt zum PrÃ¼fen ob IoBroker wegen einem kompletten Backup neu gestartet ist.
 adapter.setObjectNotExists('Konfiguration.IoRestart_komp_Bkp', {type: 'state', common: {name: 'Restart IoBroker wegen komplett Backup', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
 
-//Neu seit V2 HistoryLog für die ausgefÃ¼hren Backups
+//Neu seit V2 HistoryLog fï¿½r die ausgefÃ¼hren Backups
 adapter.setObjectNotExists('History.Backup_history', {type: 'state', common: {name: 'History der Backups', type: 'string', state: '<span class="bkptyp_komplett">Noch kein Backup</span>', role: 'indicator'}, native: {}});
-adapter.getState('History.letztes_ccu_Backup', function (err, state) {
+adapter.getState('History.Backup_history', function (err, state) {
     if(state ===null  || state.val===null) {adapter.setState('History.Backup_history', { val: '<span class="bkptyp_komplett">Noch keine Backups erstellt</span>', ack: true });}
 });
 //Neu seit V2 einen separaten Zeitstempel fÃ¼r jeden Backuptyp
@@ -267,7 +233,7 @@ adapter.getState('OneClick.start_ccu_Backup', function (err, state) {
 
 // #############################################################################
 // #                                                                           #
-// #  Funktion zum anlegen eines Schedules für Backupzeit                      #
+// #  Funktion zum anlegen eines Schedules fï¿½r Backupzeit                      #
 // #                                                                           #
 // #############################################################################
 
@@ -280,18 +246,18 @@ function BackupStellen() {
 			    let BkpUhrZeit = (adapter.config[Bkp[0]+'_BackupZeit']).split(':');
 
                 if(logging) adapter.log.info('Ein '+Bkp[0]+' Backup wurde um '+adapter.config[Bkp[0]+'_BackupZeit']+' Uhr jeden '+adapter.config[Bkp[0]+'_BackupTageZyklus']+' Tag  aktiviert');
-               
+
                 if(BkpZeit_Schedule[Bkp[0]]) schedule.clearScheduleJob(BkpZeit_Schedule[Bkp[0]]);
-               
+
                 BkpZeit_Schedule[Bkp[0]] = schedule.scheduleJob('10 '+BkpUhrZeit[1] + ' ' +BkpUhrZeit[0] + ' */'+adapter.config[Bkp[0]+'_BackupTageZyklus']+' * * ', function (){
                 	backup_erstellen(Bkp[0], Bkp[1], Bkp[2], Bkp[3], Bkp[4], Bkp[5], Bkp[6], Bkp[7], Bkp[8], Bkp[9], Bkp[10], Bkp[11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN);
                 });
-               
+
                 if(debugging) adapter.log.info('10 '+BkpUhrZeit[1] + ' ' + BkpUhrZeit[0] + ' */'+adapter.config[Bkp[0]+'_BackupTageZyklus']+' * * ');
             }
             else {
                 if(logging) adapter.log.info ('Das '+Bkp[0]+' Backup wurde deaktiviert');
-                
+
                 if(BkpZeit_Schedule[Bkp[0]]) schedule.clearScheduleJob(BkpZeit_Schedule[Bkp[0]]);
             }
     });
@@ -311,7 +277,7 @@ function backup_erstellen(typ, name, zeit, host, pfad, user, passwd, ccuip, ccuu
     if(typ == 'komplett' && bkpiors === true){
         adapter.setState(instanz + 'IoRestart_komp_Bkp', true);
     }
-    adapter.setState('System.Iobroker.BackupHistory.letztes_'+typ+'_Backup', new DatumUhrzeitString(new Date()));
+    adapter.setState('History.letztes_'+typ+'_Backup', { val: DatumUhrzeitString(new Date()), ack: true });
 
     let ftp_bkp_u;
     if(host === '') ftp_bkp_u = 'NEIN'; else ftp_bkp_u = 'JA';
@@ -351,11 +317,11 @@ function DatumUhrzeitString(date) {
 
 // #############################################################################
 // #                                                                           #
-// #  BackupdurchfÅ¸hrung in History eintragen                                  #
+// #  BackupdurchfÃ¼hrung in History eintragen                                  #
 // #                                                                           #
 // #############################################################################
 
-function Backup_history_anlegen(zeitstempel,typ,ftp_bkp_u) {
+function Backup_history_anlegen(zeitstempel, typ, ftp_bkp_u) {
 //     let history_liste = System.Iobroker.Backup.History.Backup_history;
 //         history_array = history_liste.split('&nbsp;');
 
@@ -363,8 +329,8 @@ function Backup_history_anlegen(zeitstempel,typ,ftp_bkp_u) {
      if(history_array.length >= anzahl_eintraege_history){
         history_array.splice((anzahl_eintraege_history - 1),1);
      }
-     history_array.unshift('<span class="bkptyp_'+ typ +'">' + zeitstempel + ' - Typ:' + typ + ' - Ftp-Sicherung:' + ftp_bkp_u + '</span>');
-     adapter.setState('System.Iobroker.Backup.History.Backup_history', history_array.join('&nbsp;'));
+     history_array.unshift('<span class="bkptyp_'+typ+'">' +zeitstempel+ ' - Typ:' +typ+ ' - Ftp-Sicherung:' +ftp_bkp_u+ '</span>');
+     adapter.setState('History.Backup_history', history_array.join('&nbsp;'));
 }
 
 // #############################################################################
@@ -406,9 +372,9 @@ if(!adapter.getObject('enum.functions.BackItUp') || !adapter.getObject('System.I
 
 adapter.subscribeStates('OneClick*'); // subscribe on all variables of this adapter instance with pattern "adapterName.X.memory*"
 
-// Wird ausgeführt wenn sich ein State ändert
+// Wird ausgefï¿½hrt wenn sich ein State ï¿½ndert
 adapter.on('stateChange', function (id, state) {
-    
+
     if (id == 'backitup.0.OneClick.start_minimal_Backup' && state.val === true ){
         adapter.log.info('OneClick Minimal Backup gestartet');
         backup_erstellen(Backup[0][0], Backup[0][1], Backup[0][2], Backup[0][3], Backup[0][4], Backup[0][5], Backup[0][6], Backup[0][7], Backup[0][8], Backup[0][9], Backup[0][10], Backup[0][11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN);
@@ -427,7 +393,7 @@ adapter.on('stateChange', function (id, state) {
         if(debugging)adapter.log.info('backup_erstellen('+Backup[2][0]+','+Backup[2][1]+','+Backup[2][2]+','+Backup[2][3]+','+Backup[2][4]+','+Backup[2][5]+','+Backup[2][6]+','+Backup[2][7]+','+Backup[2][8]+','+Backup[2][9]+','+Backup[2][10]+','+Backup[2][11]+','+Mysql_DBname+','+Mysql_User+','+Mysql_PW+','+Mysql_LN+')');
         setTimeout(function(){ adapter.setState('OneClick.start_ccu_Backup', false, true); }, 20000);
     }
-   
+
 });
 
 // #############################################################################
