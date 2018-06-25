@@ -2,9 +2,7 @@
 # ioBroker.backitup
 =================
 
-Backitup ist eine Script Zusammenstellung zum zyklischen Sichern einer IoBroker / Homematic -Installation konfigurierbar in VIS 
-
-Hilfe und Fragen bitte hier: [Backitup im IoBroker-Forum](https://forum.iobroker.net/viewtopic.php?f=21&t=13874&hilit=backitup)  
+Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist. 
 
 ## Inhaltsverzeichnis:
 1. Backup Type
@@ -13,14 +11,14 @@ Hilfe und Fragen bitte hier: [Backitup im IoBroker-Forum](https://forum.iobroker
    - 1.3 CCU Backup (CCU-Original / pivCCU / Raspberrymatic)
    - 1.4 Optionales Mysql-Backup (Localhost) 
 2. Vorbereitung
-   - 2.1 Vorbereitung fÃ¼r ftp / Cifs (wenn gewÃ¼nscht)
-   - 2.2 Vorbereitungen fÃ¼r das CCU - Backup
+   - 2.1 Vorbereitung für ftp / Cifs (wenn gewünscht)
+   - 2.2 Vorbereitungen für das CCU - Backup
    - 4.3 Vorbereitung IoBroker - Javascript Adapter
 3. Konfiguration
-   - 3.1 Konfigurationen fÃ¼r Minimal und Komplett Backup
-   - 3.2 Konfigurationen fÃ¼r Minimal und Komplett Backup
-   - 3.3 Konfigurationen fÃ¼r CCU Backup
-   - 3.4 Konfigurationen fÃ¼r Mysql-Datenbank Backup
+   - 3.1 Konfigurationen für Minimal und Komplett Backup
+   - 3.2 Konfigurationen für Minimal und Komplett Backup
+   - 3.3 Konfigurationen für CCU Backup
+   - 3.4 Konfigurationen für Mysql-Datenbank Backup
    - 3.5 Konfiguration des JavaScript-Speicherorts
 4. Verwendung
    - 4.1 Der erste Druchlauf des JavaScripts
@@ -32,107 +30,93 @@ Hilfe und Fragen bitte hier: [Backitup im IoBroker-Forum](https://forum.iobroker
 6. Fehlersuche
    - 6.1 Logging aktivieren
    - 6.2 Debugging aktivieren
-7. Aufgetretene Fehler / LÃ¶sungen
+7. Aufgetretene Fehler / Lösungen
    - 7.1 Webinterface nach Restore nicht erreichbar
    - 7.2 JS-Datenbunkt nicht beschreibbar
    - 7.3 Fehlermeldung: "Komando nicht gefunden"
-   - 7.4 Komplett-Backup bleibt hÃ¤ngen 
-   - 7.5 GeÃ¤nderte Werte in Dp werden nicht Ã¼bernommen 
+   - 7.4 Komplett-Backup bleibt hängen 
+   - 7.5 Geänderte Werte in Dp werden nicht übernommen 
 8. Todo
 9. Changelog
 
 
 ## 1. Backuptypen:
 
-Das Backup-Script bietet drei (optional mit DB-Backup) verschiedene Backup-Aufrufe. Jedes Backup wird standardmÃ¤ÃŸig im Verzeichnis /opt/iobroker/backups/ abgelegt. Optional kann ein FTP-Upload eingerichtet werden, zudem gibt es seit dieser Version die MÃ¶glichkeit einen CIFS-Mount ein zu richten.
+Backitup bietet die Möglichkeit drei (optional mit DB-Backup) verschiedene Backuptypen zyklisch oder auf Knopfdruck durch zu führen. Jedes Backup wird standardmäßig im Verzeichnis /opt/iobroker/backups/ abgelegt. Optional kann ein FTP-Upload eingerichtet oder alternativ ein CIFS-Mount genutzt werden.
 
 1. Minimales Backup
-   - Dieses Backup entspricht dem in IoBroker enthaltenen Backup welches man in der Konsole Ã¼ber den Aufruf â€ž./iobroker backupâ€œ     starten kann. Nur wird es hier durch die festgelegten Einstellungen in VIS aufgerufen ohne die Konsole verwenden zu mÃ¼ssen.
+   - Dieses Backup entspricht dem in IoBroker enthaltenen Backup welches man in der Konsole über den Aufruf „./iobroker backup“ starten kann. Nur wird es hier durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt ohne die Konsole verwenden zu müssen.
 2. Komplettes Backup
-   - Dieses Backup sichert den kompletten IoBroker Ordner inklusive aller Unterordner und deren Dateien samt Dateiberechtigungen. Hierbei sollte man die DateigrÃ¶ÃŸe nicht aus dem Auge verlieren die jedes einzelne Backup hat, im Schnitt Ã¼ber 200MB. 
-Im Zuge dieses Backups wird IoBroker neu gestartet!
+   - Dieses Backup sichert den kompletten IoBroker Ordner inklusive aller Unterordner und deren Dateien samt Dateiberechtigungen. Hierbei sollte die Dateigröße nicht ausser Acht gelassen werden, denn ein solches Backup hat oft mehrere hundert MB. 
+Um sicher zu gehen dass alle aktuellsten States gesichert werden muss hier in der Konfiguration der Hacken bei IoBroker Stop/Start gesetzt werden. 
 3. CCU Backup (Homematic)
-   -  Seit Version 3 ist es mÃ¶glich 3 verschidene Homematic Installationsvarianten (CCU-Original / pivCCU / Raspberrymatic) zu sichern. Auch die AusfÃ¼hrung dieses Backups kann durch VIS konfiguriert werden ohne dass man die Konsole dazu benÃ¶tigt.
+   -  Dieses Backup bietet die Möglichkeit 3 verschiedene Varianten einer Homematic Installations (CCU-Original / pivCCU / Raspberrymatic) zu sichern. Auch die Ausführung dieses Backups kann durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt werden.
 4. Mysql-Backup (Localhost)
-   - Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem zyklisch eingestellten Backup egal ob â€žminimalâ€œ oder â€žkomplettâ€œ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelÃ¶scht. FTP oder CIFS sind fÃ¼r dieses Backup ebenfalls gÃ¼ltig sofern bei den IoBroker-Backup-Typen eingestellt.
+   - Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup egal ob „minimal“ oder „komplett“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
 
 ## 2. Vorbereitung:
 
-Folgende Schritte mÃ¼ssen durchgefÃ¼hrt werden um das automatische Backup V3 verwenden zu kÃ¶nnen *(wenn das Backup-Script v1 verwendet wurde zuerst alle Datenpunkte lÃ¶schen!)
+Folgende Schritte müssen durchgeführt werden um das automatische Backup V3 verwenden zu können *(wenn das Backup-Script v1 verwendet wurde zuerst alle Datenpunkte löschen!)
 
-1.	Seit Version 3 wird der lftp-Dienst fÃ¼r den optionalen FTP-Upload auf bspw. einen Nas nicht mehr benÃ¶tigt! Ebenfalls ist es mittlerweile mÃ¶glich alternativ euren vorhandenen Nas (o.Ã„) mit Hilfe von CIFS in eure IoBroker â€“ Dateistruktur zu mounten und das Backup direkt dort zu erstellen.
+1.	Lftp-Dienst oder CIFS für das optionale weitersichern auf einen Nas nutzen?
 
-  - Vorteile:
-    -	weniger Schreibzyklen auf euren DatentrÃ¤ger (evtl. relevant wenn Raspberry mit SD-Karte verwendet wird um Diese zu schonen)
-    -	Es ist mÃ¶glich die â€žAlten Backupsâ€œ automatisiert auf dem Nas lÃ¶schen zu lassen
-    -	Keine Notwendigkeit des lftp-Service da euer Nas direkt eingehÃ¤ngt ist.
-  - Nachteile:
-    -	Wenn ein Mounten nicht mÃ¶glich ist, wird kein Backup erstellt!
-    -	â€žAlte Backupsâ€œ kÃ¶nnen automatisiert auf dem Nas gelÃ¶scht werden. Im schlimmsten Fall ist somit kein Backup mehr vorhanden wenn ihr es benÃ¶tigt.
+  - Vorteile CIFS:
+    -	weniger Schreibzyklen auf euren Datenträger (evtl. relevant wenn Raspberry mit SD-Karte verwendet wird um Diese zu schonen)
+    -	Es ist möglich die „Alten Backups“ automatisiert auf dem Nas löschen zu lassen
+    -	Keine Notwendigkeit des lftp-Service da euer Nas direkt eingehängt ist.
+  - Nachteile CIFS:
+    -	Wenn ein Mounten nicht möglich ist, wird kein Backup erstellt!
+    -	„Alte Backups“ können automatisiert auf dem Nas gelöscht werden. Im schlimmsten Fall ist somit kein Backup mehr vorhanden wenn ihr es benötigt.
 
-2.	Seit Version 3 wird fÃ¼r das CCU-Backup (in den o.g. 3 Varianten) kein SSH Zugang mehr benÃ¶tigt stattdessen wird fÃ¼r das Backup der Username und das Passwort der CCU (nicht mehr SSH) benÃ¶tigt. Wer den SSH-Zugang sonst nicht nutzt sollte diesen aus SicherheitsgrÃ¼nden deaktivieren.
-
-3.	Um das Script ausfÃ¼hren zu kÃ¶nnen mÃ¼ssen im IoBroker Javascript-Adapter die Hacken bei: Erlaube das Komando â€žsetObjectâ€œ  und Erlaube das Kommando â€žexecâ€œ gesetzt sein (Bild 3).
-<img src="https://github.com/peoples0815/backitup/blob/master/img/einstellungen_js-script_adapter.jpg" align=center>
-(Bild 3)
-
-5.	Das im Beitrag enthaltene Shell-Script muss in das IoBroker-Verzeichnis unter dem Namen backitup.sh gespeichert  (absoluter Pfad: /opt/iobroker/backitup.sh) und die Berechtigungen sollten auf 777 gesetzt werden. Bei mir lÃ¤uft das Script mit Admin Rechten wenn ihr bei euch die nÃ¶tigen Freigaben hÃ¤ndisch einstellt ist dies jedoch nicht nÃ¶tig. Das Script darf nicht in einem Windows Editor bearbeitet werden, da sonst unter UmstÃ¤nden das Script nicht mehr fehlerfrei durchlÃ¤uft. 
-
-6.	FÃ¼r die spÃ¤tere Konfiguration durch VIS muss nun noch der View-Export in euer Projekt importiert werden.
-
+-----------------------------------------------------------------------------------------------
 ## 3. Konfiguration:
 
-Wenn alles wie beschrieben durchgefÃ¼hrt wurde, muss das Javascript einmal durch drÃ¼cken auf den "Play-Button" gestartet und wieder gestoppt werden. Hier treten im Log einige Fehlermeldungen durch subscriben nicht vorhandener Datenpunkte auf die aber NUR HIER ignoriert werden kÃ¶nnen. Hier noch ein Screenshot der Datenpunkte die nun vorhanden sein sollten und wie folgt ausgefÃ¼llt werden mÃ¼ssen:
+Wenn alles wie beschrieben durchgeführt wurde, muss das Javascript einmal durch drücken auf den "Play-Button" gestartet und wieder gestoppt werden. Hier treten im Log einige Fehlermeldungen durch subscriben nicht vorhandener Datenpunkte auf die aber NUR HIER ignoriert werden können. Hier noch ein Screenshot der Datenpunkte die nun vorhanden sein sollten und wie folgt ausgefüllt werden müssen:
 
 <img src="https://github.com/peoples0815/backitup/blob/master/img/Screenshot-Datenpunkte.jpg" align=center>
 
-1. Folgende Daten mÃ¼ssen bei dem IoBroker Backup Typ minimal  von euch eingetragen werden und richtig sein: 
-   - NamensZusatz ? Wird in den Backup-Dateinamen eingefÃ¼gt, wenn nicht gewÃ¼nscht leer lassen!
-   - BackupLoeschenNach ? Tage-Angabe nach denen erstellte Backups  gelÃ¶scht werden sollen
+1. Folgende Daten müssen bei dem IoBroker Backup Typ minimal  von euch eingetragen werden und richtig sein: 
+   - NamensZusatz ? Wird in den Backup-Dateinamen eingefügt, wenn nicht gewünscht leer lassen!
+   - BackupLoeschenNach ? Tage-Angabe nach denen erstellte Backups  gelöscht werden sollen
    - FtpHost ? IP-Adresse eures FTP-Servers 	(Wenn FTP verwendet)
    - FtpDir ? Zielverzeichnis auf dem FTP	(Wenn FTP verwendet)
-   - FtpUser ? FTP â€“ Username			(Wenn FTP verwendet)
-   - FtpPw ? FTP â€“ Passwort			(Wenn FTP verwendet )
-   - CifsMount ? CIFS-Mount  	(Standard â€žfalseâ€œ wenn gewÃ¼nscht auf â€žtrueâ€œ) Ein aktivieren dieser Option schlieÃŸt zeitgleich die Verwendung der FTP Funktion aus!   
+   - FtpUser ? FTP – Username			(Wenn FTP verwendet)
+   - FtpPw ? FTP – Passwort			(Wenn FTP verwendet )
+   - CifsMount ? CIFS-Mount  	(Standard „false“ wenn gewünscht auf „true“) Ein aktivieren dieser Option schließt zeitgleich die Verwendung der FTP Funktion aus!   
 
-2. Folgende Daten mÃ¼ssen bei dem IoBroker Backup Typ komplett  von euch eingetragen werden und richtig sein:
-   - NamensZusatz ? Wird in den Backup-Dateinamen eingefÃ¼gt, wenn nicht gewÃ¼nscht leer lassen!
-   - BackupLoeschenNach ? Tage-Angabe nach denen erstellte Backups  gelÃ¶scht werden sollen
+2. Folgende Daten müssen bei dem IoBroker Backup Typ komplett  von euch eingetragen werden und richtig sein:
+   - NamensZusatz ? Wird in den Backup-Dateinamen eingefügt, wenn nicht gewünscht leer lassen!
+   - BackupLoeschenNach ? Tage-Angabe nach denen erstellte Backups  gelöscht werden sollen
    - FtpHost ? IP-Adresse eures FTP-Servers 	(Wenn FTP verwendet)
    - FtpDir ? Zielverzeichnis auf dem FTP	(Wenn FTP verwendet)
-   - FtpUser ? FTP â€“ Username			(Wenn FTP verwendet)
-   - FtpPw ? FTP â€“ Passwort			(Wenn FTP verwendet )
-   - CifsMount ? CIFS-Mount  	(Standard â€žfalseâ€œ wenn gewÃ¼nscht auf â€žtrueâ€œ) Ein aktivieren dieser Option schlieÃŸt zeitgleich die Verwendung der FTP Funktion aus!   
-   - IoStopStart ? IoStart/Stop ob beim kompletten Backup der Iobroker gestoppt/gestartet werden soll  	(Standard â€žfalseâ€œ wenn gewÃ¼nscht auf â€žtrueâ€œ)  
+   - FtpUser ? FTP – Username			(Wenn FTP verwendet)
+   - FtpPw ? FTP – Passwort			(Wenn FTP verwendet )
+   - CifsMount ? CIFS-Mount  	(Standard „false“ wenn gewünscht auf „true“) Ein aktivieren dieser Option schließt zeitgleich die Verwendung der FTP Funktion aus!   
+   - IoStopStart ? IoStart/Stop ob beim kompletten Backup der Iobroker gestoppt/gestartet werden soll  	(Standard „false“ wenn gewünscht auf „true“)  
 
-3. Folgende Daten mÃ¼ssen fÃ¼r das optionale CCU Backup von euch eingetragen werden und richtig sein sofern ihr dieses nutzen mÃ¶chtet:
-   - BackupLoeschenNach ? Tage-Angabe nach denen erstellte Backups  gelÃ¶scht werden sollen
+3. Folgende Daten müssen für das optionale CCU Backup von euch eingetragen werden und richtig sein sofern ihr dieses nutzen möchtet:
+   - BackupLoeschenNach ? Tage-Angabe nach denen erstellte Backups  gelöscht werden sollen
    - CcuIp ? IP-Adresse der CCU
    - CcuUser ? Username der CCU                            
    - CcuPw ? Passwort der CCU 
    - FtpHost ? IP-Adresse eures FTP-Servers 	(Wenn FTP verwendet)
    - FtpDir ? Zielverzeichnis auf dem FTP	(Wenn FTP verwendet)
-   - FtpUser ? FTP â€“ Username			(Wenn FTP verwendet)
-   - FtpPw ? FTP â€“ Passwort			(Wenn FTP verwendet )
-   - CifsMount ? CIFS-Mount  	(Standard â€žfalseâ€œ wenn gewÃ¼nscht auf â€žtrueâ€œ) Ein aktivieren dieser Option schlieÃŸt zeitgleich die Verwendung der FTP Funktion aus!   
+   - FtpUser ? FTP – Username			(Wenn FTP verwendet)
+   - FtpPw ? FTP – Passwort			(Wenn FTP verwendet )
+   - CifsMount ? CIFS-Mount  	(Standard „false“ wenn gewünscht auf „true“) Ein aktivieren dieser Option schließt zeitgleich die Verwendung der FTP Funktion aus!   
 
-4. Folgende Daten mÃ¼ssen fÃ¼r das optioale MYSQL-Backup  von euch eingetragen werden und richtig sein sofern ihr dieses nutzen mÃ¶chtet:
-   - BackupLoeschenNach ? Tage-Angabe nach denen erstellte Backups  gelÃ¶scht werden sollen
+4. Folgende Daten müssen für das optioale MYSQL-Backup  von euch eingetragen werden und richtig sein sofern ihr dieses nutzen möchtet:
+   - BackupLoeschenNach ? Tage-Angabe nach denen erstellte Backups  gelöscht werden sollen
    - DbName ? Name der Datenbank
-   - DbUser ? Username fÃ¼r die Datenbank
+   - DbUser ? Username für die Datenbank
    - DbPw ? Passwort der Datenbank
    
 
-5. Anpassung des Script-Speicherorts (ab Backitup_3.0.2.js nicht mehr notwendig):
-    - Zu Letzt muÃŸ noch der Pfad zum Speicherort des Javascripts (Wo das Javascript abgespeichert wurde) in der Funktion WerteAktualisieren richtig eingetragen sein/werden um bei Ã„nderung eines Datenpunkts das Script neu starten zu kÃ¶nnen. Der hier voreingestellte Pfad ist("scriptEnabled.BackitUp_V3")
-
 ## 4. Verwendung:
 
-1.	Beim ersten Durchlauf  werden im Log â€žWarningsâ€œ und evtl. â€žErrorâ€œ aufgelistet was nur  beim ersten Durchlauf normal ist. Dies kommt daher dass die Datenpunkte die im Nachgang abgefragt werden noch nicht vorhanden sind. Danach sollte das nicht mehr vorkommen.
+1.	Richtige Daten beim gewünschten Backup eintragen / einstellen - speichern - fertig
 
-2.	Alle Funktionen wie Backup â€“ Zyklen / Uhrzeiten, das Aktivieren oder Deaktivieren, sowie ein Backup sofort ausfÃ¼hren ist komplett Ã¼ber VIS einstellbar. Auf Nachfrage habe ich auch noch eine kleine History eingefÃ¼gt welcher zeigt wann welches Backup zuletzt durchgelaufen ist.
-
-3. Der History-Log kann via CSS vom Design her eingestellt / verÃ¤ndert werden:
+3. Der History-Log kann via CSS vom Design her eingestellt / verändert werden:
    ```
    .backup_history{
        display:block;
@@ -164,82 +148,57 @@ Hier ein Screenshot vom VIS-Widget-Export:
 ## 5. Restore:
 
 1. Restore eines minimalen / normalen IoBroker Backups: 
-    - Das Backup muss wie gewohnt im  Verzeichnis â€žopt/iobroker/backups/â€œ liegen 
-    - Es kann Ã¼ber die Konsole mit Hilfe des Befehls: â€žiobroker restore (Nummer des Backups aus der Liste)â€œ wieder hergestellt werden.  
+    - Das Backup muss wie gewohnt im  Verzeichnis „opt/iobroker/backups/“ liegen 
+    - Es kann über die Konsole mit Hilfe des Befehls: „iobroker restore (Nummer des Backups aus der Liste)“ wieder hergestellt werden.  
 
 2. Restore eines kompletten Backups:
-    - Den Befehl:â€œsudo  iobroker stopâ€œ Ã¼ber die Konsole ausfÃ¼hren
-    - Das erstellte Backup muss in das Verzeichnis  â€žroot/â€œ kopiert werden
-    - Den Befehl:" sudo tar -xzvf Backupname.tar.gz -C / " Ã¼ber die Konsole ausfÃ¼hren
-    - Warten - WÃ¤hrend der Wiederherstellung wird euch angezeigt was gerade gemacht wird
-    - Den Befehl: â€žsudo iobroker startâ€œ Ã¼ber die Konsole ausfÃ¼hren 
+    - Den Befehl:“sudo  iobroker stop“ über die Konsole ausführen
+    - Das erstellte Backup muss in das Verzeichnis  „root/“ kopiert werden
+    - Den Befehl:" sudo tar -xzvf Backupname.tar.gz -C / " über die Konsole ausführen
+    - Warten - Während der Wiederherstellung wird euch angezeigt was gerade gemacht wird
+    - Den Befehl: „sudo iobroker start“ über die Konsole ausführen 
 
-3. Restore eines raspberrymatic Backups:
-    - *.sbk Datei via SCP in das Verzeichnis â€ž /usr/local/tmp directoryâ€œ auf die Raspberrymatic  kopieren
-    - Ãœber die Konsole  als Root-User  auf der Raspberrymatic einloggen
-    - Den Befehl: â€ž/bin/restoreBackup.sh /user/local/tmp/EuerBackupDateinameâ€œ auf der Raspberrymatic ausfÃ¼hren.
-    - Den Befehl:â€œrebootâ€œ auf der Raspberrymatic ausfÃ¼hren um den PI neu zu starten
+3. Restore eines Raspberrymatic / CCU Backups:
+    - *.sbk Datei via SCP in das Verzeichnis „ /usr/local/tmp directory“ auf die Raspberrymatic  kopieren
+    - Über die Konsole  als Root-User  auf der Raspberrymatic einloggen
+    - Den Befehl: „/bin/restoreBackup.sh /user/local/tmp/EuerBackupDateiname“ auf der Raspberrymatic ausführen.
+    - Den Befehl:“reboot“ auf der Raspberrymatic ausführen um den PI neu zu starten
 
-Alternativ kann das Backup natÃ¼rlich auch wie gewohnt Ã¼ber das Webinterface der Raspberrymatic wieder hergestellt werden.
-
+Alternativ kann das Backup natürlich auch wie gewohnt über das Webinterface wieder hergestellt werden.
+---------------------------------------------------------------------------
 ## 6. Fehlersuche:
 
-1. Im JavaScript gibt es die MÃ¶glichkeit logging auf true zu setzen so werden im Log verschiedene Meldungen (bspw. Backup-Zeiten und States) die zur Fehlersuche dienen kÃ¶nnen aufgelistet
+1. Im JavaScript gibt es die Möglichkeit logging auf true zu setzen so werden im Log verschiedene Meldungen (bspw. Backup-Zeiten und States) die zur Fehlersuche dienen können aufgelistet
 
-2. ZusÃ¤tzlich gibt es die MÃ¶glichkeit debugging auf true zu setzen nun wird im Log der Befehl ausgegeben der an die backitup.sh Ã¼bergeben wird. Dieser Befehl kann eins zu eins in die Konsole (mit Putty o.Ã¤) eingegeben werden um Fehler eingrenzen zu kÃ¶nnen.
+2. Zusätzlich gibt es die Möglichkeit debugging auf true zu setzen nun wird im Log der Befehl ausgegeben der an die backitup.sh übergeben wird. Dieser Befehl kann eins zu eins in die Konsole (mit Putty o.ä) eingegeben werden um Fehler eingrenzen zu können.
 
-## 7. Aufgetretene Fehler / LÃ¶sungen:
+## 7. Aufgetretene Fehler / Lösungen:
 
-Hier eine Liste der bisher aufgetretenen Probleme und deren LÃ¶sungen sofern vorhanden.
+Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vorhanden.
 
-1.	Olifall (aus dem Forum) hatte das Problem dass nach dem Restore das Webinterface des IoBrokers nicht mehr erreichbar war, durch folgende Schritte Ã¼ber die Konsole konnte er dies beheben:
+1.	Olifall (aus dem Forum) hatte das Problem dass nach dem Restore das Webinterface des IoBrokers nicht mehr erreichbar war, durch folgende Schritte über die Konsole konnte er dies beheben:
     - sudo iobroker status
     - Meldung = "No connection to states 127.0.0.0:6379[redis]"
     - sudo apt-get install redis-server
 
-2.	Beim Testen kam es bei Anderen vor dass einige Datenpunkte nicht beschreib /-Ã¤nderbar waren, diesen Fehler konnte ich nicht nachstellen und dementsprechend nicht beheben.
+2.	Beim Testen kam es bei Anderen vor dass einige Datenpunkte nicht beschreib /-änderbar waren, diesen Fehler konnte ich nicht nachstellen und dementsprechend nicht beheben.
 
-3.	Fehlermeldung: â€žKommando nicht gefundenâ€œ 
-Durch die Unterschiede von Unix und Windows, darf die backitup.sh nicht unter Windows (Editor) geÃ¤ndert werden. 
-ErklÃ¤rung:
+3.	Fehlermeldung: „Kommando nicht gefunden“ 
+Durch die Unterschiede von Unix und Windows, darf die backitup.sh nicht unter Windows (Editor) geändert werden. 
+Erklärung:
 Unter DOS wird in Textdateien ein Zeilenende durch die Sequenz return (Dezimalcode 13) und new line (Dezimalcode 10) dargestellt. Unix verwendet dagegen nur new line.
 
-4. Iobroker bleibt beim komplett-Backup hÃ¤ngen / startet nicht mehr
-Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durchlÃ¤uft bzw. der IoBroker gestoppt und nicht mehr gestartet wird. Seit V3 ist es mÃ¶glich in den Konfigurations-Datenpunkten den Stop/Start des IoBrokers beim komplett-Backup zu steuern
+4. Iobroker bleibt beim komplett-Backup hängen / startet nicht mehr
+Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durchläuft bzw. der IoBroker gestoppt und nicht mehr gestartet wird. Seit V3 ist es möglich in den Konfigurations-Datenpunkten den Stop/Start des IoBrokers beim komplett-Backup zu steuern
 
-5. GeÃ¤nderte Werte werden nicht automatisch Ã¼bernommen / Javascript startet nicht von selbst neu
-Wenn geÃ¤nderte Werte in den Datenpunkten nicht Ã¼bernommen werden kann das daran liegen, dass die Funktion des automatischen Neustarts auf Grund eines falschen Eintrags nicht ausgefÃ¼hrt wird. Hier muss kontrolliert werden ob der Speicherort des Javascripts im Javascript selbst (Funktion WerteAktuallisieren) richtig eingetragen ist.
+5. Geänderte Werte werden nicht automatisch übernommen / Javascript startet nicht von selbst neu
+Wenn geänderte Werte in den Datenpunkten nicht übernommen werden kann das daran liegen, dass die Funktion des automatischen Neustarts auf Grund eines falschen Eintrags nicht ausgeführt wird. Hier muss kontrolliert werden ob der Speicherort des Javascripts im Javascript selbst (Funktion WerteAktuallisieren) richtig eingetragen ist.
 Sollte ab Version Backitup_3.0.2.js nicht mehr auftreten
 
-## 8. Todo:
-
-Ein weiterer Schritt wird sein den Restore eines Iobroker-Backups auch auch Ã¼ber VIS durchfÃ¼hren zu kÃ¶nnen, zudem mÃ¶chte ich aus dem Script frÃ¼her oder spÃ¤ter einen 
-IoBroker â€“ Adapter machen. 
-
 ## 9. Changelog:
-#3.0.2
- - (peoples) Update Backitup_3.0.2.js
-    - Javascript Instanz wird ausgelesen
-    - Funktion WerteAktualisieren jetzt ohne Pfadangabe
 
-#3.0.1
- - (simatec) Ftp-Upload nun ohne lftp mÃ¶glich
- - (simatec) Iobroker k.Backup Stop/Start steuerbar in backitup.sh
- - (peoples) JavaScript an obige Ã„nderungen angepasst
- - (peoples) Konfigurationseinstellungen in Datenpunkte ausgelagert
-
-#3.0 (09.06.2018)
- - (peoples) Backup Zyklen geÃ¤ndert
- - (peoples) Schedule angepasst an neue Zyklen 
- - (peoples) Widget an Neuerungen angepasst
- - (simatec) backitup.sh entfernen des reinen Rasp.-Backups
-
-#2.0.4 (31.05.2018)
- - (simatec) BackupmÃ¶glichkeit fÃ¼r Homematic-CCU und pivccu eingebunden
- - (peoples) Anpassung des Javascripts wegen o.g. ErgÃ¤nzungen
- 
-#2.0.3 (24.05.2018)
- - Erste Version auf Github
+#0.0.1 (25.06.2018)
+ - (simatec/peoples) Erste Git-Adapter-Version
 
 
 ## License
