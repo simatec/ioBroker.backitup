@@ -10,6 +10,10 @@
     {
       "name": "simatec",
       "email": "nais@gmx.net"
+    },
+    {
+      "name": "peoples0815",
+      "email": "peoples0815github@gmail.com"
     }
   ],
   "homepage": "https://github.com/simatec/ioBroker.backitup",
@@ -18,7 +22,8 @@
     "ioBroker",
     "backitup",
     "Smart Home",
-    "home automation"
+    "home automation",
+    "Backup"
   ],
   "repository": {
     "type": "git",
