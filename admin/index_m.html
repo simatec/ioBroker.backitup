@@ -70,11 +70,12 @@
     <div class="m adapter-container">
 
 		<div class="row">
-        <div class="col s12">
+        <div class="col s11">
             <ul class="tabs">
 				<li class="tab col s2"><a href="#tab-settings" class="translate active">Haupteinstellungen</a></li>
                 <li class="tab col s2 tab-minimal-backup"><a href="#tab-minimal-backup" class="translate">Standard Backup</a></li>
-                <li class="tab col s2 tab-ccu-backup"><a href="#tab-komplett-backup" class="translate">Komplett Backup</a></li>
+                <li class="tab col s2 tab-komplett-backup"><a href="#tab-komplett-backup" class="translate">Komplett Backup</a></li>
+                <li class="tab col s2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
                 <li class="tab col s2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
                 <li class="tab col s2 tab-nas"><a href="#tab-nas" class="translate">NAS Einstellungen</a></li>
             </ul>
@@ -99,12 +100,18 @@
 				<div class="input-field col s3">
 					<input class="value" id="state_debug" type="checkbox" />
 					<label for="Debug aktivieren/deaktivieren" class="translate">Debug aktivieren/deaktivieren</label>
-			</div>
+				</div>
             </div>
 			<div class="row">
 			    <div class="input-field col s3">
 			        <input class="value" id="IoStopStart" type="checkbox" />
 			        <label for="Stop ioBroker bei Backup" class="translate">Stop ioBroker bei Backup</label>
+			    </div>
+            </div>
+			<div class="row">
+			    <div class="input-field col s3">
+			        <input class="value" id="redis_state" type="checkbox" />
+			        <label for="Redis Status sichern" class="translate">Redis Status sichern</label>
 			    </div>
             </div>
 			<div class="row">
@@ -189,8 +196,10 @@
 				    <span class="translate">NamensZusatz</span>
                 </div>
             </div>
+		</div>
 			<!-- Ende Komplett Backup -->
 			<!-- Anfang Mysql Backup -->
+		<div id="tab-my-sql"  class="col s12 page">
             <div class="row">
                 <div class="input-field col s12 m6 l2">
                     <input class="value" id="MysqlDbName" type="text">
@@ -199,8 +208,8 @@
                 </div>
                 <div class="input-field col s12 m6 l2">
                     <input class="value" id="MysqlDbUser" type="text">
-                    <label for="MySql Username">Username</label>
-                    <span class="translate">MySql Username</span>
+                    <label for="MySql Benutzername">MySql Benutzername</label>
+                    <span class="translate">MySql Benutzername</span>
                 </div>
                 <div class="input-field col s12 m6 l2">
                     <input class="value" id="MysqlDbPw" type="text">
@@ -256,13 +265,13 @@
                 </div>
 				<div class="input-field col s12 m6 l2">
                     <input class="value" id="ccuCcuUser" type="text">
-                    <label for="Username der CCU">Username</label>
-                    <span class="translate">Username</span>
+                    <label for="Benutzername der CCU">Benutzername der CCU</label>
+                    <span class="translate">Benutzername der CCU</span>
                 </div>
 				<div class="input-field col s12 m6 l2">
                     <input class="value" id="ccuCcuPw" type="text">
-                    <label for="Passwort der CCU">Passwort</label>
-                    <span class="translate">Passwort</span>
+                    <label for="Passwort der CCU">Passwort der CCU</label>
+                    <span class="translate">Passwort der CCU</span>
                 </div>
             </div>
 		</div>
