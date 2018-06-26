@@ -72,7 +72,8 @@
 		<div class="row">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s2"><a href="#tab-minimal-backup" class="translate active">Standard Backup</a></li>
+				<li class="tab col s2"><a href="#tab-settings" class="translate active">Haupteinstellungen</a></li>
+                <li class="tab col s2 tab-minimal-backup"><a href="#tab-minimal-backup" class="translate">Standard Backup</a></li>
                 <li class="tab col s2 tab-ccu-backup"><a href="#tab-komplett-backup" class="translate">Komplett Backup</a></li>
                 <li class="tab col s2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
                 <li class="tab col s2 tab-nas"><a href="#tab-nas" class="translate">NAS Einstellungen</a></li>
@@ -86,6 +87,42 @@
                     <img src="backitup.png" class="logo">
                 </div>
             </div>
+            <!-- Anfang Haupteinstellungen -->
+        <div id="tab-settings"  class="col s12 page">
+            <div class="row">
+                <div class="input-field col s3">
+                    <input class="value" id="state_log" type="checkbox" />
+                    <label for="Log aktivieren/deaktivieren" class="translate">Log aktivieren/deaktivieren</label>
+                </div>
+            </div>
+            <div class="row">
+				<div class="input-field col s3">
+					<input class="value" id="state_debug" type="checkbox" />
+					<label for="Debug aktivieren/deaktivieren" class="translate">Debug aktivieren/deaktivieren</label>
+			</div>
+            </div>
+			<div class="row">
+			    <div class="input-field col s3">
+			        <input class="value" id="IoStopStart" type="checkbox" />
+			        <label for="Stop ioBroker bei Backup" class="translate">Stop ioBroker bei Backup</label>
+			    </div>
+            </div>
+			<div class="row">
+			    <div class="input-field col s3">
+			        <input class="value" id="telegram_message" type="checkbox" />
+			        <label for="Benachrichtigungen per Telegram" class="translate">Benachrichtigungen per Telegram</label>
+			    </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m4 l2">
+                    <input type="number" class="value" id="history_status" min="1" max="50" />
+                    <label for="Anzahl der History-Eintraege" class="translate">Anzahl der History-Eintraege</label>
+                    <!-- Important: label must come directly after input. Label is important. -->
+                    <span class="translate">Anzahl der History-Eintraege</span>
+                </div>
+            </div>
+       	</div>
+       	<!-- Ende Haupteinstellungen -->
             <!-- Anfang Minimal Backup -->
         <div id="tab-minimal-backup"  class="col s12 page">
             <div class="row">
@@ -151,12 +188,6 @@
 				    <label for="NamensZusatz">Name</label>
 				    <span class="translate">NamensZusatz</span>
                 </div>
-            </div>
-            <div class="row">
-			    <div class="input-field col s3">
-			        <input class="value" id="IoStopStart" type="checkbox" />
-			        <label for="Stop ioBroker bei Backup" class="translate">Stop ioBroker bei Backup</label>
-			    </div>
             </div>
 			<!-- Ende Komplett Backup -->
 			<!-- Anfang Mysql Backup -->
@@ -238,34 +269,43 @@
 			<!-- Ende CCU Backup -->
 			<!-- Anfang NAS -->
         <div id="tab-nas"  class="col s12 page">
+        	<div class="row">
+        	<div class="input-field col s11 m2">
+				<select class="value" id="CifsMount">
+					<option value="FTP" class="translate">FTP</option>
+					<option value="CIFS" class="translate">CIFS</option>
+                </select>
+				<label for="Verbindungstyp" class="translate">Verbindungstyp</label>
+			</div>
+            </div>
             <div class="row">
-			    <div class="input-field col s3">
+            </div>
+			    <!--<div class="input-field col s3">
 			        <input class="value" id="CifsMount" type="checkbox" />
 			        <label for="CIFS Mount" class="translate">CIFS Mount</label>
-			    </div>
-            </div>
+			    -->
             <div class="row">
                 <div class="input-field col s12 m6 l2">
                     <input class="value" id="FtpHost" type="text">
-                    <label for="FTP Host">FTP Host</label>
-                    <span class="translate">FTP Host</span>
+                    <label for="Host">Host</label>
+                    <span class="translate">Host</span>
                 </div>
                 <div class="input-field col s12 m6 l2">
 				    <input class="value" id="FtpDir" type="text">
-				    <label for="FTP Dir">FTP Dir</label>
-				    <span class="translate">FTP Dir</span>
+				    <label for="Pfad">Pfad</label>
+				    <span class="translate">Pfad</span>
                 </div>
             </div>
             <div class="row">
 				<div class="input-field col s12 m6 l2">
                     <input class="value" id="FtpUser" type="text">
-                    <label for="FTP Username">Username</label>
-                    <span class="translate">FTP Username</span>
+                    <label for="Benutzername">Benutzername</label>
+                    <span class="translate">Benutzername</span>
                 </div>
 				<div class="input-field col s12 m6 l2">
                     <input class="value" id="FtpPw" type="text">
-                    <label for="FTP Passwort">Passwort</label>
-                    <span class="translate">FTP Passwort</span>
+                    <label for="Passwort">Passwort</label>
+                    <span class="translate">Passwort</span>
                 </div>
             </div>
 		</div>
