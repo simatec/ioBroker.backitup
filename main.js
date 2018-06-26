@@ -6,8 +6,6 @@
 const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 const { exec } = require('child_process');
 var schedule = require('node-schedule');
-var addZero = require('add-zero');
-var forEach = require("for-each");
 
 // you have to call the adapter function and pass a options object
 // name has to be set and has to be equal to adapters folder name and main file name excluding extension
@@ -146,37 +144,6 @@ let history_array = [];                                         // Array für das
 // =============================================================================
 
 // ########################## Testbereich Anfang ###################################
-/*
-// Redis States sichern
-	//if(typ == 'komplett' && adapter.config.redis_state === true){
-		if(adapter.config.redis_state === true){
-		var fs = require('fs');
-		var now =    new Date(); // store current date and time
-		var year =   now.getFullYear();
-		var month =  addZero(now.getMonth()+1).zero2;
-		var day =    addZero(now.getDate()).zero2;
-		var Thour =  addZero(now.getHours()).zero2;
-		var Tmin =   addZero(now.getMinutes()).zero2;
-		var Tsec =   addZero(now.getSeconds()).zero2;
-		var logdate = day + '.' + month + '.' + year;
-		var logtime = Thour + ':' + Tmin + ':' + Tsec;
-		var instanz_redis = 'javascript.0';  instanz_redis = instanz_redis + '.';
-		const datei = "/opt/iobroker/states";
-
-		var cacheSelectorState = ('state[state.id=javascript.0.*]');
-		Array.cacheSelectorState.forEach(function (id, i) {
-			var val = adapter.getState(id).val;
-			var zk = "setState('"+id+"', "+val+");\n";
-			if(typeof val === "string") zk = "setState('"+id+"', '"+val+"');\n";
-			fs.appendFileSync(datei + logdate + "-"+ logtime + ".txt", zk);
-		});
-	}
-*/
-
-
-
-
-
 
 // GetState-Vorlage
 /*
