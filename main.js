@@ -34,7 +34,7 @@ adapter.on('objectChange', function (id, obj) {
 });
 
 /*
-// Im Script unten integriert und in Verwendung 
+// Im Script unten integriert und in Verwendung
 // deshalb hier auskommentiert.
 adapter.on('stateChange', function (id, state) {
     // Warning, state can be null if it was deleted
@@ -72,14 +72,14 @@ function main() {
 // -----------------------------------------------------------------------------
 // allgemeine Variablen
 // -----------------------------------------------------------------------------
-const logging = true;                                                 // Logging on/off
-const debugging = false;										      // Detailiertere Loggings
+const logging = adapter.config.state_log;                                                 // Logging on/off
+const debugging = adapter.config.state_debug;										      // Detailiertere Loggings
 const instanz = 'backitup.0.';                                                              //
 
 
 const bash_script = 'bash /opt/iobroker/node_modules/iobroker.backitup/backitup.sh ';        // Pfad zu backup.sh Datei
 
-const anzahl_eintraege_history = 25;                          // Anzahl der Einträge in der History
+const anzahl_eintraege_history = adapter.config.history_status;                          // Anzahl der Einträge in der History
 
 let Backup = [];                                                // Array für die Definition der Backuptypen und deren Details
 
@@ -160,7 +160,7 @@ adapter.getState('state.name', function (err, state) {
 */
 
 
-// Vielleicht das Anlegen der Datenpunkte nach diesem Schema 
+// Vielleicht das Anlegen der Datenpunkte nach diesem Schema
 /* Beispeil zum Anlegen der Datenpunkte
 adapter.setObjectNotExists('test.state', {
             type: 'state',
@@ -326,10 +326,10 @@ function Backup_history_anlegen(typ, ftp_bkp_u) {
         }
         let zeitstempel = HistoryEintrag(new Date());
         history_array.unshift('<span class="bkptyp_'+typ+'">' + zeitstempel + ' - Typ:' +typ+ ' - Ftp-Sicherung:' +ftp_bkp_u+ '</span>');
-        
+
         adapter.setState('History.Backup_history', history_array.join('&nbsp;'));
     });
-     
+
 }
 
 

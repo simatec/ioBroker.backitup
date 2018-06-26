@@ -84,7 +84,7 @@ minute=`date +%M`
 #                                                                          #
 ############################################################################
 
-if [ $CIFS_MNT == "true" ]; then
+if [ $CIFS_MNT == "CIFS" ]; then
 	echo "--- Backup-Pfad auf CIFS mounten ---"
 	sudo umount $bkpdir
 	sudo mount -t cifs -o user=$NAS_USR,password=$NAS_PASS,rw,file_mode=0777,dir_mode=0777,vers=1.0 //$NAS_HOST/$NAS_DIR $bkpdir && echo success "--- CIFS-Server verbunden ---" || echo error "--- Backup-Pfad wurde nicht auf CIFS-Server verbunden ---"
@@ -233,7 +233,7 @@ if [ $BKP_OK == "JA" ]; then
 #                                                                          #
 ############################################################################
 
-	if [ $CIFS_MNT == "false" ]; then
+	if [ $CIFS_MNT == "FTP" ]; then
 		if [ -n "$NAS_HOST" ]; then
 #			Backup-Files via FTP kopieren
 			echo "--- Backup-File FTP-Upload wird gestartet ---"
@@ -264,7 +264,7 @@ fi
 #                                                                          #
 ############################################################################
 
-if [ $CIFS_MNT == "true" ]; then
+if [ $CIFS_MNT == "CIFS" ]; then
 
 #	Backup-Pfad auf CIFS umounten
 	sudo umount $bkpdir && echo success "--- Umount CIFS Server ---" || echo error "--- Backup-Pfad wurde nicht vom CIFS-Server getrennt ---"

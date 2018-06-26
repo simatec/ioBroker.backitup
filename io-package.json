@@ -62,11 +62,15 @@
 		"ccuCcuIp": "",
 		"ccuCcuUser": "",
 		"ccuCcuPw": "",
-		"CifsMount": false,
+		"CifsMount": "CIFS",
 		"FtpHost": "",
 		"FtpDir": "",
 		"FtpUser": "",
-		"FtpPw": ""
+		"FtpPw": "",
+		"state_log": true,
+		"state_debug": false,
+		"history_status": "25",
+		"telegram_message": false
     },
     "objects": [
 
