@@ -76,8 +76,6 @@ function main() {
 // -----------------------------------------------------------------------------
 const logging = adapter.config.state_log;                                                 // Logging on/off
 const debugging = adapter.config.state_debug;										      // Detailiertere Loggings
-const instanz = 'backitup.0.';                                                              //
-
 
 const bash_script = 'bash /opt/iobroker/node_modules/iobroker.backitup/backitup.sh ';        // Pfad zu backup.sh Datei
 
@@ -174,6 +172,12 @@ let history_array = [];                                         // Array für das
 		});
 	}
 */
+
+
+
+
+
+
 // GetState-Vorlage
 /*
 adapter.getState('state.name', function (err, state) {
@@ -295,10 +299,17 @@ function backup_erstellen(typ, name, zeit, host, pfad, user, passwd, ccuip, ccuu
 
     if(debugging) adapter.log.info(bash_script+'"'+typ+'|'+name+'|'+zeit+'|'+host+'|'+pfad+'|'+user+'|'+passwd+'|'+ccuip+'|'+ccuusr+'|'+ccupw+'|'+cifsmnt+'|'+bkpiors+'|'+mysqldb+'|'+mysqlusr+'|'+mysqlpw+'|'+mysqlln+'"');
 
-    if(typ == 'komplett' && bkpiors === true){
-        adapter.setState(instanz + 'IoRestart_komp_Bkp', true);
-    }
 
+/* Telegram
+    if(adapter.config.telegram_message === true){
+        let messagetext = 'Es wurde am '+HistoryEintrag(new Date())+'ein neues '+typ+' Backup erstellt';
+        if(host !== '') messagetext += ', und nach '+host+pfad+' kopiert/verschoben';
+        messagetext += '!';
+        sendTo("telegram", "send", {
+            text: (String('BackItUp:\n' + messagetext))
+        });
+    }
+*/
 // hier kein new HistoryEintrag(new Date()) machen dann funktioniert das ganze nicht mehr
     adapter.setState('History.letztes_'+typ+'_Backup', HistoryEintrag(new Date()));
 
@@ -398,19 +409,19 @@ adapter.subscribeStates('OneClick*'); // subscribe on all variables of this adap
 // Wird ausgefrt wenn sich ein State dert
 adapter.on('stateChange', function (id, state) {
 
-    if (id == 'backitup.0.OneClick.start_minimal_Backup' && state.val === true ){
+    if (id == adapter.name+'.'+adapter.instance+'.OneClick.start_minimal_Backup' && state.val === true ){
         adapter.log.info('OneClick Minimal Backup gestartet');
         backup_erstellen(Backup[0][0], Backup[0][1], Backup[0][2], Backup[0][3], Backup[0][4], Backup[0][5], Backup[0][6], Backup[0][7], Backup[0][8], Backup[0][9], Backup[0][10], Backup[0][11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN);
         if(debugging)adapter.log.info('backup_erstellen('+Backup[0][0]+','+Backup[0][1]+','+Backup[0][2]+','+Backup[0][3]+','+Backup[0][4]+','+Backup[0][5]+','+Backup[0][6]+','+Backup[0][7]+','+Backup[0][8]+','+Backup[0][9]+','+Backup[0][10]+','+Backup[0][11]+','+Mysql_DBname+','+Mysql_User+','+Mysql_PW+','+Mysql_LN+')');
         setTimeout(function(){ adapter.setState('OneClick.start_minimal_Backup', false, true); }, 20000);
     }
-    if (id == 'backitup.0.OneClick.start_komplett_Backup' && state.val === true ){
+    if (id == adapter.name+'.'+adapter.instance+'.OneClick.start_komplett_Backup' && state.val === true ){
         adapter.log.info('OneClick Komplett Backup gestartet');
         backup_erstellen(Backup[1][0], Backup[1][1], Backup[1][2], Backup[1][3], Backup[1][4], Backup[1][5], Backup[1][6], Backup[1][7], Backup[1][8], Backup[1][9], Backup[1][10], Backup[1][11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN);
         if(debugging)adapter.log.info('backup_erstellen('+Backup[1][0]+','+Backup[1][1]+','+Backup[1][2]+','+Backup[1][3]+','+Backup[1][4]+','+Backup[1][5]+','+Backup[1][6]+','+Backup[1][7]+','+Backup[1][8]+','+Backup[1][9]+','+Backup[1][10]+','+Backup[1][11]+','+Mysql_DBname+','+Mysql_User+','+Mysql_PW+','+Mysql_LN+')');
         setTimeout(function(){ adapter.setState('OneClick.start_komplett_Backup', false, true); }, 5000);
     }
-    if (id == 'backitup.0.OneClick.start_ccu_Backup' && state.val === true ){
+    if (id == adapter.name+'.'+adapter.instance+'.OneClick.start_ccu_Backup' && state.val === true ){
         adapter.log.info('OneClick CCU Backup gestartet');
         backup_erstellen(Backup[2][0], Backup[2][1], Backup[2][2], Backup[2][3], Backup[2][4], Backup[2][5], Backup[2][6], Backup[2][7], Backup[2][8], Backup[2][9], Backup[2][10], Backup[2][11], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN);
         if(debugging)adapter.log.info('backup_erstellen('+Backup[2][0]+','+Backup[2][1]+','+Backup[2][2]+','+Backup[2][3]+','+Backup[2][4]+','+Backup[2][5]+','+Backup[2][6]+','+Backup[2][7]+','+Backup[2][8]+','+Backup[2][9]+','+Backup[2][10]+','+Backup[2][11]+','+Mysql_DBname+','+Mysql_User+','+Mysql_PW+','+Mysql_LN+')');
