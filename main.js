@@ -271,16 +271,17 @@ function backup_erstellen(typ, name, zeit, host, pfad, user, passwd, ccuip, ccuu
     if(debugging) adapter.log.info(bash_script+'"'+typ+'|'+name+'|'+zeit+'|'+host+'|'+pfad+'|'+user+'|'+passwd+'|'+ccuip+'|'+ccuusr+'|'+ccupw+'|'+cifsmnt+'|'+bkpiors+'|'+redisst+'|'+mysqldb+'|'+mysqlusr+'|'+mysqlpw+'|'+mysqlln+'"');
 
 
-/* Telegram
+// Telegram
     if(adapter.config.telegram_message === true){
-        let messagetext = 'Es wurde am '+HistoryEintrag(new Date())+'ein neues '+typ+' Backup erstellt';
+        adapter.log.info('Ja ist true');
+    
+        let messagetext = 'Es wurde am '+HistoryEintrag(new Date())+' ein neues '+typ+' Backup erstellt';
         if(host !== '') messagetext += ', und nach '+host+pfad+' kopiert/verschoben';
         messagetext += '!';
-        adapter.sendTo("telegram", "send", {
-            text: (String('BackItUp:\n' + messagetext))
-		});
+        adapter.sendTo("telegram", "send", {text: 'BackItUp:\n' + messagetext});
+//        adapter.sendTo("telegram", "send", {text: (String('BackItUp:\n' + messagetext))});
     }
-*/
+
 // hier kein new HistoryEintrag(new Date()) machen dann funktioniert das ganze nicht mehr
     adapter.setState('History.letztes_'+typ+'_Backup', HistoryEintrag(new Date()));
 
