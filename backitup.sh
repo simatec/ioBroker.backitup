@@ -24,7 +24,7 @@
 # Version: 3.0.1 - FTP-Upload auf "curl" geändert (Das Packet LFTP wird nicht mehr benötigt)
 #
 #
-# Verwendung:  bash backup.sh "Backup_Typ|Namens_Zusatz|Loeschen_nach_X_Tagen|NAS_Host|NAS_Verzeichnis|NAS_User|NAS_Passwort|CCU-IP|CCU-USER|CCU-PW|CIFS_MNT|IOBROKER_RESTART|MYSQL_DBNAME|MYSQL_USR|MYSQL_PW|MYSQL_Loeschen_nach_X_Tagen"
+# Verwendung:  bash backup.sh "Backup_Typ|Namens_Zusatz|Loeschen_nach_X_Tagen|NAS_Host|NAS_Verzeichnis|NAS_User|NAS_Passwort|CCU-IP|CCU-USER|CCU-PW|CIFS_MNT|IOBROKER_RESTART|REDIS_STATE|MYSQL_DBNAME|MYSQL_USR|MYSQL_PW|MYSQL_Loeschen_nach_X_Tagen"
 #
 #
 #
@@ -52,10 +52,11 @@ CCU_USER=${VAR[8]}
 CCU_PASS=${VAR[9]}
 CIFS_MNT=${VAR[10]}
 IOBROKER_RESTART=${VAR[11]}
-MYSQL_DBNAME=${VAR[12]}
-MYSQL_USR=${VAR[13]}
-MYSQL_PW=${VAR[14]}
-MYSQL_LOESCHEN_NACH=${VAR[15]}
+REDIS_STATE=${VAR[12]}
+MYSQL_DBNAME=${VAR[13]}
+MYSQL_USR=${VAR[14]}
+MYSQL_PW=${VAR[15]}
+MYSQL_LOESCHEN_NACH=${VAR[16]}
 
 
 # Variable fuer optionales Weiterkopieren
@@ -143,7 +144,17 @@ elif [ $BKP_TYP == "komplett" ]; then
 
 #	Backup umbenennen
 	mv /opt/$datum-$stunde*_komplett.tar.gz $bkpdir/backupiobroker_komplett$NAME_ZUSATZ-$datum-$uhrzeit.tar.gz && echo success "--- Ein komplettes Backup wurde erstellt ---" || echo error "--- Ein komplettes Backup konnte nicht erstellt werden ---"
-
+	
+#	Redis State sichern
+	if [ $REDIS_STATE == "true" ]; then
+		cp /var/lib/redis/dump.rdb $bkpdir/dump_redis_$datum-$uhrzeit.rdp
+		cd $bkpdir
+		chmod 777 dump_redis_$datum-$uhrzeit.rdp
+		tar -czf backup_redis_state_$datum-$uhrzeit.tar.gz dump_redis_$datum-$uhrzeit.rdp && echo success "--- Ein Redis Backup wurde erstellt ---" || echo error "--- Ein Redis Backup konnte nicht erstellt werden ---"
+		rm -f dump_redis_$datum-$uhrzeit.rdp
+		cd ..
+		echo "--- Redis Backup wurde erstellt ---"
+	fi
 # 	IoBroker neustarten
 	if [ $IOBROKER_RESTART == "true" ]; then
  		iobroker restart
