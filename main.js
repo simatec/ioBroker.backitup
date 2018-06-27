@@ -143,6 +143,7 @@ let history_array = [];                                         // Array für das
 // Objekte
 // =============================================================================
 
+
 // ########################## Testbereich Anfang ###################################
 
 // GetState-Vorlage
@@ -272,9 +273,9 @@ function backup_erstellen(typ, name, zeit, host, pfad, user, passwd, ccuip, ccuu
         let messagetext = 'Es wurde am '+HistoryEintrag(new Date())+'ein neues '+typ+' Backup erstellt';
         if(host !== '') messagetext += ', und nach '+host+pfad+' kopiert/verschoben';
         messagetext += '!';
-        sendTo("telegram", "send", {
+        adapter.sendTo("telegram", "send", {
             text: (String('BackItUp:\n' + messagetext))
-        });
+		});
     }
 */
 // hier kein new HistoryEintrag(new Date()) machen dann funktioniert das ganze nicht mehr
