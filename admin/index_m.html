@@ -33,17 +33,21 @@
             if ($key.attr('type') === 'checkbox') {
 		        // do not call onChange direct, because onChange could expect some arguments
                 $key.prop('checked', settings[id]).change(function() {
+                	showHideSettings();
                     onChange();
+
                 });
             } else {
 		        // do not call onChange direct, because onChange could expect some arguments
                 $key.val(settings[id]).change(function() {
                     onChange();
                 }).keyup(function() {
+                	showHideSettings();
                     onChange();
                 });
             }
         });
+        showHideSettings();
         onChange(false);
         M.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
     }
@@ -63,6 +67,23 @@
         });
         callback(obj);
     }
+//    function showHideSettings() {
+//	        if ($('#ccu_nas').val() === 'true') {
+//	            $('.nas_extra').show();
+//	            } else {
+//	                $('.nas_extra').hide();
+//	                }
+//        }
+	function showHideSettings() {
+        if ($('#nas_var').prop('checked')) {
+            $('.nas_extra').show();
+        } else {
+            $('.nas_extra').hide();
+        }
+    }
+		$('#nas_var').on('change', function() {
+            showHideSettings();
+        });
 </script>
 </head>
 <body>
@@ -279,13 +300,13 @@
 			<!-- Anfang NAS -->
         <div id="tab-nas"  class="col s12 page">
         	<div class="row">
-        	<div class="input-field col s11 m2">
-				<select class="value" id="CifsMount">
+        		<div class="input-field col s11 m2">
+					<select class="value" id="CifsMount">
 					<option value="FTP" class="translate">FTP</option>
 					<option value="CIFS" class="translate">CIFS</option>
-                </select>
-				<label for="Verbindungstyp" class="translate">Verbindungstyp</label>
-			</div>
+                	</select>
+					<label for="Verbindungstyp" class="translate">Verbindungstyp</label>
+				</div>
             </div>
             <div class="row">
             </div>
@@ -304,6 +325,7 @@
 				    <label for="Pfad">Pfad</label>
 				    <span class="translate">Pfad</span>
                 </div>
+
             </div>
             <div class="row">
 				<div class="input-field col s12 m6 l2">
@@ -317,6 +339,24 @@
                     <span class="translate">Passwort</span>
                 </div>
             </div>
+			<div class="row">
+            	<div class="input-field col s3">
+					<input class="value" id="nas_var" type="checkbox" />
+					<label for="Extra Pfad fuer Backuptypen" class="translate">Extra Pfad fuer Backuptypen</label>
+			    </div>
+			</div>
+			<div class="row nas_extra">
+				<div class="input-field col s12 m6 l2">
+				    <input class="value" id="FtpDir_ccu" type="text">
+				    <label for="Pfad fuer CCU-Backup">Pfad fuer CCU-Backup</label>
+				    <span class="translate">Pfad fuer CCU-Backup</span>
+                </div>
+				<div class="input-field col s12 m6 l2">
+				    <input class="value" id="FtpDir_komplett" type="text">
+				    <label for="Pfad fuer Komplett-Backup">Pfad fuer Komplett-Backup</label>
+				    <span class="translate">Pfad fuer Komplett-Backup</span>
+                </div>
+		</div>
 		</div>
 			<!-- Ende NAS -->
         </div>
