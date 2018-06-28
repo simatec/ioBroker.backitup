@@ -71,7 +71,10 @@
 		"state_debug": false,
 		"redis_state": false,
 		"history_status": "25",
-		"telegram_message": false
+		"telegram_message": false,
+		"nas_var": false,
+		"FtpDir_ccu": "",
+		"FtpDir_komplett": ""
     },
     "objects": [
 

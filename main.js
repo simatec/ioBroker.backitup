@@ -105,7 +105,12 @@ let Backup = [];                                                // Array für die
     Backup[1][1] = adapter.config.komplett_NamensZusatz;       	// Names Zusatz, wird an den Dateinamen angehängt
     Backup[1][2] = adapter.config.komplett_BackupLoeschenNach; 	// Alte Backups löschen nach X Tagen
     Backup[1][3] = adapter.config.FtpHost;            	        // FTP-Host
-    Backup[1][4] = adapter.config.FtpDir;             	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
+    if(adapter.config.nas_var === true) {             	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
+		Backup[1][4] = adapter.config.FtpDir_komplett;
+	}
+	else {
+    	Backup[1][4] = adapter.config.FtpDir;
+	}
     Backup[1][5] = adapter.config.FtpUser;            	        // Username für FTP Server - Verbindung
     Backup[1][6] = adapter.config.FtpPw;              	        // Passwort für FTP Server - Verbindung
     Backup[1][7] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
@@ -122,7 +127,12 @@ let Backup = [];                                                // Array für die
     Backup[2][1] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
     Backup[2][2] = adapter.config.ccu_BackupLoeschenNach;       // Alte Backups löschen nach X Tagen
     Backup[2][3] = adapter.config.FtpHost;            	        // FTP-Host
-    Backup[2][4] = adapter.config.FtpDir;             	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
+    if(adapter.config.nas_var === true) {             	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
+			Backup[1][4] = adapter.config.FtpDir_ccu;
+		}
+		else {
+	    	Backup[1][4] = adapter.config.FtpDir;
+	}
     Backup[2][5] = adapter.config.FtpUser;            	        // Username für FTP Server - Verbindung
     Backup[2][6] = adapter.config.FtpPw;              	        // Passwort für FTP Server - Verbindung
     Backup[2][7] = adapter.config.ccuCcuIp;                     // IP-Adresse der CCU
@@ -274,7 +284,7 @@ function backup_erstellen(typ, name, zeit, host, pfad, user, passwd, ccuip, ccuu
 // Telegram
     if(adapter.config.telegram_message === true){
         adapter.log.info('Ja ist true');
-    
+
         let messagetext = 'Es wurde am '+HistoryEintrag(new Date())+' ein neues '+typ+' Backup erstellt';
         if(host !== '') messagetext += ', und nach '+host+pfad+' kopiert/verschoben';
         messagetext += '!';
