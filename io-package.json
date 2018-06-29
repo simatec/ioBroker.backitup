@@ -1,9 +1,13 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.0.1",
+        "version": "0.1.0",
         "news": {
-            "0.0.1": {
+		"0.1.0": {
+                "en": "First Beta",
+                "de": "Erste Beta Version"
+            },
+            	"0.0.1": {
                 "en": "initial adapter",
                 "de": "Initiale Version"
             }
@@ -74,7 +78,8 @@
 		"telegram_message": false,
 		"nas_var": false,
 		"FtpDir_ccu": "",
-		"FtpDir_komplett": ""
+		"FtpDir_komplett": "",
+		"FtpDir_minimal": ""
     },
     "objects": [
 

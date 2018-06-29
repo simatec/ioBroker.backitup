@@ -87,7 +87,12 @@ let Backup = [];                                                // Array für die
     Backup[0][1] = adapter.config.minimal_NamensZusatz;        	// Names Zusatz, wird an den Dateinamen angehängt
     Backup[0][2] = adapter.config.minimal_BackupLoeschenNach;  	// Alte Backups löschen nach X Tagen
     Backup[0][3] = adapter.config.FtpHost;             	        // FTP-Host
-    Backup[0][4] = adapter.config.FtpDir;              	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
+	if(adapter.config.nas_var === true) {             	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
+		Backup[0][4] = adapter.config.FtpDir_minimal;
+	}
+	else {
+	    Backup[0][4] = adapter.config.FtpDir;
+	}
     Backup[0][5] = adapter.config.FtpUser;             	        // Username für FTP Server - Verbindung
     Backup[0][6] = adapter.config.FtpPw;               	        // Passwort für FTP Server - Verbindung
     Backup[0][7] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
@@ -128,10 +133,10 @@ let Backup = [];                                                // Array für die
     Backup[2][2] = adapter.config.ccu_BackupLoeschenNach;       // Alte Backups löschen nach X Tagen
     Backup[2][3] = adapter.config.FtpHost;            	        // FTP-Host
     if(adapter.config.nas_var === true) {             	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
-			Backup[1][4] = adapter.config.FtpDir_ccu;
+			Backup[2][4] = adapter.config.FtpDir_ccu;
 		}
 		else {
-	    	Backup[1][4] = adapter.config.FtpDir;
+	    	Backup[2][4] = adapter.config.FtpDir;
 	}
     Backup[2][5] = adapter.config.FtpUser;            	        // Username für FTP Server - Verbindung
     Backup[2][6] = adapter.config.FtpPw;              	        // Passwort für FTP Server - Verbindung
