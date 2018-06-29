@@ -70,15 +70,19 @@
 //    function showHideSettings() {
 //	        if ($('#ccu_nas').val() === 'true') {
 //	            $('.nas_extra').show();
-//	            } else {
-//	                $('.nas_extra').hide();
+				$('.nas_standard').hide();
+//	       	} else {
+//	         	$('.nas_extra').hide();
+				$('.nas_standard').show();
 //	                }
 //        }
 	function showHideSettings() {
         if ($('#nas_var').prop('checked')) {
             $('.nas_extra').show();
+            $('.nas_standard').hide();
         } else {
             $('.nas_extra').hide();
+            $('.nas_standard').show();
         }
     }
 		$('#nas_var').on('change', function() {
@@ -320,14 +324,6 @@
                     <label for="Host">Host</label>
                     <span class="translate">Host</span>
                 </div>
-                <div class="input-field col s12 m6 l2">
-				    <input class="value" id="FtpDir" type="text">
-				    <label for="Pfad">Pfad</label>
-				    <span class="translate">Pfad</span>
-                </div>
-
-            </div>
-            <div class="row">
 				<div class="input-field col s12 m6 l2">
                     <input class="value" id="FtpUser" type="text">
                     <label for="Benutzername">Benutzername</label>
@@ -339,24 +335,40 @@
                     <span class="translate">Passwort</span>
                 </div>
             </div>
+
 			<div class="row">
             	<div class="input-field col s3">
 					<input class="value" id="nas_var" type="checkbox" />
 					<label for="Extra Pfad fuer Backuptypen" class="translate">Extra Pfad fuer Backuptypen</label>
 			    </div>
 			</div>
+
 			<div class="row nas_extra">
 				<div class="input-field col s12 m6 l2">
-				    <input class="value" id="FtpDir_ccu" type="text">
-				    <label for="Pfad fuer CCU-Backup">Pfad fuer CCU-Backup</label>
-				    <span class="translate">Pfad fuer CCU-Backup</span>
+				    <input class="value" id="FtpDir_minimal" type="text">
+				    <label for="Pfad fuer Standard-Backup">Pfad fuer Standard-Backup</label>
+				    <span class="translate">Pfad fuer Standard-Backup</span>
                 </div>
 				<div class="input-field col s12 m6 l2">
 				    <input class="value" id="FtpDir_komplett" type="text">
 				    <label for="Pfad fuer Komplett-Backup">Pfad fuer Komplett-Backup</label>
 				    <span class="translate">Pfad fuer Komplett-Backup</span>
                 </div>
-		</div>
+				<div class="input-field col s12 m6 l2">
+				    <input class="value" id="FtpDir_ccu" type="text">
+				    <label for="Pfad fuer CCU-Backup">Pfad fuer CCU-Backup</label>
+				    <span class="translate">Pfad fuer CCU-Backup</span>
+                </div>
+			</div>
+
+			<div class="row nas_standard">
+				<div class="input-field col s12 m6 l2">
+					<input class="value" id="FtpDir" type="text">
+					<label for="Pfad">Pfad</label>
+					<span class="translate">Pfad</span>
+                </div>
+			</div>
+
 		</div>
 			<!-- Ende NAS -->
         </div>
