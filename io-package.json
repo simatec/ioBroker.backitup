@@ -1,13 +1,17 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.1.0",
+        "version": "0.1.1",
         "news": {
-		"0.1.0": {
+            "0.1.1": {
+                "en": "Language de and en",
+                "de": "Sprachen de und en hinzugefügt"
+            },
+            "0.1.0": {
                 "en": "First Beta",
                 "de": "Erste Beta Version"
             },
-            	"0.0.1": {
+            "0.0.1": {
                 "en": "initial adapter",
                 "de": "Initiale Version"
             }
