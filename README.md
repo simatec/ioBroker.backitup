@@ -16,10 +16,8 @@ Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Ins
    - 4.3 Vorbereitung IoBroker - Javascript Adapter
 3. Konfiguration
    - 3.1 Konfigurationen für Minimal und Komplett Backup
-   - 3.2 Konfigurationen für Minimal und Komplett Backup
-   - 3.3 Konfigurationen für CCU Backup
-   - 3.4 Konfigurationen für Mysql-Datenbank Backup
-   - 3.5 Konfiguration des JavaScript-Speicherorts
+   - 3.2 Konfigurationen für CCU Backup
+   - 3.3 Konfigurationen für Mysql-Datenbank Backup
 4. Verwendung
    - 4.1 Der erste Druchlauf des JavaScripts
    - 4.2 Verwendung des VIS-Widget-Exports
@@ -44,7 +42,7 @@ Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Ins
 
 Backitup bietet die Möglichkeit drei (optional mit DB-Backup) verschiedene Backuptypen zyklisch oder auf Knopfdruck durch zu führen. Jedes Backup wird standardmäßig im Verzeichnis /opt/iobroker/backups/ abgelegt. Optional kann ein FTP-Upload eingerichtet oder alternativ ein CIFS-Mount genutzt werden.
 
-1. Minimales Backup
+1. Standard Backup
    - Dieses Backup entspricht dem in IoBroker enthaltenen Backup welches man in der Konsole über den Aufruf „./iobroker backup“ starten kann. Nur wird es hier durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt ohne die Konsole verwenden zu müssen.
 2. Komplettes Backup
    - Dieses Backup sichert den kompletten IoBroker Ordner inklusive aller Unterordner und deren Dateien samt Dateiberechtigungen. Hierbei sollte die Dateigröße nicht ausser Acht gelassen werden, denn ein solches Backup hat oft mehrere hundert MB. 
@@ -56,7 +54,10 @@ Um sicher zu gehen dass alle aktuellsten States gesichert werden muss hier in de
 
 ## 2. Vorbereitung:
 
-Folgende Schritte müssen durchgeführt werden um das automatische Backup V3 verwenden zu können *(wenn das Backup-Script v1 verwendet wurde zuerst alle Datenpunkte löschen!)
+Folgende Schritte müssen durchgeführt werden um den Adapter verwenden zu können *(wenn das Backup-Script v1/v2/v3 verwendet wurde zuerst Alles löschen (Datenpunkte/Enum.functions/Shell-Script und JavaScript deaktivieren oder löschen!)
+
+
+## 3. Konfiguration:
 
 1.	Lftp-Dienst oder CIFS für das optionale weitersichern auf einen Nas nutzen?
 
@@ -68,48 +69,6 @@ Folgende Schritte müssen durchgeführt werden um das automatische Backup V3 verwe
     -	Wenn ein Mounten nicht möglich ist, wird kein Backup erstellt!
     -	„Alte Backups“ können automatisiert auf dem Nas gelöscht werden. Im schlimmsten Fall ist somit kein Backup mehr vorhanden wenn ihr es benötigt.
 
------------------------------------------------------------------------------------------------
-## 3. Konfiguration:
-
-Wenn alles wie beschrieben durchgeführt wurde, muss das Javascript einmal durch drücken auf den "Play-Button" gestartet und wieder gestoppt werden. Hier treten im Log einige Fehlermeldungen durch subscriben nicht vorhandener Datenpunkte auf die aber NUR HIER ignoriert werden können. Hier noch ein Screenshot der Datenpunkte die nun vorhanden sein sollten und wie folgt ausgefüllt werden müssen:
-
-<img src="https://github.com/peoples0815/backitup/blob/master/img/Screenshot-Datenpunkte.jpg" align=center>
-
-1. Folgende Daten müssen bei dem IoBroker Backup Typ minimal  von euch eingetragen werden und richtig sein: 
-   - NamensZusatz ? Wird in den Backup-Dateinamen eingefügt, wenn nicht gewünscht leer lassen!
-   - BackupLoeschenNach ? Tage-Angabe nach denen erstellte Backups  gelöscht werden sollen
-   - FtpHost ? IP-Adresse eures FTP-Servers 	(Wenn FTP verwendet)
-   - FtpDir ? Zielverzeichnis auf dem FTP	(Wenn FTP verwendet)
-   - FtpUser ? FTP – Username			(Wenn FTP verwendet)
-   - FtpPw ? FTP – Passwort			(Wenn FTP verwendet )
-   - CifsMount ? CIFS-Mount  	(Standard „false“ wenn gewünscht auf „true“) Ein aktivieren dieser Option schließt zeitgleich die Verwendung der FTP Funktion aus!   
-
-2. Folgende Daten müssen bei dem IoBroker Backup Typ komplett  von euch eingetragen werden und richtig sein:
-   - NamensZusatz ? Wird in den Backup-Dateinamen eingefügt, wenn nicht gewünscht leer lassen!
-   - BackupLoeschenNach ? Tage-Angabe nach denen erstellte Backups  gelöscht werden sollen
-   - FtpHost ? IP-Adresse eures FTP-Servers 	(Wenn FTP verwendet)
-   - FtpDir ? Zielverzeichnis auf dem FTP	(Wenn FTP verwendet)
-   - FtpUser ? FTP – Username			(Wenn FTP verwendet)
-   - FtpPw ? FTP – Passwort			(Wenn FTP verwendet )
-   - CifsMount ? CIFS-Mount  	(Standard „false“ wenn gewünscht auf „true“) Ein aktivieren dieser Option schließt zeitgleich die Verwendung der FTP Funktion aus!   
-   - IoStopStart ? IoStart/Stop ob beim kompletten Backup der Iobroker gestoppt/gestartet werden soll  	(Standard „false“ wenn gewünscht auf „true“)  
-
-3. Folgende Daten müssen für das optionale CCU Backup von euch eingetragen werden und richtig sein sofern ihr dieses nutzen möchtet:
-   - BackupLoeschenNach ? Tage-Angabe nach denen erstellte Backups  gelöscht werden sollen
-   - CcuIp ? IP-Adresse der CCU
-   - CcuUser ? Username der CCU                            
-   - CcuPw ? Passwort der CCU 
-   - FtpHost ? IP-Adresse eures FTP-Servers 	(Wenn FTP verwendet)
-   - FtpDir ? Zielverzeichnis auf dem FTP	(Wenn FTP verwendet)
-   - FtpUser ? FTP – Username			(Wenn FTP verwendet)
-   - FtpPw ? FTP – Passwort			(Wenn FTP verwendet )
-   - CifsMount ? CIFS-Mount  	(Standard „false“ wenn gewünscht auf „true“) Ein aktivieren dieser Option schließt zeitgleich die Verwendung der FTP Funktion aus!   
-
-4. Folgende Daten müssen für das optioale MYSQL-Backup  von euch eingetragen werden und richtig sein sofern ihr dieses nutzen möchtet:
-   - BackupLoeschenNach ? Tage-Angabe nach denen erstellte Backups  gelöscht werden sollen
-   - DbName ? Name der Datenbank
-   - DbUser ? Username für die Datenbank
-   - DbPw ? Passwort der Datenbank
    
 
 ## 4. Verwendung:
@@ -189,37 +148,9 @@ Erklärung:
 Unter DOS wird in Textdateien ein Zeilenende durch die Sequenz return (Dezimalcode 13) und new line (Dezimalcode 10) dargestellt. Unix verwendet dagegen nur new line.
 
 4. Iobroker bleibt beim komplett-Backup hängen / startet nicht mehr
-Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durchläuft bzw. der IoBroker gestoppt und nicht mehr gestartet wird. Seit V3 ist es möglich in den Konfigurations-Datenpunkten den Stop/Start des IoBrokers beim komplett-Backup zu steuern
-
-5. Geänderte Werte werden nicht automatisch übernommen / Javascript startet nicht von selbst neu
-Wenn geänderte Werte in den Datenpunkten nicht übernommen werden kann das daran liegen, dass die Funktion des automatischen Neustarts auf Grund eines falschen Eintrags nicht ausgeführt wird. Hier muss kontrolliert werden ob der Speicherort des Javascripts im Javascript selbst (Funktion WerteAktuallisieren) richtig eingetragen ist.
-Sollte ab Version Backitup_3.0.2.js nicht mehr auftreten
+Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durchläuft bzw. der IoBroker gestoppt und nicht mehr gestartet wird. Hierfür ist es möglich in der Adapter- Konfigurations-Datenpunkten den Stop/Start des IoBrokers beim komplett-Backup zu deaktivieren.
 
 ## 9. Changelog:
 
-#0.0.1 (25.06.2018)
+#0.1.0 (25.06.2018)
  - (simatec/peoples) Erste Git-Adapter-Version
-
-
-## License
-The MIT License (MIT)
-
-Copyright (c) 2018 simatec <nais@gmx.net>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
