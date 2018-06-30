@@ -5,32 +5,74 @@
         "news": {
             "0.1.1": {
                 "en": "Language de and en",
-                "de": "Sprachen de und en hinzugefügt"
+                "de": "Sprachen de und en hinzugefügt",
+                "ru": "Language de and en",
+                "pt": "Language de and en",
+                "nl": "Language de and en",
+                "fr": "Language de and en",
+                "it": "Language de and en",
+                "es": "Language de and en",
+                "pl": "Language de and en"
             },
             "0.1.0": {
                 "en": "First Beta",
-                "de": "Erste Beta Version"
+                "de": "Erste Beta Version",
+                "ru": "First Beta",
+                "pt": "First Beta",
+                "nl": "First Beta",
+                "fr": "First Beta",
+                "it": "First Beta",
+                "es": "First Beta",
+                "pl": "First Beta"
             },
             "0.0.1": {
                 "en": "initial adapter",
-                "de": "Initiale Version"
+                "de": "Initiale Version",
+                "ru": "initial adapter",
+                "pt": "initial adapter",
+                "nl": "initial adapter",
+                "fr": "initial adapter",
+                "it": "initial adapter",
+                "es": "initial adapter",
+                "pl": "initial adapter"
             }
         },
 		"title": "BackitUp",
         "titleLang": {
             "en": "ioBroker Backupadapter",
-            "de": "ioBrokerBackup-Adapter"
+            "de": "ioBrokerBackup-Adapter",
+            "ru": "ioBroker Backupadapter",
+            "pt": "ioBroker Backupadapter",
+            "nl": "ioBroker Backupadapter",
+            "fr": "ioBroker Backupadapter",
+            "it": "ioBroker Backupadapter",
+            "es": "ioBroker Backupadapter",
+            "pl": "ioBroker Backupadapter"
         },
         "desc": {
             "en": "backitup",
-            "de": "ioBroker Backitup Adapter"
+            "de": "backitup",
+            "ru": "backitup",
+            "pt": "backitup",
+            "nl": "backitup",
+            "fr": "backitup",
+            "it": "backitup",
+            "es": "backitup",
+            "pl": "backitup"
         },
         "authors": [
             "simatec <nais@gmx.net>"
         ],
         "docs": {
             "en": "docs/en/admin.md",
-            "de": "docs/de/admin.md"
+            "de": "docs/de/admin.md",
+            "ru": "docs/ru/admin.md",
+            "pt": "docs/pt/admin.md",
+            "nl": "docs/nl/admin.md",
+            "fr": "docs/fr/admin.md",
+            "it": "docs/it/admin.md",
+            "es": "docs/es/admin.md",
+            "pl": "docs/pl/admin.md"
         },
         "platform": "Javascript/Node.js",
         "mode": "daemon",
