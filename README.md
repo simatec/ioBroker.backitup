@@ -6,18 +6,15 @@ Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Ins
 
 ## Inhaltsverzeichnis:
 1. Backup Type
-   - 1.1 Minimales Backup (Standard IoBroker Backup)
+   - 1.1 Standard Backup (Standard IoBroker Backup)
    - 1.2 Komplettes Backup
    - 1.3 CCU Backup (CCU-Original / pivCCU / Raspberrymatic)
    - 1.4 Optionales Mysql-Backup (Localhost) 
 2. Vorbereitung
-   - 2.1 Vorbereitung für ftp / Cifs (wenn gewünscht)
-   - 2.2 Vorbereitungen für das CCU - Backup
-   - 4.3 Vorbereitung IoBroker - Javascript Adapter
+   
 3. Konfiguration
-   - 3.1 Konfigurationen für Minimal und Komplett Backup
-   - 3.2 Konfigurationen für CCU Backup
-   - 3.3 Konfigurationen für Mysql-Datenbank Backup
+   - 3.1 Lftp / Cifs
+   - 3.2 Telegram versenden
 4. Verwendung
    - 4.1 Der erste Druchlauf des JavaScripts
    - 4.2 Verwendung des VIS-Widget-Exports
@@ -34,8 +31,8 @@ Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Ins
    - 7.3 Fehlermeldung: "Komando nicht gefunden"
    - 7.4 Komplett-Backup bleibt hängen 
    - 7.5 Geänderte Werte in Dp werden nicht übernommen 
-8. Todo
-9. Changelog
+
+8. Changelog
 
 
 ## 1. Backuptypen:
@@ -68,12 +65,13 @@ Folgende Schritte müssen durchgeführt werden um den Adapter verwenden zu können 
   - Nachteile CIFS:
     -	Wenn ein Mounten nicht möglich ist, wird kein Backup erstellt!
     -	„Alte Backups“ können automatisiert auf dem Nas gelöscht werden. Im schlimmsten Fall ist somit kein Backup mehr vorhanden wenn ihr es benötigt.
+2. Telegram versenden
+   - Im Adapter gibt es die Möglichkeit sich beim erstellen eines Backups eine Benachrichtigung via Telegram zusenden zu lassen. Vorraussetzung hierfür ist eine aktive, funktionierende Telegram Instanz.
 
-   
 
 ## 4. Verwendung:
 
-1.	Richtige Daten beim gewünschten Backup eintragen / einstellen - speichern - fertig
+1. Richtige Daten beim gewünschten Backup eintragen / einstellen - speichern - fertig
 
 3. Der History-Log kann via CSS vom Design her eingestellt / verändert werden:
    ```
@@ -150,7 +148,7 @@ Unter DOS wird in Textdateien ein Zeilenende durch die Sequenz return (Dezimalco
 4. Iobroker bleibt beim komplett-Backup hängen / startet nicht mehr
 Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durchläuft bzw. der IoBroker gestoppt und nicht mehr gestartet wird. Hierfür ist es möglich in der Adapter- Konfigurations-Datenpunkten den Stop/Start des IoBrokers beim komplett-Backup zu deaktivieren.
 
-## 9. Changelog:
+## 8. Changelog:
 
 #0.1.0 (25.06.2018)
  - (simatec/peoples) Erste Git-Adapter-Version
