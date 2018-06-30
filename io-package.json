@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.1.1",
+        "version": "0.1.2",
         "news": {
+            "0.1.2": {
+                "en": "Languages added",
+                "de": "Sprachen hinzugefügt",
+                "ru": "Добавлены языки",
+                "pt": "Idiomas adicionados",
+                "nl": "Talen toegevoegd",
+                "fr": "Langues ajoutées",
+                "it": "Lingue aggiunte",
+                "es": "Idiomas añadidos",
+                "pl": "Dodano języki"
+            },
             "0.1.1": {
                 "en": "Language de and en",
                 "de": "Sprachen de und en hinzugefügt",
