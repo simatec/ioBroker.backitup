@@ -99,8 +99,10 @@ fi
 ############################################################################
 
 if [ -n "$MYSQL_DBNAME" ]; then
-	echo "--- MYSQL-Backup wird erstellt ---"
-	mysqldump -u $MYSQL_USR -p$MYSQL_PW $MYSQL_DBNAME > $bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql && echo success "--- MYSQL Backup wurde erstellt ---" || echo error "--- MYSQL Backup konnte nicht erstellt werden ---"
+	if [ $BKP_TYP == "minimal" || $BKP_TYP == "komplett" ]; then
+		echo "--- MYSQL-Backup wird erstellt ---"
+		mysqldump -u $MYSQL_USR -p$MYSQL_PW $MYSQL_DBNAME > $bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql && echo success "--- MYSQL Backup wurde erstellt ---" || echo error "--- MYSQL Backup konnte nicht erstellt werden ---"
+	fi
 fi
 ############################################################################
 #									   #
@@ -225,7 +227,11 @@ if [ $BKP_OK == "JA" ]; then
 	if [ -n "$BKP_LOESCHEN_NACH" ]; then
 #		Backups Älter X Tage löschen
 		echo "--- Alte Backups entfernen ---"
-
+		if [ $REDIS_STATE == "true" ]; then
+			find $bkpdir -name "backup_redis_state_*.tar.gz" -mtime +$BKP_LOESCHEN_NACH -exec rm '{}' \; && echo success "--- Ueberpruefung auf alte Dateien und loeschen erfolgreich ---" || echo error "--- Ueberpruefung auf alte Dateien und loeschen nicht erfolgreich ---"
+			sleep 10
+		fi
+		
 		if [ $BKP_TYP == "ccu" ]; then
 			find $bkpdir -name "*.tar.sbk" -mtime +$BKP_LOESCHEN_NACH -exec rm '{}' \; && echo success "--- Ueberpruefung auf alte Dateien und loeschen erfolgreich ---" || echo error "--- Ueberpruefung auf alte Dateien und loeschen nicht erfolgreich ---"
 			sleep 10
@@ -260,6 +266,9 @@ if [ $BKP_OK == "JA" ]; then
 				curl -s --disable-epsv -v -T"$bkpdir/Homematic-Backup-$ccuversion-$datum-$uhrzeit.tar.sbk" -u"$NAS_USR:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
 			else
 				curl -s --disable-epsv -v -T"$bkpdir/backupiobroker_$BKP_TYP$NAME_ZUSATZ-$datum-$uhrzeit.tar.gz" -u"$NAS_USR:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
+			fi
+			if [ $REDIS_STATE == "true" ]; then
+			curl -s --disable-epsv -v -T"$bkpdir/backup_redis_state_$datum-$uhrzeit.tar.gz" -u"$NAS_USR:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
 			fi
 		fi
 	fi
