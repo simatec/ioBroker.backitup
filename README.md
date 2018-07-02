@@ -11,31 +11,30 @@ Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-In
 
 ## Inhaltsverzeichnis:
 1. Backup Type
-   - 1.1 Standard Backup (Standard IoBroker Backup)
+   - 1.1 Minimales Backup (Standard IoBroker Backup)
    - 1.2 Komplettes Backup
    - 1.3 CCU Backup (CCU-Original / pivCCU / Raspberrymatic)
-   - 1.4 Optionales Mysql-Backup (Localhost)
-   - 1.5 Redis Datenbank sichern
-2. Vorbereitung
+   - 1.4 Optionales Mysql-Backup (Localhost) 
    
-3. Konfiguration
-   - 3.1 Ftp / Cifs
-   - 3.2 Telegram versenden
+3. Ftp vs. CIFS
+   
 4. Verwendung
-   - 4.1 Verwendung des VIS-Widget-Exports
+   - 4.1 Erstellte Datenpunkte
+   - 4.3 History-Log mit CCS formatieren
+   - 4.4 Backupstatus im OneClick-Button darstellen
 5. Restore eines Backups
    - 5.1 Minimal Backup wiederherstellen
    - 5.2 Komplett Backup wiederherstellen
-   - 5.3 Raspberrymatic Backup wiederherstellen
+   - 5.3 Raspberrymatic/CCU Backup wiederherstellen
 6. Fehlersuche
    - 6.1 Logging aktivieren
    - 6.2 Debugging aktivieren
 7. Aufgetretene Fehler / Lösungen
    - 7.1 Webinterface nach Restore nicht erreichbar
+   - 7.2 JS-Datenbunkt nicht beschreibbar
    - 7.3 Fehlermeldung: "Komando nicht gefunden"
    - 7.4 Komplett-Backup bleibt hängen 
    - 7.5 Geänderte Werte in Dp werden nicht übernommen 
-
 8. Changelog
 
 
@@ -55,12 +54,10 @@ Um sicher zu gehen dass alle aktuellsten States gesichert werden muss hier in de
 
 ## 2. Vorbereitung:
 
-Folgende Schritte müssen durchgeführt werden um den Adapter verwenden zu können *(wenn das Backup-Script v1/v2/v3 verwendet wurde zuerst Alles löschen (Datenpunkte/Enum.functions/Shell-Script und JavaScript deaktivieren oder löschen!)
+Folgende Schritte sollten durchgeführt werden um den Adapter verwenden zu können (wenn das Backup-Script v1/v2/v3 verwendet wurde, zuerst Alles löschen (Datenpunkte/Enum.functions/Shell-Script und JavaScript deaktivieren oder löschen!)
 
 
-## 3. Konfiguration:
-
-1.	FTP oder CIFS für das optionale weitersichern auf einen Nas nutzen?
+## 3. Ftp-Dienst oder CIFS für das optionale weitersichern auf einen Nas nutzen?
 
   - Vorteile CIFS:
     -	weniger Schreibzyklen auf euren Datenträger (evtl. relevant wenn Raspberry mit SD-Karte verwendet wird um Diese zu schonen)
@@ -69,15 +66,29 @@ Folgende Schritte müssen durchgeführt werden um den Adapter verwenden zu könn
   - Nachteile CIFS:
     -	Wenn ein Mounten nicht möglich ist, wird kein Backup erstellt!
     -	„Alte Backups“ können automatisiert auf dem Nas gelöscht werden. Im schlimmsten Fall ist somit kein Backup mehr vorhanden wenn ihr es benötigt.
-2. Telegram versenden
-   - Im Adapter gibt es die Möglichkeit sich beim erstellen eines Backups eine Benachrichtigung via Telegram zusenden zu lassen. Vorraussetzung hierfür ist eine aktive, funktionierende Telegram Instanz.
 
 
 ## 4. Verwendung:
 
-1. Richtige Daten beim gewünschten Backup eintragen / einstellen - speichern - fertig
+1.	Der Adapter erstellt 7 Datenpunkte zur Verwendung in Vis
+	- start_ccu_Backup -> dient als Auslösetrigger für ein CCU-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
+	- start_minimal_Backup -> dient als Auslösetrigger für ein Standard-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
+	- start_komplett_Backup -> dient als Auslösetrigger für ein Komplett-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
 
-3. Der History-Log kann via CSS vom Design her eingestellt / verändert werden:
+	- Backup_history -> diehnt als History-Log welcher in Vis via CCS vom Design anpassbar ist.
+	- letztes_ccu_Backup -> speichert das Erstell-Datum und die Uhrzeit des letzten CCU Backups
+	- letztes_minimal_Backup -> speichert das Erstell-Datum und die Uhrzeit des letzten Standard Backups
+	- letztes_ccu_Backup -> speichert das Erstell-Datum und die Uhrzeit des letzten Komplett Backups
+
+2. History-Log in Vis anzeigen
+Es ist möglich den History-Log bspw. in einem Html-Widget durch eintragen folgender Zeile in HTML darzustellen:
+```
+{backitup.0.History.Backup_history}
+```
+Syntax: {BackitupInstanz.History.Backup_history}
+
+
+3. CCS-Formatierung des History-Logs:
    ```
    .backup_history{
        display:block;
@@ -103,8 +114,13 @@ Folgende Schritte müssen durchgeführt werden um den Adapter verwenden zu könn
            font-size:18px;
        }
    ```
-Hier ein Screenshot vom VIS-Widget-Export:
-<img src="https://github.com/peoples0815/backitup/blob/master/img/screenshot_vis-export.jpg" align=center>
+4. OneClick-Button mit Status-Text
+Wenn ein OneClick-Datenpunkt auf true gesetzt wird startet das entsprechende Backup und nach einer vordefinierten Zeit wird dieser Datenpunkt wieder auf false gesetzt somit ist es möglich einen Button mit Status zu erstellen, hierzu folgende Zeile anpassen und in Vis als Knopftext eintragen:
+```
+{wert:backitup.0.OneClick.start_minimal_Backup; wert === "true" ? "Minimal Backup </br> wird erstellt" : "Minimal Backup </br> starten"}
+
+```
+Syntax: {wert:BackitupInstanz.OnClick.Auslösetrigger; wert === "true" ? "Text während der Backuperstellung" : "Standard-Text"}
 
 ## 5. Restore:
 
@@ -126,12 +142,12 @@ Hier ein Screenshot vom VIS-Widget-Export:
     - Den Befehl:“reboot“ auf der Raspberrymatic ausführen um den PI neu zu starten
 
 Alternativ kann das Backup natürlich auch wie gewohnt über das Webinterface wieder hergestellt werden.
----------------------------------------------------------------------------
+
 ## 6. Fehlersuche:
 
-1. Im Adapter gibt es die Möglichkeit logging auf true zu setzen so werden im Log verschiedene Meldungen (bspw. Backup-Zeiten und States) die zur Fehlersuche dienen können aufgelistet
+1. In der Adapterkonfiguration gibt es die Möglichkeit Log zu aktivieren so werden im IoBroker-Log verschiedene Meldungen (bspw. Backup-Zeiten und States) die zur Fehlersuche dienen können aufgelistet
 
-2. Zusätzlich gibt es die Möglichkeit debugging auf true zu setzen nun wird im Log der Befehl ausgegeben der an die backitup.sh übergeben wird. Dieser Befehl kann eins zu eins in die Konsole (mit Putty o.ä) eingegeben werden um Fehler eingrenzen zu können.
+2. Zusätzlich gibt es die Möglichkeit Debug zu aktivieren nun wird im IoBroker-Log der Befehl ausgegeben der an die backitup.sh übergeben wird. Dieser Befehl kann eins zu eins in die Konsole (mit Putty o.ä) eingegeben werden um Fehler eingrenzen zu können.
 
 ## 7. Aufgetretene Fehler / Lösungen:
 
@@ -142,7 +158,7 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vor
     - Meldung = "No connection to states 127.0.0.0:6379[redis]"
     - sudo apt-get install redis-server
 
-2.	Beim Testen kam es bei Anderen vor dass einige Datenpunkte nicht beschreib /-änderbar waren, diesen Fehler konnte ich nicht nachstellen und dementsprechend nicht beheben.
+2.	Beim Testen kam es bei Anderen vor dass einige Datenpunkte nicht beschreib /-änderbar waren, dieser Fehler konnte nicht nachgestellt und dementsprechend nicht behoben werden.
 
 3.	Fehlermeldung: „Kommando nicht gefunden“ 
 Durch die Unterschiede von Unix und Windows, darf die backitup.sh nicht unter Windows (Editor) geändert werden. 
@@ -153,9 +169,6 @@ Unter DOS wird in Textdateien ein Zeilenende durch die Sequenz return (Dezimalco
 Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durchläuft bzw. der IoBroker gestoppt und nicht mehr gestartet wird. Hierfür ist es möglich in der Adapter- Konfigurations-Datenpunkten den Stop/Start des IoBrokers beim komplett-Backup zu deaktivieren.
 
 ## 8. Changelog:
-
-#0.1.2 (30.06.2018)
- - (simatec/peoples) Erste Beta-Version
 
 #0.1.0 (25.06.2018)
  - (simatec/peoples) Erste Git-Adapter-Version
