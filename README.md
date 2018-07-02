@@ -9,7 +9,7 @@
 
 Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist. 
 
-## Inhaltsverzeichnis:
+## Inhaltsverzeichnis1:
 1. Backup Type
    - 1.1 Minimales Backup (Standard IoBroker Backup)
    - 1.2 Komplettes Backup
