@@ -14,15 +14,15 @@ Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-In
    - 1.1 Standard Backup (Standard IoBroker Backup)
    - 1.2 Komplettes Backup
    - 1.3 CCU Backup (CCU-Original / pivCCU / Raspberrymatic)
-   - 1.4 Optionales Mysql-Backup (Localhost) 
+   - 1.4 Optionales Mysql-Backup (Localhost)
+   - 1.5 Redis Datenbank sichern
 2. Vorbereitung
    
 3. Konfiguration
-   - 3.1 Lftp / Cifs
+   - 3.1 Ftp / Cifs
    - 3.2 Telegram versenden
 4. Verwendung
-   - 4.1 Der erste Druchlauf des JavaScripts
-   - 4.2 Verwendung des VIS-Widget-Exports
+   - 4.1 Verwendung des VIS-Widget-Exports
 5. Restore eines Backups
    - 5.1 Minimal Backup wiederherstellen
    - 5.2 Komplett Backup wiederherstellen
@@ -32,7 +32,6 @@ Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-In
    - 6.2 Debugging aktivieren
 7. Aufgetretene Fehler / Lösungen
    - 7.1 Webinterface nach Restore nicht erreichbar
-   - 7.2 JS-Datenbunkt nicht beschreibbar
    - 7.3 Fehlermeldung: "Komando nicht gefunden"
    - 7.4 Komplett-Backup bleibt hängen 
    - 7.5 Geänderte Werte in Dp werden nicht übernommen 
@@ -61,7 +60,7 @@ Folgende Schritte müssen durchgeführt werden um den Adapter verwenden zu könn
 
 ## 3. Konfiguration:
 
-1.	Lftp-Dienst oder CIFS für das optionale weitersichern auf einen Nas nutzen?
+1.	FTP oder CIFS für das optionale weitersichern auf einen Nas nutzen?
 
   - Vorteile CIFS:
     -	weniger Schreibzyklen auf euren Datenträger (evtl. relevant wenn Raspberry mit SD-Karte verwendet wird um Diese zu schonen)
@@ -130,7 +129,7 @@ Alternativ kann das Backup natürlich auch wie gewohnt über das Webinterface wi
 ---------------------------------------------------------------------------
 ## 6. Fehlersuche:
 
-1. Im JavaScript gibt es die Möglichkeit logging auf true zu setzen so werden im Log verschiedene Meldungen (bspw. Backup-Zeiten und States) die zur Fehlersuche dienen können aufgelistet
+1. Im Adapter gibt es die Möglichkeit logging auf true zu setzen so werden im Log verschiedene Meldungen (bspw. Backup-Zeiten und States) die zur Fehlersuche dienen können aufgelistet
 
 2. Zusätzlich gibt es die Möglichkeit debugging auf true zu setzen nun wird im Log der Befehl ausgegeben der an die backitup.sh übergeben wird. Dieser Befehl kann eins zu eins in die Konsole (mit Putty o.ä) eingegeben werden um Fehler eingrenzen zu können.
 
@@ -154,6 +153,9 @@ Unter DOS wird in Textdateien ein Zeilenende durch die Sequenz return (Dezimalco
 Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durchläuft bzw. der IoBroker gestoppt und nicht mehr gestartet wird. Hierfür ist es möglich in der Adapter- Konfigurations-Datenpunkten den Stop/Start des IoBrokers beim komplett-Backup zu deaktivieren.
 
 ## 8. Changelog:
+
+#0.1.2 (30.06.2018)
+ - (simatec/peoples) Erste Beta-Version
 
 #0.1.0 (25.06.2018)
  - (simatec/peoples) Erste Git-Adapter-Version
