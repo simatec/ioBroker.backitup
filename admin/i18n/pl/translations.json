@@ -43,5 +43,10 @@
   "Pfad fuer Standard-Backup": "Path for standard backup",
   "Pfad fuer Komplett-Backup": "Path for complete backup",
   "Pfad fuer CCU-Backup": "Path for CCU backup",
-  "Pfad": "path"
+  "Pfad": "path",
+  "Backupzeit": "backup time",
+  "Tage": "days",
+  "Name": "name",
+  "Passwort": "password",
+  "IP-Adresse": "IP address"
 }

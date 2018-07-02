@@ -166,7 +166,7 @@
             <div class="row">
                 <div class="input-field col s12 m6 l2">
                     <input class="value" id="minimal_BackupZeit" type="text">
-                    <label for="Backup Startzeit in "hh:mm"">Backupzeit</label>
+                    <label for="Backup Startzeit in "hh:mm"" class="translate">Backupzeit</label>
                     <span class="translate">Backup Startzeit in hh:mm</span>
                 </div>
                 <div class="input-field col s12 m4 l2">
@@ -183,7 +183,7 @@
                 </div>
                 <div class="input-field col s12 m6 l2">
 				    <input class="value" id="minimal_NamensZusatz" type="text">
-				    <label for="NamensZusatz">Name</label>
+				    <label for="NamensZusatz" class="translate">Name</label>
 				    <span class="translate">NamensZusatz</span>
                 </div>
             </div>
@@ -200,7 +200,7 @@
             <div class="row">
                 <div class="input-field col s12 m6 l2">
                     <input class="value" id="komplett_BackupZeit" type="text">
-                    <label for="Backup Startzeit in "hh:mm"">Backupzeit</label>
+                    <label for="Backup Startzeit in "hh:mm"" class="translate">Backupzeit</label>
                     <span class="translate">Backup Startzeit in hh:mm</span>
                 </div>
                 <div class="input-field col s12 m4 l2">
@@ -217,7 +217,7 @@
                 </div>
                 <div class="input-field col s12 m6 l2">
 				    <input class="value" id="komplett_NamensZusatz" type="text">
-				    <label for="NamensZusatz">Name</label>
+				    <label for="NamensZusatz" class="translate">Name</label>
 				    <span class="translate">NamensZusatz</span>
                 </div>
             </div>
@@ -228,23 +228,22 @@
             <div class="row">
                 <div class="input-field col s12 m6 l2">
                     <input class="value" id="MysqlDbName" type="text">
-                    <label for="MySQL Datenbank Name">Name</label>
+                    <label for="MySQL Datenbank Name" class="translate">Name</label>
                     <span class="translate">MySQL Datenbank Name</span>
                 </div>
                 <div class="input-field col s12 m6 l2">
                     <input class="value" id="MysqlDbUser" type="text">
-                    <label for="MySql Benutzername">MySql Benutzername</label>
+                    <label for="MySql Benutzername" class="translate">MySql Benutzername</label>
                     <span class="translate">MySql Benutzername</span>
                 </div>
                 <div class="input-field col s12 m6 l2">
                     <input class="value" id="MysqlDbPw" type="password">
-                    <label for="MySql Passwort">Passwort</label>
+                    <label for="MySql Passwort" class="translate">Passwort</label>
                     <span class="translate">MySql Passwort</span>
                 </div>
                 <div class="input-field col s12 m4 l2">
 				    <input type="number" class="value" id="MysqlBackupLoeschenNach" min="1" max="100" />
 				    <label for="alte Backups loeschen nach X-Tagen" class="translate">Tage</label>
-				    <!-- Important: label must come directly after input. Label is important. -->
 				    <span class="translate">alte MySQL Backups loeschen nach X-Tagen</span>
                 </div>
             </div>
@@ -261,19 +260,17 @@
             <div class="row">
                 <div class="input-field col s12 m6 l2">
                     <input class="value" id="ccu_BackupZeit" type="text">
-                    <label for="Backup Startzeit in "hh:mm"">Backupzeit</label>
+                    <label for="Backup Startzeit in "hh:mm"" class="translate">Backupzeit</label>
                     <span class="translate">Backup Startzeit in hh:mm</span>
                 </div>
                 <div class="input-field col s12 m4 l2">
                     <input type="number" class="value" id="ccu_BackupTageZyklus" min="1" max="100"/>
                     <label for="Backup ausfuehren alle X-Tage" class="translate">Tage</label>
-                    <!-- Important: label must come directly after input. Label is important. -->
                     <span class="translate">Backup ausfuehren alle X-Tage</span>
                 </div>
                 <div class="input-field col s12 m4 l2">
 				    <input type="number" class="value" id="ccu_BackupLoeschenNach" min="1" max="100" />
 				    <label for="alte Backups loeschen nach X-Tagen" class="translate">Tage</label>
-				    <!-- Important: label must come directly after input. Label is important. -->
 				    <span class="translate">alte CCU-Backups loeschen nach X-Tagen</span>
                 </div>
                 <!--<div class="input-field col s12 m6 l2">
@@ -285,17 +282,17 @@
             <div class="row">
 				<div class="input-field col s12 m6 l2">
                     <input class="value" id="ccuCcuIp" type="text">
-                    <label for="IP der CCU">IP-Adresse</label>
+                    <label for="IP der CCU" class="translate">IP-Adresse</label>
                     <span class="translate">IP der CCU</span>
                 </div>
 				<div class="input-field col s12 m6 l2">
                     <input class="value" id="ccuCcuUser" type="text">
-                    <label for="Benutzername der CCU">Benutzername der CCU</label>
+                    <label for="Benutzername der CCU" class="translate">Benutzername</label>
                     <span class="translate">Benutzername der CCU</span>
                 </div>
 				<div class="input-field col s12 m6 l2">
                     <input class="value" id="ccuCcuPw" type="password">
-                    <label for="Passwort der CCU">Passwort der CCU</label>
+                    <label for="Passwort der CCU" class="translate">Passwort</label>
                     <span class="translate">Passwort der CCU</span>
                 </div>
             </div>
@@ -321,17 +318,17 @@
             <div class="row">
                 <div class="input-field col s12 m6 l2">
                     <input class="value" id="FtpHost" type="text">
-                    <label for="Host">Host</label>
+                    <label for="Host" class="translate">Host</label>
                     <span class="translate">Host</span>
                 </div>
 				<div class="input-field col s12 m6 l2">
                     <input class="value" id="FtpUser" type="text">
-                    <label for="Benutzername">Benutzername</label>
+                    <label for="Benutzername" class="translate">Benutzername</label>
                     <span class="translate">Benutzername</span>
                 </div>
 				<div class="input-field col s12 m6 l2">
                     <input class="value" id="FtpPw" type="password">
-                    <label for="Passwort">Passwort</label>
+                    <label for="Passwort" class="translate">Passwort</label>
                     <span class="translate">Passwort</span>
                 </div>
             </div>
@@ -346,17 +343,17 @@
 			<div class="row nas_extra">
 				<div class="input-field col s12 m6 l2">
 				    <input class="value" id="FtpDir_minimal" type="text">
-				    <label for="Pfad fuer Standard-Backup">Pfad fuer Standard-Backup</label>
+				    <label for="Pfad fuer Standard-Backup" class="translate">Pfad fuer Standard-Backup</label>
 				    <span class="translate">Pfad fuer Standard-Backup</span>
                 </div>
 				<div class="input-field col s12 m6 l2">
 				    <input class="value" id="FtpDir_komplett" type="text">
-				    <label for="Pfad fuer Komplett-Backup">Pfad fuer Komplett-Backup</label>
+				    <label for="Pfad fuer Komplett-Backup" class="translate">Pfad fuer Komplett-Backup</label>
 				    <span class="translate">Pfad fuer Komplett-Backup</span>
                 </div>
 				<div class="input-field col s12 m6 l2">
 				    <input class="value" id="FtpDir_ccu" type="text">
-				    <label for="Pfad fuer CCU-Backup">Pfad fuer CCU-Backup</label>
+				    <label for="Pfad fuer CCU-Backup" class="translate">Pfad fuer CCU-Backup</label>
 				    <span class="translate">Pfad fuer CCU-Backup</span>
                 </div>
 			</div>
@@ -364,7 +361,7 @@
 			<div class="row nas_standard">
 				<div class="input-field col s12 m6 l2">
 					<input class="value" id="FtpDir" type="text">
-					<label for="Pfad">Pfad</label>
+					<label for="Pfad" class="translate">Pfad</label>
 					<span class="translate">Pfad</span>
                 </div>
 			</div>

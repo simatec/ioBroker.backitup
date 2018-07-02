@@ -43,5 +43,10 @@
   "Pfad fuer Standard-Backup": "NAS-Pfad für Standard-Backup",
   "Pfad fuer Komplett-Backup": "NAS-Pfad für Komplett-Backup",
   "Pfad fuer CCU-Backup": "NAS-Pfad für CCU-Backup",
-  "Pfad": "NAS-Pfad"
+  "Pfad": "NAS-Pfad",
+  "Backupzeit": "Backupzeit",
+  "Tage": "Tage",
+  "Name": "Name",
+  "Passwort": "Passwort",
+  "IP-Adresse": "IP-Adresse"
 }
