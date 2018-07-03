@@ -161,42 +161,6 @@ let history_array = [];                                         // Array für das
 // Objekte
 // =============================================================================
 
-
-// ########################## Testbereich Anfang ###################################
-
-// GetState-Vorlage
-/*
-adapter.getState('state.name', function (err, state) {
-        // err prüfen, wenn err gesetzt dann Fehler
-        // state checken, kann leer/null/undefined sein!
-        // sonst state.val
-        if (state.val === 'whatever') {
-           ... logik
-        }
-});
-*/
-
-
-// Vielleicht das Anlegen der Datenpunkte nach diesem Schema
-/* Beispeil zum Anlegen der Datenpunkte
-adapter.setObjectNotExists('test.state', {
-            type: 'state',
-            common: {
-               name: 'STATE of ',
-                desc: 'Boolean datapoint for switches for ',
-                type: 'boolean',
-                role: 'switch',
-                def: false,
-                read: true,
-                write: true
-            },
-            native: {}
-        });
-*/
-// ########################## Testbereich Ende ###################################
-
-
-
 // Anlegen History Datenpunkte
 adapter.setObjectNotExists('History.Backup_history', {type: 'state', common: {name: 'History der Backups', type: 'string', state: '<span class="bkptyp_komplett">Noch kein Backup</span>', role: 'indicator'}, native: {}});
 adapter.setObjectNotExists('History.letztes_minimal_Backup', {type: 'state', common: {name: 'Letztes minimal Backup', type: 'string', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
@@ -332,7 +296,9 @@ function HistoryEintrag(date) {
   let Stunde = date.getHours();
   let Minute = date.getMinutes();
 
-  return Tag+' '+MonatsNamen[MonatsIndex]+' '+Jahr+ ' um '+Stunde+':'+Minute+' Uhr';
+//  return Tag+' '+MonatsNamen[MonatsIndex]+' '+Jahr+ ' um '+Stunde+':'+Minute+' Uhr';
+  return ('0' + Tag).slice(-2)+' '+MonatsNamen[MonatsIndex]+' '+Jahr+ ' um '+('0' + Stunde).slice(-2)+':'+('0' + Minute).slice(-2)+' Uhr';
+
 }
 
 // #############################################################################
@@ -365,25 +331,11 @@ function Backup_history_anlegen(typ, ftp_bkp_u) {
 // #############################################################################
 
 function ScriptStart() {
-/*
-    if(adapter.getState('System.Iobroker.Backup.Konfiguration.IoRestart_komp_Bkp').val === true){
-        adapter.setStateDelayed('System.Iobroker.Backup.Konfiguration.IoRestart_komp_Bkp', false, 5000);
-    }
-*/
+
     new BackupStellen();
 
 }
 
-// #############################################################################
-// #                                                                           #
-// #  Beim ersten Start alle benštigten Datenpunkte / Enum.funcitons erstellen #
-// #                                                                           #
-// #############################################################################
-/*
-if(!adapter.getObject('enum.functions.BackItUp') || !adapter.getObject('System.Iobroker.Backup.Konfiguration.Konfig_abgeschlossen') || adapter.getState('System.Iobroker.Backup.Konfiguration.Konfig_abgeschlossen').val === false) {
-    new BackupStellen();
-}
-*/
 // #############################################################################
 // #                                                                           #
 // #  Beobachten der drei One-Click-Backup Datenpunkte                         #
