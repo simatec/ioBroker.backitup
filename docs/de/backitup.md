@@ -7,17 +7,17 @@
 
 [![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
 
-Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist. 
+Backitup ist eine BackuplÃ¶sung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU mÃ¶glich ist.
 
 ## Inhaltsverzeichnis:
 1. Backup Type
    - 1.1 Minimales Backup (Standard IoBroker Backup)
    - 1.2 Komplettes Backup
    - 1.3 CCU Backup (CCU-Original / pivCCU / Raspberrymatic)
-   - 1.4 Optionales Mysql-Backup (Localhost) 
-   
+   - 1.4 Optionales Mysql-Backup (Localhost)
+
 3. Ftp vs. CIFS
-   
+
 4. Verwendung
    - 4.1 Erstellte Datenpunkte
    - 4.3 History-Log mit CCS formatieren
@@ -29,51 +29,51 @@ Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Ins
 6. Fehlersuche
    - 6.1 Logging aktivieren
    - 6.2 Debugging aktivieren
-7. Aufgetretene Fehler / Lösungen
+7. Aufgetretene Fehler / LÃ¶sungen
    - 7.1 Webinterface nach Restore nicht erreichbar
    - 7.2 JS-Datenbunkt nicht beschreibbar
    - 7.3 Fehlermeldung: "Komando nicht gefunden"
-   - 7.4 Komplett-Backup bleibt hängen 
-   - 7.5 Geänderte Werte in Dp werden nicht übernommen 
+   - 7.4 Komplett-Backup bleibt hÃ¤ngen
+   - 7.5 GeÃ¤nderte Werte in Dp werden nicht Ã¼bernommen
 8. Changelog
 
 
 ## 1. Backuptypen:
 
-Backitup bietet die Möglichkeit drei (optional mit DB-Backup) verschiedene Backuptypen zyklisch oder auf Knopfdruck durch zu führen. Jedes Backup wird standardmäßig im Verzeichnis /opt/iobroker/backups/ abgelegt. Optional kann ein FTP-Upload eingerichtet oder alternativ ein CIFS-Mount genutzt werden.
+Backitup bietet die MÃ¶glichkeit drei (optional mit DB-Backup) verschiedene Backuptypen zyklisch oder auf Knopfdruck durch zu fÃ¼hren. Jedes Backup wird standardmÃ¤ÃŸig im Verzeichnis /opt/iobroker/backups/ abgelegt. Optional kann ein FTP-Upload eingerichtet oder alternativ ein CIFS-Mount genutzt werden.
 
 1. Standard Backup
-   - Dieses Backup entspricht dem in IoBroker enthaltenen Backup welches man in der Konsole über den Aufruf „./iobroker backup“ starten kann. Nur wird es hier durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt ohne die Konsole verwenden zu müssen.
+   - Dieses Backup entspricht dem in IoBroker enthaltenen Backup welches man in der Konsole Ã¼ber den Aufruf â€ž./iobroker backupâ€œ starten kann. Nur wird es hier durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgefÃ¼hrt ohne die Konsole verwenden zu mÃ¼ssen.
 2. Komplettes Backup
-   - Dieses Backup sichert den kompletten IoBroker Ordner inklusive aller Unterordner und deren Dateien samt Dateiberechtigungen. Hierbei sollte die Dateigröße nicht ausser Acht gelassen werden, denn ein solches Backup hat oft mehrere hundert MB. 
-Um sicher zu gehen dass alle aktuellsten States gesichert werden muss hier in der Konfiguration der Hacken bei IoBroker Stop/Start gesetzt werden. 
+   - Dieses Backup sichert den kompletten IoBroker Ordner inklusive aller Unterordner und deren Dateien samt Dateiberechtigungen. Hierbei sollte die DateigrÃ¶ÃŸe nicht ausser Acht gelassen werden, denn ein solches Backup hat oft mehrere hundert MB.
+Um sicher zu gehen dass alle aktuellsten States gesichert werden muss hier in der Konfiguration der Hacken bei IoBroker Stop/Start gesetzt werden.
 3. CCU Backup (Homematic)
-   -  Dieses Backup bietet die Möglichkeit 3 verschiedene Varianten einer Homematic Installations (CCU-Original / pivCCU / Raspberrymatic) zu sichern. Auch die Ausführung dieses Backups kann durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt werden.
+   -  Dieses Backup bietet die MÃ¶glichkeit 3 verschiedene Varianten einer Homematic Installations (CCU-Original / pivCCU / Raspberrymatic) zu sichern. Auch die AusfÃ¼hrung dieses Backups kann durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgefÃ¼hrt werden.
 4. Mysql-Backup (Localhost)
-   - Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup egal ob „minimal“ oder „komplett“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
+   - Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup egal ob â€žminimalâ€œ oder â€žkomplettâ€œ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelÃ¶scht. FTP oder CIFS sind fÃ¼r dieses Backup ebenfalls gÃ¼ltig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
 
 ## 2. Vorbereitung:
 
-Folgende Schritte sollten durchgeführt werden um den Adapter verwenden zu können (wenn das Backup-Script v1/v2/v3 verwendet wurde, zuerst Alles löschen (Datenpunkte/Enum.functions/Shell-Script und JavaScript deaktivieren oder löschen!)
+Folgende Schritte sollten durchgefÃ¼hrt werden um den Adapter verwenden zu kÃ¶nnen (wenn das Backup-Script v1/v2/v3 verwendet wurde, zuerst Alles lÃ¶schen (Datenpunkte/Enum.functions/Shell-Script und JavaScript deaktivieren oder lÃ¶schen!)
 
 
-## 3. Ftp-Dienst oder CIFS für das optionale weitersichern auf einen Nas nutzen?
+## 3. Ftp-Dienst oder CIFS fÃ¼r das optionale weitersichern auf einen Nas nutzen?
 
   - Vorteile CIFS:
-    -	weniger Schreibzyklen auf euren Datenträger (evtl. relevant wenn Raspberry mit SD-Karte verwendet wird um Diese zu schonen)
-    -	Es ist möglich die „Alten Backups“ automatisiert auf dem Nas löschen zu lassen
-    -	Keine Notwendigkeit des lftp-Service da euer Nas direkt eingehängt ist.
+    -	weniger Schreibzyklen auf euren DatentrÃ¤ger (evtl. relevant wenn Raspberry mit SD-Karte verwendet wird um Diese zu schonen)
+    -	Es ist mÃ¶glich die â€žAlten Backupsâ€œ automatisiert auf dem Nas lÃ¶schen zu lassen
+    -	Keine Notwendigkeit des lftp-Service da euer Nas direkt eingehÃ¤ngt ist.
   - Nachteile CIFS:
-    -	Wenn ein Mounten nicht möglich ist, wird kein Backup erstellt!
-    -	„Alte Backups“ können automatisiert auf dem Nas gelöscht werden. Im schlimmsten Fall ist somit kein Backup mehr vorhanden wenn ihr es benötigt.
+    -	Wenn ein Mounten nicht mÃ¶glich ist, wird kein Backup erstellt!
+    -	â€žAlte Backupsâ€œ kÃ¶nnen automatisiert auf dem Nas gelÃ¶scht werden. Im schlimmsten Fall ist somit kein Backup mehr vorhanden wenn ihr es benÃ¶tigt.
 
 
 ## 4. Verwendung:
 
 1.	Der Adapter erstellt 7 Datenpunkte zur Verwendung in Vis
-	- start_ccu_Backup -> dient als Auslösetrigger für ein CCU-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
-	- start_minimal_Backup -> dient als Auslösetrigger für ein Standard-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
-	- start_komplett_Backup -> dient als Auslösetrigger für ein Komplett-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
+	- start_ccu_Backup -> dient als AuslÃ¶setrigger fÃ¼r ein CCU-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
+	- start_minimal_Backup -> dient als AuslÃ¶setrigger fÃ¼r ein Standard-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
+	- start_komplett_Backup -> dient als AuslÃ¶setrigger fÃ¼r ein Komplett-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
 
 	- Backup_history -> diehnt als History-Log welcher in Vis via CCS vom Design anpassbar ist.
 	- letztes_ccu_Backup -> speichert das Erstell-Datum und die Uhrzeit des letzten CCU Backups
@@ -81,7 +81,7 @@ Folgende Schritte sollten durchgeführt werden um den Adapter verwenden zu können
 	- letztes_ccu_Backup -> speichert das Erstell-Datum und die Uhrzeit des letzten Komplett Backups
 
 2. History-Log in Vis anzeigen
-Es ist möglich den History-Log bspw. in einem Html-Widget durch eintragen folgender Zeile in HTML darzustellen:
+Es ist mÃ¶glich den History-Log bspw. in einem Html-Widget durch eintragen folgender Zeile in HTML darzustellen:
 ```
 {backitup.0.History.Backup_history}
 ```
@@ -115,67 +115,67 @@ Syntax: {BackitupInstanz.History.Backup_history}
        }
    ```
 4. OneClick-Button mit Status-Text
-Wenn ein OneClick-Datenpunkt auf true gesetzt wird startet das entsprechende Backup und nach einer vordefinierten Zeit wird dieser Datenpunkt wieder auf false gesetzt somit ist es möglich einen Button mit Status zu erstellen, hierzu folgende Zeile anpassen und in Vis als Knopftext eintragen:
+Wenn ein OneClick-Datenpunkt auf true gesetzt wird startet das entsprechende Backup und nach einer vordefinierten Zeit wird dieser Datenpunkt wieder auf false gesetzt somit ist es mÃ¶glich einen Button mit Status zu erstellen, hierzu folgende Zeile anpassen und in Vis als Knopftext eintragen:
 ```
 {wert:backitup.0.OneClick.start_minimal_Backup; wert === "true" ? "Minimal Backup </br> wird erstellt" : "Minimal Backup </br> starten"}
 
 ```
-Syntax: {wert:BackitupInstanz.OnClick.Auslösetrigger; wert === "true" ? "Text während der Backuperstellung" : "Standard-Text"}
+Syntax: {wert:BackitupInstanz.OnClick.AuslÃ¶setrigger; wert === "true" ? "Text wÃ¤hrend der Backuperstellung" : "Standard-Text"}
 
 ## 5. Restore:
 
-1. Restore eines minimalen / normalen IoBroker Backups: 
-    - Das Backup muss wie gewohnt im  Verzeichnis „opt/iobroker/backups/“ liegen 
-    - Es kann über die Konsole mit Hilfe des Befehls: „iobroker restore (Nummer des Backups aus der Liste)“ wieder hergestellt werden.  
+1. Restore eines minimalen / normalen IoBroker Backups:
+    - Das Backup muss wie gewohnt im  Verzeichnis â€žopt/iobroker/backups/â€œ liegen
+    - Es kann Ã¼ber die Konsole mit Hilfe des Befehls: â€žiobroker restore (Nummer des Backups aus der Liste)â€œ wieder hergestellt werden.
 
 2. Restore eines kompletten Backups:
-    - Den Befehl:“sudo  iobroker stop“ über die Konsole ausführen
-    - Das erstellte Backup muss in das Verzeichnis  „root/“ kopiert werden
-    - Den Befehl:" sudo tar -xzvf Backupname.tar.gz -C / " über die Konsole ausführen
-    - Warten - Während der Wiederherstellung wird euch angezeigt was gerade gemacht wird
-    - Den Befehl: „sudo iobroker start“ über die Konsole ausführen 
+    - Den Befehl:â€œsudo  iobroker stopâ€œ Ã¼ber die Konsole ausfÃ¼hren
+    - Das erstellte Backup muss in das Verzeichnis  â€žroot/â€œ kopiert werden
+    - Den Befehl:" sudo tar -xzvf Backupname.tar.gz -C / " Ã¼ber die Konsole ausfÃ¼hren
+    - Warten - WÃ¤hrend der Wiederherstellung wird euch angezeigt was gerade gemacht wird
+    - Den Befehl: â€žsudo iobroker startâ€œ Ã¼ber die Konsole ausfÃ¼hren
 
 3. Restore eines Raspberrymatic / CCU Backups:
-    - *.sbk Datei via SCP in das Verzeichnis „ /usr/local/tmp directory“ auf die Raspberrymatic  kopieren
-    - Über die Konsole  als Root-User  auf der Raspberrymatic einloggen
-    - Den Befehl: „/bin/restoreBackup.sh /user/local/tmp/EuerBackupDateiname“ auf der Raspberrymatic ausführen.
-    - Den Befehl:“reboot“ auf der Raspberrymatic ausführen um den PI neu zu starten
+    - *.sbk Datei via SCP in das Verzeichnis â€ž /usr/local/tmp directoryâ€œ auf die Raspberrymatic  kopieren
+    - Ãœber die Konsole  als Root-User  auf der Raspberrymatic einloggen
+    - Den Befehl: â€ž/bin/restoreBackup.sh /user/local/tmp/EuerBackupDateinameâ€œ auf der Raspberrymatic ausfÃ¼hren.
+    - Den Befehl:â€œrebootâ€œ auf der Raspberrymatic ausfÃ¼hren um den PI neu zu starten
 
-Alternativ kann das Backup natürlich auch wie gewohnt über das Webinterface wieder hergestellt werden.
+Alternativ kann das Backup natÃ¼rlich auch wie gewohnt Ã¼ber das Webinterface wieder hergestellt werden.
 
 ## 6. Fehlersuche:
 
-1. In der Adapterkonfiguration gibt es die Möglichkeit Log zu aktivieren so werden im IoBroker-Log verschiedene Meldungen (bspw. Backup-Zeiten und States) die zur Fehlersuche dienen können aufgelistet
+1. In der Adapterkonfiguration gibt es die MÃ¶glichkeit Log zu aktivieren so werden im IoBroker-Log verschiedene Meldungen (bspw. Backup-Zeiten und States) die zur Fehlersuche dienen kÃ¶nnen aufgelistet
 
-2. Zusätzlich gibt es die Möglichkeit Debug zu aktivieren nun wird im IoBroker-Log der Befehl ausgegeben der an die backitup.sh übergeben wird. Dieser Befehl kann eins zu eins in die Konsole (mit Putty o.ä) eingegeben werden um Fehler eingrenzen zu können.
+2. ZusÃ¤tzlich gibt es die MÃ¶glichkeit Debug zu aktivieren nun wird im IoBroker-Log der Befehl ausgegeben der an die backitup.sh Ã¼bergeben wird. Dieser Befehl kann eins zu eins in die Konsole (mit Putty o.Ã¤) eingegeben werden um Fehler eingrenzen zu kÃ¶nnen.
 
-## 7. Aufgetretene Fehler / Lösungen:
+## 7. Aufgetretene Fehler / LÃ¶sungen:
 
-Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vorhanden.
+Hier eine Liste der bisher aufgetretenen Probleme und deren LÃ¶sungen sofern vorhanden.
 
-1.	Olifall (aus dem Forum) hatte das Problem dass nach dem Restore das Webinterface des IoBrokers nicht mehr erreichbar war, durch folgende Schritte über die Konsole konnte er dies beheben:
+1.	Olifall (aus dem Forum) hatte das Problem dass nach dem Restore das Webinterface des IoBrokers nicht mehr erreichbar war, durch folgende Schritte Ã¼ber die Konsole konnte er dies beheben:
     - sudo iobroker status
     - Meldung = "No connection to states 127.0.0.0:6379[redis]"
     - sudo apt-get install redis-server
 
-2.	Beim Testen kam es bei Anderen vor dass einige Datenpunkte nicht beschreib /-änderbar waren, dieser Fehler konnte nicht nachgestellt und dementsprechend nicht behoben werden.
+2.	Beim Testen kam es bei Anderen vor dass einige Datenpunkte nicht beschreib /-Ã¤nderbar waren, dieser Fehler konnte nicht nachgestellt und dementsprechend nicht behoben werden.
 
-3.	Fehlermeldung: „Kommando nicht gefunden“ 
-Durch die Unterschiede von Unix und Windows, darf die backitup.sh nicht unter Windows (Editor) geändert werden. 
-Erklärung:
+3.	Fehlermeldung: â€žKommando nicht gefundenâ€œ
+Durch die Unterschiede von Unix und Windows, darf die backitup.sh nicht unter Windows (Editor) geÃ¤ndert werden.
+ErklÃ¤rung:
 Unter DOS wird in Textdateien ein Zeilenende durch die Sequenz return (Dezimalcode 13) und new line (Dezimalcode 10) dargestellt. Unix verwendet dagegen nur new line.
 
-4. Iobroker bleibt beim komplett-Backup hängen / startet nicht mehr
-Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durchläuft bzw. der IoBroker gestoppt und nicht mehr gestartet wird. Hierfür ist es möglich in der Adapter- Konfigurations-Datenpunkten den Stop/Start des IoBrokers beim komplett-Backup zu deaktivieren.
+4. Iobroker bleibt beim komplett-Backup hÃ¤ngen / startet nicht mehr
+Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durchlÃ¤uft bzw. der IoBroker gestoppt und nicht mehr gestartet wird. HierfÃ¼r ist es mÃ¶glich in der Adapter- Konfigurations-Datenpunkten den Stop/Start des IoBrokers beim komplett-Backup zu deaktivieren.
 
 ## 8. Changelog:
 
 #0.1.4 (03.07.2018)
  - (simatec/peoples) diverse Anpassungen
- 
+
 #0.1.3 (02.07.2018)
- - (simatec/peoples) Sprachen hinzugefügt
- 
+ - (simatec/peoples) Sprachen hinzugefÃ¼gt
+
 #0.1.2 (30.06.2018)
  - (simatec/peoples) Erste Beta-Version
 

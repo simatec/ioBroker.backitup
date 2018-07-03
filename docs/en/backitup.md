@@ -15,9 +15,9 @@ Backitup is a backup solution that enables the cyclical backup of an IoBroker in
    - 1.2 Complete backup
    - 1.3 CCU Backup (CCU-Original / pivCCU / Raspberrymatic)
    - 1.4 Optional Mysql backup (Localhost)
-   
+
 3rd Ftp vs. CIFS
-   
+
 4. Use
    - 4.1 created data points
    - 4.3 Format History Log with CCS
@@ -170,7 +170,7 @@ Some users reported that the IoBroker full backup did not go through properly or
 
 # 0.1.4 (03.07.2018)
   - (simatec / peoples) various adjustments
- 
+
 # 0.1.3 (02.07.2018)
   - (simatec / peoples) languages added
 
