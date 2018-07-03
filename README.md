@@ -84,7 +84,7 @@ Folgende Schritte sollten durchgeführt werden um den Adapter verwenden zu können
 	- letztes_ccu_Backup -> speichert das Erstell-Datum und die Uhrzeit des letzten Komplett Backups
 
 2. History-Log in Vis anzeigen
-Es ist möglich den History-Log bspw. in einem Html-Widget durch eintragen folgender Zeile in HTML darzustellen:
+   - Es ist möglich den History-Log bspw. in einem Html-Widget durch eintragen folgender Zeile in HTML darzustellen:
 ```
 {backitup.0.History.Backup_history}
 ```
@@ -118,7 +118,7 @@ Syntax: {BackitupInstanz.History.Backup_history}
        }
    ```
 4. OneClick-Button mit Status-Text
-Wenn ein OneClick-Datenpunkt auf true gesetzt wird startet das entsprechende Backup und nach einer vordefinierten Zeit wird dieser Datenpunkt wieder auf false gesetzt somit ist es möglich einen Button mit Status zu erstellen, hierzu folgende Zeile anpassen und in Vis als Knopftext eintragen:
+   - Wenn ein OneClick-Datenpunkt auf true gesetzt wird startet das entsprechende Backup und nach einer vordefinierten Zeit wird dieser Datenpunkt wieder auf false gesetzt somit ist es möglich einen Button mit Status zu erstellen, hierzu folgende Zeile anpassen und in Vis als Knopftext eintragen:
 ```
 {wert:backitup.0.OneClick.start_minimal_Backup; wert === "true" ? "Minimal Backup </br> wird erstellt" : "Minimal Backup </br> starten"}
 
@@ -174,7 +174,7 @@ Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durc
 ## 8. Changelog:
 
 #0.1.5 (03.07.2018)
- - (peoples) Log Einträge min zweistellig
+ - (peoples) Log Einträge neu formatiert
 
 #0.1.4 (02.07.2018)
  - (simatec/peoples) diverse Anpassungen
