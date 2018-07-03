@@ -170,6 +170,12 @@ Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durc
 
 ## 8. Changelog:
 
+#0.1.4 (03.07.2018)
+ - (simatec/peoples) diverse Anpassungen
+
+#0.1.3 (02.07.2018)
+ - (simatec/peoples) Sprachen hinzugefügt
+
 #0.1.2 (30.06.2018)
  - (simatec/peoples) Erste Beta-Version
 
