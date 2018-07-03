@@ -82,7 +82,7 @@ The following steps should be used to use the adapter (if the v1 / v2 / v3 backu
 
 2. Show history log in Vis
 It is possible to display the history log eg in a html widget by entering the following line in HTML:
-`` `
+```
 {backitup.0.History.Backup_history}
 ```
 Syntax: {BackitupInstanz.History.Backup_history}
@@ -115,10 +115,9 @@ Syntax: {BackitupInstanz.History.Backup_history}
    ```
 4. OneClick button with status text
 If a OneClick data point is set to true, the corresponding backup starts and after a predefined time, this data point is set to false again, so it is possible to create a button with status by adjusting the following line and entering it in Vis as button text:
-`` `
+```
 {Value: backitup.0.OneClick.start_minimal_Backup; worth === "true"? "Minimal Backup </ br> will be created": "Minimal Backup </ br> start"}
-
-`` `
+```
 Syntax: {value: BackitupInstance.OnClick.Solution trigger; worth === "true"? "Text during backup creation": "Standard text"}
 
 ## 5. Restore:
