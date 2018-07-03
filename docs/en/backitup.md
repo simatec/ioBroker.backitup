@@ -66,6 +66,9 @@ The following steps should be used to use the adapter (if the v1 / v2 / v3 backu
   - Disadvantages CIFS:
     - If a mount is not possible, no backup is created!
     - "Old backups" can be automatically deleted on the Nas. In the worst case, there is no backup available if you need it.
+- Path information (note spelling):
+    - CIFS: "Sharename/path"
+    - FTP: "/path"
 
 
 1. The adapter creates 7 data points for use in Vis
