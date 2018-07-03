@@ -66,6 +66,9 @@ Folgende Schritte sollten durchgeführt werden um den Adapter verwenden zu könn
   - Nachteile CIFS:
     -	Wenn ein Mounten nicht möglich ist, wird kein Backup erstellt!
     -	„Alte Backups“ können automatisiert auf dem Nas gelöscht werden. Im schlimmsten Fall ist somit kein Backup mehr vorhanden wenn ihr es benötigt.
+  - Pfadangaben (Schreibweise beachten):
+    -	CIFS: "Freigabename/Pfadangabe"
+    -	FTP: "/Pfadangabe"
 
 
 ## 4. Verwendung:
