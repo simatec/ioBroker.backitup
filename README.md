@@ -173,6 +173,9 @@ Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durc
 
 ## 8. Changelog:
 
+#0.1.6 (04.07.2018)
+ - Beta Version
+ 
 #0.1.5 (03.07.2018)
  - (peoples) Log Einträge neu formatiert
 
