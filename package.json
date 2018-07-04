@@ -1,6 +1,6 @@
 {
   "name": "iobroker.backitup",
-  "version": "0.1.5",
+  "version": "0.1.3",
   "description": "Dieser Adapter ermoeglicht das zyklische Erstellen von Backups einer IoBroker/Homematic Installation",
   "author": {
     "name": "simatec",
