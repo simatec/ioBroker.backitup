@@ -94,29 +94,22 @@
 	    	"pl": "Kopia zapasowa ioBroker"
         },
         "desc": {
-            "en": "This adapter enables the cyclical creation of backups of an IoBroker / Homematic installation",
-            "de": "Dieser Adapter ermoeglicht das zyklische Erstellen von Backups einer IoBroker/Homematic Installation",
-            "ru": "???? ??????? ???????????? ??????????? ???????? ????????? ????? ????????? IoBroker / Homematic",
-            "pt": "Este adaptador permite a cria��o c�clica de backups de uma instala��o do IoBroker / Homematic",
-            "nl": "Deze adapter maakt het cyclisch maken van back-ups van een IoBroker / Homematic-installatie mogelijk",
-            "fr": "Cet adaptateur permet la cr�ation cyclique de sauvegardes d'une installation IoBroker / Homematic",
-            "it": "Questo adattatore consente la creazione ciclica di backup di un'installazione IoBroker / Homematic",
-            "es": "Este adaptador permite la creaci�n c�clica de copias de seguridad de una instalaci�n de IoBroker / Homematic",
-            "pl": "Ten adapter umozliwia cykliczne tworzenie kopii zapasowych instalacji IoBroker / Homematic"
+    		"en": "This adapter enables the cyclical creation of backups of an IoBroker / Homematic installation",
+    		"de": "Dieser Adapter ermöglicht das zyklische Erstellen von Backups einer IoBroker / Homematic-Installation",
+    		"ru": "Этот адаптер обеспечивает циклическое создание резервных копий установки IoBroker / Homematic",
+    		"pt": "Este adaptador permite a criação cíclica de backups de uma instalação do IoBroker / Homematic",
+    		"nl": "Deze adapter maakt het cyclisch maken van back-ups van een IoBroker / Homematic-installatie mogelijk",
+    		"fr": "Cet adaptateur permet la création cyclique de sauvegardes d'une installation IoBroker / Homematic",
+    		"it": "Questo adattatore consente la creazione ciclica di backup di un'installazione IoBroker / Homematic",
+    		"es": "Este adaptador permite la creación cíclica de copias de seguridad de una instalación de IoBroker / Homematic",
+    		"pl": "Ten adapter umożliwia cykliczne tworzenie kopii zapasowych instalacji IoBroker / Homematic"
         },
         "authors": [
             "simatec <nais@gmx.net>"
         ],
         "docs": {
             "en": "docs/en/backitup.md",
-            "de": "docs/de/backitup.md",
-            "ru": "docs/ru/backitup.md",
-            "pt": "docs/pt/backitup.md",
-            "nl": "docs/nl/backitup.md",
-            "fr": "docs/fr/backitup.md",
-            "it": "docs/it/backitup.md",
-            "es": "docs/es/backitup.md",
-            "pl": "docs/pl/backitup.md"
+            "de": "docs/de/backitup.md"
         },
         "platform": "Javascript/Node.js",
         "mode": "daemon",
@@ -129,8 +122,7 @@
         "loglevel": "info",
         "type": "general",
         "license": "MIT",
-        "messagebox": false,
-        "restartAdapters": ["vis"]
+        "messagebox": false
     },
     "native": {
         "minimal_BackupState": false,
