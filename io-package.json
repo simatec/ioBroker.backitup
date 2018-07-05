@@ -1,9 +1,21 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.1.6",
+        "version": "0.1.7",
         "news": {
-            "0.1.6": {
+            "0.1.7": {
+    		"en": "Data points defined in io-package",
+    		"de": "Datenpunkte in io-package definiert",
+    		"ru": "Точки данных, определенные в io-пакете",
+    		"pt": "Pontos de dados definidos no pacote io",
+            "nl": "Gegevenspunten gedefinieerd in io-pakket",
+    		"fr": "Points de données définis dans io-package",
+    		"it": "Punti dati definiti in io-package",
+    		"es": "Puntos de datos definidos en io-paquete",
+    		"pl": "Punkty danych zdefiniowane w pakiecie io"
+            },
+
+	    "0.1.6": {
     		"en": "Bug Fix",
     		"de": "Bug-Fix",
     		"ru": "Исправлена ​​ошибка",
@@ -105,7 +117,8 @@
     		"pl": "Ten adapter umożliwia cykliczne tworzenie kopii zapasowych instalacji IoBroker / Homematic"
         },
         "authors": [
-            "simatec <nais@gmx.net>"
+            "simatec <nais@gmx.net>",
+	    "peoples0815 <peoples0815github@gmail.com>"
         ],
         "docs": {
             "en": "docs/en/backitup.md",
@@ -163,6 +176,115 @@
 	"FtpDir_komplett": "",
 	"FtpDir_minimal": ""
     },
+    "instanceObjects": [
+        {
+            "_id":  "History",
+            "type": "channel",
+            "common": {
+                "name": "History Logs"
+            },
+            "native": {}
+        },
+        {
+            "_id":  "History.Backup_history",
+            "type": "state",
+            "common": {
+                "role":  "indicator",
+                "name":  "History-Log der ausgeführten Backups",
+                "type":  "string",
+                "read":  true,
+                "write": false,
+                "def":   "Noch kein Backup"
+            },
+            "native": {}
+        },
+        {
+            "_id":  "History.letztes_ccu_Backup",
+            "type": "state",
+            "common": {
+                "role":  "indicator",
+                "name":  "Letztes CCU Backup",
+                "type":  "string",
+                "read":  true,
+                "write": false,
+                "def":   "Noch kein Backup"
+            },
+            "native": {}
+        },
+        {
+            "_id":  "History.letztes_minimal_Backup",
+            "type": "state",
+            "common": {
+                "role":  "indicator",
+                "name":  "Letztes minimal Backup",
+                "type":  "string",
+                "read":  true,
+                "write": false,
+                "def":   "Noch kein Backup"
+            },
+            "native": {}
+        },
+        {
+            "_id":  "History.letztes_komplett_Backup",
+            "type": "state",
+            "common": {
+                "role":  "indicator",
+                "name":  "Letztes komplett Backup",
+                "type":  "string",
+                "read":  true,
+                "write": false,
+                "def":   "Noch kein Backup"
+            },
+            "native": {}
+        },
+        {
+            "_id":  "OneClick",
+            "type": "channel",
+            "common": {
+                "name": "OneClick Buttons"
+            },
+            "native": {}
+        },
+        {
+            "_id":  "OneClick.start_ccu_Backup",
+            "type": "state",
+            "common": {
+                "role":  "indicator",
+                "name":  "CCU - Backup ausführen",
+                "type":  "boolean",
+                "read":  true,
+                "write": false,
+                "def":   false
+            },
+            "native": {}
+        },
+        {
+            "_id":  "OneClick.start_minimal_Backup",
+            "type": "state",
+            "common": {
+                "role":  "indicator",
+                "name":  "Minimal - Backup ausführen",
+                "type":  "boolean",
+                "read":  true,
+                "write": false,
+                "def":   false
+            },
+            "native": {}
+        },
+        {
+            "_id":  "OneClick.start_komplett_Backup",
+            "type": "state",
+            "common": {
+                "role":  "indicator",
+                "name":  "Komplett - Backup ausführen",
+                "type":  "boolean",
+                "read":  true,
+                "write": false,
+                "def":   false
+            },
+            "native": {}
+        }
+    ],
     "objects": [
 
     ]

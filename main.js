@@ -161,17 +161,6 @@ let history_array = [];                                         // Array für das
 // Objekte
 // =============================================================================
 
-// Anlegen History Datenpunkte
-adapter.setObjectNotExists('History.Backup_history', {type: 'state', common: {name: 'History der Backups', type: 'string', state: '<span class="bkptyp_komplett">Noch kein Backup</span>', role: 'indicator'}, native: {}});
-adapter.setObjectNotExists('History.letztes_minimal_Backup', {type: 'state', common: {name: 'Letztes minimal Backup', type: 'string', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
-adapter.setObjectNotExists('History.letztes_komplett_Backup', {type: 'state', common: {name: 'Letztes komplett Backup', type: 'string', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
-adapter.setObjectNotExists('History.letztes_ccu_Backup', {type: 'state', common: {name: 'Letztes CCU Backup', type: 'state', state: 'Noch kein Backup', role: 'indicator'}, native: {}});
-
-// Anlegen OneClick Datenpunkte - Prüfen ob diese als Schalter anlegbar sind
-adapter.setObjectNotExists('OneClick.start_minimal_Backup', {type: 'state', common: {name: 'Minimal Backup ausfuehren', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
-adapter.setObjectNotExists('OneClick.start_komplett_Backup', {type: 'state', common: {name: 'Komplett Backup ausfuehren', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
-adapter.setObjectNotExists('OneClick.start_ccu_Backup', {type: 'state', common: {name: 'CCU Backup ausfuehren', type: 'boolean', state: 'false', role: 'indicator'}, native: {}});
-
 // Leere Datenpunkte mit Standardwerten befüllen.
 adapter.getState('History.Backup_history', function (err, state) {
     if(state ===null  || state.val===null) {
@@ -369,21 +358,6 @@ adapter.on('stateChange', function (id, state) {
 
 });
 
-// #############################################################################
-// #                                                                           #
-// #  Beobachten aller Backupdatenpunkte                                       #
-// #                                                                           #
-// #############################################################################
-/*
-$('state(functions=BackItUp)').on(function(obj) {
-    WerteAktualisieren();
-});
-*/
-// #############################################################################
-// #                                                                           #
-// #  Bei Scriptstart Schedules setzen                                         #
-// #                                                                           #
-// #############################################################################
 ScriptStart();
 
 
