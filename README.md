@@ -7,7 +7,7 @@
 
 [![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
 
-Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist. 
+Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
 In der aktuellen Version funktioniert der Adapter nur auf Linux, da die fehlerfreie Ausführung des Shell-Scripts auf anderen Distributionen NOCH nicht funktioniert.
 
@@ -16,10 +16,10 @@ In der aktuellen Version funktioniert der Adapter nur auf Linux, da die fehlerfr
    - 1.1 Minimales Backup (Standard IoBroker Backup)
    - 1.2 Komplettes Backup
    - 1.3 CCU Backup (CCU-Original / pivCCU / Raspberrymatic)
-   - 1.4 Optionales Mysql-Backup (Localhost) 
-   
+   - 1.4 Optionales Mysql-Backup (Localhost)
+
 3. Ftp vs. CIFS
-   
+
 4. Verwendung
    - 4.1 Erstellte Datenpunkte
    - 4.3 History-Log mit CCS formatieren
@@ -35,8 +35,8 @@ In der aktuellen Version funktioniert der Adapter nur auf Linux, da die fehlerfr
    - 7.1 Webinterface nach Restore nicht erreichbar
    - 7.2 JS-Datenbunkt nicht beschreibbar
    - 7.3 Fehlermeldung: "Komando nicht gefunden"
-   - 7.4 Komplett-Backup bleibt hängen 
-   - 7.5 Geänderte Werte in Dp werden nicht übernommen 
+   - 7.4 Komplett-Backup bleibt hängen
+   - 7.5 Geänderte Werte in Dp werden nicht übernommen
 8. Changelog
 
 
@@ -47,8 +47,8 @@ Backitup bietet die Möglichkeit drei (optional mit DB-Backup) verschiedene Back
 1. Standard Backup
    - Dieses Backup entspricht dem in IoBroker enthaltenen Backup welches man in der Konsole über den Aufruf „./iobroker backup“ starten kann. Nur wird es hier durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt ohne die Konsole verwenden zu müssen.
 2. Komplettes Backup
-   - Dieses Backup sichert den kompletten IoBroker Ordner inklusive aller Unterordner und deren Dateien samt Dateiberechtigungen. Hierbei sollte die Dateigröße nicht ausser Acht gelassen werden, denn ein solches Backup hat oft mehrere hundert MB. 
-Um sicher zu gehen dass alle aktuellsten States gesichert werden muss hier in der Konfiguration der Hacken bei IoBroker Stop/Start gesetzt werden. 
+   - Dieses Backup sichert den kompletten IoBroker Ordner inklusive aller Unterordner und deren Dateien samt Dateiberechtigungen. Hierbei sollte die Dateigröße nicht ausser Acht gelassen werden, denn ein solches Backup hat oft mehrere hundert MB.
+Um sicher zu gehen dass alle aktuellsten States gesichert werden muss hier in der Konfiguration der Hacken bei IoBroker Stop/Start gesetzt werden.
 3. CCU Backup (Homematic)
    -  Dieses Backup bietet die Möglichkeit 3 verschiedene Varianten einer Homematic Installations (CCU-Original / pivCCU / Raspberrymatic) zu sichern. Auch die Ausführung dieses Backups kann durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt werden.
 4. Mysql-Backup (Localhost)
@@ -128,16 +128,16 @@ Syntax: {wert:BackitupInstanz.OnClick.Auslösetrigger; wert === "true" ? "Text w
 
 ## 5. Restore:
 
-1. Restore eines minimalen / normalen IoBroker Backups: 
-    - Das Backup muss wie gewohnt im  Verzeichnis „opt/iobroker/backups/“ liegen 
-    - Es kann über die Konsole mit Hilfe des Befehls: „iobroker restore (Nummer des Backups aus der Liste)“ wieder hergestellt werden.  
+1. Restore eines minimalen / normalen IoBroker Backups:
+    - Das Backup muss wie gewohnt im  Verzeichnis „opt/iobroker/backups/“ liegen
+    - Es kann über die Konsole mit Hilfe des Befehls: „iobroker restore (Nummer des Backups aus der Liste)“ wieder hergestellt werden.
 
 2. Restore eines kompletten Backups:
     - Den Befehl:“sudo  iobroker stop“ über die Konsole ausführen
     - Das erstellte Backup muss in das Verzeichnis  „root/“ kopiert werden
     - Den Befehl:" sudo tar -xzvf Backupname.tar.gz -C / " über die Konsole ausführen
     - Warten - Während der Wiederherstellung wird euch angezeigt was gerade gemacht wird
-    - Den Befehl: „sudo iobroker start“ über die Konsole ausführen 
+    - Den Befehl: „sudo iobroker start“ über die Konsole ausführen
 
 3. Restore eines Raspberrymatic / CCU Backups:
     - *.sbk Datei via SCP in das Verzeichnis „ /usr/local/tmp directory“ auf die Raspberrymatic  kopieren
@@ -164,8 +164,8 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vor
 
 2.	Beim Testen kam es bei Anderen vor dass einige Datenpunkte nicht beschreib /-änderbar waren, dieser Fehler konnte nicht nachgestellt und dementsprechend nicht behoben werden.
 
-3.	Fehlermeldung: „Kommando nicht gefunden“ 
-Durch die Unterschiede von Unix und Windows, darf die backitup.sh nicht unter Windows (Editor) geändert werden. 
+3.	Fehlermeldung: „Kommando nicht gefunden“
+Durch die Unterschiede von Unix und Windows, darf die backitup.sh nicht unter Windows (Editor) geändert werden.
 Erklärung:
 Unter DOS wird in Textdateien ein Zeilenende durch die Sequenz return (Dezimalcode 13) und new line (Dezimalcode 10) dargestellt. Unix verwendet dagegen nur new line.
 
@@ -176,7 +176,7 @@ Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durc
 
 ### 0.1.6 (04.07.2018)
  * (simatec/peoples) Beta Version
- 
+
 ### 0.1.5 (03.07.2018)
  * (peoples) Log Einträge neu formatiert
 
@@ -191,3 +191,26 @@ Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durc
 
 ### 0.1.0 (25.06.2018)
  * (simatec/peoples) Erste Git-Adapter-Version
+
+
+The MIT License (MIT)
+
+Copyright (c) 2018 simatec <nais@gmx.net>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
