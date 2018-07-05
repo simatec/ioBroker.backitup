@@ -172,22 +172,22 @@ Unter DOS wird in Textdateien ein Zeilenende durch die Sequenz return (Dezimalco
 4. Iobroker bleibt beim komplett-Backup hängen / startet nicht mehr
 Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durchläuft bzw. der IoBroker gestoppt und nicht mehr gestartet wird. Hierfür ist es möglich in der Adapter- Konfigurations-Datenpunkten den Stop/Start des IoBrokers beim komplett-Backup zu deaktivieren.
 
-## 8. Changelog:
+## Changelog
 
-#0.1.6 (04.07.2018)
- - Beta Version
+### 0.1.6 (04.07.2018)
+ * (simatec/peoples) Beta Version
  
-#0.1.5 (03.07.2018)
- - (peoples) Log Einträge neu formatiert
+### 0.1.5 (03.07.2018)
+ * (peoples) Log Einträge neu formatiert
 
-#0.1.4 (02.07.2018)
- - (simatec/peoples) diverse Anpassungen
+### 0.1.4 (02.07.2018)
+ * (simatec/peoples) diverse Anpassungen
 
-#0.1.3 (01.07.2018)
- - (simatec/peoples) Sprachen hinzugefügt
+### 0.1.3 (01.07.2018)
+ * (simatec/peoples) Sprachen hinzugefügt
 
-#0.1.2 (30.06.2018)
- - (simatec/peoples) Erste Beta-Version
+### 0.1.2 (30.06.2018)
+ * (simatec/peoples) Erste Beta-Version
 
-#0.1.0 (25.06.2018)
- - (simatec/peoples) Erste Git-Adapter-Version
+### 0.1.0 (25.06.2018)
+ * (simatec/peoples) Erste Git-Adapter-Version
