@@ -192,6 +192,7 @@ Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durc
 ### 0.1.0 (25.06.2018)
  * (simatec/peoples) Erste Git-Adapter-Version
 
+## License
 
 The MIT License (MIT)
 
