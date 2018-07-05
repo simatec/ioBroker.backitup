@@ -193,7 +193,7 @@
                 "name":  "History-Log der ausgeführten Backups",
                 "type":  "string",
                 "read":  true,
-                "write": false,
+                "write": true,
                 "def":   "Noch kein Backup"
             },
             "native": {}
@@ -206,7 +206,7 @@
                 "name":  "Letztes CCU Backup",
                 "type":  "string",
                 "read":  true,
-                "write": false,
+                "write": true,
                 "def":   "Noch kein Backup"
             },
             "native": {}
@@ -219,7 +219,7 @@
                 "name":  "Letztes minimal Backup",
                 "type":  "string",
                 "read":  true,
-                "write": false,
+                "write": true,
                 "def":   "Noch kein Backup"
             },
             "native": {}
@@ -232,7 +232,7 @@
                 "name":  "Letztes komplett Backup",
                 "type":  "string",
                 "read":  true,
-                "write": false,
+                "write": true,
                 "def":   "Noch kein Backup"
             },
             "native": {}
@@ -253,7 +253,7 @@
                 "name":  "CCU - Backup ausführen",
                 "type":  "boolean",
                 "read":  true,
-                "write": false,
+                "write": true,
                 "def":   false
             },
             "native": {}
@@ -266,7 +266,7 @@
                 "name":  "Minimal - Backup ausführen",
                 "type":  "boolean",
                 "read":  true,
-                "write": false,
+                "write": true,
                 "def":   false
             },
             "native": {}
@@ -279,7 +279,7 @@
                 "name":  "Komplett - Backup ausführen",
                 "type":  "boolean",
                 "read":  true,
-                "write": false,
+                "write": true,
                 "def":   false
             },
             "native": {}
