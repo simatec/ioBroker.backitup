@@ -174,7 +174,7 @@ Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durc
 
 ## Changelog
 
-### 0.1.7 (04.07.2018)
+### 0.1.7 (05.07.2018)
  * (peoples) Datenpunkte in io-package definiert
 
 ### 0.1.6 (04.07.2018)
