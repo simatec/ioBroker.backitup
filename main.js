@@ -12,11 +12,6 @@ var schedule = require('node-schedule');
 // adapter will be restarted automatically every time as the configuration changed, e.g system.adapter.backitup.0
 const adapter = new utils.Adapter('backitup');
 
-/*Variable declaration, since ES6 there are let to declare variables. Let has a more clearer definition where
-it is available then var.The variable is available inside a block and it's childs, but not outside.
-You can define the same variable name inside a child without produce a conflict with the variable of the parent block.*/
-let variable = 1234;
-
 // is called when adapter shuts down - callback has to be called under any circumstances!
 adapter.on('unload', function (callback) {
     try {
@@ -241,7 +236,7 @@ function backup_erstellen(typ, name, zeit, host, pfad, user, passwd, ccuip, ccuu
 
 // Telegram
     if(adapter.config.telegram_message === true){
-        adapter.log.info('Ja ist true');
+        adapter.log.info('Telegram Message ist aktiv');
 
         let messagetext = 'Es wurde am '+HistoryEintrag(new Date())+' ein neues '+typ+' Backup erstellt';
         if(host !== '') messagetext += ', und nach '+host+pfad+' kopiert/verschoben';
