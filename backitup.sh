@@ -15,13 +15,13 @@
 # Version: 1.0.1 - Optionaler Upload auf FTP-Server
 # Version: 2.0   - Raspberrymatic-Backup mit eingebunden
 # Version: 2.0.1 - Optionale Verwendung von CIFS-Mount eingebunden
-#		 - Iobroker Stop und Start bei Komplettbackup eingefügt
-# Version: 2.0.2 - Zusätzliches MYSQL-Backup inkl. upload auf FTP-Server
+#		             - Iobroker Stop und Start bei Komplettbackup eingefÃ¼gt
+# Version: 2.0.2 - ZusÃ¤tzliches MYSQL-Backup inkl. upload auf FTP-Server
 # Version: 2.0.3 - Erste Version auf Github
-# Version: 2.0.4 - Backupmöglichkeit für Homematic-CCU und pivccu eingebunden
-# Version: 3.0.0 - Backup für Raspberrymatic entfernt (wird jetzt alles über das Homematic-CCU Backup erledigt)
-# 		 - diverse Änderungen und Verbesserungen im Script
-# Version: 3.0.1 - FTP-Upload auf "curl" geändert (Das Packet LFTP wird nicht mehr benötigt)
+# Version: 2.0.4 - BackupmÃ¶glichkeit fÃ¼r Homematic-CCU und pivccu eingebunden
+# Version: 3.0.0 - Backup fÃ¼r Raspberrymatic entfernt (wird jetzt alles Ã¼ber das Homematic-CCU Backup erledigt)
+# 		           - diverse Ã„nderungen und Verbesserungen im Script
+# Version: 3.0.1 - FTP-Upload auf "curl" geÃ¤ndert (Das Packet LFTP wird nicht mehr benÃ¶tigt)
 #
 #
 # Verwendung:  bash backup.sh "Backup_Typ|Namens_Zusatz|Loeschen_nach_X_Tagen|NAS_Host|NAS_Verzeichnis|NAS_User|NAS_Passwort|CCU-IP|CCU-USER|CCU-PW|CIFS_MNT|IOBROKER_RESTART|REDIS_STATE|MYSQL_DBNAME|MYSQL_USR|MYSQL_PW|MYSQL_Loeschen_nach_X_Tagen"
@@ -35,7 +35,7 @@ VAR=($STRING)
 
 
 ############################################################################
-#									   #
+#									                                                         #
 # Definieren der Scriptvariablen                                           #
 #                                                                          #
 ############################################################################
@@ -59,10 +59,10 @@ MYSQL_PW=${VAR[15]}
 MYSQL_LOESCHEN_NACH=${VAR[16]}
 
 
-# Variable fuer optionales Weiterkopieren
+# Variable fÃ¼r optionales Weiterkopieren
 BKP_OK="NEIN"
 
-# Datum definieren für iobroker
+# Datum definieren fÃ¼r iobroker
 datum=`date +%Y_%m_%d`
 
 # Backuppfad im iobroker definieren
@@ -80,8 +80,8 @@ minute=`date +%M`
 
 
 ############################################################################
-#									   #
-# Optionaler Mount auf CIFS-Server                    			   #
+#									                                                         #
+# Optionaler Mount auf CIFS-Server                                 			   #
 #                                                                          #
 ############################################################################
 
@@ -93,8 +93,8 @@ fi
 
 
 ############################################################################
-#									   #
-# Optionales MYSQL-Datenbank-Backup                 			   #
+#									                                                         #
+# Optionales MYSQL-Datenbank-Backup                 		              	   #
 #                                                                          #
 ############################################################################
 
@@ -105,7 +105,7 @@ if [ -n "$MYSQL_DBNAME" ]; then
 	fi
 fi
 ############################################################################
-#									   #
+#									                                                         #
 # Erstellen eines normalen ioBroker Backups                                #
 #                                                                          #
 ############################################################################
@@ -122,7 +122,7 @@ if [ $BKP_TYP == "minimal" ]; then
 
 
 ############################################################################
-#									   #
+#									                                                         #
 # Erstellen eines Backups des ganzen ioBroker-Ordners                      #
 #                                                                          #
 ############################################################################
@@ -166,7 +166,7 @@ elif [ $BKP_TYP == "komplett" ]; then
 	fi
 	
 ############################################################################
-#									   #
+#									                                                         #
 # Erstellen eines Backups der Homematic-CCU                                #
 #                                                                          #
 ############################################################################
@@ -214,7 +214,7 @@ fi
 
 
 ############################################################################
-#									   #
+#									                                                         #
 # Optionales Loeschen alter Backups                                        #
 #                                                                          #
 ############################################################################
@@ -225,7 +225,7 @@ fi
 
 if [ $BKP_OK == "JA" ]; then
 	if [ -n "$BKP_LOESCHEN_NACH" ]; then
-#		Backups Älter X Tage löschen
+#		Backups ï¿½lter X Tage lï¿½schen
 		echo "--- Alte Backups entfernen ---"
 		if [ $REDIS_STATE == "true" ]; then
 			find $bkpdir -name "backup_redis_state_*.tar.gz" -mtime +$BKP_LOESCHEN_NACH -exec rm '{}' \; && echo success "--- Ueberpruefung auf alte Dateien und loeschen erfolgreich ---" || echo error "--- Ueberpruefung auf alte Dateien und loeschen nicht erfolgreich ---"
@@ -245,7 +245,7 @@ if [ $BKP_OK == "JA" ]; then
 
 
 ############################################################################
-#									   #
+#									                                                         #
 # Optionaler Upload des Backups auf einen FTP-Server                       #
 #                                                                          #
 ############################################################################
@@ -279,8 +279,8 @@ fi
 
 
 ############################################################################
-#									   #
-# Optionaler Umount des CIFS-Servers                    		   #
+#									                                                         #
+# Optionaler Umount des CIFS-Servers                    		               #
 #                                                                          #
 ############################################################################
 
