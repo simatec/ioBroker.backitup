@@ -146,6 +146,7 @@ const Mysql_DBname = adapter.config.MysqlDbName;                // Name der Date
 const Mysql_User = adapter.config.MysqlDbUser;           	    // Benutzername für Datenbank
 const Mysql_PW = adapter.config.MysqlDbPw;           		    // Passwort für Datenbank
 const Mysql_LN = adapter.config.MysqlBackupLoeschenNach; 	    // DB-Backup löschen nach X Tagen
+const Mysql_Host = adapter.config.MysqlHost; 	                // Hostname
 
 let BkpZeit_Schedule = [];                                      // Array für die Backup Zeiten
 
@@ -156,7 +157,7 @@ let history_array = [];                                         // Array für da
 // Objekte
 // =============================================================================
 
-// Leere Datenpunkte mit Standardwerten bef�llen.
+// Leere Datenpunkte mit Standardwerten befüllen.
 adapter.getState('History.Backup_history', function (err, state) {
     if(state ===null  || state.val===null) {
         adapter.setState('History.Backup_history', { val: '<span class="bkptyp_komplett">Noch keine Backups erstellt</span>', ack: true });}
@@ -224,7 +225,7 @@ function BackupStellen() {
 
 // #############################################################################
 // #                                                                           #
-// #  Funktion zum Ausf�hren des Backups mit obigen Einstellungen              #
+// #  Funktion zum Ausführen des Backups mit obigen Einstellungen              #
 // #                                                                           #
 // #############################################################################
 
@@ -329,7 +330,7 @@ function ScriptStart() {
 
 adapter.subscribeStates('OneClick*'); // subscribe on all variables of this adapter instance with pattern "adapterName.X.memory*"
 
-// Wird ausgefrt wenn sich ein State dert
+// Wird ausgefürt wenn sich ein State ändert
 adapter.on('stateChange', function (id, state) {
 
     if (id == adapter.name+'.'+adapter.instance+'.OneClick.start_minimal_Backup' && state.val === true ){
