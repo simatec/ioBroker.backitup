@@ -249,7 +249,7 @@ function backup_erstellen(typ, name, zeit, host, pfad, user, passwd, ccuip, ccuu
     adapter.setState('History.letztes_'+typ+'_Backup', HistoryEintrag(new Date()));
 
     let ftp_bkp_u;
-    if(host === '') ftp_bkp_u = 'NEIN'; else ftp_bkp_u = 'JA';
+    if(cifsmnt === 'FTP') ftp_bkp_u = 'FTP'; else ftp_bkp_u = 'CIFS';
     new Backup_history_anlegen(typ, ftp_bkp_u);
 
     exec((bash_script+' "'+typ+'|'+name+'|'+zeit+'|'+host+'|'+pfad+'|'+user+'|'+passwd+'|'+ccuip+'|'+ccuusr+'|'+ccupw+'|'+cifsmnt+'|'+bkpiors+'|'+redisst+'|'+mysqldb+'|'+mysqlusr+'|'+mysqlpw+'|'+mysqlln+'|'+mysqlhost+'"'), function(err, stdout, stderr) {
@@ -300,7 +300,7 @@ function Backup_history_anlegen(typ, ftp_bkp_u) {
             history_array.splice((anzahl_eintraege_history - 1),1);
         }
         let zeitstempel = HistoryEintrag(new Date());
-        history_array.unshift('<span class="bkptyp_'+typ+'">' + zeitstempel + ' - Typ:' +typ+ ' - Ftp-Sicherung:' +ftp_bkp_u+ '</span>');
+        history_array.unshift('<span class="bkptyp_'+typ+'">' + zeitstempel + ' - Typ:' +typ+ ' - NAS-Sicherung: ' +ftp_bkp_u+ '</span>');
 
         adapter.setState('History.Backup_history', history_array.join('&nbsp;'));
     });
