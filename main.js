@@ -72,15 +72,15 @@ const debugging = adapter.config.state_debug;										      // Detailiertere Lo
 
 const bash_script = 'bash /opt/iobroker/node_modules/iobroker.backitup/backitup.sh ';        // Pfad zu backup.sh Datei
 
-const anzahl_eintraege_history = adapter.config.history_status;                          // Anzahl der Einträge in der History
+const anzahl_eintraege_history = adapter.config.history_status;                          // Anzahl der EintrÃ¤ge in der History
 
-let Backup = [];                                                // Array für die Definition der Backuptypen und deren Details
+let Backup = [];                                                // Array fÃ¼r die Definition der Backuptypen und deren Details
 
-// Konfigurationen für das Standard-IoBroker Backup
+// Konfigurationen fÃ¼r das Standard-IoBroker Backup
     Backup[0] = [];
-    Backup[0][0] = 'minimal';                                   // Backup Typ (nicht verändern!)
-    Backup[0][1] = adapter.config.minimal_NamensZusatz;        	// Names Zusatz, wird an den Dateinamen angehängt
-    Backup[0][2] = adapter.config.minimal_BackupLoeschenNach;  	// Alte Backups löschen nach X Tagen
+    Backup[0][0] = 'minimal';                                   // Backup Typ (nicht verÃ¤ndern!)
+    Backup[0][1] = adapter.config.minimal_NamensZusatz;        	// Names Zusatz, wird an den Dateinamen angehÃ¤ngt
+    Backup[0][2] = adapter.config.minimal_BackupLoeschenNach;  	// Alte Backups lÃ¶schen nach X Tagen
     Backup[0][3] = adapter.config.FtpHost;             	        // FTP-Host
 	if(adapter.config.nas_var === true) {             	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
 		Backup[0][4] = adapter.config.FtpDir_minimal;
@@ -88,22 +88,22 @@ let Backup = [];                                                // Array für die
 	else {
 	    Backup[0][4] = adapter.config.FtpDir;
 	}
-    Backup[0][5] = adapter.config.FtpUser;             	        // Username für FTP Server - Verbindung
-    Backup[0][6] = adapter.config.FtpPw;               	        // Passwort für FTP Server - Verbindung
-    Backup[0][7] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
-    Backup[0][8] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
-    Backup[0][9] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
+    Backup[0][5] = adapter.config.FtpUser;             	        // Username fÃ¼r FTP Server - Verbindung
+    Backup[0][6] = adapter.config.FtpPw;               	        // Passwort fÃ¼r FTP Server - Verbindung
+    Backup[0][7] = '';                                          // Nicht benÃ¶tigt bei diesem BKP-Typ (nicht verÃ¤ndern!)
+    Backup[0][8] = '';                                          // Nicht benÃ¶tigt bei diesem BKP-Typ (nicht verÃ¤ndern!)
+    Backup[0][9] = '';                                          // Nicht benÃ¶tigt bei diesem BKP-Typ (nicht verÃ¤ndern!)
     Backup[0][10] = adapter.config.CifsMount;         	        // Festlegen ob CIFS-Mount genutzt werden soll
-    Backup[0][11] = '';                                         // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
-    Backup[0][12] = '';                                         // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
+    Backup[0][11] = '';                                         // Nicht benÃ¶tigt bei diesem BKP-Typ (nicht verÃ¤ndern!)
+    Backup[0][12] = '';                                         // Nicht benÃ¶tigt bei diesem BKP-Typ (nicht verÃ¤ndern!)
 
 
-// Konfigurationen für das Komplette-IoBroker Backup
+// Konfigurationen fÃ¼r das Komplette-IoBroker Backup
 
     Backup[1] = [];
-    Backup[1][0] = 'komplett';                                  // Backup Typ (nicht verändern)
-    Backup[1][1] = adapter.config.komplett_NamensZusatz;       	// Names Zusatz, wird an den Dateinamen angehängt
-    Backup[1][2] = adapter.config.komplett_BackupLoeschenNach; 	// Alte Backups löschen nach X Tagen
+    Backup[1][0] = 'komplett';                                  // Backup Typ (nicht verÃ¤ndern)
+    Backup[1][1] = adapter.config.komplett_NamensZusatz;       	// Names Zusatz, wird an den Dateinamen angehÃ¤ngt
+    Backup[1][2] = adapter.config.komplett_BackupLoeschenNach; 	// Alte Backups lÃ¶schen nach X Tagen
     Backup[1][3] = adapter.config.FtpHost;            	        // FTP-Host
     if(adapter.config.nas_var === true) {             	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
 		Backup[1][4] = adapter.config.FtpDir_komplett;
@@ -111,21 +111,21 @@ let Backup = [];                                                // Array für die
 	else {
     	Backup[1][4] = adapter.config.FtpDir;
 	}
-    Backup[1][5] = adapter.config.FtpUser;            	        // Username für FTP Server - Verbindung
-    Backup[1][6] = adapter.config.FtpPw;              	        // Passwort für FTP Server - Verbindung
-    Backup[1][7] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
-    Backup[1][8] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
-    Backup[1][9] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
+    Backup[1][5] = adapter.config.FtpUser;            	        // Username fÃ¼r FTP Server - Verbindung
+    Backup[1][6] = adapter.config.FtpPw;              	        // Passwort fÃ¼r FTP Server - Verbindung
+    Backup[1][7] = '';                                          // Nicht benÃ¶tigt bei diesem BKP-Typ (nicht verÃ¤ndern!)
+    Backup[1][8] = '';                                          // Nicht benÃ¶tigt bei diesem BKP-Typ (nicht verÃ¤ndern!)
+    Backup[1][9] = '';                                          // Nicht benÃ¶tigt bei diesem BKP-Typ (nicht verÃ¤ndern!)
     Backup[1][10] = adapter.config.CifsMount;       		    // Festlegen ob CIFS-Mount genutzt werden soll
     Backup[1][11] = adapter.config.IoStopStart;         	    // Festlegen ob IoBroker gestoppt/gestartet wird
     Backup[1][12] = adapter.config.redis_state;         	    // Festlegen ob die Redis-DB mit gesichert werden soll
 
-// Konfiguration für das CCU / pivCCU / Raspberrymatic Backup
+// Konfiguration fÃ¼r das CCU / pivCCU / Raspberrymatic Backup
 
     Backup[2] = [];
-    Backup[2][0] = 'ccu';                                       // Backup Typ (nicht verändern)
-    Backup[2][1] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
-    Backup[2][2] = adapter.config.ccu_BackupLoeschenNach;       // Alte Backups löschen nach X Tagen
+    Backup[2][0] = 'ccu';                                       // Backup Typ (nicht verÃ¤ndern)
+    Backup[2][1] = '';                                          // Nicht benÃ¶tigt bei diesem BKP-Typ (nicht verÃ¤ndern!)
+    Backup[2][2] = adapter.config.ccu_BackupLoeschenNach;       // Alte Backups lÃ¶schen nach X Tagen
     Backup[2][3] = adapter.config.FtpHost;            	        // FTP-Host
     if(adapter.config.nas_var === true) {             	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
 			Backup[2][4] = adapter.config.FtpDir_ccu;
@@ -133,30 +133,30 @@ let Backup = [];                                                // Array für die
 		else {
 	    	Backup[2][4] = adapter.config.FtpDir;
 	}
-    Backup[2][5] = adapter.config.FtpUser;            	        // Username für FTP Server - Verbindung
-    Backup[2][6] = adapter.config.FtpPw;              	        // Passwort für FTP Server - Verbindung
+    Backup[2][5] = adapter.config.FtpUser;            	        // Username fÃ¼r FTP Server - Verbindung
+    Backup[2][6] = adapter.config.FtpPw;              	        // Passwort fÃ¼r FTP Server - Verbindung
     Backup[2][7] = adapter.config.ccuCcuIp;                     // IP-Adresse der CCU
     Backup[2][8] = adapter.config.ccuCcuUser;                   // Username der CCU
     Backup[2][9] = adapter.config.ccuCcuPw;                     // Passwort der CCU
     Backup[2][10] = adapter.config.CifsMount;         	        // Festlegen ob CIFS-Mount genutzt werden soll
-    Backup[2][11] = '';                                         // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
-    Backup[2][12] = '';                                         // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
+    Backup[2][11] = '';                                         // Nicht benÃ¶tigt bei diesem BKP-Typ (nicht verÃ¤ndern!)
+    Backup[2][12] = '';                                         // Nicht benÃ¶tigt bei diesem BKP-Typ (nicht verÃ¤ndern!)
 
 const Mysql_DBname = adapter.config.MysqlDbName;                // Name der Datenbank
-const Mysql_User = adapter.config.MysqlDbUser;           	    // Benutzername für Datenbank
-const Mysql_PW = adapter.config.MysqlDbPw;           		    // Passwort für Datenbank
-const Mysql_LN = adapter.config.MysqlBackupLoeschenNach; 	    // DB-Backup löschen nach X Tagen
+const Mysql_User = adapter.config.MysqlDbUser;           	    // Benutzername fÃ¼r Datenbank
+const Mysql_PW = adapter.config.MysqlDbPw;           		    // Passwort fÃ¼r Datenbank
+const Mysql_LN = adapter.config.MysqlBackupLoeschenNach; 	    // DB-Backup lÃ¶schen nach X Tagen
 
-let BkpZeit_Schedule = [];                                      // Array für die Backup Zeiten
+let BkpZeit_Schedule = [];                                      // Array fÃ¼r die Backup Zeiten
 
-let Enum_ids =[];                                               // Array für die ID's die später in der enum.function erstellt werden
+let Enum_ids =[];                                               // Array fÃ¼r die ID's die spÃ¤ter in der enum.function erstellt werden
 
-let history_array = [];                                         // Array für das anlegen der Backup-Historie
+let history_array = [];                                         // Array fÃ¼r das anlegen der Backup-Historie
 // =============================================================================
 // Objekte
 // =============================================================================
 
-// Leere Datenpunkte mit Standardwerten befüllen.
+// Leere Datenpunkte mit Standardwerten befï¿½llen.
 adapter.getState('History.Backup_history', function (err, state) {
     if(state ===null  || state.val===null) {
         adapter.setState('History.Backup_history', { val: '<span class="bkptyp_komplett">Noch keine Backups erstellt</span>', ack: true });}
@@ -224,7 +224,7 @@ function BackupStellen() {
 
 // #############################################################################
 // #                                                                           #
-// #  Funktion zum Ausführen des Backups mit obigen Einstellungen              #
+// #  Funktion zum Ausfï¿½hren des Backups mit obigen Einstellungen              #
 // #                                                                           #
 // #############################################################################
 
@@ -287,7 +287,7 @@ function HistoryEintrag(date) {
 
 // #############################################################################
 // #                                                                           #
-// #  Backupdurchführung in History eintragen                                  #
+// #  Backupdurchfï¿½hrung in History eintragen                                  #
 // #                                                                           #
 // #############################################################################
 
