@@ -149,7 +149,7 @@
 	"komplett_BackupLoeschenNach": 5,
 	"komplett_NamensZusatz": "",
     "IoStopStart": false,
-    "MysqlDbHost": "localhost",
+    "MysqlHost": "localhost",
 	"MysqlDbName": "",
 	"MysqlDbUser": "",
 	"MysqlDbPw": "",
