@@ -225,7 +225,7 @@ fi
 
 if [ $BKP_OK == "JA" ]; then
 	if [ -n "$BKP_LOESCHEN_NACH" ]; then
-#		Backups �lter X Tage l�schen
+#		Backups Älter X Tage löschen
 		echo "--- Alte Backups entfernen ---"
 		if [ $REDIS_STATE == "true" ]; then
 			find $bkpdir -name "backup_redis_state_*.tar.gz" -mtime +$BKP_LOESCHEN_NACH -exec rm '{}' \; && echo success "--- Ueberpruefung auf alte Dateien und loeschen erfolgreich ---" || echo error "--- Ueberpruefung auf alte Dateien und loeschen nicht erfolgreich ---"
