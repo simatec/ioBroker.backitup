@@ -35,7 +35,7 @@ VAR=($STRING)
 
 
 ############################################################################
-#									                                                         #
+#									   #
 # Definieren der Scriptvariablen                                           #
 #                                                                          #
 ############################################################################
@@ -81,21 +81,33 @@ minute=`date +%M`
 
 
 ############################################################################
-#									                                                         #
-# Optionaler Mount auf CIFS-Server                                 			   #
+#									   #
+# Optionaler Mount auf CIFS-Server                                 	   #
 #                                                                          #
 ############################################################################
 
 if [ $CIFS_MNT == "CIFS" ]; then
 	echo "--- Backup-Pfad auf CIFS mounten ---"
-	sudo umount $bkpdir
-	sudo mount -t cifs -o user=$NAS_USR,password=$NAS_PASS,rw,file_mode=0777,dir_mode=0777,vers=1.0 //$NAS_HOST/$NAS_DIR $bkpdir && echo success "--- CIFS-Server verbunden ---" || echo error "--- Backup-Pfad wurde nicht auf CIFS-Server verbunden ---"
+	
+	mount | grep -q "${bkpdir}"
+	if [ $? -eq 0 ] ; then
+		sudo umount $bkpdir && echo success "--- Umount CIFS Server ---" || echo error "--- Backup-Pfad wurde nicht vom CIFS-Server getrennt ---"
+	fi
+	
+	sudo mount -t cifs -o user=$NAS_USR,password=$NAS_PASS,rw,file_mode=0777,dir_mode=0777,vers=1.0 //$NAS_HOST/$NAS_DIR $bkpdir
+	
+	mount | grep -q "${bkpdir}"
+	if [ $? -eq 0 ] ; then
+		echo success "--- CIFS-Server verbunden ---"
+	else
+		sudo mount -t cifs -o user=$NAS_USR,password=$NAS_PASS,rw,file_mode=0777,dir_mode=0777 //$NAS_HOST/$NAS_DIR $bkpdir && echo success "--- CIFS-Server verbunden ---" || echo error "--- Backup-Pfad wurde nicht auf CIFS-Server verbunden ---"
+	fi
 fi
 
 
 ############################################################################
-#									                                                         #
-# Optionales MYSQL-Datenbank-Backup                 		              	   #
+#									   #
+# Optionales MYSQL-Datenbank-Backup                 		           #
 #                                                                          #
 ############################################################################
 
@@ -108,7 +120,7 @@ fi
 
 
 ############################################################################
-#									                                                         #
+#									   #
 # Erstellen eines normalen ioBroker Backups                                #
 #                                                                          #
 ############################################################################
@@ -125,7 +137,7 @@ if [ $BKP_TYP == "minimal" ]; then
 
 
 ############################################################################
-#									                                                         #
+#									   #
 # Erstellen eines Backups des ganzen ioBroker-Ordners                      #
 #                                                                          #
 ############################################################################
@@ -141,15 +153,12 @@ elif [ $BKP_TYP == "komplett" ]; then
 	fi
 
 #	Ins ioBroker Verzeichnis wechseln um komplettes IoBroker Verzeichnis zu sichern
-	cd /opt
+
 #	Backup ausfuehren
 	echo "--- Es wurde ein Komplettes Backup gestartet ---"
-	tar -czf $datum-$uhrzeit-backup_komplett.tar.gz --exclude="$bkpdir" /opt/iobroker
+	tar -czf $bkpdir/backupiobroker_komplett$NAME_ZUSATZ-$datum-$uhrzeit.tar.gz --exclude="$bkpdir" -P /opt/iobroker && echo success "--- Ein komplettes Backup wurde erstellt ---" || echo error "--- Ein komplettes Backup konnte nicht erstellt werden ---"
 	BKP_OK="JA"
 
-#	Backup umbenennen
-	mv /opt/$datum-$stunde*_komplett.tar.gz $bkpdir/backupiobroker_komplett$NAME_ZUSATZ-$datum-$uhrzeit.tar.gz && echo success "--- Ein komplettes Backup wurde erstellt ---" || echo error "--- Ein komplettes Backup konnte nicht erstellt werden ---"
-	
 #	Redis State sichern
 	if [ $REDIS_STATE == "true" ]; then
 		cp /var/lib/redis/dump.rdb $bkpdir/dump_redis_$datum-$uhrzeit.rdp
@@ -169,7 +178,7 @@ elif [ $BKP_TYP == "komplett" ]; then
 	fi
 	
 ############################################################################
-#									                                                         #
+#									   #
 # Erstellen eines Backups der Homematic-CCU                                #
 #                                                                          #
 ############################################################################
@@ -217,7 +226,7 @@ fi
 
 
 ############################################################################
-#									                                                         #
+#									   #
 # Optionales Loeschen alter Backups                                        #
 #                                                                          #
 ############################################################################
@@ -248,7 +257,7 @@ if [ $BKP_OK == "JA" ]; then
 
 
 ############################################################################
-#									                                                         #
+#									   #
 # Optionaler Upload des Backups auf einen FTP-Server                       #
 #                                                                          #
 ############################################################################
@@ -282,15 +291,19 @@ fi
 
 
 ############################################################################
-#									                                                         #
-# Optionaler Umount des CIFS-Servers                    		               #
+#									   #
+# Optionaler Umount des CIFS-Servers                    		   #
 #                                                                          #
 ############################################################################
 
 if [ $CIFS_MNT == "CIFS" ]; then
 
 #	Backup-Pfad auf CIFS umounten
-	sudo umount $bkpdir && echo success "--- Umount CIFS Server ---" || echo error "--- Backup-Pfad wurde nicht vom CIFS-Server getrennt ---"
+
+	mount | grep -q "${bkpdir}"
+	if [ $? -eq 0 ] ; then
+		sudo umount $bkpdir && echo success "--- Umount CIFS Server ---" || echo error "--- Backup-Pfad wurde nicht vom CIFS-Server getrennt ---"
+	fi
 fi
 
 exit 0
