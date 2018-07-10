@@ -24,7 +24,7 @@
 # Version: 3.0.1 - FTP-Upload auf "curl" geändert (Das Packet LFTP wird nicht mehr benötigt)
 #
 #
-# Verwendung:  bash backup.sh "Backup_Typ|Namens_Zusatz|Loeschen_nach_X_Tagen|NAS_Host|NAS_Verzeichnis|NAS_User|NAS_Passwort|CCU-IP|CCU-USER|CCU-PW|CIFS_MNT|IOBROKER_RESTART|REDIS_STATE|MYSQL_DBNAME|MYSQL_USR|MYSQL_PW|MYSQL_Loeschen_nach_X_Tagen|MYSQL_HOST"
+# Verwendung:  bash backup.sh "Backup_Typ|Namens_Zusatz|Loeschen_nach_X_Tagen|NAS_Host|NAS_Verzeichnis|NAS_User|NAS_Passwort|CCU-IP|CCU-USER|CCU-PW|CIFS_MNT|IOBROKER_RESTART|REDIS_STATE|MYSQL_DBNAME|MYSQL_USR|MYSQL_PW|MYSQL_Loeschen_nach_X_Tagen|MYSQL_HOST|MYSQL_PORT"
 #
 #
 #
@@ -58,6 +58,7 @@ MYSQL_USR=${VAR[14]}
 MYSQL_PW=${VAR[15]}
 MYSQL_LOESCHEN_NACH=${VAR[16]}
 MYSQL_HOST=${VAR[17]}
+MYSQL_PORT=${VAR[18]}
 
 
 # Variable für optionales Weiterkopieren
@@ -114,7 +115,7 @@ fi
 if [ -n "$MYSQL_DBNAME" ]; then
 	if [ $BKP_TYP == "minimal" ] || [ $BKP_TYP == "komplett" ]; then
 		echo "--- MYSQL-Backup wird erstellt ---"
-		mysqldump -u $MYSQL_USR -p$MYSQL_PW $MYSQL_DBNAME -h$MYSQL_HOST > $bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql && echo success "--- MYSQL Backup wurde erstellt ---" || echo error "--- MYSQL Backup konnte nicht erstellt werden ---"
+		mysqldump -u $MYSQL_USR -p $MYSQL_PW $MYSQL_DBNAME -h $MYSQL_HOST -P $MYSQL_PORT > $bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql && echo success "--- MYSQL Backup wurde erstellt ---" || echo error "--- MYSQL Backup konnte nicht erstellt werden ---"
 	fi
 fi
 
