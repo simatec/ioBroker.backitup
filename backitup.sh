@@ -115,7 +115,7 @@ fi
 if [ -n "$MYSQL_DBNAME" ]; then
 	if [ $BKP_TYP == "minimal" ] || [ $BKP_TYP == "komplett" ]; then
 		echo "--- MYSQL-Backup wird erstellt ---"
-		mysqldump -u $MYSQL_USR -p $MYSQL_PW $MYSQL_DBNAME -h $MYSQL_HOST -P $MYSQL_PORT > $bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql && echo success "--- MYSQL Backup wurde erstellt ---" || echo error "--- MYSQL Backup konnte nicht erstellt werden ---"
+		mysqldump -u$MYSQL_USR -p$MYSQL_PW $MYSQL_DBNAME -h$MYSQL_HOST -P$MYSQL_PORT > $bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql && echo success "--- MYSQL Backup wurde erstellt ---" || echo error "--- MYSQL Backup konnte nicht erstellt werden ---"
 	fi
 fi
 
