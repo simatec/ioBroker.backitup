@@ -148,6 +148,7 @@ const Mysql_PW = adapter.config.MysqlDbPw;           		    // Passwort für Date
 const Mysql_LN = adapter.config.MysqlBackupLoeschenNach; 	    // DB-Backup löschen nach X Tagen
 const Mysql_Host = adapter.config.MysqlDbHost; 	                // Hostname der Datenbank
 const Mysql_Port = adapter.config.MysqlDbPort; 	                // Port der Datenbank
+const Mysql_Gzip = adapter.config.MySQLGzip                     // Backup komprimieren ja/nein
 
 let BkpZeit_Schedule = [];                                      // Array für die Backup Zeiten
 
@@ -211,7 +212,7 @@ function BackupStellen() {
                 if(BkpZeit_Schedule[Bkp[0]]) schedule.clearScheduleJob(BkpZeit_Schedule[Bkp[0]]);
 
                 BkpZeit_Schedule[Bkp[0]] = schedule.scheduleJob('10 '+BkpUhrZeit[1] + ' ' +BkpUhrZeit[0] + ' */'+adapter.config[Bkp[0]+'_BackupTageZyklus']+' * * ', function (){
-                	backup_erstellen(Bkp[0], Bkp[1], Bkp[2], Bkp[3], Bkp[4], Bkp[5], Bkp[6], Bkp[7], Bkp[8], Bkp[9], Bkp[10], Bkp[11], Bkp[12], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN, Mysql_Host, Mysql_Port);
+                	backup_erstellen(Bkp[0], Bkp[1], Bkp[2], Bkp[3], Bkp[4], Bkp[5], Bkp[6], Bkp[7], Bkp[8], Bkp[9], Bkp[10], Bkp[11], Bkp[12], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN, Mysql_Host, Mysql_Port, Mysql_Gzip);
                 });
 
                 if(debugging) adapter.log.info('10 '+BkpUhrZeit[1] + ' ' + BkpUhrZeit[0] + ' */'+adapter.config[Bkp[0]+'_BackupTageZyklus']+' * * ');
@@ -231,9 +232,9 @@ function BackupStellen() {
 // #############################################################################
 
 
-function backup_erstellen(typ, name, zeit, host, pfad, user, passwd, ccuip, ccuusr, ccupw, cifsmnt, bkpiors, redisst, mysqldb, mysqlusr, mysqlpw, mysqlln, mysqlhost, mysqlport) {
+function backup_erstellen(typ, name, zeit, host, pfad, user, passwd, ccuip, ccuusr, ccupw, cifsmnt, bkpiors, redisst, mysqldb, mysqlusr, mysqlpw, mysqlln, mysqlhost, mysqlport, mysqlgzip) {
 
-    if(debugging) adapter.log.info(bash_script+'"'+typ+'|'+name+'|'+zeit+'|'+host+'|'+pfad+'|'+user+'|'+passwd+'|'+ccuip+'|'+ccuusr+'|'+ccupw+'|'+cifsmnt+'|'+bkpiors+'|'+redisst+'|'+mysqldb+'|'+mysqlusr+'|'+mysqlpw+'|'+mysqlln+'|'+mysqlhost+'|'+mysqlport+'"');
+    if(debugging) adapter.log.info(bash_script+'"'+typ+'|'+name+'|'+zeit+'|'+host+'|'+pfad+'|'+user+'|'+passwd+'|'+ccuip+'|'+ccuusr+'|'+ccupw+'|'+cifsmnt+'|'+bkpiors+'|'+redisst+'|'+mysqldb+'|'+mysqlusr+'|'+mysqlpw+'|'+mysqlln+'|'+mysqlhost+'|'+mysqlport+'|'+mysqlgzip+'"');
 
 // Telegram
     if(adapter.config.telegram_message === true){
@@ -253,7 +254,7 @@ function backup_erstellen(typ, name, zeit, host, pfad, user, passwd, ccuip, ccuu
     if(cifsmnt === 'FTP') ftp_bkp_u = 'FTP'; else ftp_bkp_u = 'CIFS';
     new Backup_history_anlegen(typ, ftp_bkp_u);
 
-    exec((bash_script+' "'+typ+'|'+name+'|'+zeit+'|'+host+'|'+pfad+'|'+user+'|'+passwd+'|'+ccuip+'|'+ccuusr+'|'+ccupw+'|'+cifsmnt+'|'+bkpiors+'|'+redisst+'|'+mysqldb+'|'+mysqlusr+'|'+mysqlpw+'|'+mysqlln+'|'+mysqlhost+'|'+mysqlport+'"'), function(err, stdout, stderr) {
+    exec((bash_script+' "'+typ+'|'+name+'|'+zeit+'|'+host+'|'+pfad+'|'+user+'|'+passwd+'|'+ccuip+'|'+ccuusr+'|'+ccupw+'|'+cifsmnt+'|'+bkpiors+'|'+redisst+'|'+mysqldb+'|'+mysqlusr+'|'+mysqlpw+'|'+mysqlln+'|'+mysqlhost+'|'+mysqlport+'|'+mysqlgzip+'"'), function(err, stdout, stderr) {
         if(logging){
             if(err) adapter.log.info(stderr, 'error');
             else adapter.log.info('exec: ' + stdout);
@@ -335,20 +336,20 @@ adapter.on('stateChange', function (id, state) {
 
     if (id == adapter.name+'.'+adapter.instance+'.OneClick.start_minimal_Backup' && state.val === true ){
         adapter.log.info('OneClick Minimal Backup gestartet');
-        backup_erstellen(Backup[0][0], Backup[0][1], Backup[0][2], Backup[0][3], Backup[0][4], Backup[0][5], Backup[0][6], Backup[0][7], Backup[0][8], Backup[0][9], Backup[0][10], Backup[0][11], Backup[0][12], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN, Mysql_Host, Mysql_Port);
-        if(debugging)adapter.log.info('backup_erstellen('+Backup[0][0]+','+Backup[0][1]+','+Backup[0][2]+','+Backup[0][3]+','+Backup[0][4]+','+Backup[0][5]+','+Backup[0][6]+','+Backup[0][7]+','+Backup[0][8]+','+Backup[0][9]+','+Backup[0][10]+','+Backup[0][11]+','+Backup[0][12]+','+Mysql_DBname+','+Mysql_User+','+Mysql_PW+','+Mysql_LN+','+Mysql_Host+','+Mysql_Port+')');
+        backup_erstellen(Backup[0][0], Backup[0][1], Backup[0][2], Backup[0][3], Backup[0][4], Backup[0][5], Backup[0][6], Backup[0][7], Backup[0][8], Backup[0][9], Backup[0][10], Backup[0][11], Backup[0][12], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN, Mysql_Host, Mysql_Port, Mysql_Gzip);
+        if(debugging)adapter.log.info('backup_erstellen('+Backup[0][0]+','+Backup[0][1]+','+Backup[0][2]+','+Backup[0][3]+','+Backup[0][4]+','+Backup[0][5]+','+Backup[0][6]+','+Backup[0][7]+','+Backup[0][8]+','+Backup[0][9]+','+Backup[0][10]+','+Backup[0][11]+','+Backup[0][12]+','+Mysql_DBname+','+Mysql_User+','+Mysql_PW+','+Mysql_LN+','+Mysql_Host+','+Mysql_Port+'|'+Mysql_Gzip+')');
         setTimeout(function(){ adapter.setState('OneClick.start_minimal_Backup', false, true); }, 20000);
     }
     if (id == adapter.name+'.'+adapter.instance+'.OneClick.start_komplett_Backup' && state.val === true ){
         adapter.log.info('OneClick Komplett Backup gestartet');
-        backup_erstellen(Backup[1][0], Backup[1][1], Backup[1][2], Backup[1][3], Backup[1][4], Backup[1][5], Backup[1][6], Backup[1][7], Backup[1][8], Backup[1][9], Backup[1][10], Backup[1][11], Backup[1][12], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN, Mysql_Host, Mysql_Port);
-        if(debugging)adapter.log.info('backup_erstellen('+Backup[1][0]+','+Backup[1][1]+','+Backup[1][2]+','+Backup[1][3]+','+Backup[1][4]+','+Backup[1][5]+','+Backup[1][6]+','+Backup[1][7]+','+Backup[1][8]+','+Backup[1][9]+','+Backup[1][10]+','+Backup[1][11]+','+Backup[1][12]+','+Mysql_DBname+','+Mysql_User+','+Mysql_PW+','+Mysql_LN+','+Mysql_Host+','+Mysql_Port+')');
+        backup_erstellen(Backup[1][0], Backup[1][1], Backup[1][2], Backup[1][3], Backup[1][4], Backup[1][5], Backup[1][6], Backup[1][7], Backup[1][8], Backup[1][9], Backup[1][10], Backup[1][11], Backup[1][12], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN, Mysql_Host, Mysql_Port, Mysql_Gzip);
+        if(debugging)adapter.log.info('backup_erstellen('+Backup[1][0]+','+Backup[1][1]+','+Backup[1][2]+','+Backup[1][3]+','+Backup[1][4]+','+Backup[1][5]+','+Backup[1][6]+','+Backup[1][7]+','+Backup[1][8]+','+Backup[1][9]+','+Backup[1][10]+','+Backup[1][11]+','+Backup[1][12]+','+Mysql_DBname+','+Mysql_User+','+Mysql_PW+','+Mysql_LN+','+Mysql_Host+','+Mysql_Port+'|'+Mysql_Gzip+')');
         setTimeout(function(){ adapter.setState('OneClick.start_komplett_Backup', false, true); }, 5000);
     }
     if (id == adapter.name+'.'+adapter.instance+'.OneClick.start_ccu_Backup' && state.val === true ){
         adapter.log.info('OneClick CCU Backup gestartet');
-        backup_erstellen(Backup[2][0], Backup[2][1], Backup[2][2], Backup[2][3], Backup[2][4], Backup[2][5], Backup[2][6], Backup[2][7], Backup[2][8], Backup[2][9], Backup[2][10], Backup[2][11], Backup[2][12], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN, Mysql_Host, Mysql_Port);
-        if(debugging)adapter.log.info('backup_erstellen('+Backup[2][0]+','+Backup[2][1]+','+Backup[2][2]+','+Backup[2][3]+','+Backup[2][4]+','+Backup[2][5]+','+Backup[2][6]+','+Backup[2][7]+','+Backup[2][8]+','+Backup[2][9]+','+Backup[2][10]+','+Backup[2][11]+','+Backup[2][12]+','+Mysql_DBname+','+Mysql_User+','+Mysql_PW+','+Mysql_LN+','+Mysql_Host+','+Mysql_Port+')');
+        backup_erstellen(Backup[2][0], Backup[2][1], Backup[2][2], Backup[2][3], Backup[2][4], Backup[2][5], Backup[2][6], Backup[2][7], Backup[2][8], Backup[2][9], Backup[2][10], Backup[2][11], Backup[2][12], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN, Mysql_Host, Mysql_Port, Mysql_Gzip);
+        if(debugging)adapter.log.info('backup_erstellen('+Backup[2][0]+','+Backup[2][1]+','+Backup[2][2]+','+Backup[2][3]+','+Backup[2][4]+','+Backup[2][5]+','+Backup[2][6]+','+Backup[2][7]+','+Backup[2][8]+','+Backup[2][9]+','+Backup[2][10]+','+Backup[2][11]+','+Backup[2][12]+','+Mysql_DBname+','+Mysql_User+','+Mysql_PW+','+Mysql_LN+','+Mysql_Host+','+Mysql_Port+'|'+Mysql_Gzip+')');
         setTimeout(function(){ adapter.setState('OneClick.start_ccu_Backup', false, true); }, 20000);
     }
 

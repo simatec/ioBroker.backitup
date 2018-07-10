@@ -59,7 +59,7 @@ MYSQL_PW=${VAR[15]}
 MYSQL_LOESCHEN_NACH=${VAR[16]}
 MYSQL_HOST=${VAR[17]}
 MYSQL_PORT=${VAR[18]}
-
+MYSQL_GZIP=${VAR[19]}
 
 # Variable für optionales Weiterkopieren
 BKP_OK="NEIN"
@@ -114,8 +114,14 @@ fi
 
 if [ -n "$MYSQL_DBNAME" ]; then
 	if [ $BKP_TYP == "minimal" ] || [ $BKP_TYP == "komplett" ]; then
-		echo "--- MYSQL-Backup wird erstellt ---"
-		mysqldump -u $MYSQL_USR -p $MYSQL_PW $MYSQL_DBNAME -h $MYSQL_HOST -P $MYSQL_PORT > $bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql && echo success "--- MYSQL Backup wurde erstellt ---" || echo error "--- MYSQL Backup konnte nicht erstellt werden ---"
+		echo "--- MYSQL-Backup wird erstellt ---"	
+		if [ $MYSQL_GZIP == "true" ]; then
+			echo "--- Komprimierung ist aktiv ---"	
+			mysqldump -u$MYSQL_USR -p$MYSQL_PW $MYSQL_DBNAME -h$MYSQL_HOST -P$MYSQL_PORT | gzip -c -9 > $bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql.gz_INPROGRESS  && echo success "--- MYSQL Backup wurde erstellt ---" || echo error "--- MYSQL Backup konnte nicht erstellt werden ---"
+			mv -f $bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql.gz_INPROGRESS $bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql.gz
+		else
+			mysqldump -u$MYSQL_USR -p$MYSQL_PW $MYSQL_DBNAME -h$MYSQL_HOST -P$MYSQL_PORT > $bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql && echo success "--- MYSQL Backup wurde erstellt ---" || echo error "--- MYSQL Backup konnte nicht erstellt werden ---"
+		fi
 	fi
 fi
 
