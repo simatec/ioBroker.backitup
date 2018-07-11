@@ -174,6 +174,14 @@ Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durc
 
 ## Changelog
 
+### 0.1.8 (11.07.2018)
+ * (darkiop) MySQL-Sicherung um Host- und Portabfrage erweitert
+ * (peoples) Versendende Telegram-Instanz wählbar
+ * (peoples) Telegram-Nachrichten angepasst an Verbindungstyp
+ * (peoples) History-Log angepasst an Verbindungstyp
+ * (simatec) Komprimierung der MySQL-Datenbank-Sicherung eingebaut
+ * (simatec) Anpassung der Konfigoberfläche an Telegram-Instanz Auswahl
+
 ### 0.1.7 (05.07.2018)
  * (peoples) Datenpunkte in io-package definiert
 

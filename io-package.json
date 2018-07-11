@@ -1,9 +1,20 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.1.7",
+        "version": "0.1.8",
         "news": {
-            "0.1.7": {
+            "0.1.8": {
+				"en": "Changes to history log, MySQL, telegram",
+				"de": "Änderungen an History-Log, MySQL, Telegram",
+				"ru": "Изменения в журнал истории, MySQL, телеграмма",
+				"pt": "Mudanças no histórico, MySQL, telegrama",
+				"nl": "Wijzigingen in historielogboek, MySQL, telegram",
+				"fr": "Changements au journal d'historique, MySQL, télégramme",
+				"it": "Modifiche al registro cronologia, MySQL, telegramma",
+				"es": "Cambios en el registro de historial, MySQL, telegrama",
+				"pl": "Zmiany w logach historii, MySQL, telegram"
+            },
+	    "0.1.7": {
 				"en": "Data points defined in io-package",
 				"de": "Datenpunkte in io-package definiert",
 				"ru": "Точки данных, определенные в io-пакете",
