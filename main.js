@@ -229,20 +229,30 @@ function BackupStellen() {
 // #  Funktion zum Ausführen des Backups mit obigen Einstellungen              #
 // #                                                                           #
 // #############################################################################
-
-
 function backup_erstellen(typ, name, zeit, host, pfad, user, passwd, ccuip, ccuusr, ccupw, cifsmnt, bkpiors, redisst, mysqldb, mysqlusr, mysqlpw, mysqlln, mysqlhost, mysqlport) {
 
     if(debugging) adapter.log.info(bash_script+'"'+typ+'|'+name+'|'+zeit+'|'+host+'|'+pfad+'|'+user+'|'+passwd+'|'+ccuip+'|'+ccuusr+'|'+ccupw+'|'+cifsmnt+'|'+bkpiors+'|'+redisst+'|'+mysqldb+'|'+mysqlusr+'|'+mysqlpw+'|'+mysqlln+'|'+mysqlhost+'|'+mysqlport+'"');
 
-// Telegram
-    if(adapter.config.telegram_message === true){
+    // Telegram Message versenden
+    if(debugging){
+        if(adapter.config.Telegram_instanz !== ''){
+            adapter.log.info('Gewaehlte Telegram-Instanz: ' + adapter.config.Telegram_instanz);
+        }
+        else{
+            adapter.log.info('Keine Telegram-Instanz gewaehlt!');
+        }
+    }
+
+    if(adapter.config.telegram_message === true && adapter.config.Telegram_instanz !== ''){
         adapter.log.info('Telegram Message ist aktiv');
 
         let messagetext = 'Es wurde am '+HistoryEintrag(new Date())+' ein neues '+typ+' Backup erstellt';
-        if(host !== '') messagetext += ', und nach '+host+pfad+' kopiert/verschoben';
+        if(host !== ''){
+            if(cifsmnt == 'FTP') messagetext += ', und via FTP nach '+host+pfad+' kopiert/verschoben';
+            if(cifsmnt == 'CIFS') messagetext += ', und unter '+host+pfad+' gespeichert';
+        }
         messagetext += '!';
-        adapter.sendTo("telegram", "send", {text: 'BackItUp:\n' + messagetext});
+        adapter.sendTo(adapter.config.Telegram_instanz, "send", {text: 'BackItUp:\n' + messagetext});
 //        adapter.sendTo("telegram", "send", {text: (String('BackItUp:\n' + messagetext))});
     }
 
@@ -250,8 +260,8 @@ function backup_erstellen(typ, name, zeit, host, pfad, user, passwd, ccuip, ccuu
     adapter.setState('History.letztes_'+typ+'_Backup', HistoryEintrag(new Date()));
 
     let ftp_bkp_u;
-    if(cifsmnt === 'FTP') ftp_bkp_u = 'FTP'; else ftp_bkp_u = 'CIFS';
-    new Backup_history_anlegen(typ, ftp_bkp_u);
+    
+    new Backup_history_anlegen(typ, host, cifsmnt);
 
     exec((bash_script+' "'+typ+'|'+name+'|'+zeit+'|'+host+'|'+pfad+'|'+user+'|'+passwd+'|'+ccuip+'|'+ccuusr+'|'+ccupw+'|'+cifsmnt+'|'+bkpiors+'|'+redisst+'|'+mysqldb+'|'+mysqlusr+'|'+mysqlpw+'|'+mysqlln+'|'+mysqlhost+'|'+mysqlport+'"'), function(err, stdout, stderr) {
         if(logging){
@@ -292,7 +302,7 @@ function HistoryEintrag(date) {
 // #                                                                           #
 // #############################################################################
 
-function Backup_history_anlegen(typ, ftp_bkp_u) {
+function Backup_history_anlegen(typ, host, cifsmnt) {
    adapter.getState('History.Backup_history', function (err, state) {
         let history_liste = state.val;
         if(history_liste == '<span class="bkptyp_komplett">Noch keine Backups erstellt</span>') history_liste = '';
@@ -301,7 +311,15 @@ function Backup_history_anlegen(typ, ftp_bkp_u) {
             history_array.splice((anzahl_eintraege_history - 1),1);
         }
         let zeitstempel = HistoryEintrag(new Date());
-        history_array.unshift('<span class="bkptyp_'+typ+'">' + zeitstempel + ' - Typ:' +typ+ ' - NAS-Sicherung: ' +ftp_bkp_u+ '</span>');
+        let historytext;
+        if(host !== ''){
+            if(cifsmnt == 'FTP') historytext = '<span class="bkptyp_'+typ+'">' + zeitstempel + ' - Typ:' +typ+ ' - FTP-Sicherung: JA</span>';
+            if(cifsmnt == 'CIFS') historytext = '<span class="bkptyp_'+typ+'">' + zeitstempel + ' - Typ:' +typ+ ' - CIFS-Mount: JA</span>';
+        }
+        else{
+            historytext = '<span class="bkptyp_'+typ+'">' + zeitstempel + ' - Typ:' +typ+ ' - Nur lokal gesichert</span>';
+        }
+        history_array.unshift(historytext);
 
         adapter.setState('History.Backup_history', history_array.join('&nbsp;'));
     });

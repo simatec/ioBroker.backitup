@@ -50,8 +50,27 @@
         showHideSettings();
         onChange(false);
         M.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
-    }
-
+    
+	
+		getAdapterInstances('telegram', function (arr) {
+			instances = arr;
+			fillInstances('Telegram_instanz', arr, settings['Telegram_instanz']);
+		});
+	
+	
+	}
+	function fillInstances(id, arr, val) {
+		var $sel = $('#' + id);
+		$sel.html('<option value="">' + _('none') + '</option>');
+		var _id;
+		for (var i = 0; i < arr.length; i++) {
+			var _id = arr[i]._id.replace('system.adapter.', '');
+            // Take first value
+//            if (!val) val = _id;
+			$sel.append('<option value="' + _id + '"' + ((_id === val) ? ' selected' : '') + '>' + _id + '</option>');
+		}
+		$sel.select();
+     }
     // ... and the function save has to exist.
     // you have to make sure the callback is called with the settings object as first param!
     function save(callback) {
@@ -150,13 +169,12 @@
 			        <input class="value" id="telegram_message" type="checkbox" />
 			        <label for="Benachrichtigungen per Telegram" class="translate">Benachrichtigungen per Telegram</label>
 			    </div>
-			</div>
-            <div class="row telegram_inst">
-				<div class="input-field col s12 m4 l2 telegram_inst">
-                    <input type="number" class="value" id="telegram_instanz" min="0" max="5" />
-                    <label for="Telegram Instanz" class="translate">Telegram Instanz</label>
-                    <span class="translate">Telegram Instanz</span>
-                </div>
+				<div class="row telegram_inst">
+					<div class="input-field col s3">
+						<select id="Telegram_instanz" class="value" /></select>
+						<label for="Telegram_instanz" class="translate">Telegram Instanz</label>
+					</div>
+				</div>
 			</div>
             <div class="row">
                 <div class="input-field col s12 m4 l2">
