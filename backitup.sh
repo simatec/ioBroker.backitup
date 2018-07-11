@@ -15,16 +15,21 @@
 # Version: 1.0.1 - Optionaler Upload auf FTP-Server
 # Version: 2.0   - Raspberrymatic-Backup mit eingebunden
 # Version: 2.0.1 - Optionale Verwendung von CIFS-Mount eingebunden
-#		             - Iobroker Stop und Start bei Komplettbackup eingefügt
+#		 - Iobroker Stop und Start bei Komplettbackup eingefügt
 # Version: 2.0.2 - Zusätzliches MYSQL-Backup inkl. upload auf FTP-Server
 # Version: 2.0.3 - Erste Version auf Github
 # Version: 2.0.4 - Backupmöglichkeit für Homematic-CCU und pivccu eingebunden
 # Version: 3.0.0 - Backup für Raspberrymatic entfernt (wird jetzt alles über das Homematic-CCU Backup erledigt)
-# 		           - diverse Änderungen und Verbesserungen im Script
+# 		 - diverse Änderungen und Verbesserungen im Script
 # Version: 3.0.1 - FTP-Upload auf "curl" geändert (Das Packet LFTP wird nicht mehr benötigt)
+# Versíon: 3.0.2 - Redis State sichern hinzugefuegt
+# Version: 3.0.3 - Bugfix mount
+# Version: 3.0.4 - Bugfix Komplett-Backup
+# Version: 3.0.5 - Mysql Erweiterung um Host und Port
+#		 - Komprimierung des MySql-Backups
 #
 #
-# Verwendung:  bash backup.sh "Backup_Typ|Namens_Zusatz|Loeschen_nach_X_Tagen|NAS_Host|NAS_Verzeichnis|NAS_User|NAS_Passwort|CCU-IP|CCU-USER|CCU-PW|CIFS_MNT|IOBROKER_RESTART|REDIS_STATE|MYSQL_DBNAME|MYSQL_USR|MYSQL_PW|MYSQL_Loeschen_nach_X_Tagen|MYSQL_HOST|MYSQL_PORT"
+# Verwendung:  bash backitup.sh "Backup_Typ|Namens_Zusatz|Loeschen_nach_X_Tagen|NAS_Host|NAS_Verzeichnis|NAS_User|NAS_Passwort|CCU-IP|CCU-USER|CCU-PW|CIFS_MNT|IOBROKER_RESTART|REDIS_STATE|MYSQL_DBNAME|MYSQL_USR|MYSQL_PW|MYSQL_Loeschen_nach_X_Tagen|MYSQL_HOST|MYSQL_PORT"
 #
 #
 #
@@ -115,7 +120,15 @@ fi
 if [ -n "$MYSQL_DBNAME" ]; then
 	if [ $BKP_TYP == "minimal" ] || [ $BKP_TYP == "komplett" ]; then
 		echo "--- MYSQL-Backup wird erstellt ---"
-		mysqldump -u $MYSQL_USR -p $MYSQL_PW $MYSQL_DBNAME -h $MYSQL_HOST -P $MYSQL_PORT > $bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql && echo success "--- MYSQL Backup wurde erstellt ---" || echo error "--- MYSQL Backup konnte nicht erstellt werden ---"
+		mysqldump -u $MYSQL_USR -p$MYSQL_PW $MYSQL_DBNAME -h $MYSQL_HOST -P $MYSQL_PORT > $bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql && echo success "--- MYSQL Backup wurde erstellt ---" || echo error "--- MYSQL Backup konnte nicht erstellt werden ---"
+		cd $bkpdir
+		tar -czf backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.tar.gz backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql && echo success "--- MySql wurde komprimiert ---" || echo error "--- MySql wurde nicht komprimiert ---"
+		
+		if [ -f $bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql ] && [ -f $bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.tar.gz ]; then
+			rm -f backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql
+		fi
+
+		cd ..
 	fi
 fi
 
@@ -162,11 +175,15 @@ elif [ $BKP_TYP == "komplett" ]; then
 
 #	Redis State sichern
 	if [ $REDIS_STATE == "true" ]; then
-		cp /var/lib/redis/dump.rdb $bkpdir/dump_redis_$datum-$uhrzeit.rdp
+		cp /var/lib/redis/dump.rdb $bkpdir/dump_redis_$datum-$uhrzeit.rdp && echo success "--- Ein Redis Backup wurde erstellt ---" || echo error "--- Ein Redis Backup konnte nicht erstellt werden ---"
 		cd $bkpdir
 		chmod 777 dump_redis_$datum-$uhrzeit.rdp
-		tar -czf backup_redis_state_$datum-$uhrzeit.tar.gz dump_redis_$datum-$uhrzeit.rdp && echo success "--- Ein Redis Backup wurde erstellt ---" || echo error "--- Ein Redis Backup konnte nicht erstellt werden ---"
-		rm -f dump_redis_$datum-$uhrzeit.rdp
+		tar -czf backup_redis_state_$datum-$uhrzeit.tar.gz dump_redis_$datum-$uhrzeit.rdp && echo success "--- Redis Backup wurde komprimiert ---" || echo error "--- Redis Backup wurde nicht komprimiert ---"
+		
+		if [ -f $bkpdir/dump_redis_$datum-$uhrzeit.rdp ] && [ -f $bkpdir/backup_redis_state_$datum-$uhrzeit.tar.gz ]; then
+			rm -f dump_redis_$datum-$uhrzeit.rdp
+		fi
+
 		cd ..
 		echo "--- Redis Backup wurde erstellt ---"
 	fi
@@ -233,7 +250,7 @@ fi
 ############################################################################
 
 if [ -n "$MYSQL_LOESCHEN_NACH" ]; then
-	find $bkpdir -name "backupiobroker_mysql*.sql" -mtime +$MYSQL_LOESCHEN_NACH -exec rm '{}' \;
+	find $bkpdir -name "backupiobroker_mysql*.tar.gz" -mtime +$MYSQL_LOESCHEN_NACH -exec rm '{}' \;
 fi
 
 if [ $BKP_OK == "JA" ]; then
@@ -272,7 +289,7 @@ if [ $BKP_OK == "JA" ]; then
 			ls
 
 			if [ -n "$MYSQL_DBNAME" ]; then
-				curl -s --disable-epsv -v -T"$bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.sql" -u"$NAS_USR:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
+				curl -s --disable-epsv -v -T"$bkpdir/backupiobroker_mysql-$MYSQL_DBNAME-$datum-$uhrzeit.tar.gz" -u"$NAS_USR:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
 			fi
 
 			if [ $BKP_TYP == "ccu" ]; then
