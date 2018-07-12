@@ -184,7 +184,7 @@
 		"redis_state": false,
 		"history_status": "25",
 		"telegram_message": false,
-		"telegram_instanz": 0,
+		"Telegram_instanz": "telegram.0",
 		"nas_var": false,
 		"FtpDir_ccu": "",
 		"FtpDir_komplett": "",
