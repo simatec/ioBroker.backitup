@@ -7,7 +7,7 @@
 
 [![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
 
-***English Description: https://github.com/simatec/ioBroker.backitup/blob/master/README_enblish.md***
+***English Description: https://github.com/simatec/ioBroker.backitup/blob/master/README_english.md***
 
 Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
