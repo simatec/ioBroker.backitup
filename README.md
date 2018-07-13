@@ -7,6 +7,8 @@
 
 [![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
 
+***English Description: https://github.com/simatec/ioBroker.backitup/blob/master/README_enblish.md***
+
 Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
 In der aktuellen Version funktioniert der Adapter nur auf Linux, da die fehlerfreie Ausführung des Shell-Scripts auf anderen Distributionen NOCH nicht funktioniert.
@@ -17,6 +19,8 @@ In der aktuellen Version funktioniert der Adapter nur auf Linux, da die fehlerfr
    - 1.2 Komplettes Backup
    - 1.3 CCU Backup (CCU-Original / pivCCU / Raspberrymatic)
    - 1.4 Optionales Mysql-Backup (Localhost)
+
+2. Vorbereitung
 
 3. Ftp vs. CIFS
 
