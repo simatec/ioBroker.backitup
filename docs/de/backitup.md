@@ -1,13 +1,6 @@
-![Logo](img/backitup.png)
-# ioBroker.backitup
-=================
-
-[![NPM version](http://img.shields.io/npm/v/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
-
-[![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
-
 Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
+
+In der aktuellen Version funktioniert der Adapter nur auf Linux, da die fehlerfreie Ausführung des Shell-Scripts auf anderen Distributionen NOCH nicht funktioniert.
 
 ## Inhaltsverzeichnis:
 1. Backup Type
@@ -15,6 +8,8 @@ Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-In
    - 1.2 Komplettes Backup
    - 1.3 CCU Backup (CCU-Original / pivCCU / Raspberrymatic)
    - 1.4 Optionales Mysql-Backup (Localhost)
+
+2. Vorbereitung
 
 3. Ftp vs. CIFS
 
@@ -62,7 +57,6 @@ Folgende Schritte sollten durchgeführt werden um den Adapter verwenden zu könn
   - Vorteile CIFS:
     -	weniger Schreibzyklen auf euren Datenträger (evtl. relevant wenn Raspberry mit SD-Karte verwendet wird um Diese zu schonen)
     -	Es ist möglich die „Alten Backups“ automatisiert auf dem Nas löschen zu lassen
-    -	Keine Notwendigkeit des lftp-Service da euer Nas direkt eingehängt ist.
   - Nachteile CIFS:
     -	Wenn ein Mounten nicht möglich ist, wird kein Backup erstellt!
     -	„Alte Backups“ können automatisiert auf dem Nas gelöscht werden. Im schlimmsten Fall ist somit kein Backup mehr vorhanden wenn ihr es benötigt.
@@ -84,7 +78,7 @@ Folgende Schritte sollten durchgeführt werden um den Adapter verwenden zu könn
 	- letztes_ccu_Backup -> speichert das Erstell-Datum und die Uhrzeit des letzten Komplett Backups
 
 2. History-Log in Vis anzeigen
-Es ist möglich den History-Log bspw. in einem Html-Widget durch eintragen folgender Zeile in HTML darzustellen:
+   - Es ist möglich den History-Log bspw. in einem Html-Widget durch eintragen folgender Zeile in HTML darzustellen:
 ```
 {backitup.0.History.Backup_history}
 ```
@@ -118,7 +112,7 @@ Syntax: {BackitupInstanz.History.Backup_history}
        }
    ```
 4. OneClick-Button mit Status-Text
-Wenn ein OneClick-Datenpunkt auf true gesetzt wird startet das entsprechende Backup und nach einer vordefinierten Zeit wird dieser Datenpunkt wieder auf false gesetzt somit ist es möglich einen Button mit Status zu erstellen, hierzu folgende Zeile anpassen und in Vis als Knopftext eintragen:
+   - Wenn ein OneClick-Datenpunkt auf true gesetzt wird startet das entsprechende Backup und nach einer vordefinierten Zeit wird dieser Datenpunkt wieder auf false gesetzt somit ist es möglich einen Button mit Status zu erstellen, hierzu folgende Zeile anpassen und in Vis als Knopftext eintragen:
 ```
 {wert:backitup.0.OneClick.start_minimal_Backup; wert === "true" ? "Minimal Backup </br> wird erstellt" : "Minimal Backup </br> starten"}
 
@@ -171,16 +165,3 @@ Unter DOS wird in Textdateien ein Zeilenende durch die Sequenz return (Dezimalco
 4. Iobroker bleibt beim komplett-Backup hängen / startet nicht mehr
 Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durchläuft bzw. der IoBroker gestoppt und nicht mehr gestartet wird. Hierfür ist es möglich in der Adapter- Konfigurations-Datenpunkten den Stop/Start des IoBrokers beim komplett-Backup zu deaktivieren.
 
-## 8. Changelog:
-
-#0.1.4 (03.07.2018)
- - (simatec/peoples) diverse Anpassungen
-
-#0.1.3 (02.07.2018)
- - (simatec/peoples) Sprachen hinzugefügt
-
-#0.1.2 (30.06.2018)
- - (simatec/peoples) Erste Beta-Version
-
-#0.1.0 (25.06.2018)
- - (simatec/peoples) Erste Git-Adapter-Version

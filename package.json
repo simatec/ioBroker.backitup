@@ -1,6 +1,6 @@
 {
   "name": "iobroker.backitup",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "engines": {
     "node": ">=6.0.0"
   },
@@ -28,17 +28,17 @@
     "home automation",
     "Backup"
   ],
+  "os": ["!win32"],
   "repository": {
     "type": "git",
     "url": "https://github.com/simatec/ioBroker.backitup"
   },
   "dependencies": {
-    "node-schedule": "^1.3.0",
-    "child_process": "^1.0.2"
+    "node-schedule": "^1.3.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "mocha": "^4.1.0",
+    "mocha": "^5.2.0",
     "chai": "^4.1.2"
   },
   "main": "main.js",
