@@ -65,7 +65,6 @@ MYSQL_LOESCHEN_NACH=${VAR[16]}
 MYSQL_HOST=${VAR[17]}
 MYSQL_PORT=${VAR[18]}
 
-
 # Variable für optionales Weiterkopieren
 BKP_OK="NEIN"
 

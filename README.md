@@ -177,6 +177,8 @@ Unter DOS wird in Textdateien ein Zeilenende durch die Sequenz return (Dezimalco
 Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durchläuft bzw. der IoBroker gestoppt und nicht mehr gestartet wird. Hierfür ist es möglich in der Adapter- Konfigurations-Datenpunkten den Stop/Start des IoBrokers beim komplett-Backup zu deaktivieren.
 
 ## Changelog
+### 0.2.0 (14.07.2018)
+ * (blufox) Code formatting
 
 ### 0.1.8 (11.07.2018)
  * (darkiop) MySQL-Sicherung um Host- und Portabfrage erweitert
