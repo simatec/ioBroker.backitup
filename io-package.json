@@ -1,20 +1,31 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.1.8",
+        "version": "0.2.0",
         "news": {
-            "0.1.8": {
-				"en": "Changes to history log, MySQL, telegram",
-				"de": "Änderungen an History-Log, MySQL, Telegram",
-				"ru": "Изменения в журнал истории, MySQL, телеграмма",
-				"pt": "Mudanças no histórico, MySQL, telegrama",
-				"nl": "Wijzigingen in historielogboek, MySQL, telegram",
-				"fr": "Changements au journal d'historique, MySQL, télégramme",
-				"it": "Modifiche al registro cronologia, MySQL, telegramma",
-				"es": "Cambios en el registro de historial, MySQL, telegrama",
-				"pl": "Zmiany w logach historii, MySQL, telegram"
-            },
-	    "0.1.7": {
+          "0.2.0": {
+            "en": "Code formatting",
+            "de": "Code-Formatierung",
+            "ru": "Форматирование кода",
+            "pt": "Formatação de código",
+            "nl": "Code-opmaak",
+            "fr": "Format de code",
+            "it": "Formattazione del codice",
+            "es": "Formato de código",
+            "pl": "Formatowanie kodu"
+          },
+          "0.1.8": {
+              "en": "Changes to history log, MySQL, telegram",
+              "de": "Änderungen an History-Log, MySQL, Telegram",
+              "ru": "Изменения в журнал истории, MySQL, телеграмма",
+              "pt": "Mudanças no histórico, MySQL, telegrama",
+              "nl": "Wijzigingen in historielogboek, MySQL, telegram",
+              "fr": "Changements au journal d'historique, MySQL, télégramme",
+              "it": "Modifiche al registro cronologia, MySQL, telegramma",
+              "es": "Cambios en el registro de historial, MySQL, telegrama",
+              "pl": "Zmiany w logach historii, MySQL, telegram"
+          },
+	      "0.1.7": {
 				"en": "Data points defined in io-package",
 				"de": "Datenpunkte in io-package definiert",
 				"ru": "Точки данных, определенные в io-пакете",
@@ -145,8 +156,7 @@
         "readme": "https://github.com/simatec/ioBroker.backitup/blob/master/README.md",
         "loglevel": "info",
         "type": "general",
-        "license": "MIT",
-        "messagebox": false
+        "license": "MIT"
     },
     "native": {
         "minimal_BackupState": false,
