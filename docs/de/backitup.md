@@ -63,6 +63,9 @@ Folgende Schritte sollten durchgeführt werden um den Adapter verwenden zu könn
   - Pfadangaben (Schreibweise beachten):
     -	CIFS: "Freigabename/Pfadangabe"
     -	FTP: "/Pfadangabe"
+  - optionaler Port für FTP Upload in den NAS Einstellungen unter IP-Adresse folgendes eintragen:
+    -	IP-Adresse:Port
+
 
 
 ## 4. Verwendung:
