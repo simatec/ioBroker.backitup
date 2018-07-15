@@ -12,6 +12,10 @@
 ***[Deutsche Beschreibung](docs/de/backitup.md)***
 
 ## Changelog
+
+### 0.2.1 (15.07.2018)
+ * (peoples/simatec) Bug Fix
+ 
 ### 0.2.0 (14.07.2018)
  * (blufox) Code formatting
 
