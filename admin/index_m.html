@@ -20,7 +20,7 @@
             font-size: 0.9em;
         }
         .m .tabs {
-            height: 96px;
+            height: 48px;
         }
         .m .page {
             height: calc(100% - 118px);
@@ -121,14 +121,14 @@
 <body>
 <div class="m adapter-container">
     <div class="row">
-        <div class="col s11">
+        <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s6 l3"><a href="#tab-settings" class="translate active">Haupteinstellungen</a></li>
-                <li class="tab col s6 l3 tab-minimal-backup"><a href="#tab-minimal-backup" class="translate">Standard Backup</a></li>
-                <li class="tab col s6 l3 tab-komplett-backup"><a href="#tab-komplett-backup" class="translate">Komplett Backup</a></li>
-                <li class="tab col s6 l3 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
-                <li class="tab col s6 l3 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
-                <li class="tab col s6 l3 tab-nas"><a href="#tab-nas" class="translate">NAS Einstellungen</a></li>
+                <li class="tab col s6 l2"><a href="#tab-settings" class="translate active">Haupteinstellungen</a></li>
+                <li class="tab col s6 l2 tab-minimal-backup"><a href="#tab-minimal-backup" class="translate">Standard Backup</a></li>
+                <li class="tab col s6 l2 tab-komplett-backup"><a href="#tab-komplett-backup" class="translate">Komplett Backup</a></li>
+                <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
+                <li class="tab col s6 l2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
+                <li class="tab col s6 l2 tab-nas"><a href="#tab-nas" class="translate">NAS Einstellungen</a></li>
             </ul>
         </div>
         <div class="row">
@@ -164,15 +164,15 @@
                         <input class="value" id="telegram_message" type="checkbox"/>
                         <label for="telegram_message" class="translate">Benachrichtigungen per Telegram</label>
                     </div>
+                </div>
+                <div class="row">
                     <div class="input-field col s12 m6 l4 telegram_inst">
                         <select id="Telegram_instanz" class="value"></select>
                         <label for="Telegram_instanz" class="translate">Telegram Instanz</label>
                     </div>
-                </div>
-                <div class="row">
                     <div class="input-field col s12 m6 l4">
                         <input type="number" class="value" id="history_status" min="1" max="50"/>
-                        <label for="history_status" class="translate">Anzahl der History-Eintraege</label>
+                        <!--<label for="history_status" class="translate">Anzahl der History-Eintraege</label>-->
                         <span class="translate">Anzahl der History-Eintraege</span>
                     </div>
                 </div>
