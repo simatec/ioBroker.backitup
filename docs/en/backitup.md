@@ -69,6 +69,8 @@ The following steps should be performed to use the adapter (if the backup script
   - Path information (note spelling):
     - CIFS: "Share Name/Path Specification
     - FTP:"/Path specification
+  - Enter optional port for FTP upload in the NAS settings under IP address:
+    - IP Address:Port
 
 
 ## 4. Use:
