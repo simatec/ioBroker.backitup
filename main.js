@@ -178,7 +178,7 @@ function main() {
 // #                                                                           #
 // #############################################################################
 
-    function backupErstellen() {
+    function backupZeitErstellen() {
         adapter.setState('Auto_Backup', false);
         Backup.forEach(function (Bkp) {
             if (adapter.config[Bkp[0] + '_BackupState'] === true) {
@@ -360,6 +360,6 @@ function main() {
 
     });
 
-    backupErstellen();
+    backupZeitErstellen();
 // ############## Ende backitup #########################
 }
