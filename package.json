@@ -28,7 +28,9 @@
     "home automation",
     "Backup"
   ],
-  "os": ["!win32"],
+  "os": [
+    "!win32"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/simatec/ioBroker.backitup"
