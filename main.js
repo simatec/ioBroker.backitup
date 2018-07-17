@@ -168,8 +168,8 @@ function createBackup(type) {
             (backupConfig[type].user                || '') + '|' +  // 8
             (backupConfig[type].pass                || '') + '|' +  // 9
             (backupConfig[type].cifs.mount          || '') + '|' +  // 10
-            (backupConfig[type].stopIoB             || '') + '|' +  // 11
-            (backupConfig[type].backupRedis         || '') + '|' +  // 12
+            (backupConfig[type].stopIoB             || 'false') + '|' +  // 11
+            (backupConfig[type].backupRedis         || 'false') + '|' +  // 12
             (mySqlConfig.dbName                     || '') + '|' +  // 13
             (mySqlConfig.user                       || '') + '|' +  // 14
             (mySqlConfig.pass                       || '') + '|' +  // 15
