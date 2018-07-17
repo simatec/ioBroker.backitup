@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.2.1",
+        "version": "0.2.2",
         "news": {
+            "0.2.2": {
+            "en": "Bug Fix Code",
+            "de": "Fehlerkorrekturcode",
+            "ru": "Код ошибки",
+            "pt": "Código de correção de bug",
+            "nl": "Bugfixcode",
+            "fr": "Bug Fix Code",
+            "it": "Bug Fix Code",
+            "es": "Código de reparación de errores",
+            "pl": "Naprawiony kod błędu"
+            },
             "0.2.1": {
             "en": "Bug Fix",
             "de": "Bug-Fix",
