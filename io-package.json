@@ -170,50 +170,58 @@
         "license": "MIT"
     },
     "native": {
-        "minimal_BackupState": false,
-        "minimal_BackupZeit": "02:00",
-		"minimal_BackupTageZyklus": 1,
-		"minimal_BackupLoeschenNach": 5,
-		"minimal_NamensZusatz": "",
-		"komplett_BackupState": false,
-		"komplett_BackupZeit": "03:00",
-		"komplett_BackupTageZyklus": 3,
-		"komplett_BackupLoeschenNach": 5,
-		"komplett_NamensZusatz": "",
-		"IoStopStart": false,
-		"MysqlDbHost": "localhost",
-		"MysqlDbPort": "3307",
-		"MysqlDbName": "",
-		"MysqlDbUser": "",
-		"MysqlDbPw": "",
-		"MysqlBackupLoeschenNach": 5,
-		"ccu_BackupState": false,
-		"ccu_BackupZeit": "01:30",
-		"ccu_BackupTageZyklus": 3,
-		"ccu_BackupLoeschenNach": 5,
-		"ccu_NamensZusatz": "",
-		"ccuCcuIp": "",
-		"ccuCcuUser": "",
-		"ccuCcuPw": "",
-		"CifsMount": "CIFS",
-		"FtpHost": "",
-		"FtpDir": "",
-		"FtpUser": "",
-		"FtpPw": "",
-		"state_log": true,
-		"state_debug": false,
-		"redis_state": false,
-		"history_status": "25",
-		"telegram_message": false,
-		"Telegram_instanz": "telegram.0",
-		"nas_var": false,
-		"FtpDir_ccu": "",
-		"FtpDir_komplett": "",
-		"FtpDir_minimal": ""
+        "minimalEnabled": false,
+        "minimalTime": "02:00",
+		"minimalEveryXDays": 1,
+		"minimalDeleteAfter": 5,
+		"minimalNameSuffix": "",
+
+		"totalEnabled": false,
+		"totalTime": "03:00",
+		"totalEveryXDays": 3,
+		"totalDeleteAfter": 5,
+		"totalNameSuffix": "",
+		"totalStopIoB": false,
+
+		"mySqlHost": "localhost",
+		"mySqlPort": "3307",
+		"mySqlName": "",
+		"mySqlUser": "",
+		"mySqlPassword": "",
+		"mySqlDeleteAfter": 5,
+
+		"ccuEnabled": false,
+		"ccuTime": "01:30",
+		"ccuEveryXDays": 3,
+		"ccuDeleteAfter": 5,
+		"ccuNameSuffix": "",
+		"ccuHost": "",
+		"ccuUser": "",
+		"ccuPassword": "",
+
+		"cifsMount": "CIFS",
+
+		"ftpHost": "",
+		"ftpDir": "",
+		"ftpUser": "",
+		"ftpPassword": "",
+
+		"logEnabled": true,
+		"debugLevel": false,
+		"backupRedis": false,
+		"historyEntriesNumber": 25,
+
+		"telegramEnabled": false,
+		"telegramInstance": "telegram.0",
+
+		"ownDir": false,
+		"ccuFtpDir": "",
+		"totalFtpDir": "",
+		"minimalFtpDir": ""
     },
     "instanceObjects": [
         {
-            "_id":  "History",
+            "_id":  "history",
             "type": "channel",
             "common": {
                 "name": "History Logs"
@@ -221,7 +229,7 @@
             "native": {}
         },
         {
-            "_id":  "History.Backup_history",
+            "_id":  "history.html",
             "type": "state",
             "common": {
                 "role":  "indicator",
@@ -234,7 +242,7 @@
             "native": {}
         },
         {
-            "_id":  "History.letztes_ccu_Backup",
+            "_id":  "history.ccuLastTime",
             "type": "state",
             "common": {
                 "role":  "indicator",
@@ -247,7 +255,7 @@
             "native": {}
         },
         {
-            "_id":  "History.letztes_minimal_Backup",
+            "_id":  "history.minimalLastTime",
             "type": "state",
             "common": {
                 "role":  "indicator",
@@ -260,7 +268,7 @@
             "native": {}
         },
         {
-            "_id":  "History.letztes_komplett_Backup",
+            "_id":  "history.totalLastTime",
             "type": "state",
             "common": {
                 "role":  "indicator",
@@ -273,7 +281,7 @@
             "native": {}
         },
         {
-            "_id":  "OneClick",
+            "_id":  "oneClick",
             "type": "channel",
             "common": {
                 "name": "OneClick Buttons"
@@ -281,7 +289,7 @@
             "native": {}
         },
         {
-            "_id":  "OneClick.start_ccu_Backup",
+            "_id":  "oneClick.ccu",
             "type": "state",
             "common": {
                 "role":  "indicator",
@@ -294,7 +302,7 @@
             "native": {}
         },
         {
-            "_id":  "OneClick.start_minimal_Backup",
+            "_id":  "oneClick.minimal",
             "type": "state",
             "common": {
                 "role":  "indicator",
@@ -307,7 +315,7 @@
             "native": {}
         },
         {
-            "_id":  "OneClick.start_komplett_Backup",
+            "_id":  "oneClick.total",
             "type": "state",
             "common": {
                 "role":  "indicator",

@@ -177,9 +177,9 @@ elif [ $BKP_TYP == "komplett" ]; then
 		cp /var/lib/redis/dump.rdb $bkpdir/dump_redis_$datum-$uhrzeit.rdp && echo success "--- Ein Redis Backup wurde erstellt ---" || echo error "--- Ein Redis Backup konnte nicht erstellt werden ---"
 		cd $bkpdir
 		chmod 777 dump_redis_$datum-$uhrzeit.rdp
-		tar -czf backup_redis_state_$datum-$uhrzeit.tar.gz dump_redis_$datum-$uhrzeit.rdp && echo success "--- Redis Backup wurde komprimiert ---" || echo error "--- Redis Backup wurde nicht komprimiert ---"
+		tar -czf backup_backupRedis_$datum-$uhrzeit.tar.gz dump_redis_$datum-$uhrzeit.rdp && echo success "--- Redis Backup wurde komprimiert ---" || echo error "--- Redis Backup wurde nicht komprimiert ---"
 		
-		if [ -f $bkpdir/dump_redis_$datum-$uhrzeit.rdp ] && [ -f $bkpdir/backup_redis_state_$datum-$uhrzeit.tar.gz ]; then
+		if [ -f $bkpdir/dump_redis_$datum-$uhrzeit.rdp ] && [ -f $bkpdir/backup_backupRedis_$datum-$uhrzeit.tar.gz ]; then
 			rm -f dump_redis_$datum-$uhrzeit.rdp
 		fi
 
@@ -257,7 +257,7 @@ if [ $BKP_OK == "JA" ]; then
 #		Backups Älter X Tage löschen
 		echo "--- Alte Backups entfernen ---"
 		if [ $REDIS_STATE == "true" ]; then
-			find $bkpdir -name "backup_redis_state_*.tar.gz" -mtime +$BKP_LOESCHEN_NACH -exec rm '{}' \; && echo success "--- Ueberpruefung auf alte Dateien und loeschen erfolgreich ---" || echo error "--- Ueberpruefung auf alte Dateien und loeschen nicht erfolgreich ---"
+			find $bkpdir -name "backup_backupRedis_*.tar.gz" -mtime +$BKP_LOESCHEN_NACH -exec rm '{}' \; && echo success "--- Ueberpruefung auf alte Dateien und loeschen erfolgreich ---" || echo error "--- Ueberpruefung auf alte Dateien und loeschen nicht erfolgreich ---"
 			sleep 10
 		fi
 		
@@ -297,7 +297,7 @@ if [ $BKP_OK == "JA" ]; then
 				curl -s --disable-epsv -v -T"$bkpdir/backupiobroker_$BKP_TYP$NAME_ZUSATZ-$datum-$uhrzeit.tar.gz" -u"$NAS_USR:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
 			fi
 			if [ $REDIS_STATE == "true" ]; then
-			curl -s --disable-epsv -v -T"$bkpdir/backup_redis_state_$datum-$uhrzeit.tar.gz" -u"$NAS_USR:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
+			curl -s --disable-epsv -v -T"$bkpdir/backup_backupRedis_$datum-$uhrzeit.tar.gz" -u"$NAS_USR:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
 			fi
 		fi
 	fi
