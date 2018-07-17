@@ -123,16 +123,16 @@
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s6 l2"><a href="#tab-settings" class="translate active">Haupteinstellungen</a></li>
-                <li class="tab col s6 l2 tab-minimal-backup"><a href="#tab-minimal-backup" class="translate">Standard Backup</a></li>
-                <li class="tab col s6 l2 tab-komplett-backup"><a href="#tab-komplett-backup" class="translate">Komplett Backup</a></li>
+                <li class="tab col s6 l2"><a href="#tab-settings" class="translate active">main settings</a></li>
+                <li class="tab col s6 l2 tab-minimal-backup"><a href="#tab-minimal-backup" class="translate">Standard backup</a></li>
+                <li class="tab col s6 l2 tab-komplett-backup"><a href="#tab-komplett-backup" class="translate">Complete backup</a></li>
                 <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
                 <li class="tab col s6 l2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
-                <li class="tab col s6 l2 tab-nas"><a href="#tab-nas" class="translate">NAS Einstellungen</a></li>
+                <li class="tab col s6 l2 tab-nas"><a href="#tab-nas" class="translate">NAS settings</a></li>
             </ul>
         </div>
         <div class="row">
-            <!-- Anfang Haupteinstellungen -->
+            <!-- main settings -->
             <div id="tab-settings" class="col s12 page">
                 <div class="row">
                     <div class="input-field col s6">
@@ -146,103 +146,100 @@
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="debugLevel" type="checkbox"/>
-                        <label for="debugLevel" class="translate">Debug aktivieren/deaktivieren</label>
+                        <label for="debugLevel" class="translate">Enable / disable debug</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="totalStopIoB" type="checkbox"/>
-                        <label for="totalStopIoB" class="translate">Stop ioBroker bei Backup</label>
+                        <label for="totalStopIoB" class="translate">Stop ioBroker at backup</label>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="backupRedis" type="checkbox"/>
-                        <label for="backupRedis" class="translate">Redis Status sichern</label>
+                        <label for="backupRedis" class="translate">Save Redis state</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="telegramEnabled" type="checkbox"/>
-                        <label for="telegramEnabled" class="translate">Benachrichtigungen per Telegram</label>
+                        <label for="telegramEnabled" class="translate">Notifications by telegram</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6 l4 telegram_inst">
                         <select id="telegramInstance" class="value"></select>
-                        <label for="telegramInstance" class="translate">Telegram Instanz</label>
+                        <label for="telegramInstance" class="translate">Telegram instance</label>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input type="number" class="value" id="historyEntriesNumber" min="1" max="50"/>
                         <!--<label for="historyEntriesNumber" class="translate">Anzahl der History-Eintraege</label>-->
-                        <span class="translate">Anzahl der History-Eintraege</span>
+                        <span class="translate">Number of history entries</span>
                     </div>
                 </div>
             </div>
-            <!-- Ende Haupteinstellungen -->
-            <!-- Anfang Minimal Backup -->
+            <!-- Minimal Backup -->
             <div id="tab-minimal-backup" class="col s12 page">
                 <div class="row">
                     <div class="input-field col s3">
                         <input class="value" id="minimalEnabled" type="checkbox"/>
-                        <label for="minimalEnabled" class="translate">Standard Backup</label>
+                        <label for="minimalEnabled" class="translate">Standard backup</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6 l3">
                         <input class="value" id="minimalTime" type="text">
-                        <label for="minimalTime" class="translate">Backupzeit</label>
-                        <span class="translate">Backup Startzeit in hh:mm</span>
+                        <label for="minimalTime" class="translate">backup time</label>
+                        <span class="translate">Backup start time in hh: mm</span>
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <input type="number" class="value" id="minimalEveryXDays" min="1" max="100"/>
-                        <label for="minimalEveryXDays" class="translate">Tage</label>
-                        <span class="translate">Backup ausfuehren alle X-Tage</span>
+                        <label for="minimalEveryXDaysyscycle" class="translate">days</label>
+                        <span class="translate">Backup will run every X days</span>
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <input type="number" class="value" id="minimalDeleteAfter" min="1" max="100"/>
-                        <label for="minimalDeleteAfter" class="translate">Tage</label>
-                        <span class="translate">alte Standard-Backups loeschen nach X-Tagen</span>
+                        <label for="minimalDeleteAfter" class="translate">days</label>
+                        <span class="translate">old standard backups delete after X-days</span>
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <input class="value" id="minimalNameSuffix" type="text">
-                        <label for="minimalNameSuffix" class="translate">Name</label>
-                        <span class="translate">NamensZusatz</span>
+                        <label for="minimalNameSuffix" class="translate">name</label>
+                        <span class="translate">Name suffix</span>
                     </div>
                 </div>
             </div>
-            <!-- Ende Minimal Backup -->
-            <!-- Anfang Komplett Backup -->
+            <!-- Complete Backup -->
             <div id="tab-komplett-backup" class="col s12 page">
                 <div class="row">
                     <div class="input-field col s12">
                         <input class="value" id="totalEnabled" type="checkbox"/>
-                        <label for="totalEnabled" class="translate">Komplett Backup</label>
+                        <label for="totalEnabled" class="translate">Complete backup</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6 l3">
                         <input class="value" id="totalTime" type="text">
-                        <label for="totalTime" class="translate">Backupzeit</label>
-                        <span class="translate">Backup Startzeit in hh:mm</span>
+                        <label for="totalTime" class="translate">backup time</label>
+                        <span class="translate">Backup start time in hh: mm</span>
+                    </div>
+                    <div class="input-field col s12 m6 l3">
+                        <input type="number" class="value" id="komplett_backupdayscycle" min="1" max="100"/>
+                        <label for="komplett_backupdayscycle" class="translate">days</label>
+                        <span class="translate">Backup will run every X days</span>
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <input type="number" class="value" id="totalEveryXDays" min="1" max="100"/>
-                        <label for="totalEveryXDays" class="translate">Tage</label>
-                        <span class="translate">Backup ausfuehren alle X-Tage</span>
-                    </div>
-                    <div class="input-field col s12 m6 l3">
-                        <input type="number" class="value" id="totalDeleteAfter" min="1" max="100"/>
-                        <label for="totalDeleteAfter" class="translate">Tage</label>
-                        <span class="translate">alte Komplett-Backups loeschen nach X-Tagen</span>
+                        <label for="totalEveryXDays" class="translate">days</label>
+                        <span class="translate">old complete backups delete after X days</span>
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <input class="value" id="totalNameSuffix" type="text">
-                        <label for="totalNameSuffix" class="translate">Name</label>
-                        <span class="translate">NamensZusatz</span>
+                        <label for="totalNameSuffix" class="translate">name</label>
+                        <span class="translate">Name suffix</span>
                     </div>
                 </div>
             </div>
-            <!-- Ende Komplett Backup -->
-            <!-- Anfang Mysql Backup -->
+            <!-- Mysql Backup -->
             <div id="tab-my-sql" class="col s12 page">
                 <div class="row">
                     <div class="input-field col s12 m6 l4">
@@ -252,84 +249,77 @@
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="mySqlPort" type="text">
-                        <label for="mySqlPort" class="translate">Port</label>
-                        <span class="translate">MySQL Port</span>
+                        <label for="mySqlPort" class="translate">port</label>
+                        <span class="translate">MySQL port</span>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="mySqlName" type="text">
-                        <label for="mySqlName" class="translate">Name</label>
-                        <span class="translate">MySQL Datenbank Name</span>
+                        <label for="mySqlName" class="translate">name</label>
+                        <span class="translate">MySQL database name</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="mySqlUser" type="text">
-                        <label for="mySqlUser" class="translate">MySql Benutzername</label>
-                        <span class="translate">MySql Benutzername</span>
+                        <label for="mySqlUser" class="translate">MySql username</label>
+                        <span class="translate">MySql username</span>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="mySqlPassword" type="password">
-                        <label for="mySqlPassword" class="translate">Passwort</label>
-                        <span class="translate">MySql Passwort</span>
+                        <label for="mySqlPassword" class="translate">password</label>
+                        <span class="translate">MySql password</span>
                     </div>
                     <div class="input-field col s12 m4 l4">
                         <input type="number" class="value" id="mySqlDeleteAfter" min="1" max="100"/>
-                        <label for="mySqlDeleteAfter" class="translate">Tage</label>
-                        <span class="translate">alte MySQL Backups loeschen nach X-Tagen</span>
+                        <label for="mySqlDeleteAfter" class="translate">days</label>
+                        <span class="translate">old MySQL backups delete after X days</span>
                     </div>
                 </div>
             </div>
-            <!-- Ende Mysql Backup -->
-            <!-- Anfang CCU Backup -->
+            <!-- CCU Backup -->
             <div id="tab-ccu-backup" class="col s12 page">
                 <div class="row">
                     <div class="input-field col s12">
                         <input class="value" id="ccuEnabled" type="checkbox"/>
-                        <label for="ccuEnabled" class="translate">Homematic-CCU Backup</label>
+                        <label for="ccuEnabled" class="translate">Homematic CCU backup</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ccuTime" type="text">
-                        <label for="ccuTime" class="translate">Backupzeit</label>
-                        <span class="translate">Backup Startzeit in hh:mm</span>
+                        <label for="ccuTime" class="translate">backup time</label>
+                        <span class="translate">Backup start time in hh: mm</span>
                     </div>
                     <div class="input-field col s12 m4 l4">
                         <input type="number" class="value" id="ccuEveryXDays" min="1" max="100"/>
-                        <label for="ccuEveryXDays" class="translate">Tage</label>
-                        <span class="translate">Backup ausfuehren alle X-Tage</span>
+                        <label for="ccuEveryXDays" class="translate">days</label>
+                        <span class="translate">Backup will run every X days</span>
                     </div>
                     <div class="input-field col s12 m4 l4">
                         <input type="number" class="value" id="ccuDeleteAfter" min="1" max="100"/>
-                        <label for="ccuDeleteAfter" class="translate">Tage</label>
-                        <span class="translate">alte CCU-Backups loeschen nach X-Tagen</span>
+                        <label for="ccuDeleteAfter" class="translate">days</label>
+                        <span class="translate">Old CCU backups delete after X days</span>
                     </div>
-                    <!--<div class="input-field col s12 m6 l2">
-                        <input class="value" id="ccuNameSuffix" type="text">
-                        <label for="NamensZusatz">Name</label>
-                        <span class="translate">NamensZusatz</span>
-                    </div>-->
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ccuHost" type="text">
-                        <label for="ccuHost" class="translate">IP-Adresse</label>
-                        <span class="translate">IP der CCU</span>
+                        <label for="ccuHost" class="translate">IP address</label>
+                        <span class="translate">IP of the CCU</span>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ccuUser" type="text">
-                        <label for="ccuUser" class="translate">Benutzername</label>
-                        <span class="translate">Benutzername der CCU</span>
+                        <label for="ccuUser" class="translate">Username</label>
+                        <span class="translate">Username of the CCU</span>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ccuPassword" type="password">
-                        <label for="ccuPassword" class="translate">Passwort</label>
-                        <span class="translate">Passwort der CCU</span>
+                        <label for="ccuPassword" class="translate">password</label>
+                        <span class="translate">Password of the CCU</span>
                     </div>
                 </div>
             </div>
-            <!-- Ende CCU Backup -->
-            <!-- Anfang NAS -->
+            <!-- NAS settings -->
             <div id="tab-nas" class="col s12 page">
                 <div class="row">
                     <div class="input-field col s11 m2">
@@ -337,15 +327,11 @@
                             <option value="FTP" class="translate">FTP</option>
                             <option value="CIFS" class="translate">CIFS</option>
                         </select>
-                        <label for="cifsMount" class="translate">Verbindungstyp</label>
+                        <label for="cifsMount" class="translate">connection type</label>
                     </div>
                 </div>
                 <div class="row">
                 </div>
-                <!--<div class="input-field col s3">
-                    <input class="value" id="cifsMount" type="checkbox" />
-                    <label for="CIFS Mount" class="translate">CIFS Mount</label>
-                -->
                 <div class="row">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ftpHost" type="text">
@@ -354,50 +340,48 @@
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ftpUser" type="text">
-                        <label for="ftpUser" class="translate">Benutzername</label>
-                        <span class="translate">Benutzername</span>
+                        <label for="ftpUser" class="translate">Username</label>
+                        <span class="translate">Username</span>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ftpPassword" type="password">
-                        <label for="ftpPassword" class="translate">Passwort</label>
-                        <span class="translate">Passwort</span>
+                        <label for="ftpPassword" class="translate">password</label>
+                        <span class="translate">password</span>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="input-field col s12">
                         <input class="value" id="ownDir" type="checkbox"/>
-                        <label for="ownDir" class="translate">Extra Pfad fuer Backuptypen</label>
+                        <label for="ownDir" class="translate">Extra path for backup types</label>
                     </div>
                 </div>
 
                 <div class="row nas_extra">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="minimalFtpDir" type="text">
-                        <label for="minimalFtpDir" class="translate">Pfad fuer Standard-Backup</label>
-                        <span class="translate">Pfad fuer Standard-Backup</span>
+                        <label for="minimalFtpDir" class="translate">Path for standard backup</label>
+                        <span class="translate">Path for standard backup</span>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="totalFtpDir" type="text">
-                        <label for="totalFtpDir" class="translate">Pfad fuer Komplett-Backup</label>
-                        <span class="translate">Pfad fuer Komplett-Backup</span>
+                        <label for="totalFtpDir" class="translate">Path for complete backup</label>
+                        <span class="translate">Path for complete backup</span>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ccuFtpDir" type="text">
-                        <label for="ccuFtpDir" class="translate">Pfad fuer CCU-Backup</label>
-                        <span class="translate">Pfad fuer CCU-Backup</span>
+                        <label for="ccuFtpDir" class="translate">Path for CCU backup</label>
+                        <span class="translate">Path for CCU backup</span>
                     </div>
                 </div>
 
                 <div class="row nas_standard">
                     <div class="input-field col s12">
                         <input class="value" id="ftpDir" type="text">
-                        <label for="ftpDir" class="translate">Pfad</label>
-                        <span class="translate">Pfad</span>
+                        <label for="ftpDir" class="translate">path</label>
+                        <span class="translate">path</span>
                     </div>
                 </div>
             </div>
-            <!-- Ende NAS -->
         </div>
     </div>
 </div>
