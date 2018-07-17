@@ -51,8 +51,8 @@ function main() {
     // Konfigurationen für das Standard-IoBroker Backup
     Backup[0] = [];
     Backup[0][0] = 'minimal';                                   // Backup Typ (nicht verändern!)
-    Backup[0][1] = adapter.config.minimal_NamensZusatz;        	// Names Zusatz, wird an den Dateinamen angehängt
-    Backup[0][2] = adapter.config.minimal_BackupLoeschenNach;  	// Alte Backups löschen nach X Tagen
+    Backup[0][1] = adapter.config.minimal_namesuffix;        	// Names Zusatz, wird an den Dateinamen angehängt
+    Backup[0][2] = adapter.config.minimal_Backupdeleteafter;  	// Alte Backups löschen nach X Tagen
     Backup[0][3] = adapter.config.FtpHost;             	        // FTP-Host
     if (adapter.config.nas_var === true) {             	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
         Backup[0][4] = adapter.config.FtpDir_minimal;
@@ -73,8 +73,8 @@ function main() {
 
     Backup[1] = [];
     Backup[1][0] = 'komplett';                                  // Backup Typ (nicht verändern)
-    Backup[1][1] = adapter.config.komplett_NamensZusatz;       	// Names Zusatz, wird an den Dateinamen angehängt
-    Backup[1][2] = adapter.config.komplett_BackupLoeschenNach; 	// Alte Backups löschen nach X Tagen
+    Backup[1][1] = adapter.config.komplett_namesuffix;       	// Names Zusatz, wird an den Dateinamen angehängt
+    Backup[1][2] = adapter.config.komplett_Backupdeleteafter; 	// Alte Backups löschen nach X Tagen
     Backup[1][3] = adapter.config.FtpHost;            	        // FTP-Host
     if (adapter.config.nas_var === true) {             	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
         Backup[1][4] = adapter.config.FtpDir_komplett;
@@ -95,7 +95,7 @@ function main() {
     Backup[2] = [];
     Backup[2][0] = 'ccu';                                       // Backup Typ (nicht verändern)
     Backup[2][1] = '';                                          // Nicht benötigt bei diesem BKP-Typ (nicht verändern!)
-    Backup[2][2] = adapter.config.ccu_BackupLoeschenNach;       // Alte Backups löschen nach X Tagen
+    Backup[2][2] = adapter.config.ccu_Backupdeleteafter;       // Alte Backups löschen nach X Tagen
     Backup[2][3] = adapter.config.FtpHost;            	        // FTP-Host
     if (adapter.config.nas_var === true) {             	        // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
         Backup[2][4] = adapter.config.FtpDir_ccu;
@@ -114,7 +114,7 @@ function main() {
     const Mysql_DBname = adapter.config.MysqlDbName;                // Name der Datenbank
     const Mysql_User = adapter.config.MysqlDbUser;           	    // Benutzername für Datenbank
     const Mysql_PW = adapter.config.MysqlDbPw;           		    // Passwort für Datenbank
-    const Mysql_LN = adapter.config.MysqlBackupLoeschenNach; 	    // DB-Backup löschen nach X Tagen
+    const Mysql_LN = adapter.config.MysqlBackupdeleteafter; 	    // DB-Backup löschen nach X Tagen
     const Mysql_Host = adapter.config.MysqlDbHost; 	                // Hostname der Datenbank
     const Mysql_Port = adapter.config.MysqlDbPort; 	                // Port der Datenbank
 
@@ -174,27 +174,27 @@ function main() {
 
 // #############################################################################
 // #                                                                           #
-// #  Funktion zum anlegen eines Schedules fuer Backupzeit                     #
+// #  Funktion zum anlegen eines Schedules fuer BackupTime                     #
 // #                                                                           #
 // #############################################################################
 
-    function backupZeitErstellen() {
+    function BackupTimeCreate() {
         adapter.setState('Auto_Backup', false);
         Backup.forEach(function (Bkp) {
             if (adapter.config[Bkp[0] + '_BackupState'] === true) {
-                let BkpUhrZeit = (adapter.config[Bkp[0] + '_BackupZeit']).split(':');
+                let BkpUhrZeit = (adapter.config[Bkp[0] + '_BackupTime']).split(':');
 
-                if (logging) adapter.log.info('Ein ' + Bkp[0] + ' Backup wurde um ' + adapter.config[Bkp[0] + '_BackupZeit'] + ' Uhr jeden ' + adapter.config[Bkp[0] + '_BackupTageZyklus'] + ' Tag  aktiviert');
+                if (logging) adapter.log.info('Ein ' + Bkp[0] + ' Backup wurde um ' + adapter.config[Bkp[0] + '_BackupTime'] + ' Uhr jeden ' + adapter.config[Bkp[0] + '_backupdayscycle'] + ' Tag  aktiviert');
 
                 if (BkpZeit_Schedule[Bkp[0]]) {
                     schedule.clearScheduleJob(BkpZeit_Schedule[Bkp[0]]);
                 }
 
-                BkpZeit_Schedule[Bkp[0]] = schedule.scheduleJob('10 ' + BkpUhrZeit[1] + ' ' + BkpUhrZeit[0] + ' */' + adapter.config[Bkp[0] + '_BackupTageZyklus'] + ' * * ', function () {
+                BkpZeit_Schedule[Bkp[0]] = schedule.scheduleJob('10 ' + BkpUhrZeit[1] + ' ' + BkpUhrZeit[0] + ' */' + adapter.config[Bkp[0] + '_backupdayscycle'] + ' * * ', function () {
                     backup_erstellen(Bkp[0], Bkp[1], Bkp[2], Bkp[3], Bkp[4], Bkp[5], Bkp[6], Bkp[7], Bkp[8], Bkp[9], Bkp[10], Bkp[11], Bkp[12], Mysql_DBname, Mysql_User, Mysql_PW, Mysql_LN, Mysql_Host, Mysql_Port);
                 });
 
-                if (debugging) adapter.log.info('10 ' + BkpUhrZeit[1] + ' ' + BkpUhrZeit[0] + ' */' + adapter.config[Bkp[0] + '_BackupTageZyklus'] + ' * * ');
+                if (debugging) adapter.log.info('10 ' + BkpUhrZeit[1] + ' ' + BkpUhrZeit[0] + ' */' + adapter.config[Bkp[0] + '_backupdayscycle'] + ' * * ');
             } else {
                 if (logging) adapter.log.info('Das ' + Bkp[0] + ' Backup wurde deaktiviert');
 
@@ -218,14 +218,14 @@ function main() {
 
         // Telegram Message versenden
         if (debugging) {
-            if (adapter.config.Telegram_instanz !== '') {
-                adapter.log.info('Gewaehlte Telegram-Instanz: ' + adapter.config.Telegram_instanz);
+            if (adapter.config.telegram_instance !== '') {
+                adapter.log.info('Gewaehlte Telegram-Instanz: ' + adapter.config.telegram_instance);
             } else {
                 adapter.log.info('Keine Telegram-Instanz gewaehlt!');
             }
         }
 
-        if (adapter.config.telegram_message === true && adapter.config.Telegram_instanz !== '') {
+        if (adapter.config.telegram_message === true && adapter.config.telegram_instance !== '') {
             adapter.log.info('Telegram Message ist aktiv');
 
             let messagetext = 'Es wurde am ' + historyEintrag(new Date()) + ' ein neues ' + typ + ' Backup erstellt';
@@ -238,7 +238,7 @@ function main() {
                 }
             }
             messagetext += '!';
-            adapter.sendTo(adapter.config.Telegram_instanz, 'send', {text: 'BackItUp:\n' + messagetext});
+            adapter.sendTo(adapter.config.telegram_instance, 'send', {text: 'BackItUp:\n' + messagetext});
 //        adapter.sendTo('telegram', 'send', {text: (String('BackItUp:\n' + messagetext))});
         }
 
@@ -360,6 +360,6 @@ function main() {
 
     });
 
-    backupZeitErstellen();
+    BackupTimeCreate();
 // ############## Ende backitup #########################
 }

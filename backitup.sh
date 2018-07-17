@@ -1,36 +1,35 @@
 #!/bin/bash
 
-# Beschreibung: Backupscript fuer IoBroker
+# Description: Backup script for IoBroker
 #
-# Basierend auf dem Script von Kuddel: http://forum.iobroker.net/viewtopic.php?f=21&t=9861
+# Based on the script by Kuddel: http://forum.iobroker.net/viewtopic.php?f=21&t=9861
 #
-# Funktionen: - Erstellen eines normalen ioBroker-Backups
-#             - Erstellen eines Backups des ganzen ioBroker-Ordners
-#             - Optionales loeschen von Backups aelter x-Tage
-#             - Optionales weiterkopieren auf einen FTP-Server
+# Features: - Create a normal ioBroker backup
+# - Make a backup of the entire ioBroker folder
+# - Optionally delete backups older than x days
+# - Optional further copy to an FTP server
 #
 #
 # Author: Steffen
-# Version: 1.0   - Erster Entwurf des Backupscripts
-# Version: 1.0.1 - Optionaler Upload auf FTP-Server
-# Version: 2.0   - Raspberrymatic-Backup mit eingebunden
-# Version: 2.0.1 - Optionale Verwendung von CIFS-Mount eingebunden
-#		 - Iobroker Stop und Start bei Komplettbackup eingefügt
-# Version: 2.0.2 - Zusätzliches MYSQL-Backup inkl. upload auf FTP-Server
-# Version: 2.0.3 - Erste Version auf Github
-# Version: 2.0.4 - Backupmöglichkeit für Homematic-CCU und pivccu eingebunden
-# Version: 3.0.0 - Backup für Raspberrymatic entfernt (wird jetzt alles über das Homematic-CCU Backup erledigt)
-# 		 - diverse Änderungen und Verbesserungen im Script
-# Version: 3.0.1 - FTP-Upload auf "curl" geändert (Das Packet LFTP wird nicht mehr benötigt)
-# Versíon: 3.0.2 - Redis State sichern hinzugefuegt
-# Version: 3.0.3 - Bugfix mount
-# Version: 3.0.4 - Bugfix Komplett-Backup
-# Version: 3.0.5 - Mysql Erweiterung um Host und Port
-#		 - Komprimierung des MySql-Backups
+# Version: 1.0      - First draft of the backup script
+# Version: 1.0.1    - Optional upload to FTP server
+# Version: 2.0      - Raspberrymatic backup included
+# Version: 2.0.1    - Optional use of CIFS mount included
+#                   - Iobroker stop and start at full backup inserted
+# Version: 2.0.2    - Additional MYSQL backup including upload to FTP server
+# Version: 2.0.3    - First version on Github
+# Version: 2.0.4    - Backup option for Homematic CCU and pivccu integrated
+# Version: 3.0.0    - Backup for Raspberrymatic removed (everything is now done via the Homematic CCU Backup)
+#                   - various changes and improvements in the script
+# Version: 3.0.1    - FTP upload changed to "curl" (The LFTP package is no longer needed)
+# Versíon: 3.0.2    - Added backup to Redis State
+# Version: 3.0.3    - bugfix mount
+# Version: 3.0.4    - Bugfix complete backup
+# Version: 3.0.5    - Mysql extension to host and port
+#                   - Compressing the MySql backup
 #
 #
-# Verwendung:  bash backitup.sh "Backup_Typ|Namens_Zusatz|Loeschen_nach_X_Tagen|NAS_Host|NAS_Verzeichnis|NAS_User|NAS_Passwort|CCU-IP|CCU-USER|CCU-PW|CIFS_MNT|IOBROKER_RESTART|REDIS_STATE|MYSQL_DBNAME|MYSQL_USR|MYSQL_PW|MYSQL_Loeschen_nach_X_Tagen|MYSQL_HOST|MYSQL_PORT"
-#
+# Use:  bash backitup.sh "Backup_Typ|NAME_SUFFIX|DELETE_AFTER_X_Tagen|NAS_Host|NAS_Verzeichnis|NAS_User|NAS_Passwort|CCU-IP|CCU-USER|CCU-PW|CIFS_MNT|IOBROKER_RESTART|REDIS_STATE|MYSQL_DBNAME|MYSQL_USR|MYSQL_PW|MYSQL_DELETE_AFTER_X_Tagen|MYSQL_HOST|MYSQL_PORT"
 #
 #
 STRING=$1
@@ -40,14 +39,14 @@ VAR=($STRING)
 
 
 ############################################################################
-#									   #
+#									                                       #
 # Definieren der Scriptvariablen                                           #
 #                                                                          #
 ############################################################################
 
 BKP_TYP=${VAR[0]}
-NAME_ZUSATZ=${VAR[1]}
-BKP_LOESCHEN_NACH=${VAR[2]}
+NAME_SUFFIX=${VAR[1]}
+BKP_DELETE_AFTER=${VAR[2]}
 NAS_HOST=${VAR[3]}
 NAS_DIR=${VAR[4]}
 NAS_USR=${VAR[5]}
@@ -61,7 +60,7 @@ REDIS_STATE=${VAR[12]}
 MYSQL_DBNAME=${VAR[13]}
 MYSQL_USR=${VAR[14]}
 MYSQL_PW=${VAR[15]}
-MYSQL_LOESCHEN_NACH=${VAR[16]}
+MYSQL_DELETE_AFTER=${VAR[16]}
 MYSQL_HOST=${VAR[17]}
 MYSQL_PORT=${VAR[18]}
 
@@ -146,7 +145,7 @@ if [ $BKP_TYP == "minimal" ]; then
 	BKP_OK="JA"
 
 #	Backup umbenennen
-	mv $bkpdir/$datum-$stunde* $bkpdir/backupiobroker_minimal$NAME_ZUSATZ-$datum-$uhrzeit.tar.gz
+	mv $bkpdir/$datum-$stunde* $bkpdir/backupiobroker_minimal$NAME_SUFFIX-$datum-$uhrzeit.tar.gz
 
 
 ############################################################################
@@ -169,7 +168,7 @@ elif [ $BKP_TYP == "komplett" ]; then
 
 #	Backup ausfuehren
 	echo "--- Es wurde ein Komplettes Backup gestartet ---"
-	tar -czf $bkpdir/backupiobroker_komplett$NAME_ZUSATZ-$datum-$uhrzeit.tar.gz --exclude="$bkpdir" -P /opt/iobroker && echo success "--- Ein komplettes Backup wurde erstellt ---" || echo error "--- Ein komplettes Backup konnte nicht erstellt werden ---"
+	tar -czf $bkpdir/backupiobroker_komplett$NAME_SUFFIX-$datum-$uhrzeit.tar.gz --exclude="$bkpdir" -P /opt/iobroker && echo success "--- Ein komplettes Backup wurde erstellt ---" || echo error "--- Ein komplettes Backup konnte nicht erstellt werden ---"
 	BKP_OK="JA"
 
 #	Redis State sichern
@@ -248,24 +247,26 @@ fi
 #                                                                          #
 ############################################################################
 
-if [ -n "$MYSQL_LOESCHEN_NACH" ]; then
-	find $bkpdir -name "backupiobroker_mysql*.tar.gz" -mtime +$MYSQL_LOESCHEN_NACH -exec rm '{}' \;
+if [ -n "$MYSQL_DELETE_AFTER" ]; then
+	find $bkpdir -name "backupiobroker_mysql*.tar.gz" -mtime +$MYSQL_DELETE_AFTER -exec rm '{}' \;
 fi
 
 if [ $BKP_OK == "JA" ]; then
-	if [ -n "$BKP_LOESCHEN_NACH" ]; then
+	if [ -n "$BKP_DELETE_AFTER" ]; then
 #		Backups Älter X Tage löschen
 		echo "--- Alte Backups entfernen ---"
-		if [ $REDIS_STATE == "true" ]; then
-			find $bkpdir -name "backup_redis_state_*.tar.gz" -mtime +$BKP_LOESCHEN_NACH -exec rm '{}' \; && echo success "--- Ueberpruefung auf alte Dateien und loeschen erfolgreich ---" || echo error "--- Ueberpruefung auf alte Dateien und loeschen nicht erfolgreich ---"
-			sleep 10
-		fi
-		
+        if [ $BKP_TYP == "komplett" ]; then
+            if [ $REDIS_STATE == "true" ]; then
+                find $bkpdir -name "backup_redis_state_*.tar.gz" -mtime +$BKP_DELETE_AFTER -exec rm '{}' \; && echo success "--- Ueberpruefung auf alte Dateien und loeschen erfolgreich ---" || echo error "--- Ueberpruefung auf alte Dateien und loeschen nicht erfolgreich ---"
+                sleep 10
+            fi
+        fi
+        
 		if [ $BKP_TYP == "ccu" ]; then
-			find $bkpdir -name "*.tar.sbk" -mtime +$BKP_LOESCHEN_NACH -exec rm '{}' \; && echo success "--- Ueberpruefung auf alte Dateien und loeschen erfolgreich ---" || echo error "--- Ueberpruefung auf alte Dateien und loeschen nicht erfolgreich ---"
+			find $bkpdir -name "*.tar.sbk" -mtime +$BKP_DELETE_AFTER -exec rm '{}' \; && echo success "--- Ueberpruefung auf alte Dateien und loeschen erfolgreich ---" || echo error "--- Ueberpruefung auf alte Dateien und loeschen nicht erfolgreich ---"
 			sleep 10
 		else
-			find $bkpdir -name "backupiobroker_$BKP_TYP$NAME_ZUSATZ*.tar.gz" -mtime +$BKP_LOESCHEN_NACH -exec rm '{}' \; && echo success "--- Ueberpruefung auf alte Dateien und loeschen erfolgreich ---" || echo error "--- Ueberpruefung auf alte Dateien und loeschen nicht erfolgreich ---"
+			find $bkpdir -name "backupiobroker_$BKP_TYP$NAME_SUFFIX*.tar.gz" -mtime +$BKP_DELETE_AFTER -exec rm '{}' \; && echo success "--- Ueberpruefung auf alte Dateien und loeschen erfolgreich ---" || echo error "--- Ueberpruefung auf alte Dateien und loeschen nicht erfolgreich ---"
 			sleep 10
 		fi
 	else
@@ -294,7 +295,7 @@ if [ $BKP_OK == "JA" ]; then
 			if [ $BKP_TYP == "ccu" ]; then
 				curl -s --disable-epsv -v -T"$bkpdir/Homematic-Backup-$ccuversion-$datum-$uhrzeit.tar.sbk" -u"$NAS_USR:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
 			else
-				curl -s --disable-epsv -v -T"$bkpdir/backupiobroker_$BKP_TYP$NAME_ZUSATZ-$datum-$uhrzeit.tar.gz" -u"$NAS_USR:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
+				curl -s --disable-epsv -v -T"$bkpdir/backupiobroker_$BKP_TYP$NAME_SUFFIX-$datum-$uhrzeit.tar.gz" -u"$NAS_USR:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
 			fi
 			if [ $REDIS_STATE == "true" ]; then
 			curl -s --disable-epsv -v -T"$bkpdir/backup_redis_state_$datum-$uhrzeit.tar.gz" -u"$NAS_USR:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
