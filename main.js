@@ -55,7 +55,7 @@ function _(word) {
         return word;
     }
 }
-// Wird ausgefürt wenn sich ein State ändert
+// Is executed when a State has changed
 adapter.on('stateChange', (id, state) => {
     if ((state.val === true || state.val === 'true') && !state.ack) {
         if (id === adapter.namespace + '.oneClick.minimal') {
@@ -73,32 +73,28 @@ adapter.on('stateChange', (id, state) => {
 adapter.on('ready', main);
 
 function checkStates() {
-    // Leere Datenpunkte mit Standardwerten befüllen.
+    // Fill empty data points with default values
     adapter.getState('history.html', (err, state) => {
         if (!state || state.val === null) {
             adapter.setState('history.html', {
-                // TODO translate
-                val: '<span class="backup-type-total">' + _('Noch keine Backups erstellt') + '</span>',
+                val: '<span class="backup-type-total">' + _('No backups yet') + '</span>',
                 ack: true
             });
         }
     });
     adapter.getState('history.minimalLastTime', (err, state) => {
         if (!state || state.val === null) {
-            // TODO translate
-            adapter.setState('history.minimalLastTime', {val: _('Noch keine Backups erstellt'), ack: true});
+            adapter.setState('history.minimalLastTime', {val: _('No backups yet'), ack: true});
         }
     });
     adapter.getState('history.totalLastTime', (err, state) => {
         if (!state || state.val === null) {
-            // TODO translate
-            adapter.setState('history.totalLastTime', {val: _('Noch keine Backups erstellt'), ack: true});
+            adapter.setState('history.totalLastTime', {val: _('No backups yet'), ack: true});
         }
     });
     adapter.getState('history.ccuLastTime', (err, state) => {
         if (!state || state.val === null) {
-            // TODO translate
-            adapter.setState('history.ccuLastTime', {val: _('Noch keine Backups erstellt'), ack: true});
+            adapter.setState('history.ccuLastTime', {val: _('No backups yet'), ack: true});
         }
     });
     adapter.getState('oneClick.minimal', (err, state) => {
@@ -118,11 +114,8 @@ function checkStates() {
     });
 }
 
-// #############################################################################
-// #                                                                           #
-// #  Funktion zum anlegen eines Schedules fuer Backupzeit                     #
-// #                                                                           #
-// #############################################################################
+
+// function to create Backup schedules (Backup time)  
 function createBackupSchedule() {
     for (const type in backupConfig) {
         if (!backupConfig.hasOwnProperty(type)) continue;
@@ -160,11 +153,7 @@ function createBackupSchedule() {
     }
 }
 
-// #############################################################################
-// #                                                                           #
-// #  Funktion zum Ausführen des Backups mit obigen Einstellungen              #
-// #                                                                           #
-// #############################################################################
+// function to create the Backupfile         
 function createBackup(type) {
     return new Promise((resolve, reject) => {
         const command = bashScript + ' "' +
@@ -175,9 +164,9 @@ function createBackup(type) {
             (backupConfig[type].ftp.dir             || '') + '|' +  // 4
             (backupConfig[type].ftp.user            || '') + '|' +  // 5
             (backupConfig[type].ftp.pass            || '') + '|' +  // 6
-            (backupConfig[type].ccu.host            || '') + '|' +  // 7
-            (backupConfig[type].ccu.user            || '') + '|' +  // 8
-            (backupConfig[type].ccu.pass            || '') + '|' +  // 9
+            (backupConfig[type].host                || '') + '|' +  // 7
+            (backupConfig[type].user                || '') + '|' +  // 8
+            (backupConfig[type].pass                || '') + '|' +  // 9
             (backupConfig[type].cifs.mount          || '') + '|' +  // 10
             (backupConfig[type].stopIoB             || '') + '|' +  // 11
             (backupConfig[type].backupRedis         || '') + '|' +  // 12
@@ -240,11 +229,8 @@ function createBackup(type) {
     });
 }
 
-// #############################################################################
-// #                                                                           #
-// #  Funktion zum erstellen eines Datum-Strings                               #
-// #                                                                           #
-// #############################################################################
+
+// function to create a date string                               #
 const MONTHS = {
     en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     de: ['Januar', 'Februar', 'Maerz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
@@ -278,12 +264,7 @@ function getTimeString(date) {
         .replace('%t', padding0(hours) + ':' + padding0(minutes));
 }
 
-// #############################################################################
-// #                                                                           #
-// #  Backupdurchführung in History eintragen                                  #
-// #                                                                           #
-// #############################################################################
-
+// function for entering the backup execution in the history-log
 function createBackupHistory(type) {
     adapter.getState('history.html', (err, state) => {
         let historyList = state.val;
@@ -313,12 +294,7 @@ function createBackupHistory(type) {
 }
 
 
-// #############################################################################
-// #                                                                           #
-// #  Beobachten der drei One-Click-Backup Datenpunkte                         #
-// #  - Bei Aktivierung start des jeweiligen Backups                           #
-// #                                                                           #
-// #############################################################################
+// watching the three One-Click-Backup data points, if activated - start backup
 
 function startBackup(type) {
     adapter.log.info(`[${type}] oneClick backup started`);
@@ -332,83 +308,76 @@ function startBackup(type) {
 }
 
 function initVariables() {
-    // -----------------------------------------------------------------------------
-    // allgemeine Variablen
-    // -----------------------------------------------------------------------------
+    // general variables
     logging = adapter.config.logEnabled;                                                 // Logging on/off
     debugging = adapter.config.debugLevel;										         // Detailiertere Loggings
     historyEntriesNumber = adapter.config.historyEntriesNumber;                          // Anzahl der Einträge in der History
 
-    // Konfigurationen für das Standard-IoBroker Backup
+    // konfigurations for standart-IoBroker backup
     backupConfig.minimal = {
         enabled: adapter.config.minimalEnabled,
         time: adapter.config.minimalTime,
         everyXDays: adapter.config.minimalEveryXDays,
-        nameSuffix: adapter.config.minimalNameSuffix,   // Names Zusatz, wird an den Dateinamen angehängt
-        deleteBackupAfter: adapter.config.minimalDeleteAfter,// Alte Backups löschen nach X Tagen
+        nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+        deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backupfiles after x days
         ftp: {
-            host: adapter.config.ftpHost,               // FTP-Host
-            // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
-            dir: (adapter.config.ownDir === true) ? adapter.config.minimalFtpDir : adapter.config.ftpDir,
-            user: adapter.config.ftpUser,               // Username für FTP Server - Verbindung
-            pass: adapter.config.ftpPassword            // Passwort für FTP Server - Verbindung
+            host: adapter.config.ftpHost,                       // ftp-host
+            dir: (adapter.config.ownDir === true) ? adapter.config.minimalFtpDir : adapter.config.ftpDir, // directory on FTP server
+            user: adapter.config.ftpUser,                       // username for FTP Server 
+            pass: adapter.config.ftpPassword                    // password for FTP Server
         },
         cifs: {
-            mount: adapter.config.cifsMount             // Festlegen ob CIFS-Mount genutzt werden soll
+            mount: adapter.config.cifsMount                     // specify if CIFS mount should be used
         }
     };
 
-    // Konfigurationen für das Komplette-IoBroker Backup
+    // konfigurations for total-IoBroker backup
     backupConfig.total = {
         enabled: adapter.config.totalEnabled,
         time: adapter.config.totalTime,
         everyXDays: adapter.config.totalEveryXDays,
-        nameSuffix: adapter.config.totalNameSuffix,   // Names Zusatz, wird an den Dateinamen angehängt
-        deleteBackupAfter: adapter.config.totalDeleteAfter,// Alte Backups löschen nach X Tagen
+        nameSuffix: adapter.config.totalNameSuffix,             // names addition, appended to the file name
+        deleteBackupAfter: adapter.config.totalDeleteAfter,     // delete old backupfiles after x days
+        backupRedis: adapter.config.backupRedis,                // specify if Redis-DB should be backuped
+        stopIoB: adapter.config.totalStopIoB,                    // specify if ioBroker should be stopped/started 
         ftp: {
-            host: adapter.config.ftpHost,               // FTP-Host
-            // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
-            dir: (adapter.config.ownDir === true) ? adapter.config.totalFtpDir : adapter.config.ftpDir,
-            user: adapter.config.ftpUser,               // Username für FTP Server - Verbindung
-            pass: adapter.config.ftpPassword            // Passwort für FTP Server - Verbindung
+            host: adapter.config.ftpHost,                       // ftp-host
+            dir: (adapter.config.ownDir === true) ? adapter.config.totalFtpDir : adapter.config.ftpDir, // directory on FTP server
+            user: adapter.config.ftpUser,                       // username for FTP Server
+            pass: adapter.config.ftpPassword                    // password for FTP Server
         },
         cifs: {
-            mount: adapter.config.cifsMount             // Festlegen ob CIFS-Mount genutzt werden soll
+            mount: adapter.config.cifsMount                     // specify if CIFS mount should be used
         },
-        backupRedis: adapter.config.backupRedis,        // Festlegen ob die Redis-DB mit gesichert werden soll
-        stopIoB: adapter.config.totalStopIoB                 // Festlegen ob IoBroker gestoppt/gestartet wird
     };
 
-    // Konfiguration für das CCU / pivCCU / Raspberrymatic Backup
+    // konfigurations for CCU / pivCCU / Raspberrymatic backup
     backupConfig.ccu = {
         enabled: adapter.config.ccuEnabled,
         time: adapter.config.ccuTime,
         everyXDays: adapter.config.ccuEveryXDays,
-        nameSuffix: adapter.config.ccuNameSuffix,   // Names Zusatz, wird an den Dateinamen angehängt
-        deleteBackupAfter: adapter.config.ccuDeleteAfter,// Alte Backups löschen nach X Tagen
+        nameSuffix: adapter.config.ccuNameSuffix,               // names addition, appended to the file name
+        deleteBackupAfter: adapter.config.ccuDeleteAfter,       // delete old backupfiles after x days
+        host: adapter.config.ccuHost,                           // IP-address CCU
+        user: adapter.config.ccuUser,                           // username CCU
+        pass: adapter.config.ccuPassword,                       // password der CCU
         ftp: {
-            host: adapter.config.ftpHost,               // FTP-Host
-            // genaue Verzeichnissangabe bspw. /volume1/Backup/ auf FTP-Server
-            dir: (adapter.config.ownDir === true) ? adapter.config.ccuFtpDir : adapter.config.ftpDir,
-            user: adapter.config.ftpUser,               // Username für FTP Server - Verbindung
-            pass: adapter.config.ftpPassword            // Passwort für FTP Server - Verbindung
+            host: adapter.config.ftpHost,                       // ftp-host
+            dir: (adapter.config.ownDir === true) ? adapter.config.ccuFtpDir : adapter.config.ftpDir, // directory on FTP server
+            user: adapter.config.ftpUser,                       // username for FTP Server
+            pass: adapter.config.ftpPassword                    // password for FTP Server
         },
         cifs: {
-            mount: adapter.config.cifsMount             // Festlegen ob CIFS-Mount genutzt werden soll
-        },
-        ccu: {
-            host: adapter.config.ccuHost,               // IP-Adresse der CCU
-            user: adapter.config.ccuUser,               // Username der CCU
-            pass: adapter.config.ccuPassword            // Passwort der CCU
+            mount: adapter.config.cifsMount                     // specify if CIFS mount should be used
         }
     };
 
-    mySqlConfig.dbName = adapter.config.mySqlName;          // Name der Datenbank
-    mySqlConfig.user = adapter.config.mySqlName;            // Benutzername für Datenbank
-    mySqlConfig.pass = adapter.config.mySqlPassword;        // Passwort für Datenbank
-    mySqlConfig.deleteBackupAfter = adapter.config.mySqlDeleteAfter;// DB-Backup löschen nach X Tagen
-    mySqlConfig.host = adapter.config.mySqlHost;            // Hostname der Datenbank
-    mySqlConfig.port = adapter.config.mySqlPort;            // Port der Datenbank
+    mySqlConfig.dbName = adapter.config.mySqlName;              // database name
+    mySqlConfig.user = adapter.config.mySqlName;                // database user
+    mySqlConfig.pass = adapter.config.mySqlPassword;            // database password
+    mySqlConfig.deleteBackupAfter = adapter.config.mySqlDeleteAfter; // delete old backupfiles after x days
+    mySqlConfig.host = adapter.config.mySqlHost;                // database host
+    mySqlConfig.port = adapter.config.mySqlPort;                // database port
 }
 
 function main() {

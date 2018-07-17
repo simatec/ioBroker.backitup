@@ -13,6 +13,9 @@
 
 ## Changelog
 
+### 0.2.2 (17.07.2018)
+ * (peoples/simatec/bluefox) Bug Fix Code
+
 ### 0.2.1 (15.07.2018)
  * (peoples/simatec) Bug Fix
  
