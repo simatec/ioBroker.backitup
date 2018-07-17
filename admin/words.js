@@ -1,7 +1,7 @@
 /*global systemDictionary:true */
 'use strict';
 
-systemDictionary = {
+var _systemDictionary = {
     "Number of history entries": {                   "en": "Number of history entries",                       "de": "Anzahl der History-Einträge",                     "ru": "Количество записей в истории",                    "pt": "Número de entradas do histórico",                 "nl": "Aantal geschiedenisitems",                        "fr": "Nombre d'entrées d'historique",                   "it": "Numero di voci della cronologia",                 "es": "Número de entradas de historial",                 "pl": "Liczba wpisów historii"},
     "Backup start time in hh: mm": {                 "en": "Backup start time in hh: mm",                     "de": "Backup Startzeit in hh:mm",                       "ru": "Время начала резервного копирования в чч: мм",    "pt": "Horário de início de backup em hh: mm",           "nl": "Backup starttijd in uu: mm",                      "fr": "Heure de début de sauvegarde en hh: mm",          "it": "Ora di inizio backup in hh: mm",                  "es": "Tiempo de inicio de respaldo en hh: mm",          "pl": "Czas uruchomienia kopii zapasowej w gg: mm"},
     "Backup will run every X days": {                "en": "Backup will run every X days",                    "de": "Backup ausführen alle X-Tage",                    "ru": "Резервное копирование выполняется каждые X дней", "pt": "Backup executado a cada X dias",                  "nl": "Back-up wordt elke X dagen uitgevoerd",           "fr": "Sauvegarde exécutée tous les X jours",            "it": "Esegui il backup ogni X giorni",                  "es": "Ejecución de respaldo cada X días",               "pl": "Backup uruchamiany co X dni"},
@@ -48,3 +48,8 @@ systemDictionary = {
     "old MySQL backups delete after X days": {       "en": "old MySQL backups delete after X days",           "de": "alte MySQL Backups löschen nach X-Tagen",         "ru": "удалить старые резервные копии MySQL после X дней", "pt": "excluir backups antigos do MySQL após X dias",    "nl": "verwijder oude MySQL-back-ups na X dagen",        "fr": "supprimer les anciennes sauvegardes MySQL après X jours", "it": "cancella i vecchi backup MySQL dopo X giorni",    "es": "eliminar viejas copias de seguridad de MySQL después de X días", "pl": "usun stare kopie zapasowe MySQL po X dniach"},
     "old standard backups delete after X-days": {    "en": "old standard backups delete after X-days",        "de": "alte Standard-Backups löschen nach X-Tagen",      "ru": "удалить старые стандартные резервные копии после X дней", "pt": "excluir backups padrão antigos após X dias",      "nl": "verwijder oude standaardback-ups na X dagen",     "fr": "supprimer les anciennes sauvegardes standard après X jours", "it": "cancella i vecchi backup standard dopo X giorni", "es": "eliminar copias de seguridad estándar antiguas después de X días", "pl": "usuwaj stare standardowe kopie zapasowe po X dniach"},
 };
+if (typeof module !== "undefined" && module.parent) {
+    module.exports = _systemDictionary;
+} else {
+   systemDictionary = _systemDictionary;
+}

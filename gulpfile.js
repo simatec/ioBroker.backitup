@@ -1,19 +1,19 @@
 'use strict';
 
-var gulp      = require('gulp');
-var fs        = require('fs');
-var pkg       = require('./package.json');
-var iopackage = require('./io-package.json');
-var version   = (pkg && pkg.version) ? pkg.version : iopackage.common.version;
-/*var appName   = getAppName();
+const gulp      = require('gulp');
+const fs        = require('fs');
+const pkg       = require('./package.json');
+const iopackage = require('./io-package.json');
+const version   = (pkg && pkg.version) ? pkg.version : iopackage.common.version;
+/*const appName   = getAppName();
 
 function getAppName() {
-    var parts = __dirname.replace(/\\/g, '/').split('/');
+    const parts = __dirname.replace(/\\/g, '/').split('/');
     return parts[parts.length - 1].split('.')[0].toLowerCase();
 }
 */
 const fileName = 'words.js';
-var languages =  {
+const languages =  {
     en: {},
     de: {},
     ru: {},
@@ -26,15 +26,15 @@ var languages =  {
 };
 
 function lang2data(lang, isFlat) {
-    var str = isFlat ? '' : '{\n';
-    var count = 0;
-    for (var w in lang) {
+    let str = isFlat ? '' : '{\n';
+    let count = 0;
+    for (const w in lang) {
         if (lang.hasOwnProperty(w)) {
             count++;
             if (isFlat) {
                 str += (lang[w] === '' ? (isFlat[w] || w) : lang[w]) + '\n';
             } else {
-                var key = '  "' + w.replace(/"/g, '\\"') + '": ';
+                const key = '  "' + w.replace(/"/g, '\\"') + '": ';
                 str += key + '"' + lang[w].replace(/"/g, '\\"') + '",\n';
             }
         }
@@ -49,16 +49,16 @@ function lang2data(lang, isFlat) {
 
 function readWordJs(src) {
     try {
-        var words;
+        let words;
         if (fs.existsSync(src + 'js/' + fileName)) {
             words = fs.readFileSync(src + 'js/' + fileName).toString();
         } else {
             words = fs.readFileSync(src + fileName).toString();
         }
 
-        var lines = words.split(/\r\n|\r|\n/g);
-        var i = 0;
-        while (!lines[i].match(/^systemDictionary = {/)) {
+        const lines = words.split(/\r\n|\r|\n/g);
+        let i = 0;
+        while (!lines[i].match(/^var _systemDictionary = {/)) {
             i++;
         }
         lines.splice(0, i);
@@ -71,11 +71,11 @@ function readWordJs(src) {
         if (i < lines.length - 1) {
             lines.splice(i + 1);
         }
-
-        lines[0] = lines[0].replace('systemDictionary = ', '');
+        lines.splice(lines.length - 5, 5);
+        lines[0] = lines[0].replace('var _systemDictionary = ', '');
         lines[lines.length - 1] = lines[lines.length - 1].trim().replace(/};$/, '}');
         words = lines.join('\n');
-        var resultFunc = new Function('return ' + words + ';');
+        const resultFunc = new Function('return ' + words + ';');
 
         return resultFunc();
     } catch (e) {
@@ -86,15 +86,15 @@ function padRight(text, totalLength) {
     return text + (text.length < totalLength ? new Array(totalLength - text.length).join(' ') : '');
 }
 function writeWordJs(data, src) {
-    var text = '';
+    let text = '';
     text += '/*global systemDictionary:true */\n';
     text += '\'use strict\';\n\n';
-    text += 'systemDictionary = {\n';
-    for (var word in data) {
+    text += 'var _systemDictionary = {\n';
+    for (const word in data) {
         if (data.hasOwnProperty(word)) {
             text += '    ' + padRight('"' + word.replace(/"/g, '\\"') + '": {', 50);
-            var line = '';
-            for (var lang in data[word]) {
+            let line = '';
+            for (const lang in data[word]) {
                 if (data[word].hasOwnProperty(lang)) {
                     line += '"' + lang + '": "' + padRight(data[word][lang].replace(/"/g, '\\"') + '",', 50) + ' ';
                 }
@@ -106,7 +106,13 @@ function writeWordJs(data, src) {
             text += line + '},\n';
         }
     }
-    text += '};';
+    text += '};\n';
+    text += 'if (typeof module !== "undefined" && module.parent) {\n';
+    text += '    module.exports = _systemDictionary;\n';
+    text += '} else {\n';
+    text += '   systemDictionary = _systemDictionary;\n';
+    text += '}\n';
+
     if (fs.existsSync(src + 'js/' + fileName)) {
         fs.writeFileSync(src + 'js/' + fileName, text);
     } else {
@@ -117,16 +123,16 @@ function writeWordJs(data, src) {
 const EMPTY = '';
 
 function words2languages(src) {
-    var langs = Object.assign({}, languages);
-    var data = readWordJs(src);
+    const langs = Object.assign({}, languages);
+    const data = readWordJs(src);
     if (data) {
-        for (var word in data) {
+        for (const word in data) {
             if (data.hasOwnProperty(word)) {
-                for (var lang in data[word]) {
+                for (const lang in data[word]) {
                     if (data[word].hasOwnProperty(lang)) {
                         langs[lang][word] = data[word][lang];
                         //  pre-fill all other languages
-                        for (var j in langs) {
+                        for (const j in langs) {
                             if (langs.hasOwnProperty(j)) {
                                 langs[j][word] = langs[j][word] || EMPTY;
                             }
@@ -138,12 +144,12 @@ function words2languages(src) {
         if (!fs.existsSync(src + 'i18n/')) {
             fs.mkdirSync(src + 'i18n/');
         }
-        for (var l in langs) {
+        for (const l in langs) {
             if (!langs.hasOwnProperty(l)) continue;
-            var keys = Object.keys(langs[l]);
+            const keys = Object.keys(langs[l]);
             keys.sort();
-            var obj = {};
-            for (var k = 0; k < keys.length; k++) {
+            const obj = {};
+            for (let k = 0; k < keys.length; k++) {
                 obj[keys[k]] = langs[l][keys[k]];
             }
             if (!fs.existsSync(src + 'i18n/' + l)) {
@@ -157,16 +163,16 @@ function words2languages(src) {
     }
 }
 function words2languagesFlat(src) {
-    var langs = Object.assign({}, languages);
-    var data = readWordJs(src);
+    const langs = Object.assign({}, languages);
+    const data = readWordJs(src);
     if (data) {
-        for (var word in data) {
+        for (const word in data) {
             if (data.hasOwnProperty(word)) {
-                for (var lang in data[word]) {
+                for (const lang in data[word]) {
                     if (data[word].hasOwnProperty(lang)) {
                         langs[lang][word] = data[word][lang];
                         //  pre-fill all other languages
-                        for (var j in langs) {
+                        for (const j in langs) {
                             if (langs.hasOwnProperty(j)) {
                                 langs[j][word] = langs[j][word] || EMPTY;
                             }
@@ -175,12 +181,12 @@ function words2languagesFlat(src) {
                 }
             }
         }
-        var keys = Object.keys(langs.en);
+        const keys = Object.keys(langs.en);
         keys.sort();
-        for (var l in langs) {
+        for (const l in langs) {
             if (!langs.hasOwnProperty(l)) continue;
-            var obj = {};
-            for (var k = 0; k < keys.length; k++) {
+            const obj = {};
+            for (let k = 0; k < keys.length; k++) {
                 obj[keys[k]] = langs[l][keys[k]];
             }
             langs[l] = obj;
@@ -188,7 +194,7 @@ function words2languagesFlat(src) {
         if (!fs.existsSync(src + 'i18n/')) {
             fs.mkdirSync(src + 'i18n/');
         }
-        for (var ll in langs) {
+        for (const ll in langs) {
             if (!langs.hasOwnProperty(ll)) continue;
             if (!fs.existsSync(src + 'i18n/' + ll)) {
                 fs.mkdirSync(src + 'i18n/' + ll);
@@ -202,13 +208,13 @@ function words2languagesFlat(src) {
     }
 }
 function languagesFlat2words(src) {
-    var dirs = fs.readdirSync(src + 'i18n/');
-    var langs = {};
-    var bigOne = {};
-    var order = Object.keys(languages);
+    const dirs = fs.readdirSync(src + 'i18n/');
+    const langs = {};
+    const bigOne = {};
+    const order = Object.keys(languages);
     dirs.sort(function (a, b) {
-        var posA = order.indexOf(a);
-        var posB = order.indexOf(b);
+        const posA = order.indexOf(a);
+        const posB = order.indexOf(b);
         if (posA === -1 && posB === -1) {
             if (a > b) return 1;
             if (a < b) return -1;
@@ -223,19 +229,19 @@ function languagesFlat2words(src) {
             return 0;
         }
     });
-    var keys = fs.readFileSync(src + 'i18n/flat.txt').toString().split('\n');
+    const keys = fs.readFileSync(src + 'i18n/flat.txt').toString().split('\n');
 
-    for (var l = 0; l < dirs.length; l++) {
+    for (let l = 0; l < dirs.length; l++) {
         if (dirs[l] === 'flat.txt') continue;
-        var lang = dirs[l];
-        var values = fs.readFileSync(src + 'i18n/' + lang + '/flat.txt').toString().split('\n');
+        const lang = dirs[l];
+        const values = fs.readFileSync(src + 'i18n/' + lang + '/flat.txt').toString().split('\n');
         langs[lang] = {};
         keys.forEach(function (word, i) {
             langs[lang][word] = values[i];
         });
 
-        var words = langs[lang];
-        for (var word in words) {
+        const words = langs[lang];
+        for (const word in words) {
             if (words.hasOwnProperty(word)) {
                 bigOne[word] = bigOne[word] || {};
                 if (words[word] !== EMPTY) {
@@ -245,12 +251,12 @@ function languagesFlat2words(src) {
         }
     }
     // read actual words.js
-    var aWords = readWordJs();
+    const aWords = readWordJs();
 
-    var temporaryIgnore = ['pt', 'fr', 'nl', 'flat.txt'];
+    const temporaryIgnore = ['pt', 'fr', 'nl', 'flat.txt'];
     if (aWords) {
         // Merge words together
-        for (var w in aWords) {
+        for (const w in aWords) {
             if (aWords.hasOwnProperty(w)) {
                 if (!bigOne[w]) {
                     console.warn('Take from actual words.js: ' + w);
@@ -264,19 +270,18 @@ function languagesFlat2words(src) {
                 });
             }
         }
-
     }
 
     writeWordJs(bigOne, src);
 }
 function languages2words(src) {
-    var dirs = fs.readdirSync(src + 'i18n/');
-    var langs = {};
-    var bigOne = {};
-    var order = Object.keys(languages);
+    const dirs = fs.readdirSync(src + 'i18n/');
+    const langs = {};
+    const bigOne = {};
+    const order = Object.keys(languages);
     dirs.sort(function (a, b) {
-        var posA = order.indexOf(a);
-        var posB = order.indexOf(b);
+        const posA = order.indexOf(a);
+        const posB = order.indexOf(b);
         if (posA === -1 && posB === -1) {
             if (a > b) return 1;
             if (a < b) return -1;
@@ -291,13 +296,13 @@ function languages2words(src) {
             return 0;
         }
     });
-    for (var l = 0; l < dirs.length; l++) {
+    for (let l = 0; l < dirs.length; l++) {
         if (dirs[l] === 'flat.txt') continue;
-        var lang = dirs[l];
+        const lang = dirs[l];
         langs[lang] = fs.readFileSync(src + 'i18n/' + lang + '/translations.json').toString();
         langs[lang] = JSON.parse(langs[lang]);
-        var words = langs[lang];
-        for (var word in words) {
+        const words = langs[lang];
+        for (const word in words) {
             if (words.hasOwnProperty(word)) {
                 bigOne[word] = bigOne[word] || {};
                 if (words[word] !== EMPTY) {
@@ -307,12 +312,12 @@ function languages2words(src) {
         }
     }
     // read actual words.js
-    var aWords = readWordJs();
+    const aWords = readWordJs();
 
-    var temporaryIgnore = ['pt', 'fr', 'nl', 'it'];
+    const temporaryIgnore = ['pt', 'fr', 'nl', 'it'];
     if (aWords) {
         // Merge words together
-        for (var w in aWords) {
+        for (const w in aWords) {
             if (aWords.hasOwnProperty(w)) {
                 if (!bigOne[w]) {
                     console.warn('Take from actual words.js: ' + w);
@@ -332,22 +337,22 @@ function languages2words(src) {
     writeWordJs(bigOne, src);
 }
 
-gulp.task('adminWords2languages', function (done) {
+gulp.task('word.js => json', function (done) {
     words2languages('./admin/');
     done();
 });
 
-gulp.task('adminWords2languagesFlat', function (done) {
+gulp.task('words.js => flat', function (done) {
     words2languagesFlat('./admin/');
     done();
 });
 
-gulp.task('adminLanguagesFlat2words', function (done) {
+gulp.task('flat => words.js', function (done) {
     languagesFlat2words('./admin/');
     done();
 });
 
-gulp.task('adminLanguages2words', function (done) {
+gulp.task('json => word.js', function (done) {
     languages2words('./admin/');
     done();
 });
@@ -357,8 +362,8 @@ gulp.task('updatePackages', function (done) {
     iopackage.common.version = pkg.version;
     iopackage.common.news = iopackage.common.news || {};
     if (!iopackage.common.news[pkg.version]) {
-        var news = iopackage.common.news;
-        var newNews = {};
+        const news = iopackage.common.news;
+        const newNews = {};
 
         newNews[pkg.version] = {
             en: 'news',
@@ -372,10 +377,10 @@ gulp.task('updatePackages', function (done) {
 });
 
 gulp.task('rename', function ()  {
-    var newname;
-    var author = 'simatec';
-    var email  = 'nais@gmx.net';
-    for (var a = 0; a < process.argv.length; a++) {
+    let newname;
+    let author = 'simatec';
+    let email  = 'nais@gmx.net';
+    for (let a = 0; a < process.argv.length; a++) {
         if (process.argv[a] === '--name') {
             newname = process.argv[a + 1]
         } else if (process.argv[a] === '--email') {
@@ -417,7 +422,7 @@ gulp.task('rename', function ()  {
     if (fs.existsSync(__dirname + '/widgets/backitup')) {
         fs.renameSync(__dirname + '/widgets/backitup',                __dirname + '/widgets/' + newname);
     }
-    var patterns = [
+    const patterns = [
         {
             match: /backitup/g,
             replacement: newname
@@ -439,7 +444,7 @@ gulp.task('rename', function ()  {
             replacement: email
         }
     ];
-    var files = [
+    const files = [
         __dirname + '/io-package.json',
         __dirname + '/LICENSE',
         __dirname + '/package.json',
@@ -456,8 +461,8 @@ gulp.task('rename', function ()  {
     files.forEach(function (f) {
         try {
             if (fs.existsSync(f)) {
-                var data = fs.readFileSync(f).toString('utf-8');
-                for (var r = 0; r < patterns.length; r++) {
+                let data = fs.readFileSync(f).toString('utf-8');
+                for (let r = 0; r < patterns.length; r++) {
                     data = data.replace(patterns[r].match, patterns[r].replacement);
                 }
                 fs.writeFileSync(f, data);
@@ -469,19 +474,19 @@ gulp.task('rename', function ()  {
 });
 
 gulp.task('updateReadme', function (done) {
-    var readme = fs.readFileSync('README.md').toString();
-    var pos = readme.indexOf('## Changelog\n');
+    const readme = fs.readFileSync('README.md').toString();
+    const pos = readme.indexOf('## Changelog\n');
     if (pos !== -1) {
-        var readmeStart = readme.substring(0, pos + '## Changelog\n'.length);
-        var readmeEnd   = readme.substring(pos + '## Changelog\n'.length);
+        const readmeStart = readme.substring(0, pos + '## Changelog\n'.length);
+        const readmeEnd   = readme.substring(pos + '## Changelog\n'.length);
 
         if (readme.indexOf(version) === -1) {
-            var timestamp = new Date();
-            var date = timestamp.getFullYear() + '-' +
+            const timestamp = new Date();
+            const date = timestamp.getFullYear() + '-' +
                 ('0' + (timestamp.getMonth() + 1).toString(10)).slice(-2) + '-' +
                 ('0' + (timestamp.getDate()).toString(10)).slice(-2);
 
-            var news = '';
+            let news = '';
             if (iopackage.common.news && iopackage.common.news[pkg.version]) {
                 news += '* ' + iopackage.common.news[pkg.version].en;
             }

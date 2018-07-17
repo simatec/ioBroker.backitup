@@ -76,56 +76,57 @@ The following steps should be performed to use the adapter (if the backup script
 ## 4. Use:
 
 The adapter creates 7 data points for use in Vis
-	- start_ccu_Backup -> serves as trigger for a CCU backup (can be set to true in Vis by a button)
-	- start_minimal_Backup -> serves as trigger for a standard backup (can be set to true in Vis by a button)
-	- start_komplett_Backup -> serves as trigger for a complete backup (can be set to true in Vis by a button)
+	- oneClick.ccu -> serves as trigger for a CCU backup (can be set to true in Vis by a button)
+	- oneClick.minimal -> serves as trigger for a standard backup (can be set to true in Vis by a button)
+	- oneClick.total -> serves as trigger for a complete backup (can be set to true in Vis by a button)
 
-	- Backup_history -> diehnt as history log which is customizable in Vis via CCS from the design.
-	- last_ccu_Backup -> saves the creation date and time of the last CCU backup
-	- last_minimum_backup -> saves the creation date and time of the last standard backup
-	- last_ccu_Backup -> saves the creation date and time of the last full backup
+	- history.html -> diehnt as history log which is customizable in Vis via CCS from the design.
+	- history.ccuLastTime -> saves the creation date and time of the last CCU backup
+	- history.minimalLastTime -> saves the creation date and time of the last standard backup
+	- history.totalLastTime -> saves the creation date and time of the last full backup
 
 2. show history log in Vis
    - It is possible to display the history log in an html widget by entering the following line in HTML:
+
 ```
-{backitup.0.History.Backup_history}
+{backitup.0.history.html}
 ```
-Syntax: {BackitupInstance.History.Backup_history}
+Syntax: {BackitupInstance.history.html}
 
 
 3. CCS formatting of the history log
 ```
-   .backup_history{
+   .backup-html{
        display:block;
        width:100%;
    /*    overflow-y:scroll; */
    }
-   .bkptyp_minimal
+   .backup-type-minimal
        {
-           float:left;
-           color:white;
-           font-size:18px;
+           float: left;
+           color: white;
+           font-size: 18px;
        }
-   .bkptyp_komplett
+   .backup-type-total
        {
-           float:left;
-           color:yellow;
-           font-size:18px;
+           float: left;
+           color: yellow;
+           font-size: 18px;
        }
-   .bkptyp_ccu
+   .backup-type-ccu
        {
-           float:left;
-           color:red;
-           font-size:18px;
+           float: left;
+           color: red;
+           font-size: 18px;
        }
    ```
 4. OneClick button with status text
    - If a OneClick data point is set to true the corresponding backup starts and after a predefined time this data point is set to false again so it is possible to create a button with status, adjust the following line and enter it in Vis as button text:
 ```
-{value:backitup.0.OneClick.start_minimal_Backup; value === "true" ? "Minimal Backup </br> will be created" : "Minimal Backup </br> starten"}
+{value: backitup.0.oneClick.minimal; value === "true" || value === true ? "Minimal Backup </br> will be created" : "Minimal Backup </br> starten"}
 
 ```
-Syntax: {value:BackitupInstance.OnClick.trigger; value ==="true"? "Text during backup creation": "Standard text"}
+Syntax: {value: <BackitupInstance>.oneClick.<trigger>; value ==="true" || value === true ? "Text during backup creation" : "Standard text"}
 
 ## 5. Restore:
 

@@ -71,43 +71,43 @@ Folgende Schritte sollten durchgeführt werden um den Adapter verwenden zu könn
 ## 4. Verwendung:
 
 1.	Der Adapter erstellt 7 Datenpunkte zur Verwendung in Vis
-	- start_ccu_Backup -> dient als Auslösetrigger für ein CCU-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
-	- start_minimal_Backup -> dient als Auslösetrigger für ein Standard-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
-	- start_komplett_Backup -> dient als Auslösetrigger für ein Komplett-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
+	- oneClick.ccu -> dient als Auslösetrigger für ein CCU-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
+	- oneClick.minimal -> dient als Auslösetrigger für ein Standard-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
+	- oneClick.total -> dient als Auslösetrigger für ein Komplett-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
 
-	- Backup_history -> diehnt als History-Log welcher in Vis via CCS vom Design anpassbar ist.
-	- letztes_ccu_Backup -> speichert das Erstell-Datum und die Uhrzeit des letzten CCU Backups
-	- letztes_minimal_Backup -> speichert das Erstell-Datum und die Uhrzeit des letzten Standard Backups
-	- letztes_ccu_Backup -> speichert das Erstell-Datum und die Uhrzeit des letzten Komplett Backups
+	- history.html -> diehnt als History-Log welcher in Vis via CCS vom Design anpassbar ist.
+	- history.ccuLastTime -> speichert das Erstell-Datum und die Uhrzeit des letzten CCU Backups
+	- history.minimalLastTime -> speichert das Erstell-Datum und die Uhrzeit des letzten Standard Backups
+	- history.totalLastTime -> speichert das Erstell-Datum und die Uhrzeit des letzten Komplett Backups
 
 2. History-Log in Vis anzeigen
    - Es ist möglich den History-Log bspw. in einem Html-Widget durch eintragen folgender Zeile in HTML darzustellen:
 ```
-{backitup.0.History.Backup_history}
+{backitup.0.history.html}
 ```
-Syntax: {BackitupInstanz.History.Backup_history}
+Syntax: {BackitupInstanz.history.html}
 
 
 3. CCS-Formatierung des History-Logs:
    ```
-   .backup_history{
+   .backup-html{
        display:block;
        width:100%;
    /*    overflow-y:scroll; */
    }
-   .bkptyp_minimal
+   .backup-type-minimal
        {
            float:left;
            color:white;
            font-size:18px;
        }
-   .bkptyp_komplett
+   .backup-type-total
        {
            float:left;
            color:yellow;
            font-size:18px;
        }
-   .bkptyp_ccu
+   .backup-type-ccu
        {
            float:left;
            color:red;
@@ -117,10 +117,10 @@ Syntax: {BackitupInstanz.History.Backup_history}
 4. OneClick-Button mit Status-Text
    - Wenn ein OneClick-Datenpunkt auf true gesetzt wird startet das entsprechende Backup und nach einer vordefinierten Zeit wird dieser Datenpunkt wieder auf false gesetzt somit ist es möglich einen Button mit Status zu erstellen, hierzu folgende Zeile anpassen und in Vis als Knopftext eintragen:
 ```
-{wert:backitup.0.OneClick.start_minimal_Backup; wert === "true" ? "Minimal Backup </br> wird erstellt" : "Minimal Backup </br> starten"}
+{wert: backitup.0.oneClick.minimal; wert === "true" || wert === true ? "Minimal Backup </br> wird erstellt" : "Minimal Backup </br> starten"}
 
 ```
-Syntax: {wert:BackitupInstanz.OnClick.Auslösetrigger; wert === "true" ? "Text während der Backuperstellung" : "Standard-Text"}
+Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || wert === true ? "Text während der Backuperstellung" : "Standard-Text"}
 
 ## 5. Restore:
 
