@@ -7,6 +7,8 @@ const utils = require(__dirname + '/lib/utils'); // Get common adapter utils
 const {exec} = require('child_process');
 const schedule = require('node-schedule');
 const words = require('./admin/words');
+const path = require('path');
+const fs = require('fs');
 
 const adapter = new utils.Adapter('backitup');
 
@@ -19,6 +21,31 @@ const backupTimeSchedules = [];                         // Array für die Backup
 let historyArray = [];                                  // Array für das anlegen der Backup-Historie
 const mySqlConfig = {};
 const bashScript = `bash ${__dirname}/backitup.sh `;    // Pfad zu backup.sh Datei
+const iobDir = getIobDir();
+
+/**
+ * looks for iobroker home folder
+ *
+ * @returns {string}
+ */
+function getIobDir() {
+    /** @type {string} */
+    let sPath = __dirname.replace(/\\/g, '/');
+    const parts = sPath.split('/');
+    parts.pop(); // ioBroker.backitup
+    sPath = parts.join('/');
+    if (fs.existsSync(path.join(sPath, 'node_modules'))) {
+        return sPath;
+    }
+    parts.pop(); // node_modules
+    sPath = parts.join('/');
+    if (fs.existsSync(path.join(sPath, 'node_modules'))) {
+        return sPath;
+    }
+
+    return '/opt/' + utils.appName;
+}
+
 
 function _(word) {
     if (words[word]) {
@@ -90,17 +117,12 @@ function checkStates() {
         }
     });
 }
-// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 // #############################################################################
 // #                                                                           #
 // #  Funktion zum anlegen eines Schedules fuer Backupzeit                     #
 // #                                                                           #
 // #############################################################################
-
 function createBackupSchedule() {
     for (const type in backupConfig) {
         if (!backupConfig.hasOwnProperty(type)) continue;
@@ -138,20 +160,6 @@ function createBackupSchedule() {
     }
 }
 
-function listAttributes(obj, result, prefix) {
-    result = result || [];
-    prefix = prefix || '';
-    for (const attr in obj) {
-        if (obj.hasOwnProperty(attr)) {
-            if (typeof obj[attr] === 'object') {
-                listAttributes(obj[attr], result, prefix + attr + '.');
-            } else {
-                result.push(`${prefix + attr}=${obj[attr]}`);
-            }
-        }
-    }
-    return result;
-}
 // #############################################################################
 // #                                                                           #
 // #  Funktion zum Ausführen des Backups mit obigen Einstellungen              #
@@ -160,25 +168,26 @@ function listAttributes(obj, result, prefix) {
 function createBackup(type) {
     return new Promise((resolve, reject) => {
         const command = bashScript + ' "' +
-            (type                                   || '') + '|' +
-            (backupConfig[type].nameSuffix          || '') + '|' +
-            (backupConfig[type].deleteBackupAfter   || '') + '|' +
-            (backupConfig[type].ftp.host            || '') + '|' +
-            (backupConfig[type].ftp.dir             || '') + '|' +
-            (backupConfig[type].ftp.user            || '') + '|' +
-            (backupConfig[type].ftp.pass            || '') + '|' +
-            (backupConfig[type].ccu.host            || '') + '|' +
-            (backupConfig[type].ccu.user            || '') + '|' +
-            (backupConfig[type].ccu.pass            || '') + '|' +
-            (backupConfig[type].cifs.mount          || '') + '|' +
-            (backupConfig[type].stopIoB             || '') + '|' +
-            (backupConfig[type].backupRedis         || '') + '|' +
-            (mySqlConfig.dbName                     || '') + '|' +
-            (mySqlConfig.user                       || '') + '|' +
-            (mySqlConfig.pass                       || '') + '|' +
-            (mySqlConfig.deleteBackupAfter          || '') + '|' +
-            (mySqlConfig.host                       || '') + '|' +
-            (mySqlConfig.port                       || '') +
+            (type                                   || '') + '|' +  // 0
+            (backupConfig[type].nameSuffix          || '') + '|' +  // 1
+            (backupConfig[type].deleteBackupAfter   || '') + '|' +  // 2
+            (backupConfig[type].ftp.host            || '') + '|' +  // 3
+            (backupConfig[type].ftp.dir             || '') + '|' +  // 4
+            (backupConfig[type].ftp.user            || '') + '|' +  // 5
+            (backupConfig[type].ftp.pass            || '') + '|' +  // 6
+            (backupConfig[type].ccu.host            || '') + '|' +  // 7
+            (backupConfig[type].ccu.user            || '') + '|' +  // 8
+            (backupConfig[type].ccu.pass            || '') + '|' +  // 9
+            (backupConfig[type].cifs.mount          || '') + '|' +  // 10
+            (backupConfig[type].stopIoB             || '') + '|' +  // 11
+            (backupConfig[type].backupRedis         || '') + '|' +  // 12
+            (mySqlConfig.dbName                     || '') + '|' +  // 13
+            (mySqlConfig.user                       || '') + '|' +  // 14
+            (mySqlConfig.pass                       || '') + '|' +  // 15
+            (mySqlConfig.deleteBackupAfter          || '') + '|' +  // 16
+            (mySqlConfig.host                       || '') + '|' +  // 17
+            (mySqlConfig.port                       || '') + '|' +  // 18
+            (iobDir                                 || '') +        // 19
             '"';
 
         if (debugging) {
