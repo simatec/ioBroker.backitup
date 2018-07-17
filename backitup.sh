@@ -29,7 +29,7 @@
 #                   - Compressing the MySql backup
 #
 #
-# Use:  bash backitup.sh "Backup_Typ|NAME_SUFFIX|DELETE_AFTER_X_Tagen|NAS_Host|NAS_Verzeichnis|NAS_User|NAS_Passwort|CCU-IP|CCU-USER|CCU-PW|CIFS_MOUNT|IOBROKER_RESTART|REDIS_STATE|MYSQL_DBNAME|MYSQL_USER|MYSQL_PASS|MYSQL_DELETE_AFTER_X_Tagen|MYSQL_HOST|MYSQL_PORT"
+# Use:  bash backitup.sh "BACKUP-Type|NAME-Suffix|DELETE_AFTER_X_Days|NAS-Host|NAS-Directory|NAS-User|NAS-Password|CCU-Host|CCU-User|CCU-Password|CIFS-Mount|IOB-Restart|REDIS-Backup|MYSQL-DBName|MYSQL-User|MYSQL-Password|MYSQL-DELETE_AFTER_X_Days|MYSQL-Host|MYSQL-Port|IOB-HomeDirectory"
 #
 #
 STRING=$1
@@ -118,7 +118,7 @@ fi
 
 if [ -n "$MYSQL_DBNAME" ]; then
     if [ $BACKUP_TYPE == "minimal" ] || [ $BACKUP_TYPE == "total" ]; then
-        echo "--- MYSQL-Backup wird erstellt ---"
+        echo "--- Creating MYSQL-Backup ---"
         mysqldump -u $MYSQL_USER -p$MYSQL_PASS $MYSQL_DBNAME -h $MYSQL_HOST -P $MYSQL_PORT > $backupDir/backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.sql && echo success "--- MYSQL Backup wurde erstellt ---" || echo error "--- MYSQL Backup konnte nicht erstellt werden ---"
         cd $backupDir
         tar -czf backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.tar.gz backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.sql && echo success "--- MySql wurde komprimiert ---" || echo error "--- MySql wurde nicht komprimiert ---"
@@ -187,7 +187,7 @@ elif [ $BACKUP_TYPE == "total" ]; then
         cd ..
         echo "--- Redis Backup wurde erstellt ---"
     fi
-# 	IoBroker neustarten
+# 	Restart ioBroker
     if [ $IOBROKER_RESTART == "true" ]; then
 #		cd $IOBROKER_DIR
         iobroker restart
@@ -196,8 +196,8 @@ elif [ $BACKUP_TYPE == "total" ]; then
     fi
 
 ############################################################################
-#									   #
-# Erstellen eines Backups der Homematic-CCU                                #
+#							                                      		   #
+# Create backup of Homematic-CCU                                           #
 #                                                                          #
 ############################################################################
 
@@ -244,7 +244,7 @@ fi
 
 
 ############################################################################
-#									   #
+#								                                     	   #
 # Optionales Loeschen alter Backups                                        #
 #                                                                          #
 ############################################################################
@@ -311,14 +311,14 @@ fi
 
 
 ############################################################################
-#									   #
-# Optionaler Umount des CIFS-Servers                    		   #
+#								                                     	   #
+# Optionaler Umount des CIFS-Servers                    	         	   #
 #                                                                          #
 ############################################################################
 
 if [ $CIFS_MOUNT == "CIFS" ]; then
 
-#	Backup-Pfad auf CIFS umounten
+#	Mount Backup-Directory on CIFS
 
     mount | grep -q "${backupDir}"
     if [ $? -eq 0 ] ; then
