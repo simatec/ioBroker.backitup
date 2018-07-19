@@ -27,6 +27,82 @@
         }
     </style>
     <script type="text/javascript">
+
+        function fetchMySqlConfig(isInitial) {
+            socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.sql.', endkey: 'system.adapter.sql.\u9999', include_docs: true}, function (err, res) {
+                var found = false;
+                if (res && res.rows && res.rows.length) {
+                    for (var i = 0; i < res.rows.length; i++) {
+                        var common = res.rows[0].value.common;
+                        var native = res.rows[i].value.native;
+                        if (common.enabled && native.dbtype === 'mysql') {
+                            $('#mySqlUser').val(native.user);
+                            $('#mySqlPassword').val(native.password);
+                            $('#mySqlHost').val(native.host);
+                            $('#mySqlPort').val(native.port);
+                            $('#mySqlName').val(native.dbname);
+                            var id = res.rows[i].value.
+                            found = res.rows[i].value._id;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        for (var j = 0; j < res.rows.length; j++) {
+                            var _native = res.rows[j].value.native;
+                            if (_native.dbtype === 'mysql') {
+                                $('#mySqlUser').val(_native.user);
+                                $('#mySqlPassword').val(_native.password);
+                                $('#mySqlHost').val(_native.host);
+                                $('#mySqlName').val(_native.dbname);
+                                $('#mySqlPort').val(_native.port);
+                                found = res.rows[j].value._id;
+                                break;
+                            }
+                        }
+                    }
+
+                }
+                if (found) {
+                    M.updateTextFields();
+                    found = found.substring('system.adapter.'.length);
+                    !isInitial && showMessage(_('Config taken from %s', found));
+                } else {
+                    !isInitial && showMessage(_('No config found'));
+                }
+            });
+        }
+
+        function fetchCcuConfig(isInitial) {
+            socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.hm-rpc.', endkey: 'system.adapter.hm-rpc.\u9999', include_docs: true}, function (err, res) {
+                if (res && res.rows && res.rows.length) {
+                    var found = false;
+                    for (var i = 0; i < res.rows.length; i++) {
+                        var common = res.rows[i].value.common;
+                        if (common.enabled) {
+                            var native = res.rows[i].value.native;
+                            $('#ccuHost').val(native.homematicAddress);
+                            found = res.rows[i].value._id;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        for (var j = 0; j < res.rows.length; j++) {
+                            var _native = res.rows[j].value.native;
+                            $('#ccuHost').val(_native.homematicAddress);
+                            found = res.rows[j].value._id;
+                        }
+                    }
+                }
+                if (found) {
+                    M.updateTextFields();
+                    found = found.substring('system.adapter.'.length);
+                    !isInitial && showMessage(_('Config taken from %s', found));
+                } else {
+                    !isInitial && showMessage(_('No config found'));
+                }
+            });
+        }
+
         function load(settings, onChange) {
             // example: select elements with id=key and class=value and insert value
             if (!settings) return;
@@ -45,19 +121,99 @@
                     $key.val(settings[id]).on('change', function () {
                         onChange();
                     }).on('keyup', function () {
-                        showHideSettings();
                         onChange();
                     });
                 }
             });
+
+            getIsAdapterAlive(function (isAlive) {
+                if (isAlive || common.enabled) {
+                    $('.do-backup')
+                        .removeClass('disabled')
+                        .on('click', function () {
+                            if (changed) {
+                                showError(_('Save the configuration first'));
+                                return;
+                            }
+
+                            var type = $(this).data('type');
+
+                            socket.emit('setState', adapter + '.' + instance + '.oneClick.' + type, {
+                                val: true,
+                                ack: false
+                            }, function (err) {
+                                if (!err) {
+                                    showMessage(_('Backup started'));
+                                } else {
+                                    showError(err);
+                                }
+                            });
+                        }).each(function () {
+                            var type = $(this).data('type');
+                            var $btn = $(this);
+
+                            socket.emit('getState', adapter + '.' + instance + '.oneClick.' + type, function (err, state) {
+                                if (state && state.val) {
+                                    $btn.addClass('disabled');
+                                }
+                            });
+                        });
+
+                    socket.on('stateChange', function (id, state) {
+                        if (id === 'backitup.' + instance + '.oneClick.ccu') {
+                            if (state && state.val) {
+                                $('.btn-ccu').addClass('disabled');
+                            } else {
+                                $('.btn-ccu').removeClass('disabled');
+                            }
+                        } else
+                        if (id === 'backitup.' + instance + '.oneClick.total') {
+                            if (state && state.val) {
+                                $('.btn-total').addClass('disabled');
+                            } else {
+                                $('.btn-total').removeClass('disabled');
+                            }
+                        } else
+                        if (id === 'backitup.' + instance + '.oneClick.minimal') {
+                            if (state && state.val) {
+                                $('.btn-minimal').addClass('disabled');
+                            } else {
+                                $('.btn-minimal').removeClass('disabled');
+                            }
+                        } else
+                        if (id === 'system.adapter.backitup.' + instance + '.alive') {
+                            if (state && state.val) {
+                                $('.do-backup').removeClass('disabled');
+                            } else {
+                                $('.do-backup').addClass('disabled');
+                            }
+                        }
+                    });
+                    socket.emit('subscribeStates',  'backitup.' + instance + '.oneClick.*');
+                    socket.emit('subscribeStates',  'system.adapter.backitup.' + instance + '.alive');
+
+                } else {
+                    $('.do-backup').addClass('disabled');
+                }
+            });
+
             showHideSettings();
             onChange(false);
             M.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
 
-
             getAdapterInstances('telegram', function (instances) {
                 fillInstances('telegramInstance', instances, settings['telegramInstance']);
             });
+
+            if (!settings.ccuHost) {
+                fetchCcuConfig(true);
+            }
+
+            if (!settings.mySqlUser) {
+                fetchMySqlConfig(true)
+            }
+            $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
+            $('.detect-ccu').on('click', function () {fetchCcuConfig()});
         }
 
         function fillInstances(id, arr, val) {
@@ -85,15 +241,6 @@
             callback(obj);
         }
 
-        //    function showHideSettings() {
-        //	        if ($('#ccu_nas').val() === 'true') {
-        //	            $('.nas_extra').show();
-        //				$('.nas_standard').hide();
-        //	       	} else {
-        //	         	$('.nas_extra').hide();
-        //				$('.nas_standard').show();
-        //	                }
-        //        }
         function showHideSettings() {
             if ($('#ownDir').prop('checked')) {
                 $('.nas_extra').show();
@@ -108,14 +255,44 @@
             } else {
                 $('.telegram_inst').hide();
             }
+
+            if ($('#ccuEnabled').prop('checked')) {
+                $('.ccu').show();
+            } else {
+                $('.ccu').hide();
+            }
+            if ($('#mySqlEnabled').prop('checked')) {
+                $('.mysql').show();
+            } else {
+                $('.mysql').hide();
+            }
+
+            var minimal = $('#minimalEnabled').prop('checked');
+            if (minimal) {
+                $('.minimal').show();
+            } else {
+                $('.minimal').hide();
+            }
+            var total = $('#totalEnabled').prop('checked');
+            if (total) {
+                $('.total').show();
+            } else {
+                $('.total').hide();
+            }
+
+            if (minimal || total) {
+                $('.tab-my-sql').show();
+            } else {
+                $('.tab-my-sql').hide();
+            }
         }
 
-        $('#ownDir').on('change', function () {
+        /*$('#ownDir').on('change', function () {
             showHideSettings();
         });
         $('#telegramEnabled').on('change', function () {
             showHideSettings();
-        });
+        });*/
     </script>
 </head>
 <body>
@@ -142,7 +319,7 @@
                 <div class="row">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="logEnabled" type="checkbox"/>
-                        <label for="logEnabled" class="translate">Log aktivieren/deaktivieren</label>
+                        <label for="logEnabled" class="translate">Enable / disable log</label>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="debugLevel" type="checkbox"/>
@@ -172,7 +349,6 @@
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input type="number" class="value" id="historyEntriesNumber" min="1" max="50"/>
-                        <!--<label for="historyEntriesNumber" class="translate">Anzahl der History-Eintraege</label>-->
                         <span class="translate">Number of history entries</span>
                     </div>
                 </div>
@@ -184,8 +360,11 @@
                         <input class="value" id="minimalEnabled" type="checkbox"/>
                         <label for="minimalEnabled" class="translate">Standard backup</label>
                     </div>
+                    <div class="input-field col s6 l3 minimal">
+                        <a class="waves-effect waves-light btn btn-minimal do-backup" data-type="minimal"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
+                    </div>
                 </div>
-                <div class="row">
+                <div class="row minimal">
                     <div class="input-field col s12 m6 l3">
                         <input class="value" id="minimalTime" type="text">
                         <label for="minimalTime" class="translate">backup time</label>
@@ -193,7 +372,7 @@
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <input type="number" class="value" id="minimalEveryXDays" min="1" max="100"/>
-                        <label for="minimalEveryXDaysyscycle" class="translate">days</label>
+                        <label for="minimalEveryXDays" class="translate">days</label>
                         <span class="translate">Backup will run every X days</span>
                     </div>
                     <div class="input-field col s12 m6 l3">
@@ -211,12 +390,15 @@
             <!-- Complete Backup -->
             <div id="tab-komplett-backup" class="col s12 page">
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s6 l3">
                         <input class="value" id="totalEnabled" type="checkbox"/>
                         <label for="totalEnabled" class="translate">Complete backup</label>
                     </div>
+                    <div class="input-field col s6 l3 total">
+                        <a class="waves-effect waves-light btn btn-total do-backup" data-type="total"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
+                    </div>
                 </div>
-                <div class="row">
+                <div class="row total">
                     <div class="input-field col s12 m6 l3">
                         <input class="value" id="totalTime" type="text">
                         <label for="totalTime" class="translate">backup time</label>
@@ -242,6 +424,20 @@
             <!-- Mysql Backup -->
             <div id="tab-my-sql" class="col s12 page">
                 <div class="row">
+                    <div class="input-field col s6 l3">
+                        <input class="value" id="mySqlEnabled" type="checkbox"/>
+                        <label for="mySqlEnabled" class="">MySQL backup</label>
+                    </div>
+                    <div class="input-field col s6 l3 mysql">
+                        <a class="waves-effect waves-light btn detect-mysql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                    </div>
+                </div>
+                <div class="row mysql">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="mySqlName" type="text">
+                        <label for="mySqlName" class="translate">name</label>
+                        <span class="translate">MySQL database name</span>
+                    </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="mySqlHost" type="text">
                         <label for="mySqlHost" class="translate">Host</label>
@@ -252,13 +448,9 @@
                         <label for="mySqlPort" class="translate">port</label>
                         <span class="translate">MySQL port</span>
                     </div>
-                    <div class="input-field col s12 m6 l4">
-                        <input class="value" id="mySqlName" type="text">
-                        <label for="mySqlName" class="translate">name</label>
-                        <span class="translate">MySQL database name</span>
-                    </div>
+
                 </div>
-                <div class="row">
+                <div class="row mysql">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="mySqlUser" type="text">
                         <label for="mySqlUser" class="translate">MySql username</label>
@@ -279,12 +471,18 @@
             <!-- CCU Backup -->
             <div id="tab-ccu-backup" class="col s12 page">
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s6 l3">
                         <input class="value" id="ccuEnabled" type="checkbox"/>
                         <label for="ccuEnabled" class="translate">Homematic CCU backup</label>
                     </div>
+                    <div class="input-field col s6 l3 ccu">
+                        <a class="waves-effect waves-light btn btn-ccu do-backup" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
+                    </div>
+                    <div class="input-field col s6 l3 ccu">
+                        <a class="waves-effect waves-light btn detect-ccu"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                    </div>
                 </div>
-                <div class="row">
+                <div class="row ccu">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ccuTime" type="text">
                         <label for="ccuTime" class="translate">backup time</label>
@@ -301,7 +499,7 @@
                         <span class="translate">Old CCU backups delete after X days</span>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row ccu">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ccuHost" type="text">
                         <label for="ccuHost" class="translate">IP address</label>

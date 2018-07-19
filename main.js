@@ -372,12 +372,15 @@ function initVariables() {
         }
     };
 
-    mySqlConfig.dbName = adapter.config.mySqlName;              // database name
-    mySqlConfig.user = adapter.config.mySqlName;                // database user
-    mySqlConfig.pass = adapter.config.mySqlPassword;            // database password
-    mySqlConfig.deleteBackupAfter = adapter.config.mySqlDeleteAfter; // delete old backupfiles after x days
-    mySqlConfig.host = adapter.config.mySqlHost;                // database host
-    mySqlConfig.port = adapter.config.mySqlPort;                // database port
+    mySqlConfig.enabled = adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled;
+    if (mySqlConfig.enabled) {
+        mySqlConfig.dbName = adapter.config.mySqlName;              // database name
+        mySqlConfig.user = adapter.config.mySqlName;                // database user
+        mySqlConfig.pass = adapter.config.mySqlPassword;            // database password
+        mySqlConfig.deleteBackupAfter = adapter.config.mySqlDeleteAfter; // delete old backupfiles after x days
+        mySqlConfig.host = adapter.config.mySqlHost;                // database host
+        mySqlConfig.port = adapter.config.mySqlPort;                // database port
+    }
 }
 
 function main() {

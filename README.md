@@ -13,6 +13,9 @@
 
 ## Changelog
 
+### 0.2.3 (19.07.2018)
+ * (blufox) The backup buttons in configuration dialog were added
+
 ### 0.2.2 (17.07.2018)
  * (peoples/simatec/bluefox) Bug Fix Code
 
