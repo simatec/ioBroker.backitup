@@ -1,53 +1,64 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.2.2",
+        "version": "0.2.3",
         "news": {
+            "0.2.3": {
+                "en": "The backup buttons in configuration dialog were added",
+                "de": "Die Backup-Schaltflächen im Konfigurationsdialog wurden hinzugefügt",
+                "ru": "Добавлены кнопки резервного копирования в диалоговом окне конфигурации",
+                "pt": "Os botões de backup na caixa de diálogo de configuração foram adicionados",
+                "nl": "De back-upknoppen in het configuratiedialoogvenster zijn toegevoegd",
+                "fr": "Les boutons de sauvegarde dans la boîte de dialogue de configuration ont été ajoutés",
+                "it": "I pulsanti di backup nella finestra di configurazione sono stati aggiunti",
+                "es": "Se agregaron los botones de copia de seguridad en el cuadro de diálogo de configuración",
+                "pl": "Dodano przyciski kopii zapasowej w oknie dialogowym konfiguracji"
+            },
             "0.2.2": {
-            "en": "Bug Fix Code",
-            "de": "Fehlerkorrekturcode",
-            "ru": "Код ошибки",
-            "pt": "Código de correção de bug",
-            "nl": "Bugfixcode",
-            "fr": "Bug Fix Code",
-            "it": "Bug Fix Code",
-            "es": "Código de reparación de errores",
-            "pl": "Naprawiony kod błędu"
+                "en": "Bug Fix Code",
+                "de": "Fehlerkorrekturcode",
+                "ru": "Код ошибки",
+                "pt": "Código de correção de bug",
+                "nl": "Bugfixcode",
+                "fr": "Bug Fix Code",
+                "it": "Bug Fix Code",
+                "es": "Código de reparación de errores",
+                "pl": "Naprawiony kod błędu"
             },
             "0.2.1": {
-            "en": "Bug Fix",
-            "de": "Bug-Fix",
-            "ru": "Исправлена ​​ошибка",
-            "pt": "Correção de Bug",
-            "nl": "Bug Fix",
-            "fr": "Correction d'un bug",
-            "it": "Risoluzione del problema",
-            "es": "Arreglo del fallo",
-            "pl": "Naprawa błędów"
-          },
-          "0.2.0": {
-            "en": "Code formatting",
-            "de": "Code-Formatierung",
-            "ru": "Форматирование кода",
-            "pt": "Formatação de código",
-            "nl": "Code-opmaak",
-            "fr": "Format de code",
-            "it": "Formattazione del codice",
-            "es": "Formato de código",
-            "pl": "Formatowanie kodu"
-          },
-          "0.1.8": {
-              "en": "Changes to history log, MySQL, telegram",
-              "de": "Änderungen an History-Log, MySQL, Telegram",
-              "ru": "Изменения в журнал истории, MySQL, телеграмма",
-              "pt": "Mudanças no histórico, MySQL, telegrama",
-              "nl": "Wijzigingen in historielogboek, MySQL, telegram",
-              "fr": "Changements au journal d'historique, MySQL, télégramme",
-              "it": "Modifiche al registro cronologia, MySQL, telegramma",
-              "es": "Cambios en el registro de historial, MySQL, telegrama",
-              "pl": "Zmiany w logach historii, MySQL, telegram"
-          },
-	      "0.1.7": {
+                "en": "Bug Fix",
+                "de": "Bug-Fix",
+                "ru": "Исправлена ​​ошибка",
+                "pt": "Correção de Bug",
+                "nl": "Bug Fix",
+                "fr": "Correction d'un bug",
+                "it": "Risoluzione del problema",
+                "es": "Arreglo del fallo",
+                "pl": "Naprawa błędów"
+            },
+            "0.2.0": {
+                "en": "Code formatting",
+                "de": "Code-Formatierung",
+                "ru": "Форматирование кода",
+                "pt": "Formatação de código",
+                "nl": "Code-opmaak",
+                "fr": "Format de code",
+                "it": "Formattazione del codice",
+                "es": "Formato de código",
+                "pl": "Formatowanie kodu"
+            },
+            "0.1.8": {
+                "en": "Changes to history log, MySQL, telegram",
+                "de": "Änderungen an History-Log, MySQL, Telegram",
+                "ru": "Изменения в журнал истории, MySQL, телеграмма",
+                "pt": "Mudanças no histórico, MySQL, telegrama",
+                "nl": "Wijzigingen in historielogboek, MySQL, telegram",
+                "fr": "Changements au journal d'historique, MySQL, télégramme",
+                "it": "Modifiche al registro cronologia, MySQL, telegramma",
+                "es": "Cambios en el registro de historial, MySQL, telegrama",
+                "pl": "Zmiany w logach historii, MySQL, telegram"
+            },
+	        "0.1.7": {
 				"en": "Data points defined in io-package",
 				"de": "Datenpunkte in io-package definiert",
 				"ru": "Точки данных, определенные в io-пакете",
@@ -59,7 +70,7 @@
 				"pl": "Punkty danych zdefiniowane w pakiecie io"
             },
 
-	    "0.1.6": {
+	        "0.1.6": {
 				"en": "Bug Fix",
 				"de": "Bug-Fix",
 				"ru": "Исправлена ​​ошибка",
@@ -194,9 +205,10 @@
 		"totalNameSuffix": "",
 		"totalStopIoB": false,
 
+        "mySqlEnabled": false,
 		"mySqlHost": "localhost",
 		"mySqlPort": "3307",
-		"mySqlName": "",
+		"mySqlName": "iobroker",
 		"mySqlUser": "",
 		"mySqlPassword": "",
 		"mySqlDeleteAfter": 5,
