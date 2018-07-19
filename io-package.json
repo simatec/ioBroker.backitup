@@ -219,7 +219,7 @@
 		"ccuDeleteAfter": 5,
 		"ccuNameSuffix": "",
 		"ccuHost": "",
-		"ccuUser": "",
+		"ccuUser": "Admin",
 		"ccuPassword": "",
 
 		"cifsMount": "CIFS",
@@ -349,7 +349,29 @@
                 "def":   false
             },
             "native": {}
+        },
+        {
+          "_id":  "output",
+          "type": "channel",
+          "common": {
+            "name": "Output states"
+          },
+          "native": {}
+        },
+        {
+          "_id":  "output.line",
+          "type": "state",
+          "common": {
+            "role":  "state",
+            "name":  "Used for debug outputs",
+            "type":  "string",
+            "read":  true,
+            "write": false,
+            "def":   ""
+          },
+          "native": {}
         }
+
     ],
     "objects": [
 

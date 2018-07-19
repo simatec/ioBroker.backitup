@@ -25,8 +25,59 @@
         .m .page {
             height: calc(100% - 118px);
         }
+        #dialog-command {
+            width: calc(100% - 100px);
+        }
+        #dialog-command .title {
+            background: #64b5f6;
+            color: #FFF;
+            padding: 0.5rem;
+        }
+        #dialog-command .textarea {
+            margin-bottom: 0;
+        }
+        #dialog-command textarea {
+            background: #e9e9e9;
+            font-family: courier, monospace;
+            font-size: 11px;
+            resize: none;
+            width: 100%;
+            height: calc(100% - 125px);
+            margin-bottom: 0;
+        }
+        #dialog-command .progress-dont-close {
+            float: left;
+            padding-left: 1rem;
+            padding-top: 1rem;
+        }
+        #dialog-command .command {
+            font-style: italic;
+        }
+        #dialog-command .btn {
+            margin-right: 1.5rem;
+        }
     </style>
     <script type="text/javascript">
+        var $dialogCommand = null;
+        var $output = null;
+        var $dialogCommandProgress;
+        var lastMessage = '';
+
+        function encrypt(key, value) {
+            var result = '';
+            for(var i = 0; i < value.length; i++) {
+                result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
+            }
+            return result;
+        }
+
+        function decrypt(key, value) {
+            var result = '';
+            for(var i = 0; i < value.length; i++) {
+                result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
+            }
+            return result;
+        }
 
         function fetchMySqlConfig(isInitial) {
             socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.sql.', endkey: 'system.adapter.sql.\u9999', include_docs: true}, function (err, res) {
@@ -103,6 +154,51 @@
             });
         }
 
+        function initDialog() {
+            $dialogCommand = $('#dialog-command');
+            $output = $dialogCommand.find('#stdout');
+            $dialogCommandProgress = $dialogCommand.find('.progress div');
+            $dialogCommand.find('.progress-dont-close input').on('change', function () {
+                if (typeof localStorage !== 'undefined') {
+                    localStorage.setItem('backitup-close-on-ready', $(this).prop('checked') ? '1' : '0');
+                }
+            });
+
+            if (typeof localStorage !== 'undefined') {
+                if (localStorage.getItem('backitup-close-on-ready') === '0'){
+                    $dialogCommand.find('.progress-dont-close input').prop('checked', false);
+                } else {
+                    $dialogCommand.find('.progress-dont-close input').prop('checked', true);
+                }
+            }
+
+            $dialogCommand.modal({
+                dismissible: false
+            });
+
+            // workaround for materialize checkbox problem
+            $dialogCommand.find('input[type="checkbox"]+span').off('click').on('click', function () {
+                var $input = $(this).prev();
+                // ignore switch
+                if ($input.parent().parent().hasClass('switch')) return;
+
+                if (!$input.prop('disabled')) {
+                    $input.prop('checked', !$input.prop('checked')).trigger('change');
+                }
+            });
+            $dialogCommand.find('.btn').on('click', function () {
+                $dialogCommand.modal('close');
+            });
+        }
+
+        function showDialog() {
+            $output.val(_('Started...'));
+            $dialogCommand.modal('open');
+            $dialogCommand.find('.progress-dont-close').removeClass('disabled');
+            $dialogCommandProgress.show();
+            lastMessage = '';
+        }
+
         function load(settings, onChange) {
             // example: select elements with id=key and class=value and insert value
             if (!settings) return;
@@ -117,8 +213,12 @@
 
                     });
                 } else {
+                    var val = settings[id];
+                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword') {
+                        val = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+                    }
                     // do not call onChange direct, because onChange could expect some arguments
-                    $key.val(settings[id]).on('change', function () {
+                    $key.val(val).on('change', function () {
                         onChange();
                     }).on('keyup', function () {
                         onChange();
@@ -143,7 +243,8 @@
                                 ack: false
                             }, function (err) {
                                 if (!err) {
-                                    showMessage(_('Backup started'));
+                                    showDialog();
+                                    showToast(null, _('Backup started'));
                                 } else {
                                     showError(err);
                                 }
@@ -187,11 +288,33 @@
                             } else {
                                 $('.do-backup').addClass('disabled');
                             }
+                        } else
+                        if (id === 'backitup.' + instance + '.output.line') {
+                            if (state && state.val && state.val !== lastMessage) {
+                                lastMessage = state.val;
+                                var text = $output.val();
+                                $output.val(text + '\n' + state.val);
+                                if (state.val.match(/^\[EXIT]/)) {
+                                    var code = state.val.match(/^\[EXIT] ([-\d]+)/);
+                                    $dialogCommandProgress.hide();
+                                    $dialogCommand.find('.progress-dont-close').addClass('disabled');
+
+                                    if ($dialogCommand.find('.progress-dont-close input').prop('checked') &&
+                                        (!code || code[1] === '0')) {
+                                        setTimeout(function () {
+                                            $dialogCommand.modal('close');
+                                        }, 1500);
+                                    }
+                                }
+                            }
                         }
                     });
-                    socket.emit('subscribeStates',  'backitup.' + instance + '.oneClick.*');
+                    socket.emit('subscribeStates',  'backitup.' + instance + '.*');
                     socket.emit('subscribeStates',  'system.adapter.backitup.' + instance + '.alive');
-
+                    socket.on('reconnect', function () {
+                        socket.emit('subscribeStates',  'backitup.' + instance + '.*');
+                        socket.emit('subscribeStates',  'system.adapter.backitup.' + instance + '.alive');
+                    });
                 } else {
                     $('.do-backup').addClass('disabled');
                 }
@@ -214,6 +337,7 @@
             }
             $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
+            initDialog();
         }
 
         function fillInstances(id, arr, val) {
@@ -232,10 +356,16 @@
             var obj = {};
             $('.value').each(function () {
                 var $this = $(this);
+                var id = $this.attr('id');
                 if ($this.attr('type') === 'checkbox') {
-                    obj[$this.attr('id')] = $this.prop('checked');
+                    obj[id] = $this.prop('checked');
                 } else {
-                    obj[$this.attr('id')] = $this.val();
+                    var val = $this.val();
+                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword') {
+                        val = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+                    }
+
+                    obj[id] = val;
                 }
             });
             callback(obj);
@@ -287,12 +417,6 @@
             }
         }
 
-        /*$('#ownDir').on('change', function () {
-            showHideSettings();
-        });
-        $('#telegramEnabled').on('change', function () {
-            showHideSettings();
-        });*/
     </script>
 </head>
 <body>
@@ -580,6 +704,31 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div id="dialog-command"    class="modal modal-fixed-footer" style="display: none">
+        <div class="modal-content">
+            <div class="row">
+                <div class="col s12">
+                    <h6 class="title"><span class="translate">Backup execution</span>: <span class="command"></span></h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row textarea">
+                <div class="col s12">
+                    <textarea id="stdout" disabled="disabled" cols="120" rows="30"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="progress-dont-close"><input type="checkbox" class="filled-in" /><span class="translate">close on ready</span></div>
+            <a class="modal-action modal-close waves-effect waves-green btn"><i class="large material-icons">close</i><span class="translate">Close</span></a>
         </div>
     </div>
 </div>
