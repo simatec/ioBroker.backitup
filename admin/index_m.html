@@ -39,7 +39,7 @@
                             $('#mySqlUser').val(native.user);
                             $('#mySqlPassword').val(native.password);
                             $('#mySqlHost').val(native.host);
-                            $('#mySqlPort').val(native.port);
+                            $('#mySqlPort').val(native.port === '0' ? 3307 : native.port || 3307);
                             $('#mySqlName').val(native.dbname);
                             var id = res.rows[i].value.
                             found = res.rows[i].value._id;
@@ -54,7 +54,7 @@
                                 $('#mySqlPassword').val(_native.password);
                                 $('#mySqlHost').val(_native.host);
                                 $('#mySqlName').val(_native.dbname);
-                                $('#mySqlPort').val(_native.port);
+                                $('#mySqlPort').val(_native.port === '0' ? 3307 : native.port || 3307);
                                 found = res.rows[j].value._id;
                                 break;
                             }
