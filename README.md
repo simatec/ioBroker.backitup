@@ -13,6 +13,10 @@
 
 ## Changelog
 
+### 0.2.3 (19.07.2018)
+ * (bluefox) The backup buttons in configuration dialog were added
+ * (bluefox) Show bash output text
+
 ### 0.2.2 (17.07.2018)
  * (peoples/simatec/bluefox) Bug Fix Code
 

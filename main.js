@@ -4,7 +4,7 @@
 'use strict';
 
 const utils = require(__dirname + '/lib/utils'); // Get common adapter utils
-const {exec} = require('child_process');
+const {spawn} = require('child_process');
 const schedule = require('node-schedule');
 const words = require('./admin/words');
 const path = require('path');
@@ -20,7 +20,6 @@ const backupConfig = {};
 const backupTimeSchedules = [];                         // Array für die Backup Zeiten
 let historyArray = [];                                  // Array für das anlegen der Backup-Historie
 const mySqlConfig = {};
-const bashScript = `bash ${__dirname}/backitup.sh `;    // Pfad zu backup.sh Datei
 const iobDir = getIobDir();
 
 /**
@@ -46,12 +45,19 @@ function getIobDir() {
     return '/opt/' + utils.appName;
 }
 
+function decrypt(key, value) {
+    var result = '';
+    for(var i = 0; i < value.length; i++) {
+        result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
+    }
+    return result;
+}
 
 function _(word) {
     if (words[word]) {
         return words[word][systemLang] || words[word].en;
     } else {
-        adapter.log.warn('Please translate ind words.js: ' + word);
+        adapter.log.warn('Please translate in words.js: ' + word);
         return word;
     }
 }
@@ -125,7 +131,7 @@ function createBackupSchedule() {
             let time = config.time.split(':');
 
             if (logging) {
-                adapter.log.info(`[${type}] backup was activated at ${config.time} every ${config.everyXDays} days`);
+                adapter.log.info(`[${type}] backup was activated at ${config.time} every ${config.everyXDays} day(s)`);
             }
 
             if (backupTimeSchedules[type]) {
@@ -134,9 +140,9 @@ function createBackupSchedule() {
             const cron = '10 ' + time[1] + ' ' + time[0] + ' */' + config.everyXDays + ' * * ';
             backupTimeSchedules[type] = schedule.scheduleJob(cron, () => {
                 createBackup(type).then(text => {
-                    adapter.log.debug('exec: ' + text);
+                    adapter.log.debug(`[${type}] exec: ${text || 'done'}`);
                 }).catch(err => {
-                    adapter.log.error(err);
+                    adapter.log.error(`[${type}] ${err}`);
                 })
             });
 
@@ -156,7 +162,7 @@ function createBackupSchedule() {
 // function to create the Backupfile         
 function createBackup(type) {
     return new Promise((resolve, reject) => {
-        const command = bashScript + ' "' +
+        let command =
             (type                                   || '') + '|' +  // 0
             (backupConfig[type].nameSuffix          || '') + '|' +  // 1
             (backupConfig[type].deleteBackupAfter   || '') + '|' +  // 2
@@ -177,13 +183,43 @@ function createBackup(type) {
             (mySqlConfig.host                       || '') + '|' +  // 17
             (mySqlConfig.port                       || '') + '|' +  // 18
             (iobDir                                 || '') +        // 19
-            '"';
-
-        if (debugging) {
-            adapter.log.info(`[${type}] ${command}`);
+            '';
+        let debug =
+            (type                                   || '') + '|' +  // 0
+            (backupConfig[type].nameSuffix          || '') + '|' +  // 1
+            (backupConfig[type].deleteBackupAfter   || '') + '|' +  // 2
+            (backupConfig[type].ftp.host            || '') + '|' +  // 3
+            (backupConfig[type].ftp.dir             || '') + '|' +  // 4
+            (backupConfig[type].ftp.user            || '') + '|' +  // 5
+            '*****' + '|' +  // 6
+            (backupConfig[type].host                || '') + '|' +  // 7
+            (backupConfig[type].user                || '') + '|' +  // 8
+            '*****' + '|' +  // 9
+            (backupConfig[type].cifs.mount          || '') + '|' +  // 10
+            (backupConfig[type].stopIoB             || 'false') + '|' +  // 11
+            (backupConfig[type].backupRedis         || 'false') + '|' +  // 12
+            (mySqlConfig.dbName                     || '') + '|' +  // 13
+            (mySqlConfig.user                       || '') + '|' +  // 14
+            '*****' + '|' +  // 13
+            (mySqlConfig.deleteBackupAfter          || '') + '|' +  // 16
+            (mySqlConfig.host                       || '') + '|' +  // 17
+            (mySqlConfig.port                       || '') + '|' +  // 18
+            (iobDir                                 || '') +        // 19
+            '';
+        let bashScript;
+        if (type === 'total' && backupConfig.total.stopIoB) {
+            bashScript = `${__dirname}/backitupl.sh`;    // Pfad zu backup.sh Datei
+        } else {
+            bashScript = `${__dirname}/backitup.sh`;     // Pfad zu backup.sh Datei
         }
 
-        // Telegram Message versenden
+        if (debugging) {
+            adapter.log.info(`[${type}] bash ${bashScript} "${command}"`);
+        } else {
+            adapter.log.debug(`[${type}] bash ${bashScript} "${debug}"`);
+        }
+
+        // Send Telegram Message
         if (debugging) {
             if (adapter.config.telegramInstance !== '') {
                 adapter.log.debug(`[${type}] used Telegram-Instance: ${adapter.config.telegramInstance}`);
@@ -217,25 +253,58 @@ function createBackup(type) {
 
         createBackupHistory(type);
 
-        exec(command, (err, stdout, stderr) => {
-            if (logging) {
-                if (err) {
-                    reject(stderr);
-                } else {
-                    resolve('exec: ' + stdout);
-                }
+        const logFile = __dirname + '/' + type + '.txt';
+        if (fs.existsSync(logFile)) {
+            fs.unlinkSync(logFile);
+        }
+
+        const cmd = spawn('bash', [bashScript, command], {detached: true});
+
+        cmd.stdout.on('data', data => {
+            const text = data.toString();
+            const lines = text.split('\n');
+            lines.forEach(line => {
+                line = line.replace(/\r/g, ' ').trim();
+                line && adapter.log.debug(`[${type}] ${line}`);
+            });
+            adapter.setState('output.line', '[DEBUG] ' + text);
+        });
+
+        cmd.stderr.on('data', data => {
+            const text = data.toString();
+            const lines = text.split('\n');
+            lines.forEach(line => {
+                line = line.replace(/\r/g, ' ').trim();
+                line && adapter.log.error(`[${type}] ${line}`);
+            });
+            if (text[0] === '*' || text[0] === '<' || text[0] === '>') {
+                adapter.setState('output.line', '[DEBUG] ' + text);
+            } else {
+                adapter.setState('output.line', '[ERROR] ' + text);
             }
+        });
+
+        cmd.on('close', code => {
+            adapter.setState('output.line', '[EXIT] ' + code);
+            if (code) {
+                reject(`Exited with ${code}`);
+            } else {
+                resolve();
+            }
+        });
+
+        cmd.on('error', (error) => {
+            reject(error);
         });
     });
 }
-
 
 // function to create a date string                               #
 const MONTHS = {
     en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     de: ['Januar', 'Februar', 'Maerz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-    ru: ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'],
-    es: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+    ru: ['январь',  'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'],
+    es: ['enero',   'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
     it: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'],
     pt: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
     pl: ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'],
@@ -298,16 +367,17 @@ function createBackupHistory(type) {
 
 function startBackup(type) {
     adapter.log.info(`[${type}] oneClick backup started`);
+
     createBackup(type).then(text => {
-        adapter.log.debug('exec: ' + text);
+        adapter.log.debug(`[${type}] exec: ${text || 'done'}`);
     }).catch(e => {
-        adapter.log.error(e);
+        adapter.log.error(`[${type}] ${e}`);
     }).then(() => {
         adapter.setState('oneClick.' + type, false, true);
     });
 }
 
-function initVariables() {
+function initVariables(secret) {
     // general variables
     logging = adapter.config.logEnabled;                                                 // Logging on/off
     debugging = adapter.config.debugLevel;										         // Detailiertere Loggings
@@ -324,7 +394,7 @@ function initVariables() {
             host: adapter.config.ftpHost,                       // ftp-host
             dir: (adapter.config.ownDir === true) ? adapter.config.minimalFtpDir : adapter.config.ftpDir, // directory on FTP server
             user: adapter.config.ftpUser,                       // username for FTP Server 
-            pass: adapter.config.ftpPassword                    // password for FTP Server
+            pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '' // password for FTP Server
         },
         cifs: {
             mount: adapter.config.cifsMount                     // specify if CIFS mount should be used
@@ -344,7 +414,7 @@ function initVariables() {
             host: adapter.config.ftpHost,                       // ftp-host
             dir: (adapter.config.ownDir === true) ? adapter.config.totalFtpDir : adapter.config.ftpDir, // directory on FTP server
             user: adapter.config.ftpUser,                       // username for FTP Server
-            pass: adapter.config.ftpPassword                    // password for FTP Server
+            pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '' // password for FTP Server
         },
         cifs: {
             mount: adapter.config.cifsMount                     // specify if CIFS mount should be used
@@ -360,30 +430,76 @@ function initVariables() {
         deleteBackupAfter: adapter.config.ccuDeleteAfter,       // delete old backupfiles after x days
         host: adapter.config.ccuHost,                           // IP-address CCU
         user: adapter.config.ccuUser,                           // username CCU
-        pass: adapter.config.ccuPassword,                       // password der CCU
+        pass: adapter.config.ccuPassword ? decrypt(secret, adapter.config.ccuPassword) : '',                       // password der CCU
         ftp: {
             host: adapter.config.ftpHost,                       // ftp-host
             dir: (adapter.config.ownDir === true) ? adapter.config.ccuFtpDir : adapter.config.ftpDir, // directory on FTP server
             user: adapter.config.ftpUser,                       // username for FTP Server
-            pass: adapter.config.ftpPassword                    // password for FTP Server
+            pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : ''  // password for FTP Server
         },
         cifs: {
             mount: adapter.config.cifsMount                     // specify if CIFS mount should be used
         }
     };
 
-    mySqlConfig.dbName = adapter.config.mySqlName;              // database name
-    mySqlConfig.user = adapter.config.mySqlName;                // database user
-    mySqlConfig.pass = adapter.config.mySqlPassword;            // database password
-    mySqlConfig.deleteBackupAfter = adapter.config.mySqlDeleteAfter; // delete old backupfiles after x days
-    mySqlConfig.host = adapter.config.mySqlHost;                // database host
-    mySqlConfig.port = adapter.config.mySqlPort;                // database port
+    mySqlConfig.enabled = adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled;
+    if (mySqlConfig.enabled) {
+        mySqlConfig.dbName = adapter.config.mySqlName;              // database name
+        mySqlConfig.user = adapter.config.mySqlName;                // database user
+        mySqlConfig.pass = adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '';            // database password
+        mySqlConfig.deleteBackupAfter = adapter.config.mySqlDeleteAfter; // delete old backupfiles after x days
+        mySqlConfig.host = adapter.config.mySqlHost;                // database host
+        mySqlConfig.port = adapter.config.mySqlPort;                // database port
+    }
+}
+
+function readLogFile(type) {
+    try {
+        const logName = __dirname + '/' + type + '.txt';
+        if (fs.existsSync(logName)) {
+            adapter.log.debug(`[${type}] Printing logs of previous backup`);
+            const text = fs.readFileSync(logName).toString();
+            const lines = text.split('\n');
+            lines.forEach((line, i) => lines[i] = line.replace(/\r$|^\r/, ''));
+            lines.forEach(line => {
+                if (line.trim()) {
+                    adapter.setState('output.line', '[DEBUG] ' + line);
+                    adapter.log.debug(`[${type}] ${line}`);
+                }
+            });
+            adapter.setState('output.line', '[EXIT] 0');
+            fs.unlinkSync(logName);
+        }
+    } catch (e) {
+        adapter.log.warn(`[${type}] Cannot read log file: ${e}`);
+    }
+}
+
+function createBashLogger() {
+    if (!fs.existsSync(__dirname + '/backitupl.sh')) {
+        let text = '#!/bin/bash\n' +
+            '\n' +
+            'STRING=$1\n' +
+            'IFS="|"\n' +
+            'VAR=($STRING)\n' +
+            '\n' +
+            'BACKUP_TYPE=${VAR[0]}\n' +
+            '\n' +
+            __dirname + '/backitup.sh "$1" > "' + __dirname + '/${BACKUP_TYPE}.txt"';
+        fs.writeFileSync(__dirname + '/backitupl.sh', text, {mode: 508}); // 508 => 0774
+    }
+    fs.chmodSync(__dirname + '/backitup.sh', 508);
 }
 
 function main() {
+    createBashLogger();
+    readLogFile('ccu');
+    readLogFile('minimal');
+    readLogFile('total');
+
     adapter.getForeignObject('system.config', (err, obj) => {
         systemLang = obj.common.language;
-        initVariables();
+        initVariables((obj && obj.native && obj.native.secret) || 'Zgfr56gFe87jJOM');
 
         checkStates();
 
