@@ -33,13 +33,11 @@
 #
 #
 STRING=$1
-echo $STRING
 IFS="|"
 VAR=($STRING)
 
-
 ############################################################################
-#									                                       #
+#                                                                          #
 # Definition of the script variables                                       #
 #                                                                          #
 ############################################################################
@@ -83,15 +81,15 @@ hour=`date +%H`
 # Minute definieren
 minute=`date +%M`
 
-
+echo "Creating $BACKUP_TYPE backup [$STRING]"
 
 ############################################################################
-#									                                       #
-# Optional Mount to CIFS-Server                                 	       #
+#                                                                          #
+# Optional Mount to CIFS-Server                                            #
 #                                                                          #
 ############################################################################
 
-if [ $CIFS_MOUNT == "CIFS" ]; then
+if [ $CIFS_MOUNT == "CIFS" ] && [ -n "$NAS_DIR" ]; then
     echo "--- Mount Backup-Path on CIFS ---"
 
     mount | grep -q "${backupDir}"
@@ -111,8 +109,8 @@ fi
 
 
 ############################################################################
-#						                                    			   #
-# Optionales MYSQL-Datenbank-Backup                      		           #
+#                                                                          #
+# Optionales MYSQL-Datenbank-Backup                                        #
 #                                                                          #
 ############################################################################
 
@@ -133,31 +131,31 @@ fi
 
 
 ############################################################################
-#									   #
+#                                                                          #
 # Erstellen eines normalen ioBroker Backups                                #
 #                                                                          #
 ############################################################################
 
 if [ $BACKUP_TYPE == "minimal" ]; then
 
-#	Backup ausfuehren
-    echo "--- Es wurde ein Normales Backup gestartet ---"
-    iobroker backup && echo success "--- Ein normales Backup wurde erstellt ---" || echo error "--- Ein normales Backup konnte nicht erstellt werden ---"
-    BACKUP_OK="JA"
+#    Backup ausfuehren
+    echo "--- Minimal Backup started ---"
+    iobroker backup && echo success "--- Minimal Backup created ---" || echo error "--- Cannot create minimal backup ---"
+    BACKUP_OK="YES"
 
-#	Backup umbenennen
+#    Backup umbenennen
     mv $backupDir/$date-$hour* $backupDir/backupiobroker_minimal$NAME_SUFFIX-$date-$time.tar.gz
 
 
 ############################################################################
-#									   #
+#                                                                          #
 # Erstellen eines Backups des ganzen ioBroker-Ordners                      #
 #                                                                          #
 ############################################################################
 
 elif [ $BACKUP_TYPE == "total" ]; then
 
-#	IoBroker stoppen
+#    stop IoBroker
     if [ $IOBROKER_RESTART == "true" ]; then
         cd $IOBROKER_DIR
         sleep 10
@@ -165,86 +163,84 @@ elif [ $BACKUP_TYPE == "total" ]; then
         echo "--- IoBroker stopped ---"
     fi
 
-#	Ins ioBroker Verzeichnis wechseln um totales IoBroker Verzeichnis zu sichern
+#    Ins ioBroker Verzeichnis wechseln um totales IoBroker Verzeichnis zu sichern
 
-#	Backup ausfuehren
-    echo "--- Es wurde ein Komplettes Backup gestartet ---"
+#    Backup ausfuehren
+    echo "--- Total Backup started ---"
     tar -czf $backupDir/backupiobroker_total$NAME_SUFFIX-$date-$time.tar.gz --exclude="$backupDir" -P $IOBROKER_DIR && echo success "--- Ein totales Backup wurde erstellt ---" || echo error "--- Ein totales Backup konnte nicht erstellt werden ---"
-    BACKUP_OK="JA"
+    BACKUP_OK="YES"
 
-#	Redis State sichern
+#    Redis State sichern
     if [ $REDIS_STATE == "true" ]; then
         # Avoid direct paths!
-        cp /var/lib/redis/dump.rdb $backupDir/dump_redis_$date-$time.rdp && echo success "--- Ein Redis Backup wurde erstellt ---" || echo error "--- Ein Redis Backup konnte nicht erstellt werden ---"
+        cp /var/lib/redis/dump.rdb $backupDir/dump_redis_$date-$time.rdp && echo success "--- Redis Backup created ---" || echo error "--- Cannot create Redis Backup ---"
         cd $backupDir
         chmod 777 dump_redis_$date-$time.rdp
-        tar -czf backup_redis_state_$date-$time.tar.gz dump_redis_$date-$time.rdp && echo success "--- Redis Backup wurde komprimiert ---" || echo error "--- Redis Backup wurde nicht komprimiert ---"
+        tar -czf backup_redis_state_$date-$time.tar.gz dump_redis_$date-$time.rdp && echo success "--- Redis Backup was packed ---" || echo error "--- Redis Backup was not packed ---"
 
         if [ -f $backupDir/dump_redis_$date-$time.rdp ] && [ -f $backupDir/backup_redis_state_$date-$time.tar.gz ]; then
             rm -f dump_redis_$date-$time.rdp
         fi
 
         cd ..
-        echo "--- Redis Backup wurde erstellt ---"
+        echo "--- Redis Backup created ---"
     fi
-# 	Restart ioBroker
+#     Restart ioBroker
     if [ $IOBROKER_RESTART == "true" ]; then
-#		cd $IOBROKER_DIR
+#        cd $IOBROKER_DIR
         iobroker restart
-#		iobroker start
-        echo "--- IoBroker gestartet ---"
+#        iobroker start
+        echo "--- IoBroker started ---"
     fi
 
 ############################################################################
-#							                                      		   #
+#                                                                          #
 # Create backup of Homematic-CCU                                           #
 #                                                                          #
 ############################################################################
 
 elif [ $BACKUP_TYPE == "ccu" ]; then
 
-# 	Meldung
-    echo "--- Es wurde ein Homematic CCU Backup gestartet ---"
+#     Meldung
+    echo "--- Start Homematic CCU Backup ---"
 
     run=$0.lastrun
  
-# 	Homematic Login
+#     Homematic Login
     wget --post-data '{"method":"Session.login","params":{"username":"'$CCU_USER'","password":"'$CCU_PASS'"}}' http://$CCU_HOST/api/homematic.cgi -O hm.login.response -q >$run 2>&1 && echo success "--- Login Homematic-CCU erfolgreich ---" || echo error "--- Login Homematic-CCU nicht erfolgreich ---"
-    BACKUP_OK="JA"
+    BACKUP_OK="YES"
  
-# 	Login-Pruefung
+#     Login-Pruefung
     loginerror=`cat hm.login.response|cut -d "," -f3|awk '{print $2}'`
     if [ "$loginerror" != "null}" ]; then
-        echo "Fehler beim Homematic-Login !"|tee -a $run
+        echo "Error by Homematic-Login !"|tee -a $run
         cat hm.login.response|grep message|cut -d '"' -f4|tee -a $run
-        echo "--- Fehler beim Homematic-Login!! Details unter: $run ---"
+        echo "--- Error by Homematic-Login!! Details here: $run ---"
         exit 1
     fi
     sessionid=`cat hm.login.response|cut -d "," -f2|awk '{print $2}'|cut -d '"' -f2`
 
-#	Homematic-Version auslesen
+#    Homematic-Version auslesen
     VER=$(wget -q -O - http://$CCU_HOST/api/backup/version.cgi)
     ccuversion="${VER:8:7}"
  
-# 	Backupdatei herunterladen
+#     Backupdatei herunterladen
     wget "http://$CCU_HOST/config/cp_security.cgi?sid=@$sessionid@&action=create_backup" -O $backupDir/Homematic-Backup-$ccuversion-$date-$time.tar.sbk -q >>$run 2>&1 && echo success "--- Ein Homematic-CCU Backup wurde erstellt ---" || echo error "--- Ein Homematic-CCU Backup konnte nicht erstellt werden ---"
  
-# 	Homematic Logout
+#     Homematic Logout
     wget --post-data '{"method":"Session.logout","params":{"_session_id_":"'$sessionid'"}}' http://$CCU_HOST/api/homematic.cgi -O hm.logout.response -q >>$run 2>&1
  
-# 	temp. Dateien loeschen
+#     temp. Dateien loeschen
     rm hm.login.response hm.logout.response >>$run 2>&1
 
-    BACKUP_OK="JA"
+    BACKUP_OK="YES"
 
 else
-    echo "--- Kein gueltiger Backup Typ gewaehlt! Moegliche Auswahl: 'minimal', 'total' oder 'ccu' ---"
+    echo "--- No valid Backup Type selected! Possible types: 'minimal', 'total' oder 'ccu' ---"
 fi
 
-
-
 ############################################################################
-#								                                     	   #
+#                                                                          #
 # Optionales Loeschen alter Backups                                        #
 #                                                                          #
 ############################################################################
@@ -253,76 +249,76 @@ if [ -n "$MYSQL_DELETE_AFTER" ]; then
     find $backupDir -name "backupiobroker_mysql*.tar.gz" -mtime +$MYSQL_DELETE_AFTER -exec rm '{}' \;
 fi
 
-if [ $BACKUP_OK == "JA" ]; then
+if [ $BACKUP_OK == "YES" ]; then
     if [ -n "$BACKUP_DELETE_AFTER" ]; then
-#		Backups Älter X Tage löschen
-        echo "--- Alte Backups entfernen ---"
+#        Backups Älter X Tage löschen
+        echo "--- Delete old backups ---"
         if [ $BACKUP_TYPE == "total" ]; then
             if [ $REDIS_STATE == "true" ]; then
-                find $backupDir -name "backup_redis_state_*.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- Ueberpruefung auf alte Dateien und loeschen erfolgreich ---" || echo error "--- Ueberpruefung auf alte Dateien und loeschen nicht erfolgreich ---"
+                find $backupDir -name "backup_redis_state_*.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- [REDIS] Checking and deletion of the old backup files was successful ---" || echo error "--- [REDIS] Checking and deletion of the old backup files was NOT successful ---"
                 sleep 10
             fi
         fi
         
         if [ $BACKUP_TYPE == "ccu" ]; then
-            find $backupDir -name "*.tar.sbk" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- Ueberpruefung auf alte Dateien und loeschen erfolgreich ---" || echo error "--- Ueberpruefung auf alte Dateien und loeschen nicht erfolgreich ---"
+            find $backupDir -name "*.tar.sbk" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- [CCU] Checking and deletion of the old backup files was successful ---" || echo error "--- [CCU] Checking and deletion of the old backup files was NOT successful ---"
             sleep 10
         else
-            find $backupDir -name "backupiobroker_$BACKUP_TYPE$NAME_SUFFIX*.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- Ueberpruefung auf alte Dateien und loeschen erfolgreich ---" || echo error "--- Ueberpruefung auf alte Dateien und loeschen nicht erfolgreich ---"
+            find $backupDir -name "backupiobroker_$BACKUP_TYPE$NAME_SUFFIX*.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- Checking and deletion of the old backup files was successful ---" || echo error "--- Checking and deletion of the old backup files was NOT successful ---"
             sleep 10
         fi
     else
-        echo "--- Es werden keine alten Backups geloescht ---"
+        echo "--- No old backups were deleted ---"
     fi
 
 
 ############################################################################
-#									   #
+#                                                                          #
 # Optionaler Upload des Backups auf einen FTP-Server                       #
 #                                                                          #
 ############################################################################
 
     if [ $CIFS_MOUNT == "FTP" ]; then
         if [ -n "$NAS_HOST" ]; then
-#			Backup-Files via FTP kopieren
-            echo "--- Backup-File FTP-Upload wird gestartet ---"
-#			Verzeichnis wechseln
+#            Backup-Files via FTP kopieren
+            echo "--- Starting Backup-File FTP-Upload ---"
+#            Verzeichnis wechseln
             cd $backupDir/
             ls
 
             if [ -n "$MYSQL_DBNAME" ]; then
-                curl -s --disable-epsv -v -T"$backupDir/backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.tar.gz" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
+                curl -s --disable-epsv -v -T"$backupDir/backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.tar.gz" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup file was copied to other directory ---" || echo error "--- Backup-File was not copied to other directory ---"
             fi
 
             if [ $BACKUP_TYPE == "ccu" ]; then
-                curl -s --disable-epsv -v -T"$backupDir/Homematic-Backup-$ccuversion-$date-$time.tar.sbk" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
+                curl -s --disable-epsv -v -T"$backupDir/Homematic-Backup-$ccuversion-$date-$time.tar.sbk" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup file was copied to other directory ---" || echo error "--- Backup-File was not copied to other directory ---"
             else
-                curl -s --disable-epsv -v -T"$backupDir/backupiobroker_$BACKUP_TYPE$NAME_SUFFIX-$date-$time.tar.gz" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
+                curl -s --disable-epsv -v -T"$backupDir/backupiobroker_$BACKUP_TYPE$NAME_SUFFIX-$date-$time.tar.gz" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup file was copied to other directory ---" || echo error "--- Backup-File was not copied to other directory ---"
             fi
             if [ $REDIS_STATE == "true" ]; then
-            curl -s --disable-epsv -v -T"$backupDir/backup_redis_state_$date-$time.tar.gz" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup-File wurde erfolgreich auf ein anderes Verzeichnis kopiert ---" || echo error "--- Backup-File wurde nicht auf ein anderes Verzeichnis kopiert ---"
+            curl -s --disable-epsv -v -T"$backupDir/backup_redis_state_$date-$time.tar.gz" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup file was copied to other directory ---" || echo error "--- Backup-File was not copied to other directory ---"
             fi
         fi
     fi
     BACKUP_OK="NO"
 else
-    echo "--- Kein Backup erstellt! ---"
+    echo "--- No Backup created! ---"
 fi
 
 
 ############################################################################
-#								                                     	   #
-# Optionaler Umount des CIFS-Servers                    	         	   #
+#                                                                          #
+# Optionaler Umount des CIFS-Servers                                       #
 #                                                                          #
 ############################################################################
 
 if [ $CIFS_MOUNT == "CIFS" ]; then
 
-#	Mount Backup-Directory on CIFS
+#    Mount Backup-Directory on CIFS
 
     mount | grep -q "${backupDir}"
     if [ $? -eq 0 ] ; then
-        sudo umount $backupDir && echo success "--- Umount CIFS Server ---" || echo error "--- Backup-Pfad wurde nicht vom CIFS-Server getrennt ---"
+        sudo umount $backupDir && echo success "--- Umount CIFS Server ---" || echo error "--- Backup path was not removed from CIFS-Server ---"
     fi
 fi
 
