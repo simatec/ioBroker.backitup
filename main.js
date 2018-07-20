@@ -445,7 +445,7 @@ function initVariables(secret) {
     mySqlConfig.enabled = adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled;
     if (mySqlConfig.enabled) {
         mySqlConfig.dbName = adapter.config.mySqlName;              // database name
-        mySqlConfig.user = adapter.config.mySqlName;                // database user
+        mySqlConfig.user = adapter.config.mySqlUser;                // database user
         mySqlConfig.pass = adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '';            // database password
         mySqlConfig.deleteBackupAfter = adapter.config.mySqlDeleteAfter; // delete old backupfiles after x days
         mySqlConfig.host = adapter.config.mySqlHost;                // database host
