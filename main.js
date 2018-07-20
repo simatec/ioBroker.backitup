@@ -275,8 +275,15 @@ function createBackup(type) {
             const lines = text.split('\n');
             lines.forEach(line => {
                 line = line.replace(/\r/g, ' ').trim();
-                line && adapter.log.error(`[${type}] ${line}`);
+                if (line) {
+                    if (text[0] === '*' || text[0] === '<' || text[0] === '>') {
+                        adapter.log.debug(`[${type}] ${line}`);
+                    } else {
+                        adapter.log.error(`[${type}] ${line}`);
+                    }
+                }
             });
+            
             if (text[0] === '*' || text[0] === '<' || text[0] === '>') {
                 adapter.setState('output.line', '[DEBUG] ' + text);
             } else {
