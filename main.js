@@ -337,7 +337,7 @@ function getTimeString(date) {
 function createBackupHistory(type) {
     adapter.getState('history.html', (err, state) => {
         let historyList = state.val;
-        if (historyList === '<span class="backup-type-total">' + _('Noch keine Backups erstellt') + '</span>') {
+        if (historyList === '<span class="backup-type-total">' + _('No backups yet') + '</span>') {
             historyList = '';
         }
         historyArray = historyList.split('&nbsp;');
@@ -354,7 +354,7 @@ function createBackupHistory(type) {
                 historyText = `<span class="backup-type-${type}">${timeStamp} - ${_('Typ')}: ${type} - ${_('CIFS-Mount: JA')}</span>`;
             }
         } else {
-            historyText = `<span class="backup-type-${type}">${timeStamp} - ${_('Typ')}: ${type} - ${_('Nur lokal gesichert')}</span>`;
+            historyText = `<span class="backup-type-${type}">${timeStamp} - ${_('Typ')}: ${type} - ${_('Only stored locally')}</span>`;
         }
         historyArray.unshift(historyText);
 

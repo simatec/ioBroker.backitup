@@ -145,6 +145,7 @@ if [ $BACKUP_TYPE == "minimal" ]; then
 
 #    Backup umbenennen
     mv $backupDir/$date-$hour* $backupDir/backupiobroker_minimal$NAME_SUFFIX-$date-$time.tar.gz
+#    mv $backupDir/$date-$hour* $backupDir/minimal$NAME_SUFFIX-$date-$time_backupiobroker.tar.gz
 
 
 ############################################################################
@@ -168,6 +169,8 @@ elif [ $BACKUP_TYPE == "total" ]; then
 #    Backup ausfuehren
     echo "--- Total Backup started ---"
     tar -czf $backupDir/backupiobroker_total$NAME_SUFFIX-$date-$time.tar.gz --exclude="$backupDir" -P $IOBROKER_DIR && echo success "--- Ein totales Backup wurde erstellt ---" || echo error "--- Ein totales Backup konnte nicht erstellt werden ---"
+#    tar -czf $backupDir/total$NAME_SUFFIX-$date-$time_backupiobroker.tar.gz --exclude="$backupDir" -P $IOBROKER_DIR && echo success "--- Ein totales Backup wurde erstellt ---" || echo error "--- Ein totales Backup konnte nicht erstellt werden ---"
+
     BACKUP_OK="YES"
 
 #    Redis State sichern
