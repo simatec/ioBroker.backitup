@@ -13,6 +13,11 @@
 
 ## Changelog
 
+### 0.2.4 (23.07.2018)
+ * (peoples) Some Bugfixes  
+ * (peoples) Added translations in words.js
+
+
 ### 0.2.3 (19.07.2018)
  * (bluefox) The backup buttons in configuration dialog were added
  * (bluefox) Show bash output text

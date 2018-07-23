@@ -27,6 +27,7 @@
 # Version: 3.0.4    - Bugfix complete backup
 # Version: 3.0.5    - Mysql extension to host and port
 #                   - Compressing the MySql backup
+# Version: 3.0.6    - Bugfix - Change Backupname for Restore procedure
 #
 #
 # Use:  bash backitup.sh "BACKUP-Type|NAME-Suffix|DELETE_AFTER_X_Days|NAS-Host|NAS-Directory|NAS-User|NAS-Password|CCU-Host|CCU-User|CCU-Password|CIFS-Mount|IOB-Restart|REDIS-Backup|MYSQL-DBName|MYSQL-User|MYSQL-Password|MYSQL-DELETE_AFTER_X_Days|MYSQL-Host|MYSQL-Port|IOB-HomeDirectory"
