@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.2.3",
+        "version": "0.2.4",
         "news": {
+            "0.2.4": {
+                "en": "Some Bugfixes, Translations added",
+                "de": "Einige Bugfixes, Übersetzungen hinzugefügt",
+                "ru": "Некоторые исправления, добавленные переводы",
+                "pt": "Algumas correções de bugs, traduções adicionadas",
+                "nl": "Sommige Bugfixes, vertalingen toegevoegd",
+                "fr": "Quelques corrections de bugs, traductions ajoutées",
+                "it": "Alcuni bugfix, aggiunte traduzioni",
+                "es": "Algunas correcciones de errores, se agregaron las traducciones",
+                "pl": "Niektóre poprawki, dodano tłumaczenia"
+            },
             "0.2.3": {
                 "en": "The backup buttons in configuration dialog were added",
                 "de": "Die Backup-Schaltflächen im Konfigurationsdialog wurden hinzugefügt",
