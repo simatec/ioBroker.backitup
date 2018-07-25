@@ -85,6 +85,11 @@ minute=`date +%M`
 
 echo "Creating $BACKUP_TYPE backup [$STRING]"
 
+# Check for Backup Dir
+if ! [ -d "$backupDir" ]; then
+     mkdir $backupDir && echo "--- Created Backup Dir ---"
+fi
+
 ############################################################################
 #                                                                          #
 # Optional Mount to CIFS-Server                                            #
@@ -96,16 +101,16 @@ if [ $CIFS_MOUNT == "CIFS" ] && [ -n "$NAS_DIR" ]; then
 
     mount | grep -q "${backupDir}"
     if [ $? -eq 0 ] ; then
-        sudo umount $backupDir && echo success "--- Unmount CIFS Server ---" || echo error "--- Backup-Pfad wurde nicht vom CIFS-Server getrennt ---"
+        umount $backupDir && echo success "--- Unmount CIFS Server ---" || echo error "--- Backup-Pfad wurde nicht vom CIFS-Server getrennt ---"
     fi
 
-    sudo mount -t cifs -o user=$NAS_USER,password=$NAS_PASS,rw,file_mode=0777,dir_mode=0777,vers=1.0 //$NAS_HOST/$NAS_DIR $backupDir
+    mount -t cifs -o user=$NAS_USER,password=$NAS_PASS,rw,file_mode=0777,dir_mode=0777,vers=1.0 //$NAS_HOST/$NAS_DIR $backupDir
 
     mount | grep -q "${backupDir}"
     if [ $? -eq 0 ] ; then
         echo success "--- CIFS-Server verbunden ---"
     else
-        sudo mount -t cifs -o user=$NAS_USER,password=$NAS_PASS,rw,file_mode=0777,dir_mode=0777 //$NAS_HOST/$NAS_DIR $backupDir && echo success "--- CIFS-Server verbunden ---" || echo error "--- Backup-Pfad wurde nicht auf CIFS-Server verbunden ---"
+        mount -t cifs -o user=$NAS_USER,password=$NAS_PASS,rw,file_mode=0777,dir_mode=0777 //$NAS_HOST/$NAS_DIR $backupDir && echo success "--- CIFS-Server verbunden ---" || echo error "--- Backup-Pfad wurde nicht auf CIFS-Server verbunden ---"
     fi
 fi
 
@@ -330,7 +335,7 @@ if [ $CIFS_MOUNT == "CIFS" ]; then
 
     mount | grep -q "${backupDir}"
     if [ $? -eq 0 ] ; then
-        sudo umount $backupDir && echo success "--- Umount CIFS Server ---" || echo error "--- Backup path was not removed from CIFS-Server ---"
+        umount $backupDir && echo success "--- Umount CIFS Server ---" || echo error "--- Backup path was not removed from CIFS-Server ---"
     fi
 fi
 
