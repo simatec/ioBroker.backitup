@@ -1,8 +1,30 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.2.3",
+        "version": "0.2.5",
         "news": {
+            "0.2.5": {
+                "en": "Check for dependencies, Delete older files if number of files greater than X, Check for Backup Dir, Translations added",
+                "de": "Auf Abhängigkeiten prüfen, Ältere Dateien löschen, wenn die Anzahl der Dateien größer als X ist, Nach Sicherungsverzeichnis suchen, Übersetzungen hinzugefügt",
+                "ru": "Проверка зависимостей, удаление старых файлов, если количество файлов больше X, проверка наличия резервной копии, добавленные переводы",
+                "pt": "Verificar se há dependências, Excluir arquivos mais antigos se o número de arquivos for maior que X, Verificar o diretório de backup, Traduções adicionadas",
+                "nl": "Controleer op afhankelijkheden, verwijder oudere bestanden als aantal bestanden groter dan X, controleer of Backup Dir, vertalingen toegevoegd",
+                "fr": "Vérifier les dépendances, Supprimer les fichiers plus anciens si le nombre de fichiers est supérieur à X, Vérifier la sauvegarde, Ajouter des traductions",
+                "it": "Controlla le dipendenze, elimina i file più vecchi se il numero di file è maggiore di X, controlla la directory di backup, le traduzioni sono state aggiunte",
+                "es": "Verifique las dependencias, elimine los archivos anteriores si el número de archivos es mayor que X, compruebe si hay una copia de respaldo de la misma, se agregaron las traducciones",
+                "pl": "Sprawdź zależności, usuń starsze pliki, jeśli liczba plików jest większa niż X, sprawdź katalog zapasowy, dodano tłumaczenia"
+            },
+            "0.2.4": {
+                "en": "Some Bugfixes, Translations added",
+                "de": "Einige Bugfixes, Übersetzungen hinzugefügt",
+                "ru": "Некоторые исправления, добавленные переводы",
+                "pt": "Algumas correções de bugs, traduções adicionadas",
+                "nl": "Sommige Bugfixes, vertalingen toegevoegd",
+                "fr": "Quelques corrections de bugs, traductions ajoutées",
+                "it": "Alcuni bugfix, aggiunte traduzioni",
+                "es": "Algunas correcciones de errores, se agregaron las traducciones",
+                "pl": "Niektóre poprawki, dodano tłumaczenia"
+            },
             "0.2.3": {
                 "en": "The backup buttons in configuration dialog were added",
                 "de": "Die Backup-Schaltflächen im Konfigurationsdialog wurden hinzugefügt",
