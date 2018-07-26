@@ -28,6 +28,9 @@
 # Version: 3.0.5    - Mysql extension to host and port
 #                   - Compressing the MySql backup
 # Version: 3.0.6    - Bugfix - Change Backupname for Restore procedure
+# Version: 3.0.7    - Check for dependencies
+#                   - Delete older files if number of files greater than X
+#                   - Check for Backup Dir
 #
 #
 # Use:  bash backitup.sh "BACKUP-Type|NAME-Suffix|DELETE_AFTER_X_Days|NAS-Host|NAS-Directory|NAS-User|NAS-Password|CCU-Host|CCU-User|CCU-Password|CIFS-Mount|IOB-Restart|REDIS-Backup|MYSQL-DBName|MYSQL-User|MYSQL-Password|MYSQL-DELETE_AFTER_X_Days|MYSQL-Host|MYSQL-Port|IOB-HomeDirectory"
@@ -89,6 +92,11 @@ echo "Creating $BACKUP_TYPE backup [$STRING]"
 if ! [ -d "$backupDir" ]; then
      mkdir $backupDir && echo "--- Created Backup Dir ---"
 fi
+# Check for Package tar
+PackageTar=`type -p tar`
+if [ ! -f "$PackageTar" ]; then 
+    apt-get -y install tar && echo " --- tar is being installed --- "
+fi
 
 ############################################################################
 #                                                                          #
@@ -97,6 +105,12 @@ fi
 ############################################################################
 
 if [ $CIFS_MOUNT == "CIFS" ] && [ -n "$NAS_DIR" ]; then
+    # Check for Package cifs-utils
+    PackageCifs=`type -p mount`
+    if [ ! -f "$PackageCifs" ]; then 
+        apt-get -y install cifs-utils && echo " --- mount is being installed --- "
+    fi
+    
     echo "--- Mount Backup-Path on CIFS ---"
 
     mount | grep -q "${backupDir}"
@@ -122,6 +136,13 @@ fi
 ############################################################################
 
 if [ -n "$MYSQL_DBNAME" ]; then
+
+    # Check for Package mysql-client
+    PackageMysqldump=`type -p mysqldump`
+    if [ ! -f "$PackageMysqldump" ]; then 
+        apt-get -y install mysql-client && echo " --- mysql-client is being installed --- "
+    fi
+    
     if [ $BACKUP_TYPE == "minimal" ] || [ $BACKUP_TYPE == "total" ]; then
         echo "--- Creating MYSQL-Backup ---"
         mysqldump -u $MYSQL_USER -p$MYSQL_PASS $MYSQL_DBNAME -h $MYSQL_HOST -P $MYSQL_PORT > $backupDir/backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.sql && echo success "--- MYSQL Backup wurde erstellt ---" || echo error "--- MYSQL Backup konnte nicht erstellt werden ---"
@@ -213,6 +234,12 @@ elif [ $BACKUP_TYPE == "total" ]; then
 
 elif [ $BACKUP_TYPE == "ccu" ]; then
 
+    # Check for Package wget
+    PackageWget=`type -p wget`
+    if [ ! -f "$PackageWget" ]; then 
+        apt-get -y install wget && echo " --- wget is being installed --- "
+    fi
+
 #     Meldung
     echo "--- Start Homematic CCU Backup ---"
 
@@ -257,8 +284,17 @@ fi
 #                                                                          #
 ############################################################################
 
+# Check for Package findutils
+PackageFind=`type -p find`
+if [ ! -f "$PackageFind" ]; then 
+    apt-get -y install findutils && echo " --- findutils is being installed --- "
+fi
+
+DeleteDays="${BACKUP_DELETE_AFTER}p"
+
 if [ -n "$MYSQL_DELETE_AFTER" ]; then
-    find $backupDir -name "backupiobroker_mysql*.tar.gz" -mtime +$MYSQL_DELETE_AFTER -exec rm '{}' \;
+    #find $backupDir -name "backupiobroker_mysql*.tar.gz" -mtime +$MYSQL_DELETE_AFTER -exec rm '{}' \;
+    find $backupDir -maxdepth 1 -name "backupiobroker_mysql*.tar.gz" -type f ! -newer "$(ls -t1 | sed -n $DeleteDays)" -delete && echo success "--- [MySql] Checking and deletion of the old backup files was successful ---" || echo error "--- [MySql Checking and deletion of the old backup files was NOT successful ---"
 fi
 
 if [ $BACKUP_OK == "YES" ]; then
@@ -267,18 +303,20 @@ if [ $BACKUP_OK == "YES" ]; then
         echo "--- Delete old backups ---"
         if [ $BACKUP_TYPE == "total" ]; then
             if [ $REDIS_STATE == "true" ]; then
-                find $backupDir -name "backup_redis_state_*.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- [REDIS] Checking and deletion of the old backup files was successful ---" || echo error "--- [REDIS] Checking and deletion of the old backup files was NOT successful ---"
+                #find $backupDir -name "backup_redis_state_*.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- [REDIS] Checking and deletion of the old backup files was successful ---" || echo error "--- [REDIS] Checking and deletion of the old backup files was NOT successful ---"
+                find $backupDir -maxdepth 1 -name "backup_redis_state_*.tar.gz" -type f ! -newer "$(ls -t1 | sed -n $DeleteDays)" -delete && echo success "--- [REDIS] Checking and deletion of the old backup files was successful ---" || echo error "--- [REDIS] Checking and deletion of the old backup files was NOT successful ---"
                 sleep 10
             fi
         fi
         
         if [ $BACKUP_TYPE == "ccu" ]; then
-            find $backupDir -name "*.tar.sbk" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- [CCU] Checking and deletion of the old backup files was successful ---" || echo error "--- [CCU] Checking and deletion of the old backup files was NOT successful ---"
+            #find $backupDir -name "*.tar.sbk" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- [CCU] Checking and deletion of the old backup files was successful ---" || echo error "--- [CCU] Checking and deletion of the old backup files was NOT successful ---"
+            find $backupDir -maxdepth 1 -name "*.tar.sbk" -type f ! -newer "$(ls -t1 | sed -n $DeleteDays)" -exec rm '{}' \; && echo success "--- [CCU] Checking and deletion of the old backup files was successful ---" || echo error "--- [CCU] Checking and deletion of the old backup files was NOT successful ---"
             sleep 10
         else
-#            find $backupDir -name "$BACKUP_TYPE$NAME_SUFFIX*backupiobroker.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- Checking and deletion of the old backup files was successful ---" || echo error "--- Checking and deletion of the old backup files was NOT successful ---"
-            find $backupDir -name "$BACKUP_TYPE$NAME_SUFFIX*$FILENAME_ADDITION.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- Checking and deletion of the old backup files was successful ---" || echo error "--- Checking and deletion of the old backup files was NOT successful ---"
- 
+            #find $backupDir -name "$BACKUP_TYPE$NAME_SUFFIX*backupiobroker.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- Checking and deletion of the old backup files was successful ---" || echo error "--- Checking and deletion of the old backup files was NOT successful ---"
+            #find $backupDir -name "$BACKUP_TYPE$NAME_SUFFIX*$FILENAME_ADDITION.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- Checking and deletion of the old backup files was successful ---" || echo error "--- Checking and deletion of the old backup files was NOT successful ---"
+            find $backupDir -maxdepth 1 -name "$BACKUP_TYPE$NAME_SUFFIX*$FILENAME_ADDITION.tar.gz" -type f ! -newer "$(ls -t1 | sed -n $DeleteDays)" -delete && echo success "--- Checking and deletion of the old backup files was successful ---" || echo error "--- Checking and deletion of the old backup files was NOT successful ---"
            sleep 10
         fi
     else
@@ -293,6 +331,13 @@ if [ $BACKUP_OK == "YES" ]; then
 ############################################################################
 
     if [ $CIFS_MOUNT == "FTP" ]; then
+    
+        # Check for Package curl
+        PackageCurl=`type -p curl`
+        if [ ! -f "$PackageCurl" ]; then 
+            apt-get -y install curl && echo " --- curl is being installed --- "
+        fi
+        
         if [ -n "$NAS_HOST" ]; then
 #            Backup-Files via FTP kopieren
             echo "--- Starting Backup-File FTP-Upload ---"
