@@ -191,7 +191,6 @@ elif [ $BACKUP_TYPE == "total" ]; then
 
 #    Backup ausfuehren
     echo "--- Total Backup started ---"
-#    tar -czf $backupDir/total$NAME_SUFFIX-$date-$time'_'backupiobroker.tar.gz --exclude="$backupDir" -P $IOBROKER_DIR && echo success "--- Ein totales Backup wurde erstellt ---" || echo error "--- Ein totales Backup konnte nicht erstellt werden ---"
     tar -czf $backupDir/total$NAME_SUFFIX-$date-$time$FILENAME_ADDITION.tar.gz --exclude="$backupDir" -P $IOBROKER_DIR && echo success "--- Ein totales Backup wurde erstellt ---" || echo error "--- Ein totales Backup konnte nicht erstellt werden ---"
 
 
@@ -309,7 +308,6 @@ if [ $BACKUP_OK == "YES" ]; then
             find $backupDir -maxdepth 1 -name "*.tar.sbk" -type f ! -newer "$(ls -t1 | sed -n $DeleteDays)" -exec rm '{}' \; && echo success "--- [CCU] Checking and deletion of the old backup files was successful ---" || echo error "--- [CCU] Checking and deletion of the old backup files was NOT successful ---"
             sleep 10
         else
-            #find $backupDir -name "$BACKUP_TYPE$NAME_SUFFIX*backupiobroker.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- Checking and deletion of the old backup files was successful ---" || echo error "--- Checking and deletion of the old backup files was NOT successful ---"
             #find $backupDir -name "$BACKUP_TYPE$NAME_SUFFIX*$FILENAME_ADDITION.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- Checking and deletion of the old backup files was successful ---" || echo error "--- Checking and deletion of the old backup files was NOT successful ---"
             find $backupDir -maxdepth 1 -name "$BACKUP_TYPE$NAME_SUFFIX*$FILENAME_ADDITION.tar.gz" -type f ! -newer "$(ls -t1 | sed -n $DeleteDays)" -delete && echo success "--- Checking and deletion of the old backup files was successful ---" || echo error "--- Checking and deletion of the old backup files was NOT successful ---"
            sleep 10
@@ -341,19 +339,18 @@ if [ $BACKUP_OK == "YES" ]; then
             ls
 
             if [ -n "$MYSQL_DBNAME" ]; then
-                curl -s --disable-epsv -v -T"$backupDir/backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.tar.gz" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup file was copied to other directory ---" || echo error "--- Backup-File was not copied to other directory ---"
+                curl -s --disable-epsv -T "$backupDir/backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.tar.gz" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup file was copied to other directory ---" || echo error "--- Backup-File was not copied to other directory ---"
             fi
 
             if [ $BACKUP_TYPE == "ccu" ]; then
-                curl -s --disable-epsv -v -T"$backupDir/Homematic-Backup-$ccuversion-$date-$time.tar.sbk" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup file was copied to other directory ---" || echo error "--- Backup-File was not copied to other directory ---"
+                curl -s --disable-epsv -T "$backupDir/Homematic-Backup-$ccuversion-$date-$time.tar.sbk" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup file was copied to other directory ---" || echo error "--- Backup-File was not copied to other directory ---"
             else
-#                curl -s --disable-epsv -v -T"$backupDir/$BACKUP_TYPE$NAME_SUFFIX-$date-$time_backupiobroker.tar.gz" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup file was copied to other directory ---" || echo error "--- Backup-File was not copied to other directory ---"
-                curl -s --disable-epsv -v -T"$backupDir/$BACKUP_TYPE$NAME_SUFFIX-$date-$time$FILENAME_ADDITION.tar.gz" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup file was copied to other directory ---" || echo error "--- Backup-File was not copied to other directory ---"
+                curl -s --disable-epsv -T "$backupDir/$BACKUP_TYPE$NAME_SUFFIX-$date-$time$FILENAME_ADDITION.tar.gz" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup file was copied to other directory ---" || echo error "--- Backup-File was not copied to other directory ---"
 
 
             fi
             if [ $REDIS_STATE == "true" ]; then
-            curl -s --disable-epsv -v -T"$backupDir/backup_redis_state_$date-$time.tar.gz" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup file was copied to other directory ---" || echo error "--- Backup-File was not copied to other directory ---"
+            curl -s --disable-epsv -T "$backupDir/backup_redis_state_$date-$time.tar.gz" -u"$NAS_USER:$NAS_PASS" "ftp://$NAS_HOST$NAS_DIR/" && echo success "--- Backup file was copied to other directory ---" || echo error "--- Backup-File was not copied to other directory ---"
             fi
         fi
     fi
