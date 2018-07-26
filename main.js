@@ -233,15 +233,15 @@ function createBackup(type) {
         if (adapter.config.telegramEnabled === true && adapter.config.telegramInstance !== '') {
             adapter.log.debug(`[${type}] Telegram Message enabled`);
 
-            let messageText = _('Es wurde am %t ein neues %e Backup erstellt');
+            let messageText = _('New %e Backup created on %t');
             messageText = messageText.replace('%t', time).replace('%e', type);
             if (backupConfig[type].host !== '') {
                 if (backupConfig[type].cifs.mount === 'FTP') {
-                    const m = _(', und via FTP nach %h%d kopiert/verschoben');
+                    const m = _(', and copied / moved via FTP to %h%d');
                     messageText += m.replace('%h', backupConfig[type].ftp.host).replace('%d', backupConfig[type].ftp.dir);
                 } else
                 if (backupConfig[type].cifs.mount === 'CIFS') {
-                    const m = _(', und unter %h%d gespeichert');
+                    const m = _(', and stored under %h%d');
                     messageText += m.replace('%h', backupConfig[type].ftp.host).replace('%d', backupConfig[type].ftp.dir);
                 }
             }
@@ -344,7 +344,7 @@ function getTimeString(date) {
 function createBackupHistory(type) {
     adapter.getState('history.html', (err, state) => {
         let historyList = state.val;
-        if (historyList === '<span class="backup-type-total">' + _('Noch keine Backups erstellt') + '</span>') {
+        if (historyList === '<span class="backup-type-total">' + _('No backups yet') + '</span>') {
             historyList = '';
         }
         historyArray = historyList.split('&nbsp;');
@@ -355,13 +355,13 @@ function createBackupHistory(type) {
         let historyText;
         if (backupConfig[type].ftp.host !== '') {
             if (backupConfig[type].cifs.mount === 'FTP') {
-                historyText = `<span class="backup-type-${type}">${timeStamp} - ${_('Typ')}: ${type} - ${_('FTP-Sicherung: JA')}</span>`;
+                historyText = `<span class="backup-type-${type}">${timeStamp} - ${_('Type')}: ${type} - ${_('FTP-Backup: Yes')}</span>`;
             } else
             if (backupConfig[type].cifs.mount === 'CIFS') {
-                historyText = `<span class="backup-type-${type}">${timeStamp} - ${_('Typ')}: ${type} - ${_('CIFS-Mount: JA')}</span>`;
+                historyText = `<span class="backup-type-${type}">${timeStamp} - ${_('Type')}: ${type} - ${_('CIFS-Mount: Yes')}</span>`;
             }
         } else {
-            historyText = `<span class="backup-type-${type}">${timeStamp} - ${_('Typ')}: ${type} - ${_('Nur lokal gesichert')}</span>`;
+            historyText = `<span class="backup-type-${type}">${timeStamp} - ${_('Type')}: ${type} - ${_('Only stored locally')}</span>`;
         }
         historyArray.unshift(historyText);
 

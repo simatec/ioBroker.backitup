@@ -13,6 +13,17 @@
 
 ## Changelog
 
+### 0.2.5 (26.07.2018)
+* (simatec) Check for dependencies
+* (simatec) Delete older files if number of files greater than X
+* (simatec) Check for Backup Dir
+* (simatec) Translations added
+
+### 0.2.4 (23.07.2018)
+ * (peoples) Some Bugfixes  
+ * (peoples) Added translations in words.js
+
+
 ### 0.2.3 (19.07.2018)
  * (bluefox) The backup buttons in configuration dialog were added
  * (bluefox) Show bash output text
