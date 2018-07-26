@@ -168,13 +168,8 @@ if [ $BACKUP_TYPE == "minimal" ]; then
 
 #    Backup ausfuehren
     echo "--- Minimal Backup started ---"
-    iobroker backup && echo success "--- Minimal Backup created ---" || echo error "--- Cannot create minimal backup ---"
+    iobroker backup minimal$NAME_SUFFIX-$date-$time$FILENAME_ADDITION.tar.gz && echo success "--- Minimal Backup created ---" || echo error "--- Cannot create minimal backup ---"
     BACKUP_OK="YES"
-
-#    Backup umbenennen
-#     mv -vi $backupDir/$date-$hour*.tar.gz $backupDir/minimal$NAME_SUFFIX-$date-$time'_'backupiobroker.tar.gz
-     mv -vi $backupDir/$date-$hour*.tar.gz $backupDir/minimal$NAME_SUFFIX-$date-$time$FILENAME_ADDITION.tar.gz
-
 
 ############################################################################
 #                                                                          #
