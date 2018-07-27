@@ -4,7 +4,7 @@
   "engines": {
     "node": ">=6.0.0"
   },
-  "description": "Dieser Adapter ermoeglicht das zyklische Erstellen von Backups einer IoBroker/Homematic Installation",
+  "description": "Backitup enables the cyclic creation of backups of an IoBroker / Homematic installation",
   "author": {
     "name": "simatec",
     "email": "nais@gmx.net"
