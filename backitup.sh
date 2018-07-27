@@ -70,22 +70,22 @@ MYSQL_PORT=${VAR[19]}
 IOBROKER_DIR=${VAR[20]}
 FILENAME_ADDITION="_backupiobroker"
 
-# Variable für optionales Weiterkopieren
+# Variable for optional copying
 BACKUP_OK="NO"
 
 # Date for ioBroker
 date=`date +%Y_%m_%d`
 
-# Backuppfad im ioBroker definieren
+# Define backup path in ioBroker
 backupDir="${IOBROKER_DIR}/backups"
 
-# Uhrzeit bestimmten
+# Time determined
 time=`date +%H_%M_%S`
 
-# Stunde definieren
+# Define hour
 hour=`date +%H`
 
-# Minute definieren
+# Define minute
 minute=`date +%M`
 
 echo "Creating $BACKUP_TYPE backup [$STRING]"
@@ -107,6 +107,7 @@ fi
 ############################################################################
 
 if [ $CIFS_MOUNT == "CIFS" ] && [ -n "$NAS_DIR" ]; then
+
     # Check for Package cifs-utils
     PackageCifs=`type -p mount`
     if [ ! -f "$PackageCifs" ]; then 
@@ -117,23 +118,23 @@ if [ $CIFS_MOUNT == "CIFS" ] && [ -n "$NAS_DIR" ]; then
 
     mount | grep -q "${backupDir}"
     if [ $? -eq 0 ] ; then
-        umount $backupDir && echo success "--- Unmount CIFS Server ---" || echo error "--- Backup-Pfad wurde nicht vom CIFS-Server getrennt ---"
+        umount $backupDir && echo success "--- Unmount CIFS Server ---" || echo error "--- Backup path was not disconnected from the CIFS server ---"
     fi
 
     mount -t cifs -o user=$NAS_USER,password=$NAS_PASS,rw,file_mode=0777,dir_mode=0777,vers=1.0 //$NAS_HOST/$NAS_DIR $backupDir
 
     mount | grep -q "${backupDir}"
     if [ $? -eq 0 ] ; then
-        echo success "--- CIFS-Server verbunden ---"
+        echo success "--- CIFS server connected ---"
     else
-        mount -t cifs -o user=$NAS_USER,password=$NAS_PASS,rw,file_mode=0777,dir_mode=0777 //$NAS_HOST/$NAS_DIR $backupDir && echo success "--- CIFS-Server verbunden ---" || echo error "--- Backup-Pfad wurde nicht auf CIFS-Server verbunden ---"
+        mount -t cifs -o user=$NAS_USER,password=$NAS_PASS,rw,file_mode=0777,dir_mode=0777 //$NAS_HOST/$NAS_DIR $backupDir && echo success "--- CIFS server connected ---" || echo error "--- Backup path was not connected to CIFS server ---"
     fi
 fi
 
 
 ############################################################################
 #                                                                          #
-# Optionales MYSQL-Datenbank-Backup                                        #
+# Create MySql Backup                                                      #
 #                                                                          #
 ############################################################################
 
@@ -147,9 +148,9 @@ if [ -n "$MYSQL_DBNAME" ]; then
     
     if [ $BACKUP_TYPE == "minimal" ] || [ $BACKUP_TYPE == "total" ]; then
         echo "--- Creating MYSQL-Backup ---"
-        mysqldump -u $MYSQL_USER -p$MYSQL_PASS $MYSQL_DBNAME -h $MYSQL_HOST -P $MYSQL_PORT > $backupDir/backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.sql && echo success "--- MYSQL Backup wurde erstellt ---" || echo error "--- MYSQL Backup konnte nicht erstellt werden ---"
+        mysqldump -u $MYSQL_USER -p$MYSQL_PASS $MYSQL_DBNAME -h $MYSQL_HOST -P $MYSQL_PORT > $backupDir/backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.sql && echo success "--- MYSQL Backup was created ---" || echo error "--- MYSQL Backup was not created ---"
         cd $backupDir
-        tar -czf backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.tar.gz backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.sql && echo success "--- MySql wurde komprimiert ---" || echo error "--- MySql wurde nicht komprimiert ---"
+        tar -czf backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.tar.gz backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.sql && echo success "--- MySql was compressed ---" || echo error "--- MySql was not compressed ---"
 
         if [ -f $backupDir/backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.sql ] && [ -f $backupDir/backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.tar.gz ]; then
             rm -f backupiobroker_mysql-$MYSQL_DBNAME-$date-$time.sql
@@ -162,26 +163,26 @@ fi
 
 ############################################################################
 #                                                                          #
-# Erstellen eines normalen ioBroker Backups                                #
+# Create minimal Backup                                                    #
 #                                                                          #
 ############################################################################
 
 if [ $BACKUP_TYPE == "minimal" ]; then
 
-#    Backup ausfuehren
+#   Start Backup
     echo "--- Minimal Backup started ---"
     iobroker backup minimal$NAME_SUFFIX-$date-$time$FILENAME_ADDITION.tar.gz && echo success "--- Minimal Backup created ---" || echo error "--- Cannot create minimal backup ---"
     BACKUP_OK="YES"
 
 ############################################################################
 #                                                                          #
-# Erstellen eines Backups des ganzen ioBroker-Ordners                      #
+# Create total Backup                                                      #
 #                                                                          #
 ############################################################################
 
 elif [ $BACKUP_TYPE == "total" ]; then
 
-#    stop IoBroker
+#   Stop IoBroker
     if [ $IOBROKER_RESTART == "true" ]; then
         cd $IOBROKER_DIR
         sleep 10
@@ -189,19 +190,16 @@ elif [ $BACKUP_TYPE == "total" ]; then
         echo "--- IoBroker stopped ---"
     fi
 
-#    Ins ioBroker Verzeichnis wechseln um totales IoBroker Verzeichnis zu sichern
-
-#    Backup ausfuehren
+#   Start Backup
     echo "--- Total Backup started ---"
-    tar -czf $backupDir/total$NAME_SUFFIX-$date-$time$FILENAME_ADDITION.tar.gz --exclude="$backupDir" -P $IOBROKER_DIR && echo success "--- Ein totales Backup wurde erstellt ---" || echo error "--- Ein totales Backup konnte nicht erstellt werden ---"
+    tar -czf $backupDir/total$NAME_SUFFIX-$date-$time$FILENAME_ADDITION.tar.gz --exclude="$backupDir" -P $IOBROKER_DIR && echo success "--- Total Backup created ---" || echo error "--- Cannot create total backup ---"
 
 
 
     BACKUP_OK="YES"
 
-#    Redis State sichern
+#   Save Redis State
     if [ $REDIS_STATE == "true" ]; then
-        # Avoid direct paths!
         cp $REDIS_PATH $backupDir/dump_redis_$date-$time.rdp && echo success "--- Redis Backup created ---" || echo error "--- Cannot create Redis Backup ---"
         cd $backupDir
         chmod 777 dump_redis_$date-$time.rdp
@@ -236,16 +234,16 @@ elif [ $BACKUP_TYPE == "ccu" ]; then
         apt-get -y install wget && echo " --- wget is being installed --- "
     fi
 
-#     Meldung
+#   Message
     echo "--- Start Homematic CCU Backup ---"
 
     run=$0.lastrun
  
-#     Homematic Login
-    wget --post-data '{"method":"Session.login","params":{"username":"'$CCU_USER'","password":"'$CCU_PASS'"}}' http://$CCU_HOST/api/homematic.cgi -O hm.login.response -q >$run 2>&1 && echo success "--- Login Homematic-CCU erfolgreich ---" || echo error "--- Login Homematic-CCU nicht erfolgreich ---"
+#   Homematic Login
+    wget --post-data '{"method":"Session.login","params":{"username":"'$CCU_USER'","password":"'$CCU_PASS'"}}' http://$CCU_HOST/api/homematic.cgi -O hm.login.response -q >$run 2>&1 && echo success "--- Login Homematic CCU successful ---" || echo error "--- Login Homematic CCU unsuccessful ---"
     BACKUP_OK="YES"
  
-#     Login-Pruefung
+#   Login Check
     loginerror=`cat hm.login.response|cut -d "," -f3|awk '{print $2}'`
     if [ "$loginerror" != "null}" ]; then
         echo "Error by Homematic-Login !"|tee -a $run
@@ -255,28 +253,28 @@ elif [ $BACKUP_TYPE == "ccu" ]; then
     fi
     sessionid=`cat hm.login.response|cut -d "," -f2|awk '{print $2}'|cut -d '"' -f2`
 
-#    Homematic-Version auslesen
+#   Check Homematic-Version
     VER=$(wget -q -O - http://$CCU_HOST/api/backup/version.cgi)
     ccuversion="${VER:8:7}"
  
-#     Backupdatei herunterladen
-    wget "http://$CCU_HOST/config/cp_security.cgi?sid=@$sessionid@&action=create_backup" -O $backupDir/Homematic-Backup-$ccuversion-$date-$time.tar.sbk -q >>$run 2>&1 && echo success "--- Ein Homematic-CCU Backup wurde erstellt ---" || echo error "--- Ein Homematic-CCU Backup konnte nicht erstellt werden ---"
+#   Download Backup
+    wget "http://$CCU_HOST/config/cp_security.cgi?sid=@$sessionid@&action=create_backup" -O $backupDir/Homematic-Backup-$ccuversion-$date-$time.tar.sbk -q >>$run 2>&1 && echo success "--- Homematic CCU backup has been created ---" || echo error "--- Homematic CCU backup could not be created ---"
  
-#     Homematic Logout
+#   Homematic Logout
     wget --post-data '{"method":"Session.logout","params":{"_session_id_":"'$sessionid'"}}' http://$CCU_HOST/api/homematic.cgi -O hm.logout.response -q >>$run 2>&1
  
-#     temp. Dateien loeschen
+#   delete temp. Files
     rm hm.login.response hm.logout.response >>$run 2>&1
 
     BACKUP_OK="YES"
 
 else
-    echo "--- No valid Backup Type selected! Possible types: 'minimal', 'total' oder 'ccu' ---"
+    echo "--- No valid Backup Type selected! Possible types: 'minimal', 'total' or 'ccu' ---"
 fi
 
 ############################################################################
 #                                                                          #
-# Optionales Loeschen alter Backups                                        #
+# delete old Backups                                                       #
 #                                                                          #
 ############################################################################
 
@@ -294,8 +292,8 @@ if [ -n "$MYSQL_DELETE_AFTER" ]; then
 fi
 
 if [ $BACKUP_OK == "YES" ]; then
+
     if [ -n "$BACKUP_DELETE_AFTER" ]; then
-#        Backups Älter X Tage löschen
         echo "--- Delete old backups ---"
         if [ $BACKUP_TYPE == "total" ]; then
             if [ $REDIS_STATE == "true" ]; then
@@ -321,7 +319,7 @@ if [ $BACKUP_OK == "YES" ]; then
 
 ############################################################################
 #                                                                          #
-# Optionaler Upload des Backups auf einen FTP-Server                       #
+# FTP Upload                                                               #
 #                                                                          #
 ############################################################################
 
@@ -334,9 +332,9 @@ if [ $BACKUP_OK == "YES" ]; then
         fi
         
         if [ -n "$NAS_HOST" ]; then
-#            Backup-Files via FTP kopieren
+#           Backup-Files FTP copy
             echo "--- Starting Backup-File FTP-Upload ---"
-#            Verzeichnis wechseln
+#           Change Dir
             cd $backupDir/
             ls
 
@@ -364,7 +362,7 @@ fi
 
 ############################################################################
 #                                                                          #
-# Optionaler Umount des CIFS-Servers                                       #
+# Umount CIFS-Servers                                                      #
 #                                                                          #
 ############################################################################
 
