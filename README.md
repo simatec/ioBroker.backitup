@@ -13,6 +13,9 @@
 
 ## Changelog
 
+### 0.2.6 (27.07.2018)
+* (bluefox) Configurable redis path was added
+
 ### 0.2.5 (26.07.2018)
 * (simatec) Check for dependencies
 * (simatec) Delete older files if number of files greater than X

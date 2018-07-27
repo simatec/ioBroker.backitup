@@ -31,6 +31,7 @@
 # Version: 3.0.7    - Check for dependencies
 #                   - Delete older files if number of files greater than X
 #                   - Check for Backup Dir
+# Version: 3.0.8    - Add redis path
 #
 #
 # Use:  bash backitup.sh "BACKUP-Type|NAME-Suffix|DELETE_AFTER_X_Days|NAS-Host|NAS-Directory|NAS-User|NAS-Password|CCU-Host|CCU-User|CCU-Password|CIFS-Mount|IOB-Restart|REDIS-Backup|MYSQL-DBName|MYSQL-User|MYSQL-Password|MYSQL-DELETE_AFTER_X_Days|MYSQL-Host|MYSQL-Port|IOB-HomeDirectory"
@@ -59,13 +60,14 @@ CCU_PASS=${VAR[9]}
 CIFS_MOUNT=${VAR[10]}
 IOBROKER_RESTART=${VAR[11]}
 REDIS_STATE=${VAR[12]}
-MYSQL_DBNAME=${VAR[13]}
-MYSQL_USER=${VAR[14]}
-MYSQL_PASS=${VAR[15]}
-MYSQL_DELETE_AFTER=${VAR[16]}
-MYSQL_HOST=${VAR[17]}
-MYSQL_PORT=${VAR[18]}
-IOBROKER_DIR=${VAR[19]}
+REDIS_PATH=${VAR[13]}
+MYSQL_DBNAME=${VAR[14]}
+MYSQL_USER=${VAR[15]}
+MYSQL_PASS=${VAR[16]}
+MYSQL_DELETE_AFTER=${VAR[17]}
+MYSQL_HOST=${VAR[18]}
+MYSQL_PORT=${VAR[19]}
+IOBROKER_DIR=${VAR[20]}
 FILENAME_ADDITION="_backupiobroker"
 
 # Variable für optionales Weiterkopieren
@@ -200,7 +202,7 @@ elif [ $BACKUP_TYPE == "total" ]; then
 #    Redis State sichern
     if [ $REDIS_STATE == "true" ]; then
         # Avoid direct paths!
-        cp /var/lib/redis/dump.rdb $backupDir/dump_redis_$date-$time.rdp && echo success "--- Redis Backup created ---" || echo error "--- Cannot create Redis Backup ---"
+        cp $REDIS_PATH $backupDir/dump_redis_$date-$time.rdp && echo success "--- Redis Backup created ---" || echo error "--- Cannot create Redis Backup ---"
         cd $backupDir
         chmod 777 dump_redis_$date-$time.rdp
         tar -czf backup_redis_state_$date-$time.tar.gz dump_redis_$date-$time.rdp && echo success "--- Redis Backup was packed ---" || echo error "--- Redis Backup was not packed ---"
