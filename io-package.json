@@ -4,15 +4,15 @@
         "version": "0.2.6",
         "news": {
             "0.2.6": {
-              "en": "Configurable redis path was added",
-              "de": "Konfigurierbarer Redis-Pfad wurde hinzugefügt",
-              "ru": "Добавлен настраиваемый путь redis",
-              "pt": "Caminho de redis configurável foi adicionado",
-              "nl": "Configureerbaar redispad is toegevoegd",
-              "fr": "Redis configurable a été ajouté",
-              "it": "È stato aggiunto il percorso redis configurabile",
-              "es": "Se agregó una ruta redis configurable",
-              "pl": "Konfigurowalna ścieżka redis została dodana"
+                "en": "Configurable redis path was added",
+                "de": "Konfigurierbarer Redis-Pfad wurde hinzugefügt",
+                "ru": "Добавлен настраиваемый путь redis",
+                "pt": "Caminho de redis configurável foi adicionado",
+                "nl": "Configureerbaar redispad is toegevoegd",
+                "fr": "Redis configurable a été ajouté",
+                "it": "È stato aggiunto il percorso redis configurabile",
+                "es": "Se agregó una ruta redis configurable",
+                "pl": "Konfigurowalna ścieżka redis została dodana"
             },
             "0.2.5": {
                 "en": "Check for dependencies, Delete older files if number of files greater than X, Check for Backup Dir, Translations added",
