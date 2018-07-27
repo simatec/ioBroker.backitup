@@ -175,14 +175,15 @@ function createBackup(type) {
             (backupConfig[type].pass                || '') + '|' +  // 9
             (backupConfig[type].cifs.mount          || '') + '|' +  // 10
             (backupConfig[type].stopIoB             || 'false') + '|' +  // 11
-            (backupConfig[type].backupRedis         || 'false') + '|' +  // 12
-            (mySqlConfig.dbName                     || '') + '|' +  // 13
-            (mySqlConfig.user                       || '') + '|' +  // 14
-            (mySqlConfig.pass                       || '') + '|' +  // 15
-            (mySqlConfig.deleteBackupAfter          || '') + '|' +  // 16
-            (mySqlConfig.host                       || '') + '|' +  // 17
-            (mySqlConfig.port                       || '') + '|' +  // 18
-            (iobDir                                 || '') +        // 19
+            (backupConfig[type].redisEnabled        || 'false') + '|' +  // 12
+            (backupConfig[type].redisEnabled && backupConfig[type].redisPath           || '') + '|' +  // 13
+            (mySqlConfig.dbName                     || '') + '|' +  // 14
+            (mySqlConfig.user                       || '') + '|' +  // 15
+            (mySqlConfig.pass                       || '') + '|' +  // 16
+            (mySqlConfig.deleteBackupAfter          || '') + '|' +  // 17
+            (mySqlConfig.host                       || '') + '|' +  // 18
+            (mySqlConfig.port                       || '') + '|' +  // 19
+            (iobDir                                 || '') +        // 20
             '';
         let debug =
             (type                                   || '') + '|' +  // 0
@@ -191,20 +192,21 @@ function createBackup(type) {
             (backupConfig[type].ftp.host            || '') + '|' +  // 3
             (backupConfig[type].ftp.dir             || '') + '|' +  // 4
             (backupConfig[type].ftp.user            || '') + '|' +  // 5
-            '*****' + '|' +  // 6
+            '*****' + '|' +                                         // 6
             (backupConfig[type].host                || '') + '|' +  // 7
             (backupConfig[type].user                || '') + '|' +  // 8
-            '*****' + '|' +  // 9
+            '*****' + '|' +                                         // 9
             (backupConfig[type].cifs.mount          || '') + '|' +  // 10
             (backupConfig[type].stopIoB             || 'false') + '|' +  // 11
-            (backupConfig[type].backupRedis         || 'false') + '|' +  // 12
-            (mySqlConfig.dbName                     || '') + '|' +  // 13
-            (mySqlConfig.user                       || '') + '|' +  // 14
-            '*****' + '|' +  // 13
-            (mySqlConfig.deleteBackupAfter          || '') + '|' +  // 16
-            (mySqlConfig.host                       || '') + '|' +  // 17
-            (mySqlConfig.port                       || '') + '|' +  // 18
-            (iobDir                                 || '') +        // 19
+            (backupConfig[type].redisEnabled        || 'false') + '|' +  // 12
+            (backupConfig[type].redisEnabled && backupConfig[type].redisPath           || '') + '|' +  // 13
+            (mySqlConfig.dbName                     || '') + '|' +  // 14
+            (mySqlConfig.user                       || '') + '|' +  // 15
+            '*****' + '|' +                                         // 16
+            (mySqlConfig.deleteBackupAfter          || '') + '|' +  // 17
+            (mySqlConfig.host                       || '') + '|' +  // 18
+            (mySqlConfig.port                       || '') + '|' +  // 19
+            (iobDir                                 || '') +        // 20
             '';
         let bashScript;
         if (type === 'total' && backupConfig.total.stopIoB) {
@@ -408,15 +410,20 @@ function initVariables(secret) {
         }
     };
 
-    // konfigurations for total-IoBroker backup
+    if (adapter.config.redisEnabled === undefined) {
+        adapter.config.redisEnabled = adapter.config.backupRedis
+    }
+
+    // Configurations for total-IoBroker backup
     backupConfig.total = {
         enabled: adapter.config.totalEnabled,
         time: adapter.config.totalTime,
         everyXDays: adapter.config.totalEveryXDays,
         nameSuffix: adapter.config.totalNameSuffix,             // names addition, appended to the file name
         deleteBackupAfter: adapter.config.totalDeleteAfter,     // delete old backupfiles after x days
-        backupRedis: adapter.config.backupRedis,                // specify if Redis-DB should be backuped
-        stopIoB: adapter.config.totalStopIoB,                    // specify if ioBroker should be stopped/started 
+        redisEnabled: adapter.config.redisEnabled,               // specify if Redis-DB should be backuped
+        redisPath: adapter.config.redisPath || '/var/lib/redis/dump.rdb', // specify Redis path
+        stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
         ftp: {
             host: adapter.config.ftpHost,                       // ftp-host
             dir: (adapter.config.ownDir === true) ? adapter.config.totalFtpDir : adapter.config.ftpDir, // directory on FTP server

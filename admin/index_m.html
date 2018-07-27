@@ -200,8 +200,12 @@
         }
 
         function load(settings, onChange) {
-            // example: select elements with id=key and class=value and insert value
             if (!settings) return;
+
+            if (settings.redisEnabled === undefined) {
+                settings.redisEnabled = adapter.config.backupRedis;
+            }
+
             $('.value').each(function () {
                 var $key = $(this);
                 var id = $key.attr('id');
@@ -380,6 +384,12 @@
                 $('.nas_standard').show();
             }
 
+            if ($('#redisEnabled').prop('checked')) {
+                $('.redis-path').show();
+            } else {
+                $('.redis-path').hide();
+            }
+
             if ($('#telegramEnabled').prop('checked')) {
                 $('.telegram_inst').show();
             } else {
@@ -456,8 +466,12 @@
                         <label for="totalStopIoB" class="translate">Stop ioBroker at backup</label>
                     </div>
                     <div class="input-field col s12 m6 l4">
-                        <input class="value" id="backupRedis" type="checkbox"/>
-                        <label for="backupRedis" class="translate">Save Redis state</label>
+                        <input class="value" id="redisEnabled" type="checkbox"/>
+                        <label for="redisEnabled" class="translate">Save Redis state</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4 redis-path">
+                        <input class="value" id="redisPath" type="text"/>
+                        <label for="redisPath" class="translate">Redis file path</label>
                     </div>
                 </div>
                 <div class="row">

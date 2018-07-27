@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.2.5",
+        "version": "0.2.6",
         "news": {
+            "0.2.6": {
+              "en": "Configurable redis path was added",
+              "de": "Konfigurierbarer Redis-Pfad wurde hinzugefügt",
+              "ru": "Добавлен настраиваемый путь redis",
+              "pt": "Caminho de redis configurável foi adicionado",
+              "nl": "Configureerbaar redispad is toegevoegd",
+              "fr": "Redis configurable a été ajouté",
+              "it": "È stato aggiunto il percorso redis configurabile",
+              "es": "Se agregó una ruta redis configurable",
+              "pl": "Konfigurowalna ścieżka redis została dodana"
+            },
             "0.2.5": {
                 "en": "Check for dependencies, Delete older files if number of files greater than X, Check for Backup Dir, Translations added",
                 "de": "Auf Abhängigkeiten prüfen, Ältere Dateien löschen, wenn die Anzahl der Dateien größer als X ist, Nach Sicherungsverzeichnis suchen, Übersetzungen hinzugefügt",
@@ -172,15 +183,15 @@
         },
 		"title": "BackitUp",
         "titleLang": {
-    		"en": "ioBroker Backup",
-	    	"de": "ioBroker Backup",
-	    	"ru": "Резервное копирование ioBroker",
-	    	"pt": "Backup do ioBroker",
-	    	"nl": "ioBroker Backup",
-	    	"fr": "ioBroker Backup",
-	    	"it": "Backup ioBroker",
-	    	"es": "ioBroker Backup",
-	    	"pl": "Kopia zapasowa ioBroker"
+    		"en": "BackitUp",
+	    	"de": "BackitUp",
+	    	"ru": "Резервное копирование",
+	    	"pt": "BackitUp",
+	    	"nl": "BackitUp",
+	    	"fr": "BackitUp",
+	    	"it": "BackitUp",
+	    	"es": "BackitUp",
+	    	"pl": "Kopia zapasowa"
         },
         "desc": {
     		"en": "This adapter enables the cyclical creation of backups of an IoBroker / Homematic installation",
@@ -251,9 +262,11 @@
 		"ftpUser": "",
 		"ftpPassword": "",
 
-		"logEnabled": true,
+        "redisEnabled": false,
+        "redisPath": "/var/lib/redis/dump.rdb",
+
+        "logEnabled": true,
 		"debugLevel": false,
-		"backupRedis": false,
 		"historyEntriesNumber": 25,
 
 		"telegramEnabled": false,
@@ -277,11 +290,11 @@
             "_id":  "history.html",
             "type": "state",
             "common": {
-                "role":  "indicator",
-                "name":  "History-Log der ausgeführten Backups",
+                "role":  "html",
+                "name":  "History-Log of executed backups",
                 "type":  "string",
                 "read":  true,
-                "write": true,
+                "write": false,
                 "def":   "Noch kein Backup"
             },
             "native": {}
@@ -290,12 +303,12 @@
             "_id":  "history.ccuLastTime",
             "type": "state",
             "common": {
-                "role":  "indicator",
-                "name":  "Letztes CCU Backup",
+                "role":  "date",
+                "name":  "Last CCU backup",
                 "type":  "string",
                 "read":  true,
-                "write": true,
-                "def":   "Noch kein Backup"
+                "write": false,
+                "def":   "No backups yet"
             },
             "native": {}
         },
@@ -303,12 +316,12 @@
             "_id":  "history.minimalLastTime",
             "type": "state",
             "common": {
-                "role":  "indicator",
-                "name":  "Letztes minimal Backup",
+                "role":  "date",
+                "name":  "Last minimal backup",
                 "type":  "string",
                 "read":  true,
-                "write": true,
-                "def":   "Noch kein Backup"
+                "write": false,
+                "def":   "No backups yet"
             },
             "native": {}
         },
@@ -316,12 +329,12 @@
             "_id":  "history.totalLastTime",
             "type": "state",
             "common": {
-                "role":  "indicator",
-                "name":  "Letztes komplett Backup",
+                "role":  "date",
+                "name":  "Last total backup",
                 "type":  "string",
                 "read":  true,
-                "write": true,
-                "def":   "Noch kein Backup"
+                "write": false,
+                "def":   "No backups yet"
             },
             "native": {}
         },
@@ -337,8 +350,8 @@
             "_id":  "oneClick.ccu",
             "type": "state",
             "common": {
-                "role":  "indicator",
-                "name":  "CCU - Backup ausführen",
+                "role":  "switch",
+                "name":  "Execute CCU backup",
                 "type":  "boolean",
                 "read":  true,
                 "write": true,
@@ -350,8 +363,8 @@
             "_id":  "oneClick.minimal",
             "type": "state",
             "common": {
-                "role":  "indicator",
-                "name":  "Minimal - Backup ausführen",
+                "role":  "switch",
+                "name":  "Execute minimal backup",
                 "type":  "boolean",
                 "read":  true,
                 "write": true,
@@ -363,8 +376,8 @@
             "_id":  "oneClick.total",
             "type": "state",
             "common": {
-                "role":  "indicator",
-                "name":  "Komplett - Backup ausführen",
+                "role":  "switch",
+                "name":  "Execute total backup",
                 "type":  "boolean",
                 "read":  true,
                 "write": true,
