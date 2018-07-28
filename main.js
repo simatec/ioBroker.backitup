@@ -209,10 +209,20 @@ function createBackup(type) {
             (iobDir                                 || '') +        // 20
             '';
         let bashScript;
-        if (type === 'total' && backupConfig.total.stopIoB) {
-            bashScript = `${__dirname}/backitupl.sh`;    // Pfad zu backup.sh Datei
-        } else {
-            bashScript = `${__dirname}/backitup.sh`;     // Pfad zu backup.sh Datei
+        if (require('os').platform() === 'linux') {
+            if (type === 'total' && backupConfig.total.stopIoB) {
+                bashScript = `${__dirname}/backitupl.sh`;    // Pfad zu backup.sh Datei
+            } else {
+                bashScript = `${__dirname}/backitup.sh`;     // Pfad zu backup.sh Datei
+            }
+        }
+        
+        if (require('os').platform() === 'win32') {
+            if (type === 'total' && backupConfig.total.stopIoB) {
+                bashScript = `${__dirname}/backitupl.sh`;    // Pfad zu backup.sh Datei
+            } else {
+                bashScript = `${__dirname}/backitup_win32.sh`;     // Pfad zu backup.sh Datei
+            }
         }
 
         if (debugging) {
