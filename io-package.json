@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.2.6",
+        "version": "0.2.7",
         "news": {
+            "0.2.7": {
+                "en": "Fix Delete old Files",
+                "de": "Fix Lösche alte Dateien",
+                "ru": "Исправить удаление старых файлов",
+                "pt": "Corrigir Excluir Arquivos Antigos",
+                "nl": "Fix Oude bestanden verwijderen",
+                "fr": "Corriger Supprimer les anciens fichiers",
+                "it": "Correggi Elimina vecchi file",
+                "es": "Reparar Eliminar archivos viejos",
+                "pl": "Napraw Usuń stare pliki"
+            },
             "0.2.6": {
                 "en": "Configurable redis path was added, Translation Script, Fix FTP Upload",
                 "de": "Konfigurierbarer Redis-Pfad wurde hinzugefügt, Übersetzungs Script, Fix FTP-Upload",
