@@ -284,11 +284,16 @@ if [ ! -f "$PackageFind" ]; then
     apt-get -y install findutils && echo " --- findutils is being installed --- "
 fi
 
-DeleteDays="${BACKUP_DELETE_AFTER}p"
+#DeleteDays="${BACKUP_DELETE_AFTER}p"
 
 if [ -n "$MYSQL_DELETE_AFTER" ]; then
-    #find $backupDir -name "backupiobroker_mysql*.tar.gz" -mtime +$MYSQL_DELETE_AFTER -exec rm '{}' \;
-    find $backupDir -maxdepth 1 -name "backupiobroker_mysql*.tar.gz" -type f ! -newer "$(ls -t1 | sed -n $DeleteDays)" -delete && echo success "--- [MySql] Checking and deletion of the old backup files was successful ---" || echo error "--- [MySql Checking and deletion of the old backup files was NOT successful ---"
+    results=( $(find $backupDir -name "backupiobroker_mysql*.tar.gz" -mtime -$MYSQL_DELETE_AFTER) )
+    if (( ${#results[@]} )) ; then
+        find $backupDir -name "backupiobroker_mysql*.tar.gz" -mtime +$MYSQL_DELETE_AFTER -exec rm '{}' \; && echo success "--- Checking and deletion of the old MySql backup files was successful ---" || echo error "--- Checking and deletion of the old MySql backup files was NOT successful ---"
+    else
+        echo "--- No old MySql backups were deleted ---"
+    fi
+    #find $backupDir -maxdepth 1 -name "backupiobroker_mysql*.tar.gz" -type f ! -newer "$(ls -t1 | sed -n $DeleteDays)" -delete && echo success "--- [MySql] Checking and deletion of the old backup files was successful ---" || echo error "--- [MySql Checking and deletion of the old backup files was NOT successful ---"
 fi
 
 if [ $BACKUP_OK == "YES" ]; then
@@ -297,20 +302,35 @@ if [ $BACKUP_OK == "YES" ]; then
         echo "--- Delete old backups ---"
         if [ $BACKUP_TYPE == "total" ]; then
             if [ $REDIS_STATE == "true" ]; then
-                #find $backupDir -name "backup_redis_state_*.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- [REDIS] Checking and deletion of the old backup files was successful ---" || echo error "--- [REDIS] Checking and deletion of the old backup files was NOT successful ---"
-                find $backupDir -maxdepth 1 -name "backup_redis_state_*.tar.gz" -type f ! -newer "$(ls -t1 | sed -n $DeleteDays)" -delete && echo success "--- [REDIS] Checking and deletion of the old backup files was successful ---" || echo error "--- [REDIS] Checking and deletion of the old backup files was NOT successful ---"
+                results=( $(find $backupDir -name "backup_redis_state_*.tar.gz" -mtime -$BACKUP_DELETE_AFTER) )
+                if (( ${#results[@]} )) ; then
+                    find $backupDir -name "backup_redis_state_*.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- [REDIS] Checking and deletion of the old backup files was successful ---" || echo error "--- [REDIS] Checking and deletion of the old backup files was NOT successful ---"
+                else
+                    echo "--- No old Redis backups were deleted ---"
+                fi
+                #find $backupDir -maxdepth 1 -name "backup_redis_state_*.tar.gz" -type f ! -newer "$(ls -t1 | sed -n $DeleteDays)" -delete && echo success "--- [REDIS] Checking and deletion of the old backup files was successful ---" || echo error "--- [REDIS] Checking and deletion of the old backup files was NOT successful ---"
                 sleep 10
             fi
         fi
         
         if [ $BACKUP_TYPE == "ccu" ]; then
-            #find $backupDir -name "*.tar.sbk" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- [CCU] Checking and deletion of the old backup files was successful ---" || echo error "--- [CCU] Checking and deletion of the old backup files was NOT successful ---"
-            find $backupDir -maxdepth 1 -name "*.tar.sbk" -type f ! -newer "$(ls -t1 | sed -n $DeleteDays)" -exec rm '{}' \; && echo success "--- [CCU] Checking and deletion of the old backup files was successful ---" || echo error "--- [CCU] Checking and deletion of the old backup files was NOT successful ---"
+            results=( $(find $backupDir -name "*.tar.sbk" -mtime -$BACKUP_DELETE_AFTER) )
+            if (( ${#results[@]} )) ; then
+            find $backupDir -name "*.tar.sbk" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- [CCU] Checking and deletion of the old backup files was successful ---" || echo error "--- [CCU] Checking and deletion of the old backup files was NOT successful ---"
+            else
+                echo "--- No old $BACKUP_TYPE backups were deleted ---"
+            fi
+            #find $backupDir -maxdepth 1 -name "*.tar.sbk" -type f ! -newer "$(ls -t1 | sed -n $DeleteDays)" -exec rm '{}' \; && echo success "--- [CCU] Checking and deletion of the old backup files was successful ---" || echo error "--- [CCU] Checking and deletion of the old backup files was NOT successful ---"
             sleep 10
         else
-            #find $backupDir -name "$BACKUP_TYPE$NAME_SUFFIX*$FILENAME_ADDITION.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- Checking and deletion of the old backup files was successful ---" || echo error "--- Checking and deletion of the old backup files was NOT successful ---"
-            find $backupDir -maxdepth 1 -name "$BACKUP_TYPE$NAME_SUFFIX*$FILENAME_ADDITION.tar.gz" -type f ! -newer "$(ls -t1 | sed -n $DeleteDays)" -delete && echo success "--- Checking and deletion of the old backup files was successful ---" || echo error "--- Checking and deletion of the old backup files was NOT successful ---"
-           sleep 10
+            results=( $(find $backupDir -name "$BACKUP_TYPE$NAME_SUFFIX*$FILENAME_ADDITION.tar.gz" -mtime -$BACKUP_DELETE_AFTER) )
+            if (( ${#results[@]} )) ; then
+                find $backupDir -name "$BACKUP_TYPE$NAME_SUFFIX*$FILENAME_ADDITION.tar.gz" -mtime +$BACKUP_DELETE_AFTER -exec rm '{}' \; && echo success "--- Checking and deletion of the old $BACKUP_TYPE backup files was successful ---" || echo error "--- Checking and deletion of the old $BACKUP_TYPE backup files was NOT successful ---"
+            else
+                echo "--- No old $BACKUP_TYPE backups were deleted ---"
+            fi
+            #find $backupDir -maxdepth 1 -name "$BACKUP_TYPE$NAME_SUFFIX*$FILENAME_ADDITION.tar.gz" -type f ! -newer "$(ls -t1 | sed -n $DeleteDays)" -delete && echo success "--- Checking and deletion of the old backup files was successful ---" || echo error "--- Checking and deletion of the old backup files was NOT successful ---"
+            sleep 10
         fi
     else
         echo "--- No old backups were deleted ---"
