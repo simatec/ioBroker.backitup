@@ -61,6 +61,7 @@ function _(word) {
         return word;
     }
 }
+
 // Is executed when a State has changed
 adapter.on('stateChange', (id, state) => {
     if ((state.val === true || state.val === 'true') && !state.ack) {
@@ -120,7 +121,6 @@ function checkStates() {
     });
 }
 
-
 // function to create Backup schedules (Backup time)  
 function createBackupSchedule() {
     for (const type in backupConfig) {
@@ -175,8 +175,8 @@ function createBackup(type) {
             (backupConfig[type].pass                || '') + '|' +  // 9
             (backupConfig[type].cifs.mount          || '') + '|' +  // 10
             (backupConfig[type].stopIoB             || 'false') + '|' +  // 11
-            (backupConfig[type].redisEnabled        || 'false') + '|' +  // 12
-            (backupConfig[type].redisEnabled && backupConfig[type].redisPath           || '') + '|' +  // 13
+            ((backupConfig[type].redis && backupConfig[type].redis.enabled)        || 'false') + '|' +  // 12
+            ((backupConfig[type].redis && backupConfig[type].redis.enabled && backupConfig[type].redisPath)           || '') + '|' +  // 13
             (mySqlConfig.dbName                     || '') + '|' +  // 14
             (mySqlConfig.user                       || '') + '|' +  // 15
             (mySqlConfig.pass                       || '') + '|' +  // 16
@@ -198,8 +198,8 @@ function createBackup(type) {
             '*****' + '|' +                                         // 9
             (backupConfig[type].cifs.mount          || '') + '|' +  // 10
             (backupConfig[type].stopIoB             || 'false') + '|' +  // 11
-            (backupConfig[type].redisEnabled        || 'false') + '|' +  // 12
-            (backupConfig[type].redisEnabled && backupConfig[type].redisPath           || '') + '|' +  // 13
+            ((backupConfig[type].redis && backupConfig[type].redis.enabled)        || 'false') + '|' +  // 12
+            ((backupConfig[type].redis && backupConfig[type].redis.enabled && backupConfig[type].redisPath)           || '') + '|' +  // 13
             (mySqlConfig.dbName                     || '') + '|' +  // 14
             (mySqlConfig.user                       || '') + '|' +  // 15
             '*****' + '|' +                                         // 16
@@ -392,8 +392,19 @@ function initVariables(secret) {
     debugging = adapter.config.debugLevel;										         // Detailiertere Loggings
     historyEntriesNumber = adapter.config.historyEntriesNumber;                          // Anzahl der Einträge in der History
 
+    mySqlConfig.enabled = adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled;
+    if (mySqlConfig.enabled) {
+        mySqlConfig.dbName = adapter.config.mySqlName;              // database name
+        mySqlConfig.user = adapter.config.mySqlUser;                // database user
+        mySqlConfig.pass = adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '';            // database password
+        mySqlConfig.deleteBackupAfter = adapter.config.mySqlDeleteAfter; // delete old backupfiles after x days
+        mySqlConfig.host = adapter.config.mySqlHost;                // database host
+        mySqlConfig.port = adapter.config.mySqlPort;                // database port
+    }
+
     // konfigurations for standart-IoBroker backup
     backupConfig.minimal = {
+        name: 'minimal',
         enabled: adapter.config.minimalEnabled,
         time: adapter.config.minimalTime,
         everyXDays: adapter.config.minimalEveryXDays,
@@ -414,29 +425,9 @@ function initVariables(secret) {
         adapter.config.redisEnabled = adapter.config.backupRedis
     }
 
-    // Configurations for total-IoBroker backup
-    backupConfig.total = {
-        enabled: adapter.config.totalEnabled,
-        time: adapter.config.totalTime,
-        everyXDays: adapter.config.totalEveryXDays,
-        nameSuffix: adapter.config.totalNameSuffix,             // names addition, appended to the file name
-        deleteBackupAfter: adapter.config.totalDeleteAfter,     // delete old backupfiles after x days
-        redisEnabled: adapter.config.redisEnabled,               // specify if Redis-DB should be backuped
-        redisPath: adapter.config.redisPath || '/var/lib/redis/dump.rdb', // specify Redis path
-        stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
-        ftp: {
-            host: adapter.config.ftpHost,                       // ftp-host
-            dir: (adapter.config.ownDir === true) ? adapter.config.totalFtpDir : adapter.config.ftpDir, // directory on FTP server
-            user: adapter.config.ftpUser,                       // username for FTP Server
-            pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '' // password for FTP Server
-        },
-        cifs: {
-            mount: adapter.config.cifsMount                     // specify if CIFS mount should be used
-        },
-    };
-
     // konfigurations for CCU / pivCCU / Raspberrymatic backup
     backupConfig.ccu = {
+        name: 'ccu',
         enabled: adapter.config.ccuEnabled,
         time: adapter.config.ccuTime,
         everyXDays: adapter.config.ccuEveryXDays,
@@ -456,15 +447,30 @@ function initVariables(secret) {
         }
     };
 
-    mySqlConfig.enabled = adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled;
-    if (mySqlConfig.enabled) {
-        mySqlConfig.dbName = adapter.config.mySqlName;              // database name
-        mySqlConfig.user = adapter.config.mySqlUser;                // database user
-        mySqlConfig.pass = adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '';            // database password
-        mySqlConfig.deleteBackupAfter = adapter.config.mySqlDeleteAfter; // delete old backupfiles after x days
-        mySqlConfig.host = adapter.config.mySqlHost;                // database host
-        mySqlConfig.port = adapter.config.mySqlPort;                // database port
-    }
+    // Configurations for total-IoBroker backup
+    backupConfig.total = {
+        name: 'total',
+        enabled: adapter.config.totalEnabled,
+        time: adapter.config.totalTime,
+        everyXDays: adapter.config.totalEveryXDays,
+        nameSuffix: adapter.config.totalNameSuffix,             // names addition, appended to the file name
+        deleteBackupAfter: adapter.config.totalDeleteAfter,     // delete old backupfiles after x days
+        redis: {
+            enabled: adapter.config.redisEnabled,
+            path: adapter.config.redisPath || '/var/lib/redis/dump.rdb', // specify Redis path
+        },
+        stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
+        ftp: {
+            host: adapter.config.ftpHost,                       // ftp-host
+            dir: (adapter.config.ownDir === true) ? adapter.config.totalFtpDir : adapter.config.ftpDir, // directory on FTP server
+            user: adapter.config.ftpUser,                       // username for FTP Server
+            pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '' // password for FTP Server
+        },
+        cifs: {
+            mount: adapter.config.cifsMount                     // specify if CIFS mount should be used
+        },
+        mySql: mySqlConfig
+    };
 }
 
 function readLogFile(type) {
@@ -503,6 +509,112 @@ function createBashLogger() {
         fs.writeFileSync(__dirname + '/backitupl.sh', text, {mode: 508}); // 508 => 0774
     }
     fs.chmodSync(__dirname + '/backitup.sh', 508);
+}
+
+function loadScripts() {
+    const scripts = {};
+    const files = fs.readdirSync('./lib/scripts');
+    files.forEach(file => {
+        scripts[file.substring(3)] = require('./lib/scripts/' + file);
+    });
+    return scripts;
+}
+
+function executeScripts(config, scripts, callback) {
+    if (!scripts) {
+        const utils = require('../utils');
+        const tools = require(utils.controllerDir + '/lib/tools.js');
+        let pathBackup = tools.getConfigFileName().replace(/\\/g, '/');
+        let parts = pathBackup.split('/');
+        parts.pop(); // iobroker.json
+        parts.pop(); // iobroker-data.json
+        parts.push('backups');
+        pathBackup = parts.join('/');
+        scripts = loadScripts();
+        scripts.backupDir = pathBackup;
+    }
+
+    for (const name in scripts) {
+        if (scripts.hasOwnProperty(name) && scripts[name]) {
+            let func;
+            let options;
+            switch (name) {
+                case 'mount':
+                case 'umount':
+                    if (config.cifs && config.cifs.mount) {
+                        func = scripts[name];
+                        options = config.cifs;
+                    }
+                    break;
+
+                case 'minimal':
+                    if (config.name === 'minimal') {
+                        func = scripts[name];
+                        options = config;
+                    }
+                    break;
+
+                case 'mysql':
+                    if (config.name === 'total' && config.mysql && config.mysql.enabled) {
+                        func = scripts[name];
+                        options = config.mysql;
+                    }
+                    break;
+
+                case 'redis':
+                    if (config.name === 'total' && config.redis && config.redis.enabled) {
+                        func = scripts[name];
+                        options = config.redis;
+                    }
+                    break;
+
+                case 'ccu':
+                    if (config.name === 'ccu' && config.enabled) {
+                        func = scripts[name];
+                        options = config;
+                    }
+                    break;
+
+                case 'total':
+                    if (config.name === 'total' && config.enabled) {
+                        func = scripts[name];
+                        options = config;
+                    }
+                    break;
+
+                case 'clean':
+                    if (config.deleteBackupAfter) {
+                        func = scripts[name];
+                        options = {deleteBackupAfter: config.deleteBackupAfter, name: config.name};
+                    }
+                    break;
+
+                case 'ftp':
+                    if (config.ftp && config.ftp.host) {
+                        func = scripts[name];
+                        options = Object.assign({}, config.ftp, {name: config.name});
+                    }
+                    break;
+            }
+            scripts[name] = null;
+
+            if (func) {
+                func(options, adapter.log, (err, output) => {
+                    if (err) {
+                        adapter.log.error(`[${name}] ${err}`);
+                        callback && callback(err);
+                    } else if (output) {
+                        adapter.log.debug(`[${name}] ${output}`);
+                        setImmediate(executeScripts, scripts, callback);
+                    }
+                });
+            } else {
+                setImmediate(executeScripts, scripts, callback);
+            }
+            return;
+        }
+    }
+    callback && callback();
 }
 
 function main() {
