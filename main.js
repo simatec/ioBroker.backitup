@@ -170,11 +170,22 @@ function createBackupSchedule() {
 // function to create the Backupfile
 function createBackup(type) {
     return new Promise((resolve, reject) => {
-        reject('Disabled');
-        return;
+        //reject('Disabled');
+        //return;
+		if (type === 'minimal') {
+                // minimal can be executed without schedule too and it requires almost no settings
+                backupConfig[type].enabled = true;
+            }
+            executeScripts(backupConfig[type], err => {
+                if (err) {
+                    adapter.log.error(`[${type}] ${err}`);
+                } else {
+                    adapter.log.debug(`[${type}] exec: done`);
+                }
+                adapter.setState('oneClick.' + type, false, true);
+            });
 
-
-
+/*
         let command =
             (type                                   || '') + '|' +  // 0
             (backupConfig[type].nameSuffix          || '') + '|' +  // 1
@@ -243,7 +254,7 @@ function createBackup(type) {
         } else {
             adapter.log.debug(`[${type}] bash ${bashScript} "${debug}"`);
         }
-
+*/
         // Send Telegram Message
         if (debugging) {
             if (adapter.config.telegramInstance !== '') {
@@ -282,7 +293,7 @@ function createBackup(type) {
         if (fs.existsSync(logFile)) {
             fs.unlinkSync(logFile);
         }
-
+/*
         const cmd = spawn('bash', [bashScript, command], {detached: true});
 
         cmd.stdout.on('data', data => {
@@ -328,6 +339,7 @@ function createBackup(type) {
         cmd.on('error', (error) => {
             reject(error);
         });
+        */
     });
 }
 
