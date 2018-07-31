@@ -238,14 +238,6 @@
 		"totalNameSuffix": "",
 		"totalStopIoB": false,
 
-        "mySqlEnabled": false,
-		"mySqlHost": "localhost",
-		"mySqlPort": "3307",
-		"mySqlName": "iobroker",
-		"mySqlUser": "",
-		"mySqlPassword": "",
-		"mySqlDeleteAfter": 5,
-
 		"ccuEnabled": false,
 		"ccuTime": "01:30",
 		"ccuEveryXDays": 3,
@@ -255,27 +247,45 @@
 		"ccuUser": "Admin",
 		"ccuPassword": "",
 
-		"cifsMount": "CIFS",
+        "mySqlEnabled": false,
+        "mySqlHost": "localhost",
+        "mySqlPort": "3307",
+        "mySqlName": "iobroker",
+        "mySqlUser": "",
+        "mySqlPassword": "",
+        "mySqlDeleteAfter": 5,
 
+
+        "cifsEnabled": false,
+        "cifsMount": "",
+        "cifsUser": "",
+        "cifsPassword": "",
+        "cifsOwnDir": false,
+        "cifsDir": "",
+        "cifsCcuDir": "",
+        "cifsTotalDir": "",
+        "cifsMinimalDir": "",
+
+        "ftpEnabled": false,
 		"ftpHost": "",
 		"ftpDir": "",
 		"ftpUser": "",
 		"ftpPassword": "",
+        "ftpOwnDir": false,
+        "ftpCcuDir": "",
+        "ftpTotalDir": "",
+        "ftpMinimalDir": "",
 
         "redisEnabled": false,
         "redisPath": "/var/lib/redis/dump.rdb",
 
+        "telegramEnabled": false,
+        "telegramInstance": "telegram.0",
+
         "logEnabled": true,
 		"debugLevel": false,
-		"historyEntriesNumber": 25,
+		"historyEntriesNumber": 25
 
-		"telegramEnabled": false,
-		"telegramInstance": "telegram.0",
-
-		"ownDir": false,
-		"ccuFtpDir": "",
-		"totalFtpDir": "",
-		"minimalFtpDir": ""
     },
     "instanceObjects": [
         {
