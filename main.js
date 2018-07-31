@@ -44,6 +44,10 @@ function getIobDir() {
     return '/opt/' + utils.appName;
 }
 
+// Check for Backup Dir
+const bkpDir = (iobDir + '/backups');
+if (!fs.existsSync(bkpDir))          fs.mkdirSync(bkpDir);
+
 function decrypt(key, value) {
     let result = '';
     for (let i = 0; i < value.length; i++) {
@@ -172,38 +176,38 @@ function createBackup(type) {
     return new Promise((resolve, reject) => {
         //reject('Disabled');
         //return;
-			if (type === 'minimal') {
-                backupConfig[type].enabled = true;
+        if (type === 'minimal') {
+            backupConfig[type].enabled = true;
+        }
+        executeScripts(backupConfig[type], err => {
+            if (err) {
+                adapter.log.error(`[${type}] ${err}`);
+            } else {
+                adapter.log.debug(`[${type}] exec: done`);
             }
-            executeScripts(backupConfig[type], err => {
-                if (err) {
-                    adapter.log.error(`[${type}] ${err}`);
-                } else {
-                    adapter.log.debug(`[${type}] exec: done`);
-                }
-            });
+        });
 
-			if (type === 'total') {
-                backupConfig[type].enabled = true;
+        if (type === 'total') {
+            backupConfig[type].enabled = true;
+        }
+        executeScripts(backupConfig[type], err => {
+            if (err) {
+                adapter.log.error(`[${type}] ${err}`);
+            } else {
+                adapter.log.debug(`[${type}] exec: done`);
             }
-            executeScripts(backupConfig[type], err => {
-                if (err) {
-                    adapter.log.error(`[${type}] ${err}`);
-                } else {
-                    adapter.log.debug(`[${type}] exec: done`);
-                }
-            });
+        });
 
-			if (type === 'ccu') {
-                backupConfig[type].enabled = true;
+        if (type === 'ccu') {
+            backupConfig[type].enabled = true;
+        }
+        executeScripts(backupConfig[type], err => {
+            if (err) {
+                adapter.log.error(`[${type}] ${err}`);
+            } else {
+                adapter.log.debug(`[${type}] exec: done`);
             }
-            executeScripts(backupConfig[type], err => {
-                if (err) {
-                    adapter.log.error(`[${type}] ${err}`);
-                } else {
-                    adapter.log.debug(`[${type}] exec: done`);
-                }
-            });
+        });
 
 /*
         let command =
