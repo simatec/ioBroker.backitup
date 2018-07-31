@@ -20,7 +20,7 @@
             font-size: 0.9em;
         }
         .m .tabs {
-            height: 48px;
+            height: 96px;
         }
         .m .page {
             height: calc(100% - 118px);
@@ -452,13 +452,13 @@
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s6 l2"><a href="#tab-settings" class="translate active">main settings</a></li>
-                <li class="tab col s6 l2 tab-minimal-backup"><a href="#tab-minimal-backup" class="translate">Standard backup</a></li>
-                <li class="tab col s6 l2 tab-total-backup"><a href="#tab-total-backup" class="translate">Total backup</a></li>
-                <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
-                <li class="tab col s6 l2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
-                <li class="tab col s6 l2 tab-cifs"><a href="#tab-cifs" class="translate">NAS settings</a></li>
-                <li class="tab col s6 l2 tab-ftp"><a href="#tab-ftp" class="translate">FTP settings</a></li>
+                <li class="tab col s6 l3"><a href="#tab-settings" class="translate active">main settings</a></li>
+                <li class="tab col s6 l3 tab-minimal-backup"><a href="#tab-minimal-backup" class="translate">Standard backup</a></li>
+                <li class="tab col s6 l3 tab-total-backup"><a href="#tab-total-backup" class="translate">Total backup</a></li>
+                <li class="tab col s6 l3 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
+                <li class="tab col s6 l3 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
+                <li class="tab col s6 l3 tab-cifs"><a href="#tab-cifs" class="translate">NAS settings</a></li>
+                <li class="tab col s6 l3 tab-ftp"><a href="#tab-ftp" class="translate">FTP settings</a></li>
             </ul>
         </div>
         <div class="row">
@@ -574,6 +574,8 @@
                         <input class="value" id="redisEnabled" type="checkbox"/>
                         <label for="redisEnabled" class="translate">Save Redis state</label>
                     </div>
+				</div>
+				<div class="row redis-path">
                     <div class="input-field col s12 m6 l4 redis-path">
                         <input class="value" id="redisPath" type="text"/>
                         <label for="redisPath" class="translate">Redis file path</label>
@@ -607,7 +609,6 @@
                         <label for="mySqlPort" class="translate">port</label>
                         <span class="translate">MySQL port</span>
                     </div>
-
                 </div>
                 <div class="row mysql">
                     <div class="input-field col s12 m6 l4">
