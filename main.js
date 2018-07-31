@@ -19,7 +19,6 @@ let historyEntriesNumber;                               // Anzahl der Einträge 
 const backupConfig = {};
 const backupTimeSchedules = [];                         // Array für die Backup Zeiten
 let historyArray = [];                                  // Array für das anlegen der Backup-Historie
-const mySqlConfig = {};
 const iobDir = getIobDir();
 
 /**
@@ -46,8 +45,8 @@ function getIobDir() {
 }
 
 function decrypt(key, value) {
-    var result = '';
-    for(var i = 0; i < value.length; i++) {
+    let result = '';
+    for (let i = 0; i < value.length; i++) {
         result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
     }
     return result;
@@ -65,14 +64,23 @@ function _(word) {
 // Is executed when a State has changed
 adapter.on('stateChange', (id, state) => {
     if ((state.val === true || state.val === 'true') && !state.ack) {
-        if (id === adapter.namespace + '.oneClick.minimal') {
-            startBackup('minimal');
-        }
-        if (id === adapter.namespace + '.oneClick.total') {
-            startBackup('total');
-        }
-        if (id === adapter.namespace + '.oneClick.ccu') {
-            startBackup('ccu');
+
+        if (id === adapter.namespace + '.oneClick.minimal' ||
+            id === adapter.namespace + '.oneClick.total' ||
+            id === adapter.namespace + '.oneClick.ccu') {
+            const type = id.split('.').pop();
+            if (type === 'minimal') {
+                // minimal can be executed without schedule too and it requires almost no settings
+                backupConfig[type].enabled = true;
+            }
+            executeScripts(backupConfig[type], err => {
+                if (err) {
+                    adapter.log.error(`[${type}] ${err}`);
+                } else {
+                    adapter.log.debug(`[${type}] exec: done`);
+                }
+                adapter.setState('oneClick.' + type, false, true);
+            });
         }
     }
 });
@@ -162,6 +170,11 @@ function createBackupSchedule() {
 // function to create the Backupfile         
 function createBackup(type) {
     return new Promise((resolve, reject) => {
+        reject('Disabled');
+        return;
+
+
+
         let command =
             (type                                   || '') + '|' +  // 0
             (backupConfig[type].nameSuffix          || '') + '|' +  // 1
@@ -371,9 +384,7 @@ function createBackupHistory(type) {
     });
 }
 
-
 // watching the three One-Click-Backup data points, if activated - start backup
-
 function startBackup(type) {
     adapter.log.info(`[${type}] oneClick backup started`);
 
@@ -392,15 +403,31 @@ function initVariables(secret) {
     debugging = adapter.config.debugLevel;										         // Detailiertere Loggings
     historyEntriesNumber = adapter.config.historyEntriesNumber;                          // Anzahl der Einträge in der History
 
-    mySqlConfig.enabled = adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled;
-    if (mySqlConfig.enabled) {
-        mySqlConfig.dbName = adapter.config.mySqlName;              // database name
-        mySqlConfig.user = adapter.config.mySqlUser;                // database user
-        mySqlConfig.pass = adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '';            // database password
-        mySqlConfig.deleteBackupAfter = adapter.config.mySqlDeleteAfter; // delete old backupfiles after x days
-        mySqlConfig.host = adapter.config.mySqlHost;                // database host
-        mySqlConfig.port = adapter.config.mySqlPort;                // database port
-    }
+    const mySql = {
+        enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
+        dbName: adapter.config.mySqlName,              // database name
+        user: adapter.config.mySqlUser,                // database user
+        pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
+        deleteBackupAfter: adapter.config.mySqlDeleteAfter, // delete old backupfiles after x days
+        host: adapter.config.mySqlHost,                // database host
+        port: adapter.config.mySqlPort,                // database port
+    };
+
+    const ftp = {
+        enabled: adapter.config.ftpEnabled,
+        host: adapter.config.ftpHost,                       // ftp-host
+        dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir, // directory on FTP server
+        user: adapter.config.ftpUser,                       // username for FTP Server
+        pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : ''  // password for FTP Server
+    };
+
+    const cifs = {
+        enabled: adapter.config.cifsEnabled,
+        mount: adapter.config.cifsMount,
+        dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                       // specify if CIFS mount should be used
+        user: adapter.config.cifsUser,                     // specify if CIFS mount should be used
+        pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for FTP Server
+    };
 
     // konfigurations for standart-IoBroker backup
     backupConfig.minimal = {
@@ -410,15 +437,8 @@ function initVariables(secret) {
         everyXDays: adapter.config.minimalEveryXDays,
         nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
         deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backupfiles after x days
-        ftp: {
-            host: adapter.config.ftpHost,                       // ftp-host
-            dir: (adapter.config.ownDir === true) ? adapter.config.minimalFtpDir : adapter.config.ftpDir, // directory on FTP server
-            user: adapter.config.ftpUser,                       // username for FTP Server 
-            pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '' // password for FTP Server
-        },
-        cifs: {
-            mount: adapter.config.cifsMount                     // specify if CIFS mount should be used
-        }
+        ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir} : {}),
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir}  : {})
     };
 
     if (adapter.config.redisEnabled === undefined) {
@@ -436,16 +456,9 @@ function initVariables(secret) {
         host: adapter.config.ccuHost,                           // IP-address CCU
         user: adapter.config.ccuUser,                           // username CCU
         pass: adapter.config.ccuPassword ? decrypt(secret, adapter.config.ccuPassword) : '',                       // password der CCU
-        ftp: {
-            host: adapter.config.ftpHost,                       // ftp-host
-            dir: (adapter.config.ownDir === true) ? adapter.config.ccuFtpDir : adapter.config.ftpDir, // directory on FTP server
-            user: adapter.config.ftpUser,                       // username for FTP Server
-            pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : ''  // password for FTP Server
-        },
-        cifs: {
-            mount: adapter.config.cifsMount                     // specify if CIFS mount should be used
-        }
-    };
+        ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsCcuDir} : {}),
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpCcuDir}  : {})
+     };
 
     // Configurations for total-IoBroker backup
     backupConfig.total = {
@@ -460,16 +473,9 @@ function initVariables(secret) {
             path: adapter.config.redisPath || '/var/lib/redis/dump.rdb', // specify Redis path
         },
         stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
-        ftp: {
-            host: adapter.config.ftpHost,                       // ftp-host
-            dir: (adapter.config.ownDir === true) ? adapter.config.totalFtpDir : adapter.config.ftpDir, // directory on FTP server
-            user: adapter.config.ftpUser,                       // username for FTP Server
-            pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '' // password for FTP Server
-        },
-        cifs: {
-            mount: adapter.config.cifsMount                     // specify if CIFS mount should be used
-        },
-        mySql: mySqlConfig
+        ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpTotalDir}  : {}),
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsTotalDir} : {}),
+        mySql
     };
 }
 
@@ -515,14 +521,14 @@ function loadScripts() {
     const scripts = {};
     const files = fs.readdirSync('./lib/scripts');
     files.forEach(file => {
-        scripts[file.substring(3)] = require('./lib/scripts/' + file);
+        scripts[file.substring(3, file.length - 3)] = require('./lib/scripts/' + file);
     });
     return scripts;
 }
 
-function executeScripts(config, scripts, callback) {
+function executeScripts(config, callback, scripts, code) {
     if (!scripts) {
-        const utils = require('../utils');
+        const utils = require('./lib/utils');
         const tools = require(utils.controllerDir + '/lib/tools.js');
         let pathBackup = tools.getConfigFileName().replace(/\\/g, '/');
         let parts = pathBackup.split('/');
@@ -531,7 +537,7 @@ function executeScripts(config, scripts, callback) {
         parts.push('backups');
         pathBackup = parts.join('/');
         scripts = loadScripts();
-        scripts.backupDir = pathBackup;
+        config.backupDir = pathBackup;
     }
 
     for (const name in scripts) {
@@ -541,7 +547,7 @@ function executeScripts(config, scripts, callback) {
             switch (name) {
                 case 'mount':
                 case 'umount':
-                    if (config.cifs && config.cifs.mount) {
+                    if (config.cifs && config.cifs.enabled && config.cifs.mount) {
                         func = scripts[name];
                         options = config.cifs;
                     }
@@ -599,21 +605,63 @@ function executeScripts(config, scripts, callback) {
             scripts[name] = null;
 
             if (func) {
-                func(options, adapter.log, (err, output) => {
+                const _options = JSON.parse(JSON.stringify(options));
+                if (_options.pass) _options.pass = '****';
+                if (_options.ftp  && !_options.ftp.enabled) delete _options.ftp;
+                if (_options.cifs  && !_options.cifs.enabled) delete _options.cifs;
+                if (_options.mySql && !_options.mySql.enabled) delete _options.mySql;
+                if (!_options.nameSuffix && _options.nameSuffix !== undefined) delete _options.nameSuffix;
+                if (_options.enabled !== undefined) delete _options.enabled;
+
+                if (_options.ftp  && _options.ftp.pass) _options.ftp.pass = '****';
+                if (_options.cifs && _options.cifs.pass) _options.cifs.pass = '****';
+                if (_options.mySql && _options.mySql.pass) _options.mySql.pass = '****';
+
+                adapter.setState('output.line', `[DEBUG] start ${name} with ${JSON.stringify(_options)}`);
+
+                const log = {
+                    debug: function (text) {
+                        const lines = text.toString().split('\n');
+                        lines.forEach(line => {
+                            line = line.replace(/\r/g, ' ').trim();
+                            line && adapter.log.debug(`[${config.name}] ${line}`);
+                        });
+                        adapter.setState('output.line', '[DEBUG] ' + text);
+                    },
+                    error: function (err) {
+                        const lines = err.toString().split('\n');
+                        lines.forEach(line => {
+                            line = line.replace(/\r/g, ' ').trim();
+                            line && adapter.log.debug(`[${config.name}] ${line}`);
+                        });
+                        adapter.setState('output.line', '[ERROR] ' + err);
+                    }
+                };
+
+                func.command(options, log, (err, output, _code) => {
+                    if (_code !== undefined) {
+                        code = _code
+                    }
                     if (err) {
-                        adapter.log.error(`[${name}] ${err}`);
-                        callback && callback(err);
-                    } else if (output) {
-                        adapter.log.debug(`[${name}] ${output}`);
-                        setImmediate(executeScripts, scripts, callback);
+                        if (func.ignoreErrors) {
+                            log.error('[IGNORED] ' + err);
+                            setImmediate(executeScripts, config, callback, scripts, code);
+                        } else {
+                            log.error(err);
+                            callback && callback(err);
+                        }
+                    } else {
+                        log.debug(output || 'done');
+                        setImmediate(executeScripts, config, callback, scripts, code);
                     }
                 });
             } else {
-                setImmediate(executeScripts, scripts, callback);
+                setImmediate(executeScripts, config, callback, scripts, code);
             }
             return;
         }
     }
+    adapter.setState('output.line', '[EXIT] ' + (code || 0));
     callback && callback();
 }
 
