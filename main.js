@@ -433,7 +433,8 @@ function initVariables(secret) {
 
     const cifs = {
         enabled: adapter.config.cifsEnabled,
-        mount: adapter.config.cifsMount,
+        mount: ('//' + adapter.config.cifsMount),
+        backupDir: (iobDir + '/backups'),
         dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                       // specify if CIFS mount should be used
         user: adapter.config.cifsUser,                     // specify if CIFS mount should be used
         pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for FTP Server
