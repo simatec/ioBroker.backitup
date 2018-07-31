@@ -13,8 +13,13 @@
 
 ## Changelog
 
+### 0.2.7 (29.07.2018)
+* (simatec) Fix Delete old Files
+
 ### 0.2.6 (27.07.2018)
 * (bluefox) Configurable redis path was added
+* (simatec) Translations Script
+* (simatec) Fix FTP Upload
 
 ### 0.2.5 (26.07.2018)
 * (simatec) Check for dependencies

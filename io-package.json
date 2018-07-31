@@ -1,18 +1,29 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.2.6",
+        "version": "0.2.7",
         "news": {
+            "0.2.7": {
+                "en": "Fix Delete old Files",
+                "de": "Fix Lösche alte Dateien",
+                "ru": "Исправить удаление старых файлов",
+                "pt": "Corrigir Excluir Arquivos Antigos",
+                "nl": "Fix Oude bestanden verwijderen",
+                "fr": "Corriger Supprimer les anciens fichiers",
+                "it": "Correggi Elimina vecchi file",
+                "es": "Reparar Eliminar archivos viejos",
+                "pl": "Napraw Usuń stare pliki"
+            },
             "0.2.6": {
-                "en": "Configurable redis path was added",
-                "de": "Konfigurierbarer Redis-Pfad wurde hinzugefügt",
-                "ru": "Добавлен настраиваемый путь redis",
-                "pt": "Caminho de redis configurável foi adicionado",
-                "nl": "Configureerbaar redispad is toegevoegd",
-                "fr": "Redis configurable a été ajouté",
-                "it": "È stato aggiunto il percorso redis configurabile",
-                "es": "Se agregó una ruta redis configurable",
-                "pl": "Konfigurowalna ścieżka redis została dodana"
+                "en": "Configurable redis path was added, Translation Script, Fix FTP Upload",
+                "de": "Konfigurierbarer Redis-Pfad wurde hinzugefügt, Übersetzungs Script, Fix FTP-Upload",
+                "ru": "Добавлен настраиваемый путь redis, скрипт Translation, Fix FTP Upload",
+                "pt": "Caminho de redis configurável foi adicionado, Script de Tradução, Correção de Upload de FTP",
+                "nl": "Configureerbaar redispad is toegevoegd, Translation Script, FTP-upload repareren",
+                "fr": "Redis configurable a été ajouté, Script de traduction, Fix FTP Upload",
+                "it": "È stato aggiunto il percorso redis configurabile, Translation Script, Fix FTP Upload",
+                "es": "Se agregó una ruta redis configurable, Script de traducción, Fix FTP Upload",
+                "pl": "Dodano konfigurowalną ścieżkę redisu, skrypt tłumaczeń, Fix FTP Upload"
             },
             "0.2.5": {
                 "en": "Check for dependencies, Delete older files if number of files greater than X, Check for Backup Dir, Translations added",
