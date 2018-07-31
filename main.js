@@ -172,8 +172,7 @@ function createBackup(type) {
     return new Promise((resolve, reject) => {
         //reject('Disabled');
         //return;
-		if (type === 'minimal') {
-                // minimal can be executed without schedule too and it requires almost no settings
+			if (type === 'minimal') {
                 backupConfig[type].enabled = true;
             }
             executeScripts(backupConfig[type], err => {
@@ -182,7 +181,28 @@ function createBackup(type) {
                 } else {
                     adapter.log.debug(`[${type}] exec: done`);
                 }
-                adapter.setState('oneClick.' + type, false, true);
+            });
+
+			if (type === 'total') {
+                backupConfig[type].enabled = true;
+            }
+            executeScripts(backupConfig[type], err => {
+                if (err) {
+                    adapter.log.error(`[${type}] ${err}`);
+                } else {
+                    adapter.log.debug(`[${type}] exec: done`);
+                }
+            });
+
+			if (type === 'ccu') {
+                backupConfig[type].enabled = true;
+            }
+            executeScripts(backupConfig[type], err => {
+                if (err) {
+                    adapter.log.error(`[${type}] ${err}`);
+                } else {
+                    adapter.log.debug(`[${type}] exec: done`);
+                }
             });
 
 /*
