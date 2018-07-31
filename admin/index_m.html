@@ -218,7 +218,7 @@
                     });
                 } else {
                     var val = settings[id];
-                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword') {
+                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword') {
                         val = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
                     }
                     // do not call onChange direct, because onChange could expect some arguments
@@ -365,7 +365,7 @@
                     obj[id] = $this.prop('checked');
                 } else {
                     var val = $this.val();
-                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword') {
+                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword') {
                         val = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
                     }
 
@@ -376,12 +376,29 @@
         }
 
         function showHideSettings() {
-            if ($('#ownDir').prop('checked')) {
-                $('.nas_extra').show();
-                $('.nas_standard').hide();
+            if ($('#ftpEnabled').prop('checked')) {
+                $('.ftp').show();
+                if ($('#ftpOwnDir').prop('checked') ) {
+                    $('.ftp-extra').show();
+                    $('.ftp-standard').hide();
+                } else {
+                    $('.ftp-extra').hide();
+                    $('.ftp-standard').show();
+                }
             } else {
-                $('.nas_extra').hide();
-                $('.nas_standard').show();
+                $('.ftp').hide();
+            }
+            if ($('#cifsEnabled').prop('checked')) {
+                $('.cifs').show();
+                if ($('#cifsOwnDir').prop('checked') ) {
+                    $('.cifs-extra').show();
+                    $('.cifs-standard').hide();
+                } else {
+                    $('.cifs-extra').hide();
+                    $('.cifs-standard').show();
+                }
+            } else {
+                $('.cifs').hide();
             }
 
             if ($('#redisEnabled').prop('checked')) {
@@ -413,6 +430,7 @@
             } else {
                 $('.minimal').hide();
             }
+
             var total = $('#totalEnabled').prop('checked');
             if (total) {
                 $('.total').show();
@@ -420,7 +438,7 @@
                 $('.total').hide();
             }
 
-            if (minimal || total) {
+            if (total) {
                 $('.tab-my-sql').show();
             } else {
                 $('.tab-my-sql').hide();
@@ -436,10 +454,11 @@
             <ul class="tabs">
                 <li class="tab col s6 l2"><a href="#tab-settings" class="translate active">main settings</a></li>
                 <li class="tab col s6 l2 tab-minimal-backup"><a href="#tab-minimal-backup" class="translate">Standard backup</a></li>
-                <li class="tab col s6 l2 tab-komplett-backup"><a href="#tab-komplett-backup" class="translate">Complete backup</a></li>
+                <li class="tab col s6 l2 tab-total-backup"><a href="#tab-total-backup" class="translate">Total backup</a></li>
                 <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
                 <li class="tab col s6 l2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
-                <li class="tab col s6 l2 tab-nas"><a href="#tab-nas" class="translate">NAS settings</a></li>
+                <li class="tab col s6 l2 tab-cifs"><a href="#tab-cifs" class="translate">NAS settings</a></li>
+                <li class="tab col s6 l2 tab-ftp"><a href="#tab-ftp" class="translate">FTP settings</a></li>
             </ul>
         </div>
         <div class="row">
@@ -458,22 +477,6 @@
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="debugLevel" type="checkbox"/>
                         <label for="debugLevel" class="translate">Enable / disable debug</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12 m6 l4">
-                        <input class="value" id="totalStopIoB" type="checkbox"/>
-                        <label for="totalStopIoB" class="translate">Stop ioBroker at backup</label>
-                    </div>
-                    <div class="input-field col s12 m6 l4">
-                        <input class="value" id="redisEnabled" type="checkbox"/>
-                        <label for="redisEnabled" class="translate">Save Redis state</label>
-                    </div>
-                </div>
-                <div class="row redis-path">
-                    <div class="input-field col s12 m6 l4 redis-path">
-                        <input class="value" id="redisPath" type="text"/>
-                        <label for="redisPath" class="translate">Redis file path</label>
                     </div>
                 </div>
                 <div class="row">
@@ -500,7 +503,7 @@
                         <input class="value" id="minimalEnabled" type="checkbox"/>
                         <label for="minimalEnabled" class="translate">Standard backup</label>
                     </div>
-                    <div class="input-field col s6 l3 minimal">
+                    <div class="input-field col s6 l3">
                         <a class="waves-effect waves-light btn btn-minimal do-backup" data-type="minimal"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
                     </div>
                 </div>
@@ -528,13 +531,13 @@
                 </div>
             </div>
             <!-- Complete Backup -->
-            <div id="tab-komplett-backup" class="col s12 page">
+            <div id="tab-total-backup" class="col s12 page">
                 <div class="row">
                     <div class="input-field col s6 l3">
                         <input class="value" id="totalEnabled" type="checkbox"/>
-                        <label for="totalEnabled" class="translate">Complete backup</label>
+                        <label for="totalEnabled" class="translate">Total backup</label>
                     </div>
-                    <div class="input-field col s6 l3 total">
+                    <div class="input-field col s6 l3">
                         <a class="waves-effect waves-light btn btn-total do-backup" data-type="total"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
                     </div>
                 </div>
@@ -560,10 +563,26 @@
                         <span class="translate">Name suffix</span>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="totalStopIoB" type="checkbox"/>
+                        <label for="totalStopIoB" class="translate">Stop ioBroker at backup</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="redisEnabled" type="checkbox"/>
+                        <label for="redisEnabled" class="translate">Save Redis state</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4 redis-path">
+                        <input class="value" id="redisPath" type="text"/>
+                        <label for="redisPath" class="translate">Redis file path</label>
+                    </div>
+                </div>
             </div>
             <!-- Mysql Backup -->
             <div id="tab-my-sql" class="col s12 page">
-                <div class="row">
+                <div>
                     <div class="input-field col s6 l3">
                         <input class="value" id="mySqlEnabled" type="checkbox"/>
                         <label for="mySqlEnabled" class="translate">MySql Backup</label>
@@ -657,66 +676,109 @@
                     </div>
                 </div>
             </div>
-            <!-- NAS settings -->
-            <div id="tab-nas" class="col s12 page">
+            <!-- cifs settings -->
+            <div id="tab-cifs" class="col s12 page">
                 <div class="row">
                     <div class="input-field col s11 m2">
-                        <select class="value" id="cifsMount">
-                            <option value="FTP" class="translate">FTP</option>
-                            <option value="CIFS" class="translate">CIFS</option>
-                        </select>
-                        <label for="cifsMount" class="translate">connection type</label>
+                        <div class="input-field col s6 l3">
+                            <input class="value" id="cifsEnabled" type="checkbox"/>
+                            <span for="cifsEnabled" class="translate">Enabled</span>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                 </div>
+                <div class="row cifs">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="cifsMount" type="text">
+                        <label for="cifsMount" class="translate">Mount</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="cifsUser" type="text">
+                        <label for="cifsUser" class="translate">Username</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="cifsPassword" type="password">
+                        <label for="cifsPassword" class="translate">Password</label>
+                    </div>
+                </div>
+                <div class="row cifs">
+                    <div class="input-field col s12">
+                        <input class="value" id="cifsOwnDir" type="checkbox"/>
+                        <span for="cifsOwnDir" class="translate">Extra path for backup types</span>
+                    </div>
+                </div>
+                <div class="row cifs cifs-extra">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="cifsMinimalDir" type="text">
+                        <label for="cifsMinimalDir" class="translate">Path for standard backup</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="cifsTotalDir" type="text">
+                        <label for="cifsTotalDir" class="translate">Path for total backup</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="cifsCcuDir" type="text">
+                        <label for="cifsCcuDir" class="translate">Path for CCU backup</label>
+                    </div>
+                </div>
+                <div class="row cifs cifs-standard">
+                    <div class="input-field col s12">
+                        <input class="value" id="cifsDir" type="text">
+                        <label for="ftpDir" class="translate">path</label>
+                    </div>
+                </div>
+            </div>
+            <!-- ftp settings -->
+            <div id="tab-ftp" class="col s12 page">
                 <div class="row">
+                    <div class="input-field col s11 m2">
+                        <div class="input-field col s6 l3">
+                            <input class="value" id="ftpEnabled" type="checkbox"/>
+                            <span for="ftpEnabled" class="translate">Enabled</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                </div>
+                <div class="row ftp">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ftpHost" type="text">
                         <label for="ftpHost" class="translate">Host</label>
-                        <span class="translate">Host</span>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ftpUser" type="text">
                         <label for="ftpUser" class="translate">Username</label>
-                        <span class="translate">Username</span>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ftpPassword" type="password">
-                        <label for="ftpPassword" class="translate">password</label>
-                        <span class="translate">password</span>
+                        <label for="ftpPassword" class="translate">Password</label>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row ftp">
                     <div class="input-field col s12">
-                        <input class="value" id="ownDir" type="checkbox"/>
-                        <label for="ownDir" class="translate">Extra path for backup types</label>
+                        <input class="value" id="ftpOwnDir" type="checkbox"/>
+                        <label for="ftpOwnDir" class="translate">Extra path for backup types</label>
                     </div>
                 </div>
-
-                <div class="row nas_extra">
+                <div class="row ftp ftp-extra">
                     <div class="input-field col s12 m6 l4">
-                        <input class="value" id="minimalFtpDir" type="text">
-                        <label for="minimalFtpDir" class="translate">Path for standard backup</label>
-                        <span class="translate">Path for standard backup</span>
+                        <input class="value" id="ftpMinimalDir" type="text">
+                        <label for="ftpMinimalDir" class="translate">Path for standard backup</label>
                     </div>
                     <div class="input-field col s12 m6 l4">
-                        <input class="value" id="totalFtpDir" type="text">
-                        <label for="totalFtpDir" class="translate">Path for complete backup</label>
-                        <span class="translate">Path for complete backup</span>
+                        <input class="value" id="ftpTotalDir" type="text">
+                        <label for="ftpTotalDir" class="translate">Path for complete backup</label>
                     </div>
                     <div class="input-field col s12 m6 l4">
-                        <input class="value" id="ccuFtpDir" type="text">
-                        <label for="ccuFtpDir" class="translate">Path for CCU backup</label>
-                        <span class="translate">Path for CCU backup</span>
+                        <input class="value" id="ftpCcuDir" type="text">
+                        <label for="ftpCcuDir" class="translate">Path for CCU backup</label>
                     </div>
                 </div>
-
-                <div class="row nas_standard">
+                <div class="row ftp ftp-standard">
                     <div class="input-field col s12">
                         <input class="value" id="ftpDir" type="text">
                         <label for="ftpDir" class="translate">path</label>
-                        <span class="translate">path</span>
                     </div>
                 </div>
             </div>
@@ -738,7 +800,7 @@
             </div>
             <div class="row textarea">
                 <div class="col s12">
-                    <textarea id="stdout" disabled="disabled" cols="120" rows="30"></textarea>
+                    <textarea id="stdout" readonly cols="120" rows="30"></textarea>
                 </div>
             </div>
         </div>
