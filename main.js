@@ -129,7 +129,7 @@ function checkStates() {
     });
 }
 
-// function to create Backup schedules (Backup time)  
+// function to create Backup schedules (Backup time)
 function createBackupSchedule() {
     for (const type in backupConfig) {
         if (!backupConfig.hasOwnProperty(type)) continue;
@@ -167,7 +167,7 @@ function createBackupSchedule() {
     }
 }
 
-// function to create the Backupfile         
+// function to create the Backupfile
 function createBackup(type) {
     return new Promise((resolve, reject) => {
         reject('Disabled');
@@ -229,7 +229,7 @@ function createBackup(type) {
                 bashScript = `${__dirname}/backitup.sh`;     // Pfad zu backup.sh Datei
             }
         }
-        
+
         if (require('os').platform() === 'win32') {
             if (type === 'total' && backupConfig.total.stopIoB) {
                 bashScript = `${__dirname}/backitupl.sh`;    // Pfad zu backup.sh Datei
@@ -308,7 +308,7 @@ function createBackup(type) {
                     }
                 }
             });
-            
+
             if (text[0] === '*' || text[0] === '<' || text[0] === '>') {
                 adapter.setState('output.line', '[DEBUG] ' + text);
             } else {
@@ -529,7 +529,7 @@ function createBashLogger() {
 
 function loadScripts() {
     const scripts = {};
-    const files = fs.readdirSync('./lib/scripts');
+    const files = fs.readdirSync(__dirname + '/lib/scripts');
     files.forEach(file => {
         scripts[file.substring(3, file.length - 3)] = require('./lib/scripts/' + file);
     });
