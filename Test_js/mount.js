@@ -4,7 +4,9 @@ const child_process = require('child_process');
 child_process.exec('mount -t cifs -o user=xxx,password=xxx,rw,file_mode=0777,dir_mode=0777,vers=1.0 //192.168.123.xxx/HARDDISK/Backup/ioBroker/Test-pi/minimal /opt/iobroker/backups', function(error, stdout, stderr){
 	console.log(stdout);
 });
+
 // ##################################################################
+
 // ### child_process.spawn geht bisher nicht ###
 
 //const {spawn} = require('child_process');
