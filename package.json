@@ -36,7 +36,8 @@
     "url": "https://github.com/simatec/ioBroker.backitup"
   },
   "dependencies": {
-    "node-schedule": "^1.3.0"
+    "node-schedule": "^1.3.0",
+    "ftp": "^0.3.10"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
