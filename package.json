@@ -37,7 +37,8 @@
   },
   "dependencies": {
     "node-schedule": "^1.3.0",
-    "ftp": "^0.3.10"
+    "ftp": "^0.3.10",
+    "targz": "^1.0.1"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
