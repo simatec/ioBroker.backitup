@@ -644,7 +644,7 @@ function executeScripts(config, callback, scripts, code) {
                     break;
 
                 case 'ftp':
-                    if (config.ftp && config.ftp.host) {
+                    if (config.ftp && config.ftp.enabled  && config.ftp.host) {
                         func = scripts[name];
                         options = Object.assign({}, config.ftp, {name: config.name});
                     }
