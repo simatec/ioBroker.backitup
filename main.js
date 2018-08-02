@@ -512,6 +512,8 @@ function initVariables(secret) {
     backupConfig.total = {
         name: 'total',
         enabled: adapter.config.totalEnabled,
+        backupDir: (iobDir + '/backups'),
+        dir: iobDir,
         time: adapter.config.totalTime,
         everyXDays: adapter.config.totalEveryXDays,
         nameSuffix: adapter.config.totalNameSuffix,             // names addition, appended to the file name
