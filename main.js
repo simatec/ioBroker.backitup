@@ -442,6 +442,7 @@ function startBackup(type) {
         adapter.setState('oneClick.' + type, false, true);
     });
 }
+    
 
 function initVariables(secret) {
     // general variables
@@ -449,8 +450,18 @@ function initVariables(secret) {
     debugging = adapter.config.debugLevel;										         // Detailiertere Loggings
     historyEntriesNumber = adapter.config.historyEntriesNumber;                          // Anzahl der Einträge in der History
 
+    const d = new Date();
+    
+    const bkpDate = d.getFullYear() + '_' +
+        ('0' + (d.getMonth() + 1)).slice(-2) + '_' +
+        ('0' + d.getDate()).slice(-2) + '-' +
+        ('0' + d.getHours()).slice(-2) + '_' +
+        ('0' + d.getMinutes()).slice(-2) + '_' +
+        ('0' + d.getSeconds()).slice(-2); // Datum wird an dieser Stelle nicht aktualisiert
+    
     const mySql = {
         enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
+        backupName: ('MySql_' + bkpDate + '_backupiobroker.tar.gz'),
         dbName: adapter.config.mySqlName,              // database name
         user: adapter.config.mySqlUser,                // database user
         pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
@@ -463,6 +474,14 @@ function initVariables(secret) {
         enabled: adapter.config.ftpEnabled,
         host: adapter.config.ftpHost,                       // ftp-host
         backupDir: (iobDir + '/backups'),
+        backupNameMinimal: ('minimal_' + adapter.config.minimalNameSuffix + '_'+ bkpDate + '_backupiobroker.tar.gz'),
+        backupNameTotal: ('total_' + adapter.config.totalNameSuffix + '_'+ bkpDate + '_backupiobroker.tar.gz'),
+        redisState: adapter.config.redisEnabled,
+        mysqlState: adapter.config.mySqlEnabled,
+        mysqlName: ('MySql_' + bkpDate + '_backupiobroker.tar.gz'),
+        redisName:  ('Redis_'+ bkpDate + '_backupiobroker.tar.gz'),
+        //backupTyp: , // muss noch definiert werden
+        ccuName: ('Homematic_' + bkpDate + '_backupiobroker.tar.sbk'),
         dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir, // directory on FTP server
         user: adapter.config.ftpUser,                       // username for FTP Server
         pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : ''  // password for FTP Server
@@ -480,6 +499,7 @@ function initVariables(secret) {
     // konfigurations for standart-IoBroker backup
     backupConfig.minimal = {
         name: 'minimal',
+        backupName: ('minimal_' + adapter.config.minimalNameSuffix + '_'+ bkpDate + '_backupiobroker.tar.gz'),
         enabled: adapter.config.minimalEnabled,
         time: adapter.config.minimalTime,
         everyXDays: adapter.config.minimalEveryXDays,
@@ -496,6 +516,7 @@ function initVariables(secret) {
     // konfigurations for CCU / pivCCU / Raspberrymatic backup
     backupConfig.ccu = {
         name: 'ccu',
+        backupName: ('Homematic_' + bkpDate + '_backupiobroker.tar.sbk'),
         enabled: adapter.config.ccuEnabled,
         time: adapter.config.ccuTime,
         everyXDays: adapter.config.ccuEveryXDays,
@@ -511,6 +532,7 @@ function initVariables(secret) {
     // Configurations for total-IoBroker backup
     backupConfig.total = {
         name: 'total',
+        backupName: ('total_' + adapter.config.totalNameSuffix + '_'+ bkpDate + '_backupiobroker.tar.gz'),
         enabled: adapter.config.totalEnabled,
         backupDir: (iobDir + '/backups'),
         dir: iobDir,
