@@ -21,6 +21,15 @@ const backupTimeSchedules = [];                         // Array für die Backup
 let historyArray = [];                                  // Array für das anlegen der Backup-Historie
 const iobDir = getIobDir();
 
+let d = new Date();
+
+let bkpDate = d.getFullYear() + '_' +
+    ('0' + (d.getMonth() + 1)).slice(-2) + '_' +
+    ('0' + d.getDate()).slice(-2) + '-' +
+    ('0' + d.getHours()).slice(-2) + '_' +
+    ('0' + d.getMinutes()).slice(-2) + '_' +
+    ('0' + d.getSeconds()).slice(-2); // Datum wird an dieser Stelle nicht aktualisiert
+
 /**
  * looks for iobroker home folder
  *
@@ -74,6 +83,14 @@ adapter.on('stateChange', (id, state) => {
             id === adapter.namespace + '.oneClick.ccu') {
             const type = id.split('.').pop();
             if (type === 'minimal') {
+                // minimal can be executed without schedule too and it requires almost no settings
+                backupConfig[type].enabled = true;
+            }
+            if (type === 'total') {
+                // minimal can be executed without schedule too and it requires almost no settings
+                backupConfig[type].enabled = true;
+            }
+            if (type === 'ccu') {
                 // minimal can be executed without schedule too and it requires almost no settings
                 backupConfig[type].enabled = true;
             }
@@ -443,23 +460,13 @@ function startBackup(type) {
     });
 }
 
-
 function initVariables(secret) {
     // general variables
     logging = adapter.config.logEnabled;                                                 // Logging on/off
     debugging = adapter.config.debugLevel;										         // Detailiertere Loggings
     historyEntriesNumber = adapter.config.historyEntriesNumber;                          // Anzahl der Einträge in der History
 
-    let d = new Date();
-
-	let bkpDate = d.getFullYear() + '_' +
-		('0' + (d.getMonth() + 1)).slice(-2) + '_' +
-		('0' + d.getDate()).slice(-2) + '-' +
-		('0' + d.getHours()).slice(-2) + '_' +
-		('0' + d.getMinutes()).slice(-2) + '_' +
-		('0' + d.getSeconds()).slice(-2); // Datum wird an dieser Stelle nicht aktualisiert
-
-
+    
     const mySql = {
         enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
         backupName: ('MySql_' + bkpDate + '_backupiobroker.tar.gz'),
