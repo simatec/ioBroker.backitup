@@ -442,7 +442,7 @@ function startBackup(type) {
         adapter.setState('oneClick.' + type, false, true);
     });
 }
-    
+
 
 function initVariables(secret) {
     // general variables
@@ -450,15 +450,16 @@ function initVariables(secret) {
     debugging = adapter.config.debugLevel;										         // Detailiertere Loggings
     historyEntriesNumber = adapter.config.historyEntriesNumber;                          // Anzahl der Einträge in der History
 
-    const d = new Date();
-    
-    const bkpDate = d.getFullYear() + '_' +
-        ('0' + (d.getMonth() + 1)).slice(-2) + '_' +
-        ('0' + d.getDate()).slice(-2) + '-' +
-        ('0' + d.getHours()).slice(-2) + '_' +
-        ('0' + d.getMinutes()).slice(-2) + '_' +
-        ('0' + d.getSeconds()).slice(-2); // Datum wird an dieser Stelle nicht aktualisiert
-    
+    let d = new Date();
+
+	let bkpDate = d.getFullYear() + '_' +
+		('0' + (d.getMonth() + 1)).slice(-2) + '_' +
+		('0' + d.getDate()).slice(-2) + '-' +
+		('0' + d.getHours()).slice(-2) + '_' +
+		('0' + d.getMinutes()).slice(-2) + '_' +
+		('0' + d.getSeconds()).slice(-2); // Datum wird an dieser Stelle nicht aktualisiert
+
+
     const mySql = {
         enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
         backupName: ('MySql_' + bkpDate + '_backupiobroker.tar.gz'),
@@ -476,12 +477,11 @@ function initVariables(secret) {
         backupDir: (iobDir + '/backups'),
         backupNameMinimal: ('minimal_' + adapter.config.minimalNameSuffix + '_'+ bkpDate + '_backupiobroker.tar.gz'),
         backupNameTotal: ('total_' + adapter.config.totalNameSuffix + '_'+ bkpDate + '_backupiobroker.tar.gz'),
+		mysqlName: ('MySql_' + bkpDate + '_backupiobroker.tar.gz'),
+		redisName:  ('Redis_'+ bkpDate + '_backupiobroker.tar.gz'),
+        ccuName: ('Homematic_' + bkpDate + '_backupiobroker.tar.sbk'),
         redisState: adapter.config.redisEnabled,
         mysqlState: adapter.config.mySqlEnabled,
-        mysqlName: ('MySql_' + bkpDate + '_backupiobroker.tar.gz'),
-        redisName:  ('Redis_'+ bkpDate + '_backupiobroker.tar.gz'),
-        //backupTyp: , // muss noch definiert werden
-        ccuName: ('Homematic_' + bkpDate + '_backupiobroker.tar.sbk'),
         dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir, // directory on FTP server
         user: adapter.config.ftpUser,                       // username for FTP Server
         pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : ''  // password for FTP Server
