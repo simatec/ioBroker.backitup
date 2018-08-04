@@ -83,15 +83,12 @@ adapter.on('stateChange', (id, state) => {
             id === adapter.namespace + '.oneClick.ccu') {
             const type = id.split('.').pop();
             if (type === 'minimal') {
-                // minimal can be executed without schedule too and it requires almost no settings
                 backupConfig[type].enabled = true;
             }
             if (type === 'total') {
-                // minimal can be executed without schedule too and it requires almost no settings
                 backupConfig[type].enabled = true;
             }
             if (type === 'ccu') {
-                // minimal can be executed without schedule too and it requires almost no settings
                 backupConfig[type].enabled = true;
             }
             executeScripts(backupConfig[type], err => {
@@ -101,7 +98,7 @@ adapter.on('stateChange', (id, state) => {
                     adapter.log.debug(`[${type}] exec: done`);
                 }
                 adapter.setState('oneClick.' + type, false, true);
-            });
+            });            
         }
     }
 });
@@ -191,33 +188,18 @@ function createBackupSchedule() {
 // function to create the Backupfile
 function createBackup(type) {
     return new Promise((resolve, reject) => {
-        //reject('Disabled');
-        //return;
         if (type === 'minimal') {
             backupConfig[type].enabled = true;
         }
-        executeScripts(backupConfig[type], err => {
-            if (err) {
-                adapter.log.error(`[${type}] ${err}`);
-            } else {
-                adapter.log.debug(`[${type}] exec: done`);
-            }
-        });
 
         if (type === 'total') {
             backupConfig[type].enabled = true;
         }
-        executeScripts(backupConfig[type], err => {
-            if (err) {
-                adapter.log.error(`[${type}] ${err}`);
-            } else {
-                adapter.log.debug(`[${type}] exec: done`);
-            }
-        });
 
         if (type === 'ccu') {
             backupConfig[type].enabled = true;
         }
+        
         executeScripts(backupConfig[type], err => {
             if (err) {
                 adapter.log.error(`[${type}] ${err}`);
@@ -549,6 +531,8 @@ function initVariables(secret) {
         deleteBackupAfter: adapter.config.totalDeleteAfter,     // delete old backupfiles after x days
         redis: {
             enabled: adapter.config.redisEnabled,
+            backupDir: (iobDir + '/backups'),
+            backupNameRedis: ('Redis_'+ bkpDate + '_backupiobroker.tar.gz'),
             path: adapter.config.redisPath || '/var/lib/redis/dump.rdb', // specify Redis path
         },
         stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
