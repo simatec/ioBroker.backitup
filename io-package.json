@@ -280,6 +280,7 @@
 
         "ftpEnabled": false,
 		"ftpHost": "",
+		"ftpPort": 21,
 		"ftpDir": "",
 		"ftpUser": "",
 		"ftpPassword": "",
