@@ -439,41 +439,27 @@ function initVariables(secret) {
     debugging = adapter.config.debugLevel;										         // Detailiertere Loggings
     historyEntriesNumber = adapter.config.historyEntriesNumber;                          // Anzahl der Einträge in der History
     
-    let d = new Date();
-
-    let bkpDate = d.getFullYear() + '_' +
-        ('0' + (d.getMonth() + 1)).slice(-2) + '_' +
-        ('0' + d.getDate()).slice(-2) + '-' +
-        ('0' + d.getHours()).slice(-2) + '_' +
-        ('0' + d.getMinutes()).slice(-2) + '_' +
-        ('0' + d.getSeconds()).slice(-2);
-
-    
     const mySql = {
         enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
-        backupName: ('MySql_' + bkpDate + '_backupiobroker.tar.gz'),
         dbName: adapter.config.mySqlName,              // database name
         user: adapter.config.mySqlUser,                // database user
         pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
         deleteBackupAfter: adapter.config.mySqlDeleteAfter, // delete old backupfiles after x days
         host: adapter.config.mySqlHost,                // database host
         port: adapter.config.mySqlPort,                // database port
+        exe: adapter.config.mySqlDumpExe               // path to mysqldump
     };
 
     const ftp = {
         enabled: adapter.config.ftpEnabled,
         host: adapter.config.ftpHost,                       // ftp-host
         backupDir: (iobDir + '/backups'),
-        backupNameMinimal: ('minimal_' + adapter.config.minimalNameSuffix + '_'+ bkpDate + '_backupiobroker.tar.gz'),
-        backupNameTotal: ('total_' + adapter.config.totalNameSuffix + '_'+ bkpDate + '_backupiobroker.tar.gz'),
-		mysqlName: ('MySql_' + bkpDate + '_backupiobroker.tar.gz'),
-		redisName:  ('Redis_'+ bkpDate + '_backupiobroker.tar.gz'),
-        ccuName: ('Homematic_' + bkpDate + '_backupiobroker.tar.sbk'),
         redisState: adapter.config.redisEnabled,
         mysqlState: adapter.config.mySqlEnabled,
         dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir, // directory on FTP server
         user: adapter.config.ftpUser,                       // username for FTP Server
-        pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : ''  // password for FTP Server
+        pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '',  // password for FTP Server
+        port: adapter.config.ftpPort || 21                  // FTP port
     };
 
     const cifs = {
@@ -488,7 +474,6 @@ function initVariables(secret) {
     // konfigurations for standart-IoBroker backup
     backupConfig.minimal = {
         name: 'minimal',
-        backupName: ('minimal_' + adapter.config.minimalNameSuffix + '_'+ bkpDate + '_backupiobroker.tar.gz'),
         enabled: adapter.config.minimalEnabled,
         time: adapter.config.minimalTime,
         everyXDays: adapter.config.minimalEveryXDays,
@@ -505,7 +490,6 @@ function initVariables(secret) {
     // konfigurations for CCU / pivCCU / Raspberrymatic backup
     backupConfig.ccu = {
         name: 'ccu',
-        backupName: ('Homematic_' + bkpDate + '_backupiobroker.tar.sbk'),
         enabled: adapter.config.ccuEnabled,
         time: adapter.config.ccuTime,
         everyXDays: adapter.config.ccuEveryXDays,
@@ -521,7 +505,6 @@ function initVariables(secret) {
     // Configurations for total-IoBroker backup
     backupConfig.total = {
         name: 'total',
-        backupName: ('total_' + adapter.config.totalNameSuffix + '_'+ bkpDate + '_backupiobroker.tar.gz'),
         enabled: adapter.config.totalEnabled,
         backupDir: (iobDir + '/backups'),
         dir: iobDir,
@@ -532,7 +515,6 @@ function initVariables(secret) {
         redis: {
             enabled: adapter.config.redisEnabled,
             backupDir: (iobDir + '/backups'),
-            backupNameRedis: ('Redis_'+ bkpDate + '_backupiobroker.tar.gz'),
             path: adapter.config.redisPath || '/var/lib/redis/dump.rdb', // specify Redis path
         },
         stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
@@ -601,6 +583,7 @@ function executeScripts(config, callback, scripts, code) {
         pathBackup = parts.join('/');
         scripts = loadScripts();
         config.backupDir = pathBackup;
+        config.context = {}; // common variables between scripts
     }
     
     adapter.getForeignObject('system.config', (err, obj) => {
@@ -664,7 +647,7 @@ function executeScripts(config, callback, scripts, code) {
                     break;
 
                 case 'ftp':
-                    if (config.ftp && config.ftp.enabled  && config.ftp.host) {
+                    if (config.ftp && config.ftp.enabled && config.ftp.host) {
                         func = scripts[name];
                         options = Object.assign({}, config.ftp, {name: config.name});
                     }
@@ -686,6 +669,8 @@ function executeScripts(config, callback, scripts, code) {
                 if (_options.mySql && _options.mySql.pass) _options.mySql.pass = '****';
 
                 adapter.setState('output.line', `[DEBUG] start ${name} with ${JSON.stringify(_options)}`);
+
+                _options.context = config.context;
 
                 const log = {
                     debug: function (text) {
@@ -729,6 +714,11 @@ function executeScripts(config, callback, scripts, code) {
             return;
         }
     }
+
+    // todo
+    // delete all local files if required from config.context.fileNames
+    // or delete all files from past backups
+
     adapter.setState('output.line', '[EXIT] ' + (code || 0));
     callback && callback();
 }

@@ -7,3 +7,4 @@ admin/i18n/*/flat.txt
 backitup.sh.lastrun
 backitupl.sh
 package-lock.json
+/package-lock.json
