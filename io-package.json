@@ -265,6 +265,7 @@
         "mySqlUser": "",
         "mySqlPassword": "",
         "mySqlDeleteAfter": 5,
+        "mySqlDumpExe": "",
 
 
         "cifsEnabled": false,
