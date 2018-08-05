@@ -447,6 +447,7 @@ function initVariables(secret) {
         deleteBackupAfter: adapter.config.mySqlDeleteAfter, // delete old backupfiles after x days
         host: adapter.config.mySqlHost,                // database host
         port: adapter.config.mySqlPort,                // database port
+        exe: adapter.config.mySqlDumpExe               // path to mysqldump
     };
 
     const ftp = {
@@ -713,6 +714,11 @@ function executeScripts(config, callback, scripts, code) {
             return;
         }
     }
+
+    // todo
+    // delete all local files if required from config.context.fileNames
+    // or delete all files from past backups
+
     adapter.setState('output.line', '[EXIT] ' + (code || 0));
     callback && callback();
 }
