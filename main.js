@@ -21,15 +21,6 @@ const backupTimeSchedules = [];                         // Array für die Backup
 let historyArray = [];                                  // Array für das anlegen der Backup-Historie
 const iobDir = getIobDir();
 
-let d = new Date();
-
-let bkpDate = d.getFullYear() + '_' +
-    ('0' + (d.getMonth() + 1)).slice(-2) + '_' +
-    ('0' + d.getDate()).slice(-2) + '-' +
-    ('0' + d.getHours()).slice(-2) + '_' +
-    ('0' + d.getMinutes()).slice(-2) + '_' +
-    ('0' + d.getSeconds()).slice(-2); // Datum wird an dieser Stelle nicht aktualisiert
-
 /**
  * looks for iobroker home folder
  *
@@ -447,6 +438,15 @@ function initVariables(secret) {
     logging = adapter.config.logEnabled;                                                 // Logging on/off
     debugging = adapter.config.debugLevel;										         // Detailiertere Loggings
     historyEntriesNumber = adapter.config.historyEntriesNumber;                          // Anzahl der Einträge in der History
+    
+    let d = new Date();
+
+    let bkpDate = d.getFullYear() + '_' +
+        ('0' + (d.getMonth() + 1)).slice(-2) + '_' +
+        ('0' + d.getDate()).slice(-2) + '-' +
+        ('0' + d.getHours()).slice(-2) + '_' +
+        ('0' + d.getMinutes()).slice(-2) + '_' +
+        ('0' + d.getSeconds()).slice(-2);
 
     
     const mySql = {
@@ -602,7 +602,12 @@ function executeScripts(config, callback, scripts, code) {
         scripts = loadScripts();
         config.backupDir = pathBackup;
     }
-
+    
+    adapter.getForeignObject('system.config', (err, obj) => {
+        systemLang = obj.common.language;
+        initVariables((obj && obj.native && obj.native.secret) || 'Zgfr56gFe87jJOM');
+    });
+    
     for (const name in scripts) {
         if (scripts.hasOwnProperty(name) && scripts[name]) {
             let func;
