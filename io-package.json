@@ -265,6 +265,7 @@
         "mySqlUser": "",
         "mySqlPassword": "",
         "mySqlDeleteAfter": 5,
+        "mySqlDumpExe": "",
 
 
         "cifsEnabled": false,
@@ -279,6 +280,7 @@
 
         "ftpEnabled": false,
 		"ftpHost": "",
+		"ftpPort": 21,
 		"ftpDir": "",
 		"ftpUser": "",
 		"ftpPassword": "",
