@@ -18,7 +18,6 @@ let historyEntriesNumber;                               // Anzahl der Einträge 
 const backupConfig = {};
 const backupTimeSchedules = [];                         // Array für die Backup Zeiten
 let historyArray = [];                                  // Array für das anlegen der Backup-Historie
-const iobDir = getIobDir();
 
 /**
  * looks for iobroker home folder
@@ -26,26 +25,14 @@ const iobDir = getIobDir();
  * @returns {string}
  */
 function getIobDir() {
-    /** @type {string} */
-    let sPath = __dirname.replace(/\\/g, '/');
-    const parts = sPath.split('/');
-    parts.pop(); // ioBroker.backitup
-    sPath = parts.join('/');
-    if (fs.existsSync(path.join(sPath, 'node_modules'))) {
-        return sPath;
-    }
-    parts.pop(); // node_modules
-    sPath = parts.join('/');
-    if (fs.existsSync(path.join(sPath, 'node_modules'))) {
-        return sPath;
-    }
-
-    return '/opt/' + utils.appName;
+    const utils = require('./lib/utils');
+    const tools = require(utils.controllerDir + '/lib/tools.js');
+    let backupDir = tools.getConfigFileName().replace(/\\/g, '/');
+    let parts = backupDir.split('/');
+    parts.pop(); // iobroker.json
+    parts.pop(); // iobroker-data.json
+    return parts.join('/');
 }
-
-// Check for Backup Dir
-const bkpDir = (iobDir + '/backups');
-if (!fs.existsSync(bkpDir))          fs.mkdirSync(bkpDir);
 
 function decrypt(key, value) {
     let result = '';
@@ -155,11 +142,16 @@ function createBackupSchedule() {
             }
             const cron = '10 ' + time[1] + ' ' + time[0] + ' */' + config.everyXDays + ' * * ';
             backupTimeSchedules[type] = schedule.scheduleJob(cron, () => {
-                createBackup(type).then(text => {
-                    adapter.log.debug(`[${type}] exec: ${text || 'done'}`);
-                }).catch(err => {
-                    adapter.log.error(`[${type}] ${err}`);
-                })
+                adapter.setState('oneClick.' + type, true, true);
+
+                executeScripts(backupConfig[type], err => {
+                    if (err) {
+                        adapter.log.error(`[${type}] ${err}`);
+                    } else {
+                        adapter.log.debug(`[${type}] exec: done`);
+                    }
+                    adapter.setState('oneClick.' + type, false, true);
+                });
             });
 
             if (debugging) {
@@ -173,187 +165,6 @@ function createBackupSchedule() {
             backupTimeSchedules[type] = null;
         }
     }
-}
-
-// function to create the Backupfile
-function createBackup(type) {
-    return new Promise((resolve, reject) => {
-        if (type === 'minimal') {
-            backupConfig[type].enabled = true;
-        }
-
-        if (type === 'total') {
-            backupConfig[type].enabled = true;
-        }
-
-        if (type === 'ccu') {
-            backupConfig[type].enabled = true;
-        }
-
-        executeScripts(backupConfig[type], err => {
-            if (err) {
-                adapter.log.error(`[${type}] ${err}`);
-            } else {
-                adapter.log.debug(`[${type}] exec: done`);
-            }
-        });
-
-/*
-        let command =
-            (type                                   || '') + '|' +  // 0
-            (backupConfig[type].nameSuffix          || '') + '|' +  // 1
-            (backupConfig[type].deleteBackupAfter   || '') + '|' +  // 2
-            (backupConfig[type].ftp.host            || '') + '|' +  // 3
-            (backupConfig[type].ftp.dir             || '') + '|' +  // 4
-            (backupConfig[type].ftp.user            || '') + '|' +  // 5
-            (backupConfig[type].ftp.pass            || '') + '|' +  // 6
-            (backupConfig[type].host                || '') + '|' +  // 7
-            (backupConfig[type].user                || '') + '|' +  // 8
-            (backupConfig[type].pass                || '') + '|' +  // 9
-            (backupConfig[type].cifs.mount          || '') + '|' +  // 10
-            (backupConfig[type].stopIoB             || 'false') + '|' +  // 11
-            ((backupConfig[type].redis && backupConfig[type].redis.enabled)        || 'false') + '|' +  // 12
-            ((backupConfig[type].redis && backupConfig[type].redis.enabled && backupConfig[type].redisPath)           || '') + '|' +  // 13
-            (mySqlConfig.dbName                     || '') + '|' +  // 14
-            (mySqlConfig.user                       || '') + '|' +  // 15
-            (mySqlConfig.pass                       || '') + '|' +  // 16
-            (mySqlConfig.deleteBackupAfter          || '') + '|' +  // 17
-            (mySqlConfig.host                       || '') + '|' +  // 18
-            (mySqlConfig.port                       || '') + '|' +  // 19
-            (iobDir                                 || '') +        // 20
-            '';
-        let debug =
-            (type                                   || '') + '|' +  // 0
-            (backupConfig[type].nameSuffix          || '') + '|' +  // 1
-            (backupConfig[type].deleteBackupAfter   || '') + '|' +  // 2
-            (backupConfig[type].ftp.host            || '') + '|' +  // 3
-            (backupConfig[type].ftp.dir             || '') + '|' +  // 4
-            (backupConfig[type].ftp.user            || '') + '|' +  // 5
-            '*****' + '|' +                                         // 6
-            (backupConfig[type].host                || '') + '|' +  // 7
-            (backupConfig[type].user                || '') + '|' +  // 8
-            '*****' + '|' +                                         // 9
-            (backupConfig[type].cifs.mount          || '') + '|' +  // 10
-            (backupConfig[type].stopIoB             || 'false') + '|' +  // 11
-            ((backupConfig[type].redis && backupConfig[type].redis.enabled)        || 'false') + '|' +  // 12
-            ((backupConfig[type].redis && backupConfig[type].redis.enabled && backupConfig[type].redisPath)           || '') + '|' +  // 13
-            (mySqlConfig.dbName                     || '') + '|' +  // 14
-            (mySqlConfig.user                       || '') + '|' +  // 15
-            '*****' + '|' +                                         // 16
-            (mySqlConfig.deleteBackupAfter          || '') + '|' +  // 17
-            (mySqlConfig.host                       || '') + '|' +  // 18
-            (mySqlConfig.port                       || '') + '|' +  // 19
-            (iobDir                                 || '') +        // 20
-            '';
-        let bashScript;
-        if (require('os').platform() === 'linux') {
-            if (type === 'total' && backupConfig.total.stopIoB) {
-                bashScript = `${__dirname}/backitupl.sh`;    // Pfad zu backup.sh Datei
-            } else {
-                bashScript = `${__dirname}/backitup.sh`;     // Pfad zu backup.sh Datei
-            }
-        }
-
-        if (require('os').platform() === 'win32') {
-            if (type === 'total' && backupConfig.total.stopIoB) {
-                bashScript = `${__dirname}/backitupl.sh`;    // Pfad zu backup.sh Datei
-            } else {
-                bashScript = `${__dirname}/backitup_win32.sh`;     // Pfad zu backup.sh Datei
-            }
-        }
-
-        if (debugging) {
-            adapter.log.info(`[${type}] bash ${bashScript} "${command}"`);
-        } else {
-            adapter.log.debug(`[${type}] bash ${bashScript} "${debug}"`);
-        }
-*/
-        // Send Telegram Message
-        if (debugging) {
-            if (adapter.config.telegramInstance !== '') {
-                adapter.log.debug(`[${type}] used Telegram-Instance: ${adapter.config.telegramInstance}`);
-            } else {
-                adapter.log.debug(`[${type}] no Telegram-Instance selected!`);
-            }
-        }
-
-        const time = getTimeString();
-
-        if (adapter.config.telegramEnabled === true && adapter.config.telegramInstance !== '') {
-            adapter.log.debug(`[${type}] Telegram Message enabled`);
-
-            let messageText = _('New %e Backup created on %t');
-            messageText = messageText.replace('%t', time).replace('%e', type);
-            if (backupConfig[type].host !== '') {
-                if (backupConfig[type].cifs.mount === 'FTP') {
-                    const m = _(', and copied / moved via FTP to %h%d');
-                    messageText += m.replace('%h', backupConfig[type].ftp.host).replace('%d', backupConfig[type].ftp.dir);
-                } else
-                if (backupConfig[type].cifs.mount === 'CIFS') {
-                    const m = _(', and stored under %h%d');
-                    messageText += m.replace('%h', backupConfig[type].ftp.host).replace('%d', backupConfig[type].ftp.dir);
-                }
-            }
-            messageText += '!';
-            adapter.sendTo(adapter.config.telegramInstance, 'send', {text: 'BackItUp:\n' + messageText});
-        }
-
-        adapter.setState(`history.${type}LastTime`, time);
-
-        createBackupHistory(type);
-
-        const logFile = __dirname + '/' + type + '.txt';
-        if (fs.existsSync(logFile)) {
-            fs.unlinkSync(logFile);
-        }
-/*
-        const cmd = spawn('bash', [bashScript, command], {detached: true});
-
-        cmd.stdout.on('data', data => {
-            const text = data.toString();
-            const lines = text.split('\n');
-            lines.forEach(line => {
-                line = line.replace(/\r/g, ' ').trim();
-                line && adapter.log.debug(`[${type}] ${line}`);
-            });
-            adapter.setState('output.line', '[DEBUG] ' + text);
-        });
-
-        cmd.stderr.on('data', data => {
-            const text = data.toString();
-            const lines = text.split('\n');
-            lines.forEach(line => {
-                line = line.replace(/\r/g, ' ').trim();
-                if (line) {
-                    if (text[0] === '*' || text[0] === '<' || text[0] === '>') {
-                        adapter.log.debug(`[${type}] ${line}`);
-                    } else {
-                        adapter.log.error(`[${type}] ${line}`);
-                    }
-                }
-            });
-
-            if (text[0] === '*' || text[0] === '<' || text[0] === '>') {
-                adapter.setState('output.line', '[DEBUG] ' + text);
-            } else {
-                adapter.setState('output.line', '[ERROR] ' + text);
-            }
-        });
-
-        cmd.on('close', code => {
-            adapter.setState('output.line', '[EXIT] ' + code);
-            if (code) {
-                reject(`Exited with ${code}`);
-            } else {
-                resolve();
-            }
-        });
-
-        cmd.on('error', (error) => {
-            reject(error);
-        });
-        */
-    });
 }
 
 // function to create a date string                               #
@@ -391,44 +202,33 @@ function getTimeString(date) {
 }
 
 // function for entering the backup execution in the history-log
-function createBackupHistory(type) {
+function createBackupHistory(config) {
     adapter.getState('history.html', (err, state) => {
         let historyList = state.val;
         if (historyList === '<span class="backup-type-total">' + _('No backups yet') + '</span>') {
             historyList = '';
         }
         historyArray = historyList.split('&nbsp;');
-        if (historyArray.length >= historyEntriesNumber) {
-            historyArray.splice((historyEntriesNumber - 1), 1);
-        }
         let timeStamp = getTimeString();
-        let historyText;
-        if (backupConfig[type].ftp.host !== '') {
-            if (backupConfig[type].cifs.mount === 'FTP') {
-                historyText = `<span class="backup-type-${type}">${timeStamp} - ${_('Type')}: ${type} - ${_('FTP-Backup: Yes')}</span>`;
-            } else
-            if (backupConfig[type].cifs.mount === 'CIFS') {
-                historyText = `<span class="backup-type-${type}">${timeStamp} - ${_('Type')}: ${type} - ${_('CIFS-Mount: Yes')}</span>`;
-            }
-        } else {
-            historyText = `<span class="backup-type-${type}">${timeStamp} - ${_('Type')}: ${type} - ${_('Only stored locally')}</span>`;
+        let doneSomething = false;
+        if (config.cifs.enabled) {
+            historyArray.unshift(`<span class="backup-type-${config.name}">${timeStamp} - ${_('Type')}: ${config.name} - ${_('FTP-Backup: Yes')}</span>`);
+            doneSomething = true;
         }
-        historyArray.unshift(historyText);
+        if (config.cifs.enabled) {
+            historyArray.unshift(`<span class="backup-type-${config.name}">${timeStamp} - ${_('Type')}: ${config.name} - ${_('CIFS-Mount: Yes')}</span>`);
+            doneSomething = true;
+        }
+        if (!doneSomething) {
+            historyArray.unshift(`<span class="backup-type-${config.name}">${timeStamp} - ${_('Type')}: ${config.name} - ${_('Only stored locally')}</span>`);
+        }
+
+        if (historyArray.length > historyEntriesNumber) {
+            // todo: test it!
+            historyArray.splice(historyEntriesNumber, historyArray.length - historyEntriesNumber);
+        }
 
         adapter.setState('history.html', historyArray.join('&nbsp;'));
-    });
-}
-
-// watching the three One-Click-Backup data points, if activated - start backup
-function startBackup(type) {
-    adapter.log.info(`[${type}] oneClick backup started`);
-
-    createBackup(type).then(text => {
-        adapter.log.debug(`[${type}] exec: ${text || 'done'}`);
-    }).catch(e => {
-        adapter.log.error(`[${type}] ${e}`);
-    }).then(() => {
-        adapter.setState('oneClick.' + type, false, true);
     });
 }
 
@@ -437,6 +237,10 @@ function initVariables(secret) {
     logging = adapter.config.logEnabled;                                                 // Logging on/off
     debugging = adapter.config.debugLevel;										         // Detailiertere Loggings
     historyEntriesNumber = adapter.config.historyEntriesNumber;                          // Anzahl der Einträge in der History
+
+    if (adapter.config.cifsMount === 'CIFS') {
+        adapter.config.cifsMount = '';
+    }
 
     const mySql = {
         enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
@@ -449,10 +253,17 @@ function initVariables(secret) {
         exe: adapter.config.mySqlDumpExe               // path to mysqldump
     };
 
+    const telegram = {
+        enabled: adapter.config.telegramEnabled,
+        instance: adapter.config.telegramInstance,
+        sendTo: adapter.sendTo, // provide sendTo
+        _: _,
+        debugging
+    };
+
     const ftp = {
         enabled: adapter.config.ftpEnabled,
         host: adapter.config.ftpHost,                       // ftp-host
-        backupDir: (iobDir + '/backups'),
         dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir, // directory on FTP server
         user: adapter.config.ftpUser,                       // username for FTP Server
         pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '',  // password for FTP Server
@@ -461,8 +272,7 @@ function initVariables(secret) {
 
     const cifs = {
         enabled: adapter.config.cifsEnabled,
-        mount: ('//' + adapter.config.cifsMount),
-        backupDir: (iobDir + '/backups'),
+        mount: adapter.config.cifsMount,
         dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                       // specify if CIFS mount should be used
         user: adapter.config.cifsUser,                     // specify if CIFS mount should be used
         pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for FTP Server
@@ -477,7 +287,8 @@ function initVariables(secret) {
         nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
         deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backupfiles after x days
         ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir} : {}),
-        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir}  : {})
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir}  : {}),
+        telegram
     };
 
     if (adapter.config.redisEnabled === undefined) {
@@ -496,28 +307,28 @@ function initVariables(secret) {
         user: adapter.config.ccuUser,                           // username CCU
         pass: adapter.config.ccuPassword ? decrypt(secret, adapter.config.ccuPassword) : '',                       // password der CCU
         ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsCcuDir} : {}),
-        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpCcuDir}  : {})
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpCcuDir}  : {}),
+        telegram
      };
 
     // Configurations for total-IoBroker backup
     backupConfig.total = {
         name: 'total',
+        dir: getIobDir(),
         enabled: adapter.config.totalEnabled,
-        backupDir: (iobDir + '/backups'),
-        dir: iobDir,
         time: adapter.config.totalTime,
         everyXDays: adapter.config.totalEveryXDays,
         nameSuffix: adapter.config.totalNameSuffix,             // names addition, appended to the file name
         deleteBackupAfter: adapter.config.totalDeleteAfter,     // delete old backupfiles after x days
         redis: {
             enabled: adapter.config.redisEnabled,
-            backupDir: (iobDir + '/backups'),
             path: adapter.config.redisPath || '/var/lib/redis/dump.rdb', // specify Redis path
         },
         stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
         ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpTotalDir}  : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsTotalDir} : {}),
-        mySql
+        mySql,
+        telegram
     };
 }
 
@@ -570,17 +381,17 @@ function loadScripts() {
 
 function executeScripts(config, callback, scripts, code) {
     if (!scripts) {
-        const utils = require('./lib/utils');
-        const tools = require(utils.controllerDir + '/lib/tools.js');
-        let pathBackup = tools.getConfigFileName().replace(/\\/g, '/');
-        let parts = pathBackup.split('/');
-        parts.pop(); // iobroker.json
-        parts.pop(); // iobroker-data.json
-        parts.push('backups');
-        pathBackup = parts.join('/');
         scripts = loadScripts();
-        config.backupDir = pathBackup;
+        config.backupDir = path.join(getIobDir(), 'backups').replace(/\\/g, '/');
         config.context = {}; // common variables between scripts
+
+        if (!fs.existsSync(config.backupDir)) {
+            fs.mkdirSync(config.backupDir);
+        }
+
+        adapter.setState(`history.${config.name}LastTime`, getTimeString());
+
+        createBackupHistory(config.name);
     }
 
     adapter.getForeignObject('system.config', (err, obj) => {
@@ -600,6 +411,14 @@ function executeScripts(config, callback, scripts, code) {
                         options = config.cifs;
                     }
                     break;
+
+                case 'cifs':
+                    if (config.cifs && config.cifs.enabled && config.cifs.dir) {
+                        func = scripts[name];
+                        options = config.cifs;
+                    }
+                    break;
+
 
                 case 'minimal':
                     if (config.name === 'minimal') {
@@ -649,6 +468,14 @@ function executeScripts(config, callback, scripts, code) {
                         options = Object.assign({}, config.ftp, {name: config.name});
                     }
                     break;
+
+                case 'telegram':
+                    if (config.telegram && config.telegram.enabled) {
+                        func = scripts[name];
+                        options = config;
+                        options.telegram.time = getTimeString(); // provide name
+                    }
+                    break;
             }
             scripts[name] = null;
 
@@ -674,6 +501,7 @@ function executeScripts(config, callback, scripts, code) {
                 adapter.setState('output.line', `[DEBUG] [${name}] start with ${JSON.stringify(_options)}`);
 
                 options.context = config.context;
+                options.backupDir = config.backupDir;
 
                 const log = {
                     debug: function (text) {
