@@ -75,7 +75,7 @@ adapter.on('stateChange', (id, state) => {
                     adapter.log.debug(`[${type}] exec: done`);
                 }
                 adapter.setState('oneClick.' + type, false, true);
-            });            
+            });
         }
     }
 });
@@ -176,7 +176,7 @@ function createBackup(type) {
         if (type === 'ccu') {
             backupConfig[type].enabled = true;
         }
-        
+
         executeScripts(backupConfig[type], err => {
             if (err) {
                 adapter.log.error(`[${type}] ${err}`);
@@ -565,12 +565,12 @@ function executeScripts(config, callback, scripts, code) {
             fs.mkdirSync(config.backupDir);
         }
     }
-    
+
     adapter.getForeignObject('system.config', (err, obj) => {
         systemLang = obj.common.language;
         initVariables((obj && obj.native && obj.native.secret) || 'Zgfr56gFe87jJOM');
     });
-    
+
     for (const name in scripts) {
         if (scripts.hasOwnProperty(name) && scripts[name]) {
             let func;
