@@ -18,7 +18,6 @@ let historyEntriesNumber;                               // Anzahl der Einträge 
 const backupConfig = {};
 const backupTimeSchedules = [];                         // Array für die Backup Zeiten
 let historyArray = [];                                  // Array für das anlegen der Backup-Historie
-const iobDir = getIobDir();
 
 /**
  * looks for iobroker home folder
@@ -26,26 +25,14 @@ const iobDir = getIobDir();
  * @returns {string}
  */
 function getIobDir() {
-    /** @type {string} */
-    let sPath = __dirname.replace(/\\/g, '/');
-    const parts = sPath.split('/');
-    parts.pop(); // ioBroker.backitup
-    sPath = parts.join('/');
-    if (fs.existsSync(path.join(sPath, 'node_modules'))) {
-        return sPath;
-    }
-    parts.pop(); // node_modules
-    sPath = parts.join('/');
-    if (fs.existsSync(path.join(sPath, 'node_modules'))) {
-        return sPath;
-    }
-
-    return '/opt/' + utils.appName;
+    const utils = require('./lib/utils');
+    const tools = require(utils.controllerDir + '/lib/tools.js');
+    let backupDir = tools.getConfigFileName().replace(/\\/g, '/');
+    let parts = backupDir.split('/');
+    parts.pop(); // iobroker.json
+    parts.pop(); // iobroker-data.json
+    return parts.join('/');
 }
-
-// Check for Backup Dir
-const bkpDir = (iobDir + '/backups');
-if (!fs.existsSync(bkpDir))          fs.mkdirSync(bkpDir);
 
 function decrypt(key, value) {
     let result = '';
@@ -438,8 +425,8 @@ function initVariables(secret) {
     debugging = adapter.config.debugLevel;										         // Detailiertere Loggings
     historyEntriesNumber = adapter.config.historyEntriesNumber;                          // Anzahl der Einträge in der History
 
-    if (adapter.config.cifs.mount === 'CIFS') {
-        adapter.config.cifs.mount = '';
+    if (adapter.config.cifsMount === 'CIFS') {
+        adapter.config.cifsMount = '';
     }
 
     const mySql = {
@@ -456,7 +443,6 @@ function initVariables(secret) {
     const ftp = {
         enabled: adapter.config.ftpEnabled,
         host: adapter.config.ftpHost,                       // ftp-host
-        backupDir: (iobDir + '/backups'),
         dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir, // directory on FTP server
         user: adapter.config.ftpUser,                       // username for FTP Server
         pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '',  // password for FTP Server
@@ -465,8 +451,7 @@ function initVariables(secret) {
 
     const cifs = {
         enabled: adapter.config.cifsEnabled,
-        mount: ('//' + adapter.config.cifsMount),
-        backupDir: (iobDir + '/backups'),
+        mount: adapter.config.cifsMount,
         dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                       // specify if CIFS mount should be used
         user: adapter.config.cifsUser,                     // specify if CIFS mount should be used
         pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for FTP Server
@@ -506,16 +491,14 @@ function initVariables(secret) {
     // Configurations for total-IoBroker backup
     backupConfig.total = {
         name: 'total',
+        dir: getIobDir(),
         enabled: adapter.config.totalEnabled,
-        backupDir: (iobDir + '/backups'),
-        dir: iobDir,
         time: adapter.config.totalTime,
         everyXDays: adapter.config.totalEveryXDays,
         nameSuffix: adapter.config.totalNameSuffix,             // names addition, appended to the file name
         deleteBackupAfter: adapter.config.totalDeleteAfter,     // delete old backupfiles after x days
         redis: {
             enabled: adapter.config.redisEnabled,
-            backupDir: (iobDir + '/backups'),
             path: adapter.config.redisPath || '/var/lib/redis/dump.rdb', // specify Redis path
         },
         stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
@@ -574,17 +557,13 @@ function loadScripts() {
 
 function executeScripts(config, callback, scripts, code) {
     if (!scripts) {
-        const utils = require('./lib/utils');
-        const tools = require(utils.controllerDir + '/lib/tools.js');
-        let pathBackup = tools.getConfigFileName().replace(/\\/g, '/');
-        let parts = pathBackup.split('/');
-        parts.pop(); // iobroker.json
-        parts.pop(); // iobroker-data.json
-        parts.push('backups');
-        pathBackup = parts.join('/');
         scripts = loadScripts();
-        config.backupDir = pathBackup;
+        config.backupDir = path.join(getIobDir(), 'backups').replace(/\\/g, '/');
         config.context = {}; // common variables between scripts
+
+        if (!fs.existsSync(config.backupDir)) {
+            fs.mkdirSync(config.backupDir);
+        }
     }
     
     adapter.getForeignObject('system.config', (err, obj) => {
@@ -686,6 +665,7 @@ function executeScripts(config, callback, scripts, code) {
                 adapter.setState('output.line', `[DEBUG] [${name}] start with ${JSON.stringify(_options)}`);
 
                 options.context = config.context;
+                options.backupDir = config.backupDir;
 
                 const log = {
                     debug: function (text) {
