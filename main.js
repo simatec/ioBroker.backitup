@@ -4,7 +4,6 @@
 'use strict';
 
 const utils = require(__dirname + '/lib/utils'); // Get common adapter utils
-const {spawn} = require('child_process');
 const schedule = require('node-schedule');
 const words = require('./admin/words');
 const path = require('path');
@@ -454,8 +453,6 @@ function initVariables(secret) {
         enabled: adapter.config.ftpEnabled,
         host: adapter.config.ftpHost,                       // ftp-host
         backupDir: (iobDir + '/backups'),
-        redisState: adapter.config.redisEnabled,
-        mysqlState: adapter.config.mySqlEnabled,
         dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir, // directory on FTP server
         user: adapter.config.ftpUser,                       // username for FTP Server
         pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '',  // password for FTP Server
@@ -659,35 +656,41 @@ function executeScripts(config, callback, scripts, code) {
                 const _options = JSON.parse(JSON.stringify(options));
                 if (_options.pass) _options.pass = '****';
                 if (_options.ftp  && !_options.ftp.enabled) delete _options.ftp;
+                if (_options.ftp  && _options.ftp.backupDir !== undefined) delete _options.ftp.backupDir;
+                if (_options.cifs  && _options.cifs.backupDir !== undefined) delete _options.cifs.backupDir;
+                if (_options.mySql  && _options.mySql.backupDir !== undefined) delete _options.mySql.backupDir;
+                if (_options.redis  && _options.redis.backupDir !== undefined) delete _options.redis.backupDir;
                 if (_options.cifs  && !_options.cifs.enabled) delete _options.cifs;
                 if (_options.mySql && !_options.mySql.enabled) delete _options.mySql;
                 if (!_options.nameSuffix && _options.nameSuffix !== undefined) delete _options.nameSuffix;
                 if (_options.enabled !== undefined) delete _options.enabled;
+                if (_options.context !== undefined) delete _options.context;
+                if (_options.name !== undefined) delete _options.name;
 
                 if (_options.ftp  && _options.ftp.pass) _options.ftp.pass = '****';
                 if (_options.cifs && _options.cifs.pass) _options.cifs.pass = '****';
                 if (_options.mySql && _options.mySql.pass) _options.mySql.pass = '****';
 
-                adapter.setState('output.line', `[DEBUG] start ${name} with ${JSON.stringify(_options)}`);
+                adapter.setState('output.line', `[DEBUG] [${name}] start with ${JSON.stringify(_options)}`);
 
-                _options.context = config.context;
+                options.context = config.context;
 
                 const log = {
                     debug: function (text) {
                         const lines = text.toString().split('\n');
                         lines.forEach(line => {
                             line = line.replace(/\r/g, ' ').trim();
-                            line && adapter.log.debug(`[${config.name}] ${line}`);
+                            line && adapter.log.debug(`[${config.name}/${name}] ${line}`);
                         });
-                        adapter.setState('output.line', '[DEBUG] ' + text);
+                        adapter.setState('output.line', '[DEBUG] [' + name + '] - ' + text);
                     },
                     error: function (err) {
                         const lines = err.toString().split('\n');
                         lines.forEach(line => {
                             line = line.replace(/\r/g, ' ').trim();
-                            line && adapter.log.debug(`[${config.name}] ${line}`);
+                            line && adapter.log.debug(`[${config.name}/${name}] ${line}`);
                         });
-                        adapter.setState('output.line', '[ERROR] ' + err);
+                        adapter.setState('output.line', '[ERROR] [' + name + '] - ' + err);
                     }
                 };
 
