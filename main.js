@@ -437,7 +437,11 @@ function initVariables(secret) {
     logging = adapter.config.logEnabled;                                                 // Logging on/off
     debugging = adapter.config.debugLevel;										         // Detailiertere Loggings
     historyEntriesNumber = adapter.config.historyEntriesNumber;                          // Anzahl der Einträge in der History
-    
+
+    if (adapter.config.cifs.mount === 'CIFS') {
+        adapter.config.cifs.mount = '';
+    }
+
     const mySql = {
         enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
         dbName: adapter.config.mySqlName,              // database name
@@ -600,6 +604,14 @@ function executeScripts(config, callback, scripts, code) {
                         options = config.cifs;
                     }
                     break;
+
+                case 'cifs':
+                    if (config.cifs && config.cifs.enabled && config.cifs.dir) {
+                        func = scripts[name];
+                        options = config.cifs;
+                    }
+                    break;
+
 
                 case 'minimal':
                     if (config.name === 'minimal') {
