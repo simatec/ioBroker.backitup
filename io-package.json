@@ -217,7 +217,8 @@
         },
         "authors": [
             "simatec <nais@gmx.net>",
-	    	"peoples0815 <peoples0815github@gmail.com>"
+	    	"peoples0815 <peoples0815github@gmail.com>",
+	    	"bluefox <dogafox@gmail.com>"
         ],
         "docs": {
             "en": "docs/en/backitup.md",
@@ -249,14 +250,6 @@
 		"totalNameSuffix": "",
 		"totalStopIoB": false,
 
-        "mySqlEnabled": false,
-		"mySqlHost": "localhost",
-		"mySqlPort": "3307",
-		"mySqlName": "iobroker",
-		"mySqlUser": "",
-		"mySqlPassword": "",
-		"mySqlDeleteAfter": 5,
-
 		"ccuEnabled": false,
 		"ccuTime": "01:30",
 		"ccuEveryXDays": 3,
@@ -266,27 +259,45 @@
 		"ccuUser": "Admin",
 		"ccuPassword": "",
 
-		"cifsMount": "CIFS",
+        "mySqlEnabled": false,
+        "mySqlHost": "localhost",
+        "mySqlPort": "3307",
+        "mySqlName": "iobroker",
+        "mySqlUser": "",
+        "mySqlPassword": "",
+        "mySqlDeleteAfter": 5,
+        "mySqlDumpExe": "",
 
+
+        "cifsEnabled": false,
+        "cifsMount": "",
+        "cifsUser": "",
+        "cifsPassword": "",
+        "cifsOwnDir": false,
+        "cifsDir": "",
+        "cifsCcuDir": "",
+        "cifsTotalDir": "",
+        "cifsMinimalDir": "",
+
+        "ftpEnabled": false,
 		"ftpHost": "",
+		"ftpPort": 21,
 		"ftpDir": "",
 		"ftpUser": "",
 		"ftpPassword": "",
+        "ftpOwnDir": false,
+        "ftpCcuDir": "",
+        "ftpTotalDir": "",
+        "ftpMinimalDir": "",
 
         "redisEnabled": false,
         "redisPath": "/var/lib/redis/dump.rdb",
 
-        "logEnabled": true,
+        "telegramEnabled": false,
+        "telegramInstance": "telegram.0",
+
 		"debugLevel": false,
-		"historyEntriesNumber": 25,
-
-		"telegramEnabled": false,
-		"telegramInstance": "telegram.0",
-
-		"ownDir": false,
-		"ccuFtpDir": "",
-		"totalFtpDir": "",
-		"minimalFtpDir": ""
+		"historyEntriesNumber": 25
     },
     "instanceObjects": [
         {

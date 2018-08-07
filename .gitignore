@@ -7,3 +7,9 @@ admin/i18n/*/flat.txt
 backitup.sh.lastrun
 backitupl.sh
 package-lock.json
+/package-lock.json
+/lib/startIOB.bat
+/lib/*.bat
+/lib/*.log
+/lib/total.json
+/lib/*.sh
