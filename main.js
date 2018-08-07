@@ -34,24 +34,8 @@ adapter.on('stateChange', (id, state) => {
             id === adapter.namespace + '.oneClick.ccu') {
             const type = id.split('.').pop();
             const config = JSON.parse(JSON.stringify(backupConfig[type]));
-            if (type === 'minimal') {
-                config.enabled = true;
-            } else
-            if (type === 'total') {
-                config.enabled = true;
-            } else
-            if (type === 'ccu') {
-                config.enabled = true;
-            }
-            
-            // function will not be copied
-            if (config.telegram && config.telegram.enabled) {
-                config.telegram.sendTo = adapter.sendTo;
-            }
-            if (config.history && config.history.enabled) {
-                config.history.setState = adapter.setState;
-                config.history.getState = adapter.getState;
-            }
+            config.enabled = true;
+            config.deleteBackupAfter = 0; // do not delete files by custom backup
 
             executeScripts(adapter, config, err => {
                 if (err) {
@@ -173,15 +157,12 @@ function initConfig(secret) {
     const telegram = {
         enabled: adapter.config.telegramEnabled,
         instance: adapter.config.telegramInstance,
-        sendTo: adapter.sendTo, // provide sendTo
         systemLang
     };
     
     const history = {
         enabled: true,
         entriesNumber: adapter.config.historyEntriesNumber,
-        setState: adapter.setState, // provide setState
-        getState: adapter.getState, // provide setState
         systemLang
     };
     
