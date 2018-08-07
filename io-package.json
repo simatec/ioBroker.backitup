@@ -217,7 +217,8 @@
         },
         "authors": [
             "simatec <nais@gmx.net>",
-	    	"peoples0815 <peoples0815github@gmail.com>"
+	    	"peoples0815 <peoples0815github@gmail.com>",
+	    	"bluefox <dogafox@gmail.com>"
         ],
         "docs": {
             "en": "docs/en/backitup.md",

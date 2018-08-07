@@ -191,11 +191,14 @@
             });
         }
 
-        function showDialog() {
+        function showDialog(type) {
             $output.val(_('Started...'));
             $dialogCommand.modal('open');
             $dialogCommand.find('.progress-dont-close').removeClass('disabled');
             $dialogCommandProgress.show();
+            if (type === 'total' && $('#totalStopIoB').prop('checked')) {
+                showToast($dialogCommand, _('ioBroker will be stopped and started again. Please wait'), null, 10000);
+            }
             lastMessage = '';
         }
 
@@ -249,7 +252,7 @@
                                 ack: false
                             }, function (err) {
                                 if (!err) {
-                                    showDialog();
+                                    showDialog(type);
                                     showToast(null, _('Backup started'));
                                 } else {
                                     showError(err);
