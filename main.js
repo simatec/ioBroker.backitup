@@ -139,7 +139,9 @@ function createBackupSchedule() {
                 });
             });
 
-            adapter.log.debug(`[${type}] ${cron}`);
+            if (config.debugging) {
+                adapter.log.debug(`[${type}] ${cron}`);
+            }
         } else if (backupTimeSchedules[type]) {
             adapter.log.info(`[${type}] backup deactivated`);
             backupTimeSchedules[type].cancel();
@@ -205,7 +207,7 @@ function initConfig(secret) {
         pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for FTP Server
     };
 
-    // Configurations for standart-IoBroker backup
+    // Configurations for standard-IoBroker backup
     backupConfig.minimal = {
         name: 'minimal',
         enabled: adapter.config.minimalEnabled,
@@ -222,7 +224,7 @@ function initConfig(secret) {
         telegram
     };
     
-    // Configurations for CCU / pivCCU / Raspberrymatic backup
+    // Configurations for CCU / pivCCU / RaspberryMatic backup
     backupConfig.ccu = {
         name: 'ccu',
         enabled: adapter.config.ccuEnabled,
