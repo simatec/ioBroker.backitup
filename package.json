@@ -37,10 +37,11 @@
     "url": "https://github.com/simatec/ioBroker.backitup"
   },
   "dependencies": {
-    "node-schedule": "^1.3.0",
+    "dropbox-v2-api": "^2.1.17",
     "ftp": "^0.3.10",
-    "targz": "^1.0.1",
-    "request": "^2.87.0"
+    "node-schedule": "^1.3.0",
+    "request": "^2.87.0",
+    "targz": "^1.0.1"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
