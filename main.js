@@ -207,7 +207,7 @@ function createBackupHistory(config) {
         historyArray = historyList.split('&nbsp;');
         let timeStamp = getTimeString();
         let doneSomething = false;
-        if (config.cifs.enabled) {
+        if (config.ftp.enabled) {
             historyArray.unshift(`<span class="backup-type-${config.name}">${timeStamp} - ${_('Type')}: ${config.name} - ${_('FTP-Backup: Yes')}</span>`);
             doneSomething = true;
         }
