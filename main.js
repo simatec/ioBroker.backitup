@@ -9,13 +9,11 @@ const fs = require('fs');
 const path = require('path');
 
 const tools = require('./lib/tools');
-let systemLang = require('./lib/tools').systemLang;
-const getTimeString = require('./lib/tools').getTimeString;
 const executeScripts = require('./lib/execute');
 
 const adapter = new utils.Adapter('backitup');
 
-//let systemLang = 'de';                                  // system language
+let systemLang = 'de';                                  // system language
 const backupConfig = {};
 const backupTimeSchedules = [];                         // Array für die Backup Zeiten
 
@@ -135,7 +133,7 @@ function createBackupSchedule() {
         }
     }
 }
-/*
+
 function initConfig(secret) {
     // compatibility
     if (adapter.config.cifsMount === 'CIFS') {
