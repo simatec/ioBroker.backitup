@@ -10,11 +10,13 @@ const fs = require('fs');
 const path = require('path');
 
 const getIobDir = require('./lib/tools').getIobDir;
+let systemLang = require('./lib/tools').systemLang;
+const getTimeString = require('./lib/tools').getTimeString;
 const executeScripts = require('./lib/execute');
 
 const adapter = new utils.Adapter('backitup');
 
-let systemLang = 'de';                                  // system language
+//let systemLang = 'de';                                  // system language
 let logging;                                            // Logging on/off
 let debugging;										    // Detailiertere Loggings
 let historyEntriesNumber;                               // Anzahl der Einträge in der History
@@ -159,7 +161,7 @@ function createBackupSchedule() {
         }
     }
 }
-
+/*
 // function to create a date string                               #
 const MONTHS = {
     en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -194,7 +196,7 @@ function getTimeString(date) {
         .replace('%d', padding0(day)   + ' ' + (MONTHS[systemLang] || MONTHS.en)[monthIndex] + ' ' + year)
         .replace('%t', padding0(hours) + ':' + padding0(minutes));
 }
-
+*/
 // function for entering the backup execution in the history-log
 function createBackupHistory(config) {
     adapter.getState('history.html', (err, state) => {
