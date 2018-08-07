@@ -296,10 +296,8 @@
         "telegramEnabled": false,
         "telegramInstance": "telegram.0",
 
-        "logEnabled": true,
 		"debugLevel": false,
 		"historyEntriesNumber": 25
-
     },
     "instanceObjects": [
         {
