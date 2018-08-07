@@ -259,6 +259,9 @@
 		"ccuUser": "Admin",
 		"ccuPassword": "",
 
+        "dropboxEnabled": false,
+        "dropboxAccessToken": "",
+
         "mySqlEnabled": false,
         "mySqlHost": "localhost",
         "mySqlPort": "3307",
@@ -296,10 +299,8 @@
         "telegramEnabled": false,
         "telegramInstance": "telegram.0",
 
-        "logEnabled": true,
 		"debugLevel": false,
 		"historyEntriesNumber": 25
-
     },
     "instanceObjects": [
         {

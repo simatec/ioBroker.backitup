@@ -12,3 +12,4 @@ package-lock.json
 /lib/*.bat
 /lib/*.log
 /lib/total.json
+/lib/*.sh
