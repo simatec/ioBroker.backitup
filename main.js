@@ -6,8 +6,11 @@
 const utils = require(__dirname + '/lib/utils'); // Get common adapter utils
 const schedule = require('node-schedule');
 const words = require('./admin/words');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
+
+const getIobDir = require('./lib/tools').getIobDir;
+const executeScripts = require('./lib/execute');
 
 const adapter = new utils.Adapter('backitup');
 
@@ -18,21 +21,6 @@ let historyEntriesNumber;                               // Anzahl der Einträge 
 const backupConfig = {};
 const backupTimeSchedules = [];                         // Array für die Backup Zeiten
 let historyArray = [];                                  // Array für das anlegen der Backup-Historie
-
-/**
- * looks for iobroker home folder
- *
- * @returns {string}
- */
-function getIobDir() {
-    const utils = require('./lib/utils');
-    const tools = require(utils.controllerDir + '/lib/tools.js');
-    let backupDir = tools.getConfigFileName().replace(/\\/g, '/');
-    let parts = backupDir.split('/');
-    parts.pop(); // iobroker.json
-    parts.pop(); // iobroker-data.json
-    return parts.join('/');
-}
 
 function decrypt(key, value) {
     let result = '';
@@ -68,13 +56,16 @@ adapter.on('stateChange', (id, state) => {
             if (type === 'ccu') {
                 backupConfig[type].enabled = true;
             }
-            executeScripts(backupConfig[type], err => {
+            executeScripts(adapter, backupConfig[type], err => {
                 if (err) {
                     adapter.log.error(`[${type}] ${err}`);
                 } else {
                     adapter.log.debug(`[${type}] exec: done`);
                 }
                 adapter.setState('oneClick.' + type, false, true);
+
+                adapter.setState(`history.${type}LastTime`, getTimeString());
+                createBackupHistory(backupConfig[type]);
             });
         }
     }
@@ -138,19 +129,21 @@ function createBackupSchedule() {
             }
 
             if (backupTimeSchedules[type]) {
-                schedule.clearScheduleJob(backupTimeSchedules[type]);
+                backupTimeSchedules[type].cancel();
             }
             const cron = '10 ' + time[1] + ' ' + time[0] + ' */' + config.everyXDays + ' * * ';
             backupTimeSchedules[type] = schedule.scheduleJob(cron, () => {
                 adapter.setState('oneClick.' + type, true, true);
 
-                executeScripts(backupConfig[type], err => {
+                executeScripts(adapter, backupConfig[type], err => {
                     if (err) {
                         adapter.log.error(`[${type}] ${err}`);
                     } else {
                         adapter.log.debug(`[${type}] exec: done`);
                     }
                     adapter.setState('oneClick.' + type, false, true);
+                    adapter.setState(`history.${type}LastTime`, getTimeString());
+                    createBackupHistory(backupConfig[type]);
                 });
             });
 
@@ -187,6 +180,7 @@ const timePattern = {
 function padding0(number) {
     return (number < 10) ? '0' + number : number;
 }
+
 function getTimeString(date) {
     date = date || new Date();
 
@@ -232,7 +226,7 @@ function createBackupHistory(config) {
     });
 }
 
-function initVariables(secret) {
+function initConfig(secret) {
     // general variables
     logging = adapter.config.logEnabled;                                                 // Logging on/off
     debugging = adapter.config.debugLevel;										         // Detailiertere Loggings
@@ -332,237 +326,74 @@ function initVariables(secret) {
     };
 }
 
-function readLogFile(type) {
+function readLogFile() {
     try {
-        const logName = __dirname + '/' + type + '.txt';
+        const logName = path.join(getIobDir(), 'backups', 'logs.txt').replace(/\\/g, '/');
         if (fs.existsSync(logName)) {
-            adapter.log.debug(`[${type}] Printing logs of previous backup`);
+            adapter.log.debug(`Printing logs of previous backup`);
             const text = fs.readFileSync(logName).toString();
             const lines = text.split('\n');
             lines.forEach((line, i) => lines[i] = line.replace(/\r$|^\r/, ''));
             lines.forEach(line => {
                 if (line.trim()) {
-                    adapter.setState('output.line', '[DEBUG] ' + line);
-                    adapter.log.debug(`[${type}] ${line}`);
+                    if (line.startsWith('[ERROR]')) {
+                        adapter.log.error(line);
+                    } else {
+                        adapter.log.debug(line);
+                    }
+                    adapter.setState('output.line', line);
                 }
             });
             adapter.setState('output.line', '[EXIT] 0');
             fs.unlinkSync(logName);
         }
     } catch (e) {
-        adapter.log.warn(`[${type}] Cannot read log file: ${e}`);
+        adapter.log.warn(`Cannot read log file: ${e}`);
     }
 }
 
-function createBashLogger() {
-    if (!fs.existsSync(__dirname + '/backitupl.sh')) {
-        let text = '#!/bin/bash\n' +
-            '\n' +
-            'STRING=$1\n' +
-            'IFS="|"\n' +
-            'VAR=($STRING)\n' +
-            '\n' +
-            'BACKUP_TYPE=${VAR[0]}\n' +
-            '\n' +
-            __dirname + '/backitup.sh "$1" > "' + __dirname + '/${BACKUP_TYPE}.txt"';
-        fs.writeFileSync(__dirname + '/backitupl.sh', text, {mode: 508}); // 508 => 0774
+function createBashScripts() {
+    const isWin = process.platform.startsWith('win');
+
+    let jsPath;
+    try {
+        jsPath = require.resolve('iobroker.js-controller/iobroker.bat');
+        jsPath = jsPath.replace(/\\/g, '/');
+        const parts = jsPath.split('/');
+        parts.pop();
+        jsPath = parts.join('/');
+    } catch (e) {
+        jsPath = path.join(getIobDir(), 'node_modules/iobroker.js-controller');
     }
-    fs.chmodSync(__dirname + '/backitup.sh', 508);
-}
 
-function loadScripts() {
-    const scripts = {};
-    const files = fs.readdirSync(__dirname + '/lib/scripts');
-    files.forEach(file => {
-        scripts[file.substring(3, file.length - 3)] = require('./lib/scripts/' + file);
-    });
-    return scripts;
-}
-
-function executeScripts(config, callback, scripts, code) {
-    if (!scripts) {
-        scripts = loadScripts();
-        config.backupDir = path.join(getIobDir(), 'backups').replace(/\\/g, '/');
-        config.context = {}; // common variables between scripts
-
-        if (!fs.existsSync(config.backupDir)) {
-            fs.mkdirSync(config.backupDir);
+    if (isWin) {
+        // todo detect service
+        if (!fs.existsSync(__dirname + '/lib/stopIOB.bat')) {
+            fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${jsPath}"\ncall iobroker.bat stop\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
         }
-
-        adapter.setState(`history.${config.name}LastTime`, getTimeString());
-
-        createBackupHistory(config.name);
-    }
-
-    adapter.getForeignObject('system.config', (err, obj) => {
-        systemLang = obj.common.language;
-        initVariables((obj && obj.native && obj.native.secret) || 'Zgfr56gFe87jJOM');
-    });
-
-    for (const name in scripts) {
-        if (scripts.hasOwnProperty(name) && scripts[name]) {
-            let func;
-            let options;
-            switch (name) {
-                case 'mount':
-                case 'umount':
-                    if (config.cifs && config.cifs.enabled && config.cifs.mount) {
-                        func = scripts[name];
-                        options = config.cifs;
-                    }
-                    break;
-
-                case 'cifs':
-                    if (config.cifs && config.cifs.enabled && config.cifs.dir) {
-                        func = scripts[name];
-                        options = config.cifs;
-                    }
-                    break;
-
-
-                case 'minimal':
-                    if (config.name === 'minimal') {
-                        func = scripts[name];
-                        options = config;
-                    }
-                    break;
-
-                case 'mysql':
-                    if (config.name === 'total' && config.mysql && config.mysql.enabled) {
-                        func = scripts[name];
-                        options = config.mysql;
-                    }
-                    break;
-
-                case 'redis':
-                    if (config.name === 'total' && config.redis && config.redis.enabled) {
-                        func = scripts[name];
-                        options = config.redis;
-                    }
-                    break;
-
-                case 'ccu':
-                    if (config.name === 'ccu' && config.enabled) {
-                        func = scripts[name];
-                        options = config;
-                    }
-                    break;
-
-                case 'total':
-                    if (config.name === 'total' && config.enabled) {
-                        func = scripts[name];
-                        options = config;
-                    }
-                    break;
-
-                case 'clean':
-                    if (config.deleteBackupAfter) {
-                        func = scripts[name];
-                        options = {deleteBackupAfter: config.deleteBackupAfter, name: config.name};
-                    }
-                    break;
-
-                case 'ftp':
-                    if (config.ftp && config.ftp.enabled && config.ftp.host) {
-                        func = scripts[name];
-                        options = Object.assign({}, config.ftp, {name: config.name});
-                    }
-                    break;
-
-                case 'telegram':
-                    if (config.telegram && config.telegram.enabled) {
-                        func = scripts[name];
-                        options = config;
-                        options.telegram.time = getTimeString(); // provide name
-                    }
-                    break;
-            }
-            scripts[name] = null;
-
-            if (func) {
-                const _options = JSON.parse(JSON.stringify(options));
-                if (_options.pass) _options.pass = '****';
-                if (_options.ftp  && !_options.ftp.enabled) delete _options.ftp;
-                if (_options.ftp  && _options.ftp.backupDir !== undefined) delete _options.ftp.backupDir;
-                if (_options.cifs  && _options.cifs.backupDir !== undefined) delete _options.cifs.backupDir;
-                if (_options.mySql  && _options.mySql.backupDir !== undefined) delete _options.mySql.backupDir;
-                if (_options.redis  && _options.redis.backupDir !== undefined) delete _options.redis.backupDir;
-                if (_options.cifs  && !_options.cifs.enabled) delete _options.cifs;
-                if (_options.mySql && !_options.mySql.enabled) delete _options.mySql;
-                if (!_options.nameSuffix && _options.nameSuffix !== undefined) delete _options.nameSuffix;
-                if (_options.enabled !== undefined) delete _options.enabled;
-                if (_options.context !== undefined) delete _options.context;
-                if (_options.name !== undefined) delete _options.name;
-
-                if (_options.ftp  && _options.ftp.pass) _options.ftp.pass = '****';
-                if (_options.cifs && _options.cifs.pass) _options.cifs.pass = '****';
-                if (_options.mySql && _options.mySql.pass) _options.mySql.pass = '****';
-
-                adapter.setState('output.line', `[DEBUG] [${name}] start with ${JSON.stringify(_options)}`);
-
-                options.context = config.context;
-                options.backupDir = config.backupDir;
-
-                const log = {
-                    debug: function (text) {
-                        const lines = text.toString().split('\n');
-                        lines.forEach(line => {
-                            line = line.replace(/\r/g, ' ').trim();
-                            line && adapter.log.debug(`[${config.name}/${name}] ${line}`);
-                        });
-                        adapter.setState('output.line', '[DEBUG] [' + name + '] - ' + text);
-                    },
-                    error: function (err) {
-                        const lines = err.toString().split('\n');
-                        lines.forEach(line => {
-                            line = line.replace(/\r/g, ' ').trim();
-                            line && adapter.log.debug(`[${config.name}/${name}] ${line}`);
-                        });
-                        adapter.setState('output.line', '[ERROR] [' + name + '] - ' + err);
-                    }
-                };
-
-                func.command(options, log, (err, output, _code) => {
-                    if (_code !== undefined) {
-                        code = _code
-                    }
-                    if (err) {
-                        if (func.ignoreErrors) {
-                            log.error('[IGNORED] ' + err);
-                            setImmediate(executeScripts, config, callback, scripts, code);
-                        } else {
-                            log.error(err);
-                            callback && callback(err);
-                        }
-                    } else {
-                        log.debug(output || 'done');
-                        setImmediate(executeScripts, config, callback, scripts, code);
-                    }
-                });
-            } else {
-                setImmediate(executeScripts, config, callback, scripts, code);
-            }
-            return;
+        if (!fs.existsSync(__dirname + '/lib/startIOB.bat')) {
+            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `cd "${jsPath}"\ncall iobroker.bat start\n`);
+        }
+    } else {
+        // todo detect pm2 or systemd
+        if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
+            fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `cd "${jsPath}"\n./iobroker.sh stop\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
+            fs.chmodSync(__dirname + '/lib/stopIOB.sh', 508);
+        }
+        if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
+            fs.writeFileSync(__dirname + '/lib/startIOB.sh', `cd "${jsPath}"\n./iobroker.sh start\n`);
+            fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
         }
     }
-
-    // todo
-    // delete all local files if required from config.context.fileNames
-    // or delete all files from past backups
-
-    adapter.setState('output.line', '[EXIT] ' + (code || 0));
-    callback && callback();
 }
 
 function main() {
-    createBashLogger();
-    readLogFile('ccu');
-    readLogFile('minimal');
-    readLogFile('total');
+    createBashScripts();
+    readLogFile();
 
     adapter.getForeignObject('system.config', (err, obj) => {
         systemLang = obj.common.language;
-        initVariables((obj && obj.native && obj.native.secret) || 'Zgfr56gFe87jJOM');
+        initConfig((obj && obj.native && obj.native.secret) || 'Zgfr56gFe87jJOM');
 
         checkStates();
 
