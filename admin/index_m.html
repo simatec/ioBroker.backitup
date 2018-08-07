@@ -406,6 +406,19 @@
                 $('.cifs').hide();
             }
 
+            if ($('#dropboxEnabled').prop('checked')) {
+                $('.dropbox').show();
+                if ($('#dropboxOwnDir').prop('checked') ) {
+                    $('.dropbox-extra').show();
+                    $('.dropbox-standard').hide();
+                } else {
+                    $('.dropbox-extra').hide();
+                    $('.dropbox-standard').show();
+                }
+            } else {
+                $('.dropbox').hide();
+            }
+
             if ($('#redisEnabled').prop('checked')) {
                 $('.redis-path').show();
             } else {
@@ -464,6 +477,7 @@
                 <li class="tab col s6 l3 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
                 <li class="tab col s6 l3 tab-cifs"><a href="#tab-cifs" class="translate">NAS settings</a></li>
                 <li class="tab col s6 l3 tab-ftp"><a href="#tab-ftp" class="translate">FTP settings</a></li>
+                <li class="tab col s6 l3 tab-ftp"><a href="#tab-dropbox" class="translate">Dropbox settings</a></li>
             </ul>
         </div>
         <div class="row">
@@ -793,6 +807,52 @@
                     <div class="input-field col s12">
                         <input class="value" id="ftpDir" type="text">
                         <label for="ftpDir" class="translate">path</label>
+                    </div>
+                </div>
+            </div>
+            <!-- dropbox settings -->
+            <div id="tab-dropbox" class="col s12 page">
+                <div class="row">
+                    <div class="input-field col s11 m2">
+                        <div class="input-field col s6 l3">
+                            <input class="value" id="dropboxEnabled" type="checkbox"/>
+                            <span for="ftpEnabled" class="translate">Enabled</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                </div>
+                <div class="row dropbox">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="dropboxAccessToken" type="text">
+                        <label for="dropboxAccessToken" class="translate">Access token</label>
+                        <span><a href="https://www.dropbox.com/developers/apps" target="_blank">dropbox.com</a></span>
+                    </div>
+                </div>
+                <div class="row dropbox">
+                    <div class="input-field col s12">
+                        <input class="value" id="dropboxOwnDir" type="checkbox"/>
+                        <label for="dropboxOwnDir" class="translate">Extra path for backup types</label>
+                    </div>
+                </div>
+                <div class="row dropbox dropbox-extra">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="dropboxMinimalDir" type="text">
+                        <label for="dropboxMinimalDir" class="translate">Path for standard backup</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="dropboxTotalDir" type="text">
+                        <label for="dropboxTotalDir" class="translate">Path for complete backup</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="dropboxCcuDir" type="text">
+                        <label for="dropboxCcuDir" class="translate">Path for CCU backup</label>
+                    </div>
+                </div>
+                <div class="row dropbox dropbox-standard">
+                    <div class="input-field col s12">
+                        <input class="value" id="dropboxDir" type="text">
+                        <label for="dropboxDir" class="translate">path</label>
                     </div>
                 </div>
             </div>

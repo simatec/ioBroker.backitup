@@ -259,6 +259,9 @@
 		"ccuUser": "Admin",
 		"ccuPassword": "",
 
+        "dropboxEnabled": false,
+        "dropboxAccessToken": "",
+
         "mySqlEnabled": false,
         "mySqlHost": "localhost",
         "mySqlPort": "3307",
