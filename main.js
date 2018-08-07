@@ -278,7 +278,11 @@ function readLogFile() {
             const lines = text.split('\n');
             lines.forEach((line, i) => lines[i] = line.replace(/\r$|^\r/, ''));
             lines.forEach(line => {
-                if (line.trim()) {
+                line = line.trim();
+
+                if (line) {
+                    if (line.startsWith('[DEBUG] [total/total] Packed ')) return;
+
                     if (line.startsWith('[ERROR]')) {
                         adapter.log.error(line);
                     } else {
