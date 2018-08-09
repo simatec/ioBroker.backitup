@@ -143,7 +143,7 @@ function initConfig(secret) {
         adapter.config.redisEnabled = adapter.config.backupRedis
     }
 
-    const mySql = {
+    const mysql = {
         enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
         dbName: adapter.config.mySqlName,              // database name
         user: adapter.config.mySqlUser,                // database user
@@ -159,13 +159,13 @@ function initConfig(secret) {
         instance: adapter.config.telegramInstance,
         systemLang
     };
-    
+
     const history = {
         enabled: true,
         entriesNumber: adapter.config.historyEntriesNumber,
         systemLang
     };
-    
+
     const ftp = {
         enabled: adapter.config.ftpEnabled,
         host: adapter.config.ftpHost,                       // ftp-host
@@ -174,12 +174,12 @@ function initConfig(secret) {
         pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '',  // password for FTP Server
         port: adapter.config.ftpPort || 21                  // FTP port
     };
-    
+
     const dropbox = {
         enabled: adapter.config.dropboxEnabled,
         accessToken: adapter.config.dropboxAccessToken,
     };
-    
+
     const cifs = {
         enabled: adapter.config.cifsEnabled,
         mount: adapter.config.cifsMount,
@@ -201,10 +201,16 @@ function initConfig(secret) {
         ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir} : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+        mysql,
+        dir: tools.getIobDir(),
+		redis: {
+			enabled: adapter.config.redisEnabled,
+			path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
+        },
         history,
-        telegram
+        telegram,
     };
-    
+
     // Configurations for CCU / pivCCU / RaspberryMatic backup
     backupConfig.ccu = {
         name: 'ccu',
@@ -242,11 +248,11 @@ function initConfig(secret) {
         history,
         telegram,
 
-        mySql,
+        mysql,
         dir: tools.getIobDir(),
         redis: {
             enabled: adapter.config.redisEnabled,
-            path: adapter.config.redisPath || '/var/lib/redis/dump.rdb', // specify Redis path
+            path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
         },
         stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
     };
