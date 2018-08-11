@@ -535,16 +535,13 @@
                         <input class="value" id="redisEnabled" type="checkbox"/>
                         <label for="redisEnabled" class="translate">Save Redis state</label>
                     </div>
-                    <div class="input-field col s6 l3 ">
-                        <input class="value" id="mySqlEnabled" type="checkbox"/>
-                        <label for="mySqlEnabled" class="translate">MySql Backup</label>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="input-field col s6 l3 redis_path">
                         <input class="value" id="redisPath" type="text"/>
                         <label for="redisPath" class="translate">Redis file path</label>
                     </div>
+                </div>
+                <div class="row">
+
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3">
@@ -560,21 +557,25 @@
                         <input class="value" id="dropboxEnabled" type="checkbox"/>
                         <span for="dropboxEnabled" class="translate">Dropbox</span>
                     </div>
+                    <div class="input-field col s6 l3 ">
+                        <input class="value" id="mySqlEnabled" type="checkbox"/>
+                        <label for="mySqlEnabled" class="translate">MySql Backup</label>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="telegramEnabled" type="checkbox"/>
                         <label for="telegramEnabled" class="translate">Notifications by telegram</label>
                     </div>
-                </div>
-                <div class="row">
                     <div class="input-field col s12 m6 l4 telegram_inst">
                         <select id="telegramInstance" class="value"></select>
                         <label for="telegramInstance" class="translate">Telegram instance</label>
                     </div>
+                </div>
+                <div class="row">
                     <div class="input-field col s12 m6 l4">
                         <input type="number" class="value" id="historyEntriesNumber" min="1" max="50"/>
-                        <span class="translate">Number of history entries</span>
+                        <label class="translate">Number of history entries</label>
                     </div>
                 </div>
             </div>
