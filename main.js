@@ -169,7 +169,7 @@ function initConfig(secret) {
     const ftp = {
         enabled: adapter.config.ftpEnabled,
         host: adapter.config.ftpHost,                       // ftp-host
-        deleteoldBackup: adapter.config.deleteoldFtpBackup, //Delete old Backups from FTP
+        deleteOldBackup: adapter.config.ftpDeleteOldBackup, //Delete old Backups from FTP
         dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir, // directory on FTP server
         user: adapter.config.ftpUser,                       // username for FTP Server
         pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '',  // password for FTP Server
@@ -178,12 +178,14 @@ function initConfig(secret) {
 
     const dropbox = {
         enabled: adapter.config.dropboxEnabled,
+        deleteOldBackup: adapter.config.dropboxDeleteOldBackup, //Delete old Backups from Dropbox
         accessToken: adapter.config.dropboxAccessToken,
     };
 
     const cifs = {
         enabled: adapter.config.cifsEnabled,
         mount: adapter.config.cifsMount,
+        deleteOldBackup: adapter.config.cifsDeleteOldBackup, //Delete old Backups from Network Disk
         dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                       // specify if CIFS mount should be used
         user: adapter.config.cifsUser,                     // specify if CIFS mount should be used
         pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for FTP Server

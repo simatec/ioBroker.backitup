@@ -261,6 +261,7 @@
 
         "dropboxEnabled": false,
         "dropboxAccessToken": "",
+        "dropboxDeleteOldBackup": false,
 
         "mySqlEnabled": false,
         "mySqlHost": "localhost",
@@ -271,7 +272,6 @@
         "mySqlDeleteAfter": 5,
         "mySqlDumpExe": "",
 
-
         "cifsEnabled": false,
         "cifsMount": "",
         "cifsUser": "",
@@ -281,6 +281,7 @@
         "cifsCcuDir": "sharename/backupDir",
         "cifsTotalDir": "sharename/backupDir",
         "cifsMinimalDir": "sharename/backupDir",
+        "cifsDeleteOldBackup": false,
 
         "ftpEnabled": false,
 		"ftpHost": "",
@@ -292,7 +293,7 @@
         "ftpCcuDir": "/backupDir/ccu",
         "ftpTotalDir": "/backupDir/total",
         "ftpMinimalDir": "/backupDir/minimal",
-        "deleteoldFtpBackup": false,
+        "ftpDeleteOldBackup": false,
 
         "redisEnabled": false,
         "redisPath": "/var/lib/redis",
