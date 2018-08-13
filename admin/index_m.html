@@ -576,6 +576,8 @@
                         <label for="telegramInstance" class="translate">Telegram instance</label>
                     </div>
                 </div>
+                <div class="row telegram_inst">
+                </div>
                 <div class="row">
                     <div class="input-field col s12 m6 l4">
                         <input type="number" class="value" id="historyEntriesNumber" min="1" max="50"/>
@@ -629,13 +631,14 @@
                         <a class="waves-effect waves-light btn btn-total do-backup" data-type="total"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
                     </div>
                 </div>
+                
                 <div class="row total">
-                    <div class="row">
-                        <div class="input-field col s12 m6 l4">
-                            <input class="value" id="totalStopIoB" type="checkbox"/>
-                            <label for="totalStopIoB" class="translate">Stop ioBroker at backup</label>
-                        </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="totalStopIoB" type="checkbox"/>
+                        <label for="totalStopIoB" class="translate">Stop ioBroker at backup</label>
                     </div>
+                </div>
+                <div class="row total">
                     <div class="input-field col s12 m6 l3">
                         <input class="value" id="totalTime" type="text">
                         <label for="totalTime" class="translate">backup time</label>
@@ -780,6 +783,10 @@
                 </div>
                 <div class="row cifs">
                     <div class="input-field col s12">
+                            <input class="value" id="cifsDeleteOldBackup" type="checkbox"/>
+                            <label for="cifsDeleteOldBackup" class="translate">Delete old CIFS-Backups</label>
+                    </div>
+                    <div class="input-field col s12">
                         <input class="value" id="cifsOwnDir" type="checkbox"/>
                         <span for="cifsOwnDir" class="translate">Extra path for backup types</span>
                     </div>
@@ -869,6 +876,10 @@
                     </div>
                 </div>
                 <div class="row dropbox">
+                    <div class="input-field col s12">
+                        <input class="value" id="dropboxDeleteOldBackup" type="checkbox"/>
+                        <label for="dropboxDeleteOldBackup" class="translate">Delete old Dropbox-Backups</label>
+                    </div>
                     <div class="input-field col s12">
                         <input class="value" id="dropboxOwnDir" type="checkbox"/>
                         <label for="dropboxOwnDir" class="translate">Extra Dropbox path for backup types</label>
