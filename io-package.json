@@ -292,6 +292,7 @@
         "ftpCcuDir": "/backupDir/ccu",
         "ftpTotalDir": "/backupDir/total",
         "ftpMinimalDir": "/backupDir/minimal",
+        "deleteoldFtpBackup": false,
 
         "redisEnabled": false,
         "redisPath": "/var/lib/redis",
