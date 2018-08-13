@@ -413,7 +413,7 @@
                 $('.dropbox-extra').hide();
                 $('.dropbox-standard').show();
             }
-            
+
             if ($('#redisEnabled').prop('checked')) {
                 $('.redis_path').show();
             } else {
@@ -451,9 +451,9 @@
                 $('.total').hide();
             }
 
-            
-/*            
-            
+
+/*
+
             if ($('#mySqlEnabled').prop('checked')) {
                 $('.tab-my-sql').show();
             } else {
@@ -474,8 +474,8 @@
             } else {
                 $('.tab-ftp').hide();
             }
- */           
-            
+ */
+
             if ($('#mySqlEnabled').prop('checked')) {
                 $('.tab-my-sql').removeClass('disabled');
             } else {
@@ -496,7 +496,7 @@
             } else {
                 $('.tab-ftp').addClass('disabled');
             }
-       
+
         }
 
     </script>
@@ -545,7 +545,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    
+
                     <div class="input-field col s6 l3">
                         <input class="value" id="cifsEnabled" type="checkbox"/>
                         <span for="cifsEnabled" class="translate">Cifs - Mount</span>
@@ -617,7 +617,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Complete Backup -->
             <div id="tab-total-backup" class="col s12 page">
                 <div class="row">
@@ -656,11 +656,11 @@
                         <label for="totalNameSuffix" class="translate">name</label>
                         <span class="translate">Name suffix</span>
                     </div>
-                 
+
                 </div>
-                
+
             </div>
-            
+
             <!-- CCU Backup -->
             <div id="tab-ccu-backup" class="col s12 page">
                 <div class="row">
@@ -710,7 +710,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Mysql Backup -->
             <div id="tab-my-sql" class="col s12 page">
                 <div class="row">
@@ -760,7 +760,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- cifs settings -->
             <div id="tab-cifs" class="col s12 page">
                 <div class="row cifs">
@@ -805,7 +805,7 @@
                     </div>
                 </div>
             </div>
-        
+
             <!-- ftp settings -->
             <div id="tab-ftp" class="col s12 page">
                 <div class="row ftp">
@@ -830,8 +830,8 @@
                 </div>
                 <div class="row ftp">
                     <div class="input-field col s12">
-                        <input class="value" id="deleteoldFtpBackup" type="checkbox"/>
-                        <label for="deleteoldFtpBackup" class="translate">Delete old FTP-Backups</label>
+                        <input class="value" id="ftpDeleteOldBackup" type="checkbox"/>
+                        <label for="ftpDeleteOldBackup" class="translate">Delete old FTP-Backups</label>
                     </div>
                     <div class="input-field col s12">
                         <input class="value" id="ftpOwnDir" type="checkbox"/>
