@@ -190,10 +190,6 @@ function initConfig(secret) {
         user: adapter.config.cifsUser,                     // specify if CIFS mount should be used
         pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for FTP Server
     };
-    const clean = {
-        enabled: adapter.config.cifsEnabled,
-        deleteOldBackup: adapter.config.cifsDeleteOldBackup, //Delete old Backups from Network Disk
-    };
 
     // Configurations for standard-IoBroker backup
     backupConfig.minimal = {
@@ -216,7 +212,6 @@ function initConfig(secret) {
         },
         history,
         telegram,
-        clean,
     };
 
     // Configurations for CCU / pivCCU / RaspberryMatic backup
