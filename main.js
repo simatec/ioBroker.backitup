@@ -200,6 +200,7 @@ function initConfig(secret) {
         everyXDays: adapter.config.minimalEveryXDays,
         nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
         deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backupfiles after x days
+        extensionsEnabled: adapter.config.minimalExtensionsEnabled, // mysql and redis enabled for minimal
 
         ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir} : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir}  : {}),
