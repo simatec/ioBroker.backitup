@@ -242,6 +242,7 @@
 		"minimalEveryXDays": 1,
 		"minimalDeleteAfter": 5,
 		"minimalNameSuffix": "",
+		"minimalExtensionsEnabled": false,
 
 		"totalEnabled": false,
 		"totalTime": "03:00",
