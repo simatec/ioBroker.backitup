@@ -8,8 +8,9 @@ const schedule  = require('node-schedule');
 const fs        = require('fs');
 const path      = require('path');
 
-const tools = require('./lib/tools');
+const tools     = require('./lib/tools');
 const executeScripts = require('./lib/execute');
+const list      = require('./lib/list');
 
 const adapter = new utils.Adapter('backitup');
 
@@ -49,7 +50,7 @@ adapter.on('stateChange', (id, state) => {
             const type = id.split('.').pop();
             const config = JSON.parse(JSON.stringify(backupConfig[type]));
             config.enabled = true;
-            config.deleteBackupAfter = 0; // do not delete files by custom backup
+            //config.deleteBackupAfter = 0; // do not delete files by custom backup
 
             startBackup(config, err => {
                 if (err) {
@@ -65,6 +66,28 @@ adapter.on('stateChange', (id, state) => {
 });
 
 adapter.on('ready', main);
+
+adapter.on('message', obj => {
+    if (obj) {
+        switch (obj.command) {
+            case 'list':
+                list(backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                break;
+            case 'restore':
+                if (obj.message) {
+                    restore(obj.message.type, obj.message.fileName, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                } else if (obj.callback) {
+                    obj.callback({error: 'Invalid parameters'});
+                }
+                break;
+        }
+    }
+});
+
+function restore(type, fileName, log, callback) {
+    console.log(type, fileName);
+    callback({error: 'not implemented'});
+}
 
 function checkStates() {
     // Fill empty data points with default values
@@ -159,6 +182,7 @@ function initConfig(secret) {
 
     const mysql = {
         enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
+        type: 'creator',
         dbName: adapter.config.mySqlName,              // database name
         user: adapter.config.mySqlUser,                // database user
         pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
@@ -170,18 +194,21 @@ function initConfig(secret) {
 
     const telegram = {
         enabled: adapter.config.telegramEnabled,
+        type: 'message',
         instance: adapter.config.telegramInstance,
         systemLang
     };
 
     const history = {
         enabled: true,
+        type: 'message',
         entriesNumber: adapter.config.historyEntriesNumber,
         systemLang
     };
 
     const ftp = {
         enabled: adapter.config.ftpEnabled,
+        type: 'storage',
         host: adapter.config.ftpHost,                       // ftp-host
         deleteOldBackup: adapter.config.ftpDeleteOldBackup, //Delete old Backups from FTP
         dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir, // directory on FTP server
@@ -192,12 +219,14 @@ function initConfig(secret) {
 
     const dropbox = {
         enabled: adapter.config.dropboxEnabled,
+        type: 'storage',
         deleteOldBackup: adapter.config.dropboxDeleteOldBackup, //Delete old Backups from Dropbox
         accessToken: adapter.config.dropboxAccessToken,
     };
 
     const cifs = {
         enabled: adapter.config.cifsEnabled,
+        type: 'storage',
         mount: adapter.config.cifsMount,
         deleteOldBackup: adapter.config.cifsDeleteOldBackup, //Delete old Backups from Network Disk
         dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                       // specify if CIFS mount should be used
@@ -223,6 +252,7 @@ function initConfig(secret) {
         dir: tools.getIobDir(),
 		redis: {
 			enabled: adapter.config.redisEnabled,
+            type: 'creator',
 			path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
         },
         history,
