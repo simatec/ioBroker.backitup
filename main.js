@@ -3,10 +3,10 @@
 /*jslint node: true */
 'use strict';
 
-const utils = require(__dirname + '/lib/utils'); // Get common adapter utils
-const schedule = require('node-schedule');
-const fs = require('fs');
-const path = require('path');
+const utils     = require(__dirname + '/lib/utils'); // Get common adapter utils
+const schedule  = require('node-schedule');
+const fs        = require('fs');
+const path      = require('path');
 
 const tools = require('./lib/tools');
 const executeScripts = require('./lib/execute');
@@ -16,6 +16,7 @@ const adapter = new utils.Adapter('backitup');
 let systemLang = 'de';                                  // system language
 const backupConfig = {};
 const backupTimeSchedules = [];                         // Array für die Backup Zeiten
+let taskRunning = false;
 
 function decrypt(key, value) {
     let result = '';
@@ -23,6 +24,19 @@ function decrypt(key, value) {
         result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
     }
     return result;
+}
+
+
+function startBackup(config, cb) {
+    if (taskRunning) {
+        return setTimeout(startBackup, 10000, config, cb);
+    } else {
+        taskRunning = true;
+        executeScripts(adapter, config, err => {
+            taskRunning = false;
+            cb && cb(err);
+        });
+    }
 }
 
 // Is executed when a State has changed
@@ -37,7 +51,7 @@ adapter.on('stateChange', (id, state) => {
             config.enabled = true;
             config.deleteBackupAfter = 0; // do not delete files by custom backup
 
-            executeScripts(adapter, config, err => {
+            startBackup(config, err => {
                 if (err) {
                     adapter.log.error(`[${type}] ${err}`);
                 } else {
@@ -112,7 +126,7 @@ function createBackupSchedule() {
             backupTimeSchedules[type] = schedule.scheduleJob(cron, () => {
                 adapter.setState('oneClick.' + type, true, true);
 
-                executeScripts(adapter, backupConfig[type], err => {
+                startBackup(backupConfig[type], err => {
                     if (err) {
                         adapter.log.error(`[${type}] ${err}`);
                     } else {
@@ -287,10 +301,10 @@ function readLogFile() {
             adapter.setState('output.line', '[EXIT] 0');
             fs.unlinkSync(logName);
 
-            // make an messaging
+            // make the messaging
             const config = require(__dirname + '/lib/total.json');
             config.afterBackup = true;
-            executeScripts(adapter, config, () => {
+            executeScripts(adapter, config, err => {
 
             });
         }
