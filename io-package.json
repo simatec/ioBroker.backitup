@@ -228,6 +228,7 @@
         "mode": "daemon",
         "icon": "backitup.png",
         "materialize": true,
+        "messagebox": true,
         "enabled": true,
         "extIcon": "https://raw.githubusercontent.com/simatec/ioBroker.backitup/master/admin/backitup.png",
         "keywords": ["Backup", "IoBroker", "Homematic"],
