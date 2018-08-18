@@ -56,6 +56,13 @@
         #dialog-command .btn {
             margin-right: 1.5rem;
         }
+        .do-restore {
+            cursor: pointer;
+        }
+        .collapsible-body {
+            margin-left: 2rem !important;
+            padding-top: 0 !important;
+        }
     </style>
     <script type="text/javascript">
         var $dialogCommand = null;
@@ -324,8 +331,51 @@
                         socket.emit('subscribeStates',  'backitup.' + instance + '.*');
                         socket.emit('subscribeStates',  'system.adapter.backitup.' + instance + '.alive');
                     });
+
+                    $('.do-list').removeClass('disabled').on('click', function () {
+                        $('.do-list').addClass('disabled');
+                        $('#tab-restore').find('.collapsible').html('');
+                        sendTo(null, 'list', null, function (result) {
+                            $('.do-list').removeClass('disabled');
+                            console.log(result);
+                            if (result && result.error) {
+                                showError(result.error);
+                            }
+                            if (result && result.data) {
+                                var text = '';
+                                for (var type in result.data) {
+                                    if (!result.data.hasOwnProperty(type)) continue;
+                                    text += '<li><div class="collapsible-header">' + type + '</div>';
+                                    text += '<ul class="collapsible-body collection">';
+                                    for (var i = 0; i < result.data[type].length; i++) {
+                                        text += '<li class="collection-item"><div>' + result.data[type][i].split('/').pop() +
+                                            '<a class="secondary-content do-restore" data-file="' + result.data[type][i] + '" data-type="' + type + '"><i class="material-icons">restore</i></a>' +
+                                        '</div></li>';
+                                    }
+                                    text += '</ul>';
+                                    text += '</li>';
+                                }
+                                $('#tab-restore')
+                                    .find('.collapsible')
+                                    .html(text)
+                                    .collapsible();
+                                $('#tab-restore').find('.do-restore').on('click', function () {
+                                    var type = $(this).data('type');
+                                    var file = $(this).data('file');
+                                    sendTo(null, 'restore', {type: type, fileName: file}, function (result) {
+                                        if (!result || result.error) {
+                                            showError(result.error);
+                                        } else {
+                                            showMessage(_('Restore started!'));
+                                        }
+                                    });
+                                });
+                            }
+                        });
+                    });
                 } else {
                     $('.do-backup').addClass('disabled');
+                    $('.do-list').addClass('disabled');
                 }
             });
 
@@ -506,14 +556,15 @@
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s6 l3"><a href="#tab-settings" class="translate active">main settings</a></li>
-                <li class="tab col s6 l3 tab-minimal-backup"><a href="#tab-minimal-backup" class="translate">Standard backup</a></li>
-                <li class="tab col s6 l3 tab-total-backup"><a href="#tab-total-backup" class="translate">Total backup</a></li>
-                <li class="tab col s6 l3 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
-                <li class="tab col s6 l3 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
-                <li class="tab col s6 l3 tab-cifs"><a href="#tab-cifs" class="translate">Cifs settings</a></li>
-                <li class="tab col s6 l3 tab-ftp"><a href="#tab-ftp" class="translate">FTP settings</a></li>
-                <li class="tab col s6 l3 tab-dropbox"><a href="#tab-dropbox" class="translate">Dropbox settings</a></li>
+                <li class="tab col s6 l2"><a href="#tab-settings" class="translate active">main settings</a></li>
+                <li class="tab col s6 l2 tab-minimal-backup"><a href="#tab-minimal-backup" class="translate">Standard backup</a></li>
+                <li class="tab col s6 l2 tab-total-backup"><a href="#tab-total-backup" class="translate">Total backup</a></li>
+                <li class="tab col s6 l2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
+                <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
+                <li class="tab col s6 l2 tab-cifs"><a href="#tab-cifs" class="translate">Cifs settings</a></li>
+                <li class="tab col s6 l2 tab-ftp"><a href="#tab-ftp" class="translate">FTP settings</a></li>
+                <li class="tab col s6 l2 tab-dropbox"><a href="#tab-dropbox" class="translate">Dropbox settings</a></li>
+                <!--li class="tab col s6 l2 tab-restore"><a href="#tab-restore" class="translate">Restore</a></li-->
             </ul>
         </div>
         <div class="row">
@@ -580,6 +631,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- Minimal Backup -->
             <div id="tab-minimal-backup" class="col s12 page">
                 <div class="row">
@@ -907,6 +959,19 @@
                         <input class="value" id="dropboxDir" type="text">
                         <label for="dropboxDir" class="translate">Dropbox path</label>
                     </div>
+                </div>
+            </div>
+
+            <!-- restore settings -->
+            <div id="tab-restore" class="col s12 page">
+                <div class="row">
+                    <div class="input-field col s6 l3">
+                        <a class="waves-effect waves-light btn btn-minimal do-list"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <ul class="collapsible">
+                    </ul>
                 </div>
             </div>
         </div>

@@ -27,7 +27,6 @@ function decrypt(key, value) {
     return result;
 }
 
-
 function startBackup(config, cb) {
     if (taskRunning) {
         return setTimeout(startBackup, 10000, config, cb);
@@ -50,7 +49,7 @@ adapter.on('stateChange', (id, state) => {
             const type = id.split('.').pop();
             const config = JSON.parse(JSON.stringify(backupConfig[type]));
             config.enabled = true;
-            //config.deleteBackupAfter = 0; // do not delete files by custom backup
+            config.deleteBackupAfter = 0; // do not delete files by custom backup
 
             startBackup(config, err => {
                 if (err) {
@@ -73,6 +72,7 @@ adapter.on('message', obj => {
             case 'list':
                 list(backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                 break;
+
             case 'restore':
                 if (obj.message) {
                     restore(obj.message.type, obj.message.fileName, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
