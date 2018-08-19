@@ -11,6 +11,7 @@ const path      = require('path');
 const tools     = require('./lib/tools');
 const executeScripts = require('./lib/execute');
 const list      = require('./lib/list');
+const restore   = require('./lib/restore');
 
 const adapter = new utils.Adapter('backitup');
 
@@ -75,7 +76,7 @@ adapter.on('message', obj => {
 
             case 'restore':
                 if (obj.message) {
-                    restore(obj.message.type, obj.message.fileName, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                    restore(adapter, backupConfig, obj.message.type, obj.message.fileName, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                 } else if (obj.callback) {
                     obj.callback({error: 'Invalid parameters'});
                 }
@@ -83,11 +84,6 @@ adapter.on('message', obj => {
         }
     }
 });
-
-function restore(type, fileName, log, callback) {
-    console.log(type, fileName);
-    callback({error: 'not implemented'});
-}
 
 function checkStates() {
     // Fill empty data points with default values
@@ -237,6 +233,7 @@ function initConfig(secret) {
     // Configurations for standard-IoBroker backup
     backupConfig.minimal = {
         name: 'minimal',
+        type: 'creator',
         enabled: adapter.config.minimalEnabled,
         time: adapter.config.minimalTime,
         debugging: adapter.config.debugLevel,
@@ -262,6 +259,7 @@ function initConfig(secret) {
     // Configurations for CCU / pivCCU / RaspberryMatic backup
     backupConfig.ccu = {
         name: 'ccu',
+        type: 'creator',
         enabled: adapter.config.ccuEnabled,
         time: adapter.config.ccuTime,
         debugging: adapter.config.debugLevel,
@@ -283,6 +281,7 @@ function initConfig(secret) {
     // Configurations for total-IoBroker backup
     backupConfig.total = {
         name: 'total',
+        type: 'creator',
         enabled: adapter.config.totalEnabled,
         time: adapter.config.totalTime,
         debugging: adapter.config.debugLevel,
@@ -365,6 +364,9 @@ function createBashScripts() {
         if (!fs.existsSync(__dirname + '/lib/startIOB.bat')) {
             fs.writeFileSync(__dirname + '/lib/startIOB.bat', `cd "${jsPath}"\ncall iobroker.bat start\n`);
         }
+        if (!fs.existsSync(__dirname + '/lib/stop_r_IOB.bat')) {
+            fs.writeFileSync(__dirname + '/lib/stop_r_IOB.bat', `cd "${jsPath}"\ncall iobroker.bat stop\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
+        }
     } else {
         // todo detect pm2 or systemd
         if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
@@ -374,6 +376,10 @@ function createBashScripts() {
         if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
             fs.writeFileSync(__dirname + '/lib/startIOB.sh', `cd "${jsPath}"\n./iobroker.sh start\n`);
             fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
+        }
+        if (!fs.existsSync(__dirname + '/lib/stop_r_IOB.sh')) {
+            fs.writeFileSync(__dirname + '/lib/stop_r_IOB.sh', `cd "${jsPath}"\n./iobroker.sh stop\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
+            fs.chmodSync(__dirname + '/lib/stop_r_IOB.sh', 508);
         }
     }
 }

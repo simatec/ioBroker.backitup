@@ -79,7 +79,7 @@ The following steps should be used to use the adapter (if the v1 / v2 / v3 backu
     - Step 3: Select "App folder"
     - Step 4: Give "Name your app"
     - Step 5: Press "Generated access token" button (The token is entered in the settings of Backitup)
-    - In your Dopbox there is now a new folder with the name "Apps"
+    - In your Dropbox there is now a new folder with the name "Apps"
 
 
 ## 4. Usage:
