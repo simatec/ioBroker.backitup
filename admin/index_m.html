@@ -203,10 +203,35 @@
             $dialogCommand.modal('open');
             $dialogCommand.find('.progress-dont-close').removeClass('disabled');
             $dialogCommandProgress.show();
-            if (type === 'total' && $('#totalStopIoB').prop('checked')) {
+            if (type === 'restore' || (type === 'total' && $('#totalStopIoB').prop('checked'))) {
                 showToast($dialogCommand, _('ioBroker will be stopped and started again. Please wait'), null, 10000);
             }
             lastMessage = '';
+        }
+
+        function getSize(bytes) {
+            if (bytes > 1024 * 1024 * 512) {
+                return Math.round(bytes / (1024 * 1024 * 1024) * 10) / 10 + 'GiB';
+            } else if (bytes > 1024 * 1024) {
+                return Math.round(bytes / (1024 * 1024) * 10) / 10 + 'MiB';
+            } else if (bytes > 1024) {
+                return Math.round(bytes / (1024) * 10) / 10 + 'KiB';
+            } else {
+                return bytes + ' bytes';
+            }
+        }
+
+        function getName(name) {
+            var parts = name.split('_');
+            if (parseInt(parts[0], 10).toString() !== parts[0]) {
+                parts.shift();
+            }
+            return new Date(
+                parts[0],
+                parseInt(parts[1], 10) - 1,
+                parseInt(parts[2].split('-')[0], 10),
+                parseInt(parts[2].split('-')[1], 10),
+                parseInt(parts[3], 10)).toLocaleString().replace(/:00$/, '');
         }
 
         function load(settings, onChange) {
@@ -334,7 +359,7 @@
 
                     $('.do-list').removeClass('disabled').on('click', function () {
                         $('.do-list').addClass('disabled');
-                        $('#tab-restore').find('.collapsible').html('');
+                        $('#tab-restore').find('.root').html('');
                         sendTo(null, 'list', null, function (result) {
                             $('.do-list').removeClass('disabled');
                             console.log(result);
@@ -343,30 +368,53 @@
                             }
                             if (result && result.data) {
                                 var text = '';
-                                for (var type in result.data) {
-                                    if (!result.data.hasOwnProperty(type)) continue;
+                                var data = result.data;
+                                for (var type in data) {
+                                    if (!data.hasOwnProperty(type)) continue;
                                     text += '<li><div class="collapsible-header">' + type + '</div>';
                                     text += '<ul class="collapsible-body collection">';
-                                    for (var i = 0; i < result.data[type].length; i++) {
-                                        text += '<li class="collection-item"><div>' + result.data[type][i].split('/').pop() +
-                                            '<a class="secondary-content do-restore" data-file="' + result.data[type][i] + '" data-type="' + type + '"><i class="material-icons">restore</i></a>' +
-                                        '</div></li>';
+
+                                    for (var storage in data[type]) {
+                                        if (data[type].hasOwnProperty(storage)) {
+                                            text += '<ul class="collapsible"><li><div class="collapsible-header">' + storage + '</div>';
+                                            text += '<ul class="collapsible-body collection">';
+                                            for (var i = data[type][storage].length - 1; i >= 0; i--) {
+                                                text += '<li class="collection-item"><div>' + getName(data[type][storage][i].name) + ' (' + getSize(data[type][storage][i].size) + ')' +
+                                                    '<a class="secondary-content do-restore" data-file="' + data[type][storage][i].path + '" data-type="' + type + '"><i class="material-icons">restore</i></a>' +
+                                                    '</div></li>';
+                                            }
+                                            text += '</ul></li></ul>';
+                                        }
                                     }
-                                    text += '</ul>';
-                                    text += '</li>';
+
+                                    text += '</ul></li>';
                                 }
+
                                 $('#tab-restore')
-                                    .find('.collapsible')
-                                    .html(text)
-                                    .collapsible();
+                                    .find('.root')
+                                    .html(text);
+                                $('#tab-restore').find('.collapsible').collapsible();
+
                                 $('#tab-restore').find('.do-restore').on('click', function () {
                                     var type = $(this).data('type');
                                     var file = $(this).data('file');
-                                    sendTo(null, 'restore', {type: type, fileName: file}, function (result) {
-                                        if (!result || result.error) {
-                                            showError(result.error);
-                                        } else {
-                                            showMessage(_('Restore started!'));
+                                    var name = file.split('/').pop().split('_')[0];
+
+                                    confirmMessage(name !== 'mysql' ? _('ioBroker will be restarted during restore.') : _('Ready'), _('Are you sure?'), null, [_('Cancel'), _('OK')], function (result) {
+                                        if (result === 1) {
+                                            $('.do-list').addClass('disabled');
+                                            $('#tab-restore').find('.do-restore').addClass('disabled').hide();
+                                            sendTo(null, 'restore', {type: type, fileName: file}, function (result) {
+                                                if (!result || result.error) {
+                                                    showError(result.error);
+                                                } else {
+                                                    var name = file.split('/').pop().split('_')[0];
+                                                    showDialog(name !== 'mysql' ? 'restore' : '');
+                                                    showToast(null, _('Restore started'));
+                                                }
+                                                $('.do-list').removeClass('disabled');
+                                                $('#tab-restore').find('.do-restore').removeClass('disabled').show();
+                                            });
                                         }
                                     });
                                 });
@@ -563,8 +611,8 @@
                 <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
                 <li class="tab col s6 l2 tab-cifs"><a href="#tab-cifs" class="translate">Cifs settings</a></li>
                 <li class="tab col s6 l2 tab-ftp"><a href="#tab-ftp" class="translate">FTP settings</a></li>
-                <li class="tab col s6 l2 tab-dropbox"><a href="#tab-dropbox" class="translate">Dropbox settings</a></li>
-                <!--li class="tab col s6 l2 tab-restore"><a href="#tab-restore" class="translate">Restore</a></li-->
+                <li class="tab col s6 l2 tab-dropbox"><a href="#tab-dropbox">Dropbox</a></li>
+                <li class="tab col s6 l2 tab-restore"><a href="#tab-restore" class="translate">Restore</a></li>
             </ul>
         </div>
         <div class="row">
@@ -963,20 +1011,20 @@
             </div>
 
             <!-- restore settings -->
-            <!--<div id="tab-restore" class="col s12 page">
+            <div id="tab-restore" class="col s12 page">
                 <div class="row">
                     <div class="input-field col s6 l3">
                         <a class="waves-effect waves-light btn btn-minimal do-list"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
                     </div>
                 </div>
                 <div class="row">
-                    <ul class="collapsible">
+                    <ul class="collapsible root">
                     </ul>
                 </div>
-            </div>-->
+            </div>
         </div>
     </div>
-    <!--<div id="dialog-command"    class="modal modal-fixed-footer" style="display: none">
+    <div id="dialog-command"    class="modal modal-fixed-footer" style="display: none">
         <div class="modal-content">
             <div class="row">
                 <div class="col s12">
@@ -1000,7 +1048,7 @@
             <div class="progress-dont-close"><input type="checkbox" class="filled-in" /><span class="translate">close on ready</span></div>
             <a class="modal-action modal-close waves-effect waves-green btn"><i class="large material-icons">close</i><span class="translate">Close</span></a>
         </div>
-    </div>-->
+    </div>
 </div>
 </body>
 

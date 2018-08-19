@@ -80,7 +80,7 @@ Folgende Schritte sollten durchgeführt werden um den Adapter verwenden zu könn
     -   Schritt 3: "App folder" auswählen
     -   Schritt 4: "Name your app" vergeben
     -   Schritt 5: "Generated access token" Button drücken (Der Token wird in den Einstellungen von Backitup eingetragen)
-    -   In deiner Dopbox gibt es nun einen neuen Ordner mit dem Namen "Apps"
+    -   In deiner Dropbox gibt es nun einen neuen Ordner mit dem Namen "Apps"
 
 
 
