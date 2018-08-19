@@ -59,20 +59,20 @@ The following steps should be used to use the adapter (if the v1 / v2 / v3 backu
 
 ## 3. Use Ftp, CIFS, Copy or Dropbox for the optional backup on a Nas?
 
-  - CIFS:
+- CIFS:
     - CIFS mount is not a problem on Linux.
     - It should be noted that cifs-utils is installed
     - The path under CIFS must always begin without "/" (eg: "Sharename/Path")
     - Optionally, you can enable / disable whether the backups should be deleted from the NAS
-  - FTP:
+- FTP:
     - FTP is possible on all OS and serves as an alternative to the CIFS mount
     - The path under FTP must always begin with "/" (Ex: "/path")
     - Optionally, you can enable / disable whether the backups should be deleted from the NAS
-  - Copy:
+- Copy:
     - If no CIFS mount is possible, there is another possibility of the copy function
     - In the CIFS settings, the path must be entered here, where the copy should be made
     - The specification of the IP address must remain empty for the copy function
-  - Dropbox:
+- Dropbox:
     - To use the backup in the Dropbox, an Access Token and an APP must be created at https://www.dropbox.com/developers/apps
     - Step 1: Use the button "Create Backup"
     - Step 2: Select "Dropbox API"
