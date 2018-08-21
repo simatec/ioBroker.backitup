@@ -222,6 +222,7 @@ function initConfig(secret) {
 
     const cifs = {
         enabled: adapter.config.cifsEnabled,
+        mountType: adapter.config.connectType,
         type: 'storage',
         mount: adapter.config.cifsMount,
         deleteOldBackup: adapter.config.cifsDeleteOldBackup, //Delete old Backups from Network Disk

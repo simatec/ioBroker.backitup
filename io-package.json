@@ -284,6 +284,7 @@
         "cifsTotalDir": "sharename/backupDir",
         "cifsMinimalDir": "sharename/backupDir",
         "cifsDeleteOldBackup": false,
+        "connectType": "NFS",
 
         "ftpEnabled": false,
 		"ftpHost": "",
