@@ -267,7 +267,7 @@
 
         "mySqlEnabled": false,
         "mySqlHost": "localhost",
-        "mySqlPort": "3307",
+        "mySqlPort": "3306",
         "mySqlName": "iobroker",
         "mySqlUser": "",
         "mySqlPassword": "",
