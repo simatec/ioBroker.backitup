@@ -360,13 +360,13 @@ function createBashScripts() {
     if (isWin) {
         // todo detect service
         if (!fs.existsSync(__dirname + '/lib/stopIOB.bat')) {
-            fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${jsPath}"\ncall iobroker.bat stop\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
+            fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `net stop ioBroker\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.bat')) {
-            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `cd "${jsPath}"\ncall iobroker.bat start\n`);
+            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `net start ioBroker\n`);
         }
         if (!fs.existsSync(__dirname + '/lib/stop_r_IOB.bat')) {
-            fs.writeFileSync(__dirname + '/lib/stop_r_IOB.bat', `cd "${jsPath}"\ncall iobroker.bat stop\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
+            fs.writeFileSync(__dirname + '/lib/stop_r_IOB.bat', `net stop ioBroker\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
         }
     } else {
         // todo detect pm2 or systemd
