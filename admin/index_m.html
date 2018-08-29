@@ -371,7 +371,11 @@
                                 var data = result.data;
                                 for (var type in data) {
                                     if (!data.hasOwnProperty(type)) continue;
-                                    text += '<li><div class="collapsible-header">' + type + '</div>';
+                                        if (type === 'cifs') {
+                                            text += '<li><div class="collapsible-header">' + "nas / copy" + '</div>';
+                                        } else {
+                                            text += '<li><div class="collapsible-header">' + type + '</div>';
+                                        }
                                     text += '<ul class="collapsible-body collection">';
 
                                     for (var storage in data[type]) {
