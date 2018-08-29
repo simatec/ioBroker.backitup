@@ -305,7 +305,9 @@
         "telegramInstance": "telegram.0",
 
 		"debugLevel": false,
-		"historyEntriesNumber": 25
+        "historyEntriesNumber": 25,
+        
+        "restoreSource": "Local"
     },
     "instanceObjects": [
         {
