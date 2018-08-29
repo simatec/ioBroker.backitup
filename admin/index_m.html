@@ -551,8 +551,13 @@
             $('#connectType').on('change', function () {
             if ($(this).val() === 'NFS') {
                 $('.nfs').hide();
+                $('.copy').show();
             } else if ($(this).val() === 'CIFS') {
                 $('.nfs').show();
+                $('.copy').show();
+            } else if ($(this).val() === 'Copy') {
+                $('.nfs').hide();
+                $('.copy').hide();
             }
             }).trigger('change');
 
@@ -885,13 +890,14 @@
                 <div class="row cifs">
                     <div class="input-field col s11 m2">
                         <select class="value" id="connectType">
-                        <option value="NFS" class="translate">NFS</option>
-                        <option value="CIFS" class="translate">CIFS</option>
+                        <option value="NFS" >NFS</option>
+                        <option value="CIFS" >CIFS</option>
+                        <option value="Copy" >Copy</option>
                         </select>
                         <label for="connectType" class="translate">connection type</label>
                     </div>
                 </div>
-                <div class="row cifs">
+                <div class="row cifs copy">
                     <div class="input-field col s12">
                         <input class="value" id="cifsMount" type="text">
                         <label for="cifsMount" class="translate">Mount</label>
