@@ -71,7 +71,7 @@ adapter.on('message', obj => {
     if (obj) {
         switch (obj.command) {
             case 'list':
-                list(backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                list(adapter, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                 break;
 
             case 'restore':

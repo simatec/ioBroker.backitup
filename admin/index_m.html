@@ -373,7 +373,6 @@
                                     if (!data.hasOwnProperty(type)) continue;
                                     text += '<li><div class="collapsible-header">' + type + '</div>';
                                     text += '<ul class="collapsible-body collection">';
-
                                     for (var storage in data[type]) {
                                         if (data[type].hasOwnProperty(storage)) {
                                             text += '<ul class="collapsible"><li><div class="collapsible-header">' + storage + '</div>';
@@ -421,6 +420,7 @@
                             }
                         });
                     });
+                    
                 } else {
                     $('.do-backup').addClass('disabled');
                     $('.do-list').addClass('disabled');
