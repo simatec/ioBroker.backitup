@@ -7,9 +7,9 @@
 
 [![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
 
-***[--- Deutsche Beschreibung --- ](docs/de/backitup.md)*** 
+### [--- Deutsche Beschreibung --- ](docs/de/backitup.md)
 
-***[ --- English Description ---](docs/en/backitup.md)***
+### [ --- English Description ---](docs/en/backitup.md)
 
 
 
