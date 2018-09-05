@@ -21,6 +21,20 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 ## Changelog
 
+### 0.3.0 (15.09.2018)
+* (bluefox/simatec) Add Multiplatform (Windows/Linux/Mac)
+* (bluefox/simatec) Backitup switched to Javascript
+* (bluefox/simatec) shell support removed
+* (bluefox/simatec) Deleting old backups up to the last X backups added
+* (bluefox/simatec) restore feature added (beta)
+* (bluefox/simatec) Restore added via NAS/FTP/Local/Dropbox (Beta)
+* (simatec) NFS support added
+* (bluefox) Dropbox Support added
+* (peoples) Added silent mode for telegram
+* (simatec) Redis/mysql added with standard backup
+* (simatec) translations added
+* (simatec) Docs adapted
+
 ### 0.2.7 (29.07.2018)
 * (simatec) Fix Delete old Files
 
