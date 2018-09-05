@@ -8,11 +8,15 @@
 [![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
 
 
-***[English Description](docs/en/backitup.md)***                    
+Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
-***[Deutsche Beschreibung](docs/de/backitup.md)***
+[Deutsche Beschreibung hier](docs/de/backitup.md)
 
+Backitup is a backup solution that allows cyclical backup of an IoBroker installation and a Homematic CCU.
 
+[English Description here](docs/en/backitup.md)
+
+*************************************************************************************************************************************
 
 
 ## Changelog
@@ -32,7 +36,7 @@
 * (simatec) Translations added
 
 ### 0.2.4 (23.07.2018)
- * (peoples) Some Bugfixes  
+ * (peoples) Some Bugfixes
  * (peoples) Added translations in words.js
 
 
@@ -46,7 +50,7 @@
 
 ### 0.2.1 (15.07.2018)
  * (peoples/simatec) Bug Fix
- 
+
 ### 0.2.0 (14.07.2018)
  * (blufox) Code formatting
 
