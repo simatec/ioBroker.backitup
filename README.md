@@ -7,9 +7,15 @@
 
 [![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
 
-Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist [Deutsche Beschreibung hier](docs/de/backitup.md)
+Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
-Backitup is a backup solution that allows cyclical backup of an IoBroker installation and a Homematic CCU. [English Description here](docs/en/backitup.md)
+[Deutsche Beschreibung hier](docs/de/backitup.md)
+
+Backitup is a backup solution that allows cyclical backup of an IoBroker installation and a Homematic CCU.
+
+[English Description here](docs/en/backitup.md)
+
+*************************************************************************************************************************************
 
 
 ## Changelog
