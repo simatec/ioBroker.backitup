@@ -335,7 +335,7 @@
             "_id":  "history.ccuLastTime",
             "type": "state",
             "common": {
-                "role":  "date",
+                "role":  "indicator",
                 "name":  "Last CCU backup",
                 "type":  "string",
                 "read":  true,
@@ -348,7 +348,7 @@
             "_id":  "history.minimalLastTime",
             "type": "state",
             "common": {
-                "role":  "date",
+                "role":  "indicator",
                 "name":  "Last minimal backup",
                 "type":  "string",
                 "read":  true,
@@ -361,7 +361,7 @@
             "_id":  "history.totalLastTime",
             "type": "state",
             "common": {
-                "role":  "date",
+                "role":  "indicator",
                 "name":  "Last total backup",
                 "type":  "string",
                 "read":  true,
