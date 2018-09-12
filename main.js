@@ -387,10 +387,21 @@ function createBashScripts() {
         }
     }
 }
+// umount after restore
+function umount() {
+    if (fs.existsSync(__dirname + '/lib/list/.mount')) {
+        const {spawn} = require('child_process');
+        const backupDir = path.join(tools.getIobDir(), 'backups');
+        const cmd = spawn('umount', [backupDir], {detached: true, cwd: __dirname, stdio: ['ignore', 'ignore', 'ignore']});
 
+        cmd.unref();
+        fs.unlink(__dirname + '/lib/list/.mount');
+    }
+}
 function main() {
     createBashScripts();
     readLogFile();
+    umount();
 
     adapter.getForeignObject('system.config', (err, obj) => {
         systemLang = obj.common.language;
