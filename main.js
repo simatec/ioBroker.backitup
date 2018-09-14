@@ -176,18 +176,6 @@ function initConfig(secret) {
         adapter.config.redisEnabled = adapter.config.backupRedis
     }
 
-    const mysql = {
-        enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
-        type: 'creator',
-        dbName: adapter.config.mySqlName,              // database name
-        user: adapter.config.mySqlUser,                // database user
-        pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
-        deleteBackupAfter: adapter.config.mySqlDeleteAfter, // delete old backupfiles after x days
-        host: adapter.config.mySqlHost,                // database host
-        port: adapter.config.mySqlPort,                // database port
-        exe: adapter.config.mySqlDumpExe               // path to mysqldump
-    };
-
     const telegram = {
         enabled: adapter.config.telegramEnabled,
         type: 'message',
@@ -234,6 +222,21 @@ function initConfig(secret) {
         pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for FTP Server
     };
 
+    const mysql = {
+        enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
+        type: 'creator',
+        ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
+        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+        dbName: adapter.config.mySqlName,              // database name
+        user: adapter.config.mySqlUser,                // database user
+        pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
+        deleteBackupAfter: adapter.config.mySqlDeleteAfter, // delete old backupfiles after x days
+        host: adapter.config.mySqlHost,                // database host
+        port: adapter.config.mySqlPort,                // database port
+        exe: adapter.config.mySqlDumpExe               // path to mysqldump
+    };
+
     // Configurations for standard-IoBroker backup
     backupConfig.minimal = {
         name: 'minimal',
@@ -254,6 +257,9 @@ function initConfig(secret) {
 		redis: {
 			enabled: adapter.config.redisEnabled,
             type: 'creator',
+            ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpTotalDir}  : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsTotalDir} : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxTotalDir}  : {}),
 			path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
         },
         history,
@@ -303,6 +309,9 @@ function initConfig(secret) {
         dir: tools.getIobDir(),
         redis: {
             enabled: adapter.config.redisEnabled,
+            ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
             path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
         },
         stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
