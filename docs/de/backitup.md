@@ -4,7 +4,11 @@ Der Adapter ist für Multiplattformen geeignet und kann  neben Linux-Installatio
 
 Für den CIFS Mount muss zwingend cifs-utils installiert sein.
 
-    - apt-get install cifs-utils
+    - sudo apt-get install cifs-utils
+
+Für den NFS Mount muss zwingend nfs-common installiert sein.
+
+    - sudo apt-get install nfs-common
 
 ## Inhaltsverzeichnis:
 1. Backup Type
@@ -16,7 +20,7 @@ Für den CIFS Mount muss zwingend cifs-utils installiert sein.
 
 2. Vorbereitung
 
-3. Ftp, CIFS, Copy und Dropbox
+3. Ftp, CIFS, NFS, Copy und Dropbox
 
 4. Verwendung
    - 4.1 Erstellte Datenpunkte
@@ -58,12 +62,17 @@ Um sicher zu gehen dass alle aktuellsten States gesichert werden muss hier in de
 Folgende Schritte sollten durchgeführt werden um den Adapter verwenden zu können (wenn das Backup-Script v1/v2/v3 verwendet wurde, zuerst Alles löschen (Datenpunkte/Enum.functions/Shell-Script und JavaScript deaktivieren oder löschen!)
 
 
-## 3. Ftp, CIFS, Copy oder Dropbox für das optionale weitersichern auf einen Nas nutzen?
+## 3. Ftp, CIFS, NFS, Copy oder Dropbox für das optionale weitersichern auf einen Nas nutzen?
 
   - CIFS:
     -	CIFS-Mount ist unter Linux kein Problem.
     -   Es sollte beachtet werden, dass cifs-utils installiert ist
     -   Die Pfadangabe unter CIFS muss immer ohne "/" beginnen (Bsp: "Freigabename/Pfadangabe")
+    -	Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
+  - NFS:
+    -	NFS-Mount ist unter Linux kein Problem.
+    -   Es sollte beachtet werden, dass nfs-common installiert ist
+    -   Die Pfadangabe unter NFS muss immer ohne "/" beginnen (Bsp: "Freigabename/Pfadangabe")
     -	Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
   - FTP:
     -	FTP ist auf allen OS möglich und dient als eine Alternative zum CIFS Mount
@@ -106,29 +115,30 @@ Syntax: {BackitupInstanz.history.html}
 
 3. CCS-Formatierung des History-Logs:
    ```
-   .backup-html{
-       display:block;
-       width:100%;
-   /*    overflow-y:scroll; */
-   }
-   .backup-type-minimal
-       {
-           float:left;
-           color:white;
-           font-size:18px;
-       }
-   .backup-type-total
-       {
-           float:left;
-           color:yellow;
-           font-size:18px;
-       }
-   .backup-type-ccu
-       {
-           float:left;
-           color:red;
-           font-size:18px;
-       }
+   .html{
+    display:block;
+    width:100%;
+/*    overflow-y:scroll; */
+}
+.backup-type-minimal
+    {
+        float:left;
+        color:white;
+        font-size:20px;
+    }
+.backup-type-total
+    {
+        float:left;
+        color:yellow;
+        font-size:20px;
+    }
+.backup-type-ccu
+    {
+        float:left;
+        color:red;
+        font-size:20px;
+    }
+
    ```
 4. OneClick-Button mit Status-Text
    - Wenn ein OneClick-Datenpunkt auf true gesetzt wird startet das entsprechende Backup und nach einer vordefinierten Zeit wird dieser Datenpunkt wieder auf false gesetzt somit ist es möglich einen Button mit Status zu erstellen, hierzu folgende Zeile anpassen und in Vis als Knopftext eintragen:
@@ -139,6 +149,16 @@ Syntax: {BackitupInstanz.history.html}
 Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || wert === true ? "Text während der Backuperstellung" : "Standard-Text"}
 
 ## 5. Restore:
+
+Ab Version 0.30 hat backitup eine Restorefunktion.
+Es ist aktuell möglich das total-Backup, das minimal-Backup, als auch mysql und Redis entweder vom lokalen Pfad, aus der Dropbox, via FTP oder vom NAS wiederherzustellen.
+Aktuell befindet sich der Restore noch in der Betaphase.
+
+Das CCU-Backup muss weiterhin über das Webinterface der CCU wiederhergestellt werden.
+
+Bei allen Backuptypen wird beim Restore iobroker gestoppt und im Anschluss automatisch wieder gestartet.
+
+Wer seine Backups lieber manuell wiederherstellen möchte, sollte folgende Punkte durchführen:
 
 1. Restore eines minimalen / normalen IoBroker Backups:
     - Das Backup muss wie gewohnt im  Verzeichnis „opt/iobroker/backups/“ liegen

@@ -6,6 +6,10 @@ The CIFS mount must have cifs-utils installed.
 
     - apt-get install cifs-utils
 
+NFS-mount must be installed for the NFS mount.
+
+	- sudo apt-get install nfs-common
+
 ## Table of Contents:
 1. Backup Type
     - 1.1 Minimal Backup (Standard IoBroker Backup)
@@ -16,7 +20,7 @@ The CIFS mount must have cifs-utils installed.
 
 2. Preparation
 
-3. Ftp, CIFS, Copy and Dropbox
+3. Ftp, CIFS, NFS, Copy and Dropbox
 
 4. Use
     - 4.1 created data points
@@ -57,13 +61,18 @@ To make sure that all the latest states have to be backed up, you have to set th
 
 The following steps should be used to use the adapter (if the v1 / v2 / v3 backup script was used, first delete everything (disable / delete data points / enum.functions / shell script and javascript!)
 
-## 3. Use Ftp, CIFS, Copy or Dropbox for the optional backup on a Nas?
+## 3. Use Ftp, CIFS, NFS, Copy or Dropbox for the optional backup on a Nas?
 
 - CIFS:
     - CIFS mount is not a problem on Linux.
     - It should be noted that cifs-utils is installed
     - The path under CIFS must always begin without "/" (eg: "Sharename/Path")
     - Optionally, you can enable / disable whether the backups should be deleted from the NAS
+- NFS:
+	- NFS mount is not a problem on Linux.
+	- It should be noted that nfs-common is installed
+	- The path specification under NFS must always start without "/" (Ex: "Share name / path specification")
+	- Optionally, you can enable / disable whether the backups should be deleted from the NAS
 - FTP:
     - FTP is possible on all OS and serves as an alternative to the CIFS mount
     - The path under FTP must always begin with "/" (Ex: "/path")
@@ -105,29 +114,29 @@ Syntax: {BackitupInstance.history.html}
 
 3. CCS formatting of the history log
 ```
-   .backup-html{
+   .html{
        display:block;
        width:100%;
    /*    overflow-y:scroll; */
    }
    .backup-type-minimal
        {
-           float: left;
-           color: white;
-           font-size: 18px;
+           float:left;
+           color:white;
+           font-size:20px;
        }
    .backup-type-total
        {
-           float: left;
-           color: yellow;
-           font-size: 18px;
+           float:left;
+           color:yellow;
+           font-size:20px;
        }
    .backup-type-ccu
        {
-           float: left;
-           color: red;
-           font-size: 18px;
-       }
+           float:left;
+           color:red;
+           font-size:20px;
+    }
    ```
 4. OneClick button with status text
     - If a OneClick data point is set to true the corresponding backup starts and after a predefined time this data point is set to false again so it is possible to create a button with status, adjust the following line and enter it in Vis as button text:
@@ -138,6 +147,17 @@ Syntax: {BackitupInstance.history.html}
 Syntax: {value: <BackitupInstance>.oneClick.<trigger>; value ==="true" || value === true ? "Text during backup creation" : "Standard text"}
 
 ## 5. Restore:
+
+As of version 0.30, backitup has a restore function.
+It is currently possible to restore the total backup, the minimal backup, as well as mysql and redis either from the local path, from the Dropbox, via FTP or from the NAS.
+
+Currently the restore is still in beta.
+
+The CCU backup must still be restored via the web interface of the CCU.
+
+For all backup types iobroker is stopped during the restore and then automatically restarted.
+
+Those who prefer to manually restore their backups should do the following:
 
 1. Restore a minimal / normal IoBroker backup:
     - The backup must be in the "opt/iobroker/backups/" directory as usual
