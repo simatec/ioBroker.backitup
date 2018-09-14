@@ -114,31 +114,30 @@ Syntax: {BackitupInstanz.history.html}
 
 
 3. CCS-Formatierung des History-Logs:
-   ```
+```
    .html{
-    display:block;
-    width:100%;
-/*    overflow-y:scroll; */
-}
-.backup-type-minimal
-    {
-        float:left;
-        color:white;
-        font-size:20px;
+       display:block;
+       width:100%;
+   /*    overflow-y:scroll; */
+   }
+   .backup-type-minimal
+       {
+           float:left;
+           color:white;
+           font-size:20px;
+       }
+   .backup-type-total
+       {
+           float:left;
+           color:yellow;
+           font-size:20px;
+       }
+   .backup-type-ccu
+       {
+           float:left;
+           color:red;
+           font-size:20px;
     }
-.backup-type-total
-    {
-        float:left;
-        color:yellow;
-        font-size:20px;
-    }
-.backup-type-ccu
-    {
-        float:left;
-        color:red;
-        font-size:20px;
-    }
-
    ```
 4. OneClick-Button mit Status-Text
    - Wenn ein OneClick-Datenpunkt auf true gesetzt wird startet das entsprechende Backup und nach einer vordefinierten Zeit wird dieser Datenpunkt wieder auf false gesetzt somit ist es möglich einen Button mit Status zu erstellen, hierzu folgende Zeile anpassen und in Vis als Knopftext eintragen:
