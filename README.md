@@ -7,6 +7,7 @@
 
 [![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
 
+
 Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
 [Deutsche Beschreibung hier](docs/de/backitup.md)
@@ -19,6 +20,21 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 
 ## Changelog
+
+### 0.3.0 (24.09.2018)
+* (bluefox/simatec) Add Multiplatform (Windows/Linux/Mac)
+* (bluefox/simatec) Backitup switched to Javascript
+* (bluefox/simatec) shell support removed
+* (bluefox/simatec) Deleting old backups up to the last X backups added
+* (bluefox/simatec) restore feature added (beta)
+* (bluefox/simatec) Restore added via NAS/FTP/Local/Dropbox (Beta)
+* (simatec) NFS support added
+* (bluefox) Dropbox Support added
+* (bluefox) Fix History
+* (peoples) Added silent mode for telegram
+* (simatec) Redis/mysql added with standard backup
+* (simatec) translations added
+* (simatec) Docs adapted
 
 ### 0.2.7 (29.07.2018)
 * (simatec) Fix Delete old Files
@@ -35,7 +51,7 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 * (simatec) Translations added
 
 ### 0.2.4 (23.07.2018)
- * (peoples) Some Bugfixes  
+ * (peoples) Some Bugfixes
  * (peoples) Added translations in words.js
 
 
@@ -49,7 +65,7 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 ### 0.2.1 (15.07.2018)
  * (peoples/simatec) Bug Fix
- 
+
 ### 0.2.0 (14.07.2018)
  * (blufox) Code formatting
 

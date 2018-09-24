@@ -3,104 +3,111 @@
 /*jslint node: true */
 'use strict';
 
-const utils = require(__dirname + '/lib/utils'); // Get common adapter utils
-const {spawn} = require('child_process');
-const schedule = require('node-schedule');
-const words = require('./admin/words');
-const path = require('path');
-const fs = require('fs');
+const utils     = require(__dirname + '/lib/utils'); // Get common adapter utils
+const schedule  = require('node-schedule');
+const fs        = require('fs');
+const path      = require('path');
+
+const tools     = require('./lib/tools');
+const executeScripts = require('./lib/execute');
+const list      = require('./lib/list');
+const restore   = require('./lib/restore');
 
 const adapter = new utils.Adapter('backitup');
 
 let systemLang = 'de';                                  // system language
-let logging;                                            // Logging on/off
-let debugging;										    // Detailiertere Loggings
-let historyEntriesNumber;                               // Anzahl der Einträge in der History
 const backupConfig = {};
 const backupTimeSchedules = [];                         // Array für die Backup Zeiten
-let historyArray = [];                                  // Array für das anlegen der Backup-Historie
-const mySqlConfig = {};
-const iobDir = getIobDir();
-
-/**
- * looks for iobroker home folder
- *
- * @returns {string}
- */
-function getIobDir() {
-    /** @type {string} */
-    let sPath = __dirname.replace(/\\/g, '/');
-    const parts = sPath.split('/');
-    parts.pop(); // ioBroker.backitup
-    sPath = parts.join('/');
-    if (fs.existsSync(path.join(sPath, 'node_modules'))) {
-        return sPath;
-    }
-    parts.pop(); // node_modules
-    sPath = parts.join('/');
-    if (fs.existsSync(path.join(sPath, 'node_modules'))) {
-        return sPath;
-    }
-
-    return '/opt/' + utils.appName;
-}
+let taskRunning = false;
 
 function decrypt(key, value) {
-    var result = '';
-    for(var i = 0; i < value.length; i++) {
+    let result = '';
+    for (let i = 0; i < value.length; i++) {
         result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
     }
     return result;
 }
 
-function _(word) {
-    if (words[word]) {
-        return words[word][systemLang] || words[word].en;
+function startBackup(config, cb) {
+    if (taskRunning) {
+        return setTimeout(startBackup, 10000, config, cb);
     } else {
-        adapter.log.warn('Please translate in words.js: ' + word);
-        return word;
+        taskRunning = true;
+        executeScripts(adapter, config, err => {
+            taskRunning = false;
+            cb && cb(err);
+        });
     }
 }
+
 // Is executed when a State has changed
 adapter.on('stateChange', (id, state) => {
     if ((state.val === true || state.val === 'true') && !state.ack) {
-        if (id === adapter.namespace + '.oneClick.minimal') {
-            startBackup('minimal');
-        }
-        if (id === adapter.namespace + '.oneClick.total') {
-            startBackup('total');
-        }
-        if (id === adapter.namespace + '.oneClick.ccu') {
-            startBackup('ccu');
+
+        if (id === adapter.namespace + '.oneClick.minimal' ||
+            id === adapter.namespace + '.oneClick.total' ||
+            id === adapter.namespace + '.oneClick.ccu') {
+            const type = id.split('.').pop();
+            const config = JSON.parse(JSON.stringify(backupConfig[type]));
+            config.enabled = true;
+            config.deleteBackupAfter = 0; // do not delete files by custom backup
+
+            startBackup(config, err => {
+                if (err) {
+                    adapter.log.error(`[${type}] ${err}`);
+                } else {
+                    adapter.log.debug(`[${type}] exec: done`);
+                }
+                adapter.setState('oneClick.' + type, false, true);
+                adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
+            });
         }
     }
 });
 
 adapter.on('ready', main);
 
+adapter.on('message', obj => {
+    if (obj) {
+        switch (obj.command) {
+            case 'list':
+                list(adapter, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                break;
+
+            case 'restore':
+                if (obj.message) {
+                    restore(adapter, backupConfig, obj.message.type, obj.message.fileName, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                } else if (obj.callback) {
+                    obj.callback({error: 'Invalid parameters'});
+                }
+                break;
+        }
+    }
+});
+
 function checkStates() {
     // Fill empty data points with default values
     adapter.getState('history.html', (err, state) => {
         if (!state || state.val === null) {
             adapter.setState('history.html', {
-                val: '<span class="backup-type-total">' + _('No backups yet') + '</span>',
+                val: '<span class="backup-type-total">' + tools._('No backups yet', systemLang) + '</span>',
                 ack: true
             });
         }
     });
     adapter.getState('history.minimalLastTime', (err, state) => {
         if (!state || state.val === null) {
-            adapter.setState('history.minimalLastTime', {val: _('No backups yet'), ack: true});
+            adapter.setState('history.minimalLastTime', {val: tools._('No backups yet', systemLang), ack: true});
         }
     });
     adapter.getState('history.totalLastTime', (err, state) => {
         if (!state || state.val === null) {
-            adapter.setState('history.totalLastTime', {val: _('No backups yet'), ack: true});
+            adapter.setState('history.totalLastTime', {val: tools._('No backups yet', systemLang), ack: true});
         }
     });
     adapter.getState('history.ccuLastTime', (err, state) => {
         if (!state || state.val === null) {
-            adapter.setState('history.ccuLastTime', {val: _('No backups yet'), ack: true});
+            adapter.setState('history.ccuLastTime', {val: tools._('No backups yet', systemLang), ack: true});
         }
     });
     adapter.getState('oneClick.minimal', (err, state) => {
@@ -120,8 +127,7 @@ function checkStates() {
     });
 }
 
-
-// function to create Backup schedules (Backup time)  
+// function to create Backup schedules (Backup time)
 function createBackupSchedule() {
     for (const type in backupConfig) {
         if (!backupConfig.hasOwnProperty(type)) continue;
@@ -130,400 +136,285 @@ function createBackupSchedule() {
         if (config.enabled === true || config.enabled === 'true') {
             let time = config.time.split(':');
 
-            if (logging) {
-                adapter.log.info(`[${type}] backup was activated at ${config.time} every ${config.everyXDays} day(s)`);
-            }
+            adapter.log.info(`[${type}] backup was activated at ${config.time} every ${config.everyXDays} day(s)`);
 
             if (backupTimeSchedules[type]) {
-                schedule.clearScheduleJob(backupTimeSchedules[type]);
+                backupTimeSchedules[type].cancel();
             }
             const cron = '10 ' + time[1] + ' ' + time[0] + ' */' + config.everyXDays + ' * * ';
             backupTimeSchedules[type] = schedule.scheduleJob(cron, () => {
-                createBackup(type).then(text => {
-                    adapter.log.debug(`[${type}] exec: ${text || 'done'}`);
-                }).catch(err => {
-                    adapter.log.error(`[${type}] ${err}`);
-                })
+                adapter.setState('oneClick.' + type, true, true);
+
+                startBackup(backupConfig[type], err => {
+                    if (err) {
+                        adapter.log.error(`[${type}] ${err}`);
+                    } else {
+                        adapter.log.debug(`[${type}] exec: done`);
+                    }
+                    adapter.setState('oneClick.' + type, false, true);
+                    adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
+                });
             });
 
-            if (debugging) {
+            if (config.debugging) {
                 adapter.log.debug(`[${type}] ${cron}`);
             }
         } else if (backupTimeSchedules[type]) {
-            if (logging) {
-                adapter.log.info(`[${type}] backup deactivated`);
-            }
-            schedule.clearScheduleJob(backupTimeSchedules[type]);
+            adapter.log.info(`[${type}] backup deactivated`);
+            backupTimeSchedules[type].cancel();
             backupTimeSchedules[type] = null;
         }
     }
 }
 
-// function to create the Backupfile         
-function createBackup(type) {
-    return new Promise((resolve, reject) => {
-        let command =
-            (type                                   || '') + '|' +  // 0
-            (backupConfig[type].nameSuffix          || '') + '|' +  // 1
-            (backupConfig[type].deleteBackupAfter   || '') + '|' +  // 2
-            (backupConfig[type].ftp.host            || '') + '|' +  // 3
-            (backupConfig[type].ftp.dir             || '') + '|' +  // 4
-            (backupConfig[type].ftp.user            || '') + '|' +  // 5
-            (backupConfig[type].ftp.pass            || '') + '|' +  // 6
-            (backupConfig[type].host                || '') + '|' +  // 7
-            (backupConfig[type].user                || '') + '|' +  // 8
-            (backupConfig[type].pass                || '') + '|' +  // 9
-            (backupConfig[type].cifs.mount          || '') + '|' +  // 10
-            (backupConfig[type].stopIoB             || 'false') + '|' +  // 11
-            (backupConfig[type].redisEnabled        || 'false') + '|' +  // 12
-            (backupConfig[type].redisEnabled && backupConfig[type].redisPath           || '') + '|' +  // 13
-            (mySqlConfig.dbName                     || '') + '|' +  // 14
-            (mySqlConfig.user                       || '') + '|' +  // 15
-            (mySqlConfig.pass                       || '') + '|' +  // 16
-            (mySqlConfig.deleteBackupAfter          || '') + '|' +  // 17
-            (mySqlConfig.host                       || '') + '|' +  // 18
-            (mySqlConfig.port                       || '') + '|' +  // 19
-            (iobDir                                 || '') +        // 20
-            '';
-        let debug =
-            (type                                   || '') + '|' +  // 0
-            (backupConfig[type].nameSuffix          || '') + '|' +  // 1
-            (backupConfig[type].deleteBackupAfter   || '') + '|' +  // 2
-            (backupConfig[type].ftp.host            || '') + '|' +  // 3
-            (backupConfig[type].ftp.dir             || '') + '|' +  // 4
-            (backupConfig[type].ftp.user            || '') + '|' +  // 5
-            '*****' + '|' +                                         // 6
-            (backupConfig[type].host                || '') + '|' +  // 7
-            (backupConfig[type].user                || '') + '|' +  // 8
-            '*****' + '|' +                                         // 9
-            (backupConfig[type].cifs.mount          || '') + '|' +  // 10
-            (backupConfig[type].stopIoB             || 'false') + '|' +  // 11
-            (backupConfig[type].redisEnabled        || 'false') + '|' +  // 12
-            (backupConfig[type].redisEnabled && backupConfig[type].redisPath           || '') + '|' +  // 13
-            (mySqlConfig.dbName                     || '') + '|' +  // 14
-            (mySqlConfig.user                       || '') + '|' +  // 15
-            '*****' + '|' +                                         // 16
-            (mySqlConfig.deleteBackupAfter          || '') + '|' +  // 17
-            (mySqlConfig.host                       || '') + '|' +  // 18
-            (mySqlConfig.port                       || '') + '|' +  // 19
-            (iobDir                                 || '') +        // 20
-            '';
-        let bashScript;
-        if (require('os').platform() === 'linux') {
-            if (type === 'total' && backupConfig.total.stopIoB) {
-                bashScript = `${__dirname}/backitupl.sh`;    // Pfad zu backup.sh Datei
-            } else {
-                bashScript = `${__dirname}/backitup.sh`;     // Pfad zu backup.sh Datei
-            }
-        }
-        
-        if (require('os').platform() === 'win32') {
-            if (type === 'total' && backupConfig.total.stopIoB) {
-                bashScript = `${__dirname}/backitupl.sh`;    // Pfad zu backup.sh Datei
-            } else {
-                bashScript = `${__dirname}/backitup_win32.sh`;     // Pfad zu backup.sh Datei
-            }
-        }
-
-        if (debugging) {
-            adapter.log.info(`[${type}] bash ${bashScript} "${command}"`);
-        } else {
-            adapter.log.debug(`[${type}] bash ${bashScript} "${debug}"`);
-        }
-
-        // Send Telegram Message
-        if (debugging) {
-            if (adapter.config.telegramInstance !== '') {
-                adapter.log.debug(`[${type}] used Telegram-Instance: ${adapter.config.telegramInstance}`);
-            } else {
-                adapter.log.debug(`[${type}] no Telegram-Instance selected!`);
-            }
-        }
-
-        const time = getTimeString();
-
-        if (adapter.config.telegramEnabled === true && adapter.config.telegramInstance !== '') {
-            adapter.log.debug(`[${type}] Telegram Message enabled`);
-
-            let messageText = _('New %e Backup created on %t');
-            messageText = messageText.replace('%t', time).replace('%e', type);
-            if (backupConfig[type].host !== '') {
-                if (backupConfig[type].cifs.mount === 'FTP') {
-                    const m = _(', and copied / moved via FTP to %h%d');
-                    messageText += m.replace('%h', backupConfig[type].ftp.host).replace('%d', backupConfig[type].ftp.dir);
-                } else
-                if (backupConfig[type].cifs.mount === 'CIFS') {
-                    const m = _(', and stored under %h%d');
-                    messageText += m.replace('%h', backupConfig[type].ftp.host).replace('%d', backupConfig[type].ftp.dir);
-                }
-            }
-            messageText += '!';
-            adapter.sendTo(adapter.config.telegramInstance, 'send', {text: 'BackItUp:\n' + messageText});
-        }
-
-        adapter.setState(`history.${type}LastTime`, time);
-
-        createBackupHistory(type);
-
-        const logFile = __dirname + '/' + type + '.txt';
-        if (fs.existsSync(logFile)) {
-            fs.unlinkSync(logFile);
-        }
-
-        const cmd = spawn('bash', [bashScript, command], {detached: true});
-
-        cmd.stdout.on('data', data => {
-            const text = data.toString();
-            const lines = text.split('\n');
-            lines.forEach(line => {
-                line = line.replace(/\r/g, ' ').trim();
-                line && adapter.log.debug(`[${type}] ${line}`);
-            });
-            adapter.setState('output.line', '[DEBUG] ' + text);
-        });
-
-        cmd.stderr.on('data', data => {
-            const text = data.toString();
-            const lines = text.split('\n');
-            lines.forEach(line => {
-                line = line.replace(/\r/g, ' ').trim();
-                if (line) {
-                    if (text[0] === '*' || text[0] === '<' || text[0] === '>') {
-                        adapter.log.debug(`[${type}] ${line}`);
-                    } else {
-                        adapter.log.error(`[${type}] ${line}`);
-                    }
-                }
-            });
-            
-            if (text[0] === '*' || text[0] === '<' || text[0] === '>') {
-                adapter.setState('output.line', '[DEBUG] ' + text);
-            } else {
-                adapter.setState('output.line', '[ERROR] ' + text);
-            }
-        });
-
-        cmd.on('close', code => {
-            adapter.setState('output.line', '[EXIT] ' + code);
-            if (code) {
-                reject(`Exited with ${code}`);
-            } else {
-                resolve();
-            }
-        });
-
-        cmd.on('error', (error) => {
-            reject(error);
-        });
-    });
-}
-
-// function to create a date string                               #
-const MONTHS = {
-    en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    de: ['Januar', 'Februar', 'Maerz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-    ru: ['январь',  'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'],
-    es: ['enero',   'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
-    it: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'],
-    pt: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
-    pl: ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'],
-    fr: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
-};
-const timePattern = {
-    en: '%d at %t Hours',
-    de: '%d um %t Uhr',
-    ru: '%d в %t'
-};
-
-function padding0(number) {
-    return (number < 10) ? '0' + number : number;
-}
-function getTimeString(date) {
-    date = date || new Date();
-
-    let day = date.getDate();
-    let monthIndex = date.getMonth();
-    let year = date.getFullYear();
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-
-    return (timePattern[systemLang] || timePattern.en)
-        .replace('%d', padding0(day)   + ' ' + (MONTHS[systemLang] || MONTHS.en)[monthIndex] + ' ' + year)
-        .replace('%t', padding0(hours) + ':' + padding0(minutes));
-}
-
-// function for entering the backup execution in the history-log
-function createBackupHistory(type) {
-    adapter.getState('history.html', (err, state) => {
-        let historyList = state.val;
-        if (historyList === '<span class="backup-type-total">' + _('No backups yet') + '</span>') {
-            historyList = '';
-        }
-        historyArray = historyList.split('&nbsp;');
-        if (historyArray.length >= historyEntriesNumber) {
-            historyArray.splice((historyEntriesNumber - 1), 1);
-        }
-        let timeStamp = getTimeString();
-        let historyText;
-        if (backupConfig[type].ftp.host !== '') {
-            if (backupConfig[type].cifs.mount === 'FTP') {
-                historyText = `<span class="backup-type-${type}">${timeStamp} - ${_('Type')}: ${type} - ${_('FTP-Backup: Yes')}</span>`;
-            } else
-            if (backupConfig[type].cifs.mount === 'CIFS') {
-                historyText = `<span class="backup-type-${type}">${timeStamp} - ${_('Type')}: ${type} - ${_('CIFS-Mount: Yes')}</span>`;
-            }
-        } else {
-            historyText = `<span class="backup-type-${type}">${timeStamp} - ${_('Type')}: ${type} - ${_('Only stored locally')}</span>`;
-        }
-        historyArray.unshift(historyText);
-
-        adapter.setState('history.html', historyArray.join('&nbsp;'));
-    });
-}
-
-
-// watching the three One-Click-Backup data points, if activated - start backup
-
-function startBackup(type) {
-    adapter.log.info(`[${type}] oneClick backup started`);
-
-    createBackup(type).then(text => {
-        adapter.log.debug(`[${type}] exec: ${text || 'done'}`);
-    }).catch(e => {
-        adapter.log.error(`[${type}] ${e}`);
-    }).then(() => {
-        adapter.setState('oneClick.' + type, false, true);
-    });
-}
-
-function initVariables(secret) {
-    // general variables
-    logging = adapter.config.logEnabled;                                                 // Logging on/off
-    debugging = adapter.config.debugLevel;										         // Detailiertere Loggings
-    historyEntriesNumber = adapter.config.historyEntriesNumber;                          // Anzahl der Einträge in der History
-
-    // konfigurations for standart-IoBroker backup
-    backupConfig.minimal = {
-        enabled: adapter.config.minimalEnabled,
-        time: adapter.config.minimalTime,
-        everyXDays: adapter.config.minimalEveryXDays,
-        nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-        deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backupfiles after x days
-        ftp: {
-            host: adapter.config.ftpHost,                       // ftp-host
-            dir: (adapter.config.ownDir === true) ? adapter.config.minimalFtpDir : adapter.config.ftpDir, // directory on FTP server
-            user: adapter.config.ftpUser,                       // username for FTP Server 
-            pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '' // password for FTP Server
-        },
-        cifs: {
-            mount: adapter.config.cifsMount                     // specify if CIFS mount should be used
-        }
-    };
-
+function initConfig(secret) {
+    // compatibility
+    if (adapter.config.cifsMount === 'CIFS') {
+        adapter.config.cifsMount = '';
+    }
     if (adapter.config.redisEnabled === undefined) {
         adapter.config.redisEnabled = adapter.config.backupRedis
     }
 
-    // Configurations for total-IoBroker backup
-    backupConfig.total = {
-        enabled: adapter.config.totalEnabled,
-        time: adapter.config.totalTime,
-        everyXDays: adapter.config.totalEveryXDays,
-        nameSuffix: adapter.config.totalNameSuffix,             // names addition, appended to the file name
-        deleteBackupAfter: adapter.config.totalDeleteAfter,     // delete old backupfiles after x days
-        redisEnabled: adapter.config.redisEnabled,               // specify if Redis-DB should be backuped
-        redisPath: adapter.config.redisPath || '/var/lib/redis/dump.rdb', // specify Redis path
-        stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
-        ftp: {
-            host: adapter.config.ftpHost,                       // ftp-host
-            dir: (adapter.config.ownDir === true) ? adapter.config.totalFtpDir : adapter.config.ftpDir, // directory on FTP server
-            user: adapter.config.ftpUser,                       // username for FTP Server
-            pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '' // password for FTP Server
-        },
-        cifs: {
-            mount: adapter.config.cifsMount                     // specify if CIFS mount should be used
-        },
+    const telegram = {
+        enabled: adapter.config.telegramEnabled,
+        type: 'message',
+        instance: adapter.config.telegramInstance,
+        systemLang
     };
 
-    // konfigurations for CCU / pivCCU / Raspberrymatic backup
+    const history = {
+        enabled: true,
+        type: 'message',
+        entriesNumber: adapter.config.historyEntriesNumber,
+        systemLang
+    };
+
+    const ftp = {
+        enabled: adapter.config.ftpEnabled,
+        type: 'storage',
+        source: adapter.config.restoreSource,
+        host: adapter.config.ftpHost,                       // ftp-host
+        deleteOldBackup: adapter.config.ftpDeleteOldBackup, //Delete old Backups from FTP
+        dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir, // directory on FTP server
+        user: adapter.config.ftpUser,                       // username for FTP Server
+        pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '',  // password for FTP Server
+        port: adapter.config.ftpPort || 21                  // FTP port
+    };
+
+    const dropbox = {
+        enabled: adapter.config.dropboxEnabled,
+        type: 'storage',
+        source: adapter.config.restoreSource,
+        deleteOldBackup: adapter.config.dropboxDeleteOldBackup, //Delete old Backups from Dropbox
+        accessToken: adapter.config.dropboxAccessToken,
+    };
+
+    const cifs = {
+        enabled: adapter.config.cifsEnabled,
+        mountType: adapter.config.connectType,
+        type: 'storage',
+        source: adapter.config.restoreSource,
+        mount: adapter.config.cifsMount,
+        deleteOldBackup: adapter.config.cifsDeleteOldBackup, //Delete old Backups from Network Disk
+        dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                       // specify if CIFS mount should be used
+        user: adapter.config.cifsUser,                     // specify if CIFS mount should be used
+        pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for FTP Server
+    };
+
+    const mysql = {
+        enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
+        type: 'creator',
+        ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
+        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+        dbName: adapter.config.mySqlName,              // database name
+        user: adapter.config.mySqlUser,                // database user
+        pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
+        deleteBackupAfter: adapter.config.mySqlDeleteAfter, // delete old backupfiles after x days
+        host: adapter.config.mySqlHost,                // database host
+        port: adapter.config.mySqlPort,                // database port
+        exe: adapter.config.mySqlDumpExe               // path to mysqldump
+    };
+
+    // Configurations for standard-IoBroker backup
+    backupConfig.minimal = {
+        name: 'minimal',
+        type: 'creator',
+        enabled: adapter.config.minimalEnabled,
+        time: adapter.config.minimalTime,
+        debugging: adapter.config.debugLevel,
+        everyXDays: adapter.config.minimalEveryXDays,
+        nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+        deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backupfiles after x days
+        extensionsEnabled: adapter.config.minimalExtensionsEnabled, // mysql and redis enabled for minimal
+
+        ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
+        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+        mysql,
+        dir: tools.getIobDir(),
+		redis: {
+			enabled: adapter.config.redisEnabled,
+            type: 'creator',
+            ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpTotalDir}  : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsTotalDir} : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxTotalDir}  : {}),
+			path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
+        },
+        history,
+        telegram,
+    };
+
+    // Configurations for CCU / pivCCU / RaspberryMatic backup
     backupConfig.ccu = {
+        name: 'ccu',
+        type: 'creator',
         enabled: adapter.config.ccuEnabled,
         time: adapter.config.ccuTime,
+        debugging: adapter.config.debugLevel,
         everyXDays: adapter.config.ccuEveryXDays,
         nameSuffix: adapter.config.ccuNameSuffix,               // names addition, appended to the file name
         deleteBackupAfter: adapter.config.ccuDeleteAfter,       // delete old backupfiles after x days
+
+        ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpCcuDir} : {}),
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsCcuDir}  : {}),
+        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxCcuDir}  : {}),
+        history,
+        telegram,
+
         host: adapter.config.ccuHost,                           // IP-address CCU
         user: adapter.config.ccuUser,                           // username CCU
         pass: adapter.config.ccuPassword ? decrypt(secret, adapter.config.ccuPassword) : '',                       // password der CCU
-        ftp: {
-            host: adapter.config.ftpHost,                       // ftp-host
-            dir: (adapter.config.ownDir === true) ? adapter.config.ccuFtpDir : adapter.config.ftpDir, // directory on FTP server
-            user: adapter.config.ftpUser,                       // username for FTP Server
-            pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : ''  // password for FTP Server
-        },
-        cifs: {
-            mount: adapter.config.cifsMount                     // specify if CIFS mount should be used
-        }
     };
 
-    mySqlConfig.enabled = adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled;
-    if (mySqlConfig.enabled) {
-        mySqlConfig.dbName = adapter.config.mySqlName;              // database name
-        mySqlConfig.user = adapter.config.mySqlUser;                // database user
-        mySqlConfig.pass = adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '';            // database password
-        mySqlConfig.deleteBackupAfter = adapter.config.mySqlDeleteAfter; // delete old backupfiles after x days
-        mySqlConfig.host = adapter.config.mySqlHost;                // database host
-        mySqlConfig.port = adapter.config.mySqlPort;                // database port
-    }
+    // Configurations for total-IoBroker backup
+    backupConfig.total = {
+        name: 'total',
+        type: 'creator',
+        enabled: adapter.config.totalEnabled,
+        time: adapter.config.totalTime,
+        debugging: adapter.config.debugLevel,
+        everyXDays: adapter.config.totalEveryXDays,
+        nameSuffix: adapter.config.totalNameSuffix,             // names addition, appended to the file name
+
+        deleteBackupAfter: adapter.config.totalDeleteAfter,     // delete old backupfiles after x days
+        ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpTotalDir}  : {}),
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsTotalDir} : {}),
+        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxTotalDir}  : {}),
+        history,
+        telegram,
+
+        mysql,
+        dir: tools.getIobDir(),
+        redis: {
+            enabled: adapter.config.redisEnabled,
+            ftp:  Object.assign({}, ftp,  (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+            path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
+        },
+        stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
+    };
 }
 
-function readLogFile(type) {
+function readLogFile() {
     try {
-        const logName = __dirname + '/' + type + '.txt';
+        const logName = path.join(tools.getIobDir(), 'backups', 'logs.txt').replace(/\\/g, '/');
         if (fs.existsSync(logName)) {
-            adapter.log.debug(`[${type}] Printing logs of previous backup`);
+            adapter.log.debug(`Printing logs of previous backup`);
             const text = fs.readFileSync(logName).toString();
             const lines = text.split('\n');
             lines.forEach((line, i) => lines[i] = line.replace(/\r$|^\r/, ''));
             lines.forEach(line => {
-                if (line.trim()) {
-                    adapter.setState('output.line', '[DEBUG] ' + line);
-                    adapter.log.debug(`[${type}] ${line}`);
+                line = line.trim();
+
+                if (line) {
+                    if (line.startsWith('[DEBUG] [total/total] Packed ')) return;
+
+                    if (line.startsWith('[ERROR]')) {
+                        adapter.log.error(line);
+                    } else {
+                        adapter.log.debug(line);
+                    }
+                    adapter.setState('output.line', line);
                 }
             });
             adapter.setState('output.line', '[EXIT] 0');
             fs.unlinkSync(logName);
+
+            // make the messaging
+            const config = require(__dirname + '/lib/total.json');
+            config.afterBackup = true;
+            executeScripts(adapter, config, err => {
+
+            });
         }
     } catch (e) {
-        adapter.log.warn(`[${type}] Cannot read log file: ${e}`);
+        adapter.log.warn(`Cannot read log file: ${e}`);
     }
 }
 
-function createBashLogger() {
-    if (!fs.existsSync(__dirname + '/backitupl.sh')) {
-        let text = '#!/bin/bash\n' +
-            '\n' +
-            'STRING=$1\n' +
-            'IFS="|"\n' +
-            'VAR=($STRING)\n' +
-            '\n' +
-            'BACKUP_TYPE=${VAR[0]}\n' +
-            '\n' +
-            __dirname + '/backitup.sh "$1" > "' + __dirname + '/${BACKUP_TYPE}.txt"';
-        fs.writeFileSync(__dirname + '/backitupl.sh', text, {mode: 508}); // 508 => 0774
-    }
-    fs.chmodSync(__dirname + '/backitup.sh', 508);
-}
+function createBashScripts() {
+    const isWin = process.platform.startsWith('win');
 
+    let jsPath;
+    try {
+        jsPath = require.resolve('iobroker.js-controller/iobroker.bat');
+        jsPath = jsPath.replace(/\\/g, '/');
+        const parts = jsPath.split('/');
+        parts.pop();
+        jsPath = parts.join('/');
+    } catch (e) {
+        jsPath = path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller');
+    }
+
+    if (isWin) {
+        // todo detect service
+        if (!fs.existsSync(__dirname + '/lib/stopIOB.bat')) {
+            fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall serviceIoBroker.bat stop\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
+        }
+        if (!fs.existsSync(__dirname + '/lib/startIOB.bat')) {
+            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall serviceIoBroker.bat start\niobroker start all`);
+        }
+        if (!fs.existsSync(__dirname + '/lib/stop_r_IOB.bat')) {
+            fs.writeFileSync(__dirname + '/lib/stop_r_IOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall serviceIoBroker.bat stop\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
+        }
+    } else {
+        // todo detect pm2 or systemd
+        if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
+            fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `cd "${path.join(tools.getIobDir())}"\nbash iobroker stop\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
+            fs.chmodSync(__dirname + '/lib/stopIOB.sh', 508);
+        }
+        if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
+            fs.writeFileSync(__dirname + '/lib/startIOB.sh', `cd "${path.join(tools.getIobDir())}"\niobroker start all\nbash iobroker start`);
+            fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
+        }
+        if (!fs.existsSync(__dirname + '/lib/stop_r_IOB.sh')) {
+            fs.writeFileSync(__dirname + '/lib/stop_r_IOB.sh', `cd "${path.join(tools.getIobDir())}"\nbash iobroker stop\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
+            fs.chmodSync(__dirname + '/lib/stop_r_IOB.sh', 508);
+        }
+    }
+}
+// umount after restore
+function umount() {
+    if (fs.existsSync(__dirname + '/lib/list/.mount')) {
+        const {spawn} = require('child_process');
+        const backupDir = path.join(tools.getIobDir(), 'backups');
+        const cmd = spawn('umount', [backupDir], {detached: true, cwd: __dirname, stdio: ['ignore', 'ignore', 'ignore']});
+
+        cmd.unref();
+        fs.unlink(__dirname + '/lib/list/.mount');
+    }
+}
 function main() {
-    createBashLogger();
-    readLogFile('ccu');
-    readLogFile('minimal');
-    readLogFile('total');
+    createBashScripts();
+    readLogFile();
+    umount();
 
     adapter.getForeignObject('system.config', (err, obj) => {
         systemLang = obj.common.language;
-        initVariables((obj && obj.native && obj.native.secret) || 'Zgfr56gFe87jJOM');
+        initConfig((obj && obj.native && obj.native.secret) || 'Zgfr56gFe87jJOM');
 
         checkStates();
 
