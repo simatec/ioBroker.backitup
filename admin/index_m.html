@@ -94,7 +94,7 @@
                             $('#mySqlUser').val(native.user);
                             $('#mySqlPassword').val(native.password);
                             $('#mySqlHost').val(native.host);
-                            $('#mySqlPort').val(native.port === '0' ? 3307 : native.port || 3307);
+                            $('#mySqlPort').val(native.port === '0' ? 3306 : native.port || 3306);
                             $('#mySqlName').val(native.dbname);
                             var id = res.rows[i].value.
                             found = res.rows[i].value._id;
@@ -109,7 +109,7 @@
                                 $('#mySqlPassword').val(_native.password);
                                 $('#mySqlHost').val(_native.host);
                                 $('#mySqlName').val(_native.dbname);
-                                $('#mySqlPort').val(_native.port === '0' ? 3307 : native.port || 3307);
+                                $('#mySqlPort').val(_native.port === '0' ? 3306 : native.port || 3306);
                                 found = res.rows[j].value._id;
                                 break;
                             }
@@ -372,7 +372,7 @@
                                     var type = $(this).data('type');
                                     var file = $(this).data('file');
                                     var name = file.split('/').pop().split('_')[0];
-                                    confirmMessage(name !== 'mysql' ? _('ioBroker will be restarted during restore.') : _('Ready'), _('Are you sure?'), null, [_('Cancel'), _('OK')], function (result) {
+                                    confirmMessage(name !== '' ? _('ioBroker will be restarted during restore.') : _('Ready'), _('Are you sure?'), null, [_('Cancel'), _('OK')], function (result) {
                                         if (result === 1) {
                                             $('.do-list').addClass('disabled');
                                             $('#tab-restore').find('.do-restore').addClass('disabled').hide();
@@ -381,7 +381,7 @@
                                                     showError(result.error);
                                                 } else {
                                                     var name = file.split('/').pop().split('_')[0];
-                                                    showDialog(name !== 'mysql' ? 'restore' : '');
+                                                    showDialog(name !== '' ? 'restore' : '');
                                                     showToast(null, _('Restore started'));
                                                 }
                                                 $('.do-list').removeClass('disabled');
@@ -1021,7 +1021,7 @@
         <div class="modal-content">
             <div class="row">
                 <div class="col s12">
-                    <h6 class="title"><span class="translate">Backup execution</span>: <span class="command"></span></h6>
+                    <h6 class="title"><span class="translate">Restore execution</span>: <span class="command"></span></h6>
                 </div>
             </div>
             <div class="row">
