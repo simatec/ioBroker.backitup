@@ -1,6 +1,14 @@
 Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
-In der aktuellen Version funktioniert der Adapter nur auf Linux, da die fehlerfreie Ausführung des Shell-Scripts auf anderen Distributionen NOCH nicht funktioniert.
+Der Adapter ist für Multiplattformen geeignet und kann  neben Linux-Installationen auch auf Windows und Mac Installationen verwendet werden.
+
+Für den CIFS Mount muss zwingend cifs-utils installiert sein.
+
+    - sudo apt-get install cifs-utils
+
+Für den NFS Mount muss zwingend nfs-common installiert sein.
+
+    - sudo apt-get install nfs-common
 
 ## Inhaltsverzeichnis:
 1. Backup Type
@@ -8,10 +16,11 @@ In der aktuellen Version funktioniert der Adapter nur auf Linux, da die fehlerfr
    - 1.2 Komplettes Backup
    - 1.3 CCU Backup (CCU-Original / pivCCU / Raspberrymatic)
    - 1.4 Optionales Mysql-Backup (Localhost)
+   - 1.5 Optionales Redis-Backup
 
 2. Vorbereitung
 
-3. Ftp vs. CIFS
+3. Ftp, CIFS, NFS, Copy und Dropbox
 
 4. Verwendung
    - 4.1 Erstellte Datenpunkte
@@ -30,7 +39,6 @@ In der aktuellen Version funktioniert der Adapter nur auf Linux, da die fehlerfr
    - 7.3 Fehlermeldung: "Komando nicht gefunden"
    - 7.4 Komplett-Backup bleibt hängen
    - 7.5 Geänderte Werte in Dp werden nicht übernommen
-8. Changelog
 
 
 ## 1. Backuptypen:
@@ -46,25 +54,42 @@ Um sicher zu gehen dass alle aktuellsten States gesichert werden muss hier in de
    -  Dieses Backup bietet die Möglichkeit 3 verschiedene Varianten einer Homematic Installations (CCU-Original / pivCCU / Raspberrymatic) zu sichern. Auch die Ausführung dieses Backups kann durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt werden.
 4. Mysql-Backup (Localhost)
    - Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup egal ob „minimal“ oder „komplett“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
+5. Redis-Backup
+   - Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup egal ob „minimal“ oder „komplett“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
 
 ## 2. Vorbereitung:
 
 Folgende Schritte sollten durchgeführt werden um den Adapter verwenden zu können (wenn das Backup-Script v1/v2/v3 verwendet wurde, zuerst Alles löschen (Datenpunkte/Enum.functions/Shell-Script und JavaScript deaktivieren oder löschen!)
 
 
-## 3. Ftp-Dienst oder CIFS für das optionale weitersichern auf einen Nas nutzen?
+## 3. Ftp, CIFS, NFS, Copy oder Dropbox für das optionale weitersichern auf einen Nas nutzen?
 
-  - Vorteile CIFS:
-    -	weniger Schreibzyklen auf euren Datenträger (evtl. relevant wenn Raspberry mit SD-Karte verwendet wird um Diese zu schonen)
-    -	Es ist möglich die „Alten Backups“ automatisiert auf dem Nas löschen zu lassen
-  - Nachteile CIFS:
-    -	Wenn ein Mounten nicht möglich ist, wird kein Backup erstellt!
-    -	„Alte Backups“ können automatisiert auf dem Nas gelöscht werden. Im schlimmsten Fall ist somit kein Backup mehr vorhanden wenn ihr es benötigt.
-  - Pfadangaben (Schreibweise beachten):
-    -	CIFS: "Freigabename/Pfadangabe"
-    -	FTP: "/Pfadangabe"
-  - optionaler Port für FTP Upload in den NAS Einstellungen unter IP-Adresse folgendes eintragen:
-    -	IP-Adresse:Port
+  - CIFS:
+    -	CIFS-Mount ist unter Linux kein Problem.
+    -   Es sollte beachtet werden, dass cifs-utils installiert ist
+    -   Die Pfadangabe unter CIFS muss immer ohne "/" beginnen (Bsp: "Freigabename/Pfadangabe")
+    -	Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
+  - NFS:
+    -	NFS-Mount ist unter Linux kein Problem.
+    -   Es sollte beachtet werden, dass nfs-common installiert ist
+    -   Die Pfadangabe unter NFS muss immer ohne "/" beginnen (Bsp: "Freigabename/Pfadangabe")
+    -	Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
+  - FTP:
+    -	FTP ist auf allen OS möglich und dient als eine Alternative zum CIFS Mount
+    -   Die Pfadangabe unter FTP muss immer mit "/" beginnen (Bsp: "/Pfadangabe")
+    -	Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
+  - Copy:
+    -	Sollte kein CIFS-Mount möglich sein, besteht eine weitere Möglichkeit der Copy-Funktion
+    -   Hier muss in den CIFS-Einstellungen die Pfadangabe eingetragen werden, wo hin kopiert werden soll
+    -   Die Angabe der IP Adresse muss für die Copy-Funktion leer bleiben
+  - Dropbox: 
+    -	Um die Sicherung in der Dropbox zu nutzen, muss ein Access Token und eine APP unter https://www.dropbox.com/developers/apps erstellt werden
+    -   Schritt 1: Den Button "Create Backup" nutzen
+    -   Schritt 2: "Dropbox API" auswählen
+    -   Schritt 3: "App folder" auswählen
+    -   Schritt 4: "Name your app" vergeben
+    -   Schritt 5: "Generated access token" Button drücken (Der Token wird in den Einstellungen von Backitup eingetragen)
+    -   In deiner Dropbox gibt es nun einen neuen Ordner mit dem Namen "Apps"
 
 
 
@@ -75,7 +100,7 @@ Folgende Schritte sollten durchgeführt werden um den Adapter verwenden zu könn
 	- oneClick.minimal -> dient als Auslösetrigger für ein Standard-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
 	- oneClick.total -> dient als Auslösetrigger für ein Komplett-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
 
-	- history.html -> diehnt als History-Log welcher in Vis via CCS vom Design anpassbar ist.
+	- history.html -> dient als History-Log welcher in Vis via CCS vom Design anpassbar ist.
 	- history.ccuLastTime -> speichert das Erstell-Datum und die Uhrzeit des letzten CCU Backups
 	- history.minimalLastTime -> speichert das Erstell-Datum und die Uhrzeit des letzten Standard Backups
 	- history.totalLastTime -> speichert das Erstell-Datum und die Uhrzeit des letzten Komplett Backups
@@ -89,8 +114,8 @@ Syntax: {BackitupInstanz.history.html}
 
 
 3. CCS-Formatierung des History-Logs:
-   ```
-   .backup-html{
+```
+   .html{
        display:block;
        width:100%;
    /*    overflow-y:scroll; */
@@ -99,20 +124,20 @@ Syntax: {BackitupInstanz.history.html}
        {
            float:left;
            color:white;
-           font-size:18px;
+           font-size:20px;
        }
    .backup-type-total
        {
            float:left;
            color:yellow;
-           font-size:18px;
+           font-size:20px;
        }
    .backup-type-ccu
        {
            float:left;
            color:red;
-           font-size:18px;
-       }
+           font-size:20px;
+    }
    ```
 4. OneClick-Button mit Status-Text
    - Wenn ein OneClick-Datenpunkt auf true gesetzt wird startet das entsprechende Backup und nach einer vordefinierten Zeit wird dieser Datenpunkt wieder auf false gesetzt somit ist es möglich einen Button mit Status zu erstellen, hierzu folgende Zeile anpassen und in Vis als Knopftext eintragen:
@@ -123,6 +148,16 @@ Syntax: {BackitupInstanz.history.html}
 Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || wert === true ? "Text während der Backuperstellung" : "Standard-Text"}
 
 ## 5. Restore:
+
+Ab Version 0.30 hat backitup eine Restorefunktion.
+Es ist aktuell möglich das total-Backup, das minimal-Backup, als auch mysql und Redis entweder vom lokalen Pfad, aus der Dropbox, via FTP oder vom NAS wiederherzustellen.
+Aktuell befindet sich der Restore noch in der Betaphase.
+
+Das CCU-Backup muss weiterhin über das Webinterface der CCU wiederhergestellt werden.
+
+Bei allen Backuptypen wird beim Restore iobroker gestoppt und im Anschluss automatisch wieder gestartet.
+
+Wer seine Backups lieber manuell wiederherstellen möchte, sollte folgende Punkte durchführen:
 
 1. Restore eines minimalen / normalen IoBroker Backups:
     - Das Backup muss wie gewohnt im  Verzeichnis „opt/iobroker/backups/“ liegen
@@ -140,14 +175,15 @@ Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || 
     - Über die Konsole  als Root-User  auf der Raspberrymatic einloggen
     - Den Befehl: „/bin/restoreBackup.sh /user/local/tmp/EuerBackupDateiname“ auf der Raspberrymatic ausführen.
     - Den Befehl:“reboot“ auf der Raspberrymatic ausführen um den PI neu zu starten
+    - Alternativ kann das Backup natürlich auch wie gewohnt über das Webinterface wieder hergestellt werden.
+4. Restore Redis:
+    - Die Redis-Datenbank muss bei einem Restore in den dazugehörigen Ordner entpackt werden (Bsp: /var/lib/redis) 
 
-Alternativ kann das Backup natürlich auch wie gewohnt über das Webinterface wieder hergestellt werden.
+
 
 ## 6. Fehlersuche:
 
-1. In der Adapterkonfiguration gibt es die Möglichkeit Log zu aktivieren so werden im IoBroker-Log verschiedene Meldungen (bspw. Backup-Zeiten und States) die zur Fehlersuche dienen können aufgelistet
-
-2. Zusätzlich gibt es die Möglichkeit Debug zu aktivieren nun wird im IoBroker-Log der Befehl ausgegeben der an die backitup.sh übergeben wird. Dieser Befehl kann eins zu eins in die Konsole (mit Putty o.ä) eingegeben werden um Fehler eingrenzen zu können.
+1. Um Fehler zu logen, muss Backitup in unter dem IoBroker Reiter Instanzen auf Log-Stufe "debug" gestellt werden 
 
 ## 7. Aufgetretene Fehler / Lösungen:
 
@@ -158,13 +194,9 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vor
     - Meldung = "No connection to states 127.0.0.0:6379[redis]"
     - sudo apt-get install redis-server
 
-2.	Beim Testen kam es bei Anderen vor dass einige Datenpunkte nicht beschreib /-änderbar waren, dieser Fehler konnte nicht nachgestellt und dementsprechend nicht behoben werden.
+2.	Sollte der CIFS-Mount mit IP-Adresse nicht möglich sein, sollte der Hostname des NAS verwendet werden
 
-3.	Fehlermeldung: „Kommando nicht gefunden“
-Durch die Unterschiede von Unix und Windows, darf die backitup.sh nicht unter Windows (Editor) geändert werden.
-Erklärung:
-Unter DOS wird in Textdateien ein Zeilenende durch die Sequenz return (Dezimalcode 13) und new line (Dezimalcode 10) dargestellt. Unix verwendet dagegen nur new line.
+3.	Kein FTP Connect möglich: Die Schreibweise der Pfadangabe prüfen (Bsp: "/Pfadangabe/minimal")
 
-4. Iobroker bleibt beim komplett-Backup hängen / startet nicht mehr
-Einige Benutzer berichteten dass das IoBroker komplett-Backup nicht richtig durchläuft bzw. der IoBroker gestoppt und nicht mehr gestartet wird. Hierfür ist es möglich in der Adapter- Konfigurations-Datenpunkten den Stop/Start des IoBrokers beim komplett-Backup zu deaktivieren.
+4.  Kein CIFS-Mount möglich: Die Schreibweise der Pfadangabe prüfen (Bsp: "Freigabename/Pfadangabe")
 
