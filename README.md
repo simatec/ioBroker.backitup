@@ -21,6 +21,13 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 ## Changelog
 
+### 0.3.2 (25.09.2018)
+* (simatec) Fix Filename for ccu backup
+
+### 0.3.1 (25.09.2018)
+* (simatec) Fix FTP Directory
+* (simatec) delete old Files
+
 ### 0.3.0 (24.09.2018)
 * (bluefox/simatec) Add Multiplatform (Windows/Linux/Mac)
 * (bluefox/simatec) Backitup switched to Javascript

@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.3.1",
+        "version": "0.3.2",
         "news": {
+            "0.3.2": {
+                "en": "Fix Filename for ccu backup",
+                "de": "Fix Dateiname für ccu Backup",
+                "ru": "Исправить имя файла для резервной копии ccu",
+                "pt": "Corrigir nome de arquivo para backup ccu",
+                "nl": "Fix bestandsnaam voor ccu backup",
+                "fr": "Correction du nom de fichier pour la sauvegarde ccu",
+                "it": "Fix Filename per il backup di ccu",
+                "es": "Corregir nombre de archivo para copia de seguridad ccu",
+                "pl": "Popraw nazwę pliku dla kopii zapasowej ccu"
+            },
             "0.3.1": {
                 "en": "Fix ftp directory",
                 "de": "Fix FTP-Verzeichnis",
