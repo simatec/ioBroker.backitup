@@ -8,4 +8,8 @@ node_modules
 test
 .travis.yml
 appveyor.yml
-backitup.sh.lastrun
+/lib/*.bat
+/lib/*.log
+/lib/total.json
+/lib/*.sh
+/lib/restore.json
