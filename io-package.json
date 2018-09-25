@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.3.0",
+        "version": "0.3.1",
         "news": {
+            "0.3.1": {
+                "en": "Fix ftp directory",
+                "de": "Fix FTP-Verzeichnis",
+                "ru": "Исправить каталог ftp",
+                "pt": "Corrigir diretório ftp",
+                "nl": "Fix ftp-map",
+                "fr": "Fixer le répertoire ftp",
+                "it": "Correggi la directory ftp",
+                "es": "Repare el directorio ftp",
+                "pl": "Napraw katalog ftp"
+            },
             "0.3.0": {
                 "en": "Add Multiplatform (Windows/Linux/Mac), Backitup switched to Javascript, shell support removed, Deleting old backups up to the last X backups added, restore feature added (beta), Restore added via NAS/FTP/Local/Dropbox (Beta), NFS support added, Dropbox Support added, Fix History, Added silent mode for telegram, Redis/mysql added with standard backup, translations added, Docs adapted",
                 "de": "Multiplattform hinzugefügt (Windows / Linux / Mac), Backitup auf Javascript umgestellt, Shell-Unterstützung entfernt, alte Backups bis auf die letzten X-Backups gelöscht, Restore-Funktion hinzugefügt (Beta), Restore über NAS / FTP / Local / Dropbox (Beta) hinzugefügt , NFS-Unterstützung hinzugefügt, Dropbox-Unterstützung hinzugefügt, Fix-History, Silent-Modus für Telegramm hinzugefügt, Redis / MySQL mit Standard-Backup hinzugefügt, Übersetzungen hinzugefügt, Dokumentation angepasst",

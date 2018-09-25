@@ -4,8 +4,6 @@ node_modules
 nbproject
 admin/i18n/flat.txt
 admin/i18n/*/flat.txt
-backitup.sh.lastrun
-backitupl.sh
 package-lock.json
 /package-lock.json
 /lib/startIOB.bat
