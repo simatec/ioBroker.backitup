@@ -297,6 +297,11 @@
         "dropboxEnabled": false,
         "dropboxAccessToken": "",
         "dropboxDeleteOldBackup": false,
+        "dropboxOwnDir": false,
+        "dropboxMinimalDir": "/backupDir/minimal",
+        "dropboxTotalDir": "/backupDir/total",
+        "dropboxCcuDir": "/backupDir/ccu",
+        "dropboxDir": "/backupDir",
 
         "mySqlEnabled": false,
         "mySqlHost": "localhost",

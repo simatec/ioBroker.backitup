@@ -208,6 +208,7 @@ function initConfig(secret) {
         source: adapter.config.restoreSource,
         deleteOldBackup: adapter.config.dropboxDeleteOldBackup, //Delete old Backups from Dropbox
         accessToken: adapter.config.dropboxAccessToken,
+        dir: (adapter.config.dropboxOwnDir === true) ? null : adapter.config.dropboxDir,
     };
 
     const cifs = {
