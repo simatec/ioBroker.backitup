@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.3.2",
+        "version": "0.3.3",
         "news": {
+            "0.3.3": {
+                "en": "Fix Backup-Directoy for dropbox, Fix Restart after total-backup, Fix error Log on cifs",
+                "de": "Fix Backup-Verzeichnis für Dropbox, Fix Restart nach Total-Backup, Fix Fehler Log auf cifs",
+                "ru": "Fix Backup-Directory для dropbox, Fix Restart после полного резервного копирования, Fix error Вход в cifs",
+                "pt": "Corrigir o Diretório de Backup para dropbox, Corrigir Reiniciar após o backup total, Corrigir log de erro no cifs",
+                "nl": "Fix Backup-Directory voor dropbox, Fix Restart na total-backup, Fix error Log on cifs",
+                "fr": "Correction du répertoire de sauvegarde pour la boîte de dépôt, correction du redémarrage après une sauvegarde totale, correction d'une erreur Connexion aux cifs",
+                "it": "Risolvi la directory di backup per la casella personale, Risolto il riavvio dopo il backup totale, Correggi errore Accedi cifs",
+                "es": "Reparar el directorio de respaldo para Dropbox, reparar el reinicio después de la copia de seguridad total, corregir el error Iniciar sesión cifs",
+                "pl": "Napraw Backup-Directory dla dropbox, Fix Restart po totalnej kopii zapasowej, Napraw błąd Zaloguj się w CIF"
+            },
             "0.3.2": {
                 "en": "Fix Filename for ccu backup",
                 "de": "Fix Dateiname für ccu Backup",
@@ -297,6 +308,11 @@
         "dropboxEnabled": false,
         "dropboxAccessToken": "",
         "dropboxDeleteOldBackup": false,
+        "dropboxOwnDir": false,
+        "dropboxMinimalDir": "/backupDir/minimal",
+        "dropboxTotalDir": "/backupDir/total",
+        "dropboxCcuDir": "/backupDir/ccu",
+        "dropboxDir": "/backupDir",
 
         "mySqlEnabled": false,
         "mySqlHost": "localhost",
