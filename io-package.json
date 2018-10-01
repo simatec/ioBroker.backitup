@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.3.3",
+        "version": "0.3.4",
         "news": {
+            "0.3.4": {
+                "en": "Fix Restart after total-backup",
+                "de": "Fix Restart nach Total-Backup",
+                "ru": "Fix Restart после полного резервного копирования",
+                "pt": "Corrigir Reiniciar após o backup total",
+                "nl": "Fix Restart na total-backup",
+                "fr": "correction du redémarrage après une sauvegarde totale",
+                "it": "Risolto il riavvio dopo il backup totale",
+                "es": "reparar el reinicio después de la copia de seguridad total",
+                "pl": "Fix Restart po totalnej kopii zapasowej"
+            },
             "0.3.3": {
                 "en": "Fix Backup-Directoy for dropbox, Fix Restart after total-backup, Fix error Log on cifs",
                 "de": "Fix Backup-Verzeichnis für Dropbox, Fix Restart nach Total-Backup, Fix Fehler Log auf cifs",
