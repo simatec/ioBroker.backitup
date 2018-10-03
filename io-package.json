@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.3.4",
+        "version": "0.3.5",
         "news": {
+            "0.3.5": {
+                "en": "Fix Translation, Fix Filename Suffix for Restore, Bugfix Title for Backup deletion",
+                "de": "Fix Übersetzungen, Fix Namens-Suffix für Restore, Bugfix Titel für Backups löschen",
+                "ru": "Fix Translation, Fix Filename Suffix for Restore, Bugfix Название для удаления Backup",
+                "pt": "Corrigir tradução, Corrigir sufixo de nome de arquivo para restauração, Título de correção de bug para exclusão de backup",
+                "nl": "Fix Translation, Fix Filename Suffix for Restore, Bugfix Title for Backup deletion",
+                "fr": "Correction de traduction, correction du suffixe de nom de fichier pour la restauration, titre de correction pour la suppression de sauvegarde",
+                "it": "Risolvi la traduzione, Risolvi il suffisso nome file per il ripristino, il titolo del Bugfix per l'eliminazione del backup",
+                "es": "Corrección de la traducción, Arreglo del sufijo del nombre de archivo para la restauración, Título de corrección de errores para la eliminación de la copia de seguridad",
+                "pl": "Napraw tłumaczenie, popraw sufiks nazwy pliku do przywrócenia, poprawiono tytuł usuwania kopii zapasowej"
+            },
             "0.3.4": {
                 "en": "Fix Restart after total-backup",
                 "de": "Fix Restart nach Total-Backup",
