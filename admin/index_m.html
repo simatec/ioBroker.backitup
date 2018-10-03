@@ -674,7 +674,7 @@
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <input type="number" class="value" id="minimalDeleteAfter" min="1" max="100"/>
-                        <label for="minimalDeleteAfter" class="translate">days</label>
+                        <label for="minimalDeleteAfter" class="translate">piece</label>
                         <span class="translate">old standard backups delete after X-days</span>
                     </div>
                     <div class="input-field col s12 m6 l3">
@@ -716,7 +716,7 @@
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <input type="number" class="value" id="totalDeleteAfter" min="1" max="100"/>
-                        <label for="totalDeleteAfter" class="translate">days</label>
+                        <label for="totalDeleteAfter" class="translate">piece</label>
                         <span class="translate">old complete backups delete after X days</span>
                     </div>
                     <div class="input-field col s12 m6 l3">
@@ -756,7 +756,7 @@
                     </div>
                     <div class="input-field col s12 m4 l4">
                         <input type="number" class="value" id="ccuDeleteAfter" min="1" max="100"/>
-                        <label for="ccuDeleteAfter" class="translate">days</label>
+                        <label for="ccuDeleteAfter" class="translate">piece</label>
                         <span class="translate">Old CCU backups delete after X days</span>
                     </div>
                 </div>
@@ -821,7 +821,7 @@
                     </div>
                     <!--<div class="input-field col s12 m4 l4">
                         <input type="number" class="value" id="mySqlDeleteAfter" min="1" max="100"/>
-                        <label for="mySqlDeleteAfter" class="translate">days</label>
+                        <label for="mySqlDeleteAfter" class="translate">piece</label>
                         <span class="translate">old MySQL backups delete after X days</span>
                     </div>-->
                 </div>
@@ -852,8 +852,8 @@
                 <div class="row cifs copy">
                     <div class="input-field col s12">
                         <input class="value" id="cifsMount" type="text">
-                        <label for="cifsMount" class="translate">Mount</label>
-                        <span class="translate">Leave it empty if no mount required and you want to just copy the files.</span>
+                        <label for="cifsMount" class="translate">Host</label>
+                        <span class="translate">IP adress or hostname</span>
                     </div>
                 </div>
                 <div class="row nfs">
@@ -883,7 +883,7 @@
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="cifsTotalDir" type="text">
-                        <label for="cifsTotalDir" class="translate">Path for total backup</label>
+                        <label for="cifsTotalDir" class="translate">Path for complete backup</label>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="cifsCcuDir" type="text">
@@ -904,6 +904,7 @@
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ftpHost" type="text">
                         <label for="ftpHost" class="translate">Host</label>
+                        <span class="translate">IP adress or hostname</span>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ftpPort" type="number" min="0" max="65565">
@@ -977,7 +978,7 @@
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="dropboxTotalDir" type="text">
-                        <label for="dropboxTotalDir" class="translate">Dropbox Dropbox Path for complete backup</label>
+                        <label for="dropboxTotalDir" class="translate">Dropbox Path for complete backup</label>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="dropboxCcuDir" type="text">
@@ -1021,7 +1022,7 @@
         <div class="modal-content">
             <div class="row">
                 <div class="col s12">
-                    <h6 class="title"><span class="translate">Restore execution</span>: <span class="command"></span></h6>
+                    <h6 class="title"><span class="translate">Backitup execution</span>: <span class="command"></span></h6>
                 </div>
             </div>
             <div class="row">
