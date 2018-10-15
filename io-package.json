@@ -378,7 +378,8 @@
 		"debugLevel": false,
         "historyEntriesNumber": 25,
         
-        "restoreSource": "Local"
+        "restoreSource": "Local",
+        "restoreType": "Minimal"
     },
     "instanceObjects": [
         {

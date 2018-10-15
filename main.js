@@ -196,7 +196,11 @@ function initConfig(secret) {
         source: adapter.config.restoreSource,
         host: adapter.config.ftpHost,                       // ftp-host
         deleteOldBackup: adapter.config.ftpDeleteOldBackup, //Delete old Backups from FTP
+        ownDir: adapter.config.ftpOwnDir,
+        bkpType: adapter.config.restoreType,
         dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir, // directory on FTP server
+        dirMinimal: adapter.config.ftpMinimalDir,
+        dirTotal: adapter.config.ftpTotalDir,
         user: adapter.config.ftpUser,                       // username for FTP Server
         pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '',  // password for FTP Server
         port: adapter.config.ftpPort || 21                  // FTP port
@@ -208,7 +212,11 @@ function initConfig(secret) {
         source: adapter.config.restoreSource,
         deleteOldBackup: adapter.config.dropboxDeleteOldBackup, //Delete old Backups from Dropbox
         accessToken: adapter.config.dropboxAccessToken,
+        ownDir: adapter.config.dropboxOwnDir,
+        bkpType: adapter.config.restoreType,
         dir: (adapter.config.dropboxOwnDir === true) ? null : adapter.config.dropboxDir,
+        dirMinimal: adapter.config.dropboxMinimalDir,
+        dirTotal: adapter.config.dropboxTotalDir,
     };
 
     const cifs = {
@@ -218,7 +226,11 @@ function initConfig(secret) {
         source: adapter.config.restoreSource,
         mount: adapter.config.cifsMount,
         deleteOldBackup: adapter.config.cifsDeleteOldBackup, //Delete old Backups from Network Disk
+        ownDir: adapter.config.cifsOwnDir,
+        bkpType: adapter.config.restoreType,
         dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                       // specify if CIFS mount should be used
+        dirMinimal: adapter.config.cifsMinimalDir,
+        dirTotal: adapter.config.cifsTotalDir,
         user: adapter.config.cifsUser,                     // specify if CIFS mount should be used
         pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for FTP Server
     };
@@ -257,9 +269,9 @@ function initConfig(secret) {
 		redis: {
 			enabled: adapter.config.redisEnabled,
             type: 'creator',
-            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpTotalDir}  : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsTotalDir} : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxTotalDir}  : {}),
+            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir}  : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir} : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
 			path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
         },
         history,
@@ -309,9 +321,9 @@ function initConfig(secret) {
         dir: tools.getIobDir(),
         redis: {
             enabled: adapter.config.redisEnabled,
-            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpTotalDir} : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsTotalDir}  : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxTotalDir}  : {}),
             path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
         },
         stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
