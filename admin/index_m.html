@@ -518,6 +518,18 @@
                 $('.copy').hide();
             }
             }).trigger('change');
+
+            $('#restoreSource').on('change', function () {
+            if ($(this).val() === 'NAS / Copy' && $('#cifsOwnDir').prop('checked')) {
+                $('.bkpType').show();
+            } else if ($(this).val() === 'FTP' && $('#ftpOwnDir').prop('checked')) {
+                $('.bkpType').show();
+            } else if ($(this).val() === 'Dropbox' && $('#dropboxOwnDir').prop('checked')) {
+                $('.bkpType').show();
+            } else {
+                $('.bkpType').hide();
+            }
+            }).trigger('change');
 /*
             if ($('#mySqlEnabled').prop('checked')) {
                 $('.tab-my-sql').show();
@@ -956,7 +968,7 @@
             <div id="tab-dropbox" class="col s12 page">
                 <div class="row dropbox">
                     <div class="input-field col s12">
-                        <input class="value" id="dropboxAccessToken" type="text">
+                        <input class="value" id="dropboxAccessToken" type="password">
                         <label for="dropboxAccessToken" class="translate">Access token</label>
                         <span><a href="https://www.dropbox.com/developers/apps" target="_blank">dropbox.com</a></span>
                     </div>
@@ -1009,6 +1021,13 @@
 						<option value="FTP" class="translate">FTP</option>
 						</select>
 						<label for="restoreSource" class="translate">source type</label>
+                    </div>
+                    <div class="input-field col s11 m2 bkpType">
+						<select class="value" id="restoreType">
+						<option value="Minimal" class="translate">Minimal</option>
+						<option value="Total" class="translate">Total</option>
+						</select>
+						<label for="restoreType" class="translate">restore type</label>
                     </div>
                 </div>
                 <div class="row">

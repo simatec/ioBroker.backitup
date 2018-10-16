@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.3.5",
+        "version": "0.3.6",
         "news": {
+            "0.3.6": {
+                "en": "Fix Dropbox Backup, Fix Restore path for own Dir, Fix FTP and NAS path, Fix Access Token for dropbox",
+                "de": "Fix Dropbox Backup, Fix Restore-Pfad für Unterverzeichnisse, Fix FTP und NAS Pfad, Fix Access Token für Dropbox",
+                "ru": "Исправить резервное копирование Dropbox, исправить путь восстановления для собственного Dir, исправить FTP и путь NAS, исправить токен доступа для Dropbox",
+                "pt": "Corrija o Backup do Dropbox, corrija o caminho de restauração para o próprio Dir, corrija o caminho do FTP e do NAS, corrija o token de acesso para o dropbox",
+                "nl": "Fix Dropbox Backup, Fix Restore pad voor eigen Dir, Fix FTP en NAS pad, Fix Access Token voor dropbox",
+                "fr": "Réparer la sauvegarde Dropbox, Fixer le chemin de restauration pour son propre répertoire, Fixer le chemin FTP et NAS, Fixer le jeton d'accès pour la liste déroulante",
+                "it": "Correggi il backup di Dropbox, il percorso di ripristino fisso per il proprio percorso Dir, il percorso FTP e NAS corretto, il token di accesso fisso per il dropbox",
+                "es": "Repare Dropbox Backup, arregle la ruta de restauración para su propia dirección, arregle FTP y NAS, arregle el token de acceso para dropbox",
+                "pl": "Napraw Dropbox Backup, napraw ścieżkę Restore dla własnych Dir, napraw FTP i NAS ścieżkę, popraw token dostępu dla dropbox"
+            },
             "0.3.5": {
                 "en": "Fix Translation, Fix Filename Suffix for Restore, Bugfix Title for Backup deletion",
                 "de": "Fix Übersetzungen, Fix Namens-Suffix für Restore, Bugfix Titel für Backups löschen",
@@ -378,7 +389,8 @@
 		"debugLevel": false,
         "historyEntriesNumber": 25,
         
-        "restoreSource": "Local"
+        "restoreSource": "Local",
+        "restoreType": "Minimal"
     },
     "instanceObjects": [
         {
