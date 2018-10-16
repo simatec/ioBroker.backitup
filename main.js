@@ -264,7 +264,21 @@ function initConfig(secret) {
         ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
-        mysql,
+        //mysql,
+        mysql: {
+            enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
+            type: 'creator',
+            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+            dbName: adapter.config.mySqlName,              // database name
+            user: adapter.config.mySqlUser,                // database user
+            pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
+            deleteBackupAfter: adapter.config.mySqlDeleteAfter, // delete old backupfiles after x days
+            host: adapter.config.mySqlHost,                // database host
+            port: adapter.config.mySqlPort,                // database port
+            exe: adapter.config.mySqlDumpExe               // path to mysqldump
+        },
         dir: tools.getIobDir(),
 		redis: {
 			enabled: adapter.config.redisEnabled,
@@ -317,7 +331,21 @@ function initConfig(secret) {
         history,
         telegram,
 
-        mysql,
+        //mysql,
+        mysql: {
+            enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
+            type: 'creator',
+            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpTotalDir} : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsTotalDir}  : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxTotalDir}  : {}),
+            dbName: adapter.config.mySqlName,              // database name
+            user: adapter.config.mySqlUser,                // database user
+            pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
+            deleteBackupAfter: adapter.config.mySqlDeleteAfter, // delete old backupfiles after x days
+            host: adapter.config.mySqlHost,                // database host
+            port: adapter.config.mySqlPort,                // database port
+            exe: adapter.config.mySqlDumpExe               // path to mysqldump
+        },
         dir: tools.getIobDir(),
         redis: {
             enabled: adapter.config.redisEnabled,
