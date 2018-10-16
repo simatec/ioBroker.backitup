@@ -67,12 +67,12 @@ Folgende Schritte sollten durchgeführt werden um den Adapter verwenden zu könn
   - CIFS:
     -	CIFS-Mount ist unter Linux kein Problem.
     -   Es sollte beachtet werden, dass cifs-utils installiert ist
-    -   Die Pfadangabe unter CIFS muss immer ohne "/" beginnen (Bsp: "Freigabename/Pfadangabe")
+    -   Die Pfadangabe sollte wie folgt aussehen (Bsp: "/Freigabename/Pfadangabe")
     -	Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
   - NFS:
     -	NFS-Mount ist unter Linux kein Problem.
     -   Es sollte beachtet werden, dass nfs-common installiert ist
-    -   Die Pfadangabe unter NFS muss immer ohne "/" beginnen (Bsp: "Freigabename/Pfadangabe")
+    -   Die Pfadangabe sollte wie folgt aussehen (Bsp: "/Freigabename/Pfadangabe")
     -	Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
   - FTP:
     -	FTP ist auf allen OS möglich und dient als eine Alternative zum CIFS Mount
@@ -196,7 +196,4 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vor
 
 2.	Sollte der CIFS-Mount mit IP-Adresse nicht möglich sein, sollte der Hostname des NAS verwendet werden
 
-3.	Kein FTP Connect möglich: Die Schreibweise der Pfadangabe prüfen (Bsp: "/Pfadangabe/minimal")
-
-4.  Kein CIFS-Mount möglich: Die Schreibweise der Pfadangabe prüfen (Bsp: "Freigabename/Pfadangabe")
 
