@@ -66,12 +66,12 @@ The following steps should be used to use the adapter (if the v1 / v2 / v3 backu
 - CIFS:
     - CIFS mount is not a problem on Linux.
     - It should be noted that cifs-utils is installed
-    - The path under CIFS must always begin without "/" (eg: "Sharename/Path")
+    - The path should look like this (eg: "/Sharename/Path")
     - Optionally, you can enable / disable whether the backups should be deleted from the NAS
 - NFS:
 	- NFS mount is not a problem on Linux.
 	- It should be noted that nfs-common is installed
-	- The path specification under NFS must always start without "/" (Ex: "Share name / path specification")
+	- The path should look like this (Ex: "/Sharename/path")
 	- Optionally, you can enable / disable whether the backups should be deleted from the NAS
 - FTP:
     - FTP is possible on all OS and serves as an alternative to the CIFS mount
@@ -194,7 +194,3 @@ Here is a list of problems encountered so far and their solutions, if any.
     - sudo apt-get install redis-server
 
 2. If the CIFS mount with IP address is not possible, the host name of the NAS should be used
-
-3. No FTP Connect possible: check the notation of the path specification (eg: "/pathspecification/minimal")
-
-4. No CIFS mount possible: Check the notation of the path specification (eg: "name/path")
