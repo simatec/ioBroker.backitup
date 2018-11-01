@@ -81,6 +81,21 @@ adapter.on('message', obj => {
                     obj.callback({error: 'Invalid parameters'});
                 }
                 break;
+
+            case 'getTelegramUser':
+            adapter.getForeignState('telegram.0.communicate.users', (err, state) => {
+                err && adapter.log.error(err);
+                adapter.log.debug('Got Telegram Users: ' + state.val);
+                if (state && state.val) {
+                    try {
+                        adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
+                    } catch (err) {
+                        err && adapter.log.error(err);
+                        adapter.log.error('Cannot parse stored user IDs from Telegram!');
+                    }
+                }
+            });
+
         }
     }
 });
