@@ -413,20 +413,21 @@
             }
             $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
+            sendTo(null, 'getTelegramUser', null, function (obj) {
+                fillTelegramUser(settings['telegramUser'], obj)
+            });
             initDialog();
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Hier muss die gespeicherte Auswahl gelesen werden
 // aber ich finde den Datenpunkt nicht, denn settings['telegramUser'] hat keinen Wert
-            fillTelegramUser(settings['telegramUser']);
+            //fillTelegramUser(settings['telegramUser']);
             
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////       
-        function fillTelegramUser(id) {
+        function fillTelegramUser(id, str) {
             
-// Dummy da Datenpunk für telegram.0.communicate.users nicht abrufbar            
-            var str = '{"testid1":"testuser1","testid2":"Testuser2"}';
-            
+// Dummy da Datenpunk für telegram.0.communicate.users nicht abrufbar                        
             var user = str.replace(/[{}"\\]/g,"").split(',');
             var $sel = $('#telegramUser');
             $sel.html('<option value="">' + _('All') + '</option>');
