@@ -404,6 +404,7 @@
             getAdapterInstances('telegram', function (instances) {
                 fillInstances('telegramInstance', instances, settings['telegramInstance']);
             });
+            
             if (!settings.ccuHost) {
                 fetchCcuConfig(true);
             }
@@ -413,7 +414,32 @@
             $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
             initDialog();
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Hier muss die gespeicherte Auswahl gelesen werden
+// aber ich finde den Datenpunkt nicht, denn settings['telegramUser'] hat keinen Wert
+            fillTelegramUser(settings['telegramUser']);
+            
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////       
+        function fillTelegramUser(id) {
+            
+// Dummy da Datenpunk für telegram.0.communicate.users nicht abrufbar            
+            var str = '{"testid1":"testuser1","testid2":"Testuser2"}';
+            
+            var user = str.replace(/[{}"\\]/g,"").split(',');
+            var $sel = $('#telegramUser');
+            $sel.html('<option value="">' + _('All') + '</option>');
+    
+            user.forEach(function(val){
+                val = val.split(':');
+                $('#telegramUser').append('<option value="' + val[1] + '">' + val[1] +'</option>');
+//        $sel.append('<option value="' + _id + '"' + (_id === val ? ' selected' : '') + '>' + _id + '</option>');
+            });
+        $sel.select();
+//adapter.config.restoreSource
+}    
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////       
         function fillInstances(id, arr, val) {
             var $sel = $('#' + id);
             $sel.html('<option value="">' + _('none') + '</option>');
@@ -552,6 +578,11 @@
                 $('.tab-ftp').hide();
             }
  */
+            if ($('#notificationEnabled').prop('checked')) {
+                $('.tab-notification').removeClass('disabled');
+            } else {
+                $('.tab-notification').addClass('disabled');
+            }
             if ($('#mySqlEnabled').prop('checked')) {
                 $('.tab-my-sql').removeClass('disabled');
             } else {
@@ -572,7 +603,7 @@
             } else {
                 $('.tab-ftp').addClass('disabled');
             }
-        }
+      }
     </script>
 </head>
 <body>
@@ -586,9 +617,10 @@
                 <li class="tab col s6 l2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
                 <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
                 <li class="tab col s6 l2 tab-restore"><a href="#tab-restore" class="translate">Restore</a></li>
-                <li class="tab col s6 l4 tab-cifs"><a href="#tab-cifs" class="translate">NAS / Copy settings</a></li>
-                <li class="tab col s6 l4 tab-ftp"><a href="#tab-ftp" class="translate">FTP settings</a></li>
-                <li class="tab col s6 l4 tab-dropbox"><a href="#tab-dropbox" class="translate">Dropbox settings</a></li>
+                <li class="tab col s6 l3 tab-notification"><a href="#tab-notification" class="translate">Notifications</a></li>
+                <li class="tab col s6 l3 tab-cifs"><a href="#tab-cifs" class="translate">NAS / Copy settings</a></li>
+                <li class="tab col s6 l3 tab-ftp"><a href="#tab-ftp" class="translate">FTP settings</a></li>
+                <li class="tab col s6 l3 tab-dropbox"><a href="#tab-dropbox" class="translate">Dropbox settings</a></li>
             </ul>
         </div>
         <div class="row">
@@ -603,6 +635,12 @@
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="debugLevel" type="checkbox"/>
                         <label for="debugLevel" class="translate">Enable / disable debug</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="notificationEnabled" type="checkbox"/>
+                        <label for="notificationEnabled" class="translate">Enable / disable Notifications</label>
                     </div>
                 </div>
                 <div class="row">
@@ -632,20 +670,6 @@
                     <div class="input-field col s6 l3">
                         <input class="value" id="dropboxEnabled" type="checkbox"/>
                         <span for="dropboxEnabled" class="translate">Dropbox</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6 l3">
-                        <input class="value" id="telegramEnabled" type="checkbox"/>
-                        <label for="telegramEnabled" class="translate">Notifications by telegram</label>
-                    </div>
-                    <div class="input-field col s12 m6 l3 telegram_inst">
-                        <input class="value" id="telegramSilentNotice" type="checkbox"/>
-                        <label for="telegramSilentNotice" class="translate">Silent Notice</label>
-                    </div>
-                    <div class="input-field col s12 m6 l3 telegram_inst">
-                        <select id="telegramInstance" class="value"></select>
-                        <label for="telegramInstance" class="translate">Telegram instance</label>
                     </div>
                 </div>
                 <div class="row">
@@ -845,6 +869,35 @@
                     </div>
                 </div>-->
             </div>
+<!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+            <!-- notifications -->
+            <div id="tab-notification" class="col s12 page">
+                <div class="row">
+                    <div class="input-field col s6 l3">
+                        <input class="value" id="telegramEnabled" type="checkbox"/>
+                        <label for="telegramEnabled" class="translate">Notifications by telegram</label>
+                    </div>
+                    <div class="input-field col s12 m6 l3 telegram_inst">
+                        <select id="telegramInstance" class="value"></select>
+                        <label for="telegramInstance" class="translate">Telegram instance</label>
+                    </div>
+                
+                </div>
+                <div class="row">
+                    
+                    <div class="input-field col s12 m6 l3 telegram_inst">
+                        <input class="value" id="telegramSilentNotice" type="checkbox"/>
+                        <label for="telegramSilentNotice" class="translate">Silent Notice</label>
+                    </div>
+                    
+                    <div class="input-field col s12 m6 l3 telegram_inst">
+                        <select class="value" id="telegramUser"></select>
+                        <label class="translate" for="telegramUser">Telegram User</label>
+                    </div>
+                </div>
+                
+            </div>
+<!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
             <!-- nas / copy settings -->
             <div id="tab-cifs" class="col s12 page">
