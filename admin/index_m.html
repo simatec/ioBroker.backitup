@@ -417,16 +417,9 @@
             sendTo(null, 'getTelegramUser', null, function (obj) {
                 fillTelegramUser(settings['telegramUser'], obj)
             });
-            //fillTelegramNoticeType(settings['telegramNoticeType'])
             
             initDialog();
         }
-        /*function fillTelegramNoticeType(id) {
-            var $sel = $('#telegramNoticeType');
-            $('#telegramNoticeType').append('<option value="longTelegramNotice"' + (id === 'longTelegramNotice' ? ' selected' : '') + '>Long Notifications</option>');
-            $('#telegramNoticeType').append('<option value="shortTelegramNotice"' + (id === 'shortTelegramNotice' ? ' selected' : '') + '>Short Notifications</option>');
-            $sel.select();
-        }*/
         function fillTelegramUser(id, str) {
             var user = str.replace(/[{}"\\]/g,"").split(',');
             var $sel = $('#telegramUser');
