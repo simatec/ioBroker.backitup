@@ -413,34 +413,31 @@
             }
             $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
+            
             sendTo(null, 'getTelegramUser', null, function (obj) {
                 fillTelegramUser(settings['telegramUser'], obj)
             });
+            fillTelegramNoticeType(settings['telegramNoticeType'])
+            
             initDialog();
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Hier muss die gespeicherte Auswahl gelesen werden
-// aber ich finde den Datenpunkt nicht, denn settings['telegramUser'] hat keinen Wert
-            //fillTelegramUser(settings['telegramUser']);
-            
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////       
+        function fillTelegramNoticeType(id) {
+            var $sel = $('#telegramNoticeType');
+            $('#telegramNoticeType').append('<option value="longTelegramNotice"' + (id === 'longTelegramNotice' ? ' selected' : '') + '>Long Notifications</option>');
+            $('#telegramNoticeType').append('<option value="shortTelegramNotice"' + (id === 'shortTelegramNotice' ? ' selected' : '') + '>Short Notifications</option>');
+            $sel.select();
+        }
         function fillTelegramUser(id, str) {
-            
-// Dummy da Datenpunk für telegram.0.communicate.users nicht abrufbar                        
             var user = str.replace(/[{}"\\]/g,"").split(',');
             var $sel = $('#telegramUser');
-            $sel.html('<option value="">' + _('All') + '</option>');
+            $sel.html('<option value="allTelegramUsers">' + _('All Receiver') + '</option>');
     
             user.forEach(function(val){
                 val = val.split(':');
-                $('#telegramUser').append('<option value="' + val[1] + '">' + val[1] +'</option>');
-//        $sel.append('<option value="' + _id + '"' + (_id === val ? ' selected' : '') + '>' + _id + '</option>');
+                $('#telegramUser').append('<option value="' + val[1] + '"' + (id === val[1] ? ' selected' : '') + '>' + val[1] +'</option>');
             });
-        $sel.select();
-//adapter.config.restoreSource
-}    
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////       
+            $sel.select();
+        }    
         function fillInstances(id, arr, val) {
             var $sel = $('#' + id);
             $sel.html('<option value="">' + _('none') + '</option>');
@@ -640,7 +637,7 @@
                 <div class="row">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="notificationEnabled" type="checkbox"/>
-                        <label for="notificationEnabled" class="translate">Enable / disable Notifications</label>
+                        <label for="notificationEnabled" class="translate">Enable / Disable Notifications</label>
                     </div>
                 </div>
                 <div class="row">
@@ -869,7 +866,6 @@
                     </div>
                 </div>-->
             </div>
-<!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
             <!-- notifications -->
             <div id="tab-notification" class="col s12 page">
                 <div class="row">
@@ -883,24 +879,25 @@
                         <select id="telegramInstance" class="value"></select>
                         <label for="telegramInstance" class="translate">Telegram instance</label>
                     </div>
+                    <div class="input-field col s12 m6 l3 telegram_inst">
+                        <select class="value" id="telegramUser"></select>
+                        <label class="translate" for="telegramUser">Telegram Receiver</label>
+                    </div>
                 
                 </div>
                 <div class="row">
-                    
                     <div class="input-field col s12 m6 l3 telegram_inst">
                         <input class="value" id="telegramSilentNotice" type="checkbox"/>
                         <label for="telegramSilentNotice" class="translate">Silent Notice</label>
                     </div>
-                    
                     <div class="input-field col s12 m6 l3 telegram_inst">
-                        <select class="value" id="telegramUser"></select>
-                        <label class="translate" for="telegramUser">Telegram User</label>
+                        <select class="value" id="telegramNoticeType"></select>
+                        <label class="translate" for="telegramNoticeType">Notification Type</label>
                     </div>
+                    
                 </div>
                 
             </div>
-<!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-
             <!-- nas / copy settings -->
             <div id="tab-cifs" class="col s12 page">
 

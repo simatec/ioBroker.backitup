@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.3.6",
+        "version": "0.3.7",
         "news": {
+            "0.3.7": {
+                "en": "Fix Silent Notice, added possibility to select a receiver, added possibility to select notification length",
+                "de": "Bugfix Stille Benachrichtigung, Option zur Auswahl eines Telegram Empfängers hinzugefügt, Option zur Auswahl der Telegram Benachrichtigungslänge hinzugefügt",
+                "ru": "Fix Silent Notice, добавлена ​​возможность выбора приемника, добавлена ​​возможность выбора длины уведомления",
+                "pt": "Corrigir aviso silencioso, adicionou possibilidade de selecionar um receptor, acrescentou possibilidade de selecionar o comprimento de notificação",
+                "nl": "Fix Silent Notice, mogelijkheid toegevoegd om een ​​ontvanger te selecteren, mogelijkheid toegevoegd om de lengte van de melding te selecteren",
+                "fr": "Fix Silent Notice, possibilité supplémentaire de sélectionner un destinataire, possibilité de choisir la durée de notification",
+                "it": "Fix Avviso silenzioso, aggiunta possibilità di selezionare un ricevitore, aggiunta possibilità di selezionare la lunghezza della notifica",
+                "es": "Arreglar aviso silencioso, posibilidad adicional de seleccionar un receptor, posibilidad adicional de seleccionar la duración de la notificación",
+                "pl": "Fix Silent Notice, dodano możliwość wyboru odbiornika, dodano możliwość wyboru długości powiadomienia"
+            },
             "0.3.6": {
                 "en": "Fix Dropbox Backup, Fix Restore path for own Dir, Fix FTP and NAS path, Fix Access Token for dropbox",
                 "de": "Fix Dropbox Backup, Fix Restore-Pfad für Unterverzeichnisse, Fix FTP und NAS Pfad, Fix Access Token für Dropbox",
