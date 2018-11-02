@@ -417,16 +417,16 @@
             sendTo(null, 'getTelegramUser', null, function (obj) {
                 fillTelegramUser(settings['telegramUser'], obj)
             });
-            fillTelegramNoticeType(settings['telegramNoticeType'])
+            //fillTelegramNoticeType(settings['telegramNoticeType'])
             
             initDialog();
         }
-        function fillTelegramNoticeType(id) {
+        /*function fillTelegramNoticeType(id) {
             var $sel = $('#telegramNoticeType');
             $('#telegramNoticeType').append('<option value="longTelegramNotice"' + (id === 'longTelegramNotice' ? ' selected' : '') + '>Long Notifications</option>');
             $('#telegramNoticeType').append('<option value="shortTelegramNotice"' + (id === 'shortTelegramNotice' ? ' selected' : '') + '>Short Notifications</option>');
             $sel.select();
-        }
+        }*/
         function fillTelegramUser(id, str) {
             var user = str.replace(/[{}"\\]/g,"").split(',');
             var $sel = $('#telegramUser');
@@ -891,10 +891,12 @@
                         <label for="telegramSilentNotice" class="translate">Silent Notice</label>
                     </div>
                     <div class="input-field col s12 m6 l3 telegram_inst">
-                        <select class="value" id="telegramNoticeType"></select>
+                        <select class="value" id="telegramNoticeType">
+                        <option value="longTelegramNotice" class="translate">Long Notifications</option>
+                        <option value="shortTelegramNotice" class="translate">Short Notifications</option>
+                        </select>
                         <label class="translate" for="telegramNoticeType">Notification Type</label>
                     </div>
-                    
                 </div>
                 
             </div>

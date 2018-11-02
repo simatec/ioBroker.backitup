@@ -396,6 +396,8 @@
 
         "telegramEnabled": false,
         "telegramInstance": "telegram.0",
+        "telegramNoticeType": "longTelegramNotice",
+        "telegramUser": "All",
 
 		"debugLevel": false,
         "historyEntriesNumber": 25,

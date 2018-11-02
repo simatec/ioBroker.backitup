@@ -195,10 +195,10 @@ function initConfig(secret) {
         enabled: adapter.config.telegramEnabled,
         type: 'message',
         instance: adapter.config.telegramInstance,
-        systemLang,
-        SilentNotice:adapter.config.telegramSilentNotice,
-        NoticeType:adapter.config.telegramNoticeType,
-        User:adapter.config.telegramUser
+        SilentNotice: adapter.config.telegramSilentNotice,
+        NoticeType: adapter.config.telegramNoticeType,
+        User: adapter.config.telegramUser,
+        systemLang
     };
 
     const history = {
