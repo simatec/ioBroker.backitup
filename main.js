@@ -83,7 +83,7 @@ adapter.on('message', obj => {
                 break;
 
             case 'getTelegramUser':
-            adapter.getForeignState('telegram.0.communicate.users', (err, state) => {
+            adapter.getForeignState(adapter.config.telegramInstance + '.communicate.users', (err, state) => {
                 err && adapter.log.error(err);
                 adapter.log.debug('Got Telegram Users: ' + state.val);
                 if (state && state.val) {
@@ -195,7 +195,10 @@ function initConfig(secret) {
         enabled: adapter.config.telegramEnabled,
         type: 'message',
         instance: adapter.config.telegramInstance,
-        systemLang
+        systemLang,
+        SilentNotice:adapter.config.telegramSilentNotice,
+        NoticeType:adapter.config.telegramNoticeType,
+        User:adapter.config.telegramUser
     };
 
     const history = {
