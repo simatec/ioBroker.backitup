@@ -404,6 +404,10 @@
             getAdapterInstances('telegram', function (instances) {
                 fillInstances('telegramInstance', instances, settings['telegramInstance']);
             });
+
+            getAdapterInstances('email', function (instances) {
+                fillInstances('emailInstance', instances, settings['emailInstance']);
+            });
             
             if (!settings.ccuHost) {
                 fetchCcuConfig(true);
@@ -546,6 +550,16 @@
                 $('.bkpType').hide();
             }
             }).trigger('change');
+
+            $('#notificationsType').on('change', function () {
+            if ($(this).val() === 'Telegram') {
+                $('.email').hide();
+                $('.telegram').show();
+            } else if ($(this).val() === 'E-Mail') {
+                $('.email').show();
+                $('.telegram').hide();
+            }
+            }).trigger('change');
 /*
             if ($('#mySqlEnabled').prop('checked')) {
                 $('.tab-my-sql').show();
@@ -578,6 +592,11 @@
             } else {
                 $('.tab-my-sql').addClass('disabled');
             }
+            if ($('#redisEnabled').prop('checked')) {
+                $('.tab-redis').removeClass('disabled');
+            } else {
+                $('.tab-redis').addClass('disabled');
+            }
             if ($('#dropboxEnabled').prop('checked')) {
                 $('.tab-dropbox').removeClass('disabled');
             } else {
@@ -606,11 +625,12 @@
                 <li class="tab col s6 l2 tab-total-backup"><a href="#tab-total-backup" class="translate">Total backup</a></li>
                 <li class="tab col s6 l2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
                 <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
-                <li class="tab col s6 l2 tab-restore"><a href="#tab-restore" class="translate">Restore</a></li>
-                <li class="tab col s6 l3 tab-notification"><a href="#tab-notification" class="translate">Notifications</a></li>
+                <li class="tab col s6 l2 tab-redis"><a href="#tab-redis" class="translate">Redis Backup</a></li>
+                <li class="tab col s6 l2 tab-notification"><a href="#tab-notification" class="translate">Notifications</a></li>
                 <li class="tab col s6 l3 tab-cifs"><a href="#tab-cifs" class="translate">NAS / Copy settings</a></li>
-                <li class="tab col s6 l3 tab-ftp"><a href="#tab-ftp" class="translate">FTP settings</a></li>
+                <li class="tab col s6 l2 tab-ftp"><a href="#tab-ftp" class="translate">FTP settings</a></li>
                 <li class="tab col s6 l3 tab-dropbox"><a href="#tab-dropbox" class="translate">Dropbox settings</a></li>
+                <li class="tab col s6 l2 tab-restore"><a href="#tab-restore" class="translate">Restore</a></li>
             </ul>
         </div>
         <div class="row">
@@ -641,10 +661,6 @@
                     <div class="input-field col s6 l3">
                         <input class="value" id="redisEnabled" type="checkbox"/>
                         <label for="redisEnabled" class="translate">Save Redis state</label>
-                    </div>
-                    <div class="input-field col s6 l6 redis_path">
-                        <input class="value" id="redisPath" type="text"/>
-                        <label for="redisPath" class="translate">Redis file path</label>
                     </div>
                 </div>
                 <div class="row">
@@ -681,12 +697,6 @@
                         <a class="waves-effect waves-light btn btn-minimal do-backup" data-type="minimal"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
                     </div>
                 </div>
-                <div class="row minimal">
-					<div class="input-field col s3">
-						<input class="value" id="minimalExtensionsEnabled" type="checkbox"/>
-						<label for="minimalExtensionsEnabled" class="translate">Extensions Enabled (Mysql / Redis)</label>
-					</div>
-				</div>
 				<div class="row minimal">
                     <div class="input-field col s12 m6 l3">
                         <input class="value" id="minimalTime" type="text">
@@ -845,54 +855,98 @@
                         <label for="mySqlDumpExe" class="translate">Full path</label>
                         <span class="translate">Path with filename to mysqldump executable (leave empty to use default)</span>
                     </div>
-                    <!--<div class="input-field col s12 m4 l4">
-                        <input type="number" class="value" id="mySqlDeleteAfter" min="1" max="100"/>
-                        <label for="mySqlDeleteAfter" class="translate">piece</label>
-                        <span class="translate">old MySQL backups delete after X days</span>
-                    </div>-->
                 </div>
-                <!--<div class="row mysql">
-                    <div class="input-field col s12 m8 l8">
-                        <input type="number" class="value" id="mySqlDumpExe" min="1" max="100"/>
-                        <label for="mySqlDumpExe" class="translate">Full path</label>
-                        <span class="translate">Path with filename to mysqldump executable (leave empty to use default)</span>
+                <div class="row mysql">
+                    <div class="input-field col s6 l3">
+                        <input class="value" id="mysqlMinimalEnabled" type="checkbox"/>
+                        <label for="mysqlMinimalEnabled" class="translate">mysql Backup by minimal</label>
                     </div>
-                </div>-->
+                </div>
             </div>
+
+            <!-- Redis -->
+            <div id="tab-redis" class="col s12 page">
+                <div class="row">
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 l6 redis_path">
+                        <input class="value" id="redisPath" type="text"/>
+                        <label for="redisPath" class="translate">Redis file path</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 l3">
+                        <input class="value" id="redisMinimalEnabled" type="checkbox"/>
+                        <label for="redisMinimalEnabled" class="translate">Redis Backup by minimal</label>
+                    </div>
+                </div>
+            </div>
+
             <!-- notifications -->
             <div id="tab-notification" class="col s12 page">
                 <div class="row">
                 </div>
                 <div class="row">
-                    <div class="input-field col s6 l3">
-                        <input class="value" id="telegramEnabled" type="checkbox"/>
-                        <label for="telegramEnabled" class="translate">Notifications by telegram</label>
+                    <div class="input-field col s11 m2">
+                        <select class="value" id="notificationsType">
+                        <option value="Telegram" class="translate">Telegram</option>
+                        <option value="E-Mail" class="translate">E-Mail</option>
+                        </select>
+                        <label for="notificationsType" class="translate">notifications type</label>
                     </div>
-                    <div class="input-field col s12 m6 l3 telegram_inst">
+                </div>
+                <!-- Telegram -->
+                <div class="row telegram">
+                    <div class="input-field col s12 m6 l3 telegram">
                         <select id="telegramInstance" class="value"></select>
                         <label for="telegramInstance" class="translate">Telegram instance</label>
                     </div>
-                    <div class="input-field col s12 m6 l3 telegram_inst">
+                    <div class="input-field col s12 m6 l3 telegram">
                         <select class="value" id="telegramUser"></select>
                         <label class="translate" for="telegramUser">Telegram Receiver</label>
                     </div>
-                
                 </div>
-                <div class="row">
-                    <div class="input-field col s12 m6 l3 telegram_inst">
+                <div class="row telegram">
+                    <div class="input-field col s12 m6 l3 telegram">
                         <input class="value" id="telegramSilentNotice" type="checkbox"/>
                         <label for="telegramSilentNotice" class="translate">Silent Notice</label>
                     </div>
-                    <div class="input-field col s12 m6 l3 telegram_inst">
+                    <div class="input-field col s12 m6 l3 telegram">
                         <select class="value" id="telegramNoticeType">
                         <option value="longTelegramNotice" class="translate">Long Notifications</option>
                         <option value="shortTelegramNotice" class="translate">Short Notifications</option>
                         </select>
-                        <label class="translate" for="telegramNoticeType">Notification Type</label>
+                        <label class="translate" for="telegramNoticeType">Notification Style</label>
                     </div>
                 </div>
-                
+                <!-- email -->
+                <div class="row email">
+                    <div class="input-field col s12 m6 l3 email">
+                        <input class="value" id="emailReceiver" type="text">
+                        <label for="emailReceiver" class="translate">email receiver</label>
+                        <span class="translate">email receiver</span>
+                    </div>
+                    <div class="input-field col s12 m6 l3 email">
+                        <input class="value" id="emailSender" type="text">
+                        <label for="emailSender" class="translate">email sender</label>
+                        <span class="translate">email sender</span>
+                    </div>
+                </div>
+                <div class="row email">
+                    <div class="input-field col s12 m6 l3 email">
+                        <select id="emailInstance" class="value"></select>
+                        <label for="emailInstance" class="translate">email instance</label>
+                    </div>
+                    <div class="input-field col s12 m6 l3 email">
+                        <select class="value" id="emailNoticeType">
+                        <option value="longEmailNotice" class="translate">Long Notifications</option>
+                        <option value="shortEmailNotice" class="translate">Short Notifications</option>
+                        </select>
+                        <label class="translate" for="emailNoticeType">Notification Style</label>
+                    </div>
+                </div>
             </div>
+
             <!-- nas / copy settings -->
             <div id="tab-cifs" class="col s12 page">
 

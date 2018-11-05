@@ -331,7 +331,8 @@
 		"minimalEveryXDays": 1,
 		"minimalDeleteAfter": 5,
 		"minimalNameSuffix": "",
-		"minimalExtensionsEnabled": false,
+        "redisMinimalEnabled": false,
+        "mysqlMinimalEnabled": false,
 
 		"totalEnabled": false,
 		"totalTime": "03:00",
@@ -394,10 +395,17 @@
         "redisEnabled": false,
         "redisPath": "/var/lib/redis",
 
-        "telegramEnabled": false,
+        "notificationEnabled": false,
+        "notificationsType": "Telegram",
+
         "telegramInstance": "telegram.0",
         "telegramNoticeType": "longTelegramNotice",
         "telegramUser": "All Receiver",
+
+        "emailReceiver": "xxx@xxx.com",
+        "emailSender": "xxx@xxx.com",
+        "emailInstance": "email.0",
+        "emailNoticeType": "longEmailNotice",
 
 		"debugLevel": false,
         "historyEntriesNumber": 25,
