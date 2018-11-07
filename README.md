@@ -21,6 +21,15 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 ## Changelog
 
+### 0.3.7 (07.11.2018)
+* (simatec) Added e-mail notification
+* (simatec) Create backup directory on first boot
+* (simatec) many small changes
+* (peoples) Fix Telegram SilentNotice
+* (peoples) Added Possibility to select a Telegram Receiver
+* (peoples) Added Possibility to select a Telegram Notification length
+* (peoples) Some Translations
+
 ### 0.3.6 (16.10.2018)
 * (simatec) Fix Dropbox Backup
 * (simatec) Fix Restore path for ownDir

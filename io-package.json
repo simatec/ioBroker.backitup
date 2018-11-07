@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.3.6",
+        "version": "0.3.7",
         "news": {
+            "0.3.7": {
+                "en": "Added e-mail notification, Create backup directory on first boot, many small changes, Fix Telegram SilentNotice, Added Possibility to select a Telegram Receiver, Added Possibility to select a Telegram Notification length, Some Translations",
+                "de": "E-Mail-Benachrichtigung hinzugefügt, Backup-Verzeichnis beim ersten Start erstellen, viele kleine Änderungen, Fix Telegram SilentNotice, Option zur Auswahl eines Telegrammempfängers hinzugefügt, Möglichkeit zur Auswahl einer Telegrammbenachrichtigungslänge hinzugefügt, Einige Übersetzungen",
+                "ru": "Добавлено уведомление по электронной почте, создать резервную директорию при первой загрузке, множество небольших изменений, Fix Telegram SilentNotice, Добавлена ​​возможность выбора телеграммного приемника, Добавлена ​​возможность выбора длины уведомления о телеграмме, Некоторые переводы",
+                "pt": "Adicionado notificação de e-mail, Criar diretório de backup na primeira inicialização, muitas pequenas alterações, Fix Telegram SilentNotice, Adicionada possibilidade de selecionar um receptor de telegrama, Adicionada possibilidade de selecionar uma duração de notificação de telegrama, Algumas traduções",
+                "nl": "E-mailkennisgeving toegevoegd, Maak een back-upmap bij de eerste keer opstarten, vele kleine wijzigingen, Fix Telegram SilentNotice, Mogelijkheid toegevoegd om een ​​Telegram-ontvanger te selecteren, Mogelijkheid toegevoegd om een ​​Telegramnotificatielengte te selecteren, Enkele vertalingen",
+                "fr": "Ajout d'une notification par e-mail, création d'un répertoire de sauvegarde au premier démarrage, nombreuses modifications mineures, correction d'un avis de télégramme silencieux, possibilité de sélectionner un récepteur de télégramme, possibilité de sélectionner une longueur de notification de télégramme, certaines traductions",
+                "it": "Aggiunta notifica e-mail, Crea directory di backup al primo avvio, molte piccole modifiche, Fix Telegram SilentNotice, Aggiunta possibilità di selezionare un Telegram Receiver, Aggiunta possibilità di selezionare una lunghezza di notifica Telegram, Alcune traduzioni",
+                "es": "Notificación de correo electrónico adicional, Crear directorio de respaldo en el primer arranque, muchos cambios pequeños, Corregir SilentNotice Telegram, Posibilidad agregada de seleccionar un receptor de Telegram, Posibilidad agregada de seleccionar una longitud de notificación de Telegram, Algunas traducciones",
+                "pl": "Dodano powiadomienia e-mail, Utwórz katalog kopii zapasowej przy pierwszym uruchomieniu, wiele małych zmian, Napraw telegram SilentNotice, Dodano możliwość wyboru odbiornika telegramów, Dodano możliwość wyboru długości powiadomienia telegramu, Niektóre tłumaczenia"
+            },
             "0.3.6": {
                 "en": "Fix Dropbox Backup, Fix Restore path for own Dir, Fix FTP and NAS path, Fix Access Token for dropbox",
                 "de": "Fix Dropbox Backup, Fix Restore-Pfad für Unterverzeichnisse, Fix FTP und NAS Pfad, Fix Access Token für Dropbox",
@@ -320,7 +331,8 @@
 		"minimalEveryXDays": 1,
 		"minimalDeleteAfter": 5,
 		"minimalNameSuffix": "",
-		"minimalExtensionsEnabled": false,
+        "redisMinimalEnabled": false,
+        "mysqlMinimalEnabled": false,
 
 		"totalEnabled": false,
 		"totalTime": "03:00",
@@ -383,8 +395,17 @@
         "redisEnabled": false,
         "redisPath": "/var/lib/redis",
 
-        "telegramEnabled": false,
+        "notificationEnabled": false,
+        "notificationsType": "Telegram",
+
         "telegramInstance": "telegram.0",
+        "telegramNoticeType": "longTelegramNotice",
+        "telegramUser": "All Receiver",
+
+        "emailReceiver": "xxx@xxx.com",
+        "emailSender": "xxx@xxx.com",
+        "emailInstance": "email.0",
+        "emailNoticeType": "longEmailNotice",
 
 		"debugLevel": false,
         "historyEntriesNumber": 25,
