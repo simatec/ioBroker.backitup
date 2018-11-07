@@ -81,6 +81,21 @@ adapter.on('message', obj => {
                     obj.callback({error: 'Invalid parameters'});
                 }
                 break;
+
+            case 'getTelegramUser':
+            adapter.getForeignState(adapter.config.telegramInstance + '.communicate.users', (err, state) => {
+                err && adapter.log.error(err);
+                adapter.log.debug('Got Telegram Users: ' + state.val);
+                if (state && state.val) {
+                    try {
+                        adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
+                    } catch (err) {
+                        err && adapter.log.error(err);
+                        adapter.log.error('Cannot parse stored user IDs from Telegram!');
+                    }
+                }
+            });
+
         }
     }
 });
@@ -177,9 +192,24 @@ function initConfig(secret) {
     }
 
     const telegram = {
-        enabled: adapter.config.telegramEnabled,
+        enabled: adapter.config.notificationEnabled,
+        notificationsType: adapter.config.notificationsType,
         type: 'message',
         instance: adapter.config.telegramInstance,
+        SilentNotice: adapter.config.telegramSilentNotice,
+        NoticeType: adapter.config.telegramNoticeType,
+        User: adapter.config.telegramUser,
+        systemLang
+    };
+
+    const email = {
+        enabled: adapter.config.notificationEnabled,
+        notificationsType: adapter.config.notificationsType,
+        type: 'message',
+        instance: adapter.config.emailInstance,
+        NoticeType: adapter.config.emailNoticeType,
+        emailReceiver: adapter.config.emailReceiver,
+        emailSender: adapter.config.emailSender,
         systemLang
     };
 
@@ -260,7 +290,8 @@ function initConfig(secret) {
         everyXDays: adapter.config.minimalEveryXDays,
         nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
         deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backupfiles after x days
-        extensionsEnabled: adapter.config.minimalExtensionsEnabled, // mysql and redis enabled for minimal
+        mysqlEnabled: adapter.config.mysqlMinimalEnabled,    // mysql enabled for minimal
+        redisEnabled: adapter.config.redisMinimalEnabled,    // redis enabled for minimal
         ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
@@ -290,6 +321,7 @@ function initConfig(secret) {
         },
         history,
         telegram,
+        email,
     };
 
     // Configurations for CCU / pivCCU / RaspberryMatic backup
@@ -308,6 +340,7 @@ function initConfig(secret) {
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxCcuDir}  : {}),
         history,
         telegram,
+        email,
 
         host: adapter.config.ccuHost,                           // IP-address CCU
         user: adapter.config.ccuUser,                           // username CCU
@@ -330,6 +363,7 @@ function initConfig(secret) {
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxTotalDir}  : {}),
         history,
         telegram,
+        email,
 
         //mysql,
         mysql: {
@@ -454,9 +488,19 @@ function umount() {
         fs.unlink(__dirname + '/lib/list/.mount');
     }
 }
+
+// Create Backupdir on first start
+function createBackupDir() {
+    if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) {
+        fs.mkdirSync(path.join(tools.getIobDir(), 'backups'));
+        adapter.log.debug('Created BackupDir');
+    }
+}
+
 function main() {
     createBashScripts();
     readLogFile();
+    createBackupDir();
     umount();
 
     adapter.getForeignObject('system.config', (err, obj) => {
