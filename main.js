@@ -488,9 +488,19 @@ function umount() {
         fs.unlink(__dirname + '/lib/list/.mount');
     }
 }
+
+// Create Backupdir on first start
+function createBackupDir() {
+    if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) {
+        fs.mkdirSync(path.join(tools.getIobDir(), 'backups'));
+        adapter.log.debug('Created BackupDir');
+    }
+}
+
 function main() {
     createBashScripts();
     readLogFile();
+    createBackupDir();
     umount();
 
     adapter.getForeignObject('system.config', (err, obj) => {
