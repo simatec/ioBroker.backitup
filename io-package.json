@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.3.7",
+        "version": "0.3.8",
         "news": {
+            "0.3.8": {
+                "en": "Fix Telegram User, Fix notifications format",
+                "de": "Fix Telegrambenutzer, Fix Benachrichtigungsformat",
+                "ru": "Исправить пользователя Telegram, исправить формат уведомлений",
+                "pt": "Corrigir Usuário do Telegrama, Corrigir Formato de Notificações",
+                "nl": "Fix Telegram Gebruiker, Fix notificaties-formaat",
+                "fr": "Corriger l'utilisateur Telegram, Fixer le format des notifications",
+                "it": "Correggi utente Telegram, formato notifiche Fix",
+                "es": "Fix Telegram User, formato de notificaciones Fix",
+                "pl": "Fix Telegram User, Fix notifications format"
+            },
             "0.3.7": {
                 "en": "Added e-mail notification, Create backup directory on first boot, many small changes, Fix Telegram SilentNotice, Added Possibility to select a Telegram Receiver, Added Possibility to select a Telegram Notification length, Some Translations",
                 "de": "E-Mail-Benachrichtigung hinzugefügt, Backup-Verzeichnis beim ersten Start erstellen, viele kleine Änderungen, Fix Telegram SilentNotice, Option zur Auswahl eines Telegrammempfängers hinzugefügt, Möglichkeit zur Auswahl einer Telegrammbenachrichtigungslänge hinzugefügt, Einige Übersetzungen",
