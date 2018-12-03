@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.3.8",
+        "version": "0.3.9",
         "news": {
+            "0.3.9": {
+                "en": "Fix cifs/nfs mount and umount",
+                "de": "Fix cifs/nfs mount und umount",
+                "ru": "Исправить cifs/nfs mount и umount",
+                "pt": "Fixar cifs/nfs mount e umount",
+                "nl": "Fix cifs/nfs mount en umount",
+                "fr": "Correction du montage et du démontage de cifs/nfs",
+                "it": "Fix cifs / nfs mount e umount",
+                "es": "Corregir cifs/nfs mount y umount",
+                "pl": "Napraw mocowanie cifs/nfs i umount"
+            },
             "0.3.8": {
                 "en": "Fix Telegram User, Fix notifications format",
                 "de": "Fix Telegrambenutzer, Fix Benachrichtigungsformat",
