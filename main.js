@@ -254,6 +254,8 @@ function initConfig(secret) {
         type: 'storage',
         source: adapter.config.restoreSource,
         mount: adapter.config.cifsMount,
+        fileDir: __dirname,
+        //fileDir: = path.join(tools.getIobDir(), 'node_modules/iobroker.backitup'),
         deleteOldBackup: adapter.config.cifsDeleteOldBackup, //Delete old Backups from Network Disk
         ownDir: adapter.config.cifsOwnDir,
         bkpType: adapter.config.restoreType,
@@ -478,13 +480,13 @@ function createBashScripts() {
 }
 // umount after restore
 function umount() {
-    if (fs.existsSync(__dirname + '/lib/list/.mount')) {
+    if (fs.existsSync(__dirname + '/.mount')) {
         const {spawn} = require('child_process');
         const backupDir = path.join(tools.getIobDir(), 'backups');
         const cmd = spawn('umount', [backupDir], {detached: true, cwd: __dirname, stdio: ['ignore', 'ignore', 'ignore']});
 
         cmd.unref();
-        fs.unlink(__dirname + '/lib/list/.mount');
+        fs.unlink(__dirname + '/.mount');
     }
 }
 

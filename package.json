@@ -1,6 +1,6 @@
 {
   "name": "iobroker.backitup",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "engines": {
     "node": ">=6.0.0"
   },
