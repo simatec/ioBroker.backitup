@@ -408,6 +408,10 @@
             getAdapterInstances('email', function (instances) {
                 fillInstances('emailInstance', instances, settings['emailInstance']);
             });
+
+            getAdapterInstances('pushover', function (instances) {
+                fillInstances('pushoverInstance', instances, settings['pushoverInstance']);
+            });
             
             if (!settings.ccuHost) {
                 fetchCcuConfig(true);
@@ -554,10 +558,16 @@
             $('#notificationsType').on('change', function () {
             if ($(this).val() === 'Telegram') {
                 $('.email').hide();
+                $('.pushover').hide();
                 $('.telegram').show();
             } else if ($(this).val() === 'E-Mail') {
                 $('.email').show();
                 $('.telegram').hide();
+                $('.pushover').hide();
+            } else if ($(this).val() === 'Pushover') {
+                $('.pushover').show();
+                $('.telegram').hide();
+                $('.email').hide();
             }
             }).trigger('change');
 /*
@@ -891,6 +901,7 @@
                         <select class="value" id="notificationsType">
                         <option value="Telegram" class="translate">Telegram</option>
                         <option value="E-Mail" class="translate">E-Mail</option>
+                        <option value="Pushover" class="translate">Pushover</option>
                         </select>
                         <label for="notificationsType" class="translate">notifications type</label>
                     </div>
@@ -917,6 +928,26 @@
                         <option value="shortTelegramNotice" class="translate">Short Notifications</option>
                         </select>
                         <label class="translate" for="telegramNoticeType">Notification Style</label>
+                    </div>
+                </div>
+                <!-- Pushover -->
+                <div class="row pushover">
+                    <div class="input-field col s12 m6 l3 pushover">
+                        <select id="pushoverInstance" class="value"></select>
+                        <label for="pushoverInstance" class="translate">Pushover instance</label>
+                    </div>
+                    <div class="input-field col s12 m6 l3 pushover">
+                        <select class="value" id="pushoverNoticeType">
+                        <option value="longPushoverNotice" class="translate">Long Notifications</option>
+                        <option value="shortPushoverNotice" class="translate">Short Notifications</option>
+                        </select>
+                        <label class="translate" for="pushoverNoticeType">Notification Style</label>
+                    </div>
+                </div>
+                <div class="row pushover">
+                    <div class="input-field col s12 m6 l3 pushover">
+                        <input class="value" id="pushoverSilentNotice" type="checkbox"/>
+                        <label for="pushoverSilentNotice" class="translate">Silent Notice</label>
                     </div>
                 </div>
                 <!-- email -->
