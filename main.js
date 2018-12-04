@@ -201,6 +201,16 @@ function initConfig(secret) {
         systemLang
     };
 
+    const pushover = {
+        enabled: adapter.config.notificationEnabled,
+        notificationsType: adapter.config.notificationsType,
+        type: 'message',
+        instance: adapter.config.pushoverInstance,
+        SilentNotice: adapter.config.pushoverSilentNotice,
+        NoticeType: adapter.config.pushoverNoticeType,
+        systemLang
+    };
+
     const email = {
         enabled: adapter.config.notificationEnabled,
         notificationsType: adapter.config.notificationsType,
@@ -323,6 +333,7 @@ function initConfig(secret) {
         history,
         telegram,
         email,
+        pushover,
     };
 
     // Configurations for CCU / pivCCU / RaspberryMatic backup
@@ -342,6 +353,7 @@ function initConfig(secret) {
         history,
         telegram,
         email,
+        pushover,
 
         host: adapter.config.ccuHost,                           // IP-address CCU
         user: adapter.config.ccuUser,                           // username CCU
@@ -365,6 +377,7 @@ function initConfig(secret) {
         history,
         telegram,
         email,
+        pushover,
 
         //mysql,
         mysql: {

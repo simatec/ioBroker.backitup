@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.3.9",
+        "version": "0.4.0",
         "news": {
+            "0.4.0": {
+                "en": "Added Pushover Notification",
+                "de": "Pushover-Benachrichtigung hinzugefügt",
+                "ru": "Добавлено Pushover Уведомление",
+                "pt": "Adicionado Pushover Notification",
+                "nl": "Pushover-melding toegevoegd",
+                "fr": "Notification Pushover ajoutée",
+                "it": "Aggiunta notifica pushover",
+                "es": "Notificación Pushover añadida",
+                "pl": "Dodano powiadomienie pushover"
+            },
             "0.3.9": {
                 "en": "Fix cifs/nfs mount and umount",
                 "de": "Fix cifs/nfs mount und umount",
@@ -423,6 +434,11 @@
         "telegramInstance": "telegram.0",
         "telegramNoticeType": "longTelegramNotice",
         "telegramUser": "All Receiver",
+        "telegramSilentNotice": false,
+
+        "pushoverInstance": "pushover.0",
+        "pushoverNoticeType": "longPushoverNotice",
+        "pushoverSilentNotice": false,
 
         "emailReceiver": "xxx@xxx.com",
         "emailSender": "xxx@xxx.com",
