@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.4.0",
+        "version": "0.4.1",
         "news": {
+            "0.4.1": {
+                "en": "Added boolean for backup Success; Added Selection menu SMB type (CIFS); Added Checkbox for mount as root (sudo)",
+                "de": "Boolean für Backup-Erfolg hinzugefügt; Auswahlmenü SMB-Typ (CIFS) hinzugefügt; Checkbox für Mount als Root hinzugefügt (Sudo)",
+                "ru": "Добавлен булев для резервного копирования. Добавлено меню выбора типа SMB (CIFS); Добавлен флажок для монтирования как root (sudo)",
+                "pt": "Adicionado booleano para backup de sucesso; Adicionado menu de seleção do tipo SMB (CIFS); Adicionado Checkbox para montar como root (sudo)",
+                "nl": "Boolean toegevoegd voor backupsucces; Keuzemenu SMB-type (CIFS) toegevoegd; Checkbox toegevoegd voor mount als root (sudo)",
+                "fr": "Ajout d'un booléen pour la sauvegarde réussie; Ajout du type de menu SMB du menu de sélection (CIFS); Ajout d'une case à cocher pour le montage en tant que root (sudo)",
+                "it": "Aggiunto booleano per il backup Success; Aggiunto il menu Selezione tipo SMB (CIFS); Aggiunto Checkbox per mount come root (sudo)",
+                "es": "Añadido booleano para el éxito de copia de seguridad; Se agregó el menú de selección tipo SMB (CIFS); Casilla de verificación agregada para montar como root (sudo)",
+                "pl": "Dodano boolean dla backupu Sukces; Dodano menu wyboru Typ SMB (CIFS); Dodano pole wyboru do zamontowania jako root (sudo)"
+            },
             "0.4.0": {
                 "en": "Added Pushover Notification",
                 "de": "Pushover-Benachrichtigung hinzugefügt",
@@ -412,6 +423,8 @@
         "cifsMinimalDir": "sharename/backupDir",
         "cifsDeleteOldBackup": false,
         "connectType": "NFS",
+        "smbType": "vers=1.0",
+        "sudoMount": false,
 
         "ftpEnabled": false,
 		"ftpHost": "",
@@ -509,6 +522,45 @@
                 "read":  true,
                 "write": false,
                 "def":   "No backups yet"
+            },
+            "native": {}
+        },
+        {
+            "_id":  "history.ccuSuccess",
+            "type": "state",
+            "common": {
+                "role":  "switch",
+                "name":  "Last ccu backup Success",
+                "type":  "boolean",
+                "read":  true,
+                "write": true,
+                "def":   false
+            },
+            "native": {}
+        },
+        {
+            "_id":  "history.minimalSuccess",
+            "type": "state",
+            "common": {
+                "role":  "switch",
+                "name":  "Last minimal backup Success",
+                "type":  "boolean",
+                "read":  true,
+                "write": true,
+                "def":   false
+            },
+            "native": {}
+        },
+        {
+            "_id":  "history.totalSuccess",
+            "type": "state",
+            "common": {
+                "role":  "switch",
+                "name":  "Last total backup Success",
+                "type":  "boolean",
+                "read":  true,
+                "write": true,
+                "def":   false
             },
             "native": {}
         },
