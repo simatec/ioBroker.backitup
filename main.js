@@ -55,8 +55,10 @@ adapter.on('stateChange', (id, state) => {
             startBackup(config, err => {
                 if (err) {
                     adapter.log.error(`[${type}] ${err}`);
+                    adapter.setState('history.' + type + 'Success', false, true);
                 } else {
                     adapter.log.debug(`[${type}] exec: done`);
+                    adapter.setState('history.' + type + 'Success', true, true);
                 }
                 adapter.setState('oneClick.' + type, false, true);
                 adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
@@ -139,6 +141,21 @@ function checkStates() {
             adapter.setState('oneClick.ccu', {val: false, ack: true});
         }
     });
+    adapter.getState('history.ccuSuccess', (err, state) => {
+        if (state === null || state.val === null) {
+            adapter.setState('history.ccuSuccess', {val: false, ack: true});
+        }
+    });
+    adapter.getState('history.minimalSuccess', (err, state) => {
+        if (state === null || state.val === null) {
+            adapter.setState('history.minimalSuccess', {val: false, ack: true});
+        }
+    });
+    adapter.getState('history.totalSuccess', (err, state) => {
+        if (state === null || state.val === null) {
+            adapter.setState('history.totalSuccess', {val: false, ack: true});
+        }
+    });
 }
 
 // function to create Backup schedules (Backup time)
@@ -162,8 +179,10 @@ function createBackupSchedule() {
                 startBackup(backupConfig[type], err => {
                     if (err) {
                         adapter.log.error(`[${type}] ${err}`);
+                        adapter.setState('history.' + type + 'Success', false, true);
                     } else {
                         adapter.log.debug(`[${type}] exec: done`);
+                        adapter.setState('history.' + type + 'Success', true, true);
                     }
                     adapter.setState('oneClick.' + type, false, true);
                     adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
@@ -265,7 +284,8 @@ function initConfig(secret) {
         source: adapter.config.restoreSource,
         mount: adapter.config.cifsMount,
         fileDir: __dirname,
-        //fileDir: = path.join(tools.getIobDir(), 'node_modules/iobroker.backitup'),
+        smb: adapter.config.smbType,
+        sudo: adapter.config.sudoMount,
         deleteOldBackup: adapter.config.cifsDeleteOldBackup, //Delete old Backups from Network Disk
         ownDir: adapter.config.cifsOwnDir,
         bkpType: adapter.config.restoreType,
@@ -496,7 +516,11 @@ function umount() {
     if (fs.existsSync(__dirname + '/.mount')) {
         const {spawn} = require('child_process');
         const backupDir = path.join(tools.getIobDir(), 'backups');
-        const cmd = spawn('umount', [backupDir], {detached: true, cwd: __dirname, stdio: ['ignore', 'ignore', 'ignore']});
+        let rootUmount = 'umount';
+        if (adapter.config.sudoMount === 'true' || adapter.config.sudoMount === true) {
+            rootUmount = 'sudo umount';
+        }
+        const cmd = spawn(rootUmount, [backupDir], {detached: true, cwd: __dirname, stdio: ['ignore', 'ignore', 'ignore']});
 
         cmd.unref();
         fs.unlink(__dirname + '/.mount');
