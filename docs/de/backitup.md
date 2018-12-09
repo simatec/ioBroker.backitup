@@ -162,6 +162,7 @@ Wer seine Backups lieber manuell wiederherstellen möchte, sollte folgende Punkt
 1. Restore eines minimalen / normalen IoBroker Backups:
     - Das Backup muss wie gewohnt im  Verzeichnis „opt/iobroker/backups/“ liegen
     - Es kann über die Konsole mit Hilfe des Befehls: „iobroker restore (Nummer des Backups aus der Liste)“ wieder hergestellt werden.
+    - Nach dem Restore ist ein "iobroker upload all" nötig
 
 2. Restore eines kompletten Backups:
     - Den Befehl:“sudo  iobroker stop“ über die Konsole ausführen
