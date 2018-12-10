@@ -14,3 +14,4 @@ appveyor.yml
 /lib/*.sh
 /lib/restore.json
 .vscode
+.mount

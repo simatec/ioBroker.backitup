@@ -523,7 +523,7 @@ function umount() {
         const cmd = spawn(rootUmount, [backupDir], {detached: true, cwd: __dirname, stdio: ['ignore', 'ignore', 'ignore']});
 
         cmd.unref();
-        fs.unlink(__dirname + '/.mount');
+        fs.unlinkSync(__dirname + '/.mount');
     }
 }
 

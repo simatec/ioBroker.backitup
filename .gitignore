@@ -13,3 +13,4 @@ package-lock.json
 /lib/*.sh
 /lib/restore.json
 .vscode
+.mount
