@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.4.1",
+        "version": "0.4.2",
         "news": {
+            "0.4.2": {
+                "en": "Fix mount / umount, Fix Readme",
+                "de": "Fix mount / umount, Fix Readme",
+                "ru": "Исправить mount / umount, Исправить файл Readme",
+                "pt": "Fixar / desmontar, Corrigir Leiame",
+                "nl": "Fix mount / umount, Readme repareren",
+                "fr": "Fix mount / umount, Fix Readme",
+                "it": "Fix mount / umount, Risolvi il file Leggimi",
+                "es": "Fijar mount / umount, Fix Readme",
+                "pl": "Napraw mount / umount, Napraw plik Readme"
+            },
             "0.4.1": {
                 "en": "Added boolean for backup Success; Added Selection menu SMB type (CIFS); Added Checkbox for mount as root (sudo)",
                 "de": "Boolean für Backup-Erfolg hinzugefügt; Auswahlmenü SMB-Typ (CIFS) hinzugefügt; Checkbox für Mount als Root hinzugefügt (Sudo)",
