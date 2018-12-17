@@ -26,6 +26,7 @@ Für den NFS Mount muss zwingend nfs-common installiert sein.
    - 4.1 Erstellte Datenpunkte
    - 4.3 History-Log mit CCS formatieren
    - 4.4 Backupstatus im OneClick-Button darstellen
+   - 4.5 Benachrichtigen nach erfolgreichen Backups
 5. Restore eines Backups
    - 5.1 Minimal Backup wiederherstellen
    - 5.2 Komplett Backup wiederherstellen
@@ -104,6 +105,9 @@ Folgende Schritte sollten durchgeführt werden um den Adapter verwenden zu könn
 	- history.ccuLastTime -> speichert das Erstell-Datum und die Uhrzeit des letzten CCU Backups
 	- history.minimalLastTime -> speichert das Erstell-Datum und die Uhrzeit des letzten Standard Backups
 	- history.totalLastTime -> speichert das Erstell-Datum und die Uhrzeit des letzten Komplett Backups
+    - history.totalSuccess -> zeigt bei erfolgreichen Backup den State "true"
+    - history.ccuSuccess -> zeigt bei erfolgreichen Backup den State "true"
+    - history.minimalSuccess -> zeigt bei erfolgreichen Backup den State "true"
 
 2. History-Log in Vis anzeigen
    - Es ist möglich den History-Log bspw. in einem Html-Widget durch eintragen folgender Zeile in HTML darzustellen:
@@ -146,6 +150,11 @@ Syntax: {BackitupInstanz.history.html}
 
 ```
 Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || wert === true ? "Text während der Backuperstellung" : "Standard-Text"}
+
+5. Backitup unterstützt für die Benachrichtigung nach einem erfolgreichen Backup folgende Messenger.
+   - Telegram
+   - Pushover
+   - E-Mail 
 
 ## 5. Restore:
 
@@ -196,5 +205,8 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vor
     - sudo apt-get install redis-server
 
 2.	Sollte der CIFS-Mount mit IP-Adresse nicht möglich sein, sollte der Hostname des NAS verwendet werden
+3.  Wenn ihr beim cifs-mount ein Passwort mit Sonderzeichen verwendet, haben User festgestellt, dass dann das Passwort mit Anführungszeichen in der Config hinterlegt werden muss.
+4.  cifs-mount kann laut einigen Usern mit sehr langen Passwörtern nicht umgehen. Falls der mount nicht klappen sollte, kürz das Passwort etwas ein (12 Zeichen sind funktionieren bei mir).
+5.  Sollte der Adapter sich nicht installieren lassen, prüft eure Versionen von node und nodejs. Der Adapter unterstützt Versionen < Node 6 nicht.
 
 
