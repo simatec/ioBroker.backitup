@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.4.2",
+        "version": "0.4.3",
         "news": {
+            "0.4.3": {
+                "en": "Add device ID for pushover",
+                "de": "Geräte-ID für den Pushover hinzugefügt",
+                "ru": "Добавить идентификатор устройства для pushover",
+                "pt": "Adicionar ID do dispositivo para pushover",
+                "nl": "Voeg apparaat-ID toe voor pushover",
+                "fr": "Ajouter un ID d'appareil pour le transfert",
+                "it": "Aggiungi l'ID del dispositivo per il pushover",
+                "es": "Añadir ID de dispositivo para pushover",
+                "pl": "Dodaj identyfikator urządzenia do pchania"
+            },
             "0.4.2": {
                 "en": "Fix mount / umount, Fix Readme",
                 "de": "Fix mount / umount, Fix Readme",
@@ -463,6 +474,7 @@
         "pushoverInstance": "pushover.0",
         "pushoverNoticeType": "longPushoverNotice",
         "pushoverSilentNotice": false,
+        "pushoverDeviceID": "",
 
         "emailReceiver": "xxx@xxx.com",
         "emailSender": "xxx@xxx.com",
