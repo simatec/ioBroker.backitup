@@ -227,6 +227,7 @@ function initConfig(secret) {
         instance: adapter.config.pushoverInstance,
         SilentNotice: adapter.config.pushoverSilentNotice,
         NoticeType: adapter.config.pushoverNoticeType,
+        deviceID: adapter.config.pushoverDeviceID,
         systemLang
     };
 
