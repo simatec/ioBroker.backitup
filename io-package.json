@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "0.4.3",
+        "version": "0.4.4",
         "news": {
+            "0.4.4": {
+                "en": "Fix cifs-mount User",
+                "de": "Fix Cifs-mount Benutzer",
+                "ru": "Исправление пользователя cifs-mount",
+                "pt": "Conserte o usuário do cifs-mount",
+                "nl": "Fix cifs-mount Gebruiker",
+                "fr": "Fixer l'utilisateur cifs-mount",
+                "it": "Fix cifs-mount User",
+                "es": "Reparar cifs-mount User",
+                "pl": "Napraw użytkownika Cifs-mount"
+            },
             "0.4.3": {
                 "en": "Add device ID for pushover",
                 "de": "Geräte-ID für den Pushover hinzugefügt",
