@@ -327,7 +327,6 @@ function initConfig(secret) {
         ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
-        //mysql,
         mysql: {
             enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
             type: 'creator',
@@ -399,8 +398,6 @@ function initConfig(secret) {
         telegram,
         email,
         pushover,
-
-        //mysql,
         mysql: {
             enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
             type: 'creator',
@@ -479,7 +476,6 @@ function createBashScripts() {
     }
 
     if (isWin) {
-        // todo detect service
         if (!fs.existsSync(__dirname + '/lib/stopIOB.bat')) {
             fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall serviceIoBroker.bat stop\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
         }
@@ -493,7 +489,6 @@ function createBashScripts() {
             fs.writeFileSync(__dirname + '/lib/stop_r_IOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall serviceIoBroker.bat stop\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
         }
     } else {
-        // todo detect pm2 or systemd
         if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
             fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `cd "${path.join(tools.getIobDir())}"\nbash iobroker stop\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
             fs.chmodSync(__dirname + '/lib/stopIOB.sh', 508);
