@@ -285,6 +285,8 @@ function initConfig(secret) {
         source: adapter.config.restoreSource,
         mount: adapter.config.cifsMount,
         fileDir: __dirname,
+        wakeOnLAN: adapter.config.wakeOnLAN,
+        macAd: adapter.config.macAd,
         smb: adapter.config.smbType,
         sudo: adapter.config.sudoMount,
         deleteOldBackup: adapter.config.cifsDeleteOldBackup, //Delete old Backups from Network Disk
