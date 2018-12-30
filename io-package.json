@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "news": {
+            "1.0.1": {
+                "en": "Stable Release",
+                "de": "Stabiles Release",
+                "ru": "Стабильный релиз",
+                "pt": "Versão estável",
+                "nl": "Stabiele vrijlating",
+                "fr": "Version stable",
+                "it": "Rilascio stabile",
+                "es": "Liberación estable",
+                "pl": "Wersja stabilna"
+            },
             "1.0.0": {
                 "en": "Stable Release",
                 "de": "Stabiles Release",
