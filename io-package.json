@@ -4,15 +4,15 @@
         "version": "1.0.1",
         "news": {
             "1.0.1": {
-                "en": "Stable Release",
-                "de": "Stabiles Release",
-                "ru": "Стабильный релиз",
-                "pt": "Versão estável",
-                "nl": "Stabiele vrijlating",
-                "fr": "Version stable",
-                "it": "Rilascio stabile",
-                "es": "Liberación estable",
-                "pl": "Wersja stabilna"
+                "en": "Fix delete old Files; Add wake on LAN for CIFS and NFS",
+                "de": "löschen alter Backups gefixt; Wake-on-LAN für CIFS und NFS hinzugefügt",
+                "ru": "Исправлено удаление старых файлов; Добавить пробуждение по локальной сети для CIFS и NFS",
+                "pt": "Corrigir apagar arquivos antigos; Adicionar wake on LAN para CIFS e NFS",
+                "nl": "Fix verwijder oude bestanden; Voeg wake on LAN toe voor CIFS en NFS",
+                "fr": "Correction de supprimer les anciens fichiers; Ajouter Wake on LAN pour CIFS et NFS",
+                "it": "Correggere la cancellazione dei vecchi file; Aggiungi wake on LAN per CIFS e NFS",
+                "es": "Arreglar eliminar archivos antiguos; Agregue Wake en LAN para CIFS y NFS",
+                "pl": "Napraw usunąć stare pliki; Dodaj funkcję Wake on LAN dla CIFS i NFS"
             },
             "1.0.0": {
                 "en": "Stable Release",
@@ -480,6 +480,8 @@
         "connectType": "NFS",
         "smbType": "vers=1.0",
         "sudoMount": false,
+        "wakeOnLAN": false,
+        "macAd": "20:DE:20:DE:20:DE",
 
         "ftpEnabled": false,
 		"ftpHost": "",
