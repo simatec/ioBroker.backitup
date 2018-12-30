@@ -15,3 +15,5 @@ appveyor.yml
 /lib/restore.json
 .vscode
 .mount
+package-lock.json
+/package-lock.json
