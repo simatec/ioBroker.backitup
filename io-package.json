@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "news": {
+            "1.0.2": {
+                "en": "Fix start/stop for new iobroker-Installer",
+                "de": "Fix Start / Stop für neuen Iobroker-Installer",
+                "ru": "Исправить запуск / остановку нового iobroker-Installer",
+                "pt": "Corrigir start / stop para o novo iobroker-Installer",
+                "nl": "Fix start / stop voor nieuwe iobroker-Installer",
+                "fr": "Correction du démarrage / arrêt pour le nouvel installateur iobroker",
+                "it": "Fix start / stop per il nuovo iobroker-installer",
+                "es": "Arreglar inicio / parar para nuevo iobroker-Installer",
+                "pl": "Napraw start / stop dla nowego instalatora iobroker"
+            },
             "1.0.1": {
                 "en": "Fix delete old Files; Add wake on LAN for CIFS and NFS",
                 "de": "löschen alter Backups gefixt; Wake-on-LAN für CIFS und NFS hinzugefügt",

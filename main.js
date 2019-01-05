@@ -477,6 +477,24 @@ function createBashScripts() {
         jsPath = path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller');
     }
 
+    // delete .sh and .bat for updates
+    if (fs.existsSync(__dirname + '/lib/.update')) {
+        if (isWin) {
+            fs.unlinkSync(__dirname + '/lib/stopIOB.bat');
+            fs.unlinkSync(__dirname + '/lib/startIOB.bat');
+            fs.unlinkSync(__dirname + '/lib/start_b_IOB.bat');
+            fs.unlinkSync(__dirname + '/lib/stop_r_IOB.bat');
+            fs.unlinkSync(__dirname + '/lib/*.update');
+        } else {
+            fs.unlinkSync(__dirname + '/lib/stopIOB.sh');
+            fs.unlinkSync(__dirname + '/lib/startIOB.sh');
+            fs.unlinkSync(__dirname + '/lib/start_b_IOB.sh');
+            fs.unlinkSync(__dirname + '/lib/stop_r_IOB.sh');
+            fs.unlinkSync(__dirname + '/lib/.update');
+        }
+    }
+
+
     if (isWin) {
         if (!fs.existsSync(__dirname + '/lib/stopIOB.bat')) {
             fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall serviceIoBroker.bat stop\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
@@ -492,19 +510,19 @@ function createBashScripts() {
         }
     } else {
         if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
-            fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `cd "${path.join(tools.getIobDir())}"\nbash iobroker stop\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
+        fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `cd "${path.join(tools.getIobDir())}"\nif systemctl status iobroker | grep -q "Active: inactive"; then\nbash iobroker stop;\ntouch ${path.join(__dirname, 'lib')}/.start.info;\nelse\nsystemctl stop iobroker;\ntouch ${path.join(__dirname, 'lib')}/.startctl.info;\nfi\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
             fs.chmodSync(__dirname + '/lib/stopIOB.sh', 508);
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
-            fs.writeFileSync(__dirname + '/lib/startIOB.sh', `cd "${path.join(tools.getIobDir())}"\niobroker start all\nbash iobroker start`);
+            fs.writeFileSync(__dirname + '/lib/startIOB.sh', `cd "${path.join(tools.getIobDir())}"\nif [ -f ${path.join(__dirname, 'lib')}/.start.info ] ; then\niobroker start all\nbash iobroker start\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.startctl.info ] ; then\nsystemctl start iobroker\niobroker start all\nfi\nrm ${path.join(__dirname, 'lib')}/.*.info`);
             fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
         }
         if (!fs.existsSync(__dirname + '/lib/start_b_IOB.sh')) {
-            fs.writeFileSync(__dirname + '/lib/start_b_IOB.sh', `cd "${path.join(tools.getIobDir())}"\nbash iobroker start`);
+            fs.writeFileSync(__dirname + '/lib/start_b_IOB.sh', `cd "${path.join(tools.getIobDir())}"\nif [ -f ${path.join(__dirname, 'lib')}/.start.info ] ; then\nbash iobroker start\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.startctl.info ] ; then\nsystemctl start iobroker\nfi\nrm ${path.join(__dirname, 'lib')}/.*.info`);
             fs.chmodSync(__dirname + '/lib/start_b_IOB.sh', 508);
         }
         if (!fs.existsSync(__dirname + '/lib/stop_r_IOB.sh')) {
-            fs.writeFileSync(__dirname + '/lib/stop_r_IOB.sh', `cd "${path.join(tools.getIobDir())}"\nbash iobroker stop\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
+            fs.writeFileSync(__dirname + '/lib/stop_r_IOB.sh', `cd "${path.join(tools.getIobDir())}"\nif systemctl status iobroker | grep -q "Active: inactive"; then\nbash iobroker stop;\ntouch ${path.join(__dirname, 'lib')}/.start.info;\nelse\nsystemctl stop iobroker;\ntouch ${path.join(__dirname, 'lib')}/.startctl.info;\nfi\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
             fs.chmodSync(__dirname + '/lib/stop_r_IOB.sh', 508);
         }
     }
