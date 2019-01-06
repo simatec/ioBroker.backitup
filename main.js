@@ -480,20 +480,35 @@ function createBashScripts() {
     // delete .sh and .bat for updates
     if (fs.existsSync(__dirname + '/lib/.update')) {
         if (isWin) {
-            fs.unlinkSync(__dirname + '/lib/stopIOB.bat');
-            fs.unlinkSync(__dirname + '/lib/startIOB.bat');
-            fs.unlinkSync(__dirname + '/lib/start_b_IOB.bat');
-            fs.unlinkSync(__dirname + '/lib/stop_r_IOB.bat');
-            fs.unlinkSync(__dirname + '/lib/*.update');
+            if (fs.existsSync(__dirname + '/lib/stopIOB.bat')) {
+                fs.unlinkSync(__dirname + '/lib/stopIOB.bat');
+            }
+            if (fs.existsSync(__dirname + '/lib/startIOB.bat')) {
+                fs.unlinkSync(__dirname + '/lib/startIOB.bat');
+            }
+            if (fs.existsSync(__dirname + '/lib/start_b_IOB.bat')) {
+                fs.unlinkSync(__dirname + '/lib/start_b_IOB.bat');
+            }
+            if (fs.existsSync(__dirname + '/lib/stop_r_IOB.bat')) {
+                fs.unlinkSync(__dirname + '/lib/stop_r_IOB.bat');
+            }
+            fs.unlinkSync(__dirname + '/lib/.update');
         } else {
-            fs.unlinkSync(__dirname + '/lib/stopIOB.sh');
-            fs.unlinkSync(__dirname + '/lib/startIOB.sh');
-            fs.unlinkSync(__dirname + '/lib/start_b_IOB.sh');
-            fs.unlinkSync(__dirname + '/lib/stop_r_IOB.sh');
+            if (fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
+                fs.unlinkSync(__dirname + '/lib/stopIOB.sh');
+            }
+            if (fs.existsSync(__dirname + '/lib/startIOB.sh')) {
+                fs.unlinkSync(__dirname + '/lib/startIOB.sh');
+            }
+            if (fs.existsSync(__dirname + '/lib/start_b_IOB.sh')) {
+                fs.unlinkSync(__dirname + '/lib/start_b_IOB.sh');
+            }
+            if (fs.existsSync(__dirname + '/lib/stop_r_IOB.sh')) {
+                fs.unlinkSync(__dirname + '/lib/stop_r_IOB.sh');
+            }
             fs.unlinkSync(__dirname + '/lib/.update');
         }
     }
-
 
     if (isWin) {
         if (!fs.existsSync(__dirname + '/lib/stopIOB.bat')) {
