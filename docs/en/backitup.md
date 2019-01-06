@@ -105,7 +105,7 @@ The following steps should be used to use the adapter (if the v1 / v2 / v3 backu
     - history.totalLastTime -> saves the creation date and time of the last complete backup
     - history.totalSuccess -> shows the state "true" on successful backup
 	- history.ccuSuccess -> shows the state "true" on successful backup
-����- history.minimalSuccess -> shows the state "true" on successful backup
+����- history.minimalSuccess -> shows the state "true" on successful backup
 
 2. Show history log in Vis
     - It is possible to display the history log, for example, in a html widget by entering the following line in HTML:
@@ -151,9 +151,9 @@ Syntax: {BackitupInstance.history.html}
 Syntax: {value: <BackitupInstance>.oneClick.<trigger>; value ==="true" || value === true ? "Text during backup creation" : "Standard text"}
 
 5. Backitup supports the following messengers for notification after a successful backup.
-���- Telegram
-���- Pushover
-���- Email
+���- Telegram
+���- Pushover
+���- Email
 
 ## 5. Restore:
 
@@ -207,3 +207,21 @@ Here is a list of problems encountered so far and their solutions, if any.
 3. If you use a password with special characters in the cifs-mount, users have noticed that then the password must be stored with quotation marks in the config.
 4. According to some users, cifs-mount can not handle very long passwords. If the mount does not work, the password will shorten slightly (12 characters are working for me).
 5. If the adapter does not install, check your versions of node and nodejs. The adapter does not support versions < Node 6.
+6. If your iobroker is not running as root, backitup offers the option of running mount for cifs / nfs with sudo.
+    But your system must have disabled the root password query in the call with sudo.
+
+    Here is a little tutorial how the whole is feasible in a few steps.
+
+        - sudo visudo
+
+    Insert the following line in the file at the end:
+
+        - Username ALL = (ALL) NOPASSWD: ALL
+
+    Replace "username" with your iob user
+
+    Then save with STR + o, confirm with Enter and then close with STR + x.
+    After that, I recommend a reboot ... But this is system dependent.
+
+    But I would like to emphasize once again that these things do not have to do with backitup and that also backitup has no problem.
+    These things are unique to your system.
