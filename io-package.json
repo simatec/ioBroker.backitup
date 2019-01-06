@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.0.2",
+        "version": "1.0.3",
         "news": {
+            "1.0.3": {
+                "en": "Bugfix",
+                "de": "Bug-Fix",
+                "ru": "Исправлена ​​ошибка",
+                "pt": "Correção",
+                "nl": "Bugfix",
+                "fr": "Correction d'un bug",
+                "it": "Risoluzione del problema",
+                "es": "Arreglo del fallo",
+                "pl": "Naprawa błędów"
+            },
             "1.0.2": {
                 "en": "Fix start/stop for new iobroker-Installer",
                 "de": "Fix Start / Stop für neuen Iobroker-Installer",
