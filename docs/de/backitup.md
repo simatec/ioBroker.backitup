@@ -208,7 +208,7 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vor
 3.  Wenn ihr beim cifs-mount ein Passwort mit Sonderzeichen verwendet, haben User festgestellt, dass dann das Passwort mit Anführungszeichen in der Config hinterlegt werden muss.
 4.  cifs-mount kann laut einigen Usern mit sehr langen Passwörtern nicht umgehen. Falls der mount nicht klappen sollte, kürz das Passwort etwas ein (12 Zeichen sind funktionieren bei mir).
 5.  Sollte der Adapter sich nicht installieren lassen, prüft eure Versionen von node und nodejs. Der Adapter unterstützt Versionen < Node 6 nicht.
-6. Falls Ihr iobroker nicht als root laufen habt, bietet backitup die Option den mount für cifs/nfs mit sudo auszuführen.
+6.  Falls Ihr iobroker nicht als root laufen habt, bietet backitup die Option den mount für cifs/nfs mit sudo auszuführen.
     Dafür muss eurer System aber die root-Passwortabfrage bei dem Aufruf mit sudo deaktiviert haben.
 
     Hier ein kleines Tutorial wie das ganze mit wenigen Schritten machbar ist.
@@ -216,6 +216,7 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vor
         -   sudo visudo
 
     In der Datei am Ende folgende Zeile einfügen:
+
         - Username ALL=(ALL) NOPASSWD: ALL
 
     "Username" durch euren iob User ersetzen
