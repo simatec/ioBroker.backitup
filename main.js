@@ -7,13 +7,14 @@ const utils     = require(__dirname + '/lib/utils'); // Get common adapter utils
 const schedule  = require('node-schedule');
 const fs        = require('fs');
 const path      = require('path');
+const adapterName = require('./package.json').name.split('.').pop();
 
 const tools     = require('./lib/tools');
 const executeScripts = require('./lib/execute');
 const list      = require('./lib/list');
 const restore   = require('./lib/restore');
 
-const adapter = new utils.Adapter('backitup');
+let adapter;
 
 let systemLang = 'de';                                  // system language
 const backupConfig = {};
@@ -41,65 +42,75 @@ function startBackup(config, cb) {
 }
 
 // Is executed when a State has changed
-adapter.on('stateChange', (id, state) => {
-    if ((state.val === true || state.val === 'true') && !state.ack) {
 
-        if (id === adapter.namespace + '.oneClick.minimal' ||
-            id === adapter.namespace + '.oneClick.total' ||
-            id === adapter.namespace + '.oneClick.ccu') {
-            const type = id.split('.').pop();
-            const config = JSON.parse(JSON.stringify(backupConfig[type]));
-            config.enabled = true;
-            config.deleteBackupAfter = 0; // do not delete files by custom backup
+function startAdapter(options) {
+    options = options || {};
+    Object.assign(options, {name: adapterName});
 
-            startBackup(config, err => {
-                if (err) {
-                    adapter.log.error(`[${type}] ${err}`);
-                    adapter.setState('history.' + type + 'Success', false, true);
-                } else {
-                    adapter.log.debug(`[${type}] exec: done`);
-                    adapter.setState('history.' + type + 'Success', true, true);
-                }
-                adapter.setState('oneClick.' + type, false, true);
-                adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
-            });
-        }
-    }
-});
+    adapter = new utils.Adapter(options);
 
-adapter.on('ready', main);
-
-adapter.on('message', obj => {
-    if (obj) {
-        switch (obj.command) {
-            case 'list':
-                list(adapter, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
-                break;
-
-            case 'restore':
-                if (obj.message) {
-                    restore(adapter, backupConfig, obj.message.type, obj.message.fileName, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
-                } else if (obj.callback) {
-                    obj.callback({error: 'Invalid parameters'});
-                }
-                break;
-
-            case 'getTelegramUser':
-            adapter.getForeignState(adapter.config.telegramInstance + '.communicate.users', (err, state) => {
-                err && adapter.log.error(err);
-                if (state && state.val) {
-                    try {
-                        adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
-                    } catch (err) {
-                        err && adapter.log.error(err);
-                        adapter.log.error('Cannot parse stored user IDs from Telegram!');
+    adapter.on('stateChange', (id, state) => {
+        if ((state.val === true || state.val === 'true') && !state.ack) {
+    
+            if (id === adapter.namespace + '.oneClick.minimal' ||
+                id === adapter.namespace + '.oneClick.total' ||
+                id === adapter.namespace + '.oneClick.ccu') {
+                const type = id.split('.').pop();
+                const config = JSON.parse(JSON.stringify(backupConfig[type]));
+                config.enabled = true;
+                config.deleteBackupAfter = 0; // do not delete files by custom backup
+    
+                startBackup(config, err => {
+                    if (err) {
+                        adapter.log.error(`[${type}] ${err}`);
+                        adapter.setState('history.' + type + 'Success', false, true);
+                    } else {
+                        adapter.log.debug(`[${type}] exec: done`);
+                        adapter.setState('history.' + type + 'Success', true, true);
                     }
-                }
-            });
-
+                    adapter.setState('oneClick.' + type, false, true);
+                    adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
+                });
+            }
         }
-    }
-});
+    });
+
+    adapter.on('ready', main);
+
+    adapter.on('message', obj => {
+        if (obj) {
+            switch (obj.command) {
+                case 'list':
+                    list(adapter, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                    break;
+
+                case 'restore':
+                    if (obj.message) {
+                        restore(adapter, backupConfig, obj.message.type, obj.message.fileName, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                    } else if (obj.callback) {
+                        obj.callback({error: 'Invalid parameters'});
+                    }
+                    break;
+
+                case 'getTelegramUser':
+                adapter.getForeignState(adapter.config.telegramInstance + '.communicate.users', (err, state) => {
+                    err && adapter.log.error(err);
+                    if (state && state.val) {
+                        try {
+                            adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
+                        } catch (err) {
+                            err && adapter.log.error(err);
+                            adapter.log.error('Cannot parse stored user IDs from Telegram!');
+                        }
+                    }
+                });
+
+            }
+        }
+    });
+
+    return adapter;
+}
 
 function checkStates() {
     // Fill empty data points with default values
@@ -583,4 +594,11 @@ function main() {
 
     // subscribe on all variables of this adapter instance with pattern "adapterName.X.memory*"
     adapter.subscribeStates('oneClick.*');
+}
+// If started as allInOne/compact mode => return function to create instance
+if (module && module.parent) {
+    module.exports = startAdapter;
+} else {
+    // or start the instance directly
+    startAdapter();
 }
