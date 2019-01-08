@@ -313,7 +313,7 @@ function installJsController(cb) {
             var client = new require('net').Socket();
             client.connect(9000, '127.0.0.1', function() {
                 console.error('Cannot initiate fisrt run of test, because one instance of application is running on this PC. Stop it and repeat.');
-                process.exit(0);
+                adapter.terminate ? adapter.terminate() : process.exit(0);
             });
 
             setTimeout(function () {
@@ -713,7 +713,7 @@ function getAdapterConfig(instance) {
     return objects[id];
 }
 
-if (typeof module !== undefined && module.parent) {
+if (typeof module !== "undefined" && module.parent) {
     module.exports.getAdapterConfig = getAdapterConfig;
     module.exports.setAdapterConfig = setAdapterConfig;
     module.exports.startController  = startController;
