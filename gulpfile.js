@@ -394,15 +394,15 @@ gulp.task('rename', function ()  {
     console.log('Try to rename to "' + newname + '"');
     if (!newname) {
         console.log('Please write the new backitup name, like: "gulp rename --name mywidgetset" --author "Author Name"');
-        process.exit();
+        adapter.terminate ? adapter.terminate() : process.exit();
     }
     if (newname.indexOf(' ') !== -1) {
         console.log('Name may not have space in it.');
-        process.exit();
+        adapter.terminate ? adapter.terminate() : process.exit();
     }
     if (newname.toLowerCase() !== newname) {
         console.log('Name must be lower case.');
-        process.exit();
+        adapter.terminate ? adapter.terminate() : process.exit();
     }
     if (fs.existsSync(__dirname + '/admin/backitup.png')) {
         fs.renameSync(__dirname + '/admin/backitup.png',              __dirname + '/admin/' + newname + '.png');
