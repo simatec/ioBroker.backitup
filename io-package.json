@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.0.3",
+        "version": "1.0.4",
         "news": {
+            "1.0.4": {
+                "en": "support for compact mode",
+                "de": "Unterstützung für den Kompaktmodus",
+                "ru": "поддержка компактного режима",
+                "pt": "suporte para o modo compacto",
+                "nl": "ondersteuning voor de compacte modus",
+                "fr": "support pour le mode compact",
+                "it": "supporto per la modalità compatta",
+                "es": "soporte para modo compacto",
+                "pl": "obsługa trybu kompaktowego"
+            },
             "1.0.3": {
                 "en": "Bugfix",
                 "de": "Bug-Fix",
@@ -435,6 +446,7 @@
         },
         "platform": "Javascript/Node.js",
         "mode": "daemon",
+        "compact": true,
         "icon": "backitup.png",
         "materialize": true,
         "messagebox": true,
