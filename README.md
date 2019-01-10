@@ -23,10 +23,10 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 ### 1.0.5 (09.01.2019)
 * (simatec) Fix compact mode
+* (simatec) Fix total backup
 
 ### 1.0.4 (08.01.2019)
 * (simatec) support for compact mode
-* (simatec) Fix total backup
 
 ### 1.0.3 (06.01.2019)
 * (simatec) Bugfix
