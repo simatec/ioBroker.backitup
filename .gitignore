@@ -14,3 +14,4 @@ package-lock.json
 /lib/restore.json
 .vscode
 .mount
+.DS_Store
