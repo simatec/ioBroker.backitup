@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.0.4",
+        "version": "1.0.5",
         "news": {
+            "1.0.5": {
+                "en": "Fix compact mode; Fix total backup; better history handling for html; better history handling; error Message for telegram; error Message for E-Mail; error Message for pushover",
+                "de": "Fix-Kompaktmodus; Total-Backup gefixt; Besseres History-Handling für HTML; besserer Umgang mit der History; Fehlermeldung für Telegramm; Fehlermeldung für E-Mail; Fehlermeldung für Pushover",
+                "ru": "Исправить компактный режим; Исправить общее резервное копирование; улучшенная обработка истории для html; лучшая обработка истории; Сообщение об ошибке для телеграммы; Сообщение об ошибке для E-Mail; Сообщение об ошибке для pushover",
+                "pt": "Corrigir o modo compacto; Corrigir backup total; melhor histórico de manipulação para html; melhor manuseio da história; mensagem de erro para telegrama; mensagem de erro para e-mail; mensagem de erro para pushover",
+                "nl": "Fix compacte modus; Volledige back-up repareren; betere verwerking van geschiedenis voor html; betere verwerking van de geschiedenis; Foutmelding voor telegram; Foutmelding voor e-mail; Foutmelding voor pushover",
+                "fr": "Mode compact compact; Correction de la sauvegarde totale; meilleure gestion de l'historique pour HTML; meilleure gestion de l'histoire; message d'erreur pour le télégramme; Message d'erreur pour le courrier électronique; message d'erreur pour le transfert",
+                "it": "Correzione della modalità compatta; Risolto il backup totale; migliore gestione della cronologia per html; migliore gestione della cronologia; messaggio di errore per telegramma; messaggio di errore per e-mail; messaggio di errore per pushover",
+                "es": "Corrige el modo compacto; Reparar copia de seguridad total; mejor manejo de historia para html; mejor manejo de la historia; Mensaje de error para telegrama; Mensaje de error para correo electrónico; Mensaje de error para pushover",
+                "pl": "Napraw tryb kompaktowy; Napraw całkowitą kopię zapasową; lepsza obsługa historii dla html; lepsza obsługa historii; komunikat o błędzie dla telegramu; komunikat błędu dla wiadomości e-mail; komunikat o błędzie dla pushover"
+            },
             "1.0.4": {
                 "en": "support for compact mode",
                 "de": "Unterstützung für den Kompaktmodus",
