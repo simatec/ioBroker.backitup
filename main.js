@@ -63,13 +63,19 @@ function startAdapter(options) {
                 startBackup(config, err => {
                     if (err) {
                         adapter.log.error(`[${type}] ${err}`);
-                        adapter.setState('history.' + type + 'Success', false, true);
+                        
                     } else {
                         adapter.log.debug(`[${type}] exec: done`);
+                    }
+
+                    if (JSON.stringify(config.context.errors) == '{}') {
                         adapter.setState('history.' + type + 'Success', true, true);
+                        adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
+                    } else {
+                        adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang));
+                        adapter.setState('history.' + type + 'Success', false, true);
                     }
                     adapter.setState('oneClick.' + type, false, true);
-                    adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
                 });
             }
         }
@@ -190,13 +196,18 @@ function createBackupSchedule() {
                 startBackup(backupConfig[type], err => {
                     if (err) {
                         adapter.log.error(`[${type}] ${err}`);
-                        adapter.setState('history.' + type + 'Success', false, true);
                     } else {
                         adapter.log.debug(`[${type}] exec: done`);
+                    }
+
+                    if (JSON.stringify(config.context.errors) == '{}') {
                         adapter.setState('history.' + type + 'Success', true, true);
+                        adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
+                    } else {
+                        adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang));
+                        adapter.setState('history.' + type + 'Success', false, true);
                     }
                     adapter.setState('oneClick.' + type, false, true);
-                    adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
                 });
             });
 
