@@ -217,7 +217,7 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vor
 
     In der Datei am Ende folgende Zeile einfügen:
 
-        - Username ALL=(ALL) NOPASSWD: ALL
+        - Username ALL=(ALL) NOPASSWD: /bin/mount, /bin/umount, /bin/systemctl
 
     "Username" durch euren iob User ersetzen
 
