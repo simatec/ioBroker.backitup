@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.0.5",
+        "version": "1.0.6",
         "news": {
+            "1.0.6": {
+                "en": "Fix Start/Stop for new iobroker-installer",
+                "de": "Start / Stop für neuen Iobroker-Installer korrigiert",
+                "ru": "Исправление Start / Stop для нового установщика iobroker",
+                "pt": "Corrigir Iniciar / Parar para o novo iobroker-installer",
+                "nl": "Fix Start / Stop voor nieuw iobroker-installatieprogramma",
+                "fr": "Correction du démarrage / arrêt pour le nouvel installateur iobroker",
+                "it": "Fix Start / Stop per il nuovo iobroker-installer",
+                "es": "Arreglar Start / Stop para el nuevo iobroker-installer",
+                "pl": "Napraw Start / Stop dla nowego instalatora iobroker"
+            },
             "1.0.5": {
                 "en": "Fix compact mode; Fix total backup; better history handling for html; better history handling; error Message for telegram; error Message for E-Mail; error Message for pushover",
                 "de": "Fix-Kompaktmodus; Total-Backup gefixt; Besseres History-Handling für HTML; besserer Umgang mit der History; Fehlermeldung für Telegramm; Fehlermeldung für E-Mail; Fehlermeldung für Pushover",
