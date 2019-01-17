@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.0.6",
+        "version": "1.0.7",
         "news": {
+            "1.0.7": {
+                "en": "better start/stop Handling for backup and restore",
+                "de": "bessere start/stopp Handhabung für Backup und Restore",
+                "ru": "лучше начать / остановить обработку для резервного копирования и восстановления",
+                "pt": "melhor iniciar / parar Manipulando para backup e restauração",
+                "nl": "beter starten / stoppen Behandeling voor back-up en herstel",
+                "fr": "Mieux démarrer / arrêter Gestion pour la sauvegarde et la restauration",
+                "it": "migliore avvio / arresto della gestione per il backup e il ripristino",
+                "es": "Mejor arranque / parada. Manejo para copia de seguridad y restauración.",
+                "pl": "lepsze uruchamianie / zatrzymywanie Obsługa kopii zapasowych i przywracania"
+            },
             "1.0.6": {
                 "en": "Fix Start/Stop for new iobroker-installer",
                 "de": "Start / Stop für neuen Iobroker-Installer korrigiert",
