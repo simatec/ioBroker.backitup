@@ -507,29 +507,15 @@ function createBashScripts() {
     // delete .sh and .bat for updates
     if (fs.existsSync(__dirname + '/lib/.update')) {
         if (isWin) {
-            if (fs.existsSync(__dirname + '/lib/stopIOB.bat')) {
-                fs.unlinkSync(__dirname + '/lib/stopIOB.bat');
-            }
-            if (fs.existsSync(__dirname + '/lib/startIOB.bat')) {
-                fs.unlinkSync(__dirname + '/lib/startIOB.bat');
-            }
-            if (fs.existsSync(__dirname + '/lib/start_b_IOB.bat')) {
-                fs.unlinkSync(__dirname + '/lib/start_b_IOB.bat');
-            }
-            if (fs.existsSync(__dirname + '/lib/stop_r_IOB.bat')) {
-                fs.unlinkSync(__dirname + '/lib/stop_r_IOB.bat');
-            }
+            fs.existsSync(__dirname + '/lib/stopIOB.bat') && fs.unlinkSync(__dirname + '/lib/stopIOB.bat');
+            fs.existsSync(__dirname + '/lib/startIOB.bat') && fs.unlinkSync(__dirname + '/lib/startIOB.bat');
+            fs.existsSync(__dirname + '/lib/start_b_IOB.bat') && fs.unlinkSync(__dirname + '/lib/start_b_IOB.bat');
+            fs.existsSync(__dirname + '/lib/stop_r_IOB.bat') && fs.unlinkSync(__dirname + '/lib/stop_r_IOB.bat');
             fs.unlinkSync(__dirname + '/lib/.update');
         } else {
-            if (fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
-                fs.unlinkSync(__dirname + '/lib/stopIOB.sh');
-            }
-            if (fs.existsSync(__dirname + '/lib/startIOB.sh')) {
-                fs.unlinkSync(__dirname + '/lib/startIOB.sh');
-            }
-            if (fs.existsSync(__dirname + '/lib/external.sh')) {
-                fs.unlinkSync(__dirname + '/lib/external.sh');
-            }
+            fs.existsSync(__dirname + '/lib/stopIOB.sh') && fs.unlinkSync(__dirname + '/lib/stopIOB.sh');
+            fs.existsSync(__dirname + '/lib/startIOB.sh') && fs.unlinkSync(__dirname + '/lib/startIOB.sh');
+            fs.existsSync(__dirname + '/lib/external.sh') && fs.unlinkSync(__dirname + '/lib/external.sh');
             fs.unlinkSync(__dirname + '/lib/.update');
         }
     }
