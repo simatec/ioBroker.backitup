@@ -68,13 +68,15 @@ function startAdapter(options) {
                         adapter.log.debug(`[${type}] exec: done`);
                     }
 
-                    if (JSON.stringify(config.context.errors) == '{}') {
-                        adapter.setState('history.' + type + 'Success', true, true);
-                        adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
-                    } else {
-                        adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang));
-                        adapter.setState('history.' + type + 'Success', false, true);
-                    }
+                    adapter.getState('output.line', (err, state) => {
+					    if (state.val == '[EXIT] 0') {
+                            adapter.setState('history.' + type + 'Success', true, true);
+                            adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
+                        } else {
+                            adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang));
+                            adapter.setState('history.' + type + 'Success', false, true);
+                        }
+                    });
                     adapter.setState('oneClick.' + type, false, true);
                 });
             }
@@ -200,13 +202,15 @@ function createBackupSchedule() {
                         adapter.log.debug(`[${type}] exec: done`);
                     }
 
-                    if (JSON.stringify(config.context.errors) == '{}') {
-                        adapter.setState('history.' + type + 'Success', true, true);
-                        adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
-                    } else {
-                        adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang));
-                        adapter.setState('history.' + type + 'Success', false, true);
-                    }
+                    adapter.getState('output.line', (err, state) => {
+					    if (state.val == '[EXIT] 0') {
+                        	adapter.setState('history.' + type + 'Success', true, true);
+                        	adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
+                    	} else {
+                            adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang));
+                            adapter.setState('history.' + type + 'Success', false, true);
+                    	}
+					});
                     adapter.setState('oneClick.' + type, false, true);
                 });
             });
@@ -309,6 +313,7 @@ function initConfig(secret) {
         fileDir: __dirname,
         wakeOnLAN: adapter.config.wakeOnLAN,
         macAd: adapter.config.macAd,
+        wolTime: adapter.config.wolWait,
         smb: adapter.config.smbType,
         sudo: adapter.config.sudoMount,
         deleteOldBackup: adapter.config.cifsDeleteOldBackup, //Delete old Backups from Network Disk
@@ -522,11 +527,8 @@ function createBashScripts() {
             if (fs.existsSync(__dirname + '/lib/startIOB.sh')) {
                 fs.unlinkSync(__dirname + '/lib/startIOB.sh');
             }
-            if (fs.existsSync(__dirname + '/lib/start_b_IOB.sh')) {
-                fs.unlinkSync(__dirname + '/lib/start_b_IOB.sh');
-            }
-            if (fs.existsSync(__dirname + '/lib/stop_r_IOB.sh')) {
-                fs.unlinkSync(__dirname + '/lib/stop_r_IOB.sh');
+            if (fs.existsSync(__dirname + '/lib/external.sh')) {
+                fs.unlinkSync(__dirname + '/lib/external.sh');
             }
             fs.unlinkSync(__dirname + '/lib/.update');
         }
@@ -547,36 +549,37 @@ function createBashScripts() {
         }
     } else {
         if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
-        fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `# iobroker stop for total backup\nif systemctl status iobroker | grep -q "active (running)"; then\nsudo systemctl stop iobroker;\ntouch ${path.join(__dirname, 'lib')}/.startctl.info;\nelse\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop;\ntouch ${path.join(__dirname, 'lib')}/.start.info;\nfi\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
+            fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `# iobroker stop for backup and restore\nif systemctl status iobroker | grep -q "active (running)"; then\nsudo systemd-run --uid=iobroker bash ${path.join(__dirname, 'lib')}/external.sh\nelse\ncd "${path.join(__dirname, 'lib')}"\nbash external.sh\nfi`);
             fs.chmodSync(__dirname + '/lib/stopIOB.sh', 508);
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
-            fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\ncd "${path.join(tools.getIobDir())}"\nif [ -f ${path.join(__dirname, 'lib')}/.start.info ] ; then\niobroker start all\nbash iobroker start\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.startctl.info ] ; then\nsudo systemctl start iobroker\niobroker start all\nfi\nrm ${path.join(__dirname, 'lib')}/.*.info`);
+            fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after backup and restore\nif [ -f ${path.join(__dirname, 'lib')}/.restore.info ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.start.info ] ; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.startctl.info ] ; then\nsudo systemctl start iobroker\nfi`);
             fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
         }
-        if (!fs.existsSync(__dirname + '/lib/start_b_IOB.sh')) {
-            fs.writeFileSync(__dirname + '/lib/start_b_IOB.sh', `# iobroker start after backup\ncd "${path.join(tools.getIobDir())}"\nif [ -f ${path.join(__dirname, 'lib')}/.start.info ] ; then\nbash iobroker start\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.startctl.info ] ; then\nsudo systemctl start iobroker\nfi\nrm ${path.join(__dirname, 'lib')}/.*.info`);
-            fs.chmodSync(__dirname + '/lib/start_b_IOB.sh', 508);
-        }
-        if (!fs.existsSync(__dirname + '/lib/stop_r_IOB.sh')) {
-            fs.writeFileSync(__dirname + '/lib/stop_r_IOB.sh', `# iobroker stop for restore\nif systemctl status iobroker | grep -q "active (running)"; then\nsudo systemctl stop iobroker;\ntouch ${path.join(__dirname, 'lib')}/.startctl.info;\nelse\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop;\ntouch ${path.join(__dirname, 'lib')}/.start.info;\nfi\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
-            fs.chmodSync(__dirname + '/lib/stop_r_IOB.sh', 508);
+        if (!fs.existsSync(__dirname + '/lib/external.sh')) {
+            fs.writeFileSync(__dirname + '/lib/external.sh', `# backup and restore\nif systemctl status iobroker | grep -q "active (running)"; then\nsudo systemctl stop iobroker;\ntouch ${path.join(__dirname, 'lib')}/.startctl.info;\nelse\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop;\ntouch ${path.join(__dirname, 'lib')}/.start.info;\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.backup.info ] ; then\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.restore.info ] ; then\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js\nfi`);
+            fs.chmodSync(__dirname + '/lib/external.sh', 508);
         }
     }
 }
 // umount after restore
 function umount() {
     if (fs.existsSync(__dirname + '/.mount')) {
-        const {spawn} = require('child_process');
+        const child_process = require('child_process');
         const backupDir = path.join(tools.getIobDir(), 'backups');
         let rootUmount = 'umount';
         if (adapter.config.sudoMount === 'true' || adapter.config.sudoMount === true) {
             rootUmount = 'sudo umount';
         }
-        const cmd = spawn(rootUmount, [backupDir], {detached: true, cwd: __dirname, stdio: ['ignore', 'ignore', 'ignore']});
-
-        cmd.unref();
-        fs.unlinkSync(__dirname + '/.mount');
+        setTimeout(function() {
+			child_process.exec(`${rootUmount} ${backupDir}`, (error, stdout, stderr) => {
+				if (error) {
+					adapter.log.error(stderr);
+				} else {
+					fs.unlinkSync(__dirname + '/.mount');
+				}
+			});
+        }, 60000);
     }
 }
 
@@ -587,12 +590,20 @@ function createBackupDir() {
         adapter.log.debug('Created BackupDir');
     }
 }
+// delete Hide Files after restore or total backup
+function deleteHideFiles() {
+    fs.existsSync(__dirname + '/lib/.backup.info') && fs.unlinkSync(__dirname + '/lib/.backup.info');
+    fs.existsSync(__dirname + '/lib/.restore.info') && fs.unlinkSync(__dirname + '/lib/.restore.info');
+    fs.existsSync(__dirname + '/lib/.startctl.info') && fs.unlinkSync(__dirname + '/lib/.startctl.info');
+    fs.existsSync(__dirname + '/lib/.start.info') && fs.unlinkSync(__dirname + '/lib/.start.info');
+}
 
 function main() {
     createBashScripts();
     readLogFile();
     createBackupDir();
     umount();
+    deleteHideFiles();
 
     adapter.getForeignObject('system.config', (err, obj) => {
         systemLang = obj.common.language;

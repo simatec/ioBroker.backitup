@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.0.7",
+        "version": "1.0.8",
         "news": {
+            "1.0.8": {
+                "en": "modification for new installer; WOL-waittime adjustable; Fix History settings",
+                "de": "Änderungen für neuen Installer; WOL-Wartezeit einstellbar; Fix History Einstellungen",
+                "ru": "модификация для нового установщика; Добавить WOL-время ожидания регулируется; Исправить настройки истории",
+                "pt": "modificação para novo instalador; Adicionar WOL-waittime ajustável; Corrigir configurações do histórico",
+                "nl": "wijziging voor nieuw installatieprogramma; Voeg WOL-waittime instelbaar toe; Geschiedenisinstellingen herstellen",
+                "fr": "modification pour nouvel installateur; Ajouter WOL-waittime réglable; Correction des paramètres de l'historique",
+                "it": "modifica per il nuovo programma di installazione; Aggiungi WOL-waittime regolabile; Correggi le impostazioni della cronologia",
+                "es": "modificación para nuevo instalador; Añadir WOL-tiempo de espera ajustable; Fijar la configuración del historial",
+                "pl": "modyfikacja nowego instalatora; Dodaj regulację WOL-waittime; Napraw ustawienia historii"
+            },
             "1.0.7": {
                 "en": "better start/stop Handling for backup and restore",
                 "de": "bessere start/stopp Handhabung für Backup und Restore",
@@ -549,6 +560,7 @@
         "sudoMount": false,
         "wakeOnLAN": false,
         "macAd": "20:DE:20:DE:20:DE",
+        "wolWait": 25,
 
         "ftpEnabled": false,
 		"ftpHost": "",
