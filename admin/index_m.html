@@ -322,7 +322,7 @@
                                         (!code || code[1] === '0')) {
                                         setTimeout(function () {
                                             $dialogCommand.modal('close');
-                                        }, 1500);
+                                        }, 800);
                                     }
                                 }
                             }
@@ -1038,12 +1038,12 @@
                         <input class="value" id="cifsDeleteOldBackup" type="checkbox"/>
                         <label for="cifsDeleteOldBackup" class="translate">Delete old NAS / Copy-Backups</label>
                     </div>
-                </div>
-                <div class="row cifs">
                     <div class="input-field col s6 l4">
                         <input class="value" id="cifsOwnDir" type="checkbox"/>
                         <span for="cifsOwnDir" class="translate">Extra path for backup types</span>
                     </div>
+                </div>
+                <div class="row cifs">
                     <div class="input-field col s6 l4">
                         <input class="value" id="wakeOnLAN" type="checkbox"/>
                         <span for="wakeOnLAN" class="translate">Wake on LAN</span>
@@ -1051,6 +1051,11 @@
                     <div class="input-field col s12 m6 l4 wol">
                         <input class="value" id="macAd" type="text">
                         <label for="macAd" class="translate">MAC address</label>
+                    </div>
+                    <div class="input-field col s12 m4 l4 wol">
+                        <input type="number" class="value" id="wolWait" min="25" max="180"/>
+                        <label for="wolWait" class="translate">seconds</label>
+                        <span class="translate">WOL wait time</span>
                     </div>
                 </div>
                 <div class="row cifs cifs-extra">
