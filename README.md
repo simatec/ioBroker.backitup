@@ -21,6 +21,12 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 ## Changelog
 
+### 1.0.9 (02.02.2019)
+* (simatec) Add New umount query
+* (simatec) Add Umount wait by device busy
+* (simatec) Add Timeout for History settings
+* (simatec) Add Notification only on error
+
 ### 1.0.8 (26.01.2019)
 * (simatec) modification for new installer
 * (simatec) WOL-waittime adjustable
