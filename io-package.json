@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.0.8",
+        "version": "1.0.9",
         "news": {
+            "1.0.9": {
+                "en": "Add New umount query; Add Umount wait by device busy; Add Timeout for History settings; Add Notification only on error",
+                "de": "Neue Umount-Abfrage hinzugefügt; Umount-Wartezeit hinzugefügt, falls device busy; Zeitverzögerung für History Einstellungen hinzufügen; Benachrichtigung nur bei Fehler hinzugefügt",
+                "ru": "Добавить новый запрос umount; Добавить Umount wait by device busy; Добавить настройки тайм-аута для истории; Добавить уведомление только при ошибке",
+                "pt": "Adicionar nova consulta de umount; Adicionar Umount espera pelo dispositivo ocupado; Adicionar tempo limite para configurações do histórico; Adicionar notificação somente em erro",
+                "nl": "Nieuwe umount-query toevoegen; Voeg Umount toe wacht door apparaat bezet; Time-out voor geschiedenisinstellingen toevoegen; Notificatie alleen bij fout toevoegen",
+                "fr": "Ajouter une nouvelle requête umount; Ajouter Umount wait par appareil occupé; Ajouter un délai d'expiration pour les paramètres de l'historique; Ajouter une notification uniquement en cas d'erreur",
+                "it": "Aggiungi nuova query umount; Aggiungi Umount wait by device busy; Aggiungi Timeout per le impostazioni della cronologia; Aggiungi notifica solo in caso di errore",
+                "es": "Agregar nueva consulta umount; Añadir Umount espera por dispositivo ocupado; Agregar tiempo de espera para la configuración del historial; Añadir notificación solo en caso de error",
+                "pl": "Dodaj nowe zapytanie umount; Dodaj Umount wait przez urządzenie zajęte; Dodaj limit czasu dla ustawień historii; Dodaj powiadomienie tylko w przypadku błędu"
+            },
             "1.0.8": {
                 "en": "modification for new installer; WOL-waittime adjustable; Fix History settings",
                 "de": "Änderungen für neuen Installer; WOL-Wartezeit einstellbar; Fix History Einstellungen",
@@ -584,16 +595,19 @@
         "telegramNoticeType": "longTelegramNotice",
         "telegramUser": "All Receiver",
         "telegramSilentNotice": false,
+        "telegramOnlyError": false,
 
         "pushoverInstance": "pushover.0",
         "pushoverNoticeType": "longPushoverNotice",
         "pushoverSilentNotice": false,
         "pushoverDeviceID": "",
+        "pushoverOnlyError": false,
 
         "emailReceiver": "xxx@xxx.com",
         "emailSender": "xxx@xxx.com",
         "emailInstance": "email.0",
         "emailNoticeType": "longEmailNotice",
+        "emailOnlyError": false,
 
 		"debugLevel": false,
         "historyEntriesNumber": 25,
