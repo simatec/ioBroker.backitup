@@ -67,16 +67,18 @@ function startAdapter(options) {
                     } else {
                         adapter.log.debug(`[${type}] exec: done`);
                     }
-
-                    adapter.getState('output.line', (err, state) => {
-					    if (state.val == '[EXIT] 0') {
-                            adapter.setState('history.' + type + 'Success', true, true);
-                            adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
-                        } else {
-                            adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang));
-                            adapter.setState('history.' + type + 'Success', false, true);
-                        }
-                    });
+                    setTimeout(function() {
+                        adapter.getState('output.line', (err, state) => {
+                            if (state.val == '[EXIT] 0') {
+                                adapter.setState('history.' + type + 'Success', true, true);
+                                adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
+                            } else {
+                                adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang));
+                                adapter.setState('history.' + type + 'Success', false, true);
+                            }
+                            
+                        });
+                    }, 500);
                     adapter.setState('oneClick.' + type, false, true);
                 });
             }
@@ -201,16 +203,17 @@ function createBackupSchedule() {
                     } else {
                         adapter.log.debug(`[${type}] exec: done`);
                     }
-
-                    adapter.getState('output.line', (err, state) => {
-					    if (state.val == '[EXIT] 0') {
-                        	adapter.setState('history.' + type + 'Success', true, true);
-                        	adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
-                    	} else {
-                            adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang));
-                            adapter.setState('history.' + type + 'Success', false, true);
-                    	}
-					});
+                    setTimeout(function() {
+                        adapter.getState('output.line', (err, state) => {
+                            if (state.val == '[EXIT] 0') {
+                                adapter.setState('history.' + type + 'Success', true, true);
+                                adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
+                            } else {
+                                adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang));
+                                adapter.setState('history.' + type + 'Success', false, true);
+                            }
+                        });
+                    }, 500);
                     adapter.setState('oneClick.' + type, false, true);
                 });
             });
@@ -243,6 +246,7 @@ function initConfig(secret) {
         SilentNotice: adapter.config.telegramSilentNotice,
         NoticeType: adapter.config.telegramNoticeType,
         User: adapter.config.telegramUser,
+        onlyError: adapter.config.telegramOnlyError,
         systemLang
     };
 
@@ -254,6 +258,7 @@ function initConfig(secret) {
         SilentNotice: adapter.config.pushoverSilentNotice,
         NoticeType: adapter.config.pushoverNoticeType,
         deviceID: adapter.config.pushoverDeviceID,
+        onlyError: adapter.config.pushoverOnlyError,
         systemLang
     };
 
@@ -265,6 +270,7 @@ function initConfig(secret) {
         NoticeType: adapter.config.emailNoticeType,
         emailReceiver: adapter.config.emailReceiver,
         emailSender: adapter.config.emailSender,
+        onlyError: adapter.config.emailOnlyError,
         systemLang
     };
 
@@ -548,24 +554,43 @@ function createBashScripts() {
         }
     }
 }
+
 // umount after restore
 function umount() {
+
+    const backupDir = path.join(tools.getIobDir(), 'backups');
+    const child_process = require('child_process');
+
     if (fs.existsSync(__dirname + '/.mount')) {
-        const child_process = require('child_process');
-        const backupDir = path.join(tools.getIobDir(), 'backups');
-        let rootUmount = 'umount';
-        if (adapter.config.sudoMount === 'true' || adapter.config.sudoMount === true) {
-            rootUmount = 'sudo umount';
-        }
-        setTimeout(function() {
-			child_process.exec(`${rootUmount} ${backupDir}`, (error, stdout, stderr) => {
-				if (error) {
-					adapter.log.error(stderr);
-				} else {
-					fs.unlinkSync(__dirname + '/.mount');
-				}
-			});
-        }, 60000);
+        child_process.exec(`mount | grep -o "${backupDir}"`, (error, stdout, stderr) => {
+            if(stdout.indexOf(backupDir) != -1){
+                adapter.log.debug('mount activ... umount in 10 Seconds!!');
+                let rootUmount = 'umount';
+                if (adapter.config.sudoMount === 'true' || adapter.config.sudoMount === true) {
+                    rootUmount = 'sudo umount';
+                }
+                setTimeout(function() {
+                    child_process.exec(`${rootUmount} ${backupDir}`, (error, stdout, stderr) => {
+                        if (error) {
+                            adapter.log.debug('umount: device is busy... wait 5 Minutes!!');
+                            setTimeout(function() {
+                                child_process.exec(`${rootUmount} ${backupDir}`, (error, stdout, stderr) => {
+                                    if (error) {
+                                        adapter.log.error(error);
+                                    } else {
+                                        fs.existsSync(__dirname + '/.mount') && fs.unlinkSync(__dirname + '/.mount');
+                                    }
+                                });
+                            }, 300000);
+                        } else {
+                            fs.existsSync(__dirname + '/.mount') && fs.unlinkSync(__dirname + '/.mount');
+                        }
+                    });
+                }, 10000);
+            } else {
+                adapter.log.debug('mount inactiv!!');
+            }
+        });
     }
 }
 
