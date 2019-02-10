@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.0.9",
+        "version": "1.1.0",
         "news": {
+            "1.1.0": {
+                "en": "stable Release",
+                "de": "stabile Version",
+                "ru": "стабильный релиз",
+                "pt": "versão estável",
+                "nl": "stabiele vrijlating",
+                "fr": "version stable",
+                "it": "Rilascio stabile",
+                "es": "Liberación estable",
+                "pl": "wersja stabilna"
+            },
             "1.0.9": {
                 "en": "Add New umount query; Add Umount wait by device busy; Add Timeout for History settings; Add Notification only on error",
                 "de": "Neue Umount-Abfrage hinzugefügt; Umount-Wartezeit hinzugefügt, falls device busy; Zeitverzögerung für History Einstellungen hinzufügen; Benachrichtigung nur bei Fehler hinzugefügt",
