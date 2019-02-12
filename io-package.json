@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "news": {
+            "1.1.1": {
+                "en": "Fix iobroker-stop for total backup",
+                "de": "Iobroker-stop für Gesamtsicherung korrigiert",
+                "ru": "Исправлен iobroker-stop для полного резервного копирования",
+                "pt": "Corrigir iobroker-stop para backup total",
+                "nl": "Fix iobroker-stop voor totale back-up",
+                "fr": "Correction de iobroker-stop pour une sauvegarde totale",
+                "it": "Correggere iobroker-stop per il backup totale",
+                "es": "Corregir iobroker-stop para copia de seguridad total",
+                "pl": "Napraw iobroker-stop dla całkowitej kopii zapasowej"
+            },
             "1.1.0": {
                 "en": "stable Release",
                 "de": "stabile Version",
