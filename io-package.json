@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.1.1",
+        "version": "1.1.2",
         "news": {
+            "1.1.2": {
+                "en": "exec Start for iobroker",
+                "de": "exec Start für iobroker",
+                "ru": "exec Start для iobroker",
+                "pt": "exec Iniciar para o iobroker",
+                "nl": "exec Start voor iobroker",
+                "fr": "exec Start pour iobroker",
+                "it": "exec Start per iobroker",
+                "es": "exec Start para iobroker",
+                "pl": "exec Uruchom dla iobroker"
+            },
             "1.1.1": {
                 "en": "Fix iobroker-stop for total backup",
                 "de": "Iobroker-stop für Gesamtsicherung korrigiert",
