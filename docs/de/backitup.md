@@ -50,7 +50,7 @@ Backitup bietet die Möglichkeit drei (optional mit DB-Backup) verschiedene Back
    - Dieses Backup entspricht dem in IoBroker enthaltenen Backup welches man in der Konsole über den Aufruf „./iobroker backup“ starten kann. Nur wird es hier durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt ohne die Konsole verwenden zu müssen.
 2. Komplettes Backup
    - Dieses Backup sichert den kompletten IoBroker Ordner inklusive aller Unterordner und deren Dateien samt Dateiberechtigungen. Hierbei sollte die Dateigröße nicht ausser Acht gelassen werden, denn ein solches Backup hat oft mehrere hundert MB.
-Um sicher zu gehen dass alle aktuellsten States gesichert werden muss hier in der Konfiguration der Hacken bei IoBroker Stop/Start gesetzt werden.
+Um sicher zu gehen dass alle aktuellsten States gesichert werden muss hier in der Konfiguration der Haken bei IoBroker Stop/Start gesetzt werden.
 3. CCU Backup (Homematic)
    -  Dieses Backup bietet die Möglichkeit 3 verschiedene Varianten einer Homematic Installations (CCU-Original / pivCCU / Raspberrymatic) zu sichern. Auch die Ausführung dieses Backups kann durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt werden.
 4. Mysql-Backup (Localhost)
@@ -193,7 +193,7 @@ Wer seine Backups lieber manuell wiederherstellen möchte, sollte folgende Punkt
 
 ## 6. Fehlersuche:
 
-1. Um Fehler zu logen, muss Backitup in unter dem IoBroker Reiter Instanzen auf Log-Stufe "debug" gestellt werden 
+1. Um Fehler zu loggen, muss Backitup in unter dem IoBroker Reiter Instanzen auf Log-Stufe "debug" gestellt werden 
 
 ## 7. Aufgetretene Fehler / Lösungen:
 
@@ -217,7 +217,7 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vor
 
     In der Datei am Ende folgende Zeile einfügen:
 
-        - Username ALL=(ALL) NOPASSWD: /bin/mount, /bin/umount, /bin/systemctl
+        - Username ALL=(ALL) NOPASSWD: /bin/mount, /bin/umount, /bin/systemctl, /usr/bin/systemd-run
 
     "Username" durch euren iob User ersetzen
 
@@ -226,6 +226,27 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vor
 
     Ich möchte aber hier noch einmal betonen, dass diese Dinge nicht mit backitup zu tun haben und auch backitup deswegen kein Problem hat.
     Diese Dinge betreffen einzig und allein euer System.
+7.  Wenn euer iobroker System mit dem neuen Installer Script installiert wurde, kann es vorkommen, dass ihr nicht alle Rechte für den neuen User iobroker habt. 
+    Dies betrifft dann leider auch backitup, da backitup einige systemrelevante Befehle benutzt.
+
+    Um das Problem mit fehlenden Rechten zu beheben, gibt es inzwischen einen Fix für den Installerscript von iobroker.
+    Führt bitte folgende Befehle auf eure Iobrokerumgebung in der Konsole aus:
+
+    ```
+    curl -sL https://raw.githubusercontent.com/ioBroker/ioBroker/master/fix_installation.sh | bash 
+    sudo reboot
+    ```
+8.  Solltet Ihr eine Fehlermeldung beim erstellen der Redis Datenbank bekommen, prüft bitte, ob euer User iobroker die Rechte hat und ob er in der User-Gruppe Redis vorhanden ist.
+    Wenn dies nicht der Fall ist, könnt ihr das mit folgenden Befehl in der Konsole beheben.
+    
+    ```
+    sudo usermod -a -G redis iobroker
+    sudo reboot
+    ```
+    Wenn ihr nicht mit dem Installerscript eure Iobroker Installation aufgesetzt habt und euer User einen anderen Namen hat, bitte in dem Befehl "iobroker" durch euren User ersetzen.
+
+
+
         
 
 
