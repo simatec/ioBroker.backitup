@@ -564,7 +564,7 @@ function umount() {
     if (fs.existsSync(__dirname + '/.mount')) {
         child_process.exec(`mount | grep -o "${backupDir}"`, (error, stdout, stderr) => {
             if(stdout.indexOf(backupDir) != -1){
-                adapter.log.debug('mount activ... umount in 10 Seconds!!');
+                adapter.log.debug('mount activ... umount in 2 Seconds!!');
                 let rootUmount = 'umount';
                 if (adapter.config.sudoMount === 'true' || adapter.config.sudoMount === true) {
                     rootUmount = 'sudo umount';
@@ -586,7 +586,7 @@ function umount() {
                             fs.existsSync(__dirname + '/.mount') && fs.unlinkSync(__dirname + '/.mount');
                         }
                     });
-                }, 10000);
+                }, 2000);
             } else {
                 adapter.log.debug('mount inactiv!!');
             }
