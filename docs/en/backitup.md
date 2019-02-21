@@ -216,7 +216,7 @@ Here is a list of problems encountered so far and their solutions, if any.
 
     Insert the following line in the file at the end:
 
-        - Username ALL = (ALL) NOPASSWD: /bin/mount, /bin/umount, /bin/systemctl
+        - Username ALL = (ALL) NOPASSWD: /bin/mount, /bin/umount, /bin/systemctl, /usr/bin/systemd-run
 
     Replace "username" with your iob user
 
@@ -225,3 +225,19 @@ Here is a list of problems encountered so far and their solutions, if any.
 
     But I would like to emphasize once again that these things do not have to do with backitup and that also backitup has no problem.
     These things are unique to your system.
+7. If your iobroker system was installed with the new installer script, you may not have all the rights for the new user iobroker.
+    Unfortunately, this also applies to backitup, since backitup uses some system-relevant commands.
+
+    In order to solve the problem with missing rights, there is now a fix for the installer script of iobroker.
+    Please run the following commands on your Iobroker environment in the console:
+    ```
+    curl -sL https://raw.githubusercontent.com/ioBroker/ioBroker/master/fix_installation.sh | bash
+    sudo reboot
+    ```
+8. If you get an error when creating the Redis database, please check if your user iobroker has the rights and if he exists in the user group Redis.
+    If this is not the case, you can fix it with the following command in the console.
+    ```
+    sudo usermod -a -G redis iobroker
+    sudo reboot
+    ```
+    If you have not set up your Iobroker installation with the installer script and your user has a different name, please replace it with your user in the command "iobroker".
