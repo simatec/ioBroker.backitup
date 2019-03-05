@@ -21,6 +21,9 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 ## Changelog
 
+### 1.1.3 (xx.xx.2019)
+* (simatec) Timeout for email sending
+
 ### 1.1.2 (21.02.2019)
 * (simatec) exec Start for iobroker
 * (simatec) Fix umount before Restore

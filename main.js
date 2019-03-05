@@ -271,6 +271,7 @@ function initConfig(secret) {
         emailReceiver: adapter.config.emailReceiver,
         emailSender: adapter.config.emailSender,
         onlyError: adapter.config.emailOnlyError,
+        stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
         systemLang
     };
 
@@ -307,7 +308,7 @@ function initConfig(secret) {
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.dropboxOwnDir === true) ? null : adapter.config.dropboxDir,
         dirMinimal: adapter.config.dropboxMinimalDir,
-        dirTotal: adapter.config.dropboxTotalDir,
+        dirTotal: adapter.config.dropboxTotalDir
     };
 
     const cifs = {
