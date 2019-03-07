@@ -3,7 +3,7 @@
 /*jslint node: true */
 'use strict';
 
-const utils     = require(__dirname + '/lib/utils'); // Get common adapter utils
+const utils = require('@iobroker/adapter-core'); // Get common adapter utils
 const schedule  = require('node-schedule');
 const fs        = require('fs');
 const path      = require('path');
