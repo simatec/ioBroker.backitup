@@ -11,7 +11,5 @@ tests.unit(path.join(__dirname, '..'), {
 	additionalMockedModules: {
 		"{CONTROLLER_DIR}/lib/tools.js": jscToolsMock,
 		"{CONTROLLER_DIR}/lib/tools": jscToolsMock,
-		"{CONTROLLER_DIR}/lib/letsencrypt.js": jscLEMock,
-		"{CONTROLLER_DIR}/lib/letsencrypt": jscLEMock,
 	}
 });
