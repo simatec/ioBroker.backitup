@@ -19,6 +19,5 @@ test_script:
   - node --version
   - npm --version
   - 'npm run test:package'
-  - 'npm run test:unit'
   - 'npm run test:integration'
 build: 'off'
