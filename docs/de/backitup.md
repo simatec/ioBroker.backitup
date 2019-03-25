@@ -175,8 +175,8 @@ Wer seine Backups lieber manuell wiederherstellen möchte, sollte folgende Punkt
 
 2. Restore eines kompletten Backups:
     - Den Befehl:“sudo  iobroker stop“ über die Konsole ausführen
-    - Das erstellte Backup muss in das Verzeichnis  „root/“ kopiert werden
-    - Den Befehl:" sudo tar -xzvf Backupname.tar.gz -C / " über die Konsole ausführen
+    - Das erstellte Backup muss in das Verzeichnis  „/opt/iobroker“ kopiert werden
+    - Den Befehl: "sudo tar -xzvf Backupname.tar.gz -C /opt/iobroker " im Verzeichnis "/opt/iobroker" über die Konsole ausführen
     - Warten - Während der Wiederherstellung wird euch angezeigt was gerade gemacht wird
     - Den Befehl: „sudo iobroker start“ über die Konsole ausführen
 
@@ -233,7 +233,7 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vor
     Führt bitte folgende Befehle auf eure Iobrokerumgebung in der Konsole aus:
 
     ```
-    curl -sL https://raw.githubusercontent.com/ioBroker/ioBroker/master/fix_installation.sh | bash 
+    curl -sL https://iobroker.net/fix.sh | bash -
     sudo reboot
     ```
 8.  Solltet Ihr eine Fehlermeldung beim erstellen der Redis Datenbank bekommen, prüft bitte, ob euer User iobroker die Rechte hat und ob er in der User-Gruppe Redis vorhanden ist.
