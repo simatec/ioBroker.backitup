@@ -247,6 +247,7 @@ function initConfig(secret) {
         NoticeType: adapter.config.telegramNoticeType,
         User: adapter.config.telegramUser,
         onlyError: adapter.config.telegramOnlyError,
+        telegramWaiting: adapter.config.telegramWaitToSend * 1000,
         systemLang
     };
 
@@ -259,6 +260,7 @@ function initConfig(secret) {
         NoticeType: adapter.config.pushoverNoticeType,
         deviceID: adapter.config.pushoverDeviceID,
         onlyError: adapter.config.pushoverOnlyError,
+        pushoverWaiting: adapter.config.pushoverWaitToSend * 1000,
         systemLang
     };
 
@@ -272,6 +274,7 @@ function initConfig(secret) {
         emailSender: adapter.config.emailSender,
         onlyError: adapter.config.emailOnlyError,
         stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
+        emailWaiting: adapter.config.emailWaitToSend * 1000,
         systemLang
     };
 
