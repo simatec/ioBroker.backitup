@@ -105,7 +105,7 @@ The following steps should be used to use the adapter (if the v1 / v2 / v3 backu
     - history.totalLastTime -> saves the creation date and time of the last complete backup
     - history.totalSuccess -> shows the state "true" on successful backup
 	- history.ccuSuccess -> shows the state "true" on successful backup
-����- history.minimalSuccess -> shows the state "true" on successful backup
+    - history.minimalSuccess -> shows the state "true" on successful backup
 
 2. Show history log in Vis
     - It is possible to display the history log, for example, in a html widget by entering the following line in HTML:
@@ -151,9 +151,9 @@ Syntax: {BackitupInstance.history.html}
 Syntax: {value: <BackitupInstance>.oneClick.<trigger>; value ==="true" || value === true ? "Text during backup creation" : "Standard text"}
 
 5. Backitup supports the following messengers for notification after a successful backup.
-���- Telegram
-���- Pushover
-���- Email
+    - Telegram
+    - Pushover
+    - Email
 
 ## 5. Restore:
 
@@ -175,8 +175,8 @@ Those who prefer to manually restore their backups should do the following:
 
 2. Restore a complete backup:
     - Execute the command: "sudo iobroker stop" via the console
-    - The created backup must be copied to the directory "root/"
-    - Run the command: "sudo tar -xzvf Backupname.tar.gz -C /" from the console
+    - The created backup must be copied to the directory "/opt/iobroker"
+    - Run the command in the directory "/opt/iobroker": "sudo tar -xzvf Backupname.tar.gz -C /opt/iobroker" from the console
     - Wait - During the restoration you will see what is being done
     - Execute the command: "sudo iobroker start" via the console
 
@@ -231,7 +231,7 @@ Here is a list of problems encountered so far and their solutions, if any.
     In order to solve the problem with missing rights, there is now a fix for the installer script of iobroker.
     Please run the following commands on your Iobroker environment in the console:
     ```
-    curl -sL https://raw.githubusercontent.com/ioBroker/ioBroker/master/fix_installation.sh | bash
+    curl -sL https://iobroker.net/fix.sh | bash -
     sudo reboot
     ```
 8. If you get an error when creating the Redis database, please check if your user iobroker has the rights and if he exists in the user group Redis.
