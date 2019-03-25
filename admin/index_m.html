@@ -926,18 +926,22 @@
                 </div>
                 <div class="row telegram">
                     <div class="input-field col s12 m6 l3 telegram">
-                        <input class="value" id="telegramSilentNotice" type="checkbox"/>
-                        <label for="telegramSilentNotice" class="translate">Silent Notice</label>
-                    </div>
-                    <div class="input-field col s12 m6 l3 telegram">
                         <select class="value" id="telegramNoticeType">
                         <option value="longTelegramNotice" class="translate">Long Notifications</option>
                         <option value="shortTelegramNotice" class="translate">Short Notifications</option>
                         </select>
                         <label class="translate" for="telegramNoticeType">Notification Style</label>
                     </div>
+                    <div class="input-field col s12 m6 l3 telegram">
+                        <input type="number" class="value" id="telegramWaitToSend" min="0" max="20"/>
+                        <label for="telegramWaitToSend" class="translate">Waiting for the send (seconds)</label>
+                    </div>
                 </div>
                 <div class="row telegram">
+                    <div class="input-field col s12 m6 l3 telegram">
+                        <input class="value" id="telegramSilentNotice" type="checkbox"/>
+                        <label for="telegramSilentNotice" class="translate">Silent Notice</label>
+                    </div>
                     <div class="input-field col s12 m6 l3 telegram">
                         <input class="value" id="telegramOnlyError" type="checkbox"/>
                         <label for="telegramOnlyError" class="translate">Notification only on errors</label>
@@ -959,16 +963,19 @@
                 </div>
                 <div class="row pushover">
                     <div class="input-field col s12 m6 l3 pushover">
-                        <input class="value" id="pushoverSilentNotice" type="checkbox"/>
-                        <label for="pushoverSilentNotice" class="translate">Silent Notice</label>
+                        <input type="number" class="value" id="pushoverWaitToSend" min="0" max="20"/>
+                        <label for="pushoverWaitToSend" class="translate">Waiting for the send (seconds)</label>
                     </div>
                     <div class="input-field col s12 m6 l3 pushover">
                         <input class="value" id="pushoverDeviceID" type="text">
                         <label for="pushoverDeviceID" class="translate">device ID (optional)</label>
-                        <span class="translate">device ID (optional)</span>
                     </div>
                 </div>
                 <div class="row pushover">
+                    <div class="input-field col s12 m6 l3 pushover">
+                        <input class="value" id="pushoverSilentNotice" type="checkbox"/>
+                        <label for="pushoverSilentNotice" class="translate">Silent Notice</label>
+                    </div>
                     <div class="input-field col s12 m6 l3 pushover">
                         <input class="value" id="pushoverOnlyError" type="checkbox"/>
                         <label for="pushoverOnlyError" class="translate">Notification only on errors</label>
@@ -1001,6 +1008,10 @@
                     </div>
                 </div>
                 <div class="row email">
+                    <div class="input-field col s12 m6 l3 email">
+                        <input type="number" class="value" id="emailWaitToSend" min="0" max="20"/>
+                        <label for="emailWaitToSend" class="translate">Waiting for the send (seconds)</label>
+                    </div>
                     <div class="input-field col s12 m6 l3 email">
                         <input class="value" id="emailOnlyError" type="checkbox"/>
                         <label for="emailOnlyError" class="translate">Notification only on errors</label>
