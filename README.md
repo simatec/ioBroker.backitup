@@ -2,7 +2,7 @@
 # ioBroker.backitup
 =================
 
-![Number of Installations](http://iobroker.live/badges/backitup-installed.svg) ![Number of Installations](http://iobroker.live/badges/backitup-stable.svg) [![NPM version](http://img.shields.io npm/v/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
+![Number of Installations](http://iobroker.live/badges/backitup-installed.svg) ![Number of Installations](http://iobroker.live/badges/backitup-stable.svg) [![NPM version](http://img.shields.io/npm/v/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
 
 [![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
