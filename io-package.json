@@ -4,15 +4,15 @@
         "version": "1.1.4",
         "news": {
             "1.1.4": {
-                "en": "Support for SMB3",
-                "de": "Unterstützung für SMB3",
-                "ru": "Поддержка SMB3",
-                "pt": "Suporte para SMB3",
-                "nl": "Ondersteuning voor SMB3",
-                "fr": "Prise en charge de SMB3",
-                "it": "Supporto per SMB3",
-                "es": "Soporte para SMB3",
-                "pl": "Obsługa SMB3"
+                "en": "Support for SMB3; Backup for Zigbee Database; Restore for Zigbee Database",
+                "de": "Unterstützung für SMB3; Backup der Zigbee-Datenbank; Wiederherstellen der Zigbee-Datenbank",
+                "ru": "Поддержка SMB3; Резервное копирование для базы данных Zigbee; Восстановление базы данных Zigbee",
+                "pt": "Suporte para SMB3; Backup para banco de dados Zigbee; Restaurar para o banco de dados Zigbee",
+                "nl": "Ondersteuning voor SMB3; Back-up voor Zigbee-database; Restore voor Zigbee Database",
+                "fr": "Prise en charge de SMB3; Sauvegarde de la base de données Zigbee; Restaurer pour la base de données Zigbee",
+                "it": "Supporto per SMB3; Backup per Zigbee Database; Ripristino per Zigbee Database",
+                "es": "Soporte para SMB3; Copia de seguridad para la base de datos Zigbee; Restaurar para la base de datos Zigbee",
+                "pl": "Obsługa SMB3; Kopia zapasowa bazy danych Zigbee; Przywróć bazę danych Zigbee"
             },
             "1.1.3": {
                 "en": "Timeout for email sending; Timeout for pushover sending; Timeout for telegram sending; Code cleaned up",
@@ -289,6 +289,8 @@
 
         "redisEnabled": false,
         "redisPath": "/var/lib/redis",
+
+        "zigbeeEnabled": false,
 
         "notificationEnabled": false,
         "notificationsType": "Telegram",

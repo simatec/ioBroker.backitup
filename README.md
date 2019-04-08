@@ -23,6 +23,8 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 ### 1.1.4 (08.04.2019)
 * (simatec) Support for SMB3
+* (simatec) Backup for Zigbee Database
+* (simatec) Restore for Zigbee Database
 
 ### 1.1.3 (12.03.2019)
 * (simatec) Timeout for email sending

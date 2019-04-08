@@ -361,8 +361,9 @@ function initConfig(secret) {
         everyXDays: adapter.config.minimalEveryXDays,
         nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
         deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backupfiles after x days
-        mysqlEnabled: adapter.config.mysqlMinimalEnabled,    // mysql enabled for minimal
-        redisEnabled: adapter.config.redisMinimalEnabled,    // redis enabled for minimal
+        mysqlEnabled: adapter.config.mysqlMinimalEnabled,       // mysql enabled for minimal
+        redisEnabled: adapter.config.redisMinimalEnabled,       // redis enabled for minimal
+        zigbeeEnabled: adapter.config.zigbeeEnabled,            // zigee enabled for minimal
         ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
@@ -388,6 +389,14 @@ function initConfig(secret) {
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir} : {}),
             dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
 			path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
+        },
+        zigbee: {
+			enabled: adapter.config.zigbeeEnabled,
+            type: 'creator',
+            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir}  : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir} : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+			path: tools.getIobDir() + '/iobroker-data', // specify zigbee path
         },
         history,
         telegram,
