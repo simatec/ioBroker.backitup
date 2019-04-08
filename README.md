@@ -2,7 +2,7 @@
 # ioBroker.backitup
 =================
 
-![Number of Installations](http://iobroker.live/badges/backitup-installed.svg) ![Number of Installations](http://iobroker.live/badges/backitup-stable.svg) [![NPM version](http://img.shields.io/npm/v/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
+[![NPM version](http://img.shields.io/npm/v/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
 
 [![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
@@ -20,6 +20,9 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 
 ## Changelog
+
+### 1.1.4 (08.04.2019)
+* (simatec) Support for SMB3
 
 ### 1.1.3 (12.03.2019)
 * (simatec) Timeout for email sending
