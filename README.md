@@ -225,7 +225,7 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 The MIT License (MIT)
 
-Copyright (c) 2019 simatec <nais@gmx.net>
+Copyright (c) 2018 - 2019 simatec <nais@gmx.net>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
