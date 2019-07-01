@@ -249,6 +249,15 @@
         "dropboxCcuDir": "/backupDir/ccu",
         "dropboxDir": "/backupDir",
 
+        "googledriveEnabled": false,
+        "googledriveAccessJson": "",
+        "googledriveDeleteOldBackup": false,
+        "googledriveOwnDir": false,
+        "googledriveMinimalDir": "/backupDir/minimal",
+        "googledriveTotalDir": "/backupDir/total",
+        "googledriveCcuDir": "/backupDir/ccu",
+        "googledriveDir": "/backupDir",
+
         "mySqlEnabled": false,
         "mySqlHost": "localhost",
         "mySqlPort": "3306",

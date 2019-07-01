@@ -393,11 +393,45 @@
                             }
                         });
                     });
+
+                    $('.get-googledrive-json').removeClass('disabled').on('click', function () {
+                        $('.get-googledrive-json').addClass('disabled');
+                        sendTo(null, 'authGoogleDrive', {code: $('#get-googledrive-code').val()}, function (obj) {
+                            $('.get-googledrive-json').removeClass('disabled');
+                            if (obj) {
+                                if (obj.done) {
+                                    $('.get-googledrive-code').hide();
+                                    $('.get-googledrive-url').hide();
+                                    $('.get-googledrive-json').show();
+                                    $('.get-googledrive-json span').text(_('Renew Google Drive Access'));
+                                    $('#googledriveAccessJson_span').text(_('Present'));
+                                } else if (obj && obj.url) {
+                                    $('.get-googledrive-url').show();
+                                    $('.get-googledrive-code').show();
+                                    $('#get-googledrive-url').text(obj.url).attr('href', obj.url);
+                                    $('.get-googledrive-json span').text(_('Submit code'));
+                                } else if (obj.error) {
+                                    showError(obj.error);
+                                }
+                            } else {
+                                showError(_('No answer'));
+                            }
+                        });
+                    });
                 } else {
                     $('.do-backup').addClass('disabled');
                     $('.do-list').addClass('disabled');
+                    $('.get-googledrive-json').addClass('disabled');
                 }
             });
+
+            if (settings.googledriveAccessJson) {
+                $('#googledriveAccessJson_span').text(_('Present'));
+                $('.get-googledrive-json span').text(_('Renew Google Drive Access'));
+            } else {
+                $('#googledriveAccessJson_span').text(_('Not present'));
+            }
+
             showHideSettings();
             onChange(false);
             M.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
@@ -506,6 +540,13 @@
                 $('.dropbox-extra').hide();
                 $('.dropbox-standard').show();
             }
+            if ($('#googledriveOwnDir').prop('checked') ) {
+                $('.googledrive-extra').show();
+                $('.googledrive-standard').hide();
+            } else {
+                $('.googledrive-extra').hide();
+                $('.googledrive-standard').show();
+            }
             if ($('#redisEnabled').prop('checked')) {
                 $('.redis_path').show();
             } else {
@@ -557,6 +598,8 @@
                 $('.bkpType').show();
             } else if ($(this).val() === 'Dropbox' && $('#dropboxOwnDir').prop('checked')) {
                 $('.bkpType').show();
+            }  else if ($(this).val() === 'GoogleDrive' && $('#googledriveOwnDir').prop('checked')) {
+                $('.bkpType').show();
             } else {
                 $('.bkpType').hide();
             }
@@ -587,6 +630,11 @@
                 $('.tab-dropbox').show();
             } else {
                 $('.tab-dropbox').hide();
+            }
+            if ($('#googledriveEnabled').prop('checked')) {
+                $('.tab-googledrive').show();
+            } else {
+                $('.tab-googledrive').hide();
             }
             if ($('#cifsEnabled').prop('checked')) {
                 $('.tab-cifs').show();
@@ -619,6 +667,11 @@
             } else {
                 $('.tab-dropbox').addClass('disabled');
             }
+            if ($('#googledriveEnabled').prop('checked')) {
+                $('.tab-googledrive').removeClass('disabled');
+            } else {
+                $('.tab-googledrive').addClass('disabled');
+            }
             if ($('#cifsEnabled').prop('checked')) {
                 $('.tab-cifs').removeClass('disabled');
             } else {
@@ -647,6 +700,7 @@
                 <li class="tab col s6 l3 tab-cifs"><a href="#tab-cifs" class="translate">NAS / Copy settings</a></li>
                 <li class="tab col s6 l2 tab-ftp"><a href="#tab-ftp" class="translate">FTP settings</a></li>
                 <li class="tab col s6 l3 tab-dropbox"><a href="#tab-dropbox" class="translate">Dropbox settings</a></li>
+                <li class="tab col s6 l3 tab-googledrive"><a href="#tab-googledrive" class="translate">Google Drive</a></li>
                 <li class="tab col s6 l2 tab-restore"><a href="#tab-restore" class="translate">Restore</a></li>
             </ul>
         </div>
@@ -697,6 +751,10 @@
                     <div class="input-field col s6 l3">
                         <input class="value" id="dropboxEnabled" type="checkbox"/>
                         <span for="dropboxEnabled" class="translate">Dropbox</span>
+                    </div>
+                    <div class="input-field col s6 l3">
+                        <input class="value" id="googledriveEnabled" type="checkbox"/>
+                        <span for="googledriveEnabled" class="translate">Google Drive</span>
                     </div>
                 </div>
                 <div class="row">
@@ -1209,6 +1267,55 @@
                 </div>
             </div>
 
+            <!-- googledrive settings -->
+            <div id="tab-googledrive" class="col s12 page">
+                <div class="row googledrive">
+                    <div class="input-field col s3">
+                        <span class="translate">Access token</span>
+                        <span class="translate" id="googledriveAccessJson_span">Not present</span>
+                        <a class="waves-effect waves-light btn btn-minimal get-googledrive-json"><i class="material-icons right">backup</i><span class="translate">Get Google Drive Access</span></a>
+                    </div>
+                    <div class="input-field col s12 get-googledrive-url" style="display: none">
+                        <span class="translate">Authorize this app by visiting this url: </span>
+                        <a id="get-googledrive-url" href="" target="_blank"></a>
+                    </div>
+                    <div class="input-field col s3 get-googledrive-code" style="display: none">
+                        <input id="get-googledrive-code" type="text"/>
+                        <label for="get-googledrive-code" class="translate">Enter the code from that page here</label>
+                    </div>
+                </div>
+                <div class="row googledrive">
+                    <div class="input-field col s12">
+                        <input class="value" id="googledriveDeleteOldBackup" type="checkbox"/>
+                        <label for="googledriveDeleteOldBackup" class="translate">Delete old Google Drive-Backups</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input class="value" id="googledriveOwnDir" type="checkbox"/>
+                        <label for="googledriveOwnDir" class="translate">Extra path for backup types</label>
+                    </div>
+                </div>
+                <div class="row googledrive googledrive-extra">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="googledriveMinimalDir" type="text">
+                        <label for="googledriveMinimalDir" class="translate">Google Drive Path for standard backup</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="googledriveTotalDir" type="text">
+                        <label for="googledriveTotalDir" class="translate">Google Drive Path for complete backup</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="googledriveCcuDir" type="text">
+                        <label for="googledriveCcuDir" class="translate">Google Drive Path for CCU backup</label>
+                    </div>
+                </div>
+                <div class="row googledrive googledrive-standard">
+                    <div class="input-field col s12">
+                        <input class="value" id="googledriveDir" type="text">
+                        <label for="googledriveDir" class="translate">Google Drive path</label>
+                    </div>
+                </div>
+            </div>
+
             <!-- restore settings -->
             <div id="tab-restore" class="col s12 page">
                 <div class="row">
@@ -1222,6 +1329,7 @@
 						<option value="Local" class="translate">Local</option>
 						<option value="NAS / Copy" class="translate">NAS / Copy</option>
 						<option value="Dropbox" class="translate">Dropbox</option>
+						<option value="GoogleDrive" class="translate">Google Drive</option>
 						<option value="FTP" class="translate">FTP</option>
 						</select>
 						<label for="restoreSource" class="translate">source type</label>
