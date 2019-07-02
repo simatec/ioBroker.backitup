@@ -3,17 +3,17 @@
 /*jslint node: true */
 'use strict';
 
-const utils = require('@iobroker/adapter-core'); // Get common adapter utils
-const schedule  = require('node-schedule');
-const fs        = require('fs');
-const path      = require('path');
+const utils       = require('@iobroker/adapter-core'); // Get common adapter utils
+const schedule    = require('node-schedule');
+const fs          = require('fs');
+const path        = require('path');
 const adapterName = require('./package.json').name.split('.').pop();
 
-const tools     = require('./lib/tools');
+const tools       = require('./lib/tools');
 const executeScripts = require('./lib/execute');
-const list      = require('./lib/list');
-const restore   = require('./lib/restore');
-const google    = require('./lib/googleDriveLib');
+const list        = require('./lib/list');
+const restore     = require('./lib/restore');
+const GoogleDrive = require('./lib/googleDriveLib');
 
 let adapter;
 
@@ -29,20 +29,6 @@ let taskRunning = false;
  * @returns {string}
  */
 function decrypt(key, value) {
-    let result = '';
-    for(let i = 0; i < value.length; i++) {
-        result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
-    }
-    return result;
-}
-
-/**
- * Encrypt the password/value with given key
- * @param {string} key - Secret key
- * @param {string} value - value to encrypt
- * @returns {string}
- */
-function encrypt(key, value) {
     let result = '';
     for(let i = 0; i < value.length; i++) {
         result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
@@ -112,34 +98,21 @@ function startAdapter(options) {
         if (obj) {
             switch (obj.command) {
                 case 'list':
-                    list(adapter, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                    list(obj.message, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                     break;
 
                 case 'authGoogleDrive':
                     if (obj.message && obj.message.code) {
+                        const google = new GoogleDrive();
                         google.getToken(obj.message.code)
-                            .then(json => {
-                                // save token, but answer before
-                                setTimeout(() => {
-
-                                    adapter.getForeignObject('system.adapter.' + adapter.namespace, (err, obj) => {
-                                        adapter.getForeignObject('system.config', (err, obj) => {
-                                            obj.common.googledriveAccessJson = encrypt((obj && obj.native && obj.native.secret) || 'Zgfr56gFe87jJOM', JSON.stringify(json));
-                                            adapter.setForeignObject('system.adapter.' + adapter.namespace, obj, (err, obj) => {
-                                                adapter.log.info('Wait for restart...');
-                                            });
-                                        });
-                                    });
-                                }, 300);
-
-                                adapter.sendTo(obj.from, obj.command, {done: true}, obj.callback);
-                            })
-                            .catch(err => {
-                                adapter.sendTo(obj.from, obj.command, {error: err}, obj.callback);
-                            });
+                            .then(json => adapter.sendTo(obj.from, obj.command, {done: true, json: JSON.stringify(json)}, obj.callback))
+                            .catch(err => adapter.sendTo(obj.from, obj.command, {error: err}, obj.callback));
                     } else if (obj.callback) {
-                        adapter.sendTo(obj.from, obj.command, {url: google.getAuthorizeUrl()}, obj.callback);
+                        const google = new GoogleDrive();
+                        google.getAuthorizeUrl().then(url =>
+                            adapter.sendTo(obj.from, obj.command, {url}, obj.callback));
                     }
+                    break;
 
                 case 'restore':
                     if (obj.message) {
@@ -150,18 +123,18 @@ function startAdapter(options) {
                     break;
 
                 case 'getTelegramUser':
-                adapter.getForeignState(adapter.config.telegramInstance + '.communicate.users', (err, state) => {
-                    err && adapter.log.error(err);
-                    if (state && state.val) {
-                        try {
-                            adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
-                        } catch (err) {
-                            err && adapter.log.error(err);
-                            adapter.log.error('Cannot parse stored user IDs from Telegram!');
+                    adapter.getForeignState(adapter.config.telegramInstance + '.communicate.users', (err, state) => {
+                        err && adapter.log.error(err);
+                        if (state && state.val) {
+                            try {
+                                adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
+                            } catch (err) {
+                                err && adapter.log.error(err);
+                                adapter.log.error('Cannot parse stored user IDs from Telegram!');
+                            }
                         }
-                    }
-                });
-
+                    });
+                    break;
             }
         }
     });
@@ -366,7 +339,7 @@ function initConfig(secret) {
         type: 'storage',
         source: adapter.config.restoreSource,
         deleteOldBackup: adapter.config.googledriveDeleteOldBackup, // Delete old Backups from google drive
-        accessJson: adapter.config.googledriveAccessJson && decrypt(secret, adapter.config.googledriveAccessJson),
+        accessJson: adapter.config.googledriveAccessJson,
         ownDir: adapter.config.googledriveOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.googledriveOwnDir === true) ? null : adapter.config.googledriveDir,

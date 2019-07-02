@@ -1,12 +1,11 @@
 ![Logo](admin/backitup.png)
 # ioBroker.backitup
-=================
 
-![Number of Installations](http://iobroker.live/badges/backitup-installed.svg) ![Number of Installations](http://iobroker.live/badges/backitup-stable.svg) [![NPM version](http://img.shields.io/npm/v/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
+![Number of Installations](http://iobroker.live/badges/backitup-installed.svg)
+![Number of Installations](http://iobroker.live/badges/backitup-stable.svg)
+[![NPM version](http://img.shields.io/npm/v/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
-
 [![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
-
 
 Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
@@ -16,10 +15,9 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 [English Description here](docs/en/backitup.md)
 
-*************************************************************************************************************************************
-
-
 ## Changelog
+### 1.2.0 (02.07.2019)
+* (bluefox) Google Drive was added
 
 ### 1.1.4 (08.04.2019)
 * (simatec) Support for SMB3
