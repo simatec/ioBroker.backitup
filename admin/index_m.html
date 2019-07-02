@@ -83,6 +83,7 @@
             }
             return result;
         }
+
         function fetchMySqlConfig(isInitial) {
             socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.sql.', endkey: 'system.adapter.sql.\u9999', include_docs: true}, function (err, res) {
                 var found = false;
@@ -337,7 +338,7 @@
                     $('.do-list').removeClass('disabled').on('click', function () {
                         $('.do-list').addClass('disabled');
                         $('#tab-restore').find('.root').html('');
-                        sendTo(null, 'list', null, function (result) {
+                        sendTo(null, 'list', $('#restoreSource').val(), function (result) {
                             $('.do-list').removeClass('disabled');
                             console.log(result);
                             if (result && result.error) {
@@ -396,26 +397,45 @@
 
                     $('.get-googledrive-json').removeClass('disabled').on('click', function () {
                         $('.get-googledrive-json').addClass('disabled');
-                        sendTo(null, 'authGoogleDrive', {code: $('#get-googledrive-code').val()}, function (obj) {
+                        sendTo(null, 'authGoogleDrive', null, function (obj) {
                             $('.get-googledrive-json').removeClass('disabled');
-                            if (obj) {
-                                if (obj.done) {
+                            if (obj && obj.url) {
+                                $('.get-googledrive-json').hide();
+                                $('.get-googledrive-url').show();
+                                $('.get-googledrive-code').show();
+                                $('#get-googledrive-url').text(obj.url).attr('href', obj.url);
+                                $('.get-googledrive-submit').show();
+                            } else if (obj.error) {
+                                showError(obj.error);
+                            } else {
+                                showError(_('No answer'));
+                            }
+                        });
+                        $('.get-googledrive-submit').on('click', function () {
+                            var code = $('#get-googledrive-code').val();
+                            if (!code) {
+                                return showError(_('No code entered'));
+                            }
+                            $('.get-googledrive-submit').addClass('disabled');
+                            sendTo(null, 'authGoogleDrive', {code: code}, function (obj) {
+                                $('.get-googledrive-submit').removeClass('disabled');
+                                if (obj && obj.done) {
+                                    if ($('#googledriveAccessJson').val() !== obj.json) {
+                                        $('#googledriveAccessJson').val(obj.json);
+                                        onChange();
+                                    }
+
                                     $('.get-googledrive-code').hide();
                                     $('.get-googledrive-url').hide();
                                     $('.get-googledrive-json').show();
                                     $('.get-googledrive-json span').text(_('Renew Google Drive Access'));
                                     $('#googledriveAccessJson_span').text(_('Present'));
-                                } else if (obj && obj.url) {
-                                    $('.get-googledrive-url').show();
-                                    $('.get-googledrive-code').show();
-                                    $('#get-googledrive-url').text(obj.url).attr('href', obj.url);
-                                    $('.get-googledrive-json span').text(_('Submit code'));
-                                } else if (obj.error) {
+                                } else if (obj && obj.error) {
                                     showError(obj.error);
+                                } else {
+                                    showError(_('No answer'));
                                 }
-                            } else {
-                                showError(_('No answer'));
-                            }
+                            });
                         });
                     });
                 } else {
@@ -591,18 +611,19 @@
                 $('.copy').hide();
             }
             }).trigger('change');
+
             $('#restoreSource').on('change', function () {
-            if ($(this).val() === 'NAS / Copy' && $('#cifsOwnDir').prop('checked')) {
-                $('.bkpType').show();
-            } else if ($(this).val() === 'FTP' && $('#ftpOwnDir').prop('checked')) {
-                $('.bkpType').show();
-            } else if ($(this).val() === 'Dropbox' && $('#dropboxOwnDir').prop('checked')) {
-                $('.bkpType').show();
-            }  else if ($(this).val() === 'GoogleDrive' && $('#googledriveOwnDir').prop('checked')) {
-                $('.bkpType').show();
-            } else {
-                $('.bkpType').hide();
-            }
+                if ($(this).val() === 'cifs' && $('#cifsOwnDir').prop('checked')) {
+                    $('.bkpType').show();
+                } else if ($(this).val() === 'ftp' && $('#ftpOwnDir').prop('checked')) {
+                    $('.bkpType').show();
+                } else if ($(this).val() === 'dropbox' && $('#dropboxOwnDir').prop('checked')) {
+                    $('.bkpType').show();
+                }  else if ($(this).val() === 'googledrive' && $('#googledriveOwnDir').prop('checked')) {
+                    $('.bkpType').show();
+                } else {
+                    $('.bkpType').hide();
+                }
             }).trigger('change');
 
             $('#notificationsType').on('change', function () {
@@ -697,10 +718,10 @@
                 <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
                 <li class="tab col s6 l2 tab-redis"><a href="#tab-redis" class="translate">Redis Backup</a></li>
                 <li class="tab col s6 l2 tab-notification"><a href="#tab-notification" class="translate">Notifications</a></li>
-                <li class="tab col s6 l3 tab-cifs"><a href="#tab-cifs" class="translate">NAS / Copy settings</a></li>
-                <li class="tab col s6 l2 tab-ftp"><a href="#tab-ftp" class="translate">FTP settings</a></li>
-                <li class="tab col s6 l3 tab-dropbox"><a href="#tab-dropbox" class="translate">Dropbox settings</a></li>
-                <li class="tab col s6 l3 tab-googledrive"><a href="#tab-googledrive" class="translate">Google Drive</a></li>
+                <li class="tab col s6 l2 tab-cifs"><a href="#tab-cifs" class="translate">NAS / Copy</a></li>
+                <li class="tab col s6 l2 tab-ftp"><a href="#tab-ftp" class="translate">FTP</a></li>
+                <li class="tab col s6 l2 tab-dropbox"><a href="#tab-dropbox" class="translate">Dropbox</a></li>
+                <li class="tab col s6 l2 tab-googledrive"><a href="#tab-googledrive" class="translate">Google Drive</a></li>
                 <li class="tab col s6 l2 tab-restore"><a href="#tab-restore" class="translate">Restore</a></li>
             </ul>
         </div>
@@ -1226,6 +1247,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- dropbox settings -->
             <div id="tab-dropbox" class="col s12 page">
                 <div class="row dropbox">
@@ -1271,8 +1293,9 @@
             <div id="tab-googledrive" class="col s12 page">
                 <div class="row googledrive">
                     <div class="input-field col s3">
-                        <span class="translate">Access token</span>
-                        <span class="translate" id="googledriveAccessJson_span">Not present</span>
+                        <input class="value" id="googledriveAccessJson" type="hidden"/>
+                        <span class="translate">Access token: </span>
+                        <span class="translate" id="googledriveAccessJson_span" style="font-weight: bold">Not present</span>
                         <a class="waves-effect waves-light btn btn-minimal get-googledrive-json"><i class="material-icons right">backup</i><span class="translate">Get Google Drive Access</span></a>
                     </div>
                     <div class="input-field col s12 get-googledrive-url" style="display: none">
@@ -1282,6 +1305,7 @@
                     <div class="input-field col s3 get-googledrive-code" style="display: none">
                         <input id="get-googledrive-code" type="text"/>
                         <label for="get-googledrive-code" class="translate">Enter the code from that page here</label>
+                        <a class="waves-effect waves-light btn btn-minimal get-googledrive-submit"><i class="material-icons right">backup</i><span class="translate">Submit</span></a>
                     </div>
                 </div>
                 <div class="row googledrive">
@@ -1318,19 +1342,15 @@
 
             <!-- restore settings -->
             <div id="tab-restore" class="col s12 page">
-                <div class="row">
-                    <div class="input-field col s6 l3">
-                        <a class="waves-effect waves-light btn btn-minimal do-list"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
-                    </div>
-                </div>
-                <div class="row">
+                <div class="row" style="margin-bottom: 0">
                     <div class="input-field col s11 m2">
 						<select class="value" id="restoreSource">
-						<option value="Local" class="translate">Local</option>
-						<option value="NAS / Copy" class="translate">NAS / Copy</option>
-						<option value="Dropbox" class="translate">Dropbox</option>
-						<option value="GoogleDrive" class="translate">Google Drive</option>
-						<option value="FTP" class="translate">FTP</option>
+                            <option value="" class="translate">All</option>
+                            <option value="local" class="translate">Local</option>
+                            <option value="cifs" class="translate">NAS / Copy</option>
+                            <option value="dropbox" class="translate">Dropbox</option>
+                            <option value="googledrive" class="translate">Google Drive</option>
+                            <option value="ftp" class="translate">FTP</option>
 						</select>
 						<label for="restoreSource" class="translate">source type</label>
                     </div>
@@ -1340,6 +1360,9 @@
 						<option value="Total" class="translate">Total</option>
 						</select>
 						<label for="restoreType" class="translate">restore type</label>
+                    </div>
+                    <div class="input-field col s6 m2">
+                        <a class="waves-effect waves-light btn btn-minimal do-list"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
                     </div>
                 </div>
                 <div class="row">
