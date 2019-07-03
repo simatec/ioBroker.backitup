@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.1.4",
+        "version": "1.2.0",
         "news": {
+            "1.2.0": {
+                "en": "Google Drive was added",
+                "de": "Google Drive wurde hinzugefügt",
+                "ru": "Google Drive был добавлен",
+                "pt": "O Google Drive foi adicionado",
+                "nl": "Google Drive is toegevoegd",
+                "fr": "Google Drive a été ajouté",
+                "it": "Google Drive è stato aggiunto",
+                "es": "Google Drive fue agregado",
+                "pl": "Dysk Google został dodany",
+                "zh-cn": "Google云端硬盘已添加"
+            },
             "1.1.4": {
                 "en": "Support for SMB3; Backup for Zigbee Database; Restore for Zigbee Database",
                 "de": "Unterstützung für SMB3; Backup der Zigbee-Datenbank; Wiederherstellen der Zigbee-Datenbank",
@@ -169,16 +181,16 @@
                 "pl": "Wersja stabilna"
             }
         },
-		"title": "BackitUp",
+		"title": "BackItUp",
         "titleLang": {
-    		"en": "BackitUp",
-	    	"de": "BackitUp",
-	    	"ru": "Резервное копирование",
-	    	"pt": "BackitUp",
-	    	"nl": "BackitUp",
-	    	"fr": "BackitUp",
-	    	"it": "BackitUp",
-	    	"es": "BackitUp",
+    		"en": "BackItUp",
+	    	"de": "BackItUp",
+	    	"ru": "BackItUp - Резервное копирование",
+	    	"pt": "BackItUp",
+	    	"nl": "BackItUp",
+	    	"fr": "BackItUp",
+	    	"it": "BackItUp",
+	    	"es": "BackItUp",
 	    	"pl": "Kopia zapasowa"
         },
         "desc": {
@@ -248,6 +260,15 @@
         "dropboxTotalDir": "/backupDir/total",
         "dropboxCcuDir": "/backupDir/ccu",
         "dropboxDir": "/backupDir",
+
+        "googledriveEnabled": false,
+        "googledriveAccessJson": "",
+        "googledriveDeleteOldBackup": false,
+        "googledriveOwnDir": false,
+        "googledriveMinimalDir": "/backupDir/minimal",
+        "googledriveTotalDir": "/backupDir/total",
+        "googledriveCcuDir": "/backupDir/ccu",
+        "googledriveDir": "/backupDir",
 
         "mySqlEnabled": false,
         "mySqlHost": "localhost",
