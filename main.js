@@ -3,16 +3,17 @@
 /*jslint node: true */
 'use strict';
 
-const utils = require('@iobroker/adapter-core'); // Get common adapter utils
-const schedule  = require('node-schedule');
-const fs        = require('fs');
-const path      = require('path');
+const utils       = require('@iobroker/adapter-core'); // Get common adapter utils
+const schedule    = require('node-schedule');
+const fs          = require('fs');
+const path        = require('path');
 const adapterName = require('./package.json').name.split('.').pop();
 
-const tools     = require('./lib/tools');
+const tools       = require('./lib/tools');
 const executeScripts = require('./lib/execute');
-const list      = require('./lib/list');
-const restore   = require('./lib/restore');
+const list        = require('./lib/list');
+const restore     = require('./lib/restore');
+const GoogleDrive = require('./lib/googleDriveLib');
 
 let adapter;
 
@@ -21,9 +22,15 @@ const backupConfig = {};
 const backupTimeSchedules = [];                         // Array für die Backup Zeiten
 let taskRunning = false;
 
+/**
+ * Decrypt the password/value with given key
+ * @param {string} key - Secret key
+ * @param {string} value - value to decript
+ * @returns {string}
+ */
 function decrypt(key, value) {
     let result = '';
-    for (let i = 0; i < value.length; i++) {
+    for(let i = 0; i < value.length; i++) {
         result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
     }
     return result;
@@ -69,7 +76,7 @@ function startAdapter(options) {
                     }
                     setTimeout(function() {
                         adapter.getState('output.line', (err, state) => {
-                            if (state.val == '[EXIT] 0') {
+                            if (state.val === '[EXIT] 0') {
                                 adapter.setState('history.' + type + 'Success', true, true);
                                 adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
                             } else {
@@ -91,7 +98,20 @@ function startAdapter(options) {
         if (obj) {
             switch (obj.command) {
                 case 'list':
-                    list(adapter, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                    list(obj.message, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                    break;
+
+                case 'authGoogleDrive':
+                    if (obj.message && obj.message.code) {
+                        const google = new GoogleDrive();
+                        google.getToken(obj.message.code)
+                            .then(json => adapter.sendTo(obj.from, obj.command, {done: true, json: JSON.stringify(json)}, obj.callback))
+                            .catch(err => adapter.sendTo(obj.from, obj.command, {error: err}, obj.callback));
+                    } else if (obj.callback) {
+                        const google = new GoogleDrive();
+                        google.getAuthorizeUrl().then(url =>
+                            adapter.sendTo(obj.from, obj.command, {url}, obj.callback));
+                    }
                     break;
 
                 case 'restore':
@@ -103,18 +123,18 @@ function startAdapter(options) {
                     break;
 
                 case 'getTelegramUser':
-                adapter.getForeignState(adapter.config.telegramInstance + '.communicate.users', (err, state) => {
-                    err && adapter.log.error(err);
-                    if (state && state.val) {
-                        try {
-                            adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
-                        } catch (err) {
-                            err && adapter.log.error(err);
-                            adapter.log.error('Cannot parse stored user IDs from Telegram!');
+                    adapter.getForeignState(adapter.config.telegramInstance + '.communicate.users', (err, state) => {
+                        err && adapter.log.error(err);
+                        if (state && state.val) {
+                            try {
+                                adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
+                            } catch (err) {
+                                err && adapter.log.error(err);
+                                adapter.log.error('Cannot parse stored user IDs from Telegram!');
+                            }
                         }
-                    }
-                });
-
+                    });
+                    break;
             }
         }
     });
@@ -205,7 +225,7 @@ function createBackupSchedule() {
                     }
                     setTimeout(function() {
                         adapter.getState('output.line', (err, state) => {
-                            if (state.val == '[EXIT] 0') {
+                            if (state.val === '[EXIT] 0') {
                                 adapter.setState('history.' + type + 'Success', true, true);
                                 adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
                             } else {
@@ -290,7 +310,7 @@ function initConfig(secret) {
         type: 'storage',
         source: adapter.config.restoreSource,
         host: adapter.config.ftpHost,                       // ftp-host
-        deleteOldBackup: adapter.config.ftpDeleteOldBackup, //Delete old Backups from FTP
+        deleteOldBackup: adapter.config.ftpDeleteOldBackup, // Delete old Backups from FTP
         ownDir: adapter.config.ftpOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir, // directory on FTP server
@@ -305,13 +325,26 @@ function initConfig(secret) {
         enabled: adapter.config.dropboxEnabled,
         type: 'storage',
         source: adapter.config.restoreSource,
-        deleteOldBackup: adapter.config.dropboxDeleteOldBackup, //Delete old Backups from Dropbox
+        deleteOldBackup: adapter.config.dropboxDeleteOldBackup, // Delete old Backups from Dropbox
         accessToken: adapter.config.dropboxAccessToken,
         ownDir: adapter.config.dropboxOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.dropboxOwnDir === true) ? null : adapter.config.dropboxDir,
         dirMinimal: adapter.config.dropboxMinimalDir,
         dirTotal: adapter.config.dropboxTotalDir
+    };
+
+    const googledrive = {
+        enabled: adapter.config.googledriveEnabled,
+        type: 'storage',
+        source: adapter.config.restoreSource,
+        deleteOldBackup: adapter.config.googledriveDeleteOldBackup, // Delete old Backups from google drive
+        accessJson: adapter.config.googledriveAccessJson,
+        ownDir: adapter.config.googledriveOwnDir,
+        bkpType: adapter.config.restoreType,
+        dir: (adapter.config.googledriveOwnDir === true) ? null : adapter.config.googledriveDir,
+        dirMinimal: adapter.config.googledriveMinimalDir,
+        dirTotal: adapter.config.googledriveTotalDir
     };
 
     const cifs = {
@@ -342,6 +375,7 @@ function initConfig(secret) {
         ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
         dbName: adapter.config.mySqlName,              // database name
         user: adapter.config.mySqlUser,                // database user
         pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
@@ -367,12 +401,14 @@ function initConfig(secret) {
         ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
         mysql: {
             enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
             type: 'creator',
             ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
             dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
             dbName: adapter.config.mySqlName,              // database name
             user: adapter.config.mySqlUser,                // database user
             pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
@@ -388,6 +424,7 @@ function initConfig(secret) {
             ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir}  : {}),
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir} : {}),
             dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
 			path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
         },
         zigbee: {
@@ -396,6 +433,7 @@ function initConfig(secret) {
             ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir}  : {}),
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir} : {}),
             dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
 			path: tools.getIobDir() + '/iobroker-data', // specify zigbee path
         },
         history,
@@ -418,6 +456,7 @@ function initConfig(secret) {
         ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpCcuDir} : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsCcuDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxCcuDir}  : {}),
+        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveCcuDir}  : {}),
         history,
         telegram,
         email,
@@ -442,6 +481,7 @@ function initConfig(secret) {
         ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpTotalDir}  : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsTotalDir} : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxTotalDir}  : {}),
+        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveTotalDir}  : {}),
         history,
         telegram,
         email,
@@ -452,6 +492,7 @@ function initConfig(secret) {
             ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpTotalDir} : {}),
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsTotalDir}  : {}),
             dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxTotalDir}  : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveTotalDir}  : {}),
             dbName: adapter.config.mySqlName,              // database name
             user: adapter.config.mySqlUser,                // database user
             pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
@@ -466,6 +507,7 @@ function initConfig(secret) {
             ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpTotalDir} : {}),
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsTotalDir}  : {}),
             dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxTotalDir}  : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveTotalDir}  : {}),
             path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
         },
         stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
@@ -576,7 +618,7 @@ function umount() {
 
     if (fs.existsSync(__dirname + '/.mount')) {
         child_process.exec(`mount | grep -o "${backupDir}"`, (error, stdout, stderr) => {
-            if(stdout.indexOf(backupDir) != -1){
+            if (stdout.indexOf(backupDir) !== -1) {
                 adapter.log.debug('mount activ... umount in 2 Seconds!!');
                 let rootUmount = 'umount';
                 if (adapter.config.sudoMount === 'true' || adapter.config.sudoMount === true) {
