@@ -124,6 +124,8 @@ Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || 
 
 ## 5. Restore:
 
+**über die Instanz im WebUI**
+
 Ab Version 0.30 hat backitup eine Restorefunktion.
 Es ist aktuell möglich das total-Backup, das minimal-Backup, als auch mysql und Redis entweder vom lokalen Pfad, aus der Dropbox, via FTP oder vom NAS wiederherzustellen.
 Aktuell befindet sich der Restore noch in der Betaphase.
@@ -131,6 +133,9 @@ Aktuell befindet sich der Restore noch in der Betaphase.
 Das CCU-Backup muss weiterhin über das Webinterface der CCU wiederhergestellt werden.
 
 Bei allen Backuptypen wird beim Restore iobroker gestoppt und im Anschluss automatisch wieder gestartet.
+
+
+**über die Konsole**
 
 Wer seine Backups lieber manuell wiederherstellen möchte, sollte folgende Punkte durchführen:
 
