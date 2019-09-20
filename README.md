@@ -20,6 +20,8 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
   
 [![paypal](https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4EEXQ6U96ZTQ&source=url)
 
+**************************************************************************************************************
+
 
 ## Changelog
 
