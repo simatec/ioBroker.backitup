@@ -15,7 +15,18 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 [English Description here](docs/en/backitup.md)
 
+
+**If you like it, please consider a donation:**
+  
+[![paypal](https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4EEXQ6U96ZTQ&source=url)
+
+**************************************************************************************************************
+
+
 ## Changelog
+
+### 1.2.1 (19.10.2019)
+(simatec) Fix CIFS password with special characters
 
 ### 1.2.0 (02.07.2019)
 * (bluefox) Google Drive was added
