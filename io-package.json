@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.2.1",
+        "version": "1.2.2",
         "news": {
+            "1.2.2": {
+                "en": "Fix update process",
+                "de": "Updatevorgang korrigieren",
+                "ru": "Исправить процесс обновления",
+                "pt": "Corrigir processo de atualização",
+                "nl": "Update-proces repareren",
+                "fr": "Correction du processus de mise à jour",
+                "it": "Correggi processo di aggiornamento",
+                "es": "Reparar proceso de actualización",
+                "pl": "Napraw proces aktualizacji"
+            },
             "1.2.1": {
                 "en": "Fix CIFS password with special characters",
                 "de": "Fix CIFS-Passwort mit Sonderzeichen",
@@ -12,8 +23,7 @@
                 "fr": "Correction du mot de passe CIFS avec des caractères spéciaux",
                 "it": "Correggi la password CIFS con caratteri speciali",
                 "es": "Corregir contraseña CIFS con caracteres especiales",
-                "pl": "Napraw hasło CIFS za pomocą znaków specjalnych",
-                "zh-cn": "使用特殊字符修复CIFS密码"
+                "pl": "Napraw hasło CIFS za pomocą znaków specjalnych"
             },
             "1.2.0": {
                 "en": "Google Drive was added",
@@ -24,8 +34,7 @@
                 "fr": "Google Drive a été ajouté",
                 "it": "Google Drive è stato aggiunto",
                 "es": "Google Drive fue agregado",
-                "pl": "Dysk Google został dodany",
-                "zh-cn": "Google云端硬盘已添加"
+                "pl": "Dysk Google został dodany"
             },
             "1.1.4": {
                 "en": "Support for SMB3; Backup for Zigbee Database; Restore for Zigbee Database",
@@ -231,6 +240,7 @@
         "icon": "backitup.png",
         "materialize": true,
         "messagebox": true,
+        "stopBeforeUpdate": true,
         "enabled": true,
         "extIcon": "https://raw.githubusercontent.com/simatec/ioBroker.backitup/master/admin/backitup.png",
         "keywords": ["Backup", "IoBroker", "Homematic"],
