@@ -60,7 +60,7 @@ function startAdapter(options) {
         if ((state.val === true || state.val === 'true') && !state.ack) {
     
             if (id === adapter.namespace + '.oneClick.minimal' ||
-                id === adapter.namespace + '.oneClick.total' ||
+                //id === adapter.namespace + '.oneClick.total' ||
                 id === adapter.namespace + '.oneClick.ccu') {
                 const type = id.split('.').pop();
                 const config = JSON.parse(JSON.stringify(backupConfig[type]));
@@ -157,11 +157,13 @@ function checkStates() {
             adapter.setState('history.minimalLastTime', {val: tools._('No backups yet', systemLang), ack: true});
         }
     });
+    /*
     adapter.getState('history.totalLastTime', (err, state) => {
         if (!state || state.val === null) {
             adapter.setState('history.totalLastTime', {val: tools._('No backups yet', systemLang), ack: true});
         }
     });
+    */
     adapter.getState('history.ccuLastTime', (err, state) => {
         if (!state || state.val === null) {
             adapter.setState('history.ccuLastTime', {val: tools._('No backups yet', systemLang), ack: true});
@@ -172,11 +174,13 @@ function checkStates() {
             adapter.setState('oneClick.minimal', {val: false, ack: true});
         }
     });
+    /*
     adapter.getState('oneClick.total', (err, state) => {
         if (state === null || state.val === null) {
             adapter.setState('oneClick.total', {val: false, ack: true});
         }
     });
+    */
     adapter.getState('oneClick.ccu', (err, state) => {
         if (state === null || state.val === null) {
             adapter.setState('oneClick.ccu', {val: false, ack: true});
@@ -192,11 +196,13 @@ function checkStates() {
             adapter.setState('history.minimalSuccess', {val: false, ack: true});
         }
     });
+    /*
     adapter.getState('history.totalSuccess', (err, state) => {
         if (state === null || state.val === null) {
             adapter.setState('history.totalSuccess', {val: false, ack: true});
         }
     });
+    */
 }
 
 // function to create Backup schedules (Backup time)
@@ -293,7 +299,7 @@ function initConfig(secret) {
         emailReceiver: adapter.config.emailReceiver,
         emailSender: adapter.config.emailSender,
         onlyError: adapter.config.emailOnlyError,
-        stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
+        //stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
         emailWaiting: adapter.config.emailWaitToSend * 1000,
         systemLang
     };
@@ -315,7 +321,7 @@ function initConfig(secret) {
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir, // directory on FTP server
         dirMinimal: adapter.config.ftpMinimalDir,
-        dirTotal: adapter.config.ftpTotalDir,
+        //dirTotal: adapter.config.ftpTotalDir,
         user: adapter.config.ftpUser,                       // username for FTP Server
         pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '',  // password for FTP Server
         port: adapter.config.ftpPort || 21                  // FTP port
@@ -331,7 +337,7 @@ function initConfig(secret) {
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.dropboxOwnDir === true) ? null : adapter.config.dropboxDir,
         dirMinimal: adapter.config.dropboxMinimalDir,
-        dirTotal: adapter.config.dropboxTotalDir
+        //dirTotal: adapter.config.dropboxTotalDir
     };
 
     const googledrive = {
@@ -344,7 +350,7 @@ function initConfig(secret) {
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.googledriveOwnDir === true) ? null : adapter.config.googledriveDir,
         dirMinimal: adapter.config.googledriveMinimalDir,
-        dirTotal: adapter.config.googledriveTotalDir
+        //dirTotal: adapter.config.googledriveTotalDir
     };
 
     const cifs = {
@@ -364,7 +370,7 @@ function initConfig(secret) {
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                       // specify if CIFS mount should be used
         dirMinimal: adapter.config.cifsMinimalDir,
-        dirTotal: adapter.config.cifsTotalDir,
+        //dirTotal: adapter.config.cifsTotalDir,
         user: adapter.config.cifsUser,                     // specify if CIFS mount should be used
         pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for FTP Server
     };
@@ -395,9 +401,9 @@ function initConfig(secret) {
         everyXDays: adapter.config.minimalEveryXDays,
         nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
         deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backupfiles after x days
-        mysqlEnabled: adapter.config.mysqlMinimalEnabled,       // mysql enabled for minimal
-        redisEnabled: adapter.config.redisMinimalEnabled,       // redis enabled for minimal
-        zigbeeEnabled: adapter.config.zigbeeEnabled,            // zigee enabled for minimal
+        //mysqlEnabled: adapter.config.mysqlMinimalEnabled,       // mysql enabled for minimal
+        //redisEnabled: adapter.config.redisMinimalEnabled,       // redis enabled for minimal
+        //zigbeeEnabled: adapter.config.zigbeeEnabled,            // zigee enabled for minimal
         ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
@@ -426,6 +432,15 @@ function initConfig(secret) {
             dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
 			path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
+        },
+        historyDB: {
+			enabled: adapter.config.historyEnabled,
+            type: 'creator',
+            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir}  : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir} : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
+			path: adapter.config.historyPath,
         },
         zigbee: {
 			enabled: adapter.config.zigbeeEnabled,
@@ -468,6 +483,7 @@ function initConfig(secret) {
     };
 
     // Configurations for total-IoBroker backup
+    /*
     backupConfig.total = {
         name: 'total',
         type: 'creator',
@@ -502,6 +518,7 @@ function initConfig(secret) {
             exe: adapter.config.mySqlDumpExe               // path to mysqldump
         },
         dir: tools.getIobDir(),
+        
         redis: {
             enabled: adapter.config.redisEnabled,
             ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpTotalDir} : {}),
@@ -512,6 +529,7 @@ function initConfig(secret) {
         },
         stopIoB: adapter.config.totalStopIoB,                   // specify if ioBroker should be stopped/started
     };
+    */
 }
 
 function readLogFile() {
@@ -596,15 +614,18 @@ function createBashScripts() {
         }
     } else {
         if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
-            fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `# iobroker stop for backup and restore\nif systemctl status iobroker | grep -q "active (running)"; then\nsudo systemd-run --uid=iobroker bash ${path.join(__dirname, 'lib')}/external.sh\nelse\ncd "${path.join(__dirname, 'lib')}"\nbash external.sh\nfi`);
+            //fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `# iobroker stop for backup and restore\nif systemctl status iobroker | grep -q "active (running)"; then\nsudo systemd-run --uid=iobroker bash ${path.join(__dirname, 'lib')}/external.sh\nelse\ncd "${path.join(__dirname, 'lib')}"\nbash external.sh\nfi`);
+            fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `# iobroker stop for restore\nsudo systemd-run --uid=iobroker bash ${path.join(__dirname, 'lib')}/external.sh`);
             fs.chmodSync(__dirname + '/lib/stopIOB.sh', 508);
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
-            fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after backup and restore\nif [ -f ${path.join(__dirname, 'lib')}/.restore.info ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.start.info ] ; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.startctl.info ] ; then\nsudo systemctl start iobroker\nfi`);
+            //fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after backup and restore\nif [ -f ${path.join(__dirname, 'lib')}/.restore.info ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.start.info ] ; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.startctl.info ] ; then\nsudo systemctl start iobroker\nfi`);
+            fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo systemctl start redis-server\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.startAll.info ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start`);
             fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
         }
         if (!fs.existsSync(__dirname + '/lib/external.sh')) {
-            fs.writeFileSync(__dirname + '/lib/external.sh', `# backup and restore\nif systemctl status iobroker | grep -q "active (running)"; then\nsudo systemctl stop iobroker;\ntouch ${path.join(__dirname, 'lib')}/.startctl.info;\nelse\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop;\ntouch ${path.join(__dirname, 'lib')}/.start.info;\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.backup.info ] ; then\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.restore.info ] ; then\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js\nfi`);
+            //fs.writeFileSync(__dirname + '/lib/external.sh', `# backup and restore\nif systemctl status iobroker | grep -q "active (running)"; then\nsudo systemctl stop iobroker;\ntouch ${path.join(__dirname, 'lib')}/.startctl.info;\nelse\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop;\ntouch ${path.join(__dirname, 'lib')}/.start.info;\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.backup.info ] ; then\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.restore.info ] ; then\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js\nfi`);
+            fs.writeFileSync(__dirname + '/lib/external.sh', `# restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo systemctl stop redis-server\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop;\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
             fs.chmodSync(__dirname + '/lib/external.sh', 508);
         }
     }
@@ -656,12 +677,20 @@ function createBackupDir() {
         adapter.log.debug('Created BackupDir');
     }
 }
-// delete Hide Files after restore or total backup
+// delete Hide Files after restore
 function deleteHideFiles() {
-    fs.existsSync(__dirname + '/lib/.backup.info') && fs.unlinkSync(__dirname + '/lib/.backup.info');
-    fs.existsSync(__dirname + '/lib/.restore.info') && fs.unlinkSync(__dirname + '/lib/.restore.info');
-    fs.existsSync(__dirname + '/lib/.startctl.info') && fs.unlinkSync(__dirname + '/lib/.startctl.info');
-    fs.existsSync(__dirname + '/lib/.start.info') && fs.unlinkSync(__dirname + '/lib/.start.info');
+    //fs.existsSync(__dirname + '/lib/.backup.info') && fs.unlinkSync(__dirname + '/lib/.backup.info');
+    //fs.existsSync(__dirname + '/lib/.restore.info') && fs.unlinkSync(__dirname + '/lib/.restore.info');
+    fs.existsSync(__dirname + '/lib/.redis.info') && fs.unlinkSync(__dirname + '/lib/.redis.info');
+    //fs.existsSync(__dirname + '/lib/.startctl.info') && fs.unlinkSync(__dirname + '/lib/.startctl.info');
+    //fs.existsSync(__dirname + '/lib/.start.info') && fs.unlinkSync(__dirname + '/lib/.start.info');
+}
+// delete temp dir after restore
+function delTmp() {
+    if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) {
+        fs.rmdirSync(path.join(tools.getIobDir(), 'backups/tmp'));
+        adapter.log.debug('delete tmp files');
+    } 
 }
 
 function main() {
@@ -670,6 +699,7 @@ function main() {
     createBackupDir();
     umount();
     deleteHideFiles();
+    delTmp();
 
     adapter.getForeignObject('system.config', (err, obj) => {
         systemLang = obj.common.language;
