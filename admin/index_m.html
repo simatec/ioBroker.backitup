@@ -713,9 +713,10 @@
             <ul class="tabs">
                 <li class="tab col s6 l2"><a href="#tab-settings" class="translate active">main settings</a></li>
                 <li class="tab col s6 l2 tab-minimal-backup"><a href="#tab-minimal-backup" class="translate">Standard backup</a></li>
-                <li class="tab col s6 l2 tab-total-backup"><a href="#tab-total-backup" class="translate">Total backup</a></li>
+                <!--<li class="tab col s6 l2 tab-total-backup"><a href="#tab-total-backup" class="translate">Total backup</a></li>-->
                 <li class="tab col s6 l2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
                 <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
+                <li class="tab col s6 l2 tab-history"><a href="#tab-history" class="translate">History Backup</a></li>
                 <li class="tab col s6 l2 tab-redis"><a href="#tab-redis" class="translate">Redis Backup</a></li>
                 <li class="tab col s6 l2 tab-notification"><a href="#tab-notification" class="translate">Notifications</a></li>
                 <li class="tab col s6 l2 tab-cifs"><a href="#tab-cifs" class="translate">NAS / Copy</a></li>
@@ -753,6 +754,10 @@
                     <div class="input-field col s6 l3">
                         <input class="value" id="redisEnabled" type="checkbox"/>
                         <label for="redisEnabled" class="translate">Save Redis state</label>
+                    </div>
+                    <div class="input-field col s6 l3">
+                        <input class="value" id="historyEnabled" type="checkbox"/>
+                        <label for="historyEnabled" class="translate">Save History</label>
                     </div>
                     <div class="input-field col s6 l3">
                         <input class="value" id="zigbeeEnabled" type="checkbox"/>
@@ -820,8 +825,9 @@
                     </div>
                 </div>
             </div>
-
+            
             <!-- Complete Backup -->
+            <!--
             <div id="tab-total-backup" class="col s12 page">
                 <div class="row">
                     <div class="input-field col s6 l3">
@@ -864,7 +870,7 @@
                 </div>
 
             </div>
-
+            -->
             <!-- CCU Backup -->
             <div id="tab-ccu-backup" class="col s12 page">
                 <div class="row">
@@ -956,12 +962,14 @@
                         <span class="translate">Path with filename to mysqldump executable (leave empty to use default)</span>
                     </div>
                 </div>
+                <!--
                 <div class="row mysql">
                     <div class="input-field col s6 l3">
                         <input class="value" id="mysqlMinimalEnabled" type="checkbox"/>
                         <label for="mysqlMinimalEnabled" class="translate">mysql Backup by minimal</label>
                     </div>
                 </div>
+                -->
             </div>
 
             <!-- Redis -->
@@ -974,10 +982,24 @@
                         <label for="redisPath" class="translate">Redis file path</label>
                     </div>
                 </div>
+                <!--
                 <div class="row">
                     <div class="input-field col s6 l3">
                         <input class="value" id="redisMinimalEnabled" type="checkbox"/>
                         <label for="redisMinimalEnabled" class="translate">Redis Backup by minimal</label>
+                    </div>
+                </div>
+                -->
+            </div>
+
+            <!-- History Backup -->
+            <div id="tab-history" class="col s12 page">
+                <div class="row">
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 l6 redis_path">
+                        <input class="value" id="historyPath" type="text"/>
+                        <label for="historyPath" class="translate">History file path</label>
                     </div>
                 </div>
             </div>
@@ -1176,10 +1198,12 @@
                         <input class="value" id="cifsMinimalDir" type="text">
                         <label for="cifsMinimalDir" class="translate">Path for standard backup</label>
                     </div>
+                    <!--
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="cifsTotalDir" type="text">
                         <label for="cifsTotalDir" class="translate">Path for complete backup</label>
                     </div>
+                    -->
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="cifsCcuDir" type="text">
                         <label for="cifsCcuDir" class="translate">Path for CCU backup</label>
@@ -1231,10 +1255,12 @@
                         <input class="value" id="ftpMinimalDir" type="text">
                         <label for="ftpMinimalDir" class="translate">Path for standard backup</label>
                     </div>
+                    <!--
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ftpTotalDir" type="text">
                         <label for="ftpTotalDir" class="translate">Path for complete backup</label>
                     </div>
+                    -->
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ftpCcuDir" type="text">
                         <label for="ftpCcuDir" class="translate">Path for CCU backup</label>
@@ -1272,10 +1298,12 @@
                         <input class="value" id="dropboxMinimalDir" type="text">
                         <label for="dropboxMinimalDir" class="translate">Dropbox Path for standard backup</label>
                     </div>
+                    <!--
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="dropboxTotalDir" type="text">
                         <label for="dropboxTotalDir" class="translate">Dropbox Path for complete backup</label>
                     </div>
+                    -->
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="dropboxCcuDir" type="text">
                         <label for="dropboxCcuDir" class="translate">Dropbox Path for CCU backup</label>
@@ -1323,10 +1351,12 @@
                         <input class="value" id="googledriveMinimalDir" type="text">
                         <label for="googledriveMinimalDir" class="translate">Google Drive Path for standard backup</label>
                     </div>
+                    <!--
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="googledriveTotalDir" type="text">
                         <label for="googledriveTotalDir" class="translate">Google Drive Path for complete backup</label>
                     </div>
+                    -->
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="googledriveCcuDir" type="text">
                         <label for="googledriveCcuDir" class="translate">Google Drive Path for CCU backup</label>
@@ -1353,6 +1383,7 @@
 						</select>
 						<label for="restoreSource" class="translate">source type</label>
                     </div>
+                    <!--
                     <div class="input-field col s11 m2 bkpType">
 						<select class="value" id="restoreType">
 						<option value="Minimal" class="translate">Minimal</option>
@@ -1360,8 +1391,13 @@
 						</select>
 						<label for="restoreType" class="translate">restore type</label>
                     </div>
+                    -->
                     <div class="input-field col s6 m2">
                         <a class="waves-effect waves-light btn btn-minimal do-list"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
+                    </div>
+                    <div class="input-field col s6 l3">
+                        <input class="value" id="startAllRestore" type="checkbox"/>
+                        <label for="startAllRestore" class="translate">start all adapter after restore</label>
                     </div>
                 </div>
                 <div class="row">
