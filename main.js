@@ -620,7 +620,7 @@ function createBashScripts() {
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
             //fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after backup and restore\nif [ -f ${path.join(__dirname, 'lib')}/.restore.info ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.start.info ] ; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.startctl.info ] ; then\nsudo systemctl start iobroker\nfi`);
-            fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo systemctl start redis-server\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.startAll.info ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start`);
+            fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo systemctl start redis-server\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start`);
             fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
         }
         if (!fs.existsSync(__dirname + '/lib/external.sh')) {
@@ -692,6 +692,16 @@ function delTmp() {
         adapter.log.debug('delete tmp files');
     } 
 }
+// set start Options after restore
+function setStartAll() {
+    if (adapter.config.startAllRestore == true && !fs.existsSync(__dirname + '/lib/.startAll')) {
+        fs.writeFileSync(__dirname + '/lib/.startAll', 'Start all Adapter after Restore');
+        adapter.log.debug('Start all Adapter after Restore enabled');
+    } else if (adapter.config.startAllRestore == false && fs.existsSync(__dirname + '/lib/.startAll')) {
+        fs.unlinkSync(__dirname + '/lib/.startAll');
+        adapter.log.debug('Start all Adapter after Restore disabled');
+    }
+}
 
 function main() {
     createBashScripts();
@@ -700,6 +710,7 @@ function main() {
     umount();
     deleteHideFiles();
     delTmp();
+    setStartAll();
 
     adapter.getForeignObject('system.config', (err, obj) => {
         systemLang = obj.common.language;
