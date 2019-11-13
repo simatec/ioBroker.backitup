@@ -417,19 +417,6 @@
             "native": {}
         },
         {
-            "_id":  "history.totalLastTime",
-            "type": "state",
-            "common": {
-                "role":  "indicator",
-                "name":  "Last total backup",
-                "type":  "string",
-                "read":  true,
-                "write": false,
-                "def":   "No backups yet"
-            },
-            "native": {}
-        },
-        {
             "_id":  "history.ccuSuccess",
             "type": "state",
             "common": {
@@ -448,19 +435,6 @@
             "common": {
                 "role":  "switch",
                 "name":  "Last minimal backup Success",
-                "type":  "boolean",
-                "read":  true,
-                "write": true,
-                "def":   false
-            },
-            "native": {}
-        },
-        {
-            "_id":  "history.totalSuccess",
-            "type": "state",
-            "common": {
-                "role":  "switch",
-                "name":  "Last total backup Success",
                 "type":  "boolean",
                 "read":  true,
                 "write": true,
@@ -495,19 +469,6 @@
             "common": {
                 "role":  "switch",
                 "name":  "Execute minimal backup",
-                "type":  "boolean",
-                "read":  true,
-                "write": true,
-                "def":   false
-            },
-            "native": {}
-        },
-        {
-            "_id":  "oneClick.total",
-            "type": "state",
-            "common": {
-                "role":  "switch",
-                "name":  "Execute total backup",
                 "type":  "boolean",
                 "read":  true,
                 "write": true,
