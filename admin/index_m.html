@@ -193,7 +193,8 @@
             $dialogCommand.modal('open');
             $dialogCommand.find('.progress-dont-close').removeClass('disabled');
             $dialogCommandProgress.show();
-            if (type === 'restore' || (type === 'total' && $('#totalStopIoB').prop('checked'))) {
+            //if (type === 'restore' || (type === 'total' && $('#totalStopIoB').prop('checked'))) {
+            if (type === 'restore') {
                 showToast($dialogCommand, _('ioBroker will be stopped and started again. Please wait'), null, 10000);
             }
             lastMessage = '';
@@ -572,6 +573,11 @@
             } else {
                 $('.redis_path').hide();
             }
+            if ($('#historyEnabled').prop('checked')) {
+                $('.history_path').show();
+            } else {
+                $('.history_path').hide();
+            }
             if ($('#telegramEnabled').prop('checked')) {
                 $('.telegram_inst').show();
             } else {
@@ -683,6 +689,11 @@
             } else {
                 $('.tab-redis').addClass('disabled');
             }
+            if ($('#historyEnabled').prop('checked')) {
+                $('.tab-history').removeClass('disabled');
+            } else {
+                $('.tab-history').addClass('disabled');
+            }
             if ($('#dropboxEnabled').prop('checked')) {
                 $('.tab-dropbox').removeClass('disabled');
             } else {
@@ -716,7 +727,7 @@
                 <!--<li class="tab col s6 l2 tab-total-backup"><a href="#tab-total-backup" class="translate">Total backup</a></li>-->
                 <li class="tab col s6 l2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
                 <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
-                <li class="tab col s6 l2 tab-history"><a href="#tab-history" class="translate">History Backup</a></li>
+                <li class="tab col s6 l2 tab-history"><a href="#tab-history" class="translate">History Data Backup</a></li>
                 <li class="tab col s6 l2 tab-redis"><a href="#tab-redis" class="translate">Redis Backup</a></li>
                 <li class="tab col s6 l2 tab-notification"><a href="#tab-notification" class="translate">Notifications</a></li>
                 <li class="tab col s6 l2 tab-cifs"><a href="#tab-cifs" class="translate">NAS / Copy</a></li>
@@ -757,7 +768,7 @@
                     </div>
                     <div class="input-field col s6 l3">
                         <input class="value" id="historyEnabled" type="checkbox"/>
-                        <label for="historyEnabled" class="translate">Save History</label>
+                        <label for="historyEnabled" class="translate">Save History Data</label>
                     </div>
                     <div class="input-field col s6 l3">
                         <input class="value" id="zigbeeEnabled" type="checkbox"/>
@@ -997,9 +1008,9 @@
                 <div class="row">
                 </div>
                 <div class="row">
-                    <div class="input-field col s6 l6 redis_path">
+                    <div class="input-field col s6 l6 history_path">
                         <input class="value" id="historyPath" type="text"/>
-                        <label for="historyPath" class="translate">History file path</label>
+                        <label for="historyPath" class="translate">History data path</label>
                     </div>
                 </div>
             </div>
