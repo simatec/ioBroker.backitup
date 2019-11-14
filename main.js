@@ -601,10 +601,10 @@ function createBashScripts() {
 
     if (isWin) {
         if (!fs.existsSync(__dirname + '/lib/stopIOB.bat')) {
-            fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 5\nif exist ${path.join(__dirname, 'lib')}/.redis.info (\nredis-server --service-stop\n)\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
+            fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 5\nif exist ${path.join(__dirname, 'lib')}\.redis.info (\nredis-server --service-stop\n)\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.bat')) {
-            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist ${path.join(__dirname, 'lib')}/.redis.info (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker start\nif exist ${path.join(__dirname, 'lib')}/.startAll (\niobroker start all\n)`);
+            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist ${path.join(__dirname, 'lib')}/.redis.info (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker start\nif exist ${path.join(__dirname, 'lib')}\.startAll (\niobroker start all\n)`);
         }
         /*
         if (!fs.existsSync(__dirname + '/lib/start_b_IOB.bat')) {
