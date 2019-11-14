@@ -601,17 +601,20 @@ function createBashScripts() {
 
     if (isWin) {
         if (!fs.existsSync(__dirname + '/lib/stopIOB.bat')) {
-            fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall serviceIoBroker.bat stop\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
+            fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 5\nif exist ${path.join(__dirname, 'lib')}/.redis.info (\nredis-server --service-stop\n)\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.bat')) {
-            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall serviceIoBroker.bat start\niobroker start all`);
+            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist ${path.join(__dirname, 'lib')}/.redis.info (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker start\nif exist ${path.join(__dirname, 'lib')}/.startAll (\niobroker start all\n)`);
         }
+        /*
         if (!fs.existsSync(__dirname + '/lib/start_b_IOB.bat')) {
             fs.writeFileSync(__dirname + '/lib/start_b_IOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall serviceIoBroker.bat start`);
         }
+        
         if (!fs.existsSync(__dirname + '/lib/stop_r_IOB.bat')) {
             fs.writeFileSync(__dirname + '/lib/stop_r_IOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall serviceIoBroker.bat stop\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
         }
+        */
     } else {
         if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
             //fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `# iobroker stop for backup and restore\nif systemctl status iobroker | grep -q "active (running)"; then\nsudo systemd-run --uid=iobroker bash ${path.join(__dirname, 'lib')}/external.sh\nelse\ncd "${path.join(__dirname, 'lib')}"\nbash external.sh\nfi`);
