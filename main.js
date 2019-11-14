@@ -604,7 +604,7 @@ function createBashScripts() {
             fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 5\nif exist ${path.join(__dirname, 'lib')}\.redis.info (\nredis-server --service-stop\n)\ncd "${path.join(__dirname, 'lib')}"\nnode execute.js`);
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.bat')) {
-            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist ${path.join(__dirname, 'lib')}/.redis.info (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker start\nif exist ${path.join(__dirname, 'lib')}\.startAll (\niobroker start all\n)`);
+            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist ${path.join(__dirname, 'lib')}\.redis.info (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker start\nif exist ${path.join(__dirname, 'lib')}\.startAll (\niobroker start all\n)`);
         }
         /*
         if (!fs.existsSync(__dirname + '/lib/start_b_IOB.bat')) {
@@ -623,7 +623,7 @@ function createBashScripts() {
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
             //fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after backup and restore\nif [ -f ${path.join(__dirname, 'lib')}/.restore.info ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.start.info ] ; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.startctl.info ] ; then\nsudo systemctl start iobroker\nfi`);
-            fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo systemctl start redis-server\nfi\nif [ -f ${path.join(__dirname, 'lib')}/.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start`);
+            fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo systemctl start redis-server\nfi\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start`);
             fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
         }
         if (!fs.existsSync(__dirname + '/lib/external.sh')) {
