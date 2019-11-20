@@ -604,7 +604,8 @@ function createBashScripts() {
             fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\ncd "${path.join(__dirname, 'lib')}"\nif exist .redis.info (\nredis-server --service-stop\n)\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.bat')) {
-            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `cd "${path.join(__dirname, 'lib')}"\nif exist .redis.info (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker start\ncd "${path.join(__dirname, 'lib')}"\nif exist .startAll (\ncd "${path.join(tools.getIobDir(), 'node_modules\iobroker.js-controller')}"\nnode iobroker.js start all)`);
+            
+            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `cd "${path.join(__dirname, 'lib')}"\nif exist .redis.info (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker start\ncd "${path.join(__dirname, 'lib')}"\nif exist .startAll (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all)`);
         }
         /*
         if (!fs.existsSync(__dirname + '/lib/start_b_IOB.bat')) {
