@@ -588,8 +588,6 @@ function createBashScripts() {
         if (isWin) {
             fs.existsSync(__dirname + '/lib/stopIOB.bat') && fs.unlinkSync(__dirname + '/lib/stopIOB.bat');
             fs.existsSync(__dirname + '/lib/startIOB.bat') && fs.unlinkSync(__dirname + '/lib/startIOB.bat');
-            fs.existsSync(__dirname + '/lib/start_b_IOB.bat') && fs.unlinkSync(__dirname + '/lib/start_b_IOB.bat');
-            fs.existsSync(__dirname + '/lib/stop_r_IOB.bat') && fs.unlinkSync(__dirname + '/lib/stop_r_IOB.bat');
             fs.unlinkSync(__dirname + '/lib/.update');
         } else {
             fs.existsSync(__dirname + '/lib/stopIOB.sh') && fs.unlinkSync(__dirname + '/lib/stopIOB.sh');
@@ -607,15 +605,6 @@ function createBashScripts() {
             
             fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist ${path.join(__dirname, 'lib/.redis.info')} (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker start\nif exist ${path.join(__dirname, 'lib/.startAll')} (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
         }
-        /*
-        if (!fs.existsSync(__dirname + '/lib/start_b_IOB.bat')) {
-            fs.writeFileSync(__dirname + '/lib/start_b_IOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall serviceIoBroker.bat start`);
-        }
-        
-        if (!fs.existsSync(__dirname + '/lib/stop_r_IOB.bat')) {
-            fs.writeFileSync(__dirname + '/lib/stop_r_IOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall serviceIoBroker.bat stop\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
-        }
-        */
     } else {
         if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
             //fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `# iobroker stop for backup and restore\nif systemctl status iobroker | grep -q "active (running)"; then\nsudo systemd-run --uid=iobroker bash ${path.join(__dirname, 'lib')}/external.sh\nelse\ncd "${path.join(__dirname, 'lib')}"\nbash external.sh\nfi`);
@@ -714,7 +703,10 @@ function main() {
     umount();
     deleteHideFiles();
     delTmp();
-    setStartAll();
+
+    setTimeout(function() {
+        setStartAll();
+    }, 10000);
 
     adapter.getForeignObject('system.config', (err, obj) => {
         systemLang = obj.common.language;
