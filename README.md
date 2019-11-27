@@ -7,6 +7,7 @@
 [![Downloads](https://img.shields.io/npm/dm/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
 [![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
 
+
 Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
 [Deutsche Beschreibung hier](docs/de/backitup.md)
@@ -15,9 +16,36 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 [English Description here](docs/en/backitup.md)
 
+
+**If you like it, please consider a donation:**
+  
+[![paypal](https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4EEXQ6U96ZTQ&source=url)
+
+**************************************************************************************************************
+
+
 ## Changelog
 ### 1.2.1 (27.11.2019)
 * (bluefox) Added information about latest backup
+
+### 1.3.0 (22.11.2019)
+* (simatec) support end for the total backup
+* (simatec) Added backup of history data path
+* (simatec) Added startup of all adapters after restore
+* (simatec) Revision of the restoration for Redis
+* (simatec) revision of log issues
+* (simatec) Rebuild the start / stop processes under Unix
+* (simatec) Rebuilding the start / stop processes under Windows
+* (simatec) new translations
+* (simatec) adjustments to the new Windows Installer
+* (simatec) adjustments to the new Linux installer
+* (simatec) fixed some small bugs
+
+### 1.2.2 (20.10.2019)
+* (simatec) Fix update process
+
+### 1.2.1 (19.10.2019)
+* (simatec) Fix CIFS password with special characters
 
 ### 1.2.0 (02.07.2019)
 * (bluefox) Google Drive was added

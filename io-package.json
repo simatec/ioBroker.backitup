@@ -1,9 +1,9 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.2.1",
+        "version": "1.3.0",
         "news": {
-            "1.2.1": {
+            "1.3.1": {
                 "en": "Added information about latest backup",
                 "de": "Informationen zur letzten Sicherung hinzugefügt",
                 "ru": "Добавлена информация о последней резервной копии",
@@ -15,6 +15,39 @@
                 "pl": "Dodano informacje o najnowszej kopii zapasowej",
                 "zh-cn": "添加了有关最新备份的信息"
             },
+            "1.3.0": {
+                "en": "support end for the total backup; Added backup of history data path; Added startup of all adapters after restore; Revision of the restoration for Redis; revision of log issues; Rebuild the start / stop processes under Unix; Rebuilding the start / stop processes under Windows; new translations; adjustments to the new Windows Installer; adjustments to the new Linux installer; fixed some small bugs",
+                "de": "Supportende für die Gesamtsicherung; Backup des Verlaufsdatenpfads hinzugefügt; Start aller Adapter nach Wiederherstellung hinzugefügt; Überarbeitung der Restaurierung für Redis; Überarbeitung von Protokollproblemen; Erstellen Sie die Start- / Stopp-Prozesse unter Unix neu. Neuaufbau der Start- / Stopp-Prozesse unter Windows; neue Übersetzungen; Anpassungen an den neuen Windows Installer; Anpassungen an das neue Linux-Installationsprogramm; Einige kleine Fehler behoben",
+                "ru": "конец поддержки для полного резервного копирования; Добавлена резервная копия истории данных пути; Добавлен запуск всех адаптеров после восстановления; Ревизия реставрации для редиса; пересмотр журнала проблем; Перестройте процессы запуска / остановки под Unix; Восстановление процессов запуска / остановки под Windows; новые переводы; настройки нового установщика Windows; настройки нового установщика Linux; исправлены небольшие ошибки",
+                "pt": "suporte final para o backup total; Adicionado backup do caminho de dados do histórico; Adicionada inicialização de todos os adaptadores após a restauração; Revisão da restauração para Redis; revisão de problemas de log; Reconstrua os processos de início / parada no Unix; Reconstruindo os processos de inicialização / parada no Windows; novas traduções; ajustes no novo Windows Installer; ajustes no novo instalador do Linux; corrigidos alguns pequenos erros",
+                "nl": "ondersteuning einde voor de totale back-up; Back-up van geschiedenisgegevenspad toegevoegd; Opstarten van alle adapters toegevoegd na herstel; Revisie van de restauratie voor Redis; herziening van logboekproblemen; Herbouw de start / stop-processen onder Unix; Het opnieuw opbouwen van de start / stop-processen onder Windows; nieuwe vertalingen; aanpassingen aan de nieuwe Windows Installer; aanpassingen aan het nieuwe Linux-installatieprogramma; enkele kleine bugs opgelost",
+                "fr": "fin du support pour la sauvegarde totale; Ajout de la sauvegarde du chemin de données de l'historique; Ajout du démarrage de tous les adaptateurs après la restauration; Révision de la restauration pour Redis; révision des problèmes de log; Reconstruisez les processus de démarrage / d'arrêt sous Unix; Reconstruction des processus de démarrage / arrêt sous Windows; nouvelles traductions; ajustements au nouveau Windows Installer; ajustements au nouvel installateur Linux; correction de quelques petits bugs",
+                "it": "fine supporto per il backup totale; Aggiunto backup del percorso dati cronologici; Aggiunto avvio di tutti gli adattatori dopo il ripristino; Revisione del restauro per Redis; revisione dei problemi di registro; Ricostruire i processi di avvio / arresto in Unix; Ricostruzione dei processi di avvio / arresto in Windows; nuove traduzioni; adeguamenti al nuovo Windows Installer; adattamenti al nuovo installer di Linux; risolti alcuni piccoli bug",
+                "es": "fin de soporte para la copia de seguridad total; Copia de seguridad adicional de la ruta de datos del historial Inicio agregado de todos los adaptadores después de la restauración; Revisión de la restauración de Redis; revisión de problemas de registro; Reconstruya los procesos de inicio / detención en Unix; Reconstrucción de los procesos de inicio / detención en Windows; nuevas traducciones; ajustes al nuevo instalador de Windows; ajustes al nuevo instalador de Linux; arreglado algunos errores pequeños",
+                "pl": "koniec wsparcia dla całkowitej kopii zapasowej; Dodano kopię zapasową ścieżki danych historii; Dodano uruchomienie wszystkich adapterów po przywróceniu; Rewizja przywrócenia dla Redis; korekta problemów z logami; Przebuduj procesy start / stop w systemie Unix; Przebudowa procesów start / stop w systemie Windows; nowe tłumaczenia; zmiany w nowym Instalatorze Windows; zmiany w nowym instalatorze Linux; naprawiono kilka drobnych błędów"
+            },
+            "1.2.2": {
+                "en": "Fix update process",
+                "de": "Updatevorgang korrigieren",
+                "ru": "Исправить процесс обновления",
+                "pt": "Corrigir processo de atualização",
+                "nl": "Update-proces repareren",
+                "fr": "Correction du processus de mise à jour",
+                "it": "Correggi processo di aggiornamento",
+                "es": "Reparar proceso de actualización",
+                "pl": "Napraw proces aktualizacji"
+            },
+            "1.2.1": {
+                "en": "Fix CIFS password with special characters",
+                "de": "Fix CIFS-Passwort mit Sonderzeichen",
+                "ru": "Исправить пароль CIFS с помощью специальных символов",
+                "pt": "Corrija a senha do CIFS com caracteres especiais",
+                "nl": "Bevestig het CIFS-wachtwoord met speciale tekens",
+                "fr": "Correction du mot de passe CIFS avec des caractères spéciaux",
+                "it": "Correggi la password CIFS con caratteri speciali",
+                "es": "Corregir contraseña CIFS con caracteres especiales",
+                "pl": "Napraw hasło CIFS za pomocą znaków specjalnych"
+            },
             "1.2.0": {
                 "en": "Google Drive was added",
                 "de": "Google Drive wurde hinzugefügt",
@@ -24,173 +57,7 @@
                 "fr": "Google Drive a été ajouté",
                 "it": "Google Drive è stato aggiunto",
                 "es": "Google Drive fue agregado",
-                "pl": "Dysk Google został dodany",
-                "zh-cn": "Google云端硬盘已添加"
-            },
-            "1.1.4": {
-                "en": "Support for SMB3; Backup for Zigbee Database; Restore for Zigbee Database",
-                "de": "Unterstützung für SMB3; Backup der Zigbee-Datenbank; Wiederherstellen der Zigbee-Datenbank",
-                "ru": "Поддержка SMB3; Резервное копирование для базы данных Zigbee; Восстановление базы данных Zigbee",
-                "pt": "Suporte para SMB3; Backup para banco de dados Zigbee; Restaurar para o banco de dados Zigbee",
-                "nl": "Ondersteuning voor SMB3; Back-up voor Zigbee-database; Restore voor Zigbee Database",
-                "fr": "Prise en charge de SMB3; Sauvegarde de la base de données Zigbee; Restaurer pour la base de données Zigbee",
-                "it": "Supporto per SMB3; Backup per Zigbee Database; Ripristino per Zigbee Database",
-                "es": "Soporte para SMB3; Copia de seguridad para la base de datos Zigbee; Restaurar para la base de datos Zigbee",
-                "pl": "Obsługa SMB3; Kopia zapasowa bazy danych Zigbee; Przywróć bazę danych Zigbee"
-            },
-            "1.1.3": {
-                "en": "Timeout for email sending; Timeout for pushover sending; Timeout for telegram sending; Code cleaned up",
-                "de": "Timeout für den E-Mail Versand; Timeout für Pushover-Versand; Timeout für Telegram-Versand; Code bereinigt",
-                "ru": "Тайм-аут для отправки электронной почты; Тайм-аут для отправки посылки; Тайм-аут для отправки телеграммы; Код очищен",
-                "pt": "Tempo limite para envio de email; Tempo limite para envio de pushover; Tempo limite para envio de telegrama; Código limpo",
-                "nl": "Time-out voor e-mailverzending; Time-out voor pushover-verzending; Time-out voor verzenden van telegrammen; Code opgeschoond",
-                "fr": "Délai d'attente pour l'envoi d'un courrier électronique; Délai d'attente pour l'envoi par transfert; Délai d'attente pour l'envoi de télégrammes; Code nettoyé",
-                "it": "Timeout per l'invio di e-mail; Timeout per invio pushover; Timeout per l'invio di telegrammi; Codice ripulito",
-                "es": "Tiempo de espera para el envío de correo electrónico; Tiempo de espera para el envío pushover; Tiempo de espera para el envío de telegramas; Código limpiado",
-                "pl": "Limit czasu na wysyłanie wiadomości e-mail; Przekroczono limit czasu wysyłania pushover; Limit czasu na wysłanie telegramu; Kod oczyszczony"
-            },
-            "1.1.2": {
-                "en": "exec Start for iobroker; Fix umount before Restore",
-                "de": "exec Start für iobroker; Fix Umount vor der Wiederherstellung",
-                "ru": "exec Start для iobroker; Исправить umount перед восстановлением",
-                "pt": "exec Iniciar para o iobroker; Corrigir umount antes de restaurar",
-                "nl": "exec Start voor iobroker; Fix umount vóór het herstellen",
-                "fr": "exec Start pour iobroker; Correction de umount avant la restauration",
-                "it": "exec Start per iobroker; Correggere umount prima di ripristinare",
-                "es": "exec Start para iobroker; Arreglar umount antes de restaurar",
-                "pl": "exec Uruchom dla iobroker; Popraw umount przed Przywróceniem"
-            },
-            "1.1.1": {
-                "en": "Fix iobroker-stop for total backup",
-                "de": "Iobroker-stop für Gesamtsicherung korrigiert",
-                "ru": "Исправлен iobroker-stop для полного резервного копирования",
-                "pt": "Corrigir iobroker-stop para backup total",
-                "nl": "Fix iobroker-stop voor totale back-up",
-                "fr": "Correction de iobroker-stop pour une sauvegarde totale",
-                "it": "Correggere iobroker-stop per il backup totale",
-                "es": "Corregir iobroker-stop para copia de seguridad total",
-                "pl": "Napraw iobroker-stop dla całkowitej kopii zapasowej"
-            },
-            "1.1.0": {
-                "en": "stable Release",
-                "de": "stabile Version",
-                "ru": "стабильный релиз",
-                "pt": "versão estável",
-                "nl": "stabiele vrijlating",
-                "fr": "version stable",
-                "it": "Rilascio stabile",
-                "es": "Liberación estable",
-                "pl": "wersja stabilna"
-            },
-            "1.0.9": {
-                "en": "Add New umount query; Add Umount wait by device busy; Add Timeout for History settings; Add Notification only on error",
-                "de": "Neue Umount-Abfrage hinzugefügt; Umount-Wartezeit hinzugefügt, falls device busy; Zeitverzögerung für History Einstellungen hinzufügen; Benachrichtigung nur bei Fehler hinzugefügt",
-                "ru": "Добавить новый запрос umount; Добавить Umount wait by device busy; Добавить настройки тайм-аута для истории; Добавить уведомление только при ошибке",
-                "pt": "Adicionar nova consulta de umount; Adicionar Umount espera pelo dispositivo ocupado; Adicionar tempo limite para configurações do histórico; Adicionar notificação somente em erro",
-                "nl": "Nieuwe umount-query toevoegen; Voeg Umount toe wacht door apparaat bezet; Time-out voor geschiedenisinstellingen toevoegen; Notificatie alleen bij fout toevoegen",
-                "fr": "Ajouter une nouvelle requête umount; Ajouter Umount wait par appareil occupé; Ajouter un délai d'expiration pour les paramètres de l'historique; Ajouter une notification uniquement en cas d'erreur",
-                "it": "Aggiungi nuova query umount; Aggiungi Umount wait by device busy; Aggiungi Timeout per le impostazioni della cronologia; Aggiungi notifica solo in caso di errore",
-                "es": "Agregar nueva consulta umount; Añadir Umount espera por dispositivo ocupado; Agregar tiempo de espera para la configuración del historial; Añadir notificación solo en caso de error",
-                "pl": "Dodaj nowe zapytanie umount; Dodaj Umount wait przez urządzenie zajęte; Dodaj limit czasu dla ustawień historii; Dodaj powiadomienie tylko w przypadku błędu"
-            },
-            "1.0.8": {
-                "en": "modification for new installer; WOL-waittime adjustable; Fix History settings",
-                "de": "Änderungen für neuen Installer; WOL-Wartezeit einstellbar; Fix History Einstellungen",
-                "ru": "модификация для нового установщика; Добавить WOL-время ожидания регулируется; Исправить настройки истории",
-                "pt": "modificação para novo instalador; Adicionar WOL-waittime ajustável; Corrigir configurações do histórico",
-                "nl": "wijziging voor nieuw installatieprogramma; Voeg WOL-waittime instelbaar toe; Geschiedenisinstellingen herstellen",
-                "fr": "modification pour nouvel installateur; Ajouter WOL-waittime réglable; Correction des paramètres de l'historique",
-                "it": "modifica per il nuovo programma di installazione; Aggiungi WOL-waittime regolabile; Correggi le impostazioni della cronologia",
-                "es": "modificación para nuevo instalador; Añadir WOL-tiempo de espera ajustable; Fijar la configuración del historial",
-                "pl": "modyfikacja nowego instalatora; Dodaj regulację WOL-waittime; Napraw ustawienia historii"
-            },
-            "1.0.7": {
-                "en": "better start/stop Handling for backup and restore",
-                "de": "bessere start/stopp Handhabung für Backup und Restore",
-                "ru": "лучше начать / остановить обработку для резервного копирования и восстановления",
-                "pt": "melhor iniciar / parar Manipulando para backup e restauração",
-                "nl": "beter starten / stoppen Behandeling voor back-up en herstel",
-                "fr": "Mieux démarrer / arrêter Gestion pour la sauvegarde et la restauration",
-                "it": "migliore avvio / arresto della gestione per il backup e il ripristino",
-                "es": "Mejor arranque / parada. Manejo para copia de seguridad y restauración.",
-                "pl": "lepsze uruchamianie / zatrzymywanie Obsługa kopii zapasowych i przywracania"
-            },
-            "1.0.6": {
-                "en": "Fix Start/Stop for new iobroker-installer",
-                "de": "Start / Stop für neuen Iobroker-Installer korrigiert",
-                "ru": "Исправление Start / Stop для нового установщика iobroker",
-                "pt": "Corrigir Iniciar / Parar para o novo iobroker-installer",
-                "nl": "Fix Start / Stop voor nieuw iobroker-installatieprogramma",
-                "fr": "Correction du démarrage / arrêt pour le nouvel installateur iobroker",
-                "it": "Fix Start / Stop per il nuovo iobroker-installer",
-                "es": "Arreglar Start / Stop para el nuevo iobroker-installer",
-                "pl": "Napraw Start / Stop dla nowego instalatora iobroker"
-            },
-            "1.0.5": {
-                "en": "Fix compact mode; Fix total backup; better history handling for html; better history handling; error Message for telegram; error Message for E-Mail; error Message for pushover",
-                "de": "Fix-Kompaktmodus; Total-Backup gefixt; Besseres History-Handling für HTML; besserer Umgang mit der History; Fehlermeldung für Telegramm; Fehlermeldung für E-Mail; Fehlermeldung für Pushover",
-                "ru": "Исправить компактный режим; Исправить общее резервное копирование; улучшенная обработка истории для html; лучшая обработка истории; Сообщение об ошибке для телеграммы; Сообщение об ошибке для E-Mail; Сообщение об ошибке для pushover",
-                "pt": "Corrigir o modo compacto; Corrigir backup total; melhor histórico de manipulação para html; melhor manuseio da história; mensagem de erro para telegrama; mensagem de erro para e-mail; mensagem de erro para pushover",
-                "nl": "Fix compacte modus; Volledige back-up repareren; betere verwerking van geschiedenis voor html; betere verwerking van de geschiedenis; Foutmelding voor telegram; Foutmelding voor e-mail; Foutmelding voor pushover",
-                "fr": "Mode compact compact; Correction de la sauvegarde totale; meilleure gestion de l'historique pour HTML; meilleure gestion de l'histoire; message d'erreur pour le télégramme; Message d'erreur pour le courrier électronique; message d'erreur pour le transfert",
-                "it": "Correzione della modalità compatta; Risolto il backup totale; migliore gestione della cronologia per html; migliore gestione della cronologia; messaggio di errore per telegramma; messaggio di errore per e-mail; messaggio di errore per pushover",
-                "es": "Corrige el modo compacto; Reparar copia de seguridad total; mejor manejo de historia para html; mejor manejo de la historia; Mensaje de error para telegrama; Mensaje de error para correo electrónico; Mensaje de error para pushover",
-                "pl": "Napraw tryb kompaktowy; Napraw całkowitą kopię zapasową; lepsza obsługa historii dla html; lepsza obsługa historii; komunikat o błędzie dla telegramu; komunikat błędu dla wiadomości e-mail; komunikat o błędzie dla pushover"
-            },
-            "1.0.4": {
-                "en": "support for compact mode",
-                "de": "Unterstützung für den Kompaktmodus",
-                "ru": "поддержка компактного режима",
-                "pt": "suporte para o modo compacto",
-                "nl": "ondersteuning voor de compacte modus",
-                "fr": "support pour le mode compact",
-                "it": "supporto per la modalità compatta",
-                "es": "soporte para modo compacto",
-                "pl": "obsługa trybu kompaktowego"
-            },
-            "1.0.3": {
-                "en": "Bugfix",
-                "de": "Bug-Fix",
-                "ru": "Исправлена ​​ошибка",
-                "pt": "Correção",
-                "nl": "Bugfix",
-                "fr": "Correction d'un bug",
-                "it": "Risoluzione del problema",
-                "es": "Arreglo del fallo",
-                "pl": "Naprawa błędów"
-            },
-            "1.0.2": {
-                "en": "Fix start/stop for new iobroker-Installer",
-                "de": "Fix Start / Stop für neuen Iobroker-Installer",
-                "ru": "Исправить запуск / остановку нового iobroker-Installer",
-                "pt": "Corrigir start / stop para o novo iobroker-Installer",
-                "nl": "Fix start / stop voor nieuwe iobroker-Installer",
-                "fr": "Correction du démarrage / arrêt pour le nouvel installateur iobroker",
-                "it": "Fix start / stop per il nuovo iobroker-installer",
-                "es": "Arreglar inicio / parar para nuevo iobroker-Installer",
-                "pl": "Napraw start / stop dla nowego instalatora iobroker"
-            },
-            "1.0.1": {
-                "en": "Fix delete old Files; Add wake on LAN for CIFS and NFS",
-                "de": "löschen alter Backups gefixt; Wake-on-LAN für CIFS und NFS hinzugefügt",
-                "ru": "Исправлено удаление старых файлов; Добавить пробуждение по локальной сети для CIFS и NFS",
-                "pt": "Corrigir apagar arquivos antigos; Adicionar wake on LAN para CIFS e NFS",
-                "nl": "Fix verwijder oude bestanden; Voeg wake on LAN toe voor CIFS en NFS",
-                "fr": "Correction de supprimer les anciens fichiers; Ajouter Wake on LAN pour CIFS et NFS",
-                "it": "Correggere la cancellazione dei vecchi file; Aggiungi wake on LAN per CIFS e NFS",
-                "es": "Arreglar eliminar archivos antiguos; Agregue Wake en LAN para CIFS y NFS",
-                "pl": "Napraw usunąć stare pliki; Dodaj funkcję Wake on LAN dla CIFS i NFS"
-            },
-            "1.0.0": {
-                "en": "Stable Release",
-                "de": "Stabiles Release",
-                "ru": "Стабильный релиз",
-                "pt": "Versão estável",
-                "nl": "Stabiele vrijlating",
-                "fr": "Version stable",
-                "it": "Rilascio stabile",
-                "es": "Liberación estable",
-                "pl": "Wersja stabilna"
+                "pl": "Dysk Google został dodany"
             }
         },
 		"title": "BackItUp",
@@ -231,6 +98,7 @@
         "icon": "backitup.png",
         "materialize": true,
         "messagebox": true,
+        "stopBeforeUpdate": true,
         "enabled": true,
         "extIcon": "https://raw.githubusercontent.com/simatec/ioBroker.backitup/master/admin/backitup.png",
         "keywords": ["Backup", "IoBroker", "Homematic"],
@@ -323,6 +191,9 @@
         "redisEnabled": false,
         "redisPath": "/var/lib/redis",
 
+        "historyEnabled": false,
+        "historyPath": "media/usb/history",
+
         "zigbeeEnabled": false,
 
         "notificationEnabled": false,
@@ -353,7 +224,7 @@
         "historyEntriesNumber": 25,
 
         "restoreSource": "Local",
-        "restoreType": "Minimal"
+        "startAllRestore": false
     },
     "instanceObjects": [
         {
@@ -424,19 +295,6 @@
             "native": {}
         },
         {
-            "_id":  "history.totalLastTime",
-            "type": "state",
-            "common": {
-                "role":  "indicator",
-                "name":  "Last total backup",
-                "type":  "string",
-                "read":  true,
-                "write": false,
-                "def":   "No backups yet"
-            },
-            "native": {}
-        },
-        {
             "_id":  "history.ccuSuccess",
             "type": "state",
             "common": {
@@ -455,19 +313,6 @@
             "common": {
                 "role":  "switch",
                 "name":  "Last minimal backup Success",
-                "type":  "boolean",
-                "read":  true,
-                "write": true,
-                "def":   false
-            },
-            "native": {}
-        },
-        {
-            "_id":  "history.totalSuccess",
-            "type": "state",
-            "common": {
-                "role":  "switch",
-                "name":  "Last total backup Success",
                 "type":  "boolean",
                 "read":  true,
                 "write": true,
@@ -502,19 +347,6 @@
             "common": {
                 "role":  "switch",
                 "name":  "Execute minimal backup",
-                "type":  "boolean",
-                "read":  true,
-                "write": true,
-                "def":   false
-            },
-            "native": {}
-        },
-        {
-            "_id":  "oneClick.total",
-            "type": "state",
-            "common": {
-                "role":  "switch",
-                "name":  "Execute total backup",
                 "type":  "boolean",
                 "read":  true,
                 "write": true,
