@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "backitup",
-        "version": "1.2.0",
+        "version": "1.2.1",
         "news": {
+            "1.2.1": {
+                "en": "Added information about latest backup",
+                "de": "Informationen zur letzten Sicherung hinzugefügt",
+                "ru": "Добавлена информация о последней резервной копии",
+                "pt": "Adicionadas informações sobre o backup mais recente",
+                "nl": "Informatie toegevoegd over de laatste back-up",
+                "fr": "Ajout d'informations sur la dernière sauvegarde",
+                "it": "Aggiunte informazioni sull'ultimo backup",
+                "es": "Se agregó información sobre la última copia de seguridad",
+                "pl": "Dodano informacje o najnowszej kopii zapasowej",
+                "zh-cn": "添加了有关最新备份的信息"
+            },
             "1.2.0": {
                 "en": "Google Drive was added",
                 "de": "Google Drive wurde hinzugefügt",
@@ -339,11 +351,31 @@
 
 		"debugLevel": false,
         "historyEntriesNumber": 25,
-        
+
         "restoreSource": "Local",
         "restoreType": "Minimal"
     },
     "instanceObjects": [
+        {
+            "_id":  "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id":  "info.latestBackup",
+            "type": "state",
+            "common": {
+                "role":  "state",
+                "name":  "Latest backup found by start",
+                "type":  "json",
+                "read":  true,
+                "write": false
+            },
+            "native": {}
+        },
         {
             "_id":  "history",
             "type": "channel",
