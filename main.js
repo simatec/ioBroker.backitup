@@ -57,7 +57,7 @@ function startAdapter(options) {
     adapter.on('stateChange', (id, state) => {
         if ((state.val === true || state.val === 'true') && !state.ack) {
 
-            if (id === adapter.namespace + '.oneClick.minimal' ||
+            if (id === adapter.namespace + '.oneClick.iobroker' ||
                 //id === adapter.namespace + '.oneClick.total' ||
                 id === adapter.namespace + '.oneClick.ccu') {
                 const type = id.split('.').pop();
@@ -149,9 +149,9 @@ function checkStates() {
             });
         }
     });
-    adapter.getState('history.minimalLastTime', (err, state) => {
+    adapter.getState('history.iobrokerLastTime', (err, state) => {
         if (!state || state.val === null) {
-            adapter.setState('history.minimalLastTime', {val: tools._('No backups yet', systemLang), ack: true});
+            adapter.setState('history.iobrokerLastTime', {val: tools._('No backups yet', systemLang), ack: true});
         }
     });
     /*
@@ -166,9 +166,9 @@ function checkStates() {
             adapter.setState('history.ccuLastTime', {val: tools._('No backups yet', systemLang), ack: true});
         }
     });
-    adapter.getState('oneClick.minimal', (err, state) => {
+    adapter.getState('oneClick.iobroker', (err, state) => {
         if (!state || state.val === null) {
-            adapter.setState('oneClick.minimal', {val: false, ack: true});
+            adapter.setState('oneClick.iobroker', {val: false, ack: true});
         }
     });
     /*
@@ -188,9 +188,9 @@ function checkStates() {
             adapter.setState('history.ccuSuccess', {val: false, ack: true});
         }
     });
-    adapter.getState('history.minimalSuccess', (err, state) => {
+    adapter.getState('history.iobrokerSuccess', (err, state) => {
         if (state === null || state.val === null) {
-            adapter.setState('history.minimalSuccess', {val: false, ack: true});
+            adapter.setState('history.iobrokerSuccess', {val: false, ack: true});
         }
     });
     /*
@@ -389,8 +389,8 @@ function initConfig(secret) {
     };
 
     // Configurations for standard-IoBroker backup
-    backupConfig.minimal = {
-        name: 'minimal',
+    backupConfig.iobroker = {
+        name: 'iobroker',
         type: 'creator',
         enabled: adapter.config.minimalEnabled,
         time: adapter.config.minimalTime,
@@ -398,9 +398,9 @@ function initConfig(secret) {
         everyXDays: adapter.config.minimalEveryXDays,
         nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
         deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backupfiles after x days
-        //mysqlEnabled: adapter.config.mysqlMinimalEnabled,       // mysql enabled for minimal
-        //redisEnabled: adapter.config.redisMinimalEnabled,       // redis enabled for minimal
-        //zigbeeEnabled: adapter.config.zigbeeEnabled,            // zigee enabled for minimal
+        //mysqlEnabled: adapter.config.mysqlMinimalEnabled,       // mysql enabled for iobroker
+        //redisEnabled: adapter.config.redisMinimalEnabled,       // redis enabled for iobroker
+        //zigbeeEnabled: adapter.config.zigbeeEnabled,            // zigee enabled for iobroker
         ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
@@ -706,11 +706,11 @@ function getName(name) {
 
 function detectLatestBackupFile(adapter) {
     // get all 'storage' types that enabled
-    const stores = Object.keys(backupConfig.minimal)
+    const stores = Object.keys(backupConfig.iobroker)
         .filter(attr =>
-            typeof backupConfig.minimal[attr] === 'object' &&
-            backupConfig.minimal[attr].type === 'storage' &&
-            backupConfig.minimal[attr].enabled);
+            typeof backupConfig.iobroker[attr] === 'object' &&
+            backupConfig.iobroker[attr].type === 'storage' &&
+            backupConfig.iobroker[attr].enabled);
 
     // read one time all stores to detect if some backups detected
     const promises = stores.map(storage => new Promise(resolve =>
@@ -721,7 +721,7 @@ function detectLatestBackupFile(adapter) {
             if (result && result.data) {
                 const data = result.data;
                 Object.keys(data).forEach(type => {
-                    data[type].minimal && data[type].minimal
+                    data[type].iobroker && data[type].iobroker
                         .filter(f => f.size)
                         .forEach(f => {
                             const date = getName(f.name);
@@ -760,6 +760,50 @@ function detectLatestBackupFile(adapter) {
             adapter.setState('info.latestBackup', file ? JSON.stringify(file) : '', true);
         });
 }
+function delOldObjects () {
+    adapter.getState('history.minimalSuccess', (err, state) => {
+        if (state) {
+            adapter.delObject('history.minimalSuccess', function (err) {
+                if (err) adapter.log.warn(err);
+            });
+        }
+    });
+    adapter.getState('history.minimalLastTime', (err, state) => {
+        if (state) {
+            adapter.delObject('history.minimalLastTime', function (err) {
+                if (err) adapter.log.warn(err);
+            });
+        }
+    });
+    adapter.getState('history.totalLastTime', (err, state) => {
+        if (state) {
+            adapter.delObject('history.totalLastTime', function (err) {
+                if (err) adapter.log.warn(err);
+            });
+        }
+    });
+    adapter.getState('history.totalSuccess', (err, state) => {
+        if (state) {
+            adapter.delObject('history.totalSuccess', function (err) {
+                if (err) adapter.log.warn(err);
+            });
+        }
+    });
+    adapter.getState('oneClick.minimal', (err, state) => {
+        if (state) {
+            adapter.delObject('oneClick.minimal', function (err) {
+                if (err) adapter.log.warn(err);
+            });
+        }
+    });
+    adapter.getState('oneClick.total', (err, state) => {
+        if (state) {
+            adapter.delObject('oneClick.total', function (err) {
+                if (err) adapter.log.warn(err);
+            });
+        }
+    });
+}
 
 function main(adapter) {
     createBashScripts();
@@ -768,6 +812,7 @@ function main(adapter) {
     umount();
     deleteHideFiles();
     delTmp();
+    delOldObjects();
 
     setTimeout(function() {
         setStartAll();

@@ -25,8 +25,13 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 
 ## Changelog
-### 1.2.1 (27.11.2019)
+### 1.3.1 (02.12.2019)
 * (bluefox) Added information about latest backup
+* (simatec) some Bug fix
+* (simatec) add new translation
+* (simatec) Fix translation
+* (simatec) Default backup renamed to ioBroker backup
+* (simatec) delete old objects
 
 ### 1.3.0 (22.11.2019)
 * (simatec) support end for the total backup
