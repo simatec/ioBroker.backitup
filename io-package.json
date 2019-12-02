@@ -3,6 +3,18 @@
         "name": "backitup",
         "version": "1.3.0",
         "news": {
+            "1.3.1": {
+                "en": "Added information about latest backup",
+                "de": "Informationen zur letzten Sicherung hinzugefügt",
+                "ru": "Добавлена информация о последней резервной копии",
+                "pt": "Adicionadas informações sobre o backup mais recente",
+                "nl": "Informatie toegevoegd over de laatste back-up",
+                "fr": "Ajout d'informations sur la dernière sauvegarde",
+                "it": "Aggiunte informazioni sull'ultimo backup",
+                "es": "Se agregó información sobre la última copia de seguridad",
+                "pl": "Dodano informacje o najnowszej kopii zapasowej",
+                "zh-cn": "添加了有关最新备份的信息"
+            },
             "1.3.0": {
                 "en": "support end for the total backup; Added backup of history data path; Added startup of all adapters after restore; Revision of the restoration for Redis; revision of log issues; Rebuild the start / stop processes under Unix; Rebuilding the start / stop processes under Windows; new translations; adjustments to the new Windows Installer; adjustments to the new Linux installer; fixed some small bugs",
                 "de": "Supportende für die Gesamtsicherung; Backup des Verlaufsdatenpfads hinzugefügt; Start aller Adapter nach Wiederherstellung hinzugefügt; Überarbeitung der Restaurierung für Redis; Überarbeitung von Protokollproblemen; Erstellen Sie die Start- / Stopp-Prozesse unter Unix neu. Neuaufbau der Start- / Stopp-Prozesse unter Windows; neue Übersetzungen; Anpassungen an den neuen Windows Installer; Anpassungen an das neue Linux-Installationsprogramm; Einige kleine Fehler behoben",
@@ -210,11 +222,31 @@
 
 		"debugLevel": false,
         "historyEntriesNumber": 25,
-        
+
         "restoreSource": "Local",
         "startAllRestore": false
     },
     "instanceObjects": [
+        {
+            "_id":  "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id":  "info.latestBackup",
+            "type": "state",
+            "common": {
+                "role":  "state",
+                "name":  "Latest backup found by start",
+                "type":  "json",
+                "read":  true,
+                "write": false
+            },
+            "native": {}
+        },
         {
             "_id":  "history",
             "type": "channel",

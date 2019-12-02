@@ -48,8 +48,6 @@ function startBackup(config, cb) {
     }
 }
 
-// Is executed when a State has changed
-
 function startAdapter(options) {
     options = options || {};
     Object.assign(options, {name: adapterName});
@@ -58,7 +56,7 @@ function startAdapter(options) {
 
     adapter.on('stateChange', (id, state) => {
         if ((state.val === true || state.val === 'true') && !state.ack) {
-    
+
             if (id === adapter.namespace + '.oneClick.minimal' ||
                 //id === adapter.namespace + '.oneClick.total' ||
                 id === adapter.namespace + '.oneClick.ccu') {
@@ -66,15 +64,15 @@ function startAdapter(options) {
                 const config = JSON.parse(JSON.stringify(backupConfig[type]));
                 config.enabled = true;
                 config.deleteBackupAfter = 0; // do not delete files by custom backup
-    
+
                 startBackup(config, err => {
                     if (err) {
                         adapter.log.error(`[${type}] ${err}`);
-                        
+
                     } else {
                         adapter.log.debug(`[${type}] exec: done`);
                     }
-                    setTimeout(function() {
+                    setTimeout(() =>
                         adapter.getState('output.line', (err, state) => {
                             if (state.val === '[EXIT] 0') {
                                 adapter.setState('history.' + type + 'Success', true, true);
@@ -83,16 +81,15 @@ function startAdapter(options) {
                                 adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang));
                                 adapter.setState('history.' + type + 'Success', false, true);
                             }
-                            
-                        });
-                    }, 500);
+
+                        }), 500);
                     adapter.setState('oneClick.' + type, false, true);
                 });
             }
         }
     });
 
-    adapter.on('ready', main);
+    adapter.on('ready', () => main(adapter));
 
     adapter.on('message', obj => {
         if (obj) {
@@ -229,7 +226,7 @@ function createBackupSchedule() {
                     } else {
                         adapter.log.debug(`[${type}] exec: done`);
                     }
-                    setTimeout(function() {
+                    setTimeout(() =>
                         adapter.getState('output.line', (err, state) => {
                             if (state.val === '[EXIT] 0') {
                                 adapter.setState('history.' + type + 'Success', true, true);
@@ -238,8 +235,7 @@ function createBackupSchedule() {
                                 adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang));
                                 adapter.setState('history.' + type + 'Success', false, true);
                             }
-                        });
-                    }, 500);
+                        }), 500);
                     adapter.setState('oneClick.' + type, false, true);
                 });
             });
@@ -375,6 +371,7 @@ function initConfig(secret) {
         pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for FTP Server
     };
 
+    // TODO: Not used anywere
     const mysql = {
         enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
         type: 'creator',
@@ -572,7 +569,7 @@ function readLogFile() {
 function createBashScripts() {
     const isWin = process.platform.startsWith('win');
 
-    let jsPath;
+    /*let jsPath;
     try {
         jsPath = require.resolve('iobroker.js-controller/iobroker.bat');
         jsPath = jsPath.replace(/\\/g, '/');
@@ -581,7 +578,7 @@ function createBashScripts() {
         jsPath = parts.join('/');
     } catch (e) {
         jsPath = path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller');
-    }
+    }*/
 
     // delete .sh and .bat for updates
     if (fs.existsSync(__dirname + '/lib/.update')) {
@@ -638,24 +635,22 @@ function umount() {
                 if (adapter.config.sudoMount === 'true' || adapter.config.sudoMount === true) {
                     rootUmount = 'sudo umount';
                 }
-                setTimeout(function() {
+                setTimeout(() =>
                     child_process.exec(`${rootUmount} ${backupDir}`, (error, stdout, stderr) => {
                         if (error) {
                             adapter.log.debug('umount: device is busy... wait 5 Minutes!!');
-                            setTimeout(function() {
+                            setTimeout(() =>
                                 child_process.exec(`${rootUmount} ${backupDir}`, (error, stdout, stderr) => {
                                     if (error) {
                                         adapter.log.error(error);
                                     } else {
                                         fs.existsSync(__dirname + '/.mount') && fs.unlinkSync(__dirname + '/.mount');
                                     }
-                                });
-                            }, 300000);
+                                }), 300000);
                         } else {
                             fs.existsSync(__dirname + '/.mount') && fs.unlinkSync(__dirname + '/.mount');
                         }
-                    });
-                }, 2000);
+                    }), 2000);
             } else {
                 adapter.log.debug('mount inactiv!!');
             }
@@ -696,7 +691,77 @@ function setStartAll() {
     }
 }
 
-function main() {
+function getName(name) {
+    const parts = name.split('_');
+    if (parseInt(parts[0], 10).toString() !== parts[0]) {
+        parts.shift();
+    }
+    return new Date(
+        parts[0],
+        parseInt(parts[1], 10) - 1,
+        parseInt(parts[2].split('-')[0], 10),
+        parseInt(parts[2].split('-')[1], 10),
+        parseInt(parts[3], 10));
+}
+
+function detectLatestBackupFile(adapter) {
+    // get all 'storage' types that enabled
+    const stores = Object.keys(backupConfig.minimal)
+        .filter(attr =>
+            typeof backupConfig.minimal[attr] === 'object' &&
+            backupConfig.minimal[attr].type === 'storage' &&
+            backupConfig.minimal[attr].enabled);
+
+    // read one time all stores to detect if some backups detected
+    const promises = stores.map(storage => new Promise(resolve =>
+        list(storage, backupConfig, adapter.log, result => {
+            // find newest file
+            let file = null;
+
+            if (result && result.data) {
+                const data = result.data;
+                Object.keys(data).forEach(type => {
+                    data[type].minimal && data[type].minimal
+                        .filter(f => f.size)
+                        .forEach(f => {
+                            const date = getName(f.name);
+                            if (!file || file.date < date) {
+                                file = f;
+                                file.date = date;
+                                file.storage = storage;
+                            }
+                        });
+                });
+            }
+            resolve(file);
+        })));
+
+    // find the newest file between storages
+    Promise.all(promises)
+        .then(results => {
+            results = results.filter(f => f);
+            let file;
+            if (results.length) {
+                results.sort((a, b) => {
+                    if (a.date > b.date) {
+                        return 1;
+                    } else if (a.date < b.date) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                });
+                file = results[0];
+                file.date = file.date.toISOString();
+            } else {
+                file = null;
+            }
+            // this information will be used by admin at the first start if some backup was detected and we can restore from it instead of new configuration
+            adapter.setState('info.latestBackup', file ? JSON.stringify(file) : '', true);
+        });
+}
+
+function main(adapter) {
     createBashScripts();
     readLogFile();
     createBackupDir();
@@ -715,6 +780,8 @@ function main() {
         checkStates();
 
         createBackupSchedule();
+
+        detectLatestBackupFile(adapter);
     });
 
     // subscribe on all variables of this adapter instance with pattern "adapterName.X.memory*"
