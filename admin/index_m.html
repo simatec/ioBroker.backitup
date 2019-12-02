@@ -366,11 +366,12 @@
                                     }
                                     text += '</ul></li>';
                                 }
-                                $('#tab-restore')
+                                var $tabRestore = $('#tab-restore');
+                                $tabRestore
                                     .find('.root')
                                     .html(text);
-                                $('#tab-restore').find('.collapsible').collapsible();
-                                $('#tab-restore').find('.do-restore').on('click', function () {
+                                $tabRestore.find('.collapsible').collapsible();
+                                $tabRestore.find('.do-restore').on('click', function () {
                                     var type = $(this).data('type');
                                     var file = $(this).data('file');
                                     var name = file.split('/').pop().split('_')[0];
@@ -467,7 +468,7 @@
             getAdapterInstances('pushover', function (instances) {
                 fillInstances('pushoverInstance', instances, settings['pushoverInstance']);
             });
-            
+
             if (!settings.ccuHost) {
                 fetchCcuConfig(true);
             }
@@ -476,24 +477,24 @@
             }
             $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
-            
+
             sendTo(null, 'getTelegramUser', null, function (obj) {
                 fillTelegramUser(settings['telegramUser'], obj)
             });
-            
+
             initDialog();
         }
         function fillTelegramUser(id, str) {
             var user = str.replace(/[{}"\\]/g,"").split(',');
             var $sel = $('#telegramUser');
             $sel.html('<option value="allTelegramUsers">' + _('All Receiver') + '</option>');
-    
+
             user.forEach(function(val){
                 val = val.split(':');
                 $('#telegramUser').append('<option value="' + val[1] + '"' + (id === val[1] ? ' selected' : '') + '>' + val[1] +'</option>');
             });
             $sel.select();
-        }    
+        }
         function fillInstances(id, arr, val) {
             var $sel = $('#' + id);
             $sel.html('<option value="">' + _('none') + '</option>');
