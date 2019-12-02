@@ -1,383 +1,369 @@
 {
-    "common": {
-        "name": "backitup",
-        "version": "1.3.0",
-        "news": {
-            "1.3.1": {
-                "en": "Added information about latest backup",
-                "de": "Informationen zur letzten Sicherung hinzugefügt",
-                "ru": "Добавлена информация о последней резервной копии",
-                "pt": "Adicionadas informações sobre o backup mais recente",
-                "nl": "Informatie toegevoegd over de laatste back-up",
-                "fr": "Ajout d'informations sur la dernière sauvegarde",
-                "it": "Aggiunte informazioni sull'ultimo backup",
-                "es": "Se agregó información sobre la última copia de seguridad",
-                "pl": "Dodano informacje o najnowszej kopii zapasowej",
-                "zh-cn": "添加了有关最新备份的信息"
-            },
-            "1.3.0": {
-                "en": "support end for the total backup; Added backup of history data path; Added startup of all adapters after restore; Revision of the restoration for Redis; revision of log issues; Rebuild the start / stop processes under Unix; Rebuilding the start / stop processes under Windows; new translations; adjustments to the new Windows Installer; adjustments to the new Linux installer; fixed some small bugs",
-                "de": "Supportende für die Gesamtsicherung; Backup des Verlaufsdatenpfads hinzugefügt; Start aller Adapter nach Wiederherstellung hinzugefügt; Überarbeitung der Restaurierung für Redis; Überarbeitung von Protokollproblemen; Erstellen Sie die Start- / Stopp-Prozesse unter Unix neu. Neuaufbau der Start- / Stopp-Prozesse unter Windows; neue Übersetzungen; Anpassungen an den neuen Windows Installer; Anpassungen an das neue Linux-Installationsprogramm; Einige kleine Fehler behoben",
-                "ru": "конец поддержки для полного резервного копирования; Добавлена резервная копия истории данных пути; Добавлен запуск всех адаптеров после восстановления; Ревизия реставрации для редиса; пересмотр журнала проблем; Перестройте процессы запуска / остановки под Unix; Восстановление процессов запуска / остановки под Windows; новые переводы; настройки нового установщика Windows; настройки нового установщика Linux; исправлены небольшие ошибки",
-                "pt": "suporte final para o backup total; Adicionado backup do caminho de dados do histórico; Adicionada inicialização de todos os adaptadores após a restauração; Revisão da restauração para Redis; revisão de problemas de log; Reconstrua os processos de início / parada no Unix; Reconstruindo os processos de inicialização / parada no Windows; novas traduções; ajustes no novo Windows Installer; ajustes no novo instalador do Linux; corrigidos alguns pequenos erros",
-                "nl": "ondersteuning einde voor de totale back-up; Back-up van geschiedenisgegevenspad toegevoegd; Opstarten van alle adapters toegevoegd na herstel; Revisie van de restauratie voor Redis; herziening van logboekproblemen; Herbouw de start / stop-processen onder Unix; Het opnieuw opbouwen van de start / stop-processen onder Windows; nieuwe vertalingen; aanpassingen aan de nieuwe Windows Installer; aanpassingen aan het nieuwe Linux-installatieprogramma; enkele kleine bugs opgelost",
-                "fr": "fin du support pour la sauvegarde totale; Ajout de la sauvegarde du chemin de données de l'historique; Ajout du démarrage de tous les adaptateurs après la restauration; Révision de la restauration pour Redis; révision des problèmes de log; Reconstruisez les processus de démarrage / d'arrêt sous Unix; Reconstruction des processus de démarrage / arrêt sous Windows; nouvelles traductions; ajustements au nouveau Windows Installer; ajustements au nouvel installateur Linux; correction de quelques petits bugs",
-                "it": "fine supporto per il backup totale; Aggiunto backup del percorso dati cronologici; Aggiunto avvio di tutti gli adattatori dopo il ripristino; Revisione del restauro per Redis; revisione dei problemi di registro; Ricostruire i processi di avvio / arresto in Unix; Ricostruzione dei processi di avvio / arresto in Windows; nuove traduzioni; adeguamenti al nuovo Windows Installer; adattamenti al nuovo installer di Linux; risolti alcuni piccoli bug",
-                "es": "fin de soporte para la copia de seguridad total; Copia de seguridad adicional de la ruta de datos del historial Inicio agregado de todos los adaptadores después de la restauración; Revisión de la restauración de Redis; revisión de problemas de registro; Reconstruya los procesos de inicio / detención en Unix; Reconstrucción de los procesos de inicio / detención en Windows; nuevas traducciones; ajustes al nuevo instalador de Windows; ajustes al nuevo instalador de Linux; arreglado algunos errores pequeños",
-                "pl": "koniec wsparcia dla całkowitej kopii zapasowej; Dodano kopię zapasową ścieżki danych historii; Dodano uruchomienie wszystkich adapterów po przywróceniu; Rewizja przywrócenia dla Redis; korekta problemów z logami; Przebuduj procesy start / stop w systemie Unix; Przebudowa procesów start / stop w systemie Windows; nowe tłumaczenia; zmiany w nowym Instalatorze Windows; zmiany w nowym instalatorze Linux; naprawiono kilka drobnych błędów"
-            },
-            "1.2.2": {
-                "en": "Fix update process",
-                "de": "Updatevorgang korrigieren",
-                "ru": "Исправить процесс обновления",
-                "pt": "Corrigir processo de atualização",
-                "nl": "Update-proces repareren",
-                "fr": "Correction du processus de mise à jour",
-                "it": "Correggi processo di aggiornamento",
-                "es": "Reparar proceso de actualización",
-                "pl": "Napraw proces aktualizacji"
-            },
-            "1.2.1": {
-                "en": "Fix CIFS password with special characters",
-                "de": "Fix CIFS-Passwort mit Sonderzeichen",
-                "ru": "Исправить пароль CIFS с помощью специальных символов",
-                "pt": "Corrija a senha do CIFS com caracteres especiais",
-                "nl": "Bevestig het CIFS-wachtwoord met speciale tekens",
-                "fr": "Correction du mot de passe CIFS avec des caractères spéciaux",
-                "it": "Correggi la password CIFS con caratteri speciali",
-                "es": "Corregir contraseña CIFS con caracteres especiales",
-                "pl": "Napraw hasło CIFS za pomocą znaków specjalnych"
-            },
-            "1.2.0": {
-                "en": "Google Drive was added",
-                "de": "Google Drive wurde hinzugefügt",
-                "ru": "Google Drive был добавлен",
-                "pt": "O Google Drive foi adicionado",
-                "nl": "Google Drive is toegevoegd",
-                "fr": "Google Drive a été ajouté",
-                "it": "Google Drive è stato aggiunto",
-                "es": "Google Drive fue agregado",
-                "pl": "Dysk Google został dodany"
-            }
-        },
-		"title": "BackItUp",
-        "titleLang": {
-    		"en": "BackItUp",
-	    	"de": "BackItUp",
-	    	"ru": "BackItUp - Резервное копирование",
-	    	"pt": "BackItUp",
-	    	"nl": "BackItUp",
-	    	"fr": "BackItUp",
-	    	"it": "BackItUp",
-	    	"es": "BackItUp",
-	    	"pl": "Kopia zapasowa"
-        },
-        "desc": {
-    		"en": "This adapter enables the cyclical creation of backups of an IoBroker / Homematic installation",
-    		"de": "Dieser Adapter ermöglicht das zyklische Erstellen von Backups einer IoBroker / Homematic-Installation",
-    		"ru": "Этот адаптер обеспечивает циклическое создание резервных копий установки IoBroker / Homematic",
-    		"pt": "Este adaptador permite a criação cíclica de backups de uma instalação do IoBroker / Homematic",
-    		"nl": "Deze adapter maakt het cyclisch maken van back-ups van een IoBroker / Homematic-installatie mogelijk",
-    		"fr": "Cet adaptateur permet la création cyclique de sauvegardes d'une installation IoBroker / Homematic",
-    		"it": "Questo adattatore consente la creazione ciclica di backup di un'installazione IoBroker / Homematic",
-    		"es": "Este adaptador permite la creación cíclica de copias de seguridad de una instalación de IoBroker / Homematic",
-    		"pl": "Ten adapter umożliwia cykliczne tworzenie kopii zapasowych instalacji IoBroker / Homematic"
-        },
-        "authors": [
-            "simatec <nais@gmx.net>",
-	    	"peoples0815 <peoples0815github@gmail.com>",
-	    	"bluefox <dogafox@gmail.com>"
-        ],
-        "docs": {
-            "en": "docs/en/backitup.md",
-            "de": "docs/de/backitup.md"
-        },
-        "platform": "Javascript/Node.js",
-        "mode": "daemon",
-        "compact": true,
-        "icon": "backitup.png",
-        "materialize": true,
-        "messagebox": true,
-        "stopBeforeUpdate": true,
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/simatec/ioBroker.backitup/master/admin/backitup.png",
-        "keywords": ["Backup", "IoBroker", "Homematic"],
-        "readme": "https://github.com/simatec/ioBroker.backitup/blob/master/README.md",
-        "loglevel": "info",
-        "type": "general",
-        "license": "MIT"
+  "common": {
+    "name": "backitup",
+    "version": "1.3.1",
+    "news": {
+      "1.3.1": {
+        "en": "Added information about latest backup",
+        "de": "Informationen zur letzten Sicherung hinzugefügt",
+        "ru": "Добавлена информация о последней резервной копии",
+        "pt": "Adicionadas informações sobre o backup mais recente",
+        "nl": "Informatie toegevoegd over de laatste back-up",
+        "fr": "Ajout d'informations sur la dernière sauvegarde",
+        "it": "Aggiunte informazioni sull'ultimo backup",
+        "es": "Se agregó información sobre la última copia de seguridad",
+        "pl": "Dodano informacje o najnowszej kopii zapasowej",
+        "zh-cn": "添加了有关最新备份的信息"
+      },
+      "1.3.0": {
+        "en": "support end for the total backup; Added backup of history data path; Added startup of all adapters after restore; Revision of the restoration for Redis; revision of log issues; Rebuild the start / stop processes under Unix; Rebuilding the start / stop processes under Windows; new translations; adjustments to the new Windows Installer; adjustments to the new Linux installer; fixed some small bugs",
+        "de": "Supportende für die Gesamtsicherung; Backup des Verlaufsdatenpfads hinzugefügt; Start aller Adapter nach Wiederherstellung hinzugefügt; Überarbeitung der Restaurierung für Redis; Überarbeitung von Protokollproblemen; Erstellen Sie die Start- / Stopp-Prozesse unter Unix neu. Neuaufbau der Start- / Stopp-Prozesse unter Windows; neue Übersetzungen; Anpassungen an den neuen Windows Installer; Anpassungen an das neue Linux-Installationsprogramm; Einige kleine Fehler behoben",
+        "ru": "конец поддержки для полного резервного копирования; Добавлена резервная копия истории данных пути; Добавлен запуск всех адаптеров после восстановления; Ревизия реставрации для редиса; пересмотр журнала проблем; Перестройте процессы запуска / остановки под Unix; Восстановление процессов запуска / остановки под Windows; новые переводы; настройки нового установщика Windows; настройки нового установщика Linux; исправлены небольшие ошибки",
+        "pt": "suporte final para o backup total; Adicionado backup do caminho de dados do histórico; Adicionada inicialização de todos os adaptadores após a restauração; Revisão da restauração para Redis; revisão de problemas de log; Reconstrua os processos de início / parada no Unix; Reconstruindo os processos de inicialização / parada no Windows; novas traduções; ajustes no novo Windows Installer; ajustes no novo instalador do Linux; corrigidos alguns pequenos erros",
+        "nl": "ondersteuning einde voor de totale back-up; Back-up van geschiedenisgegevenspad toegevoegd; Opstarten van alle adapters toegevoegd na herstel; Revisie van de restauratie voor Redis; herziening van logboekproblemen; Herbouw de start / stop-processen onder Unix; Het opnieuw opbouwen van de start / stop-processen onder Windows; nieuwe vertalingen; aanpassingen aan de nieuwe Windows Installer; aanpassingen aan het nieuwe Linux-installatieprogramma; enkele kleine bugs opgelost",
+        "fr": "fin du support pour la sauvegarde totale; Ajout de la sauvegarde du chemin de données de l'historique; Ajout du démarrage de tous les adaptateurs après la restauration; Révision de la restauration pour Redis; révision des problèmes de log; Reconstruisez les processus de démarrage / d'arrêt sous Unix; Reconstruction des processus de démarrage / arrêt sous Windows; nouvelles traductions; ajustements au nouveau Windows Installer; ajustements au nouvel installateur Linux; correction de quelques petits bugs",
+        "it": "fine supporto per il backup totale; Aggiunto backup del percorso dati cronologici; Aggiunto avvio di tutti gli adattatori dopo il ripristino; Revisione del restauro per Redis; revisione dei problemi di registro; Ricostruire i processi di avvio / arresto in Unix; Ricostruzione dei processi di avvio / arresto in Windows; nuove traduzioni; adeguamenti al nuovo Windows Installer; adattamenti al nuovo installer di Linux; risolti alcuni piccoli bug",
+        "es": "fin de soporte para la copia de seguridad total; Copia de seguridad adicional de la ruta de datos del historial Inicio agregado de todos los adaptadores después de la restauración; Revisión de la restauración de Redis; revisión de problemas de registro; Reconstruya los procesos de inicio / detención en Unix; Reconstrucción de los procesos de inicio / detención en Windows; nuevas traducciones; ajustes al nuevo instalador de Windows; ajustes al nuevo instalador de Linux; arreglado algunos errores pequeños",
+        "pl": "koniec wsparcia dla całkowitej kopii zapasowej; Dodano kopię zapasową ścieżki danych historii; Dodano uruchomienie wszystkich adapterów po przywróceniu; Rewizja przywrócenia dla Redis; korekta problemów z logami; Przebuduj procesy start / stop w systemie Unix; Przebudowa procesów start / stop w systemie Windows; nowe tłumaczenia; zmiany w nowym Instalatorze Windows; zmiany w nowym instalatorze Linux; naprawiono kilka drobnych błędów"
+      },
+      "1.2.2": {
+        "en": "Fix update process",
+        "de": "Updatevorgang korrigieren",
+        "ru": "Исправить процесс обновления",
+        "pt": "Corrigir processo de atualização",
+        "nl": "Update-proces repareren",
+        "fr": "Correction du processus de mise à jour",
+        "it": "Correggi processo di aggiornamento",
+        "es": "Reparar proceso de actualización",
+        "pl": "Napraw proces aktualizacji"
+      },
+      "1.2.1": {
+        "en": "Fix CIFS password with special characters",
+        "de": "Fix CIFS-Passwort mit Sonderzeichen",
+        "ru": "Исправить пароль CIFS с помощью специальных символов",
+        "pt": "Corrija a senha do CIFS com caracteres especiais",
+        "nl": "Bevestig het CIFS-wachtwoord met speciale tekens",
+        "fr": "Correction du mot de passe CIFS avec des caractères spéciaux",
+        "it": "Correggi la password CIFS con caratteri speciali",
+        "es": "Corregir contraseña CIFS con caracteres especiales",
+        "pl": "Napraw hasło CIFS za pomocą znaków specjalnych"
+      },
+      "1.2.0": {
+        "en": "Google Drive was added",
+        "de": "Google Drive wurde hinzugefügt",
+        "ru": "Google Drive был добавлен",
+        "pt": "O Google Drive foi adicionado",
+        "nl": "Google Drive is toegevoegd",
+        "fr": "Google Drive a été ajouté",
+        "it": "Google Drive è stato aggiunto",
+        "es": "Google Drive fue agregado",
+        "pl": "Dysk Google został dodany"
+      }
     },
-    "native": {
-        "minimalEnabled": false,
-        "minimalTime": "02:00",
-		"minimalEveryXDays": 1,
-		"minimalDeleteAfter": 5,
-		"minimalNameSuffix": "",
-        "redisMinimalEnabled": false,
-        "mysqlMinimalEnabled": false,
-
-		"totalEnabled": false,
-		"totalTime": "03:00",
-		"totalEveryXDays": 3,
-		"totalDeleteAfter": 5,
-		"totalNameSuffix": "",
-		"totalStopIoB": false,
-
-		"ccuEnabled": false,
-		"ccuTime": "01:30",
-		"ccuEveryXDays": 3,
-		"ccuDeleteAfter": 5,
-		"ccuNameSuffix": "",
-		"ccuHost": "",
-		"ccuUser": "Admin",
-		"ccuPassword": "",
-
-        "dropboxEnabled": false,
-        "dropboxAccessToken": "",
-        "dropboxDeleteOldBackup": false,
-        "dropboxOwnDir": false,
-        "dropboxMinimalDir": "/backupDir/minimal",
-        "dropboxTotalDir": "/backupDir/total",
-        "dropboxCcuDir": "/backupDir/ccu",
-        "dropboxDir": "/backupDir",
-
-        "googledriveEnabled": false,
-        "googledriveAccessJson": "",
-        "googledriveDeleteOldBackup": false,
-        "googledriveOwnDir": false,
-        "googledriveMinimalDir": "/backupDir/minimal",
-        "googledriveTotalDir": "/backupDir/total",
-        "googledriveCcuDir": "/backupDir/ccu",
-        "googledriveDir": "/backupDir",
-
-        "mySqlEnabled": false,
-        "mySqlHost": "localhost",
-        "mySqlPort": "3306",
-        "mySqlName": "iobroker",
-        "mySqlUser": "",
-        "mySqlPassword": "",
-        "mySqlDeleteAfter": 5,
-        "mySqlDumpExe": "",
-
-        "cifsEnabled": false,
-        "cifsMount": "",
-        "cifsUser": "",
-        "cifsPassword": "",
-        "cifsOwnDir": false,
-        "cifsDir": "sharename/backupDir",
-        "cifsCcuDir": "sharename/backupDir",
-        "cifsTotalDir": "sharename/backupDir",
-        "cifsMinimalDir": "sharename/backupDir",
-        "cifsDeleteOldBackup": false,
-        "connectType": "NFS",
-        "smbType": "vers=1.0",
-        "sudoMount": false,
-        "wakeOnLAN": false,
-        "macAd": "20:DE:20:DE:20:DE",
-        "wolWait": 25,
-
-        "ftpEnabled": false,
-		"ftpHost": "",
-		"ftpPort": 21,
-		"ftpDir": "/backupDir",
-		"ftpUser": "",
-		"ftpPassword": "",
-        "ftpOwnDir": false,
-        "ftpCcuDir": "/backupDir/ccu",
-        "ftpTotalDir": "/backupDir/total",
-        "ftpMinimalDir": "/backupDir/minimal",
-        "ftpDeleteOldBackup": false,
-
-        "redisEnabled": false,
-        "redisPath": "/var/lib/redis",
-
-        "historyEnabled": false,
-        "historyPath": "media/usb/history",
-
-        "zigbeeEnabled": false,
-
-        "notificationEnabled": false,
-        "notificationsType": "Telegram",
-
-        "telegramInstance": "telegram.0",
-        "telegramNoticeType": "longTelegramNotice",
-        "telegramUser": "All Receiver",
-        "telegramSilentNotice": false,
-        "telegramOnlyError": false,
-        "telegramWaitToSend": 0,
-
-        "pushoverInstance": "pushover.0",
-        "pushoverNoticeType": "longPushoverNotice",
-        "pushoverSilentNotice": false,
-        "pushoverDeviceID": "",
-        "pushoverOnlyError": false,
-        "pushoverWaitToSend": 0,
-
-        "emailReceiver": "xxx@xxx.com",
-        "emailSender": "xxx@xxx.com",
-        "emailInstance": "email.0",
-        "emailNoticeType": "longEmailNotice",
-        "emailOnlyError": false,
-        "emailWaitToSend": 0,
-
-		"debugLevel": false,
-        "historyEntriesNumber": 25,
-
-        "restoreSource": "Local",
-        "startAllRestore": false
+    "title": "BackItUp",
+    "titleLang": {
+      "en": "BackItUp",
+      "de": "BackItUp",
+      "ru": "BackItUp - Резервное копирование",
+      "pt": "BackItUp",
+      "nl": "BackItUp",
+      "fr": "BackItUp",
+      "it": "BackItUp",
+      "es": "BackItUp",
+      "pl": "Kopia zapasowa"
     },
-    "instanceObjects": [
-        {
-            "_id":  "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id":  "info.latestBackup",
-            "type": "state",
-            "common": {
-                "role":  "state",
-                "name":  "Latest backup found by start",
-                "type":  "json",
-                "read":  true,
-                "write": false
-            },
-            "native": {}
-        },
-        {
-            "_id":  "history",
-            "type": "channel",
-            "common": {
-                "name": "History Logs"
-            },
-            "native": {}
-        },
-        {
-            "_id":  "history.html",
-            "type": "state",
-            "common": {
-                "role":  "html",
-                "name":  "History-Log of executed backups",
-                "type":  "string",
-                "read":  true,
-                "write": false,
-                "def":   "Noch kein Backup"
-            },
-            "native": {}
-        },
-        {
-            "_id":  "history.ccuLastTime",
-            "type": "state",
-            "common": {
-                "role":  "indicator",
-                "name":  "Last CCU backup",
-                "type":  "string",
-                "read":  true,
-                "write": false,
-                "def":   "No backups yet"
-            },
-            "native": {}
-        },
-        {
-            "_id":  "history.minimalLastTime",
-            "type": "state",
-            "common": {
-                "role":  "indicator",
-                "name":  "Last minimal backup",
-                "type":  "string",
-                "read":  true,
-                "write": false,
-                "def":   "No backups yet"
-            },
-            "native": {}
-        },
-        {
-            "_id":  "history.ccuSuccess",
-            "type": "state",
-            "common": {
-                "role":  "switch",
-                "name":  "Last ccu backup Success",
-                "type":  "boolean",
-                "read":  true,
-                "write": true,
-                "def":   false
-            },
-            "native": {}
-        },
-        {
-            "_id":  "history.minimalSuccess",
-            "type": "state",
-            "common": {
-                "role":  "switch",
-                "name":  "Last minimal backup Success",
-                "type":  "boolean",
-                "read":  true,
-                "write": true,
-                "def":   false
-            },
-            "native": {}
-        },
-        {
-            "_id":  "oneClick",
-            "type": "channel",
-            "common": {
-                "name": "OneClick Buttons"
-            },
-            "native": {}
-        },
-        {
-            "_id":  "oneClick.ccu",
-            "type": "state",
-            "common": {
-                "role":  "switch",
-                "name":  "Execute CCU backup",
-                "type":  "boolean",
-                "read":  true,
-                "write": true,
-                "def":   false
-            },
-            "native": {}
-        },
-        {
-            "_id":  "oneClick.minimal",
-            "type": "state",
-            "common": {
-                "role":  "switch",
-                "name":  "Execute minimal backup",
-                "type":  "boolean",
-                "read":  true,
-                "write": true,
-                "def":   false
-            },
-            "native": {}
-        },
-        {
-          "_id":  "output",
-          "type": "channel",
-          "common": {
-            "name": "Output states"
-          },
-          "native": {}
-        },
-        {
-          "_id":  "output.line",
-          "type": "state",
-          "common": {
-            "role":  "state",
-            "name":  "Used for debug outputs",
-            "type":  "string",
-            "read":  true,
-            "write": false,
-            "def":   ""
-          },
-          "native": {}
-        }
-
+    "desc": {
+      "en": "This adapter enables the cyclical creation of backups of an IoBroker / Homematic installation",
+      "de": "Dieser Adapter ermöglicht das zyklische Erstellen von Backups einer IoBroker / Homematic-Installation",
+      "ru": "Этот адаптер обеспечивает циклическое создание резервных копий установки IoBroker / Homematic",
+      "pt": "Este adaptador permite a criação cíclica de backups de uma instalação do IoBroker / Homematic",
+      "nl": "Deze adapter maakt het cyclisch maken van back-ups van een IoBroker / Homematic-installatie mogelijk",
+      "fr": "Cet adaptateur permet la création cyclique de sauvegardes d'une installation IoBroker / Homematic",
+      "it": "Questo adattatore consente la creazione ciclica di backup di un'installazione IoBroker / Homematic",
+      "es": "Este adaptador permite la creación cíclica de copias de seguridad de una instalación de IoBroker / Homematic",
+      "pl": "Ten adapter umożliwia cykliczne tworzenie kopii zapasowych instalacji IoBroker / Homematic"
+    },
+    "authors": [
+      "simatec <nais@gmx.net>",
+      "peoples0815 <peoples0815github@gmail.com>",
+      "bluefox <dogafox@gmail.com>"
     ],
-    "objects": [
-
-    ]
+    "docs": {
+      "en": "docs/en/backitup.md",
+      "de": "docs/de/backitup.md"
+    },
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "compact": true,
+    "icon": "backitup.png",
+    "materialize": true,
+    "messagebox": true,
+    "stopBeforeUpdate": true,
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/simatec/ioBroker.backitup/master/admin/backitup.png",
+    "keywords": [
+      "Backup",
+      "IoBroker",
+      "Homematic"
+    ],
+    "readme": "https://github.com/simatec/ioBroker.backitup/blob/master/README.md",
+    "loglevel": "info",
+    "type": "general",
+    "license": "MIT",
+    "installedFrom": "https://github.com/simatec/ioBroker.backitup/tarball/master"
+  },
+  "native": {
+    "minimalEnabled": false,
+    "minimalTime": "02:00",
+    "minimalEveryXDays": 1,
+    "minimalDeleteAfter": 5,
+    "minimalNameSuffix": "",
+    "redisMinimalEnabled": false,
+    "mysqlMinimalEnabled": false,
+    "totalEnabled": false,
+    "totalTime": "03:00",
+    "totalEveryXDays": 3,
+    "totalDeleteAfter": 5,
+    "totalNameSuffix": "",
+    "totalStopIoB": false,
+    "ccuEnabled": false,
+    "ccuTime": "01:30",
+    "ccuEveryXDays": 3,
+    "ccuDeleteAfter": 5,
+    "ccuNameSuffix": "",
+    "ccuHost": "",
+    "ccuUser": "Admin",
+    "ccuPassword": "",
+    "dropboxEnabled": false,
+    "dropboxAccessToken": "",
+    "dropboxDeleteOldBackup": false,
+    "dropboxOwnDir": false,
+    "dropboxMinimalDir": "/backupDir/minimal",
+    "dropboxTotalDir": "/backupDir/total",
+    "dropboxCcuDir": "/backupDir/ccu",
+    "dropboxDir": "/backupDir",
+    "googledriveEnabled": false,
+    "googledriveAccessJson": "",
+    "googledriveDeleteOldBackup": false,
+    "googledriveOwnDir": false,
+    "googledriveMinimalDir": "/backupDir/minimal",
+    "googledriveTotalDir": "/backupDir/total",
+    "googledriveCcuDir": "/backupDir/ccu",
+    "googledriveDir": "/backupDir",
+    "mySqlEnabled": false,
+    "mySqlHost": "localhost",
+    "mySqlPort": "3306",
+    "mySqlName": "iobroker",
+    "mySqlUser": "",
+    "mySqlPassword": "",
+    "mySqlDeleteAfter": 5,
+    "mySqlDumpExe": "",
+    "cifsEnabled": false,
+    "cifsMount": "",
+    "cifsUser": "",
+    "cifsPassword": "",
+    "cifsOwnDir": false,
+    "cifsDir": "sharename/backupDir",
+    "cifsCcuDir": "sharename/backupDir",
+    "cifsTotalDir": "sharename/backupDir",
+    "cifsMinimalDir": "sharename/backupDir",
+    "cifsDeleteOldBackup": false,
+    "connectType": "NFS",
+    "smbType": "vers=1.0",
+    "sudoMount": false,
+    "wakeOnLAN": false,
+    "macAd": "20:DE:20:DE:20:DE",
+    "wolWait": 25,
+    "ftpEnabled": false,
+    "ftpHost": "",
+    "ftpPort": 21,
+    "ftpDir": "/backupDir",
+    "ftpUser": "",
+    "ftpPassword": "",
+    "ftpOwnDir": false,
+    "ftpCcuDir": "/backupDir/ccu",
+    "ftpTotalDir": "/backupDir/total",
+    "ftpMinimalDir": "/backupDir/minimal",
+    "ftpDeleteOldBackup": false,
+    "redisEnabled": false,
+    "redisPath": "/var/lib/redis",
+    "historyEnabled": false,
+    "historyPath": "media/usb/history",
+    "zigbeeEnabled": false,
+    "notificationEnabled": false,
+    "notificationsType": "Telegram",
+    "telegramInstance": "telegram.0",
+    "telegramNoticeType": "longTelegramNotice",
+    "telegramUser": "All Receiver",
+    "telegramSilentNotice": false,
+    "telegramOnlyError": false,
+    "telegramWaitToSend": 0,
+    "pushoverInstance": "pushover.0",
+    "pushoverNoticeType": "longPushoverNotice",
+    "pushoverSilentNotice": false,
+    "pushoverDeviceID": "",
+    "pushoverOnlyError": false,
+    "pushoverWaitToSend": 0,
+    "emailReceiver": "xxx@xxx.com",
+    "emailSender": "xxx@xxx.com",
+    "emailInstance": "email.0",
+    "emailNoticeType": "longEmailNotice",
+    "emailOnlyError": false,
+    "emailWaitToSend": 0,
+    "debugLevel": false,
+    "historyEntriesNumber": 25,
+    "restoreSource": "Local",
+    "startAllRestore": false
+  },
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.latestBackup",
+      "type": "state",
+      "common": {
+        "role": "state",
+        "name": "Latest backup found by start",
+        "type": "json",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "history",
+      "type": "channel",
+      "common": {
+        "name": "History Logs"
+      },
+      "native": {}
+    },
+    {
+      "_id": "history.html",
+      "type": "state",
+      "common": {
+        "role": "html",
+        "name": "History-Log of executed backups",
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": "Noch kein Backup"
+      },
+      "native": {}
+    },
+    {
+      "_id": "history.ccuLastTime",
+      "type": "state",
+      "common": {
+        "role": "indicator",
+        "name": "Last CCU backup",
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": "No backups yet"
+      },
+      "native": {}
+    },
+    {
+      "_id": "history.minimalLastTime",
+      "type": "state",
+      "common": {
+        "role": "indicator",
+        "name": "Last minimal backup",
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": "No backups yet"
+      },
+      "native": {}
+    },
+    {
+      "_id": "history.ccuSuccess",
+      "type": "state",
+      "common": {
+        "role": "switch",
+        "name": "Last ccu backup Success",
+        "type": "boolean",
+        "read": true,
+        "write": true,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "history.minimalSuccess",
+      "type": "state",
+      "common": {
+        "role": "switch",
+        "name": "Last minimal backup Success",
+        "type": "boolean",
+        "read": true,
+        "write": true,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "oneClick",
+      "type": "channel",
+      "common": {
+        "name": "OneClick Buttons"
+      },
+      "native": {}
+    },
+    {
+      "_id": "oneClick.ccu",
+      "type": "state",
+      "common": {
+        "role": "switch",
+        "name": "Execute CCU backup",
+        "type": "boolean",
+        "read": true,
+        "write": true,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "oneClick.minimal",
+      "type": "state",
+      "common": {
+        "role": "switch",
+        "name": "Execute minimal backup",
+        "type": "boolean",
+        "read": true,
+        "write": true,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "output",
+      "type": "channel",
+      "common": {
+        "name": "Output states"
+      },
+      "native": {}
+    },
+    {
+      "_id": "output.line",
+      "type": "state",
+      "common": {
+        "role": "state",
+        "name": "Used for debug outputs",
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    }
+  ],
+  "objects": []
 }
