@@ -4,16 +4,15 @@
     "version": "1.3.1",
     "news": {
       "1.3.1": {
-        "en": "Added information about latest backup",
-        "de": "Informationen zur letzten Sicherung hinzugefügt",
-        "ru": "Добавлена информация о последней резервной копии",
-        "pt": "Adicionadas informações sobre o backup mais recente",
-        "nl": "Informatie toegevoegd over de laatste back-up",
-        "fr": "Ajout d'informations sur la dernière sauvegarde",
-        "it": "Aggiunte informazioni sull'ultimo backup",
-        "es": "Se agregó información sobre la última copia de seguridad",
-        "pl": "Dodano informacje o najnowszej kopii zapasowej",
-        "zh-cn": "添加了有关最新备份的信息"
+        "en": "Added information about latest backup; some Bug fix; add new translation; Fix translation; Default backup renamed to ioBroker backup; delete old objects",
+        "de": "Informationen zur letzten Sicherung hinzugefügt; einige Bugfixes; neue Übersetzungen hinzugefügt; Fix Übersetzungen; Standard-Backup umbenannt in ioBroker-Backup; alte Objekte löschen",
+        "ru": "Добавлена информация о последней резервной копии; исправление некоторых ошибок; добавить новый перевод; Исправить перевод; Резервная копия по умолчанию переименована в резервную копию ioBroker; удалить старые объекты",
+        "pt": "Adicionadas informações sobre o backup mais recente; alguma correção de bug; adicionar nova tradução; Corrigir tradução; Backup padrão renomeado para backup ioBroker; excluir objetos antigos",
+        "nl": "Informatie toegevoegd over de laatste back-up; een aantal bugfixes; nieuwe vertaling toevoegen; Vertaling corrigeren; Standaard backup hernoemd naar ioBroker backup; verwijder oude objecten",
+        "fr": "Ajout d'informations sur la dernière sauvegarde. un correctif de bogue; ajouter une nouvelle traduction; Corriger la traduction; Sauvegarde par défaut renommée sauvegarde ioBroker; supprimer les anciens objets",
+        "it": "Aggiunte informazioni sull'ultimo backup; qualche correzione di bug; aggiungi nuova traduzione; Correggi traduzione; Backup predefinito rinominato backup ioBroker; elimina vecchi oggetti",
+        "es": "Se agregó información sobre la última copia de seguridad; algunas correcciones de errores; agregar nueva traducción; Arreglar traducción; Copia de seguridad predeterminada renombrada a copia de seguridad ioBroker; eliminar objetos viejos",
+        "pl": "Dodano informacje o najnowszej kopii zapasowej; niektóre poprawki błędów; dodaj nowe tłumaczenie; Napraw tłumaczenie; Domyślna nazwa kopii zapasowej została zmieniona na kopię zapasową ioBroker; usuń stare obiekty"
       },
       "1.3.0": {
         "en": "support end for the total backup; Added backup of history data path; Added startup of all adapters after restore; Revision of the restoration for Redis; revision of log issues; Rebuild the start / stop processes under Unix; Rebuilding the start / stop processes under Windows; new translations; adjustments to the new Windows Installer; adjustments to the new Linux installer; fixed some small bugs",
@@ -138,7 +137,7 @@
     "dropboxAccessToken": "",
     "dropboxDeleteOldBackup": false,
     "dropboxOwnDir": false,
-    "dropboxMinimalDir": "/backupDir/minimal",
+    "dropboxMinimalDir": "/backupDir/iobroker",
     "dropboxTotalDir": "/backupDir/total",
     "dropboxCcuDir": "/backupDir/ccu",
     "dropboxDir": "/backupDir",
@@ -146,7 +145,7 @@
     "googledriveAccessJson": "",
     "googledriveDeleteOldBackup": false,
     "googledriveOwnDir": false,
-    "googledriveMinimalDir": "/backupDir/minimal",
+    "googledriveMinimalDir": "/backupDir/iobroker",
     "googledriveTotalDir": "/backupDir/total",
     "googledriveCcuDir": "/backupDir/ccu",
     "googledriveDir": "/backupDir",
@@ -183,7 +182,7 @@
     "ftpOwnDir": false,
     "ftpCcuDir": "/backupDir/ccu",
     "ftpTotalDir": "/backupDir/total",
-    "ftpMinimalDir": "/backupDir/minimal",
+    "ftpMinimalDir": "/backupDir/iobroker",
     "ftpDeleteOldBackup": false,
     "redisEnabled": false,
     "redisPath": "/var/lib/redis",
@@ -271,11 +270,11 @@
       "native": {}
     },
     {
-      "_id": "history.minimalLastTime",
+      "_id": "history.iobrokerLastTime",
       "type": "state",
       "common": {
         "role": "indicator",
-        "name": "Last minimal backup",
+        "name": "Last iobroker backup",
         "type": "string",
         "read": true,
         "write": false,
@@ -297,11 +296,11 @@
       "native": {}
     },
     {
-      "_id": "history.minimalSuccess",
+      "_id": "history.iobrokerSuccess",
       "type": "state",
       "common": {
         "role": "switch",
-        "name": "Last minimal backup Success",
+        "name": "Last iobroker backup Success",
         "type": "boolean",
         "read": true,
         "write": true,
@@ -331,11 +330,11 @@
       "native": {}
     },
     {
-      "_id": "oneClick.minimal",
+      "_id": "oneClick.iobroker",
       "type": "state",
       "common": {
         "role": "switch",
-        "name": "Execute minimal backup",
+        "name": "Execute iobroker backup",
         "type": "boolean",
         "read": true,
         "write": true,
