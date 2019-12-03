@@ -383,6 +383,10 @@
                                                 if (!result || result.error) {
                                                     showError(result.error);
                                                 } else {
+                                                    //Create Link
+													var link = "http://" + location.hostname + ":8091";
+                                                	// Log Window for restore
+                                                    window.open(link, '_blank');
                                                     var name = file.split('/').pop().split('_')[0];
                                                     showDialog(name !== '' ? 'restore' : '');
                                                     showToast(null, _('Restore started'));
