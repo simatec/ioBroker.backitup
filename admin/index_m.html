@@ -383,10 +383,12 @@
                                                 if (!result || result.error) {
                                                     showError(result.error);
                                                 } else {
-                                                    //Create Link
-													var link = "http://" + location.hostname + ":8091";
-                                                	// Log Window for restore
-                                                    window.open(link, '_blank');
+                                                    //Create Link for Restore Interface
+													var link = "http://" + location.hostname + ":8091/backitup-restore";
+                                                    // Log Window for Restore Interface
+                                                    setTimeout(function () {
+                                                        window.open(link, '_blank');
+                                                    }, 2000);
                                                     var name = file.split('/').pop().split('_')[0];
                                                     showDialog(name !== '' ? 'restore' : '');
                                                     showToast(null, _('Restore started'));
