@@ -45,7 +45,8 @@
     "node-wol": "^0.1.1",
     "request": "^2.88.0",
     "targz": "^1.0.1",
-    "google-auth-library": "^5.5.1"
+    "google-auth-library": "^5.5.1",
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
