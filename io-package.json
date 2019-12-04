@@ -4,15 +4,15 @@
     "version": "1.3.2",
     "news": {
       "1.3.2": {
-        "en": "Bug Fix",
-        "de": "Bug-Fix",
-        "ru": "Исправлена ошибка",
-        "pt": "Bug Fix",
-        "nl": "Bugfix",
-        "fr": "Correction d'un bug",
-        "it": "Risoluzione del problema",
-        "es": "Arreglo del fallo",
-        "pl": "Naprawa błędów"
+        "en": "Added Webinterface for Restore; Bug fix",
+        "de": "Webinterface für Restore hinzugefügt; Bug-Fix",
+        "ru": "Добавлен веб-интерфейс для восстановления; Исправлена ошибка",
+        "pt": "Webinterface adicionado para restauração; Bug fix",
+        "nl": "Webinterface toegevoegd voor herstel; Bugfix",
+        "fr": "Interface Web ajoutée pour la restauration; Correction d'un bug",
+        "it": "Aggiunta interfaccia Web per il ripristino; Risoluzione del problema",
+        "es": "Webinterface agregado para Restaurar; Arreglo del fallo",
+        "pl": "Dodano interfejs WWW do przywracania; Naprawa błędów"
       },
       "1.3.1": {
         "en": "Added information about latest backup; some Bug fix; add new translation; Fix translation; Default backup renamed to ioBroker backup; delete old objects",
