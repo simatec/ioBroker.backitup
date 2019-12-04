@@ -763,44 +763,32 @@ function detectLatestBackupFile(adapter) {
 function delOldObjects () {
     adapter.getState('history.minimalSuccess', (err, state) => {
         if (state) {
-            adapter.delObject('history.minimalSuccess', function (err) {
-                if (err) adapter.log.warn(err);
-            });
+            adapter.delObject('history.minimalSuccess');
         }
     });
     adapter.getState('history.minimalLastTime', (err, state) => {
         if (state) {
-            adapter.delObject('history.minimalLastTime', function (err) {
-                if (err) adapter.log.warn(err);
-            });
+            adapter.delObject('history.minimalLastTime');
         }
     });
     adapter.getState('history.totalLastTime', (err, state) => {
         if (state) {
-            adapter.delObject('history.totalLastTime', function (err) {
-                if (err) adapter.log.warn(err);
-            });
+            adapter.delObject('history.totalLastTime');
         }
     });
     adapter.getState('history.totalSuccess', (err, state) => {
         if (state) {
-            adapter.delObject('history.totalSuccess', function (err) {
-                if (err) adapter.log.warn(err);
-            });
+            adapter.delObject('history.totalSuccess');
         }
     });
     adapter.getState('oneClick.minimal', (err, state) => {
         if (state) {
-            adapter.delObject('oneClick.minimal', function (err) {
-                if (err) adapter.log.warn(err);
-            });
+            adapter.delObject('oneClick.minimal');
         }
     });
     adapter.getState('oneClick.total', (err, state) => {
         if (state) {
-            adapter.delObject('oneClick.total', function (err) {
-                if (err) adapter.log.warn(err);
-            });
+            adapter.delObject('oneClick.total');
         }
     });
 }
@@ -809,12 +797,12 @@ function main(adapter) {
     createBashScripts();
     readLogFile();
     createBackupDir();
-    umount();
     deleteHideFiles();
     delTmp();
     delOldObjects();
 
     setTimeout(function() {
+        umount();
         setStartAll();
     }, 10000);
 
