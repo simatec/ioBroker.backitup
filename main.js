@@ -55,7 +55,7 @@ function startAdapter(options) {
     adapter = new utils.Adapter(options);
 
     adapter.on('stateChange', (id, state) => {
-        if ((state.val === true || state.val === 'true') && !state.ack) {
+        if (state && (state.val === true || state.val === 'true') && !state.ack) {
 
             if (id === adapter.namespace + '.oneClick.iobroker' ||
                 //id === adapter.namespace + '.oneClick.total' ||
