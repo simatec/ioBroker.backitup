@@ -555,7 +555,7 @@ function readLogFile() {
             fs.unlinkSync(logName);
 
             // make the messaging
-            const config = require(__dirname + '/lib/total.json');
+            //const config = require(__dirname + '/lib/total.json');
             config.afterBackup = true;
             executeScripts(adapter, config, err => {
 
