@@ -10,7 +10,6 @@ test
 appveyor.yml
 /lib/*.bat
 /lib/*.log
-/lib/total.json
 /lib/*.sh
 /lib/restore.json
 .vscode
