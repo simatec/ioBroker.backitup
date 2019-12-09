@@ -9,7 +9,6 @@ package-lock.json
 /lib/startIOB.bat
 /lib/*.bat
 /lib/*.log
-/lib/total.json
 /lib/*.sh
 /lib/restore.json
 .vscode

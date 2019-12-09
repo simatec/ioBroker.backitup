@@ -541,7 +541,7 @@ function readLogFile() {
                 line = line.trim();
 
                 if (line) {
-                    if (line.startsWith('[DEBUG] [total/total] Packed ')) return;
+                    //if (line.startsWith('[DEBUG] [total/total] Packed ')) return;
 
                     if (line.startsWith('[ERROR]')) {
                         adapter.log.error(line);
@@ -555,7 +555,7 @@ function readLogFile() {
             fs.unlinkSync(logName);
 
             // make the messaging
-            const config = require(__dirname + '/lib/total.json');
+            //const config = require(__dirname + '/lib/total.json');
             config.afterBackup = true;
             executeScripts(adapter, config, err => {
 
@@ -599,8 +599,7 @@ function createBashScripts() {
             fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\nif exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-stop\n)\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.bat')) {
-            //fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker start\nif exist "${path.join(__dirname, 'lib/.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
-            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker start`);
+            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker start\nif exist "${path.join(__dirname, 'lib/.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
         }
     } else {
         if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
