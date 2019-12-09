@@ -541,7 +541,7 @@ function readLogFile() {
                 line = line.trim();
 
                 if (line) {
-                    if (line.startsWith('[DEBUG] [total/total] Packed ')) return;
+                    //if (line.startsWith('[DEBUG] [total/total] Packed ')) return;
 
                     if (line.startsWith('[ERROR]')) {
                         adapter.log.error(line);

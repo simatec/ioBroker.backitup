@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.3.2",
+    "version": "1.3.3",
     "news": {
+      "1.3.3": {
+        "en": "Fix Webinterface for Restore; Fix MySql Backup; Added some debug logs for Restore; some Bug Fix",
+        "de": "Fix Webinterface für Restore; Fix MySQL Backup; Einige Debug-Protokolle für Restore hinzugefügt; einige Bugfixes",
+        "ru": "Исправить веб-интерфейс для восстановления; Исправить MySql Backup; Добавлены некоторые журналы отладки для Restore; исправление некоторых ошибок",
+        "pt": "Corrija o Webinterface para restauração; Corrigir o backup do MySql; Adicionados alguns logs de depuração para restauração; alguma correção de bug",
+        "nl": "Herstel webinterface voor herstel; Fix MySql Backup; Enkele foutopsporingslogboeken toegevoegd voor Herstellen; een aantal bugfixes",
+        "fr": "Correction de l'interface Web pour la restauration; Fix MySql Backup; Ajout de quelques journaux de débogage pour la restauration; une correction de bogue",
+        "it": "Correggi l'interfaccia Web per il ripristino; Correggi backup MySql; Aggiunti alcuni log di debug per Restore; qualche correzione di bug",
+        "es": "Arreglar Webinterface para Restaurar; Fix MySql Backup; Se agregaron algunos registros de depuración para Restaurar; algunas correcciones de errores",
+        "pl": "Napraw interfejs WWW dla przywracania; Napraw MySql Backup; Dodano niektóre dzienniki debugowania dla Przywracania; niektóre poprawki błędów"
+      },
       "1.3.2": {
         "en": "Added Webinterface for Restore; Bug fix",
         "de": "Webinterface für Restore hinzugefügt; Bug-Fix",
