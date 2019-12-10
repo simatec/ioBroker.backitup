@@ -156,6 +156,36 @@
                 }
             });
         }
+        function fetchHistoryConfig(isInitial) {
+            socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.history.', endkey: 'system.adapter.history.\u9999', include_docs: true}, function (err, res) {
+                if (res && res.rows && res.rows.length) {
+                    var found = false;
+                    for (var i = 0; i < res.rows.length; i++) {
+                        var common = res.rows[i].value.common;
+                        if (common.enabled) {
+                            var native = res.rows[i].value.native;
+                            $('#historyPath').val(native.storeDir);
+                            found = res.rows[i].value._id;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        for (var j = 0; j < res.rows.length; j++) {
+                            var _native = res.rows[j].value.native;
+                            $('#historyPath').val(_native.storeDir);
+                            found = res.rows[j].value._id;
+                        }
+                    }
+                }
+                if (found) {
+                    M.updateTextFields();
+                    found = found.substring('system.adapter.'.length);
+                    !isInitial && showMessage(_('Config taken from %s', found));
+                } else {
+                    !isInitial && showMessage(_('No config found'));
+                }
+            });
+        }
         function initDialog() {
             $dialogCommand = $('#dialog-command');
             $output = $dialogCommand.find('#stdout');
@@ -193,7 +223,6 @@
             $dialogCommand.modal('open');
             $dialogCommand.find('.progress-dont-close').removeClass('disabled');
             $dialogCommandProgress.show();
-            //if (type === 'restore' || (type === 'total' && $('#totalStopIoB').prop('checked'))) {
             if (type === 'restore') {
                 showToast($dialogCommand, _('ioBroker will be stopped and started again. Please wait'), null, 10000);
             }
@@ -478,11 +507,15 @@
             if (!settings.ccuHost) {
                 fetchCcuConfig(true);
             }
+            if (!settings.historyPath) {
+                fetchHistoryConfig(true);
+            }
             if (!settings.mySqlUser) {
                 fetchMySqlConfig(true)
             }
             $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
+            $('.detect-history').on('click', function () {fetchHistoryConfig()});
 
             sendTo(null, 'getTelegramUser', null, function (obj) {
                 fillTelegramUser(settings['telegramUser'], obj)
@@ -654,33 +687,7 @@
                 $('.email').hide();
             }
             }).trigger('change');
-/*
-            if ($('#mySqlEnabled').prop('checked')) {
-                $('.tab-my-sql').show();
-            } else {
-                $('.tab-my-sql').hide();
-            }
-            if ($('#dropboxEnabled').prop('checked')) {
-                $('.tab-dropbox').show();
-            } else {
-                $('.tab-dropbox').hide();
-            }
-            if ($('#googledriveEnabled').prop('checked')) {
-                $('.tab-googledrive').show();
-            } else {
-                $('.tab-googledrive').hide();
-            }
-            if ($('#cifsEnabled').prop('checked')) {
-                $('.tab-cifs').show();
-            } else {
-                $('.tab-cifs').hide();
-            }
-            if ($('#ftpEnabled').prop('checked')) {
-                $('.tab-ftp').show();
-            } else {
-                $('.tab-ftp').hide();
-            }
- */
+
             if ($('#notificationEnabled').prop('checked')) {
                 $('.tab-notification').removeClass('disabled');
             } else {
@@ -731,7 +738,6 @@
             <ul class="tabs">
                 <li class="tab col s6 l2"><a href="#tab-settings" class="translate active">main settings</a></li>
                 <li class="tab col s6 l2 tab-iobroker-backup"><a href="#tab-iobroker-backup" class="translate">iobroker backup</a></li>
-                <!--<li class="tab col s6 l2 tab-total-backup"><a href="#tab-total-backup" class="translate">Total backup</a></li>-->
                 <li class="tab col s6 l2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
                 <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
                 <li class="tab col s6 l2 tab-history"><a href="#tab-history" class="translate">History Data Backup</a></li>
@@ -753,13 +759,11 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l3">
                         <input class="value" id="debugLevel" type="checkbox"/>
                         <label for="debugLevel" class="translate">Enable / disable debug</label>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l3">
                         <input class="value" id="notificationEnabled" type="checkbox"/>
                         <label for="notificationEnabled" class="translate">Enable / Disable Notifications</label>
                     </div>
@@ -783,7 +787,6 @@
                     </div>
                 </div>
                 <div class="row">
-
                     <div class="input-field col s6 l3">
                         <input class="value" id="cifsEnabled" type="checkbox"/>
                         <span for="cifsEnabled" class="translate">NAS / Copy</span>
@@ -805,6 +808,13 @@
                     <div class="input-field col s12 m6 l3">
                         <input type="number" class="value" id="historyEntriesNumber" min="1" max="50"/>
                         <label for="historyEntriesNumber" class="translate">Number of history entries</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card-panel grey">
+                            <span class="white-text translate">Some features of Backitup require additional adapters and tools. For detailed information please read the documentation of Backitup!!</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -843,52 +853,7 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Complete Backup -->
-            <!--
-            <div id="tab-total-backup" class="col s12 page">
-                <div class="row">
-                    <div class="input-field col s6 l3">
-                        <input class="value" id="totalEnabled" type="checkbox"/>
-                        <label for="totalEnabled" class="translate">Total backup</label>
-                    </div>
-                    <div class="input-field col s6 l3">
-                        <a class="waves-effect waves-light btn btn-total do-backup" data-type="total"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
-                    </div>
-                </div>
 
-                <div class="row total">
-                    <div class="input-field col s12 m6 l4">
-                        <input class="value" id="totalStopIoB" type="checkbox"/>
-                        <label for="totalStopIoB" class="translate">Stop ioBroker at backup</label>
-                    </div>
-                </div>
-                <div class="row total">
-                    <div class="input-field col s12 m6 l3">
-                        <input class="value" id="totalTime" type="text">
-                        <label for="totalTime" class="translate">backup time</label>
-                        <span class="translate">Backup start time in hh: mm</span>
-                    </div>
-                    <div class="input-field col s12 m6 l3">
-                        <input type="number" class="value" id="totalEveryXDays" min="1" max="100"/>
-                        <label for="totalEveryXDays" class="translate">days</label>
-                        <span class="translate">Backup will run every X days</span>
-                    </div>
-                    <div class="input-field col s12 m6 l3">
-                        <input type="number" class="value" id="totalDeleteAfter" min="1" max="100"/>
-                        <label for="totalDeleteAfter" class="translate">piece</label>
-                        <span class="translate">old complete backups delete after X days</span>
-                    </div>
-                    <div class="input-field col s12 m6 l3">
-                        <input class="value" id="totalNameSuffix" type="text">
-                        <label for="totalNameSuffix" class="translate">name</label>
-                        <span class="translate">Name suffix</span>
-                    </div>
-
-                </div>
-
-            </div>
-            -->
             <!-- CCU Backup -->
             <div id="tab-ccu-backup" class="col s12 page">
                 <div class="row">
@@ -980,14 +945,6 @@
                         <span class="translate">Path with filename to mysqldump executable (leave empty to use default)</span>
                     </div>
                 </div>
-                <!--
-                <div class="row mysql">
-                    <div class="input-field col s6 l3">
-                        <input class="value" id="mysqlminimalEnabled" type="checkbox"/>
-                        <label for="mysqlminimalEnabled" class="translate">mysql Backup by iobroker</label>
-                    </div>
-                </div>
-                -->
             </div>
 
             <!-- Redis -->
@@ -1000,14 +957,6 @@
                         <label for="redisPath" class="translate">Redis file path</label>
                     </div>
                 </div>
-                <!--
-                <div class="row">
-                    <div class="input-field col s6 l3">
-                        <input class="value" id="redisminimalEnabled" type="checkbox"/>
-                        <label for="redisminimalEnabled" class="translate">Redis Backup by iobroker</label>
-                    </div>
-                </div>
-                -->
             </div>
 
             <!-- History Backup -->
@@ -1015,9 +964,19 @@
                 <div class="row">
                 </div>
                 <div class="row">
+                    <div class="input-field col s6 l3 ccu">
+                        <a class="waves-effect waves-light btn detect-history"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="input-field col s6 l6 history_path">
                         <input class="value" id="historyPath" type="text"/>
                         <label for="historyPath" class="translate">History data path</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="translate">Backup of all stored data of the history adapter</div>
                     </div>
                 </div>
             </div>
@@ -1216,12 +1175,6 @@
                         <input class="value" id="cifsMinimalDir" type="text">
                         <label for="cifsMinimalDir" class="translate">Path for iobroker backup</label>
                     </div>
-                    <!--
-                    <div class="input-field col s12 m6 l4">
-                        <input class="value" id="cifsTotalDir" type="text">
-                        <label for="cifsTotalDir" class="translate">Path for complete backup</label>
-                    </div>
-                    -->
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="cifsCcuDir" type="text">
                         <label for="cifsCcuDir" class="translate">Path for CCU backup</label>
@@ -1273,12 +1226,6 @@
                         <input class="value" id="ftpMinimalDir" type="text">
                         <label for="ftpMinimalDir" class="translate">Path for iobroker backup</label>
                     </div>
-                    <!--
-                    <div class="input-field col s12 m6 l4">
-                        <input class="value" id="ftpTotalDir" type="text">
-                        <label for="ftpTotalDir" class="translate">Path for complete backup</label>
-                    </div>
-                    -->
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ftpCcuDir" type="text">
                         <label for="ftpCcuDir" class="translate">Path for CCU backup</label>
@@ -1316,12 +1263,6 @@
                         <input class="value" id="dropboxMinimalDir" type="text">
                         <label for="dropboxMinimalDir" class="translate">Dropbox Path for iobroker backup</label>
                     </div>
-                    <!--
-                    <div class="input-field col s12 m6 l4">
-                        <input class="value" id="dropboxTotalDir" type="text">
-                        <label for="dropboxTotalDir" class="translate">Dropbox Path for complete backup</label>
-                    </div>
-                    -->
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="dropboxCcuDir" type="text">
                         <label for="dropboxCcuDir" class="translate">Dropbox Path for CCU backup</label>
@@ -1369,12 +1310,6 @@
                         <input class="value" id="googledriveMinimalDir" type="text">
                         <label for="googledriveMinimalDir" class="translate">Google Drive Path for iobroker backup</label>
                     </div>
-                    <!--
-                    <div class="input-field col s12 m6 l4">
-                        <input class="value" id="googledriveTotalDir" type="text">
-                        <label for="googledriveTotalDir" class="translate">Google Drive Path for complete backup</label>
-                    </div>
-                    -->
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="googledriveCcuDir" type="text">
                         <label for="googledriveCcuDir" class="translate">Google Drive Path for CCU backup</label>
@@ -1401,21 +1336,19 @@
 						</select>
 						<label for="restoreSource" class="translate">source type</label>
                     </div>
-                    <!--
-                    <div class="input-field col s11 m2 bkpType">
-						<select class="value" id="restoreType">
-						<option value="iobroker" class="translate">iobroker</option>
-						<option value="Total" class="translate">Total</option>
-						</select>
-						<label for="restoreType" class="translate">restore type</label>
-                    </div>
-                    -->
                     <div class="input-field col s6 m2">
                         <a class="waves-effect waves-light btn btn-iobroker do-list"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
                     </div>
                     <div class="input-field col s6 l3">
                         <input class="value" id="startAllRestore" type="checkbox"/>
                         <label for="startAllRestore" class="translate">start all adapter after restore</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card-panel grey">
+                            <span class="white-text translate">Please save all changes in the adapter settings before retrieving the individual backups!!</span>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
