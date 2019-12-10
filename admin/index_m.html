@@ -366,6 +366,10 @@
                         socket.emit('subscribeStates',  'system.adapter.backitup.' + instance + '.alive');
                     });
                     $('.do-list').removeClass('disabled').on('click', function () {
+                        if (changed) {
+                            showError(_('Save the configuration first'));
+                            return;
+                        }
                         $('.do-list').addClass('disabled');
                         $('#tab-restore').find('.root').html('');
                         sendTo(null, 'list', $('#restoreSource').val(), function (result) {
