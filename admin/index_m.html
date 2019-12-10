@@ -92,11 +92,11 @@
                         var common = res.rows[0].value.common;
                         var native = res.rows[i].value.native;
                         if (common.enabled && native.dbtype === 'mysql') {
-                            $('#mySqlUser').val(native.user);
-                            $('#mySqlPassword').val(native.password);
-                            $('#mySqlHost').val(native.host);
-                            $('#mySqlPort').val(native.port === '0' ? 3306 : native.port || 3306);
-                            $('#mySqlName').val(native.dbname);
+                            $('#mySqlUser').val(native.user).trigger('change');
+                            $('#mySqlPassword').val(native.password).trigger('change');
+                            $('#mySqlHost').val(native.host).trigger('change');
+                            $('#mySqlPort').val(native.port === '0' ? 3306 : native.port || 3306).trigger('change');
+                            $('#mySqlName').val(native.dbname).trigger('change');
                             var id = res.rows[i].value.
                             found = res.rows[i].value._id;
                             break;
@@ -106,11 +106,11 @@
                         for (var j = 0; j < res.rows.length; j++) {
                             var _native = res.rows[j].value.native;
                             if (_native.dbtype === 'mysql') {
-                                $('#mySqlUser').val(_native.user);
-                                $('#mySqlPassword').val(_native.password);
-                                $('#mySqlHost').val(_native.host);
-                                $('#mySqlName').val(_native.dbname);
-                                $('#mySqlPort').val(_native.port === '0' ? 3306 : native.port || 3306);
+                                $('#mySqlUser').val(_native.user).trigger('change');
+                                $('#mySqlPassword').val(_native.password).trigger('change');
+                                $('#mySqlHost').val(_native.host).trigger('change');
+                                $('#mySqlName').val(_native.dbname).trigger('change');
+                                $('#mySqlPort').val(_native.port === '0' ? 3306 : native.port || 3306).trigger('change');
                                 found = res.rows[j].value._id;
                                 break;
                             }
@@ -134,7 +134,7 @@
                         var common = res.rows[i].value.common;
                         if (common.enabled) {
                             var native = res.rows[i].value.native;
-                            $('#ccuHost').val(native.homematicAddress);
+                            $('#ccuHost').val(native.homematicAddress).trigger('change');
                             found = res.rows[i].value._id;
                             break;
                         }
@@ -142,7 +142,7 @@
                     if (!found) {
                         for (var j = 0; j < res.rows.length; j++) {
                             var _native = res.rows[j].value.native;
-                            $('#ccuHost').val(_native.homematicAddress);
+                            $('#ccuHost').val(_native.homematicAddress).trigger('change');
                             found = res.rows[j].value._id;
                         }
                     }
