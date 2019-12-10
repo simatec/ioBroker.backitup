@@ -367,7 +367,7 @@
                     });
                     $('.do-list').removeClass('disabled').on('click', function () {
                         if (changed) {
-                            showError(_('Save the configuration first'));
+                            showMessage(_('Save the configuration first'));
                             return;
                         }
                         $('.do-list').addClass('disabled');
@@ -1346,13 +1346,6 @@
                     <div class="input-field col s6 l3">
                         <input class="value" id="startAllRestore" type="checkbox"/>
                         <label for="startAllRestore" class="translate">start all adapter after restore</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <div class="card-panel grey">
-                            <span class="white-text translate">Please save all changes in the adapter settings before retrieving the individual backups!!</span>
-                        </div>
                     </div>
                 </div>
                 <div class="row">
