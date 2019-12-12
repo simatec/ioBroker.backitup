@@ -289,6 +289,7 @@ function initConfig(secret) {
         type: 'storage',
         source: adapter.config.restoreSource,
         host: adapter.config.ftpHost,                       // ftp-host
+        debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.ftpDeleteOldBackup, // Delete old Backups from FTP
         ownDir: adapter.config.ftpOwnDir,
         bkpType: adapter.config.restoreType,
@@ -303,6 +304,7 @@ function initConfig(secret) {
         enabled: adapter.config.dropboxEnabled,
         type: 'storage',
         source: adapter.config.restoreSource,
+        debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.dropboxDeleteOldBackup, // Delete old Backups from Dropbox
         accessToken: adapter.config.dropboxAccessToken,
         ownDir: adapter.config.dropboxOwnDir,
@@ -315,6 +317,7 @@ function initConfig(secret) {
         enabled: adapter.config.googledriveEnabled,
         type: 'storage',
         source: adapter.config.restoreSource,
+        debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.googledriveDeleteOldBackup, // Delete old Backups from google drive
         accessJson: adapter.config.googledriveAccessJson,
         ownDir: adapter.config.googledriveOwnDir,
@@ -329,6 +332,7 @@ function initConfig(secret) {
         type: 'storage',
         source: adapter.config.restoreSource,
         mount: adapter.config.cifsMount,
+        debugging: adapter.config.debugLevel,
         fileDir: __dirname,
         wakeOnLAN: adapter.config.wakeOnLAN,
         macAd: adapter.config.macAd,
@@ -341,7 +345,7 @@ function initConfig(secret) {
         dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                       // specify if CIFS mount should be used
         dirMinimal: adapter.config.cifsMinimalDir,
         user: adapter.config.cifsUser,                     // specify if CIFS mount should be used
-        pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for FTP Server
+        pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for NAS Server
     };
 
     // TODO: Not used anywere
