@@ -26,11 +26,17 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 ## Changelog
 
-### 1.3.3 (08.12.2019)
+### 1.3.3 (14.12.2019)
 * (simatec) Fix Webinterface for Restore
 * (simatec) Fix MySql Backup
 * (simatec) Added some debug logs for Restore
 * (simatec) some Bug Fix
+* (simatec) Messagebox for restore list
+* (simatec) hide password on log
+* (simatec) Added password hiding
+* (simatec) Clean Code
+* (simatec) detected hitory path
+* (simatec) Fix deteced
 
 ### 1.3.2 (04.12.2019)
 * (simatec) Add Webinterface for Restore

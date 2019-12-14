@@ -4,15 +4,15 @@
     "version": "1.3.3",
     "news": {
       "1.3.3": {
-        "en": "Fix Webinterface for Restore; Fix MySql Backup; Added some debug logs for Restore; some Bug Fix",
-        "de": "Fix Webinterface für Restore; Fix MySQL Backup; Einige Debug-Protokolle für Restore hinzugefügt; einige Bugfixes",
-        "ru": "Исправить веб-интерфейс для восстановления; Исправить MySql Backup; Добавлены некоторые журналы отладки для Restore; исправление некоторых ошибок",
-        "pt": "Corrija o Webinterface para restauração; Corrigir o backup do MySql; Adicionados alguns logs de depuração para restauração; alguma correção de bug",
-        "nl": "Herstel webinterface voor herstel; Fix MySql Backup; Enkele foutopsporingslogboeken toegevoegd voor Herstellen; een aantal bugfixes",
-        "fr": "Correction de l'interface Web pour la restauration; Fix MySql Backup; Ajout de quelques journaux de débogage pour la restauration; une correction de bogue",
-        "it": "Correggi l'interfaccia Web per il ripristino; Correggi backup MySql; Aggiunti alcuni log di debug per Restore; qualche correzione di bug",
-        "es": "Arreglar Webinterface para Restaurar; Fix MySql Backup; Se agregaron algunos registros de depuración para Restaurar; algunas correcciones de errores",
-        "pl": "Napraw interfejs WWW dla przywracania; Napraw MySql Backup; Dodano niektóre dzienniki debugowania dla Przywracania; niektóre poprawki błędów"
+        "en": "Fix Webinterface for Restore; Fix MySql Backup; Added some debug logs for Restore; some Bug Fix; Messagebox for restore list; hide password on log; Added password hiding; Clean Code; auto-detected for history path; Fix auto-deteced",
+        "de": "Fix Webinterface für Restore; Fix MySQL Backup; Einige Debug-Protokolle für Restore hinzugefügt; einige Bugfixes; Messagebox für Wiederherstellungsliste; Passwort im Log ausblenden; Passwort ausblenden hinzugefügt; Code bereinigen; automatisch ausfüllen für history backup; Fix automatisch ausfüllen",
+        "ru": "Исправить веб-интерфейс для восстановления; Исправить MySql Backup; Добавлены некоторые журналы отладки для Restore; исправление некоторых ошибок; Окно сообщения для восстановления списка; скрыть пароль в журнале; Добавлено скрытие пароля; Чистый код; автоматически определяется для истории пути; Исправить автоопределение",
+        "pt": "Corrija o Webinterface para restauração; Corrigir o backup do MySql; Adicionados alguns logs de depuração para restauração; alguma correção de bug; Messagebox para lista de restauração; ocultar senha no log; Ocultar senha adicionada; Código Limpo; detectado automaticamente para o caminho do histórico; Corrigir detecção automática",
+        "nl": "Herstel webinterface voor herstel; Fix MySql Backup; Enkele foutopsporingslogboeken toegevoegd voor Herstellen; een aantal bugfixes; Berichtenbox voor herstellijst; wachtwoord verbergen op logboek; Toegevoegd wachtwoord verbergen; Schone code; automatisch gedetecteerd voor geschiedenispad; Herstel automatisch gedetecteerd",
+        "fr": "Correction de l'interface Web pour la restauration; Fix MySql Backup; Ajout de quelques journaux de débogage pour la restauration; une correction de bogue; Boîte de message pour la liste de restauration; cacher le mot de passe dans le journal; Ajout du masquage du mot de passe; Code propre; auto-détecté pour le chemin de l'historique; Correction auto-détectée",
+        "it": "Fix Webinterface for Restore; Correggi backup MySql; Aggiunti alcuni log di debug per Restore; qualche correzione di bug; Messagebox per l'elenco di ripristino; nascondi password nel registro; Aggiunto nascondiglio password; Codice pulito; rilevato automaticamente per il percorso della cronologia; Correzione rilevata automaticamente",
+        "es": "Arreglar Webinterface para Restaurar; Fix MySql Backup; Se agregaron algunos registros de depuración para Restaurar; algunas correcciones de errores; Cuadro de mensaje para la lista de restauración; ocultar contraseña en el registro; Se agregó contraseña oculta; Código limpio; autodetectado para la ruta del historial; Fix auto-detectado",
+        "pl": "Napraw interfejs WWW dla przywracania; Napraw MySql Backup; Dodano niektóre dzienniki debugowania dla Przywracania; niektóre poprawki błędów; Skrzynka wiadomości dla listy przywracania; ukryj hasło w logu; Dodano ukrywanie hasła; Czysty kod; automatycznie wykrywane dla ścieżki historii; Napraw automatyczne wykrywanie"
       },
       "1.3.2": {
         "en": "Added Webinterface for Restore; Bug fix",
