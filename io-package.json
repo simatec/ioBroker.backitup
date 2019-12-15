@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.3.3",
+    "version": "1.3.4",
     "news": {
+      "1.3.4": {
+        "en": "Fix hide passwords",
+        "de": "Versteckte Passwörter korrigieren",
+        "ru": "Исправить скрытие паролей",
+        "pt": "Corrigir ocultar senhas",
+        "nl": "Herstel wachtwoorden",
+        "fr": "Correction de masquer les mots de passe",
+        "it": "Correggi le password nascoste",
+        "es": "Repara ocultar contraseñas",
+        "pl": "Napraw ukryte hasła"
+      },
       "1.3.3": {
         "en": "Fix Webinterface for Restore; Fix MySql Backup; Added some debug logs for Restore; some Bug Fix; Messagebox for restore list; hide password on log; Added password hiding; Clean Code; auto-detected for history path; Fix auto-deteced",
         "de": "Fix Webinterface für Restore; Fix MySQL Backup; Einige Debug-Protokolle für Restore hinzugefügt; einige Bugfixes; Messagebox für Wiederherstellungsliste; Passwort im Log ausblenden; Passwort ausblenden hinzugefügt; Code bereinigen; automatisch ausfüllen für history backup; Fix automatisch ausfüllen",
