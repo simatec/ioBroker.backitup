@@ -5,6 +5,10 @@
 ![Number of Installations](http://iobroker.live/badges/backitup-stable.svg)
 [![NPM version](http://img.shields.io/npm/v/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
+[![Dependency Status](https://img.shields.io/david/simatec/iobroker.backitup.svg)](https://david-dm.org/simatec/iobroker.backitup)
+[![Known Vulnerabilities](https://snyk.io/test/github/simatec/ioBroker.backitup/badge.svg)](https://snyk.io/test/github/simatec/ioBroker.backitup)
+[![Travis-CI](http://img.shields.io/travis/simatec/ioBroker.backitup/master.svg)](https://travis-ci.org/simatec/ioBroker.backitup)
+
 [![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
 
 
@@ -26,6 +30,9 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 ## Changelog
 
+### 1.3.5 (17.12.2019)
+* (simatec) Fix compact-mode for history
+
 ### 1.3.4 (15.12.2019)
 * (simatec) Fix hide passwords
 
@@ -38,7 +45,7 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 * (simatec) hide password on log
 * (simatec) Added password hiding
 * (simatec) Clean Code
-* (simatec) detected hitory path
+* (simatec) detected history path
 * (simatec) Fix deteced
 
 ### 1.3.2 (04.12.2019)

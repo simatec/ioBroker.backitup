@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.3.4",
+    "version": "1.3.5",
     "news": {
+      "1.3.5": {
+        "en": "Fix compact-mode for history",
+        "de": "Fix Kompaktmodus für die Historie",
+        "ru": "Исправлен компактный режим для истории",
+        "pt": "Corrija o modo compacto para o histórico",
+        "nl": "Fix compact-mode voor geschiedenis",
+        "fr": "Correction du mode compact pour l'historique",
+        "it": "Correzione della modalità compatta per la cronologia",
+        "es": "Repara el modo compacto para el historial",
+        "pl": "Napraw tryb kompaktowy dla historii"
+      },
       "1.3.4": {
         "en": "Fix hide passwords",
         "de": "Versteckte Passwörter korrigieren",
