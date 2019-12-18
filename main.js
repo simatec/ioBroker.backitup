@@ -75,9 +75,9 @@ function startAdapter(options) {
                         adapter.getState('output.line', (err, state) => {
                             if (state.val === '[EXIT] 0') {
                                 adapter.setState('history.' + type + 'Success', true, true);
-                                adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
+                                adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang), true);
                             } else {
-                                adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang));
+                                adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
                                 adapter.setState('history.' + type + 'Success', false, true);
                             }
 
@@ -208,9 +208,9 @@ function createBackupSchedule() {
                         adapter.getState('output.line', (err, state) => {
                             if (state.val === '[EXIT] 0') {
                                 adapter.setState('history.' + type + 'Success', true, true);
-                                adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang));
+                                adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang), true);
                             } else {
-                                adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang));
+                                adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
                                 adapter.setState('history.' + type + 'Success', false, true);
                             }
                         }), 500);
