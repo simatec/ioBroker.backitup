@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.3.5",
+    "version": "1.3.6",
     "news": {
+      "1.3.6": {
+        "en": "Fix historyList for compact-mode; Added ack for history states",
+        "de": "Fix historyList für den Kompaktmodus; Ack für History-Zustände hinzugefügt",
+        "ru": "Исправить historyList для компактного режима; Добавлено подтверждение истории состояний",
+        "pt": "Corrija o historyList para o modo compacto; Adicionada confirmação para estados históricos",
+        "nl": "Geschiedenislijst repareren voor compacte modus; Ack toegevoegd voor geschiedenisstaten",
+        "fr": "Correction de historyList pour le mode compact; Ack ajouté pour les états d'historique",
+        "it": "Elenco cronologia correzioni per modalità compatta; Aggiunto ack per gli stati della storia",
+        "es": "Arreglar historyList para modo compacto; Ack agregado para estados de historia",
+        "pl": "Fix historyList dla trybu kompaktowego; Dodano potwierdzenie dla stanów historii"
+      },
       "1.3.5": {
         "en": "Fix compact-mode for history",
         "de": "Fix Kompaktmodus für die Historie",
@@ -68,39 +79,6 @@
         "it": "fine supporto per il backup totale; Aggiunto backup del percorso dati cronologici; Aggiunto avvio di tutti gli adattatori dopo il ripristino; Revisione del restauro per Redis; revisione dei problemi di registro; Ricostruire i processi di avvio / arresto in Unix; Ricostruzione dei processi di avvio / arresto in Windows; nuove traduzioni; adeguamenti al nuovo Windows Installer; adattamenti al nuovo installer di Linux; risolti alcuni piccoli bug",
         "es": "fin de soporte para la copia de seguridad total; Copia de seguridad adicional de la ruta de datos del historial Inicio agregado de todos los adaptadores después de la restauración; Revisión de la restauración de Redis; revisión de problemas de registro; Reconstruya los procesos de inicio / detención en Unix; Reconstrucción de los procesos de inicio / detención en Windows; nuevas traducciones; ajustes al nuevo instalador de Windows; ajustes al nuevo instalador de Linux; arreglado algunos errores pequeños",
         "pl": "koniec wsparcia dla całkowitej kopii zapasowej; Dodano kopię zapasową ścieżki danych historii; Dodano uruchomienie wszystkich adapterów po przywróceniu; Rewizja przywrócenia dla Redis; korekta problemów z logami; Przebuduj procesy start / stop w systemie Unix; Przebudowa procesów start / stop w systemie Windows; nowe tłumaczenia; zmiany w nowym Instalatorze Windows; zmiany w nowym instalatorze Linux; naprawiono kilka drobnych błędów"
-      },
-      "1.2.2": {
-        "en": "Fix update process",
-        "de": "Updatevorgang korrigieren",
-        "ru": "Исправить процесс обновления",
-        "pt": "Corrigir processo de atualização",
-        "nl": "Update-proces repareren",
-        "fr": "Correction du processus de mise à jour",
-        "it": "Correggi processo di aggiornamento",
-        "es": "Reparar proceso de actualización",
-        "pl": "Napraw proces aktualizacji"
-      },
-      "1.2.1": {
-        "en": "Fix CIFS password with special characters",
-        "de": "Fix CIFS-Passwort mit Sonderzeichen",
-        "ru": "Исправить пароль CIFS с помощью специальных символов",
-        "pt": "Corrija a senha do CIFS com caracteres especiais",
-        "nl": "Bevestig het CIFS-wachtwoord met speciale tekens",
-        "fr": "Correction du mot de passe CIFS avec des caractères spéciaux",
-        "it": "Correggi la password CIFS con caratteri speciali",
-        "es": "Corregir contraseña CIFS con caracteres especiales",
-        "pl": "Napraw hasło CIFS za pomocą znaków specjalnych"
-      },
-      "1.2.0": {
-        "en": "Google Drive was added",
-        "de": "Google Drive wurde hinzugefügt",
-        "ru": "Google Drive был добавлен",
-        "pt": "O Google Drive foi adicionado",
-        "nl": "Google Drive is toegevoegd",
-        "fr": "Google Drive a été ajouté",
-        "it": "Google Drive è stato aggiunto",
-        "es": "Google Drive fue agregado",
-        "pl": "Dysk Google został dodany"
       }
     },
     "title": "BackItUp",
