@@ -1,6 +1,6 @@
 {
   "name": "iobroker.backitup",
-  "version": "1.3.6",
+  "version": "1.4.0",
   "engines": {
     "node": ">=8.0.0"
   },
@@ -37,22 +37,22 @@
     "url": "https://github.com/simatec/ioBroker.backitup"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^1.0.3",
-    "dropbox-v2-api": "^2.4.9",
+    "@iobroker/adapter-core": "^2.2.1",
+    "dropbox-v2-api": "^2.4.12",
     "ftp": "^0.3.10",
-    "googleapis": "^46.0.0",
+    "googleapis": "^47.0.0",
     "node-schedule": "^1.3.2",
     "node-wol": "^0.1.1",
-    "request": "^2.88.0",
+    "request": "^2.88.2",
     "targz": "^1.0.1",
-    "google-auth-library": "^5.5.1",
+    "google-auth-library": "^5.10.0",
     "express": "^4.17.1"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
-    "mocha": "^6.2.2",
+    "mocha": "^7.0.1",
     "chai": "^4.2.0",
-    "@iobroker/testing": "^1.3.0"
+    "@iobroker/testing": "^2.0.2"
   },
   "main": "main.js",
   "scripts": {

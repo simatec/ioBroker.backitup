@@ -214,6 +214,7 @@ function createBackupSchedule() {
                                 adapter.setState('history.' + type + 'Success', false, true);
                             }
                         }), 500);
+                    nextBackup(0, false, type);
                     adapter.setState('oneClick.' + type, false, true);
                 });
             });
@@ -339,6 +340,7 @@ function initConfig(secret) {
         wolTime: adapter.config.wolWait,
         smb: adapter.config.smbType,
         sudo: adapter.config.sudoMount,
+        cifsDomain: adapter.config.cifsDomain,
         deleteOldBackup: adapter.config.cifsDeleteOldBackup, //Delete old Backups from Network Disk
         ownDir: adapter.config.cifsOwnDir,
         bkpType: adapter.config.restoreType,
@@ -356,6 +358,9 @@ function initConfig(secret) {
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
         googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
+        nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+        mysqlQuick: adapter.config.mysqlQuick,
+        mysqlSingleTransaction: adapter.config.mysqlSingleTransaction,
         dbName: adapter.config.mySqlName,              // database name
         user: adapter.config.mySqlUser,                // database user
         pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
@@ -386,6 +391,9 @@ function initConfig(secret) {
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
             dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
+            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            mysqlQuick: adapter.config.mysqlQuick,
+            mysqlSingleTransaction: adapter.config.mysqlSingleTransaction,
             dbName: adapter.config.mySqlName,              // database name
             user: adapter.config.mySqlUser,                // database user
             pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
@@ -708,6 +716,33 @@ function delOldObjects () {
         }
     });
 }
+function nextBackup(diffDays, setMain, type, date) {
+    date = date || new Date();
+
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let currentTime = (hours + ':' + minutes);
+
+    if (adapter.config.ccuEnabled == true && setMain == true || type == 'ccu') {
+        if (adapter.config.ccuTime < currentTime) {
+            diffDays = 0;
+        }
+        let everyXDays = (parseFloat(adapter.config.ccuEveryXDays) - diffDays);
+        adapter.setState(`info.ccuNextTime`, tools.getNextTimeString(systemLang, adapter.config.ccuTime, parseFloat(everyXDays)), true);
+        diffDays = 1;
+    } else if (adapter.config.ccuEnabled == false) {
+        adapter.setState(`info.ccuNextTime`, 'none', true);
+    }
+    if (adapter.config.minimalEnabled == true && setMain == true || type == 'iobroker') {
+        if (adapter.config.minimalTime < currentTime) {
+            diffDays = 0;
+        }
+        let everyXDays = (parseFloat(adapter.config.minimalEveryXDays) - diffDays);
+        adapter.setState(`info.iobrokerNextTime`, tools.getNextTimeString(systemLang, adapter.config.minimalTime, parseFloat(everyXDays)), true);
+    } else if (adapter.config.minimalEnabled == false) {
+        adapter.setState(`info.iobrokerNextTime`, 'none', true);
+    }
+}
 
 function main(adapter) {
     createBashScripts();
@@ -729,6 +764,7 @@ function main(adapter) {
         checkStates();
 
         createBackupSchedule();
+        nextBackup(1, true, null);
 
         detectLatestBackupFile(adapter);
     });
