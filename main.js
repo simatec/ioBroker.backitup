@@ -178,6 +178,11 @@ function checkStates() {
             adapter.setState('history.iobrokerSuccess', {val: false, ack: true});
         }
     });
+    adapter.getState('history.json', (err, state) => {
+        if (state === null || state.val === null) {
+            adapter.setState('history.json', {val: '[]', ack: true});
+        }
+    });
 }
 
 // function to create Backup schedules (Backup time)

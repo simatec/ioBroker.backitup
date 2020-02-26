@@ -276,6 +276,19 @@
       "native": {}
     },
     {
+      "_id": "history.json",
+      "type": "state",
+      "common": {
+        "role": "json",
+        "name": "History-Log of executed backups",
+        "type": "object",
+        "read": true,
+        "write": false,
+        "def": "[]"
+      },
+      "native": {}
+    },
+    {
       "_id": "history.ccuLastTime",
       "type": "state",
       "common": {
