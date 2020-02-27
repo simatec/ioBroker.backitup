@@ -4,15 +4,15 @@
     "version": "1.4.0",
     "news": {
       "1.4.0": {
-        "en": "Add next Backup Time; Add Name Suffix for mysql Backup; Add more Options for mysql; Add domain support for cifs",
-        "de": "Nächste Sicherungszeit hinzugefügt; Namenssuffix für MySQL-Backup hinzugefügt; Weitere Optionen für MySQL hinzugefügt; Domain-Unterstützung für CIFS hinzugefügt",
-        "ru": "Добавить следующее время резервного копирования; Добавить суффикс имени для MySQL Backup; Добавить дополнительные параметры для MySQL; Добавить поддержку домена для cifs",
-        "pt": "Adicione o próximo horário de backup; Adicionar sufixo de nome para backup do mysql; Adicione mais opções para o mysql; Adicionar suporte de domínio para cifs",
-        "nl": "Voeg de volgende back-uptijd toe; Naamsuffix toevoegen voor MySQL-back-up; Voeg meer opties toe voor mysql; Domeinondersteuning toevoegen voor cif's",
-        "fr": "Ajouter la prochaine heure de sauvegarde; Ajouter le suffixe de nom pour la sauvegarde mysql; Ajouter plus d'options pour mysql; Ajouter un support de domaine pour les cifs",
-        "it": "Aggiungi tempo di backup successivo; Aggiungi nome Suffix per mysql Backup; Aggiungi più opzioni per mysql; Aggiungi il supporto del dominio per cifs",
-        "es": "Agregar el siguiente tiempo de respaldo; Agregar sufijo de nombre para mysql Backup; Agregue más opciones para mysql; Agregar soporte de dominio para cifs",
-        "pl": "Dodaj następny czas tworzenia kopii zapasowej; Dodaj sufiks nazwy dla kopii zapasowej mysql; Dodaj więcej opcji dla mysql; Dodaj obsługę domen dla CIF"
+        "en": "added next Backup Time; added Name Suffix for mysql Backup; added more Options for mysql; added domain support for cifs; added json historystate",
+        "de": "nächste Backup-Zeit hinzugefügt; Namenssuffix für MySQL-Backup hinzugefügt; weitere Optionen für MySQL hinzugefügt; Domain-Unterstützung für CIFS hinzugefügt; json historystate hinzugefügt",
+        "ru": "добавлено следующее время резервного копирования; добавлен суффикс имени для резервного копирования MySQL; добавлены дополнительные параметры для mysql; добавлена поддержка домена для cifs; добавлено историческое состояние JSON",
+        "pt": "adicionado próximo tempo de backup; adicionado sufixo de nome para backup do mysql; adicionou mais opções para o mysql; adicionado suporte de domínio para CIFs; json historystate adicionado",
+        "nl": "volgende back-uptijd toegevoegd; Naam Suffix voor mysql Backup toegevoegd; meer opties toegevoegd voor mysql; domein ondersteuning toegevoegd voor cifs; json historystate toegevoegd",
+        "fr": "ajouté la prochaine heure de sauvegarde; ajout du suffixe de nom pour la sauvegarde mysql; ajouté plus d'options pour mysql; ajout du support de domaine pour les cifs; a ajouté json historystate",
+        "it": "aggiunto il tempo di backup successivo; aggiunto Suffisso nome per il backup mysql; aggiunte altre opzioni per mysql; aggiunto supporto dominio per cifs; aggiunto stato storico json",
+        "es": "se agregó el siguiente tiempo de respaldo; Sufijo de nombre agregado para MySQL Backup; se agregaron más opciones para mysql; soporte de dominio agregado para cifs; agregado json historystate",
+        "pl": "dodano następny Czas tworzenia kopii zapasowej; dodano sufiks nazwy dla kopii zapasowej mysql; dodano więcej opcji dla mysql; dodano obsługę domen dla CIF; dodano historystate json"
       },
       "1.3.6": {
         "en": "Fix historyList for compact-mode; Added ack for history states",
