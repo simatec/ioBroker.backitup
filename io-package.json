@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "news": {
+      "1.4.1": {
+        "en": "json historystate with more options",
+        "de": "json historystate mit mehr Optionen",
+        "ru": "JSON Historystate с большим количеством опций",
+        "pt": "json historystate com mais opções",
+        "nl": "json historystate met meer opties",
+        "fr": "json historystate avec plus d'options",
+        "it": "json historystate con più opzioni",
+        "es": "json historystate con más opciones",
+        "pl": "json historystate z większą liczbą opcji"
+      },
       "1.4.0": {
         "en": "added next Backup Time; added Name Suffix for mysql Backup; added more Options for mysql; added domain support for cifs; added json historystate",
         "de": "nächste Backup-Zeit hinzugefügt; Namenssuffix für MySQL-Backup hinzugefügt; weitere Optionen für MySQL hinzugefügt; Domain-Unterstützung für CIFS hinzugefügt; json historystate hinzugefügt",
