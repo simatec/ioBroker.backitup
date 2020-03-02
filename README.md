@@ -30,6 +30,9 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 ## Changelog
 
+### 1.4.1 (02.03.2020)
+* (simatec) json historystate with more options
+
 ### 1.4.0 (27.02.2020)
 * (simatec) added next Backup Time
 * (simatec) added Name Suffix for mysql Backup
@@ -298,7 +301,7 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 
 The MIT License (MIT)
 
-Copyright (c) 2018 - 2019 simatec <nais@gmx.net>
+Copyright (c) 2018 - 2020 simatec
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
