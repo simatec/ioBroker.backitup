@@ -691,7 +691,17 @@
                 $('.email').hide();
             }
             }).trigger('change');
-
+ //SQLConnectiontType
+           $('#SqlConectionType').on('change', function () {
+            if ($(this).val() === 'MySQL') {
+                $('.PostgesSQL').hide();
+                $('.MySQL').hide();
+            } else if ($(this).val() === 'PostgesSQL') {
+                $('.PostgesSQL').show();
+                $('.MySQL').hide();
+            } 
+            }).trigger('change');		
+ //SQLConnectiontType	
             if ($('#notificationEnabled').prop('checked')) {
                 $('.tab-notification').removeClass('disabled');
             } else {
