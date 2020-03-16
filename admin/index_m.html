@@ -661,8 +661,9 @@
                 $('.copy').hide();
             }
             }).trigger('change');
-//SQLConnectionType
-	    $('#SQLConnectionType').on('change', function () {
+
+		//SQLConnectionType
+	    $('#SqlConnectionType').on('change', function () {
             if ($(this).val() === 'MySQL') {
                 $('.pgsql').hide();
                 $('.mysql').show();
@@ -672,7 +673,8 @@
             } 
             }).trigger('change');
 //SQLConnectionType		
-            $('#restoreSource').on('change', function () {
+
+		$('#restoreSource').on('change', function () {
                 if ($(this).val() === 'cifs' && $('#cifsOwnDir').prop('checked')) {
                     $('.bkpType').show();
                 } else if ($(this).val() === 'ftp' && $('#ftpOwnDir').prop('checked')) {
@@ -701,17 +703,7 @@
                 $('.email').hide();
             }
             }).trigger('change');
- //SQLConnectiontType
-           $('#SqlConectionType').on('change', function () {
-            if ($(this).val() === 'MySQL') {
-                $('.PostgesSQL').hide();
-                $('.MySQL').hide();
-            } else if ($(this).val() === 'PostgesSQL') {
-                $('.PostgesSQL').show();
-                $('.MySQL').hide();
-            } 
-            }).trigger('change');		
- //SQLConnectiontType	
+
             if ($('#notificationEnabled').prop('checked')) {
                 $('.tab-notification').removeClass('disabled');
             } else {
@@ -941,7 +933,7 @@
                         <option value="PostgesSQL" class="translate">PostgesSQL</option>
                        
                         </select>
-                        <label for="SqlConectionType" class="translate">SqlConection type</label>
+                        <label for="SqlConnectionType" class="translate">Sql Conection type</label>
                     </div>
 		<!-- Selectl SQL type-->
                 
