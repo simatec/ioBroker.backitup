@@ -634,8 +634,10 @@
             }
             if ($('#mySqlEnabled').prop('checked')) {
                 $('.mysql').show();
+		$('.pgsql').hide();  //Postgres  
             } else {
                 $('.mysql').hide();
+		$('.pgsql').hide();  //Postgres  
             }
             var minimal = $('#minimalEnabled').prop('checked');
             if (minimal) {
@@ -662,7 +664,7 @@
             }
             }).trigger('change');
 
-		//SQLConnectionType
+//SQLConnectionType
 	    $('#SqlConnectionType').on('change', function () {
             if ($(this).val() === 'MySQL') {
                 $('.pgsql').hide();
@@ -928,12 +930,12 @@
 		    <div class="row mysql">
 		<!-- Selectl SQL type-->
 		    <div class="input-field col s11 m2">
-                        <select class="value" id="SqlConectionType">
+                        <select class="value" id="SqlConnectionType">
                         <option value="MySQL" class="translate">MySQL</option>
                         <option value="PostgesSQL" class="translate">PostgesSQL</option>
                        
                         </select>
-                        <label for="SqlConnectionType" class="translate">Sql Conection type</label>
+                        <label for="SqlConnectionType" class="translate">Sql Connection type</label>
                     </div>
 		<!-- Selectl SQL type-->
                 
