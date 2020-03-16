@@ -102,6 +102,18 @@
                             break;
                         }
                     }
+			//PostgreSql
+			 if (common.enabled && native.dbtype === 'postgresql') {
+                            $('#pgSqlUser').val(native.user).trigger('change');
+                            $('#pgSqlPassword').val(native.password).trigger('change');
+                            $('#pgSqlHost').val(native.host).trigger('change');
+                            $('#pgSqlPort').val(native.port === '0' ? 5432 : native.port || 5432).trigger('change');
+                            $('#pgSqlName').val(native.dbname).trigger('change');
+                            var id = res.rows[i].value.
+                            found = res.rows[i].value._id;
+                            break;
+                        }
+			//PostgreSql
                     if (!found) {
                         for (var j = 0; j < res.rows.length; j++) {
                             var _native = res.rows[j].value.native;
@@ -270,7 +282,7 @@
                     });
                 } else {
                     var val = settings[id];
-                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword') {
+                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword'|| id === 'pgSqlPassword') {
                         val = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
                     }
                     // do not call onChange direct, because onChange could expect some arguments
@@ -515,7 +527,7 @@
                 fetchHistoryConfig(true);
             }
             if (!settings.mySqlUser) {
-                fetchMySqlConfig(true)
+                fetchMySqlConfig(true);
             }
             $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
@@ -558,7 +570,7 @@
                     obj[id] = $this.prop('checked');
                 } else {
                     var val = $this.val();
-                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword') {
+                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' ||id === 'pgSqlPassword') {
                         val = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
                     }
                     obj[id] = val;
@@ -789,7 +801,7 @@
                 <div class="row">
                     <div class="input-field col s6 l3 ">
                         <input class="value" id="mySqlEnabled" type="checkbox"/>
-                        <label for="mySqlEnabled" class="translate">MySql Backup</label>
+                        <label for="mySqlEnabled" class="translate">DB Sql Backup</label>
                     </div>
                     <div class="input-field col s6 l3">
                         <input class="value" id="redisEnabled" type="checkbox"/>
@@ -926,10 +938,10 @@
             <!-- Mysql Backup -->
             <div id="tab-my-sql" class="col s12 page">
                 <div class="row">
-			<!--  <div class="input-field col s6 l3 mysql">
+			<div class="input-field col s6 l3">
                   <a class="waves-effect waves-light btn detect-mysql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
-     		 </div>
-		-->
+     			 </div>
+		
 	    </div>	
 	<div class="row">
 		<!-- Selectl SQL type-->
