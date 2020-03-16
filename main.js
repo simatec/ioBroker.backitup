@@ -376,7 +376,7 @@ function initConfig(secret) {
     };
 // Postgress SQL
 	 const pgsql = {
-        enabled: adapter.config.pgSqlEnabled === undefined ? true : adapter.config.pgSqlEnabled,
+        enabled: adapter.config.myySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
         type: 'creator',
         ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
