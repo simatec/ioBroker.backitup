@@ -661,7 +661,17 @@
                 $('.copy').hide();
             }
             }).trigger('change');
-
+//SQLConnectionType
+	    $('#SQLConnectionType').on('change', function () {
+            if ($(this).val() === 'MySQL') {
+                $('.pgsql').hide();
+                $('.mysql').show();
+            } else if ($(this).val() === 'PostgesSQL') {
+                $('.pgsql').show();
+                $('.mysql').hide();
+            } 
+            }).trigger('change');
+//SQLConnectionType		
             $('#restoreSource').on('change', function () {
                 if ($(this).val() === 'cifs' && $('#cifsOwnDir').prop('checked')) {
                     $('.bkpType').show();
