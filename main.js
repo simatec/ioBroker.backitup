@@ -374,7 +374,27 @@ function initConfig(secret) {
         port: adapter.config.mySqlPort,                // database port
         exe: adapter.config.mySqlDumpExe               // path to mysqldump
     };
-
+// Postgress SQL
+	 const pgsql = {
+        enabled: adapter.config.pgSqlEnabled === undefined ? true : adapter.config.pgSqlEnabled,
+        type: 'creator',
+        ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
+        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
+        nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+        pgsqlQuick: adapter.config.pgsqlQuick,
+        pgsqlSingleTransaction: adapter.config.pgsqlSingleTransaction,
+        dbName: adapter.config.pgSqlName,              // database name
+        user: adapter.config.pgSqlUser,                // database user
+        pass: adapter.config.pgSqlPassword ? decrypt(secret, adapter.config.pgSqlPassword) : '',            // database password
+        deleteBackupAfter: adapter.config.pgSqlDeleteAfter, // delete old backupfiles after x days
+        host: adapter.config.pgSqlHost,                // database host
+        port: adapter.config.pgSqlPort,                // database port
+        exe: adapter.config.pgSqlDumpExe               // path to mysqldump
+    };
+// Postgress SQL
+	
     // Configurations for standard-IoBroker backup
     backupConfig.iobroker = {
         name: 'iobroker',
@@ -389,7 +409,8 @@ function initConfig(secret) {
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
         googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
-        mysql: {
+      
+	    mysql: {
             enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
             type: 'creator',
             ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
@@ -407,6 +428,27 @@ function initConfig(secret) {
             port: adapter.config.mySqlPort,                // database port
             exe: adapter.config.mySqlDumpExe               // path to mysqldump
         },
+	//PgSQL
+	    	    pgsql: {
+            enabled: adapter.config.pgSqlEnabled === undefined ? true : adapter.config.pgSqlEnabled,
+            type: 'creator',
+            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
+            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            pgsqlQuick: adapter.config.mysqlQuick,
+            pgsqlSingleTransaction: adapter.config.pgsqlSingleTransaction,
+            dbName: adapter.config.pgSqlName,              // database name
+            user: adapter.config.pgSqlUser,                // database user
+            pass: adapter.config.pgSqlPassword ? decrypt(secret, adapter.config.pgSqlPassword) : '',            // database password
+            deleteBackupAfter: adapter.config.pgSqlDeleteAfter, // delete old backupfiles after x days
+            host: adapter.config.pgSqlHost,                // database host
+            port: adapter.config.pgSqlPort,                // database port
+            exe: adapter.config.pgSqlDumpExe               // path to mysqldump
+        },
+	//PgSQL    
+	    
         dir: tools.getIobDir(),
 		redis: {
 			enabled: adapter.config.redisEnabled,
