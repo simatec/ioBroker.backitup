@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.4.2",
+    "version": "1.4.3",
     "news": {
+      "1.4.3": {
+        "en": "fix for autochecker",
+        "de": "Fix für Autochecker",
+        "ru": "исправить для autochecker",
+        "pt": "correção para autochecker",
+        "nl": "oplossing voor autochecker",
+        "fr": "correction pour autochecker",
+        "it": "correzione per il controllo automatico",
+        "es": "arreglo para autochecker",
+        "pl": "naprawić autochecker"
+      },
       "1.4.2": {
         "en": "Fix start after restore; update dependencies",
         "de": "Fix Start nach Wiederherstellung; Abhängigkeiten aktualisiert",
@@ -130,8 +141,7 @@
     "readme": "https://github.com/simatec/ioBroker.backitup/blob/master/README.md",
     "loglevel": "info",
     "type": "general",
-    "license": "MIT",
-    "installedFrom": "https://github.com/simatec/ioBroker.backitup/tarball/master"
+    "license": "MIT"
   },
   "native": {
     "minimalEnabled": false,

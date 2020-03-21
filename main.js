@@ -17,6 +17,12 @@ const GoogleDrive = require('./lib/googleDriveLib');
 
 let adapter;
 
+let timerOutput;
+let timerOutput2;
+let timerUmount1;
+let timerUmount2;
+let timerMain;
+
 let systemLang = 'de';                                  // system language
 const backupConfig = {};
 const backupTimeSchedules = [];                         // Array für die Backup Zeiten
@@ -71,7 +77,7 @@ function startAdapter(options) {
                     } else {
                         adapter.log.debug(`[${type}] exec: done`);
                     }
-                    setTimeout(() =>
+                    timerOutput = setTimeout(() =>
                         adapter.getState('output.line', (err, state) => {
                             if (state.val === '[EXIT] 0') {
                                 adapter.setState('history.' + type + 'Success', true, true);
@@ -89,6 +95,21 @@ function startAdapter(options) {
     });
 
     adapter.on('ready', () => main(adapter));
+
+    // is called when adapter shuts down - callback has to be called under any circumstances!
+    adapter.on('unload', (callback) => {
+        try {
+            adapter.log.info('cleaned everything up...');
+            clearTimeout(timerOutput2);
+            clearTimeout(timerOutput);
+            clearTimeout(timerUmount1);
+            clearTimeout(timerUmount2);
+            clearTimeout(timerMain);
+            callback();
+        } catch (e) {
+            callback();
+        }
+    });
 
     adapter.on('message', obj => {
         if (obj) {
@@ -209,7 +230,7 @@ function createBackupSchedule() {
                     } else {
                         adapter.log.debug(`[${type}] exec: done`);
                     }
-                    setTimeout(() =>
+                    timerOutput2 = setTimeout(() =>
                         adapter.getState('output.line', (err, state) => {
                             if (state.val === '[EXIT] 0') {
                                 adapter.setState('history.' + type + 'Success', true, true);
@@ -568,11 +589,11 @@ function umount() {
                 if (adapter.config.sudoMount === 'true' || adapter.config.sudoMount === true) {
                     rootUmount = 'sudo umount';
                 }
-                setTimeout(() =>
+                timerUmount1 = setTimeout(() =>
                     child_process.exec(`${rootUmount} ${backupDir}`, (error, stdout, stderr) => {
                         if (error) {
                             adapter.log.debug('umount: device is busy... wait 5 Minutes!!');
-                            setTimeout(() =>
+                            timerUmount2 = setTimeout(() =>
                                 child_process.exec(`${rootUmount} ${backupDir}`, (error, stdout, stderr) => {
                                     if (error) {
                                         adapter.log.error(error);
@@ -757,7 +778,7 @@ function main(adapter) {
     delTmp();
     delOldObjects();
 
-    setTimeout(function() {
+    timerMain = setTimeout(function() {
         umount();
         setStartAll();
     }, 10000);
@@ -779,8 +800,10 @@ function main(adapter) {
 }
 // If started as allInOne/compact mode => return function to create instance
 if (module && module.parent) {
+    clearTimeout;
     module.exports = startAdapter;
 } else {
     // or start the instance directly
+    clearTimeout
     startAdapter();
 }
