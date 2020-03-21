@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "news": {
+      "1.4.2": {
+        "en": "Fix start after restore; update dependencies",
+        "de": "Fix Start nach Wiederherstellung; Abhängigkeiten aktualisiert",
+        "ru": "Исправить начало после восстановления; обновить зависимости",
+        "pt": "Corrigir o início após a restauração; atualizar dependências",
+        "nl": "Start na herstel herstellen; afhankelijkheden bijwerken",
+        "fr": "Correction du démarrage après la restauration; mettre à jour les dépendances",
+        "it": "Correggi l'avvio dopo il ripristino; aggiornare le dipendenze",
+        "es": "Arreglar el inicio después de la restauración; actualizar dependencias",
+        "pl": "Napraw start po przywróceniu; zaktualizować zależności"
+      },
       "1.4.1": {
         "en": "json historystate with more options",
         "de": "json historystate mit mehr Optionen",
