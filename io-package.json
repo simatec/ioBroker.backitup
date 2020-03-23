@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.4.3",
+    "version": "1.4.4",
     "news": {
+      "1.4.4": {
+        "en": "Fix history error",
+        "de": "History Fehler behoben",
+        "ru": "Исправить историю ошибок",
+        "pt": "Corrigir erro do histórico",
+        "nl": "Herstel geschiedenisfout",
+        "fr": "Correction d'une erreur d'historique",
+        "it": "Correggi l'errore cronologico",
+        "es": "Corregir error de historial",
+        "pl": "Napraw błąd historii"
+      },
       "1.4.3": {
         "en": "fix for autochecker",
         "de": "Fix für Autochecker",
