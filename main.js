@@ -395,7 +395,6 @@ function initConfig(secret) {
         port: adapter.config.mySqlPort,                // database port
         exe: adapter.config.mySqlDumpExe               // path to mysqldump
     };
-<<<<<<< HEAD
 // Postgress SQL
 	 const pgsql = {
         enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
@@ -417,9 +416,6 @@ function initConfig(secret) {
     };
 // Postgress SQL
 
-=======
-
->>>>>>> parent of bdd5c16... Develop changes PGSQL
     // Configurations for standard-IoBroker backup
     backupConfig.iobroker = {
         name: 'iobroker',
@@ -434,12 +430,8 @@ function initConfig(secret) {
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
         googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
-<<<<<<< HEAD
 
 	    mysql: {
-=======
-        mysql: {
->>>>>>> parent of bdd5c16... Develop changes PGSQL
             enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
             type: 'creator',
             ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
@@ -457,7 +449,6 @@ function initConfig(secret) {
             port: adapter.config.mySqlPort,                // database port
             exe: adapter.config.mySqlDumpExe               // path to mysqldump
         },
-<<<<<<< HEAD
 	//PgSQL
 	    	    pgsql: {
             enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
@@ -479,8 +470,6 @@ function initConfig(secret) {
         },
 	//PgSQL
 
-=======
->>>>>>> parent of bdd5c16... Develop changes PGSQL
         dir: tools.getIobDir(),
 		redis: {
 			enabled: adapter.config.redisEnabled,
