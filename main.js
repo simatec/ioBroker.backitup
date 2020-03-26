@@ -357,8 +357,11 @@ function initConfig(secret) {
 
     // TODO: Not used anywere
     const mysql = {
-        enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
+        enabled: adapter.config.SqlEnabled,
+        SqlConnectionType: adapter.config.SqlConnectionType,
         type: 'creator',
+        //enabled: adapter.config.SqlEnabled === undefined ? true : adapter.config.SqlEnabled,
+        //type: 'creator',
         ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
@@ -374,6 +377,28 @@ function initConfig(secret) {
         port: adapter.config.mySqlPort,                // database port
         exe: adapter.config.mySqlDumpExe               // path to mysqldump
     };
+<<<<<<< Updated upstream
+=======
+// Postgress SQL
+	 const pgsql = {
+        enabled: adapter.config.SqlEnabled,
+        SqlConnectionType: adapter.config.SqlConnectionType,
+        type: 'creator',
+        ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
+        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
+        nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+        dbName: adapter.config.pgSqlName,              // database name
+        user: adapter.config.pgSqlUser,                // database user
+        pass: adapter.config.pgSqlPassword ? decrypt(secret, adapter.config.pgSqlPassword) : '',            // database password
+        deleteBackupAfter: adapter.config.pgSqlDeleteAfter, // delete old backupfiles after x days
+        host: adapter.config.pgSqlHost,                // database host
+        port: adapter.config.pgSqlPort,                // database port
+        exe: adapter.config.pgSqlDumpExe               // path to mysqldump
+    };
+// Postgress SQL
+>>>>>>> Stashed changes
 
     // Configurations for standard-IoBroker backup
     backupConfig.iobroker = {
@@ -389,8 +414,15 @@ function initConfig(secret) {
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
         googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
+<<<<<<< Updated upstream
         mysql: {
             enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
+=======
+
+	    mysql: {
+            enabled: adapter.config.SqlEnabled,
+            SqlConnectionType: adapter.config.SqlConnectionType,
+>>>>>>> Stashed changes
             type: 'creator',
             ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
@@ -407,6 +439,28 @@ function initConfig(secret) {
             port: adapter.config.mySqlPort,                // database port
             exe: adapter.config.mySqlDumpExe               // path to mysqldump
         },
+<<<<<<< Updated upstream
+=======
+	//PgSQL
+            enabled: adapter.config.SqlEnabled,
+            SqlConnectionType: adapter.config.SqlConnectionType,
+            type: 'creator',
+            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
+            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            dbName: adapter.config.pgSqlName,              // database name
+            user: adapter.config.pgSqlUser,                // database user
+            pass: adapter.config.pgSqlPassword ? decrypt(secret, adapter.config.pgSqlPassword) : '',            // database password
+            deleteBackupAfter: adapter.config.pgSqlDeleteAfter, // delete old backupfiles after x days
+            host: adapter.config.pgSqlHost,                // database host
+            port: adapter.config.pgSqlPort,                // database port
+            exe: adapter.config.pgSqlDumpExe               // path to mysqldump
+        },
+	//PgSQL
+
+>>>>>>> Stashed changes
         dir: tools.getIobDir(),
 		redis: {
 			enabled: adapter.config.redisEnabled,
@@ -607,7 +661,7 @@ function delTmp() {
     if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) {
         fs.rmdirSync(path.join(tools.getIobDir(), 'backups/tmp'));
         adapter.log.debug('delete tmp files');
-    } 
+    }
 }
 // set start Options after restore
 function setStartAll() {
