@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.4.4",
+    "version": "1.4.5",
     "news": {
+      "1.4.5": {
+        "en": "Bugfix CIFS Domain",
+        "de": "Bugfix CIFS Domain",
+        "ru": "Исправление домена CIFS",
+        "pt": "Bugfix CIFS Domain",
+        "nl": "Bugfix CIFS-domein",
+        "fr": "Domaine CIFS Bugfix",
+        "it": "Bugfix Dominio CIFS",
+        "es": "Bugfix CIFS Domain",
+        "pl": "Bugfix CIFS Domain"
+      },
       "1.4.4": {
         "en": "Fix history error",
         "de": "History Fehler behoben",
