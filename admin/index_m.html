@@ -101,6 +101,7 @@
                             found = res.rows[i].value._id;
                             break;
                         }
+<<<<<<< HEAD
 			    //PostgreSql
 			 if (common.enabled && native.dbtype === 'postgresql') {
                             $('#pgSqlUser').val(native.user).trigger('change');
@@ -115,6 +116,26 @@
 			//PostgreSql
                     }
 			
+=======
+<<<<<<< Updated upstream
+                    }
+=======
+		  //PostgreSql
+			                 if (common.enabled && native.dbtype === 'postgresql') {
+                            $('#pgSqlUser').val(native.user).trigger('change');
+                            $('#pgSqlPassword').val(native.password).trigger('change');
+                            $('#pgSqlHost').val(native.host).trigger('change');
+                            $('#pgSqlPort').val(native.port === '0' ? 5432 : native.port || 5432).trigger('change');
+                            $('#pgSqlName').val(native.dbname).trigger('change');
+                            var id = res.rows[i].value.
+                            found = res.rows[i].value._id;
+                            break;
+                        }
+			//PostgreSql
+                    }
+
+>>>>>>> Stashed changes
+>>>>>>> dev
                     if (!found) {
                         for (var j = 0; j < res.rows.length; j++) {
                             var _native = res.rows[j].value.native;
@@ -530,7 +551,15 @@
             if (!settings.mySqlUser) {
                 fetchMySqlConfig(true);
             }
+            //postgresql
+            if (!settings.pgSqlUser) {
+                fetchMySqlConfig(true);
+            }
+            //postgresql
             $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
+            //postgresql
+          //  $('.detect-pgsql').on('click', function () {fetchMySqlConfig()}); //postgresql
+
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
             $('.detect-history').on('click', function () {fetchHistoryConfig()});
 
@@ -645,12 +674,24 @@
             } else {
                 $('.ccu').hide();
             }
-            if ($('#mySqlEnabled').prop('checked')) {
+            if ($('#SqlEnabled').prop('checked')) {
                 $('.mysql').show();
+<<<<<<< HEAD
 		$('.pgsql').hide();  //Postgres  
             } else {
                 $('.mysql').hide();
 		$('.pgsql').hide();  //Postgres  
+=======
+<<<<<<< Updated upstream
+            } else {
+                $('.mysql').hide();
+=======
+		            $('.pgsql').hide();  //Postgres
+            } else {
+                $('.mysql').hide();
+		            $('.pgsql').hide();  //Postgres
+>>>>>>> Stashed changes
+>>>>>>> dev
             }
             var minimal = $('#minimalEnabled').prop('checked');
             if (minimal) {
@@ -677,6 +718,12 @@
             }
             }).trigger('change');
 
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+            $('#restoreSource').on('change', function () {
+=======
+>>>>>>> dev
 //SQLConnectionType
 	    $('#SqlConnectionType').on('change', function () {
             if ($(this).val() === 'MySQL') {
@@ -685,11 +732,20 @@
             } else if ($(this).val() === 'PostgesSQL') {
                 $('.pgsql').show();
                 $('.mysql').hide();
+<<<<<<< HEAD
             } 
             }).trigger('change');
 //SQLConnectionType		
 
 		$('#restoreSource').on('change', function () {
+=======
+            }
+            }).trigger('change');
+//SQLConnectionType
+
+		$('#restoreSource').on('change', function () {
+>>>>>>> Stashed changes
+>>>>>>> dev
                 if ($(this).val() === 'cifs' && $('#cifsOwnDir').prop('checked')) {
                     $('.bkpType').show();
                 } else if ($(this).val() === 'ftp' && $('#ftpOwnDir').prop('checked')) {
@@ -724,10 +780,10 @@
             } else {
                 $('.tab-notification').addClass('disabled');
             }
-            if ($('#mySqlEnabled').prop('checked')) {
-                $('.tab-my-sql').removeClass('disabled');
+            if ($('#SqlEnabled').prop('checked')) {
+                $('.tab-sql').removeClass('disabled');
             } else {
-                $('.tab-my-sql').addClass('disabled');
+                $('.tab-sql').addClass('disabled');
             }
             if ($('#redisEnabled').prop('checked')) {
                 $('.tab-redis').removeClass('disabled');
@@ -770,7 +826,7 @@
                 <li class="tab col s6 l2"><a href="#tab-settings" class="translate active">main settings</a></li>
                 <li class="tab col s6 l2 tab-iobroker-backup"><a href="#tab-iobroker-backup" class="translate">iobroker backup</a></li>
                 <li class="tab col s6 l2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
-                <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
+                <li class="tab col s6 l2 tab-my-sql"><a href="#tab-sql" class="translate">Sql DB Backup</a></li>
                 <li class="tab col s6 l2 tab-history"><a href="#tab-history" class="translate">History Data Backup</a></li>
                 <li class="tab col s6 l2 tab-redis"><a href="#tab-redis" class="translate">Redis Backup</a></li>
                 <li class="tab col s6 l2 tab-notification"><a href="#tab-notification" class="translate">Notifications</a></li>
@@ -801,8 +857,17 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3 ">
+<<<<<<< Updated upstream
                         <input class="value" id="mySqlEnabled" type="checkbox"/>
+<<<<<<< HEAD
                         <label for="mySqlEnabled" class="translate">DB Sql Backup</label>
+=======
+                        <label for="mySqlEnabled" class="translate">MySql Backup</label>
+=======
+                        <input class="value" id="SqlEnabled" type="checkbox"/>
+                        <label for="SqlEnabled" class="translate">Sql DB Backup</label>
+>>>>>>> Stashed changes
+>>>>>>> dev
                     </div>
                     <div class="input-field col s6 l3">
                         <input class="value" id="redisEnabled" type="checkbox"/>
@@ -936,9 +1001,10 @@
                 </div>
             </div>
 
-            <!-- Mysql Backup -->
-            <div id="tab-my-sql" class="col s12 page">
+            <!-- sql DB Backup -->
+            <div id="tab-sql" class="col s12 page">
                 <div class="row">
+<<<<<<< HEAD
 			<div class="input-field col s6 l3">
                   <a class="waves-effect waves-light btn detect-mysql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
      			 </div>
@@ -953,13 +1019,44 @@
                        
                         </select>
                         <label for="SqlConnectionType" class="translate">Sql Connection type</label>
+=======
+<<<<<<< Updated upstream
+                    <div class="input-field col s6 l3 mysql">
+                        <a class="waves-effect waves-light btn detect-mysql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+>>>>>>> dev
                     </div>
 		<!-- Selectl SQL type-->
         </div>
 
 <!-- mySQL -->    
                 <div class="row mysql">
+<<<<<<< HEAD
 	
+=======
+=======
+			<div class="input-field col s6 l3">
+                  <a class="waves-effect waves-light btn detect-mysql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+     			 </div>
+
+	    </div>
+	<div class="row">
+		<!-- Selectl SQL type-->
+		    <div class="input-field col s11 m2">
+                        <select class="value" id="SqlConnectionType">
+                        <option value="MySQL" class="translate">MySQL</option>
+                        <option value="PostgesSQL" class="translate">PostgesSQL</option>
+
+                        </select>
+                        <label for="SqlConnectionType" class="translate">Sql Connection type</label>
+                    </div>
+		<!-- Selectl SQL type-->
+        </div>
+
+<!-- mySQL -->
+                <div class="row mysql">
+
+>>>>>>> Stashed changes
+>>>>>>> dev
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="mySqlHost" type="text">
                         <label for="mySqlHost" class="translate">Host</label>
@@ -1003,10 +1100,19 @@
                         <label for="mysqlSingleTransaction" class="translate">BEGIN instruction before backup</label>
                     </div>
                 </div>
+<<<<<<< HEAD
 									     
 	<!-- PgSQL -->    
                 <div class="row pgsql">
 	
+=======
+<<<<<<< Updated upstream
+=======
+
+	<!-- PgSQL -->
+                <div class="row pgsql">
+
+>>>>>>> dev
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="pgSqlHost" type="text">
                         <label for="pgSqlHost" class="translate">Host</label>
@@ -1040,6 +1146,10 @@
                         <span class="translate">Path with filename to pg_dump executable (leave empty to use default)</span>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> dev
             </div>
 									     
             <!-- Redis -->
