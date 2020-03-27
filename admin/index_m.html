@@ -86,8 +86,9 @@
 
         function fetchMySqlConfig(isInitial) {
             socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.sql.', endkey: 'system.adapter.sql.\u9999', include_docs: true}, function (err, res) {
-                var found = false;
+
                 if (res && res.rows && res.rows.length) {
+                var found = false;
                     for (var i = 0; i < res.rows.length; i++) {
                         var common = res.rows[0].value.common;
                         var native = res.rows[i].value.native;
@@ -101,7 +102,6 @@
                             found = res.rows[i].value._id;
                             break;
                         }
-
 			                  if (common.enabled && native.dbtype === 'postgresql') {
                             $('#pgSqlUser').val(native.user).trigger('change');
                             $('#pgSqlPassword').val(native.password).trigger('change');
@@ -111,9 +111,8 @@
                             var id = res.rows[i].value.
                             found = res.rows[i].value._id;
                             break;
-                        }
-                    }
-
+                          }
+                  }
                     if (!found) {
                         for (var j = 0; j < res.rows.length; j++) {
                             var _native = res.rows[j].value.native;
@@ -123,6 +122,15 @@
                                 $('#mySqlHost').val(_native.host).trigger('change');
                                 $('#mySqlName').val(_native.dbname).trigger('change');
                                 $('#mySqlPort').val(_native.port === '0' ? 3306 : native.port || 3306).trigger('change');
+                                found = res.rows[j].value._id;
+                                break;
+                            }
+                            if (_native.dbtype === 'postgresql') {
+                                $('#pgSqlUser').val(_native.user).trigger('change');
+                                $('#pgSqlPassword').val(_native.password).trigger('change');
+                                $('#pgSqlHost').val(_native.host).trigger('change');
+                                $('#pgSqlName').val(_native.dbname).trigger('change');
+                                $('#pgSqlPort').val(_native.port === '0' ? 5432 : native.port || 5432).trigger('change');
                                 found = res.rows[j].value._id;
                                 break;
                             }
@@ -528,10 +536,10 @@
             }
             if (!settings.mySqlUser) {
                 fetchMySqlConfig(true);
-				}
+				    }
             if (!settings.pgSqlUser) {
                 fetchMySqlConfig(true);
-				          }
+				    }
 
             $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
@@ -650,10 +658,10 @@
             }
             if ($('#SqlEnabled').prop('checked')) {
                 $('.mysql').show();
-		        $('.pgsql').hide();  //Postgres
+		            $('.pgsql').hide();  //Postgres
             } else {
                 $('.mysql').hide();
-		        $('.pgsql').hide();  //Postgres
+		            $('.pgsql').hide();  //Postgres
               }
 
             var minimal = $('#minimalEnabled').prop('checked');
@@ -681,20 +689,20 @@
             }
             }).trigger('change');
 
-//SQLConnectionType
-	    $('#SqlConnectionType').on('change', function () {
+            //SQLConnectionType
+            $('#SqlConnectionType').on('change', function () {
             if ($(this).val() === 'MySQL') {
-                $('.pgsql').hide();
-                $('.mysql').show();
+                    $('.pgsql').hide();
+                    $('.mysql').show();
             } else if ($(this).val() === 'PostgesSQL') {
-                $('.pgsql').show();
-                $('.mysql').hide();
+                    $('.pgsql').show();
+                    $('.mysql').hide();
             }
             }).trigger('change');
-//SQLConnectionType
+            //SQLConnectionType
 
-      $('#restoreSource').on('change', function () {
-                if ($(this).val() === 'cifs' && $('#cifsOwnDir').prop('checked')) {
+            $('#restoreSource').on('change', function () {
+            if ($(this).val() === 'cifs' && $('#cifsOwnDir').prop('checked')) {
                     $('.bkpType').show();
                 } else if ($(this).val() === 'ftp' && $('#ftpOwnDir').prop('checked')) {
                     $('.bkpType').show();
