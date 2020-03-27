@@ -88,7 +88,7 @@
             socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.sql.', endkey: 'system.adapter.sql.\u9999', include_docs: true}, function (err, res) {
 
                 if (res && res.rows && res.rows.length) {
-                var found = false;
+                    var found = false;
                     for (var i = 0; i < res.rows.length; i++) {
                         var common = res.rows[0].value.common;
                         var native = res.rows[i].value.native;
@@ -568,7 +568,6 @@
             for (var i = 0; i < arr.length; i++) {
                 var _id = arr[i]._id.replace('system.adapter.', '');
                 // Take first value
-//            if (!val) val = _id;
                 $sel.append('<option value="' + _id + '"' + (_id === val ? ' selected' : '') + '>' + _id + '</option>');
             }
             $sel.select();
@@ -771,7 +770,7 @@
             } else {
                 $('.tab-ftp').addClass('disabled');
             }
-      }
+            }
     </script>
 </head>
 <body>
