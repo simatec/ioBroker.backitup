@@ -568,6 +568,7 @@
             for (var i = 0; i < arr.length; i++) {
                 var _id = arr[i]._id.replace('system.adapter.', '');
                 // Take first value
+//            if (!val) val = _id;
                 $sel.append('<option value="' + _id + '"' + (_id === val ? ' selected' : '') + '>' + _id + '</option>');
             }
             $sel.select();
@@ -770,7 +771,7 @@
             } else {
                 $('.tab-ftp').addClass('disabled');
             }
-            }
+      }
     </script>
 </head>
 <body>
@@ -986,7 +987,7 @@
                     </div>
                 </div>
                 <div class="row mysql">
-                    <div class="input-field col s12 m6 14">
+                    <div class="input-field col s12 m6 l4">
                         <input class="value" id="mySqlUser" type="text">
                         <label for="mySqlUser" class="translate">MySql username</label>
                         <span class="translate">MySql username</span>
@@ -1003,11 +1004,11 @@
                     </div>
                 </div>
                 <div class="row mysql">
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s6 l4">
                         <input class="value" id="mysqlQuick" type="checkbox"/>
                         <label for="mysqlQuick" class="translate">Retrieve tables row by row</label>
                     </div>
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s6 l4">
                         <input class="value" id="mysqlSingleTransaction" type="checkbox"/>
                         <label for="mysqlSingleTransaction" class="translate">BEGIN instruction before backup</label>
                     </div>
