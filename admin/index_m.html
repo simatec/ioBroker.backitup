@@ -112,10 +112,10 @@
                             var id = res.rows[i].value.
                             found = res.rows[i].value._id;
                             break;
-                        } 
+                        }
 			//PostgreSql
                     }
-			
+
 =======
                     }
 >>>>>>> parent of bdd5c16... Develop changes PGSQL
@@ -656,10 +656,10 @@
             if ($('#mySqlEnabled').prop('checked')) {
                 $('.mysql').show();
 <<<<<<< HEAD
-		$('.pgsql').hide();  //Postgres  
+		$('.pgsql').hide();  //Postgres
             } else {
                 $('.mysql').hide();
-		$('.pgsql').hide();  //Postgres  
+		$('.pgsql').hide();  //Postgres
 =======
             } else {
                 $('.mysql').hide();
@@ -699,9 +699,9 @@
             } else if ($(this).val() === 'PostgesSQL') {
                 $('.pgsql').show();
                 $('.mysql').hide();
-            } 
+            }
             }).trigger('change');
-//SQLConnectionType		
+//SQLConnectionType
 
 		$('#restoreSource').on('change', function () {
 =======
@@ -964,24 +964,24 @@
 			<div class="input-field col s6 l3">
                   <a class="waves-effect waves-light btn detect-mysql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
      			 </div>
-		
-	    </div>	
+
+	    </div>
 	<div class="row">
 		<!-- Selectl SQL type-->
 		    <div class="input-field col s11 m2">
                         <select class="value" id="SqlConnectionType">
                         <option value="MySQL" class="translate">MySQL</option>
                         <option value="PostgesSQL" class="translate">PostgesSQL</option>
-                       
+
                         </select>
                         <label for="SqlConnectionType" class="translate">Sql Connection type</label>
                     </div>
 		<!-- Selectl SQL type-->
         </div>
 
-<!-- mySQL -->    
+<!-- mySQL -->
                 <div class="row mysql">
-	
+
 =======
                     <div class="input-field col s6 l3 mysql">
                         <a class="waves-effect waves-light btn detect-mysql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
@@ -1033,10 +1033,10 @@
                     </div>
                 </div>
 <<<<<<< HEAD
-									     
-	<!-- PgSQL -->    
+
+	<!-- PgSQL -->
                 <div class="row pgsql">
-	
+
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="pgSqlHost" type="text">
                         <label for="pgSqlHost" class="translate">Host</label>
@@ -1073,7 +1073,7 @@
 =======
 >>>>>>> parent of bdd5c16... Develop changes PGSQL
             </div>
-									     
+
             <!-- Redis -->
             <div id="tab-redis" class="col s12 page">
                 <div class="row">
