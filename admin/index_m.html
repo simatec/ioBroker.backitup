@@ -101,8 +101,8 @@
                             found = res.rows[i].value._id;
                             break;
                         }
-			    //PostgreSql
-			 if (common.enabled && native.dbtype === 'postgresql') {
+
+			                  if (common.enabled && native.dbtype === 'postgresql') {
                             $('#pgSqlUser').val(native.user).trigger('change');
                             $('#pgSqlPassword').val(native.password).trigger('change');
                             $('#pgSqlHost').val(native.host).trigger('change');
@@ -112,8 +112,6 @@
                             found = res.rows[i].value._id;
                             break;
                         }
-			//PostgreSql
-                    }
                     }
 
                     if (!found) {
@@ -284,7 +282,7 @@
                     });
                 } else {
                     var val = settings[id];
-                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword'|| id === 'pgSqlPassword') {
+                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'pgSqlPassword') {
                         val = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
                     }
                     // do not call onChange direct, because onChange could expect some arguments
@@ -533,7 +531,7 @@
 				}
             if (!settings.pgSqlUser) {
                 fetchMySqlConfig(true);
-				}
+				          }
 
             $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
