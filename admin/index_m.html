@@ -529,9 +529,11 @@
                 fetchHistoryConfig(true);
             }
             if (!settings.mySqlUser) {
-                fetchMySqlConfig(true);}
+                fetchMySqlConfig(true);
+				}
             if (!settings.pgSqlUser) {
-                fetchMySqlConfig(true);}
+                fetchMySqlConfig(true);
+				}
 
             $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
@@ -650,10 +652,10 @@
             }
             if ($('#SqlEnabled').prop('checked')) {
                 $('.mysql').show();
-		            $('.pgsql').hide();  //Postgres
+		        $('.pgsql').hide();  //Postgres
             } else {
                 $('.mysql').hide();
-		            $('.pgsql').hide();  //Postgres
+		        $('.pgsql').hide();  //Postgres
               }
 
             var minimal = $('#minimalEnabled').prop('checked');
@@ -774,7 +776,7 @@
                 <li class="tab col s6 l2"><a href="#tab-settings" class="translate active">main settings</a></li>
                 <li class="tab col s6 l2 tab-iobroker-backup"><a href="#tab-iobroker-backup" class="translate">iobroker backup</a></li>
                 <li class="tab col s6 l2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
-                <li class="tab col s6 l2 tab-my-sql"><a href="#tab-sql" class="translate">MySql Backup</a></li>
+                <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
                 <li class="tab col s6 l2 tab-history"><a href="#tab-history" class="translate">History Data Backup</a></li>
                 <li class="tab col s6 l2 tab-redis"><a href="#tab-redis" class="translate">Redis Backup</a></li>
                 <li class="tab col s6 l2 tab-notification"><a href="#tab-notification" class="translate">Notifications</a></li>
@@ -941,13 +943,13 @@
             </div>
 
             <!-- Mysql Backup -->
-            <div id="tab-sql" class="col s12 page">
+            <div id="tab-my-sql" class="col s12 page">
                 <div class="row">
 			               <div class="input-field col s6 l3">
                        <a class="waves-effect waves-light btn detect-mysql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
      			           </div>
                 </div>
-	<div class="row">
+			<div class="row">
 		<!-- Selectl SQL type-->
 		    <div class="input-field col s11 m2">
                         <select class="value" id="SqlConnectionType">
@@ -961,11 +963,6 @@
         </div>
 
 <!-- mySQL -->
-                <div class="row mysql">
-                    <div class="input-field col s6 l3 mysql">
-                        <a class="waves-effect waves-light btn detect-mysql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
-                    </div>
-                </div>
                 <div class="row mysql">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="mySqlHost" type="text">
