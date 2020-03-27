@@ -1,6 +1,3 @@
-ea0c9cb7db04e587e9b77180e5a719c3d738ecd3/* jshint -W097 */
-/* jshint strict: false */
-/*jslint node: true */
 'use strict';
 
 const utils       = require('@iobroker/adapter-core'); // Get common adapter utils
