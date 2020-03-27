@@ -730,10 +730,10 @@
             } else {
                 $('.tab-notification').addClass('disabled');
             }
-            if ($('#mySqlEnabled').prop('checked')) {
-                $('.tab-my-sql').removeClass('disabled');
+            if ($('#SqlEnabled').prop('checked')) {
+                $('.tab-sql').removeClass('disabled');
             } else {
-                $('.tab-my-sql').addClass('disabled');
+                $('.tab-sql').addClass('disabled');
             }
             if ($('#redisEnabled').prop('checked')) {
                 $('.tab-redis').removeClass('disabled');
@@ -776,7 +776,7 @@
                 <li class="tab col s6 l2"><a href="#tab-settings" class="translate active">main settings</a></li>
                 <li class="tab col s6 l2 tab-iobroker-backup"><a href="#tab-iobroker-backup" class="translate">iobroker backup</a></li>
                 <li class="tab col s6 l2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
-                <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
+                <li class="tab col s6 l2 tab-sql"><a href="#tab-sql" class="translate">MySql Backup</a></li>
                 <li class="tab col s6 l2 tab-history"><a href="#tab-history" class="translate">History Data Backup</a></li>
                 <li class="tab col s6 l2 tab-redis"><a href="#tab-redis" class="translate">Redis Backup</a></li>
                 <li class="tab col s6 l2 tab-notification"><a href="#tab-notification" class="translate">Notifications</a></li>
@@ -943,7 +943,7 @@
             </div>
 
             <!-- Mysql Backup -->
-            <div id="tab-my-sql" class="col s12 page">
+            <div id="tab-sql" class="col s12 page">
                 <div class="row">
 			               <div class="input-field col s6 l3">
                        <a class="waves-effect waves-light btn detect-mysql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
