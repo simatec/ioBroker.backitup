@@ -1,6 +1,3 @@
-ea0c9cb7db04e587e9b77180e5a719c3d738ecd3/* jshint -W097 */
-/* jshint strict: false */
-/*jslint node: true */
 'use strict';
 
 const utils       = require('@iobroker/adapter-core'); // Get common adapter utils
@@ -378,7 +375,9 @@ function initConfig(secret) {
 
     // TODO: Not used anywere
     const mysql = {
-        enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
+      //enabled: adapter.config.SqlEnabled === undefined ? true : adapter.config.SqlEnabled,
+      //type: 'creator',
+        enabled: adapter.config.SqlEnabled, SqlConnectionType: adapter.config.SqlConnectionType,
         type: 'creator',
         ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
@@ -395,26 +394,24 @@ function initConfig(secret) {
         port: adapter.config.mySqlPort,                // database port
         exe: adapter.config.mySqlDumpExe               // path to mysqldump
     };
-// Postgress SQL
-	 const pgsql = {
-        enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
-        type: 'creator',
-        ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
-        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
-        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
-        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
-        nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-        pgsqlQuick: adapter.config.pgsqlQuick,
-        pgsqlSingleTransaction: adapter.config.pgsqlSingleTransaction,
-        dbName: adapter.config.pgSqlName,              // database name
-        user: adapter.config.pgSqlUser,                // database user
-        pass: adapter.config.pgSqlPassword ? decrypt(secret, adapter.config.pgSqlPassword) : '',            // database password
-        deleteBackupAfter: adapter.config.pgSqlDeleteAfter, // delete old backupfiles after x days
-        host: adapter.config.pgSqlHost,                // database host
-        port: adapter.config.pgSqlPort,                // database port
-        exe: adapter.config.pgSqlDumpExe               // path to mysqldump
-    };
-// Postgress SQL
+    // Postgress SQL
+    	 const pgsql = {
+            enabled: adapter.config.SqlEnabled, SqlConnectionType: adapter.config.SqlConnectionType,
+            type: 'creator',
+            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
+            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            dbName: adapter.config.pgSqlName,              // database name
+            user: adapter.config.pgSqlUser,                // database user
+            pass: adapter.config.pgSqlPassword ? decrypt(secret, adapter.config.pgSqlPassword) : '',            // database password
+            deleteBackupAfter: adapter.config.pgSqlDeleteAfter, // delete old backupfiles after x days
+            host: adapter.config.pgSqlHost,                // database host
+            port: adapter.config.pgSqlPort,                // database port
+            exe: adapter.config.pgSqlDumpExe               // path to mysqldump
+        };
+    // Postgress SQL
 
     // Configurations for standard-IoBroker backup
     backupConfig.iobroker = {
@@ -432,7 +429,8 @@ function initConfig(secret) {
         googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
 
 	    mysql: {
-            enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
+            //enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
+            enabled: adapter.config.SqlEnabled,SqlConnectionType: adapter.config.SqlConnectionType,
             type: 'creator',
             ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
@@ -451,15 +449,13 @@ function initConfig(secret) {
         },
 	//PgSQL
 	    	    pgsql: {
-            enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
+            enabled: adapter.config.SqlEnabled, SqlConnectionType: adapter.config.SqlConnectionType,
             type: 'creator',
             ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
             dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-            pgsqlQuick: adapter.config.mysqlQuick,
-            pgsqlSingleTransaction: adapter.config.pgsqlSingleTransaction,
             dbName: adapter.config.pgSqlName,              // database name
             user: adapter.config.pgSqlUser,                // database user
             pass: adapter.config.pgSqlPassword ? decrypt(secret, adapter.config.pgSqlPassword) : '',            // database password
