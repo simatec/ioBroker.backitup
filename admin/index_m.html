@@ -86,9 +86,8 @@
 
         function fetchMySqlConfig(isInitial) {
             socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.sql.', endkey: 'system.adapter.sql.\u9999', include_docs: true}, function (err, res) {
-
+                var found = false;
                 if (res && res.rows && res.rows.length) {
-                    var found = false;
                     for (var i = 0; i < res.rows.length; i++) {
                         var common = res.rows[0].value.common;
                         var native = res.rows[i].value.native;
@@ -102,17 +101,7 @@
                             found = res.rows[i].value._id;
                             break;
                         }
-			                  if (common.enabled && native.dbtype === 'postgresql') {
-                            $('#pgSqlUser').val(native.user).trigger('change');
-                            $('#pgSqlPassword').val(native.password).trigger('change');
-                            $('#pgSqlHost').val(native.host).trigger('change');
-                            $('#pgSqlPort').val(native.port === '0' ? 5432 : native.port || 5432).trigger('change');
-                            $('#pgSqlName').val(native.dbname).trigger('change');
-                            var id = res.rows[i].value.
-                            found = res.rows[i].value._id;
-                            break;
-                          }
-                  }
+                    }
                     if (!found) {
                         for (var j = 0; j < res.rows.length; j++) {
                             var _native = res.rows[j].value.native;
@@ -122,15 +111,6 @@
                                 $('#mySqlHost').val(_native.host).trigger('change');
                                 $('#mySqlName').val(_native.dbname).trigger('change');
                                 $('#mySqlPort').val(_native.port === '0' ? 3306 : native.port || 3306).trigger('change');
-                                found = res.rows[j].value._id;
-                                break;
-                            }
-                            if (_native.dbtype === 'postgresql') {
-                                $('#pgSqlUser').val(_native.user).trigger('change');
-                                $('#pgSqlPassword').val(_native.password).trigger('change');
-                                $('#pgSqlHost').val(_native.host).trigger('change');
-                                $('#pgSqlName').val(_native.dbname).trigger('change');
-                                $('#pgSqlPort').val(_native.port === '0' ? 5432 : native.port || 5432).trigger('change');
                                 found = res.rows[j].value._id;
                                 break;
                             }
@@ -290,7 +270,7 @@
                     });
                 } else {
                     var val = settings[id];
-                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'pgSqlPassword') {
+                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword') {
                         val = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
                     }
                     // do not call onChange direct, because onChange could expect some arguments
@@ -535,12 +515,8 @@
                 fetchHistoryConfig(true);
             }
             if (!settings.mySqlUser) {
-                fetchMySqlConfig(true);
-				    }
-            if (!settings.pgSqlUser) {
-                fetchMySqlConfig(true);
-				    }
-
+                fetchMySqlConfig(true)
+            }
             $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
             $('.detect-history').on('click', function () {fetchHistoryConfig()});
@@ -582,7 +558,7 @@
                     obj[id] = $this.prop('checked');
                 } else {
                     var val = $this.val();
-                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' ||id === 'pgSqlPassword') {
+                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword') {
                         val = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
                     }
                     obj[id] = val;
@@ -656,14 +632,11 @@
             } else {
                 $('.ccu').hide();
             }
-            if ($('#SqlEnabled').prop('checked')) {
+            if ($('#mySqlEnabled').prop('checked')) {
                 $('.mysql').show();
-		            $('.pgsql').hide();  //Postgres
             } else {
                 $('.mysql').hide();
-		            $('.pgsql').hide();  //Postgres
-              }
-
+            }
             var minimal = $('#minimalEnabled').prop('checked');
             if (minimal) {
                 $('.minimal').show();
@@ -689,20 +662,8 @@
             }
             }).trigger('change');
 
-            //SQLConnectionType
-            $('#SqlConnectionType').on('change', function () {
-            if ($(this).val() === 'MySQL') {
-                    $('.pgsql').hide();
-                    $('.mysql').show();
-            } else if ($(this).val() === 'PostgesSQL') {
-                    $('.pgsql').show();
-                    $('.mysql').hide();
-            }
-            }).trigger('change');
-            //SQLConnectionType
-
             $('#restoreSource').on('change', function () {
-            if ($(this).val() === 'cifs' && $('#cifsOwnDir').prop('checked')) {
+                if ($(this).val() === 'cifs' && $('#cifsOwnDir').prop('checked')) {
                     $('.bkpType').show();
                 } else if ($(this).val() === 'ftp' && $('#ftpOwnDir').prop('checked')) {
                     $('.bkpType').show();
@@ -736,10 +697,10 @@
             } else {
                 $('.tab-notification').addClass('disabled');
             }
-            if ($('#SqlEnabled').prop('checked')) {
-                $('.tab-sql').removeClass('disabled');
+            if ($('#mySqlEnabled').prop('checked')) {
+                $('.tab-my-sql').removeClass('disabled');
             } else {
-                $('.tab-sql').addClass('disabled');
+                $('.tab-my-sql').addClass('disabled');
             }
             if ($('#redisEnabled').prop('checked')) {
                 $('.tab-redis').removeClass('disabled');
@@ -782,7 +743,7 @@
                 <li class="tab col s6 l2"><a href="#tab-settings" class="translate active">main settings</a></li>
                 <li class="tab col s6 l2 tab-iobroker-backup"><a href="#tab-iobroker-backup" class="translate">iobroker backup</a></li>
                 <li class="tab col s6 l2 tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
-                <li class="tab col s6 l2 tab-sql"><a href="#tab-sql" class="translate">MySql Backup</a></li>
+                <li class="tab col s6 l2 tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
                 <li class="tab col s6 l2 tab-history"><a href="#tab-history" class="translate">History Data Backup</a></li>
                 <li class="tab col s6 l2 tab-redis"><a href="#tab-redis" class="translate">Redis Backup</a></li>
                 <li class="tab col s6 l2 tab-notification"><a href="#tab-notification" class="translate">Notifications</a></li>
@@ -813,8 +774,8 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3 ">
-                        <input class="value" id="SqlEnabled" type="checkbox"/>
-                        <label for="SqlEnabled" class="translate">Sql DB Backup</label>
+                        <input class="value" id="mySqlEnabled" type="checkbox"/>
+                        <label for="mySqlEnabled" class="translate">MySql Backup</label>
                     </div>
                     <div class="input-field col s6 l3">
                         <input class="value" id="redisEnabled" type="checkbox"/>
@@ -864,7 +825,7 @@
             </div>
 
             <!-- iobroker Backup -->
-      <div id="tab-iobroker-backup" class="col s12 page">
+            <div id="tab-iobroker-backup" class="col s12 page">
                 <div class="row">
                     <div class="input-field col s3">
                         <input class="value" id="minimalEnabled" type="checkbox"/>
@@ -949,23 +910,12 @@
             </div>
 
             <!-- Mysql Backup -->
-            <div id="tab-sql" class="col s12 page">
+            <div id="tab-my-sql" class="col s12 page">
                 <div class="row">
-			               <div class="input-field col s6 l3">
-                       <a class="waves-effect waves-light btn detect-mysql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
-     			           </div>
-                </div>
-			          <div class="row">
-		                <div class="input-field col s11 m2">
-                        <select class="value" id="SqlConnectionType">
-                        <option value="MySQL" class="translate">MySQL</option>
-                        <option value="PostgesSQL" class="translate">PostgesSQL</option>
-                        </select>
-                        <label for="SqlConnectionType" class="translate">Sql Connection type</label>
+                    <div class="input-field col s6 l3 mysql">
+                        <a class="waves-effect waves-light btn detect-mysql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
                     </div>
                 </div>
-
-<!-- mySQL -->
                 <div class="row mysql">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="mySqlHost" type="text">
@@ -1008,42 +958,6 @@
                     <div class="input-field col s6 l4">
                         <input class="value" id="mysqlSingleTransaction" type="checkbox"/>
                         <label for="mysqlSingleTransaction" class="translate">BEGIN instruction before backup</label>
-                    </div>
-                </div>
-	<!-- PgSQL -->
-                <div class="row pgsql">
-
-                    <div class="input-field col s12 m6 l4">
-                        <input class="value" id="pgSqlHost" type="text">
-                        <label for="pgSqlHost" class="translate">Host</label>
-                        <span class="translate">PgSQL Hostname</span>
-                    </div>
-                    <div class="input-field col s12 m6 l4">
-                        <input class="value" id="pgSqlPort" type="text">
-                        <label for="pgSqlPort" class="translate">port</label>
-                        <span class="translate">PgSQL port</span>
-                    </div>
-                    <div class="input-field col s12 m6 l4">
-                        <input class="value" id="pgSqlName" type="text">
-                        <label for="pgSqlName" class="translate">name</label>
-                        <span class="translate">PgSQL database name</span>
-                    </div>
-                </div>
-                <div class="row pgsql">
-                    <div class="input-field col s12 m6 l4">
-                        <input class="value" id="pgSqlUser" type="text">
-                        <label for="pgSqlUser" class="translate">pgSql username</label>
-                        <span class="translate">PgSql username</span>
-                    </div>
-                    <div class="input-field col s12 m6 l4">
-                        <input class="value" id="pgSqlPassword" type="password">
-                        <label for="pgSqlPassword" class="translate">password</label>
-                        <span class="translate">PgSql password</span>
-                    </div>
-                    <div class="input-field col s12 m6 l4">
-                        <input type="text" class="value" id="pgSqlDumpExe">
-                        <label for="pgSqlDumpExe" class="translate">Full path</label>
-                        <span class="translate">Path with filename to pg_dump executable (leave empty to use default)</span>
                     </div>
                 </div>
             </div>
@@ -1483,4 +1397,5 @@
     </div>
 </div>
 </body>
+
 </html>
