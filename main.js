@@ -17,6 +17,12 @@ const GoogleDrive = require('./lib/googleDriveLib');
 
 let adapter;
 
+let timerOutput;
+let timerOutput2;
+let timerUmount1;
+let timerUmount2;
+let timerMain;
+
 let systemLang = 'de';                                  // system language
 const backupConfig = {};
 const backupTimeSchedules = [];                         // Array für die Backup Zeiten
@@ -71,7 +77,7 @@ function startAdapter(options) {
                     } else {
                         adapter.log.debug(`[${type}] exec: done`);
                     }
-                    setTimeout(() =>
+                    timerOutput = setTimeout(() =>
                         adapter.getState('output.line', (err, state) => {
                             if (state.val === '[EXIT] 0') {
                                 adapter.setState('history.' + type + 'Success', true, true);
@@ -89,6 +95,21 @@ function startAdapter(options) {
     });
 
     adapter.on('ready', () => main(adapter));
+
+    // is called when adapter shuts down - callback has to be called under any circumstances!
+    adapter.on('unload', (callback) => {
+        try {
+            adapter.log.info('cleaned everything up...');
+            clearTimeout(timerOutput2);
+            clearTimeout(timerOutput);
+            clearTimeout(timerUmount1);
+            clearTimeout(timerUmount2);
+            clearTimeout(timerMain);
+            callback();
+        } catch (e) {
+            callback();
+        }
+    });
 
     adapter.on('message', obj => {
         if (obj) {
@@ -209,7 +230,7 @@ function createBackupSchedule() {
                     } else {
                         adapter.log.debug(`[${type}] exec: done`);
                     }
-                    setTimeout(() =>
+                    timerOutput2 = setTimeout(() =>
                         adapter.getState('output.line', (err, state) => {
                             if (state.val === '[EXIT] 0') {
                                 adapter.setState('history.' + type + 'Success', true, true);
@@ -536,7 +557,7 @@ function createBashScripts() {
             fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\nif exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-stop\n)\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.bat')) {
-            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker start\nif exist "${path.join(__dirname, 'lib/.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
+            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\niobroker host this\ncall iobroker start\nif exist "${path.join(__dirname, 'lib/.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
         }
     } else {
         if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
@@ -544,7 +565,7 @@ function createBashScripts() {
             fs.chmodSync(__dirname + '/lib/stopIOB.sh', 508);
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
-            fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo systemctl start redis-server\nfi\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start`);
+            fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo systemctl start redis-server\nfi\niobroker host this\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start`);
             fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
         }
         if (!fs.existsSync(__dirname + '/lib/external.sh')) {
@@ -568,11 +589,11 @@ function umount() {
                 if (adapter.config.sudoMount === 'true' || adapter.config.sudoMount === true) {
                     rootUmount = 'sudo umount';
                 }
-                setTimeout(() =>
+                timerUmount1 = setTimeout(() =>
                     child_process.exec(`${rootUmount} ${backupDir}`, (error, stdout, stderr) => {
                         if (error) {
                             adapter.log.debug('umount: device is busy... wait 5 Minutes!!');
-                            setTimeout(() =>
+                            timerUmount2 = setTimeout(() =>
                                 child_process.exec(`${rootUmount} ${backupDir}`, (error, stdout, stderr) => {
                                     if (error) {
                                         adapter.log.error(error);
@@ -757,7 +778,7 @@ function main(adapter) {
     delTmp();
     delOldObjects();
 
-    setTimeout(function() {
+    timerMain = setTimeout(function() {
         umount();
         setStartAll();
     }, 10000);

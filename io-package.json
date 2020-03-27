@@ -1,8 +1,52 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.4.1",
+    "version": "1.4.5",
     "news": {
+      "1.4.5": {
+        "en": "Bugfix CIFS Domain",
+        "de": "Bugfix CIFS Domain",
+        "ru": "Исправление домена CIFS",
+        "pt": "Bugfix CIFS Domain",
+        "nl": "Bugfix CIFS-domein",
+        "fr": "Domaine CIFS Bugfix",
+        "it": "Bugfix Dominio CIFS",
+        "es": "Bugfix CIFS Domain",
+        "pl": "Bugfix CIFS Domain"
+      },
+      "1.4.4": {
+        "en": "Fix history error",
+        "de": "History Fehler behoben",
+        "ru": "Исправить историю ошибок",
+        "pt": "Corrigir erro do histórico",
+        "nl": "Herstel geschiedenisfout",
+        "fr": "Correction d'une erreur d'historique",
+        "it": "Correggi l'errore cronologico",
+        "es": "Corregir error de historial",
+        "pl": "Napraw błąd historii"
+      },
+      "1.4.3": {
+        "en": "fix for autochecker",
+        "de": "Fix für Autochecker",
+        "ru": "исправить для autochecker",
+        "pt": "correção para autochecker",
+        "nl": "oplossing voor autochecker",
+        "fr": "correction pour autochecker",
+        "it": "correzione per il controllo automatico",
+        "es": "arreglo para autochecker",
+        "pl": "naprawić autochecker"
+      },
+      "1.4.2": {
+        "en": "Fix start after restore; update dependencies",
+        "de": "Fix Start nach Wiederherstellung; Abhängigkeiten aktualisiert",
+        "ru": "Исправить начало после восстановления; обновить зависимости",
+        "pt": "Corrigir o início após a restauração; atualizar dependências",
+        "nl": "Start na herstel herstellen; afhankelijkheden bijwerken",
+        "fr": "Correction du démarrage après la restauration; mettre à jour les dépendances",
+        "it": "Correggi l'avvio dopo il ripristino; aggiornare le dipendenze",
+        "es": "Arreglar el inicio después de la restauración; actualizar dependencias",
+        "pl": "Napraw start po przywróceniu; zaktualizować zależności"
+      },
       "1.4.1": {
         "en": "json historystate with more options",
         "de": "json historystate mit mehr Optionen",
@@ -119,8 +163,7 @@
     "readme": "https://github.com/simatec/ioBroker.backitup/blob/master/README.md",
     "loglevel": "info",
     "type": "general",
-    "license": "MIT",
-    "installedFrom": "https://github.com/simatec/ioBroker.backitup/tarball/master"
+    "license": "MIT"
   },
   "native": {
     "minimalEnabled": false,
