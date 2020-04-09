@@ -647,7 +647,7 @@ function getName(name, filenumbers) {
         if (parseInt(parts[0], 10).toString() !== parts[0]) {
             parts.shift();
         }
-        adapter.log.debug('detect backup file ' + filenumbers + ': ' + name);
+        adapter.log.debug(name ? 'detect backup file ' + filenumbers + ': ' + name : 'No backup name was found');
         return new Date(
             parts[0],
             parseInt(parts[1], 10) - 1,
@@ -718,7 +718,7 @@ function detectLatestBackupFile(adapter) {
                 }
                 // this information will be used by admin at the first start if some backup was detected and we can restore from it instead of new configuration
                 adapter.setState('info.latestBackup', file ? JSON.stringify(file) : '', true);
-                adapter.log.debug('detect last backup file: ' + file.name);
+                adapter.log.debug(file ? 'detect last backup file: ' + file.name : 'No backup file was found');
             });
     } catch (e) {
         adapter.log.warn('No backup file was found');
