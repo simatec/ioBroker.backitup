@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.4.5",
+    "version": "1.5.0",
     "news": {
+      "1.5.0": {
+        "en": "revised error handling; updated dependencies",
+        "de": "überarbeitete Fehlerbehandlung; aktualisierte Abhängigkeiten",
+        "ru": "исправлена обработка ошибок; обновленные зависимости",
+        "pt": "tratamento de erros revisado; dependências atualizadas",
+        "nl": "herziene foutafhandeling; bijgewerkte afhankelijkheden",
+        "fr": "gestion des erreurs révisée; dépendances mises à jour",
+        "it": "gestione degli errori rivista; dipendenze aggiornate",
+        "es": "manejo revisado de errores; dependencias actualizadas",
+        "pl": "poprawiona obsługa błędów; zaktualizowane zależności"
+      },
       "1.4.5": {
         "en": "Bugfix CIFS Domain",
         "de": "Bugfix CIFS Domain",

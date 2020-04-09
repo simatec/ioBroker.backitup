@@ -3,16 +3,16 @@
 /*jslint node: true */
 'use strict';
 
-const utils       = require('@iobroker/adapter-core'); // Get common adapter utils
-const schedule    = require('node-schedule');
-const fs          = require('fs');
-const path        = require('path');
+const utils = require('@iobroker/adapter-core'); // Get common adapter utils
+const schedule = require('node-schedule');
+const fs = require('fs');
+const path = require('path');
 const adapterName = require('./package.json').name.split('.').pop();
 
-const tools       = require('./lib/tools');
+const tools = require('./lib/tools');
 const executeScripts = require('./lib/execute');
-const list        = require('./lib/list');
-const restore     = require('./lib/restore');
+const list = require('./lib/list');
+const restore = require('./lib/restore');
 const GoogleDrive = require('./lib/googleDriveLib');
 
 let adapter;
@@ -36,7 +36,7 @@ let taskRunning = false;
  */
 function decrypt(key, value) {
     let result = '';
-    for(let i = 0; i < value.length; i++) {
+    for (let i = 0; i < value.length; i++) {
         result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
     }
     return result;
@@ -56,7 +56,7 @@ function startBackup(config, cb) {
 
 function startAdapter(options) {
     options = options || {};
-    Object.assign(options, {name: adapterName});
+    Object.assign(options, { name: adapterName });
 
     adapter = new utils.Adapter(options);
 
@@ -122,12 +122,12 @@ function startAdapter(options) {
                     if (obj.message && obj.message.code) {
                         const google = new GoogleDrive();
                         google.getToken(obj.message.code)
-                            .then(json => adapter.sendTo(obj.from, obj.command, {done: true, json: JSON.stringify(json)}, obj.callback))
-                            .catch(err => adapter.sendTo(obj.from, obj.command, {error: err}, obj.callback));
+                            .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json: JSON.stringify(json) }, obj.callback))
+                            .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
                     } else if (obj.callback) {
                         const google = new GoogleDrive();
                         google.getAuthorizeUrl().then(url =>
-                            adapter.sendTo(obj.from, obj.command, {url}, obj.callback));
+                            adapter.sendTo(obj.from, obj.command, { url }, obj.callback));
                     }
                     break;
 
@@ -135,7 +135,7 @@ function startAdapter(options) {
                     if (obj.message) {
                         restore(adapter, backupConfig, obj.message.type, obj.message.fileName, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                     } else if (obj.callback) {
-                        obj.callback({error: 'Invalid parameters'});
+                        obj.callback({ error: 'Invalid parameters' });
                     }
                     break;
 
@@ -171,37 +171,37 @@ function checkStates() {
     });
     adapter.getState('history.iobrokerLastTime', (err, state) => {
         if (!state || state.val === null) {
-            adapter.setState('history.iobrokerLastTime', {val: tools._('No backups yet', systemLang), ack: true});
+            adapter.setState('history.iobrokerLastTime', { val: tools._('No backups yet', systemLang), ack: true });
         }
     });
     adapter.getState('history.ccuLastTime', (err, state) => {
         if (!state || state.val === null) {
-            adapter.setState('history.ccuLastTime', {val: tools._('No backups yet', systemLang), ack: true});
+            adapter.setState('history.ccuLastTime', { val: tools._('No backups yet', systemLang), ack: true });
         }
     });
     adapter.getState('oneClick.iobroker', (err, state) => {
         if (!state || state.val === null) {
-            adapter.setState('oneClick.iobroker', {val: false, ack: true});
+            adapter.setState('oneClick.iobroker', { val: false, ack: true });
         }
     });
     adapter.getState('oneClick.ccu', (err, state) => {
         if (state === null || state.val === null) {
-            adapter.setState('oneClick.ccu', {val: false, ack: true});
+            adapter.setState('oneClick.ccu', { val: false, ack: true });
         }
     });
     adapter.getState('history.ccuSuccess', (err, state) => {
         if (state === null || state.val === null) {
-            adapter.setState('history.ccuSuccess', {val: false, ack: true});
+            adapter.setState('history.ccuSuccess', { val: false, ack: true });
         }
     });
     adapter.getState('history.iobrokerSuccess', (err, state) => {
         if (state === null || state.val === null) {
-            adapter.setState('history.iobrokerSuccess', {val: false, ack: true});
+            adapter.setState('history.iobrokerSuccess', { val: false, ack: true });
         }
     });
     adapter.getState('history.json', (err, state) => {
         if (state === null || state.val === null) {
-            adapter.setState('history.json', {val: '[]', ack: true});
+            adapter.setState('history.json', { val: '[]', ack: true });
         }
     });
 }
@@ -380,10 +380,10 @@ function initConfig(secret) {
     const mysql = {
         enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
         type: 'creator',
-        ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
-        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
-        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
-        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
+        ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
         nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
         mysqlQuick: adapter.config.mysqlQuick,
         mysqlSingleTransaction: adapter.config.mysqlSingleTransaction,
@@ -406,17 +406,17 @@ function initConfig(secret) {
         everyXDays: adapter.config.minimalEveryXDays,
         nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
         deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backupfiles after x days
-        ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
-        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
-        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
-        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
+        ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
         mysql: {
             enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
             type: 'creator',
-            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
+            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             mysqlQuick: adapter.config.mysqlQuick,
             mysqlSingleTransaction: adapter.config.mysqlSingleTransaction,
@@ -429,32 +429,32 @@ function initConfig(secret) {
             exe: adapter.config.mySqlDumpExe               // path to mysqldump
         },
         dir: tools.getIobDir(),
-		redis: {
-			enabled: adapter.config.redisEnabled,
+        redis: {
+            enabled: adapter.config.redisEnabled,
             type: 'creator',
-            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir}  : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir} : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
-			path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
+            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+            path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
         },
         historyDB: {
-			enabled: adapter.config.historyEnabled,
+            enabled: adapter.config.historyEnabled,
             type: 'creator',
-            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir}  : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir} : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
-			path: adapter.config.historyPath,
+            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+            path: adapter.config.historyPath,
         },
         zigbee: {
-			enabled: adapter.config.zigbeeEnabled,
+            enabled: adapter.config.zigbeeEnabled,
             type: 'creator',
-            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir}  : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir} : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
-			path: tools.getIobDir() + '/iobroker-data', // specify zigbee path
+            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+            path: tools.getIobDir() + '/iobroker-data', // specify zigbee path
         },
         history,
         telegram,
@@ -473,10 +473,10 @@ function initConfig(secret) {
         nameSuffix: adapter.config.ccuNameSuffix,               // names addition, appended to the file name
         deleteBackupAfter: adapter.config.ccuDeleteAfter,       // delete old backupfiles after x days
 
-        ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpCcuDir} : {}),
-        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsCcuDir}  : {}),
-        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxCcuDir}  : {}),
-        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveCcuDir}  : {}),
+        ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpCcuDir } : {}),
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsCcuDir } : {}),
+        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxCcuDir } : {}),
+        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveCcuDir } : {}),
         history,
         telegram,
         email,
@@ -628,7 +628,7 @@ function delTmp() {
     if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) {
         fs.rmdirSync(path.join(tools.getIobDir(), 'backups/tmp'));
         adapter.log.debug('delete tmp files');
-    } 
+    }
 }
 // set start Options after restore
 function setStartAll() {
@@ -641,76 +641,90 @@ function setStartAll() {
     }
 }
 
-function getName(name) {
-    const parts = name.split('_');
-    if (parseInt(parts[0], 10).toString() !== parts[0]) {
-        parts.shift();
+function getName(name, filenumbers) {
+    try {
+        const parts = name.split('_');
+        if (parseInt(parts[0], 10).toString() !== parts[0]) {
+            parts.shift();
+        }
+        adapter.log.debug('detect backup file ' + filenumbers + ': ' + name);
+        return new Date(
+            parts[0],
+            parseInt(parts[1], 10) - 1,
+            parseInt(parts[2].split('-')[0], 10),
+            parseInt(parts[2].split('-')[1], 10),
+            parseInt(parts[3], 10));
+    } catch (err) {
+        if (err) {
+            adapter.log.warn('No backup name was found');
+        }
     }
-    return new Date(
-        parts[0],
-        parseInt(parts[1], 10) - 1,
-        parseInt(parts[2].split('-')[0], 10),
-        parseInt(parts[2].split('-')[1], 10),
-        parseInt(parts[3], 10));
 }
 
 function detectLatestBackupFile(adapter) {
     // get all 'storage' types that enabled
-    const stores = Object.keys(backupConfig.iobroker)
-        .filter(attr =>
-            typeof backupConfig.iobroker[attr] === 'object' &&
-            backupConfig.iobroker[attr].type === 'storage' &&
-            backupConfig.iobroker[attr].enabled);
+    try {
+        const stores = Object.keys(backupConfig.iobroker)
+            .filter(attr =>
+                typeof backupConfig.iobroker[attr] === 'object' &&
+                backupConfig.iobroker[attr].type === 'storage' &&
+                backupConfig.iobroker[attr].enabled);
 
-    // read one time all stores to detect if some backups detected
-    const promises = stores.map(storage => new Promise(resolve =>
-        list(storage, backupConfig, adapter.log, result => {
-            // find newest file
-            let file = null;
+        // read one time all stores to detect if some backups detected
+        const promises = stores.map(storage => new Promise(resolve =>
+            list(storage, backupConfig, adapter.log, result => {
+                // find newest file
+                let file = null;
 
-            if (result && result.data) {
-                const data = result.data;
-                Object.keys(data).forEach(type => {
-                    data[type].iobroker && data[type].iobroker
-                        .filter(f => f.size)
-                        .forEach(f => {
-                            const date = getName(f.name);
-                            if (!file || file.date < date) {
-                                file = f;
-                                file.date = date;
-                                file.storage = storage;
-                            }
-                        });
-                });
-            }
-            resolve(file);
-        })));
+                if (result && result.data) {
+                    let filenumbers = 0;
+                    const data = result.data;
+                    Object.keys(data).forEach(type => {
+                        data[type].iobroker && data[type].iobroker
+                            .filter(f => f.size)
+                            .forEach(f => {
+                                filenumbers++;
+                                const date = getName(f.name, filenumbers);
+                                if (!file || file.date < date) {
+                                    file = f;
+                                    file.date = date;
+                                    file.storage = storage;
+                                }
+                            });
+                    });
+                }
+                resolve(file);
+            })));
 
-    // find the newest file between storages
-    Promise.all(promises)
-        .then(results => {
-            results = results.filter(f => f);
-            let file;
-            if (results.length) {
-                results.sort((a, b) => {
-                    if (a.date > b.date) {
-                        return 1;
-                    } else if (a.date < b.date) {
-                        return -1;
-                    } else {
-                        return 0;
-                    }
-                });
-                file = results[0];
-                file.date = file.date.toISOString();
-            } else {
-                file = null;
-            }
-            // this information will be used by admin at the first start if some backup was detected and we can restore from it instead of new configuration
-            adapter.setState('info.latestBackup', file ? JSON.stringify(file) : '', true);
-        });
+        // find the newest file between storages
+        Promise.all(promises)
+            .then(results => {
+                results = results.filter(f => f);
+                let file;
+                if (results.length) {
+                    results.sort((a, b) => {
+                        if (a.date > b.date) {
+                            return 1;
+                        } else if (a.date < b.date) {
+                            return -1;
+                        } else {
+                            return 0;
+                        }
+                    });
+                    file = results[0];
+                    file.date = file.date.toISOString();
+                } else {
+                    file = null;
+                }
+                // this information will be used by admin at the first start if some backup was detected and we can restore from it instead of new configuration
+                adapter.setState('info.latestBackup', file ? JSON.stringify(file) : '', true);
+                adapter.log.debug('detect last backup file: ' + file.name);
+            });
+    } catch (e) {
+        adapter.log.warn('No backup file was found');
+    }
 }
-function delOldObjects () {
+function delOldObjects() {
     adapter.getState('history.minimalSuccess', (err, state) => {
         if (state) {
             adapter.delObject('history.minimalSuccess');
@@ -778,7 +792,7 @@ function main(adapter) {
     delTmp();
     delOldObjects();
 
-    timerMain = setTimeout(function() {
+    timerMain = setTimeout(function () {
         umount();
         setStartAll();
     }, 10000);
