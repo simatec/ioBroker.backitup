@@ -585,16 +585,12 @@ function umount() {
         child_process.exec(`mount | grep -o "${backupDir}"`, (error, stdout, stderr) => {
             if (stdout.indexOf(backupDir) !== -1) {
                 adapter.log.debug('mount activ... umount in 2 Seconds!!');
-                let rootUmount = 'umount';
-                if (adapter.config.sudoMount === 'true' || adapter.config.sudoMount === true) {
-                    rootUmount = 'sudo umount';
-                }
                 timerUmount1 = setTimeout(() =>
-                    child_process.exec(`${rootUmount} ${backupDir}`, (error, stdout, stderr) => {
+                    child_process.exec(`${adapter.config.sudoMount ? 'sudo umount' : 'umount'} ${backupDir}`, (error, stdout, stderr) => {
                         if (error) {
                             adapter.log.debug('umount: device is busy... wait 5 Minutes!!');
                             timerUmount2 = setTimeout(() =>
-                                child_process.exec(`${rootUmount} ${backupDir}`, (error, stdout, stderr) => {
+                                child_process.exec(`${adapter.config.sudoMount ? 'sudo umount' : 'umount'} ${backupDir}`, (error, stdout, stderr) => {
                                     if (error) {
                                         adapter.log.error(error);
                                     } else {
