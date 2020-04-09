@@ -4,15 +4,15 @@
     "version": "1.5.0",
     "news": {
       "1.5.0": {
-        "en": "revised error handling; updated dependencies",
-        "de": "überarbeitete Fehlerbehandlung; aktualisierte Abhängigkeiten",
-        "ru": "исправлена обработка ошибок; обновленные зависимости",
-        "pt": "tratamento de erros revisado; dependências atualizadas",
-        "nl": "herziene foutafhandeling; bijgewerkte afhankelijkheden",
-        "fr": "gestion des erreurs révisée; dépendances mises à jour",
-        "it": "gestione degli errori rivista; dipendenze aggiornate",
-        "es": "manejo revisado de errores; dependencias actualizadas",
-        "pl": "poprawiona obsługa błędów; zaktualizowane zależności"
+        "en": "revised error handling, revised mount process, revised umount process, added log for last backup file, updated dependencies",
+        "de": "Fehlerbehandlung überarbeitet, überarbeiteter Mount-Prozess, überarbeiteter Umount-Prozess, Log-Ausgabe für das letzte Backup hinzugefügt, Abhängigkeiten aktualisiert",
+        "ru": "пересмотренная обработка ошибок, пересмотренный процесс монтирования, пересмотренный процесс размонтирования, добавлен журнал для последнего файла резервной копии, обновлены зависимости",
+        "pt": "manipulação de erros revisada, processo de montagem revisado, processo de montagem revisado, log adicionado para o último arquivo de backup, atualização de dependências",
+        "nl": "herziene foutafhandeling, herzien mount-proces, herzien umount-proces, toegevoegd logboek voor laatste back-upbestand, update-afhankelijkheden",
+        "fr": "gestion des erreurs révisée, processus de montage révisé, processus umount révisé, journal ajouté pour le dernier fichier de sauvegarde, dépendances de mise à jour",
+        "it": "gestione degli errori rivista, processo di montaggio rivisto, processo umount modificato, registro aggiunto per l'ultimo file di backup, dipendenze di aggiornamento",
+        "es": "manejo de errores revisado, proceso de montaje revisado, proceso de desmontaje revisado, registro agregado para el último archivo de respaldo, dependencias de actualización",
+        "pl": "poprawiona obsługa błędów, poprawiony proces montowania, poprawiony proces umount, dodany dziennik ostatniego pliku kopii zapasowej, zależności aktualizacji"
       },
       "1.4.5": {
         "en": "Bugfix CIFS Domain",
