@@ -672,7 +672,7 @@ function detectLatestBackupFile(adapter) {
                 // find newest file
                 let file = null;
 
-                if (result && result.data) {
+                if (result && result.data && result.data !== 'undefined') {
                     let filenumbers = 0;
                     const data = result.data;
                     Object.keys(data).forEach(type => {
