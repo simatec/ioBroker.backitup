@@ -344,9 +344,9 @@
       "_id": "history.json",
       "type": "state",
       "common": {
-        "role": "json",
+        "role": "state",
         "name": "History-Log of executed backups",
-        "type": "object",
+        "type": "json",
         "read": true,
         "write": false,
         "def": "[]"
