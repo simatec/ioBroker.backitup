@@ -4,15 +4,15 @@
     "version": "1.5.1",
     "news": {
       "1.5.1": {
-        "en": "Bugfix list from nas",
-        "de": "Bugfix list from nas",
-        "ru": "Bugfix list from nas",
-        "pt": "Bugfix list from nas",
-        "nl": "Bugfix list from nas",
-        "fr": "Bugfix list from nas",
-        "it": "Bugfix list from nas",
-        "es": "Bugfix list from nas",
-        "pl": "Bugfix list from nas"
+        "en": "Bugfix list from nas; Bugfix sentry errors",
+        "de": "Bugfix Liste von nas; Bugfix Sentry Fehler",
+        "ru": "Список исправлений от nas; Исправлена ошибка с ошибками",
+        "pt": "Lista de correções de erros do nas; Erros de sentinela de bugfix",
+        "nl": "Bugfix-lijst van nas; Bugfix-schildwachtfouten",
+        "fr": "Liste des corrections de bugs de nas; Erreurs de sentinelle Bugfix",
+        "it": "Elenco bugfix da nas; Bugfix errori di sentinella",
+        "es": "Lista de corrección de errores de nas; Errores de centinela de corrección de errores",
+        "pl": "Lista błędów z nas; Błędy sentry błędów"
       },
       "1.5.0": {
         "en": "revised error handling; revised mount process; revised umount process; added log for last backup file; updated dependencies; added sentry.io support",
