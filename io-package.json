@@ -1,8 +1,30 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.4.5",
+    "version": "1.5.1",
     "news": {
+      "1.5.1": {
+        "en": "Bugfix list from nas; Bugfix sentry errors",
+        "de": "Bugfix Liste von nas; Bugfix Sentry Fehler",
+        "ru": "Список исправлений от nas; Исправлена ошибка с ошибками",
+        "pt": "Lista de correções de erros do nas; Erros de sentinela de bugfix",
+        "nl": "Bugfix-lijst van nas; Bugfix-schildwachtfouten",
+        "fr": "Liste des corrections de bugs de nas; Erreurs de sentinelle Bugfix",
+        "it": "Elenco bugfix da nas; Bugfix errori di sentinella",
+        "es": "Lista de corrección de errores de nas; Errores de centinela de corrección de errores",
+        "pl": "Lista błędów z nas; Błędy sentry błędów"
+      },
+      "1.5.0": {
+        "en": "revised error handling; revised mount process; revised umount process; added log for last backup file; updated dependencies; added sentry.io support",
+        "de": "überarbeitete Fehlerbehandlung; überarbeiteter Mount-Prozess; überarbeiteter Umount-Prozess; Log für letztes Backup hinzugefügt; aktualisierte Abhängigkeiten; sentry.io Unterstützung hinzugefügt",
+        "ru": "исправлена обработка ошибок; пересмотрен процесс монтирования; пересмотренный процесс монтирования; добавлен журнал для последнего файла резервной копии; обновленные зависимости; добавлена поддержка sentry.io",
+        "pt": "tratamento de erros revisado; processo de montagem revisado; processo de quantidade revisado; log adicionado para o último arquivo de backup; dependências atualizadas; adicionado suporte sentry.io",
+        "nl": "herziene foutafhandeling; herzien montageproces; herzien umount-proces; logboek toegevoegd voor het laatste back-upbestand; bijgewerkte afhankelijkheden; sentry.io-ondersteuning toegevoegd",
+        "fr": "gestion des erreurs révisée; processus de montage révisé; processus umount révisé; journal ajouté pour le dernier fichier de sauvegarde; dépendances mises à jour; ajout du support sentry.io",
+        "it": "gestione degli errori rivista; processo di montaggio rivisto; processo umount rivisto; registro aggiunto per l'ultimo file di backup; dipendenze aggiornate; aggiunto il supporto sentry.io",
+        "es": "manejo revisado de errores; proceso de montaje revisado; proceso de desmontaje revisado; registro agregado para el último archivo de respaldo; dependencias actualizadas; Soporte agregado de sentry.io",
+        "pl": "poprawiona obsługa błędów; poprawiony proces montowania; zmieniony proces umount; dodano dziennik ostatniego pliku kopii zapasowej; zaktualizowane zależności; dodano obsługę sentry.io"
+      },
       "1.4.5": {
         "en": "Bugfix CIFS Domain",
         "de": "Bugfix CIFS Domain",
@@ -163,7 +185,12 @@
     "readme": "https://github.com/simatec/ioBroker.backitup/blob/master/README.md",
     "loglevel": "info",
     "type": "general",
-    "license": "MIT"
+    "license": "MIT",
+    "plugins": {
+      "sentry": {
+        "dsn": "https://e8510540c3a343aa8ce5678a4b3c8107@sentry.iobroker.net/36"
+      }
+    }
   },
   "native": {
     "minimalEnabled": false,
@@ -341,9 +368,9 @@
       "_id": "history.json",
       "type": "state",
       "common": {
-        "role": "json",
+        "role": "state",
         "name": "History-Log of executed backups",
-        "type": "object",
+        "type": "json",
         "read": true,
         "write": false,
         "def": "[]"
