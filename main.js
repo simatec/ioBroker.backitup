@@ -423,7 +423,6 @@ function initConfig(secret) {
         everyXDays: adapter.config.minimalEveryXDays,
         nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
         deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backupfiles after x days
-<<<<<<< HEAD
         ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
@@ -432,14 +431,6 @@ function initConfig(secret) {
 	    mysql: {
             //enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
             enabled: adapter.config.SqlEnabled,SqlConnectionType: adapter.config.SqlConnectionType,
-=======
-        ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-        mysql: {
-            enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
->>>>>>> upstream/dev
             type: 'creator',
             ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
