@@ -24,7 +24,7 @@ Backitup is a backup solution that allows cyclical backup of an IoBroker install
 [English Description here](docs/en/backitup.md)
 
 
-## What is Sentry.io and what is reported to the servers of that company?
+### What is Sentry.io and what is reported to the servers of that company?
 Sentry.io is a service for developers to get an overview about errors from their applications. And exactly this is implemented in this adapter.
 
 When the adapter crashes or an other Code error happens, this error message that also appears in the ioBroker log is submitted to Sentry. When you allowed iobroker GmbH to collect diagnostic data then also your installation ID (this is just a unique ID **without** any additional infos about you, email, name or such) is included. This allows Sentry to group errors and show how many unique users are affected by such an error. All of this helps me to provide error free adapters that basically never crashs.
