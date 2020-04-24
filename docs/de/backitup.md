@@ -162,7 +162,7 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vor
     Führt bitte folgende Befehle auf eure Iobrokerumgebung in der Konsole aus:
 
     ```
-    curl -sL https://iobroker.net/fix.sh | bash -
+    curl -fsL https://iobroker.net/fix.sh | bash -
     sudo reboot
     ```
 8.  Solltet Ihr eine Fehlermeldung beim erstellen der Redis Datenbank bekommen, prüft bitte, ob euer User iobroker die Rechte hat und ob er in der User-Gruppe Redis vorhanden ist.

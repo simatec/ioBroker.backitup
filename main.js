@@ -537,7 +537,7 @@ function createBashScripts() {
     } catch (e) {
         jsPath = path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller');
     }*/
-
+    /*
     // delete .sh and .bat for updates
     if (fs.existsSync(__dirname + '/lib/.update')) {
         if (isWin) {
@@ -551,6 +551,7 @@ function createBashScripts() {
             fs.unlinkSync(__dirname + '/lib/.update');
         }
     }
+    */
 
     if (isWin) {
         if (!fs.existsSync(__dirname + '/lib/stopIOB.bat')) {
@@ -622,8 +623,12 @@ function deleteHideFiles() {
 // delete temp dir after restore
 function delTmp() {
     if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) {
-        fs.rmdirSync(path.join(tools.getIobDir(), 'backups/tmp'));
-        adapter.log.debug('delete tmp files');
+        try {
+            fs.rmdirSync(path.join(tools.getIobDir(), 'backups/tmp'));
+            adapter.log.debug('delete tmp files');
+        } catch (e) {
+            adapter.log.warn('not delete tmp files: ' + e);
+        }
     }
 }
 // set start Options after restore
