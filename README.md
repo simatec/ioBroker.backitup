@@ -39,6 +39,9 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 1.5.3 (28.04.2020)
+* (simatec) many smal Bugfixes for errorhandling sentry.io
+
 ### 1.5.2 (24.04.2020)
 * (simatec) errorhandling sentry.io
 * (AlCalzone) docu updated

@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.5.2",
+    "version": "1.5.3",
     "news": {
+      "1.5.3": {
+        "en": "many smal Bugfixes for errorhandling sentry.io",
+        "de": "viele kleine Bugfixes für die Fehlerbehandlung sentry.io",
+        "ru": "исправлено множество мелких ошибок для обработки ошибок sentry.io",
+        "pt": "muitas pequenas correções de bugs para manipulação de erros sentry.io",
+        "nl": "veel kleine bugfixes voor foutafhandeling sentry.io",
+        "fr": "de nombreux petits correctifs pour la gestion des erreurs sentry.io",
+        "it": "molte correzioni di errori per la gestione degli errori sentry.io",
+        "es": "muchas pequeñas correcciones de errores para el manejo de errores sentry.io",
+        "pl": "wiele małych poprawek błędów dotyczących obsługi błędów sentry.io"
+      },
       "1.5.2": {
         "en": "errorhandling sentry.io, docu updated",
         "de": "Fehlerbehandlung sentry.io, Doku aktualisiert",
