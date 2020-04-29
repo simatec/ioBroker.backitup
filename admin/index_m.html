@@ -84,7 +84,7 @@
             return result;
         }
 
-        function fetchMySqlConfig(isInitial) {
+        function fetchSqlConfig(isInitial) {
             socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.sql.', endkey: 'system.adapter.sql.\u9999', include_docs: true}, function (err, res) {
 
                 if (res && res.rows && res.rows.length) {
@@ -93,6 +93,7 @@
                         var common = res.rows[0].value.common;
                         var native = res.rows[i].value.native;
                         if (common.enabled && native.dbtype === 'mysql') {
+                            $('#sqlConnectionType').val(native.dbname).trigger('change');
                             $('#mySqlUser').val(native.user).trigger('change');
                             $('#mySqlPassword').val(native.password).trigger('change');
                             $('#mySqlHost').val(native.host).trigger('change');
@@ -103,6 +104,7 @@
                             break;
                         }
 			                  if (common.enabled && native.dbtype === 'postgresql') {
+                            $('#sqlConnectionType').val('pgsql').trigger('change');
                             $('#pgSqlUser').val(native.user).trigger('change');
                             $('#pgSqlPassword').val(native.password).trigger('change');
                             $('#pgSqlHost').val(native.host).trigger('change');
@@ -273,12 +275,9 @@
         }
         function load(settings, onChange) {
             if (!settings) return;
-            if (settings.redisEnabled === undefined) {
-                settings.redisEnabled = adapter.config.backupRedis;
-            }
-            if (settings.cifsMount === 'CIFS') {
-                settings.cifsMount = '';
-            }
+            if (settings.mySqlEnabled !== undefined) { settings.sqlEnabled = settings.mySqlEnabled; delete settings.mySqlEnabled;}
+            if (settings.redisEnabled === undefined) { settings.redisEnabled = adapter.config.backupRedis;}
+            if (settings.cifsMount === 'CIFS') { settings.cifsMount = '';}
             $('.value').each(function () {
                 var $key = $(this);
                 var id = $key.attr('id');
@@ -535,13 +534,13 @@
                 fetchHistoryConfig(true);
             }
             if (!settings.mySqlUser) {
-                fetchMySqlConfig(true);
+                fetchSqlConfig(true);
 				    }
             if (!settings.pgSqlUser) {
-                fetchMySqlConfig(true);
+                fetchSqlConfig(true);
 				    }
 
-            $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
+            $('.detect-mysql').on('click', function () {fetchSqlConfig()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
             $('.detect-history').on('click', function () {fetchHistoryConfig()});
 
@@ -655,7 +654,7 @@
             } else {
                 $('.ccu').hide();
             }
-            if ($('#SqlEnabled').prop('checked')) {
+            if ($('#sqlConfig').prop('checked')) {
                 $('.mysql').show();
 		            $('.pgsql').hide();  //Postgres
             } else {
@@ -688,8 +687,8 @@
             }
             }).trigger('change');
 
-            //SQLConnectionType
-            $('#SqlConnectionType').on('change', function () {
+            //sqlConnectionType
+            $('#sqlConnectionType').on('change', function () {
             if ($(this).val() === 'MySQL') {
                     $('.pgsql').hide();
                     $('.mysql').show();
@@ -698,7 +697,7 @@
                     $('.mysql').hide();
             }
             }).trigger('change');
-            //SQLConnectionType
+            //sqlConnectionType
 
             $('#restoreSource').on('change', function () {
             if ($(this).val() === 'cifs' && $('#cifsOwnDir').prop('checked')) {
@@ -735,7 +734,7 @@
             } else {
                 $('.tab-notification').addClass('disabled');
             }
-            if ($('#SqlEnabled').prop('checked')) {
+            if ($('#sqlConfig').prop('checked')) {
                 $('.tab-sql').removeClass('disabled');
             } else {
                 $('.tab-sql').addClass('disabled');
@@ -812,8 +811,8 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3 ">
-                        <input class="value" id="SqlEnabled" type="checkbox"/>
-                        <label for="SqlEnabled" class="translate">Sql DB Backup</label>
+                        <input class="value" id="sqlConfig" type="checkbox"/>
+                        <label for="sqlConfig" class="translate">Sql DB Backup</label>
                     </div>
                     <div class="input-field col s6 l3">
                         <input class="value" id="redisEnabled" type="checkbox"/>
@@ -957,12 +956,12 @@
 			<div class="row">
 		          <!-- Selectl SQL type-->
 		    <div class="input-field col s11 m2">
-                        <select class="value" id="SqlConnectionType">
+                        <select class="value" id="sqlConnectionType">
                         <option value="MySQL" class="translate">MySQL</option>
                         <option value="PostgesSQL" class="translate">PostgesSQL</option>
 
                         </select>
-                        <label for="SqlConnectionType" class="translate">Sql Connection type</label>
+                        <label for="sqlConnectionType" class="translate">Sql Connection type</label>
                     </div>
 		           <!-- Selectl SQL type-->
         </div>

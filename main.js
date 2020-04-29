@@ -372,12 +372,12 @@ function initConfig(secret) {
         user: adapter.config.cifsUser,                     // specify if CIFS mount should be used
         pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for NAS Server
     };
-
+    if (adapter.config.mySqlEnabled !== undefined) { adapter.config.sqlEnabled = adapter.config.mySqlEnabled; delete adapter.config.mySqlEnabled;}
     // TODO: Not used anywere
     const mysql = {
-      //enabled: adapter.config.SqlEnabled === undefined ? true : adapter.config.SqlEnabled,
+      //enabled: adapter.config.sqlEnabled === undefined ? true : adapter.config.sqlEnabled,
       //type: 'creator',
-        enabled: adapter.config.SqlEnabled, SqlConnectionType: adapter.config.SqlConnectionType,
+        enabled: adapter.config.sqlEnabled === undefined ? true : adapter.config.sqlEnabled , sqlConnectionType: adapter.config.sqlConnectionType,
         type: 'creator',
         ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
@@ -396,7 +396,7 @@ function initConfig(secret) {
     };
     // Postgress SQL
     	 const pgsql = {
-            enabled: adapter.config.SqlEnabled, SqlConnectionType: adapter.config.SqlConnectionType,
+            enabled: adapter.config.sqlEnabled === undefined ? true : adapter.config.sqlEnabled , sqlConnectionType: adapter.config.sqlConnectionType,
             type: 'creator',
             ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
@@ -429,8 +429,8 @@ function initConfig(secret) {
         googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
 
 	    mysql: {
-            //enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
-            enabled: adapter.config.SqlEnabled,SqlConnectionType: adapter.config.SqlConnectionType,
+            //enabled: adapter.config.mysqlEnabled === undefined ? true : adapter.config.mysqlEnabled,
+            enabled: adapter.config.sqlEnabled === undefined ? true : adapter.config.sqlEnabled , sqlConnectionType: adapter.config.sqlConnectionType,
             type: 'creator',
             ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
@@ -449,7 +449,7 @@ function initConfig(secret) {
         },
 	//PgSQL
 	    	    pgsql: {
-            enabled: adapter.config.SqlEnabled, SqlConnectionType: adapter.config.SqlConnectionType,
+            enabled: adapter.config.sqlEnabled === undefined ? true : adapter.config.sqlEnabled , sqlConnectionType: adapter.config.sqlConnectionType,
             type: 'creator',
             ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
