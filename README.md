@@ -40,11 +40,8 @@ When the adapter crashes or an other Code error happens, this error message that
 ## Changelog
 
 ### 1.5.4 (29.04.2020)
-* (simatec) Bugfixes for errorhandling telegram
-* (simatec) Bugfixes for errorhandling pushover
-* (simatec) Bugfixes for errorhandling e-mail
-* (simatec) Bugfixes for errorhandling ftp list
-* (simatec) Bugfixes for errorhandling create backup folder
+* (simatec) added osDependencies for nfs and cifs
+* (simatec) Bugfixes for errorhandling telegram, pushover, e-mail, ftp list and create backup folder
 
 
 ### 1.5.3 (28.04.2020)
