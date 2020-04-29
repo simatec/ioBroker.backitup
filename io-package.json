@@ -224,7 +224,7 @@
     "googledriveMinimalDir": "/backupDir/iobroker",
     "googledriveCcuDir": "/backupDir/ccu",
     "googledriveDir": "/backupDir",
-    "sqlConfig": false,
+    "sqlEnabled": false,
     "sqlConnectionType":"MySQL",
     "mySqlHost": "",
     "mySqlPort": "3306",
