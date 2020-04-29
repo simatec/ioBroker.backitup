@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.5.3",
+    "version": "1.5.4",
     "news": {
+      "1.5.4": {
+        "en": "Bugfixes for errorhandling telegram; Bugfixes for errorhandling pushover; Bugfixes for errorhandling e-mail; Bugfixes for errorhandling ftp list; Bugfixes for errorhandling create backup folder",
+        "de": "Bugfixes für Fehlerbehandlungs telegramm; Bugfixes für die Fehlerbehandlung Pushover; Bugfixes für die Fehlerbehandlung von E-Mails; Bugfixes für die Fehlerbehandlung FTP-Liste; Bugfixes für die Fehlerbehandlung erstellen Backup Ordner",
+        "ru": "Исправления ошибок обработки телеграмм; Исправлены ошибки при обработке ошибок; Исправления ошибок обработки электронной почты; Исправления ошибок при обработке списка ftp; Исправления ошибок при обработке папки резервного копирования",
+        "pt": "Correções de erros para telegrama de tratamento de erros; Correções de erros para manipulação de erros; Correções de erros para manipulação de erros de email; Correções de erros para lidar com erros na lista ftp; Correções de erros para manipulação de erros criar pasta de backup",
+        "nl": "Bugfixes voor foutafhandeling telegram; Bugfixes voor pushhandling bij foutafhandeling; Bugfixes voor foutafhandeling van e-mail; Bugfixes voor foutafhandeling ftp-lijst; Bugfixes voor foutafhandeling maken back-upmap",
+        "fr": "Corrections de bugs pour le télégramme de gestion des erreurs; Corrections de bugs pour le traitement des erreurs pushover; Corrections de bogues pour la gestion des erreurs de messagerie; Corrections de bugs pour la gestion des erreurs de la liste ftp; Corrections de bogues pour la gestion des erreurs créer un dossier de sauvegarde",
+        "it": "Bugfix per il telegramma di gestione degli errori; Bugfix per la gestione degli errori pushover; Correzioni di bug per la gestione di e-mail di errori; Correzioni di errori per la gestione dell'elenco ftp; Le correzioni di errori per la gestione degli errori creano una cartella di backup",
+        "es": "Corrección de errores para el telegrama de manejo de errores; Corrección de errores para la manipulación de errores. Corrección de errores para el manejo de errores de correo electrónico; Corrección de errores para el manejo de errores de la lista de ftp; Corrección de errores para manejo de errores crear carpeta de respaldo",
+        "pl": "Poprawki dla telegramu obsługi błędów; Poprawki błędów dotyczące przenoszenia błędów; Poprawki błędów związanych z obsługą wiadomości e-mail; Poprawki błędów w obsłudze listy ftp; Poprawki dotyczące obsługi błędów tworzą folder kopii zapasowej"
+      },
       "1.5.3": {
         "en": "many smal Bugfixes for errorhandling sentry.io",
         "de": "viele kleine Bugfixes für die Fehlerbehandlung sentry.io",
