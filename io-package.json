@@ -1,8 +1,41 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.5.1",
+    "version": "1.5.4",
     "news": {
+      "1.5.4": {
+        "en": "added osDependencies for nfs and cifs, Bugfixes for errorhandling telegram, pushover, e-mail, ftp list and create backup folder",
+        "de": "osDependencies für nfs und cifs hinzugefügt, Bugfixes für die Fehlerbehandlung von Telegram, Pushover, E-Mail, FTP-Liste und Backup-Ordner erstellen",
+        "ru": "добавлены osDependencies для nfs и cifs, исправления ошибок для телеграмм обработки ошибок, pushover, электронной почты, списка ftp и создания резервной папки",
+        "pt": "osDependencies adicionados para nfs e cifs, correções de erros para telegrama de manipulação de erros, pushover, e-mail, lista de ftp e criar pasta de backup",
+        "nl": "osDependencies toegevoegd voor nfs en cifs, Bugfixes voor foutafhandeling telegram, pushover, e-mail, ftp-lijst en maak back-upmap",
+        "fr": "ajout des dépendances os pour nfs et cifs, corrections de bugs pour le télégramme de gestion des erreurs, pushover, e-mail, liste ftp et créer un dossier de sauvegarde",
+        "it": "aggiunte osDipendenze per nfs e cifs, correzioni di bug per la gestione degli errori telegramma, pushover, e-mail, elenco ftp e creazione di una cartella di backup",
+        "es": "Se agregaron osDependencies para nfs y cifs, correcciones de errores para el manejo de errores de telegramas, pushover, correo electrónico, lista de ftp y crear una carpeta de respaldo",
+        "pl": "dodano osDependencies do nfs i cifs, Bugfixy do obsługi błędów telegramu, pushover, e-mail, listy ftp i utwórz folder kopii zapasowej"
+      },
+      "1.5.3": {
+        "en": "many smal Bugfixes for errorhandling sentry.io",
+        "de": "viele kleine Bugfixes für die Fehlerbehandlung sentry.io",
+        "ru": "исправлено множество мелких ошибок для обработки ошибок sentry.io",
+        "pt": "muitas pequenas correções de bugs para manipulação de erros sentry.io",
+        "nl": "veel kleine bugfixes voor foutafhandeling sentry.io",
+        "fr": "de nombreux petits correctifs pour la gestion des erreurs sentry.io",
+        "it": "molte correzioni di errori per la gestione degli errori sentry.io",
+        "es": "muchas pequeñas correcciones de errores para el manejo de errores sentry.io",
+        "pl": "wiele małych poprawek błędów dotyczących obsługi błędów sentry.io"
+      },
+      "1.5.2": {
+        "en": "errorhandling sentry.io, docu updated",
+        "de": "Fehlerbehandlung sentry.io, Doku aktualisiert",
+        "ru": "обработка ошибок sentry.io, документ обновлен",
+        "pt": "manuseio de erros sentry.io, docu updated",
+        "nl": "errorhandling sentry.io, docu bijgewerkt",
+        "fr": "errorhandling sentry.io, docu mis à jour",
+        "it": "gestione degli errori sentry.io, docu aggiornato",
+        "es": "errorhandling sentry.io, documento actualizado",
+        "pl": "obsługa błędów sentry.io, zaktualizowano dokumentację"
+      },
       "1.5.1": {
         "en": "Bugfix list from nas; Bugfix sentry errors",
         "de": "Bugfix Liste von nas; Bugfix Sentry Fehler",
@@ -90,50 +123,6 @@
         "it": "aggiunto il tempo di backup successivo; aggiunto Suffisso nome per il backup mysql; aggiunte altre opzioni per mysql; aggiunto supporto dominio per cifs; aggiunto stato storico json",
         "es": "se agregó el siguiente tiempo de respaldo; Sufijo de nombre agregado para MySQL Backup; se agregaron más opciones para mysql; soporte de dominio agregado para cifs; agregado json historystate",
         "pl": "dodano następny Czas tworzenia kopii zapasowej; dodano sufiks nazwy dla kopii zapasowej mysql; dodano więcej opcji dla mysql; dodano obsługę domen dla CIF; dodano historystate json"
-      },
-      "1.3.6": {
-        "en": "Fix historyList for compact-mode; Added ack for history states",
-        "de": "Fix historyList für den Kompaktmodus; Ack für History-Zustände hinzugefügt",
-        "ru": "Исправить historyList для компактного режима; Добавлено подтверждение истории состояний",
-        "pt": "Corrija o historyList para o modo compacto; Adicionada confirmação para estados históricos",
-        "nl": "Geschiedenislijst repareren voor compacte modus; Ack toegevoegd voor geschiedenisstaten",
-        "fr": "Correction de historyList pour le mode compact; Ack ajouté pour les états d'historique",
-        "it": "Elenco cronologia correzioni per modalità compatta; Aggiunto ack per gli stati della storia",
-        "es": "Arreglar historyList para modo compacto; Ack agregado para estados de historia",
-        "pl": "Fix historyList dla trybu kompaktowego; Dodano potwierdzenie dla stanów historii"
-      },
-      "1.3.5": {
-        "en": "Fix compact-mode for history",
-        "de": "Fix Kompaktmodus für die Historie",
-        "ru": "Исправлен компактный режим для истории",
-        "pt": "Corrija o modo compacto para o histórico",
-        "nl": "Fix compact-mode voor geschiedenis",
-        "fr": "Correction du mode compact pour l'historique",
-        "it": "Correzione della modalità compatta per la cronologia",
-        "es": "Repara el modo compacto para el historial",
-        "pl": "Napraw tryb kompaktowy dla historii"
-      },
-      "1.3.4": {
-        "en": "Fix hide passwords",
-        "de": "Versteckte Passwörter korrigieren",
-        "ru": "Исправить скрытие паролей",
-        "pt": "Corrigir ocultar senhas",
-        "nl": "Herstel wachtwoorden",
-        "fr": "Correction de masquer les mots de passe",
-        "it": "Correggi le password nascoste",
-        "es": "Repara ocultar contraseñas",
-        "pl": "Napraw ukryte hasła"
-      },
-      "1.3.3": {
-        "en": "Fix Webinterface for Restore; Fix MySql Backup; Added some debug logs for Restore; some Bug Fix; Messagebox for restore list; hide password on log; Added password hiding; Clean Code; auto-detected for history path; Fix auto-deteced",
-        "de": "Fix Webinterface für Restore; Fix MySQL Backup; Einige Debug-Protokolle für Restore hinzugefügt; einige Bugfixes; Messagebox für Wiederherstellungsliste; Passwort im Log ausblenden; Passwort ausblenden hinzugefügt; Code bereinigen; automatisch ausfüllen für history backup; Fix automatisch ausfüllen",
-        "ru": "Исправить веб-интерфейс для восстановления; Исправить MySql Backup; Добавлены некоторые журналы отладки для Restore; исправление некоторых ошибок; Окно сообщения для восстановления списка; скрыть пароль в журнале; Добавлено скрытие пароля; Чистый код; автоматически определяется для истории пути; Исправить автоопределение",
-        "pt": "Corrija o Webinterface para restauração; Corrigir o backup do MySql; Adicionados alguns logs de depuração para restauração; alguma correção de bug; Messagebox para lista de restauração; ocultar senha no log; Ocultar senha adicionada; Código Limpo; detectado automaticamente para o caminho do histórico; Corrigir detecção automática",
-        "nl": "Herstel webinterface voor herstel; Fix MySql Backup; Enkele foutopsporingslogboeken toegevoegd voor Herstellen; een aantal bugfixes; Berichtenbox voor herstellijst; wachtwoord verbergen op logboek; Toegevoegd wachtwoord verbergen; Schone code; automatisch gedetecteerd voor geschiedenispad; Herstel automatisch gedetecteerd",
-        "fr": "Correction de l'interface Web pour la restauration; Fix MySql Backup; Ajout de quelques journaux de débogage pour la restauration; une correction de bogue; Boîte de message pour la liste de restauration; cacher le mot de passe dans le journal; Ajout du masquage du mot de passe; Code propre; auto-détecté pour le chemin de l'historique; Correction auto-détectée",
-        "it": "Fix Webinterface for Restore; Correggi backup MySql; Aggiunti alcuni log di debug per Restore; qualche correzione di bug; Messagebox per l'elenco di ripristino; nascondi password nel registro; Aggiunto nascondiglio password; Codice pulito; rilevato automaticamente per il percorso della cronologia; Correzione rilevata automaticamente",
-        "es": "Arreglar Webinterface para Restaurar; Fix MySql Backup; Se agregaron algunos registros de depuración para Restaurar; algunas correcciones de errores; Cuadro de mensaje para la lista de restauración; ocultar contraseña en el registro; Se agregó contraseña oculta; Código limpio; autodetectado para la ruta del historial; Fix auto-detectado",
-        "pl": "Napraw interfejs WWW dla przywracania; Napraw MySql Backup; Dodano niektóre dzienniki debugowania dla Przywracania; niektóre poprawki błędów; Skrzynka wiadomości dla listy przywracania; ukryj hasło w logu; Dodano ukrywanie hasła; Czysty kod; automatycznie wykrywane dla ścieżki historii; Napraw automatyczne wykrywanie"
       }
     },
     "title": "BackItUp",
@@ -164,6 +153,12 @@
       "peoples0815 <peoples0815github@gmail.com>",
       "bluefox <dogafox@gmail.com>"
     ],
+    "osDependencies": {
+      "linux": [
+        "cifs-utils",
+        "nfs-common"
+      ]
+    },
     "docs": {
       "en": "docs/en/backitup.md",
       "de": "docs/de/backitup.md"

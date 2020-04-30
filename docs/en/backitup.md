@@ -161,7 +161,7 @@ Here is a list of problems encountered so far and their solutions, if any.
     In order to solve the problem with missing rights, there is now a fix for the installer script of iobroker.
     Please run the following commands on your Iobroker environment in the console:
     ```
-    curl -sL https://iobroker.net/fix.sh | bash -
+    curl -fsL https://iobroker.net/fix.sh | bash -
     sudo reboot
     ```
 7. If you get an error when creating the Redis database, please check if your user iobroker has the rights and if he exists in the user group Redis.

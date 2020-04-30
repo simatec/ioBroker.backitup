@@ -575,7 +575,7 @@ function createBashScripts() {
     } catch (e) {
         jsPath = path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller');
     }*/
-
+    /*
     // delete .sh and .bat for updates
     if (fs.existsSync(__dirname + '/lib/.update')) {
         if (isWin) {
@@ -589,26 +589,47 @@ function createBashScripts() {
             fs.unlinkSync(__dirname + '/lib/.update');
         }
     }
+    */
 
     if (isWin) {
         if (!fs.existsSync(__dirname + '/lib/stopIOB.bat')) {
-            fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\nif exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-stop\n)\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
+            try {
+                fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\nif exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-stop\n)\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
+            } catch (e) {
+                adapter.log.error('cannot create stopIOB.bat: ' + e + 'Please run "iobroker fix"');
+            }
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.bat')) {
-            fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\niobroker host this\ncall iobroker start\nif exist "${path.join(__dirname, 'lib/.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
+            try {
+                fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\niobroker host this\ncall iobroker start\nif exist "${path.join(__dirname, 'lib/.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
+            } catch (e) {
+                adapter.log.error('cannot create startIOB.bat: ' + e + 'Please run "iobroker fix"');
+            }
         }
     } else {
         if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
-            fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `# iobroker stop for restore\nsudo systemd-run --uid=iobroker bash ${path.join(__dirname, 'lib')}/external.sh`);
-            fs.chmodSync(__dirname + '/lib/stopIOB.sh', 508);
+            try {
+                fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `# iobroker stop for restore\nsudo systemd-run --uid=iobroker bash ${path.join(__dirname, 'lib')}/external.sh`);
+                fs.chmodSync(__dirname + '/lib/stopIOB.sh', 508);
+            } catch (e) {
+                adapter.log.error('cannot create stopIOB.sh: ' + e + 'Please run "iobroker fix"');
+            }
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
-            fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo systemctl start redis-server\nfi\niobroker host this\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start`);
-            fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
+            try {
+                fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo systemctl start redis-server\nfi\niobroker host this\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start`);
+                fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
+            } catch (e) {
+                adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
+            }
         }
         if (!fs.existsSync(__dirname + '/lib/external.sh')) {
-            fs.writeFileSync(__dirname + '/lib/external.sh', `# restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo systemctl stop redis-server\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop;\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
-            fs.chmodSync(__dirname + '/lib/external.sh', 508);
+            try {
+                fs.writeFileSync(__dirname + '/lib/external.sh', `# restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo systemctl stop redis-server\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop;\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
+                fs.chmodSync(__dirname + '/lib/external.sh', 508);
+            } catch (e) {
+                adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
+            }
         }
     }
 }
@@ -649,8 +670,12 @@ function umount() {
 // Create Backupdir on first start
 function createBackupDir() {
     if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) {
-        fs.mkdirSync(path.join(tools.getIobDir(), 'backups'));
-        adapter.log.debug('Created BackupDir');
+        try {
+            fs.mkdirSync(path.join(tools.getIobDir(), 'backups'));
+            adapter.log.debug('Created BackupDir');
+        } catch (e) {
+            adapter.log.warn('Backup folder not created: ' + e + 'Please run "iobroker fix" and try again or create the backup folder manually!!');
+        }
     }
 }
 // delete Hide Files after restore
@@ -660,8 +685,12 @@ function deleteHideFiles() {
 // delete temp dir after restore
 function delTmp() {
     if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) {
-        fs.rmdirSync(path.join(tools.getIobDir(), 'backups/tmp'));
-        adapter.log.debug('delete tmp files');
+        try {
+            fs.rmdirSync(path.join(tools.getIobDir(), 'backups/tmp'));
+            adapter.log.debug('delete tmp files');
+        } catch (e) {
+            adapter.log.warn('can not delete tmp files: ' + e + 'Please run "iobroker fix" and try again or delete the tmp folder manually!!');
+        }
     }
 }
 // set start Options after restore
@@ -746,7 +775,13 @@ function detectLatestBackupFile(adapter) {
                         }
                     });
                     file = results[0];
-                    file.date = file.date.toISOString();
+                    if (file.date !== undefined) {
+                        try {
+                            file.date = file.date.toISOString();
+                        } catch (e) {
+                            adapter.log.warn('No backup file date was found: ' + e);
+                        }
+                    }
                 } else {
                     file = null;
                 }

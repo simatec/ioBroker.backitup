@@ -39,6 +39,18 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 1.5.4 (29.04.2020)
+* (simatec) added osDependencies for nfs and cifs
+* (simatec) Bugfixes for errorhandling telegram, pushover, e-mail, ftp list and create backup folder
+
+
+### 1.5.3 (28.04.2020)
+* (simatec) many smal Bugfixes for errorhandling sentry.io
+
+### 1.5.2 (24.04.2020)
+* (simatec) errorhandling sentry.io
+* (AlCalzone) docu updated
+
 ### 1.5.1 (23.04.2020)
 * (simatec) Bugfix list from nas
 * (simatec) Bugfix sentry errors
