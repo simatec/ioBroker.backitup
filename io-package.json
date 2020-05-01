@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.5.4",
+    "version": "1.5.5",
     "news": {
+      "1.5.5": {
+        "en": "bugfix errorhandling sentry.io",
+        "de": "Bugfix Fehlerbehandlung sentry.io",
+        "ru": "Исправление ошибок Обработка ошибок sentry.io",
+        "pt": "manipulação de erros sentry.io",
+        "nl": "bugfix foutafhandeling sentry.io",
+        "fr": "bugfix errorhandling sentry.io",
+        "it": "bugfix gestione degli errori sentry.io",
+        "es": "corrección de errores manejo de errores sentry.io",
+        "pl": "poprawka błędów obsługa sentry.io"
+      },
       "1.5.4": {
         "en": "added osDependencies for nfs and cifs, Bugfixes for errorhandling telegram, pushover, e-mail, ftp list and create backup folder",
         "de": "osDependencies für nfs und cifs hinzugefügt, Bugfixes für die Fehlerbehandlung von Telegram, Pushover, E-Mail, FTP-Liste und Backup-Ordner erstellen",
