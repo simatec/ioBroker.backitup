@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.5.5",
+    "version": "1.5.6",
     "news": {
+      "1.5.6": {
+        "en": "Bugfix reading restore list",
+        "de": "Fehlerbehebung beim Lesen der Wiederherstellungsliste",
+        "ru": "Исправлена ошибка чтения списка восстановления",
+        "pt": "Correção de erros na lista de restauração",
+        "nl": "Herstellijst voor het lezen van bugfixes",
+        "fr": "Correction de la lecture de la liste de restauration",
+        "it": "Elenco di ripristino lettura bugfix",
+        "es": "Lista de restauración de lectura de corrección de errores",
+        "pl": "Poprawka odczytu listy przywracania"
+      },
       "1.5.5": {
         "en": "bugfix errorhandling sentry.io",
         "de": "Bugfix Fehlerbehandlung sentry.io",
