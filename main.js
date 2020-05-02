@@ -129,7 +129,7 @@ function startAdapter(options) {
                         list(obj.message, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                         adapter.log.debug('Backup list be read ...');
                     } catch (e) {
-                        adapter.log.warn('Backup list cannot be read. Please restart backitup. and try again!!');
+                        adapter.log.debug('Backup list cannot be read ...');
                     }
                     break;
 
