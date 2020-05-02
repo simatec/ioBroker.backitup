@@ -47,10 +47,15 @@ function startBackup(config, cb) {
         return setTimeout(startBackup, 10000, config, cb);
     } else {
         taskRunning = true;
-        executeScripts(adapter, config, err => {
-            taskRunning = false;
-            cb && cb(err);
-        });
+        try {
+            executeScripts(adapter, config, err => {
+                taskRunning = false;
+                cb && cb(err);
+            });
+            adapter.log.debug('Backup has started ...');
+        } catch (e) {
+            adapter.log.warn('Backup error: ' + e + ' ... please check your config and and try again!!');
+        }
     }
 }
 
@@ -66,7 +71,12 @@ function startAdapter(options) {
             if (id === adapter.namespace + '.oneClick.iobroker' ||
                 id === adapter.namespace + '.oneClick.ccu') {
                 const type = id.split('.').pop();
-                const config = JSON.parse(JSON.stringify(backupConfig[type]));
+                let config;
+                try {
+                    config = JSON.parse(JSON.stringify(backupConfig[type]));
+                } catch (e) {
+                    adapter.log.warn('backup error: ' + e + ' ... please check your config and try again!!');
+                }
                 config.enabled = true;
                 config.deleteBackupAfter = 0; // do not delete files by custom backup
 
@@ -115,7 +125,12 @@ function startAdapter(options) {
         if (obj) {
             switch (obj.command) {
                 case 'list':
-                    list(obj.message, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                    try {
+                        list(obj.message, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                        adapter.log.debug('Backup list be read ...');
+                    } catch (e) {
+                        adapter.log.warn('Backup list cannot be read. Please restart backitup. and try again!!');
+                    }
                     break;
 
                 case 'authGoogleDrive':
