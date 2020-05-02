@@ -261,6 +261,10 @@ function initConfig(secret) {
     if (adapter.config.redisEnabled === undefined) {
         adapter.config.redisEnabled = adapter.config.backupRedis
     }
+// old config compatibility
+  if (adapter.config.mySqlEnabled !== undefined) {
+     adapter.config.sqlEnabled = adapter.config.mySqlEnabled;
+     delete adapter.config.mySqlEnabled;}
 
     const telegram = {
         enabled: adapter.config.notificationEnabled,
@@ -372,7 +376,7 @@ function initConfig(secret) {
         user: adapter.config.cifsUser,                     // specify if CIFS mount should be used
         pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for NAS Server
     };
-    if (adapter.config.mySqlEnabled !== undefined) { adapter.config.sqlEnabled = adapter.config.mySqlEnabled; delete adapter.config.mySqlEnabled;}
+
     // TODO: Not used anywere
     const mysql = {
       //enabled: adapter.config.sqlEnabled === undefined ? true : adapter.config.sqlEnabled,

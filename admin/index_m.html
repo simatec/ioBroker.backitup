@@ -84,7 +84,7 @@
             return result;
         }
 
-        function fetchSqlConfig(isInitial) {
+        function fetchsqlEnabled(isInitial) {
             socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.sql.', endkey: 'system.adapter.sql.\u9999', include_docs: true}, function (err, res) {
 
                 if (res && res.rows && res.rows.length) {
@@ -93,7 +93,7 @@
                         var common = res.rows[0].value.common;
                         var native = res.rows[i].value.native;
                         if (common.enabled && native.dbtype === 'mysql') {
-                            $('#sqlConnectionType').val(native.dbname).trigger('change');
+                            $('#sqlConnectionType').val('MySQL').trigger('change');
                             $('#mySqlUser').val(native.user).trigger('change');
                             $('#mySqlPassword').val(native.password).trigger('change');
                             $('#mySqlHost').val(native.host).trigger('change');
@@ -104,7 +104,7 @@
                             break;
                         }
 			                  if (common.enabled && native.dbtype === 'postgresql') {
-                            $('#sqlConnectionType').val('pgsql').trigger('change');
+                            $('#sqlConnectionType').val('PostgesSQL').trigger('change');
                             $('#pgSqlUser').val(native.user).trigger('change');
                             $('#pgSqlPassword').val(native.password).trigger('change');
                             $('#pgSqlHost').val(native.host).trigger('change');
@@ -119,6 +119,7 @@
                         for (var j = 0; j < res.rows.length; j++) {
                             var _native = res.rows[j].value.native;
                             if (_native.dbtype === 'mysql') {
+                              $('#sqlConnectionType').val('MySQL').trigger('change');
                                 $('#mySqlUser').val(_native.user).trigger('change');
                                 $('#mySqlPassword').val(_native.password).trigger('change');
                                 $('#mySqlHost').val(_native.host).trigger('change');
@@ -128,6 +129,7 @@
                                 break;
                             }
                             if (_native.dbtype === 'postgresql') {
+                              $('#sqlConnectionType').val('PostgesSQL').trigger('change');
                                 $('#pgSqlUser').val(_native.user).trigger('change');
                                 $('#pgSqlPassword').val(_native.password).trigger('change');
                                 $('#pgSqlHost').val(_native.host).trigger('change');
@@ -534,13 +536,13 @@
                 fetchHistoryConfig(true);
             }
             if (!settings.mySqlUser) {
-                fetchSqlConfig(true);
+                fetchsqlEnabled(true);
 				    }
             if (!settings.pgSqlUser) {
-                fetchSqlConfig(true);
+                fetchsqlEnabled(true);
 				    }
 
-            $('.detect-mysql').on('click', function () {fetchSqlConfig()});
+            $('.detect-mysql').on('click', function () {fetchsqlEnabled()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
             $('.detect-history').on('click', function () {fetchHistoryConfig()});
 
@@ -654,7 +656,7 @@
             } else {
                 $('.ccu').hide();
             }
-            if ($('#sqlConfig').prop('checked')) {
+            if ($('#sqlEnabled').prop('checked')) {
                 $('.mysql').show();
 		            $('.pgsql').hide();  //Postgres
             } else {
@@ -734,7 +736,7 @@
             } else {
                 $('.tab-notification').addClass('disabled');
             }
-            if ($('#sqlConfig').prop('checked')) {
+            if ($('#sqlEnabled').prop('checked')) {
                 $('.tab-sql').removeClass('disabled');
             } else {
                 $('.tab-sql').addClass('disabled');
@@ -811,8 +813,8 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3 ">
-                        <input class="value" id="sqlConfig" type="checkbox"/>
-                        <label for="sqlConfig" class="translate">Sql DB Backup</label>
+                        <input class="value" id="sqlEnabled" type="checkbox"/>
+                        <label for="sqlEnabled" class="translate">Sql DB Backup</label>
                     </div>
                     <div class="input-field col s6 l3">
                         <input class="value" id="redisEnabled" type="checkbox"/>
