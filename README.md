@@ -39,6 +39,9 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 1.5.6 (02.05.2020)
+* (simatec) Bugfix reading restore list
+
 ### 1.5.5 (01.05.2020)
 * (simatec) bugfix errorhandling sentry.io
 
