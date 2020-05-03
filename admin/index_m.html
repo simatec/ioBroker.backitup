@@ -104,7 +104,7 @@
                             break;
                         }
 			                  if (common.enabled && native.dbtype === 'postgresql') {
-                            $('#sqlConnectionType').val('PostgesSQL').trigger('change');
+                            $('#sqlConnectionType').val('PostgreSQL').trigger('change');
                             $('#pgSqlUser').val(native.user).trigger('change');
                             $('#pgSqlPassword').val(native.password).trigger('change');
                             $('#pgSqlHost').val(native.host).trigger('change');
@@ -129,7 +129,7 @@
                                 break;
                             }
                             if (_native.dbtype === 'postgresql') {
-                              $('#sqlConnectionType').val('PostgesSQL').trigger('change');
+                              $('#sqlConnectionType').val('PostgreSQL').trigger('change');
                                 $('#pgSqlUser').val(_native.user).trigger('change');
                                 $('#pgSqlPassword').val(_native.password).trigger('change');
                                 $('#pgSqlHost').val(_native.host).trigger('change');
@@ -694,7 +694,7 @@
             if ($(this).val() === 'MySQL') {
                     $('.pgsql').hide();
                     $('.mysql').show();
-            } else if ($(this).val() === 'PostgesSQL') {
+            } else if ($(this).val() === 'PostgreSQL') {
                     $('.pgsql').show();
                     $('.mysql').hide();
             }
@@ -960,7 +960,7 @@
 		    <div class="input-field col s11 m2">
                         <select class="value" id="sqlConnectionType">
                         <option value="MySQL" class="translate">MySQL</option>
-                        <option value="PostgesSQL" class="translate">PostgesSQL</option>
+                        <option value="PostgreSQL" class="translate">PostgreSQL</option>
 
                         </select>
                         <label for="sqlConnectionType" class="translate">Sql Connection type</label>
