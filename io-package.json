@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.5.6",
+    "version": "1.5.7",
     "news": {
+      "1.5.7": {
+        "en": "bugfix errorhandling sentry.io; updated dependencies; added node14 support",
+        "de": "Bugfix Fehlerbehandlung sentry.io; aktualisierte Abhängigkeiten; Unterstützung für Node14 hinzugefügt",
+        "ru": "исправление ошибок обработка sendry.io; обновленные зависимости; добавлена поддержка node14",
+        "pt": "manipulação de erros sentry.io; dependências atualizadas; adicionado suporte node14",
+        "nl": "bugfix errorhandling sentry.io; bijgewerkte afhankelijkheden; ondersteuning voor node14 toegevoegd",
+        "fr": "bugfix errorhandling sentry.io; dépendances mises à jour; ajout de la prise en charge de node14",
+        "it": "bugfix gestione degli errori sentry.io; dipendenze aggiornate; aggiunto supporto node14",
+        "es": "corrección de errores manejo de errores sentry.io; dependencias actualizadas; Soporte agregado de node14",
+        "pl": "poprawka błędów obsługa sentry.io; zaktualizowane zależności; dodano obsługę node14"
+      },
       "1.5.6": {
         "en": "Bugfix reading restore list",
         "de": "Fehlerbehebung beim Lesen der Wiederherstellungsliste",
