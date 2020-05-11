@@ -74,12 +74,11 @@ function startAdapter(options) {
                 let config;
                 try {
                     config = JSON.parse(JSON.stringify(backupConfig[type]));
+                    config.enabled = true;
+                    config.deleteBackupAfter = 0; // do not delete files by custom backup
                 } catch (e) {
                     adapter.log.warn('backup error: ' + e + ' ... please check your config and try again!!');
                 }
-                config.enabled = true;
-                config.deleteBackupAfter = 0; // do not delete files by custom backup
-
                 startBackup(config, err => {
                     if (err) {
                         adapter.log.error(`[${type}] ${err}`);
@@ -630,11 +629,21 @@ function umount() {
                                     if (error) {
                                         adapter.log.error(error);
                                     } else {
-                                        fs.existsSync(__dirname + '/.mount') && fs.unlinkSync(__dirname + '/.mount');
+                                        adapter.log.debug('umount successfully completed');
+                                        try {
+                                            fs.existsSync(__dirname + '/.mount') && fs.unlinkSync(__dirname + '/.mount');
+                                        } catch (e) {
+                                            adapter.log.debug('file ".mount" not deleted ...');
+                                        }
                                     }
                                 }), 300000);
                         } else {
-                            fs.existsSync(__dirname + '/.mount') && fs.unlinkSync(__dirname + '/.mount');
+                            adapter.log.debug('umount successfully completed');
+                            try {
+                                fs.existsSync(__dirname + '/.mount') && fs.unlinkSync(__dirname + '/.mount');
+                            } catch (e) {
+                                adapter.log.debug('file ".mount" not deleted ...');
+                            }
                         }
                     }), 2000);
             } else {
