@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.5.7",
+    "version": "1.5.8",
     "news": {
       "1.5.7": {
         "en": "bugfix errorhandling sentry.io; updated dependencies; added node14 support",
