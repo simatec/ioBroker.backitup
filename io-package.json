@@ -3,6 +3,17 @@
     "name": "backitup",
     "version": "1.5.8",
     "news": {
+      "1.5.8": {
+        "en": "small fixes on zigbee backup; added log for zigbee Instances",
+        "de": "kleine Korrekturen am ZigBee-Backup; Protokoll für ZigBee-Instanzen hinzugefügt",
+        "ru": "небольшие исправления на бекапе zigbee; добавлен журнал для экземпляров ZigBee",
+        "pt": "pequenas correções no backup em zigbee; log adicionado para instâncias zigbee",
+        "nl": "kleine oplossingen voor zigbee back-up; logboek toegevoegd voor zigbee-instanties",
+        "fr": "petites corrections sur la sauvegarde zigbee; journal ajouté pour les instances zigbee",
+        "it": "piccole correzioni sul backup a zigbee; registro aggiunto per istanze di zigbee",
+        "es": "pequeñas correcciones en la copia de seguridad zigbee; registro agregado para instancias zigbee",
+        "pl": "drobne poprawki w kopii zapasowej zigbee; dodano dziennik dla instancji zigbee"
+      },
       "1.5.7": {
         "en": "bugfix errorhandling sentry.io; updated dependencies; added node14 support",
         "de": "Bugfix Fehlerbehandlung sentry.io; aktualisierte Abhängigkeiten; Unterstützung für Node14 hinzugefügt",
@@ -90,72 +101,6 @@
         "it": "gestione degli errori rivista; processo di montaggio rivisto; processo umount rivisto; registro aggiunto per l'ultimo file di backup; dipendenze aggiornate; aggiunto il supporto sentry.io",
         "es": "manejo revisado de errores; proceso de montaje revisado; proceso de desmontaje revisado; registro agregado para el último archivo de respaldo; dependencias actualizadas; Soporte agregado de sentry.io",
         "pl": "poprawiona obsługa błędów; poprawiony proces montowania; zmieniony proces umount; dodano dziennik ostatniego pliku kopii zapasowej; zaktualizowane zależności; dodano obsługę sentry.io"
-      },
-      "1.4.5": {
-        "en": "Bugfix CIFS Domain",
-        "de": "Bugfix CIFS Domain",
-        "ru": "Исправление домена CIFS",
-        "pt": "Bugfix CIFS Domain",
-        "nl": "Bugfix CIFS-domein",
-        "fr": "Domaine CIFS Bugfix",
-        "it": "Bugfix Dominio CIFS",
-        "es": "Bugfix CIFS Domain",
-        "pl": "Bugfix CIFS Domain"
-      },
-      "1.4.4": {
-        "en": "Fix history error",
-        "de": "History Fehler behoben",
-        "ru": "Исправить историю ошибок",
-        "pt": "Corrigir erro do histórico",
-        "nl": "Herstel geschiedenisfout",
-        "fr": "Correction d'une erreur d'historique",
-        "it": "Correggi l'errore cronologico",
-        "es": "Corregir error de historial",
-        "pl": "Napraw błąd historii"
-      },
-      "1.4.3": {
-        "en": "fix for autochecker",
-        "de": "Fix für Autochecker",
-        "ru": "исправить для autochecker",
-        "pt": "correção para autochecker",
-        "nl": "oplossing voor autochecker",
-        "fr": "correction pour autochecker",
-        "it": "correzione per il controllo automatico",
-        "es": "arreglo para autochecker",
-        "pl": "naprawić autochecker"
-      },
-      "1.4.2": {
-        "en": "Fix start after restore; update dependencies",
-        "de": "Fix Start nach Wiederherstellung; Abhängigkeiten aktualisiert",
-        "ru": "Исправить начало после восстановления; обновить зависимости",
-        "pt": "Corrigir o início após a restauração; atualizar dependências",
-        "nl": "Start na herstel herstellen; afhankelijkheden bijwerken",
-        "fr": "Correction du démarrage après la restauration; mettre à jour les dépendances",
-        "it": "Correggi l'avvio dopo il ripristino; aggiornare le dipendenze",
-        "es": "Arreglar el inicio después de la restauración; actualizar dependencias",
-        "pl": "Napraw start po przywróceniu; zaktualizować zależności"
-      },
-      "1.4.1": {
-        "en": "json historystate with more options",
-        "de": "json historystate mit mehr Optionen",
-        "ru": "JSON Historystate с большим количеством опций",
-        "pt": "json historystate com mais opções",
-        "nl": "json historystate met meer opties",
-        "fr": "json historystate avec plus d'options",
-        "it": "json historystate con più opzioni",
-        "es": "json historystate con más opciones",
-        "pl": "json historystate z większą liczbą opcji"
-      },
-      "1.4.0": {
-        "en": "added next Backup Time; added Name Suffix for mysql Backup; added more Options for mysql; added domain support for cifs; added json historystate",
-        "de": "nächste Backup-Zeit hinzugefügt; Namenssuffix für MySQL-Backup hinzugefügt; weitere Optionen für MySQL hinzugefügt; Domain-Unterstützung für CIFS hinzugefügt; json historystate hinzugefügt",
-        "ru": "добавлено следующее время резервного копирования; добавлен суффикс имени для резервного копирования MySQL; добавлены дополнительные параметры для mysql; добавлена поддержка домена для cifs; добавлено историческое состояние JSON",
-        "pt": "adicionado próximo tempo de backup; adicionado sufixo de nome para backup do mysql; adicionou mais opções para o mysql; adicionado suporte de domínio para CIFs; json historystate adicionado",
-        "nl": "volgende back-uptijd toegevoegd; Naam Suffix voor mysql Backup toegevoegd; meer opties toegevoegd voor mysql; domein ondersteuning toegevoegd voor cifs; json historystate toegevoegd",
-        "fr": "ajouté la prochaine heure de sauvegarde; ajout du suffixe de nom pour la sauvegarde mysql; ajouté plus d'options pour mysql; ajout du support de domaine pour les cifs; a ajouté json historystate",
-        "it": "aggiunto il tempo di backup successivo; aggiunto Suffisso nome per il backup mysql; aggiunte altre opzioni per mysql; aggiunto supporto dominio per cifs; aggiunto stato storico json",
-        "es": "se agregó el siguiente tiempo de respaldo; Sufijo de nombre agregado para MySQL Backup; se agregaron más opciones para mysql; soporte de dominio agregado para cifs; agregado json historystate",
-        "pl": "dodano następny Czas tworzenia kopii zapasowej; dodano sufiks nazwy dla kopii zapasowej mysql; dodano więcej opcji dla mysql; dodano obsługę domen dla CIF; dodano historystate json"
       }
     },
     "title": "BackItUp",
