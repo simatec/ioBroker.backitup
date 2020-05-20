@@ -4,15 +4,15 @@
     "version": "1.5.8",
     "news": {
       "1.5.8": {
-        "en": "small fixes on zigbee backup; added log for zigbee Instances",
-        "de": "kleine Korrekturen am ZigBee-Backup; Protokoll für ZigBee-Instanzen hinzugefügt",
-        "ru": "небольшие исправления на бекапе zigbee; добавлен журнал для экземпляров ZigBee",
-        "pt": "pequenas correções no backup em zigbee; log adicionado para instâncias zigbee",
-        "nl": "kleine oplossingen voor zigbee back-up; logboek toegevoegd voor zigbee-instanties",
-        "fr": "petites corrections sur la sauvegarde zigbee; journal ajouté pour les instances zigbee",
-        "it": "piccole correzioni sul backup a zigbee; registro aggiunto per istanze di zigbee",
-        "es": "pequeñas correcciones en la copia de seguridad zigbee; registro agregado para instancias zigbee",
-        "pl": "drobne poprawki w kopii zapasowej zigbee; dodano dziennik dla instancji zigbee"
+        "en": "small fixes on zigbee backup; added log for zigbee Instances; next bugfixs errorhandling sentry.io",
+        "de": "kleine Korrekturen am ZigBee-Backup; Log für ZigBee-Instanzen hinzugefügt; nächste Bugfixes Fehlerbehandlung sentry.io",
+        "ru": "небольшие исправления на бекапе zigbee; добавлен журнал для экземпляров ZigBee; Следующие исправления ошибка обработки sentry.io",
+        "pt": "pequenas correções no backup em zigbee; log adicionado para instâncias zigbee; próximas correções de erros manipulação de erros sentry.io",
+        "nl": "kleine oplossingen voor zigbee back-up; logboek toegevoegd voor zigbee-instanties; volgende bugfixes foutafhandeling sentry.io",
+        "fr": "petites corrections sur la sauvegarde zigbee; journal ajouté pour les instances zigbee; bugfixs suivant la gestion des erreurs sentry.io",
+        "it": "piccole correzioni sul backup a zigbee; registro aggiunto per istanze di zigbee; correzioni di bug successive gestione degli errori sentry.io",
+        "es": "pequeñas correcciones en la copia de seguridad zigbee; registro agregado para instancias zigbee; siguientes correcciones de errores manejo de errores sentry.io",
+        "pl": "drobne poprawki w kopii zapasowej zigbee; dodano dziennik dla instancji zigbee; następne poprawki błędów obsługa sentry.io"
       },
       "1.5.7": {
         "en": "bugfix errorhandling sentry.io; updated dependencies; added node14 support",
