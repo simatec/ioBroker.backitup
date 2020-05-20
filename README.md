@@ -39,6 +39,11 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 1.5.8 (20.05.2020)
+* (simatec) small fixes on zigbee backup
+* (simatec) added log for zigbee Instances
+* (simatec) next bugfix errorhandling sentry.io
+
 ### 1.5.7 (11.05.2020)
 * (simatec) bugfix errorhandling sentry.io
 * (simatec) updated dependencies
