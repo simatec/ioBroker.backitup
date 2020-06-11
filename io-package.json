@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.5.8",
+    "version": "1.5.9",
     "news": {
       "1.5.8": {
         "en": "small fixes on zigbee backup; added log for zigbee Instances; next bugfixs errorhandling sentry.io",
