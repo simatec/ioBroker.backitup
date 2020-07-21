@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.5.8",
+    "version": "1.5.9",
     "news": {
+      "1.5.9": {
+        "en": "small fixes on mysql backup, next bugfixs errorhandling sentry.io, updated dependencies",
+        "de": "kleine Korrekturen an der MySQL-Sicherung, nächste Fehlerbehebungen bei der Fehlerbehandlung von sentry.io, aktualisierte Abhängigkeiten",
+        "ru": "небольшие исправления в резервном копировании mysql, исправление ошибок, исправление ошибок sentry.io, обновленные зависимости",
+        "pt": "pequenas correções no backup do mysql, próximas correções de erros, manipulação de sentry.io, dependências atualizadas",
+        "nl": "kleine aanpassingen aan mysql backup, volgende bugfixs foutafhandeling sentry.io, bijgewerkte afhankelijkheden",
+        "fr": "petites corrections sur la sauvegarde mysql, prochaines corrections de bogues gestion des erreurs sentry.io, dépendances mises à jour",
+        "it": "piccole correzioni sul backup mysql, correzioni di bug successive gestione degli errori sentry.io, dipendenze aggiornate",
+        "es": "pequeñas correcciones en la copia de seguridad de mysql, siguientes correcciones de errores al manejar sentry.io, dependencias actualizadas",
+        "pl": "małe poprawki w kopii zapasowej mysql, następne poprawki błędów obsługi sentry.io, zaktualizowane zależności"
+      },
       "1.5.8": {
         "en": "small fixes on zigbee backup; added log for zigbee Instances; next bugfixs errorhandling sentry.io",
         "de": "kleine Korrekturen am ZigBee-Backup; Log für ZigBee-Instanzen hinzugefügt; nächste Bugfixes Fehlerbehandlung sentry.io",
@@ -68,39 +79,6 @@
         "it": "molte correzioni di errori per la gestione degli errori sentry.io",
         "es": "muchas pequeñas correcciones de errores para el manejo de errores sentry.io",
         "pl": "wiele małych poprawek błędów dotyczących obsługi błędów sentry.io"
-      },
-      "1.5.2": {
-        "en": "errorhandling sentry.io, docu updated",
-        "de": "Fehlerbehandlung sentry.io, Doku aktualisiert",
-        "ru": "обработка ошибок sentry.io, документ обновлен",
-        "pt": "manuseio de erros sentry.io, docu updated",
-        "nl": "errorhandling sentry.io, docu bijgewerkt",
-        "fr": "errorhandling sentry.io, docu mis à jour",
-        "it": "gestione degli errori sentry.io, docu aggiornato",
-        "es": "errorhandling sentry.io, documento actualizado",
-        "pl": "obsługa błędów sentry.io, zaktualizowano dokumentację"
-      },
-      "1.5.1": {
-        "en": "Bugfix list from nas; Bugfix sentry errors",
-        "de": "Bugfix Liste von nas; Bugfix Sentry Fehler",
-        "ru": "Список исправлений от nas; Исправлена ошибка с ошибками",
-        "pt": "Lista de correções de erros do nas; Erros de sentinela de bugfix",
-        "nl": "Bugfix-lijst van nas; Bugfix-schildwachtfouten",
-        "fr": "Liste des corrections de bugs de nas; Erreurs de sentinelle Bugfix",
-        "it": "Elenco bugfix da nas; Bugfix errori di sentinella",
-        "es": "Lista de corrección de errores de nas; Errores de centinela de corrección de errores",
-        "pl": "Lista błędów z nas; Błędy sentry błędów"
-      },
-      "1.5.0": {
-        "en": "revised error handling; revised mount process; revised umount process; added log for last backup file; updated dependencies; added sentry.io support",
-        "de": "überarbeitete Fehlerbehandlung; überarbeiteter Mount-Prozess; überarbeiteter Umount-Prozess; Log für letztes Backup hinzugefügt; aktualisierte Abhängigkeiten; sentry.io Unterstützung hinzugefügt",
-        "ru": "исправлена обработка ошибок; пересмотрен процесс монтирования; пересмотренный процесс монтирования; добавлен журнал для последнего файла резервной копии; обновленные зависимости; добавлена поддержка sentry.io",
-        "pt": "tratamento de erros revisado; processo de montagem revisado; processo de quantidade revisado; log adicionado para o último arquivo de backup; dependências atualizadas; adicionado suporte sentry.io",
-        "nl": "herziene foutafhandeling; herzien montageproces; herzien umount-proces; logboek toegevoegd voor het laatste back-upbestand; bijgewerkte afhankelijkheden; sentry.io-ondersteuning toegevoegd",
-        "fr": "gestion des erreurs révisée; processus de montage révisé; processus umount révisé; journal ajouté pour le dernier fichier de sauvegarde; dépendances mises à jour; ajout du support sentry.io",
-        "it": "gestione degli errori rivista; processo di montaggio rivisto; processo umount rivisto; registro aggiunto per l'ultimo file di backup; dipendenze aggiornate; aggiunto il supporto sentry.io",
-        "es": "manejo revisado de errores; proceso de montaje revisado; proceso de desmontaje revisado; registro agregado para el último archivo de respaldo; dependencias actualizadas; Soporte agregado de sentry.io",
-        "pl": "poprawiona obsługa błędów; poprawiony proces montowania; zmieniony proces umount; dodano dziennik ostatniego pliku kopii zapasowej; zaktualizowane zależności; dodano obsługę sentry.io"
       }
     },
     "title": "BackItUp",
