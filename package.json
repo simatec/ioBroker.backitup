@@ -2,7 +2,7 @@
   "name": "iobroker.backitup",
   "version": "1.5.9",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "description": "Backitup enables the cyclic creation of backups of an IoBroker / Homematic installation",
   "author": {
@@ -37,22 +37,22 @@
     "url": "https://github.com/simatec/ioBroker.backitup"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.2.1",
-    "dropbox-v2-api": "^2.4.12",
+    "@iobroker/adapter-core": "^2.4.0",
+    "dropbox-v2-api": "^2.4.22",
     "ftp": "^0.3.10",
-    "googleapis": "^50.0.0",
+    "googleapis": "^55.0.0",
     "node-schedule": "^1.3.2",
     "node-wol": "^0.1.1",
     "request": "^2.88.2",
     "targz": "^1.0.1",
-    "google-auth-library": "^6.0.0",
+    "google-auth-library": "^6.0.5",
     "express": "^4.17.1"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
-    "mocha": "^7.0.1",
+    "mocha": "^8.0.1",
     "chai": "^4.2.0",
-    "@iobroker/testing": "^2.0.2"
+    "@iobroker/testing": "^2.2.0"
   },
   "main": "main.js",
   "scripts": {
