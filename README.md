@@ -39,6 +39,9 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 1.6.0 (03.08.2020)
+* (Jey-Cee/simatec) adapter configuration revised
+
 ### 1.5.9 (21.07.2020)
 * (simatec) small fixes on mysql backup
 * (simatec) next bugfixs errorhandling sentry.io

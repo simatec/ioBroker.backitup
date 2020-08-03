@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.5.9",
+    "version": "1.6.0",
     "news": {
+      "1.6.0": {
+        "en": "redesignd adapter configuration",
+        "de": "Adapterkonfiguration neu gestaltet",
+        "ru": "переопределить конфигурацию адаптера",
+        "pt": "configuração do adaptador de redesignd",
+        "nl": "opnieuw ontworpen adapterconfiguratie",
+        "fr": "configuration de l'adaptateur redessinée",
+        "it": "riprogettazione della configurazione dell'adattatore",
+        "es": "configuración del adaptador de rediseño",
+        "pl": "przeprojektowana konfiguracja adaptera"
+      },
       "1.5.9": {
         "en": "small fixes on mysql backup, next bugfixs errorhandling sentry.io, updated dependencies",
         "de": "kleine Korrekturen an der MySQL-Sicherung, nächste Fehlerbehebungen bei der Fehlerbehandlung von sentry.io, aktualisierte Abhängigkeiten",

@@ -71,10 +71,6 @@
             margin-left: 2rem !important;
             padding-top: 0 !important;
         }
-        .tab-restore {
-            font-weight: bold;
-            backgroundcolor: #39a1f4;
-        }
         .header {
             border-top: 0px;
             border-left: 0px;
@@ -788,7 +784,7 @@
                 </div>
                 <!-- What to back up -->
                 <div class="row">
-                    <h6 class="header translate">What to back up</h6>
+                    <h6 class="translate title" style="background-color:#174475;">What to back up</h6>
                     <div class="input-field col s6 l2">
                         <input class="value" id="minimalEnabled" type="checkbox"/>
                         <label for="minimalEnabled" class="translate">iobroker backup</label>
@@ -815,7 +811,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <h6 class="header translate">Storage location</h6>
+                    <h6 class="translate title" style="background-color:#174475;">Storage location</h6>
                     <div class="input-field col s6 l2">
                         <input class="value" id="cifsEnabled" type="checkbox"/>
                         <span for="cifsEnabled" class="translate">NAS / Copy</span>
@@ -834,7 +830,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <h6 class="header translate">Additional setting</h6>
+                    <h6 class="translate title" style="background-color:#174475;">Additional setting</h6>
                     <div class="input-field col s12 m6 l3">
                         <input class="value" id="notificationEnabled" type="checkbox"/>
                         <label for="notificationEnabled" class="translate">Enable / Disable Notifications</label>
@@ -850,7 +846,7 @@
                 </div>
                 <div class="row">
                     <div class="col s12">
-                        <div class="card-panel grey">
+                        <div class="card-panel" style="background-color:#174475;">
                             <span class="white-text translate">Some features of Backitup require additional adapters and tools. For detailed information please read the documentation of Backitup!!</span>
                             <span><a href="https://github.com/simatec/ioBroker.backitup/blob/master/README.md#iobrokerbackitup" target="_blank" class="translate"> *** Open Readme ***</a></span>
                         </div>
@@ -860,6 +856,9 @@
 
             <!-- iobroker Backup -->
             <div id="tab-iobroker-backup" class="col s12 page">
+                <div class="row">
+                    <h6 class="translate title" style="background-color:#174475;">iobroker backup</h6>
+                </div>
                 <div class="row">
                     <div class="input-field col s6 l3">
                         <a class="waves-effect waves-light btn btn-iobroker do-backup" data-type="iobroker"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
@@ -891,6 +890,9 @@
 
             <!-- CCU Backup -->
             <div id="tab-ccu-backup" class="col s12 page">
+                <div class="row">
+                    <h6 class="translate title" style="background-color:#174475;">Homematic CCU backup</h6>
+                </div>
                 <div class="row">
                     <div class="input-field col s6 l3 ccu">
                         <a class="waves-effect waves-light btn btn-ccu do-backup" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
@@ -937,6 +939,9 @@
 
             <!-- Mysql Backup -->
             <div id="tab-my-sql" class="col s12 page">
+                <div class="row">
+                    <h6 class="translate title" style="background-color:#174475;">MySql Backup</h6>
+                </div>
                 <div class="row">
                     <div class="input-field col s6 l3 mysql">
                         <a class="waves-effect waves-light btn detect-mysql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
@@ -991,6 +996,7 @@
             <!-- Redis -->
             <div id="tab-redis" class="col s12 page">
                 <div class="row">
+                    <h6 class="translate title" style="background-color:#174475;">Save Redis state</h6>
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l6 redis_path">
@@ -1003,6 +1009,7 @@
             <!-- History Backup -->
             <div id="tab-history" class="col s12 page">
                 <div class="row">
+                    <h6 class="translate title" style="background-color:#174475;">Save History Data</h6>
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3">
@@ -1025,6 +1032,7 @@
             <!-- notifications -->
             <div id="tab-notification" class="col s12 page">
                 <div class="row">
+                    <h6 class="translate title" style="background-color:#174475;">Notifications</h6>
                 </div>
                 <div class="row">
                     <div class="input-field col s11 m2">
@@ -1144,8 +1152,8 @@
 
             <!-- nas / copy settings -->
             <div id="tab-cifs" class="col s12 page">
-
                 <div class="row cifs">
+                    <h6 class="translate title" style="background-color:#174475;">NAS / Copy</h6>
                 </div>
                 <div class="row cifs">
                     <div class="input-field col s11 m2">
@@ -1236,6 +1244,9 @@
             <!-- ftp settings -->
             <div id="tab-ftp" class="col s12 page">
                 <div class="row ftp">
+                    <h6 class="translate title" style="background-color:#174475;">FTP</h6>
+                </div>
+                <div class="row ftp">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="ftpHost" type="text">
                         <label for="ftpHost" class="translate">Host</label>
@@ -1287,6 +1298,9 @@
             <!-- dropbox settings -->
             <div id="tab-dropbox" class="col s12 page">
                 <div class="row dropbox">
+                    <h6 class="translate title" style="background-color:#174475;">Dropbox</h6>
+                </div>
+                <div class="row dropbox">
                     <div class="input-field col s12">
                         <input class="value" id="dropboxAccessToken" type="password">
                         <label for="dropboxAccessToken" class="translate">Access token</label>
@@ -1323,6 +1337,9 @@
 
             <!-- googledrive settings -->
             <div id="tab-googledrive" class="col s12 page">
+                <div class="row googledrive">
+                    <h6 class="translate title" style="background-color:#174475;">Google Drive</h6>
+                </div>
                 <div class="row googledrive">
                     <div class="input-field col s3">
                         <input class="value" id="googledriveAccessJson" type="hidden"/>
@@ -1370,6 +1387,9 @@
 
             <!-- restore settings -->
             <div id="tab-restore" class="col s12 page">
+                <div class="row">
+                    <h6 class="translate title" style="background-color:#174475;">Restore</h6>
+                </div>
                 <div class="row" style="margin-bottom: 0">
                     <div class="input-field col s11 m2">
 						<select class="value" id="restoreSource">
