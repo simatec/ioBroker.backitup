@@ -45,12 +45,12 @@
     "node-wol": "^0.1.1",
     "request": "^2.88.2",
     "targz": "^1.0.1",
-    "google-auth-library": "^6.0.5",
+    "google-auth-library": "^6.0.6",
     "express": "^4.17.1"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
-    "mocha": "^8.0.1",
+    "mocha": "^8.1.1",
     "chai": "^4.2.0",
     "@iobroker/testing": "^2.2.0"
   },
