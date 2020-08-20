@@ -88,7 +88,7 @@ function startAdapter(options) {
                     }
                     timerOutput = setTimeout(() =>
                         adapter.getState('output.line', (err, state) => {
-                            if (state.val === '[EXIT] 0') {
+                            if (state && state.val === '[EXIT] 0') {
                                 adapter.setState('history.' + type + 'Success', true, true);
                                 adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang), true);
                             } else {
@@ -199,22 +199,22 @@ function checkStates() {
         }
     });
     adapter.getState('oneClick.ccu', (err, state) => {
-        if (state === null || state.val === null) {
+        if (!state || state.val === null) {
             adapter.setState('oneClick.ccu', { val: false, ack: true });
         }
     });
     adapter.getState('history.ccuSuccess', (err, state) => {
-        if (state === null || state.val === null) {
+        if (!state || state.val === null) {
             adapter.setState('history.ccuSuccess', { val: false, ack: true });
         }
     });
     adapter.getState('history.iobrokerSuccess', (err, state) => {
-        if (state === null || state.val === null) {
+        if (!state || state.val === null) {
             adapter.setState('history.iobrokerSuccess', { val: false, ack: true });
         }
     });
     adapter.getState('history.json', (err, state) => {
-        if (state === null || state.val === null) {
+        if (!state || state.val === null) {
             adapter.setState('history.json', { val: '[]', ack: true });
         }
     });
@@ -246,7 +246,7 @@ function createBackupSchedule() {
                     }
                     timerOutput2 = setTimeout(() =>
                         adapter.getState('output.line', (err, state) => {
-                            if (state.val === '[EXIT] 0') {
+                            if (state && state.val === '[EXIT] 0') {
                                 adapter.setState('history.' + type + 'Success', true, true);
                                 adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang), true);
                             } else {
