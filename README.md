@@ -39,6 +39,9 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### __WORK IN PROGRESS__
+* (Apollon77) several fixes and optimizations
+
 ### 1.6.0 (03.08.2020)
 * (Jey-Cee/simatec) adapter configuration revised
 
