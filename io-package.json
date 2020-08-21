@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.6.0",
+    "version": "1.6.1",
     "news": {
+      "1.6.1": {
+        "en": "several fixes and optimizations",
+        "de": "verschiedene Korrekturen und Optimierungen",
+        "ru": "несколько исправлений и оптимизаций",
+        "pt": "várias correções e otimizações",
+        "nl": "verschillende fixes en optimalisaties",
+        "fr": "plusieurs correctifs et optimisations",
+        "it": "diverse correzioni e ottimizzazioni",
+        "es": "varias correcciones y optimizaciones",
+        "pl": "kilka poprawek i optymalizacji"
+      },
       "1.6.0": {
         "en": "redesignd adapter configuration",
         "de": "Adapterkonfiguration neu gestaltet",
