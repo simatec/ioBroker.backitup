@@ -45,12 +45,13 @@
     "node-wol": "^0.1.1",
     "request": "^2.88.2",
     "targz": "^1.0.1",
-    "google-auth-library": "^6.0.5",
+    "google-auth-library": "^6.0.6",
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@alcalzone/release-script": "^1.6.0",
     "gulp": "^4.0.2",
-    "mocha": "^8.0.1",
+    "mocha": "^8.1.1",
     "chai": "^4.2.0",
     "@iobroker/testing": "^2.2.0"
   },
@@ -59,7 +60,8 @@
     "test": "npm run test:package && npm run test:unit",
     "test:package": "mocha test/package --exit",
     "test:unit": "mocha test/unit --exit",
-    "test:integration": "mocha test/integration --exit"
+    "test:integration": "mocha test/integration --exit",
+    "release": "release-script"
   },
   "bugs": {
     "url": "https://github.com/simatec/ioBroker.backitup/issues"
