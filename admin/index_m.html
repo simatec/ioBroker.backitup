@@ -514,6 +514,9 @@
             getAdapterInstances('telegram', function (instances) {
                 fillInstances('telegramInstance', instances, settings['telegramInstance']);
             });
+            getAdapterInstances('whatsapp-cmb', function (instances) {
+                fillInstances('whatsappInstance', instances, settings['whatsappInstance']);
+            });
 
             getAdapterInstances('email', function (instances) {
                 fillInstances('emailInstance', instances, settings['emailInstance']);
@@ -701,14 +704,22 @@
                 $('.email').hide();
                 $('.pushover').hide();
                 $('.telegram').show();
+                $('.whatsapp').hide();
             } else if ($(this).val() === 'E-Mail') {
                 $('.email').show();
                 $('.telegram').hide();
                 $('.pushover').hide();
+                $('.whatsapp').hide();
             } else if ($(this).val() === 'Pushover') {
                 $('.pushover').show();
                 $('.telegram').hide();
                 $('.email').hide();
+                $('.whatsapp').hide();
+            } else if ($(this).val() === 'WhatsApp') {
+                $('.whatsapp').show();
+                $('.telegram').hide();
+                $('.email').hide();
+                $('.pushover').hide();
             }
             }).trigger('change');
 
@@ -1040,6 +1051,7 @@
                         <option value="Telegram" class="translate">Telegram</option>
                         <option value="E-Mail" class="translate">E-Mail</option>
                         <option value="Pushover" class="translate">Pushover</option>
+                        <option value="WhatsApp" class="translate">WhatsApp</option>
                         </select>
                         <label for="notificationsType" class="translate">notifications type</label>
                     </div>
@@ -1076,6 +1088,33 @@
                     <div class="input-field col s12 m6 l3 telegram">
                         <input class="value" id="telegramOnlyError" type="checkbox"/>
                         <label for="telegramOnlyError" class="translate">Notification only on errors</label>
+                    </div>
+                </div>
+
+                <!-- WhatsApp -->
+                <div class="row whatsapp">
+                    <div class="input-field col s12 m6 l3 whatsapp">
+                        <select id="whatsappInstance" class="value"></select>
+                        <label for="whatsappInstance" class="translate">WhatsApp instance</label>
+                    </div>
+                    <div class="input-field col s12 m6 l3 whatsapp">
+                        <select class="value" id="whatsappNoticeType">
+                        <option value="longWhatsappNotice" class="translate">Long Notifications</option>
+                        <option value="shortWhatsappNotice" class="translate">Short Notifications</option>
+                        </select>
+                        <label class="translate" for="whatsappNoticeType">Notification Style</label>
+                    </div>
+                </div>
+                <div class="row whatsapp">    
+                    <div class="input-field col s12 m6 l3 whatsapp">
+                        <input type="number" class="value" id="whatsappWaitToSend" min="0" max="20"/>
+                        <label for="whatsappWaitToSend" class="translate">Waiting for the send (seconds)</label>
+                    </div>
+                </div>
+                <div class="row whatsapp">
+                    <div class="input-field col s12 m6 l3 whatsapp">
+                        <input class="value" id="whatsappOnlyError" type="checkbox"/>
+                        <label for="whatsappOnlyError" class="translate">Notification only on errors</label>
                     </div>
                 </div>
                 <!-- Pushover -->

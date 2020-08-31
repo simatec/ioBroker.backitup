@@ -292,6 +292,17 @@ function initConfig(secret) {
         systemLang
     };
 
+    const whatsapp = {
+        enabled: adapter.config.notificationEnabled,
+        notificationsType: adapter.config.notificationsType,
+        type: 'message',
+        instance: adapter.config.whatsappInstance,
+        NoticeType: adapter.config.whatsappNoticeType,
+        onlyError: adapter.config.whatsappOnlyError,
+        whatsappWaiting: adapter.config.whatsappWaitToSend * 1000,
+        systemLang
+    };
+
     const pushover = {
         enabled: adapter.config.notificationEnabled,
         notificationsType: adapter.config.notificationsType,
@@ -474,6 +485,7 @@ function initConfig(secret) {
         telegram,
         email,
         pushover,
+        whatsapp,
     };
 
     // Configurations for CCU / pivCCU / RaspberryMatic backup
@@ -495,6 +507,7 @@ function initConfig(secret) {
         telegram,
         email,
         pushover,
+        whatsapp,
 
         host: adapter.config.ccuHost,                           // IP-address CCU
         user: adapter.config.ccuUser,                           // username CCU
@@ -540,32 +553,6 @@ function readLogFile() {
 
 function createBashScripts() {
     const isWin = process.platform.startsWith('win');
-
-    /*let jsPath;
-    try {
-        jsPath = require.resolve('iobroker.js-controller/iobroker.bat');
-        jsPath = jsPath.replace(/\\/g, '/');
-        const parts = jsPath.split('/');
-        parts.pop();
-        jsPath = parts.join('/');
-    } catch (e) {
-        jsPath = path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller');
-    }*/
-    /*
-    // delete .sh and .bat for updates
-    if (fs.existsSync(__dirname + '/lib/.update')) {
-        if (isWin) {
-            fs.existsSync(__dirname + '/lib/stopIOB.bat') && fs.unlinkSync(__dirname + '/lib/stopIOB.bat');
-            fs.existsSync(__dirname + '/lib/startIOB.bat') && fs.unlinkSync(__dirname + '/lib/startIOB.bat');
-            fs.unlinkSync(__dirname + '/lib/.update');
-        } else {
-            fs.existsSync(__dirname + '/lib/stopIOB.sh') && fs.unlinkSync(__dirname + '/lib/stopIOB.sh');
-            fs.existsSync(__dirname + '/lib/startIOB.sh') && fs.unlinkSync(__dirname + '/lib/startIOB.sh');
-            fs.existsSync(__dirname + '/lib/external.sh') && fs.unlinkSync(__dirname + '/lib/external.sh');
-            fs.unlinkSync(__dirname + '/lib/.update');
-        }
-    }
-    */
 
     if (isWin) {
         if (!fs.existsSync(__dirname + '/lib/stopIOB.bat')) {

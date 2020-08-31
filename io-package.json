@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.6.1",
+    "version": "1.6.2",
     "news": {
+      "1.6.2": {
+        "en": "added whatsapp-cmb support for notifications",
+        "de": "Unterstützung für WhatsApp-cmb Benachrichtigungen hinzugefügt",
+        "ru": "добавлена поддержка whatsapp-cmb для уведомлений",
+        "pt": "adicionado suporte whatsapp-cmb para notificações",
+        "nl": "whatsapp-cmb-ondersteuning toegevoegd voor meldingen",
+        "fr": "Ajout du support WhatsApp-cmb pour les notifications",
+        "it": "aggiunto il supporto whatsapp-cmb per le notifiche",
+        "es": "agregado soporte de whatsapp-cmb para notificaciones",
+        "pl": "dodano obsługę powiadomień przez WhatsApp-cmb"
+      },
       "1.6.1": {
         "en": "several fixes and optimizations",
         "de": "verschiedene Korrekturen und Optimierungen",
@@ -244,6 +255,10 @@
     "telegramSilentNotice": false,
     "telegramOnlyError": false,
     "telegramWaitToSend": 0,
+    "whatsappInstance": "whatsapp-cmb.0",
+    "whatsappNoticeType": "longWhatsappNotice",
+    "whatsappOnlyError": false,
+    "whatsappWaitToSend": 0,
     "pushoverInstance": "pushover.0",
     "pushoverNoticeType": "longPushoverNotice",
     "pushoverSilentNotice": false,

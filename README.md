@@ -39,6 +39,9 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 1.6.2 (31.08.2020)
+* (simatec) added whatsapp-cmb support for notifications
+
 ### 1.6.1 (24.08.2020)
 * (Apollon77) several fixes and optimizations
 
