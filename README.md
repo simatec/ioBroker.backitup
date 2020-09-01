@@ -39,6 +39,11 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 1.6.3 (01.09.2020)
+* (simatec) dependencies for googleapis updated
+* (simatec) dependencies for dropbox-v2-api updated
+* (simatec) devdependencies updated
+
 ### 1.6.2 (31.08.2020)
 * (simatec) added whatsapp-cmb support for notifications
 

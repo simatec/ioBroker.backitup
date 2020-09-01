@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.6.2",
+    "version": "1.6.3",
     "news": {
+      "1.6.3": {
+        "en": "dependencies for googleapis updated, dependencies for dropbox-v2-api updated, dev-dependencies updated",
+        "de": "Abhängigkeiten für googleapis aktualisiert, Abhängigkeiten für dropbox-v2-api aktualisiert, Dev-Abhängigkeiten aktualisiert",
+        "ru": "обновлены зависимости для googleapis, обновлены зависимости для dropbox-v2-api, обновлены dev-dependencies",
+        "pt": "dependências para googleapis atualizadas, dependências para dropbox-v2-api atualizadas, dev-dependencies atualizadas",
+        "nl": "afhankelijkheden voor googleapis bijgewerkt, afhankelijkheden voor dropbox-v2-api bijgewerkt, dev-afhankelijkheden bijgewerkt",
+        "fr": "les dépendances pour googleap sont mises à jour, les dépendances pour dropbox-v2-api sont mises à jour, les dépendances de développement mises à jour",
+        "it": "dipendenze per googleapis aggiornate, dipendenze per dropbox-v2-api aggiornate, dev-dependencies aggiornate",
+        "es": "dependencias para googleapis actualizadas, dependencias para dropbox-v2-api actualizadas, dev-dependencies actualizadas",
+        "pl": "Zaktualizowano zależności dla googleapis, zaktualizowano zależności dla dropbox-v2-api, zaktualizowano zależności dev"
+      },
       "1.6.2": {
         "en": "added whatsapp-cmb support for notifications",
         "de": "Unterstützung für WhatsApp-cmb Benachrichtigungen hinzugefügt",
