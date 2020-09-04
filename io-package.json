@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.6.3",
+    "version": "1.6.4",
     "news": {
+      "1.6.4": {
+        "en": "small fixes for sentry.io, small fixes on zigbee backup",
+        "de": "kleine Korrekturen für sentry.io, kleine Korrekturen für das ZigBee-Backup",
+        "ru": "небольшие исправления для sentry.io, мелкие исправления для резервного копирования zigbee",
+        "pt": "pequenas correções para sentry.io, pequenas correções no backup zigbee",
+        "nl": "kleine fixes voor sentry.io, kleine fixes voor zigbee backup",
+        "fr": "petits correctifs pour sentry.io, petits correctifs sur la sauvegarde zigbee",
+        "it": "piccole correzioni per sentry.io, piccole correzioni per il backup di zigbee",
+        "es": "pequeñas correcciones para sentry.io, pequeñas correcciones en la copia de seguridad de zigbee",
+        "pl": "małe poprawki do sentry.io, małe poprawki w kopii zapasowej zigbee"
+      },
       "1.6.3": {
         "en": "dependencies for googleapis updated, dependencies for dropbox-v2-api updated, dev-dependencies updated",
         "de": "Abhängigkeiten für googleapis aktualisiert, Abhängigkeiten für dropbox-v2-api aktualisiert, Dev-Abhängigkeiten aktualisiert",

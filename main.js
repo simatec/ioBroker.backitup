@@ -669,11 +669,19 @@ function delTmp() {
 // set start Options after restore
 function setStartAll() {
     if (adapter.config.startAllRestore == true && !fs.existsSync(__dirname + '/lib/.startAll')) {
-        fs.writeFileSync(__dirname + '/lib/.startAll', 'Start all Adapter after Restore');
-        adapter.log.debug('Start all Adapter after Restore enabled');
+        try {
+            fs.writeFileSync(__dirname + '/lib/.startAll', 'Start all Adapter after Restore');
+            adapter.log.debug('Start all Adapter after Restore enabled');
+        } catch (e) {
+            adapter.log.warn('can not create startAll files: ' + e + 'Please run "iobroker fix" and try again');
+        }
     } else if (adapter.config.startAllRestore == false && fs.existsSync(__dirname + '/lib/.startAll')) {
-        fs.unlinkSync(__dirname + '/lib/.startAll');
-        adapter.log.debug('Start all Adapter after Restore disabled');
+        try {
+            fs.unlinkSync(__dirname + '/lib/.startAll');
+            adapter.log.debug('Start all Adapter after Restore disabled');
+        } catch (e) {
+            adapter.log.warn('can not delete startAll file: ' + e + 'Please run "iobroker fix" and try again');
+        }
     }
 }
 
