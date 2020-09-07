@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.6.4",
+    "version": "1.6.5",
     "news": {
+      "1.6.5": {
+        "en": "Bugfix GoogleDrive Rate Limit errors; small fixes on zigbee backup",
+        "de": "Bugfix GoogleDrive Rate Limit-Fehler; kleine Korrekturen am ZigBee-Backup",
+        "ru": "Исправление ошибок ограничения скорости GoogleDrive; небольшие исправления в резервном копировании zigbee",
+        "pt": "Correção de erros Erros de limite de taxa do GoogleDrive; pequenas correções no backup zigbee",
+        "nl": "Bugfix GoogleDrive Rate Limit-fouten; kleine fixes op zigbee-back-up",
+        "fr": "Correction des erreurs de limite de taux de GoogleDrive; petits correctifs sur la sauvegarde zigbee",
+        "it": "Bugfix GoogleDrive Rate Limit errori; piccole correzioni sul backup di zigbee",
+        "es": "Corrección de errores de límite de velocidad de GoogleDrive; pequeñas correcciones en la copia de seguridad de zigbee",
+        "pl": "Bugfix Błędy limitu prędkości GoogleDrive; małe poprawki w kopii zapasowej zigbee"
+      },
       "1.6.4": {
         "en": "small fixes for sentry.io, small fixes on zigbee backup",
         "de": "kleine Korrekturen für sentry.io, kleine Korrekturen für das ZigBee-Backup",
@@ -57,83 +68,6 @@
         "it": "riprogettazione della configurazione dell'adattatore",
         "es": "configuración del adaptador de rediseño",
         "pl": "przeprojektowana konfiguracja adaptera"
-      },
-      "1.5.9": {
-        "en": "small fixes on mysql backup, next bugfixs errorhandling sentry.io, updated dependencies",
-        "de": "kleine Korrekturen an der MySQL-Sicherung, nächste Fehlerbehebungen bei der Fehlerbehandlung von sentry.io, aktualisierte Abhängigkeiten",
-        "ru": "небольшие исправления в резервном копировании mysql, исправление ошибок, исправление ошибок sentry.io, обновленные зависимости",
-        "pt": "pequenas correções no backup do mysql, próximas correções de erros, manipulação de sentry.io, dependências atualizadas",
-        "nl": "kleine aanpassingen aan mysql backup, volgende bugfixs foutafhandeling sentry.io, bijgewerkte afhankelijkheden",
-        "fr": "petites corrections sur la sauvegarde mysql, prochaines corrections de bogues gestion des erreurs sentry.io, dépendances mises à jour",
-        "it": "piccole correzioni sul backup mysql, correzioni di bug successive gestione degli errori sentry.io, dipendenze aggiornate",
-        "es": "pequeñas correcciones en la copia de seguridad de mysql, siguientes correcciones de errores al manejar sentry.io, dependencias actualizadas",
-        "pl": "małe poprawki w kopii zapasowej mysql, następne poprawki błędów obsługi sentry.io, zaktualizowane zależności"
-      },
-      "1.5.8": {
-        "en": "small fixes on zigbee backup; added log for zigbee Instances; next bugfixs errorhandling sentry.io",
-        "de": "kleine Korrekturen am ZigBee-Backup; Log für ZigBee-Instanzen hinzugefügt; nächste Bugfixes Fehlerbehandlung sentry.io",
-        "ru": "небольшие исправления на бекапе zigbee; добавлен журнал для экземпляров ZigBee; Следующие исправления ошибка обработки sentry.io",
-        "pt": "pequenas correções no backup em zigbee; log adicionado para instâncias zigbee; próximas correções de erros manipulação de erros sentry.io",
-        "nl": "kleine oplossingen voor zigbee back-up; logboek toegevoegd voor zigbee-instanties; volgende bugfixes foutafhandeling sentry.io",
-        "fr": "petites corrections sur la sauvegarde zigbee; journal ajouté pour les instances zigbee; bugfixs suivant la gestion des erreurs sentry.io",
-        "it": "piccole correzioni sul backup a zigbee; registro aggiunto per istanze di zigbee; correzioni di bug successive gestione degli errori sentry.io",
-        "es": "pequeñas correcciones en la copia de seguridad zigbee; registro agregado para instancias zigbee; siguientes correcciones de errores manejo de errores sentry.io",
-        "pl": "drobne poprawki w kopii zapasowej zigbee; dodano dziennik dla instancji zigbee; następne poprawki błędów obsługa sentry.io"
-      },
-      "1.5.7": {
-        "en": "bugfix errorhandling sentry.io; updated dependencies; added node14 support",
-        "de": "Bugfix Fehlerbehandlung sentry.io; aktualisierte Abhängigkeiten; Unterstützung für Node14 hinzugefügt",
-        "ru": "исправление ошибок обработка sendry.io; обновленные зависимости; добавлена поддержка node14",
-        "pt": "manipulação de erros sentry.io; dependências atualizadas; adicionado suporte node14",
-        "nl": "bugfix errorhandling sentry.io; bijgewerkte afhankelijkheden; ondersteuning voor node14 toegevoegd",
-        "fr": "bugfix errorhandling sentry.io; dépendances mises à jour; ajout de la prise en charge de node14",
-        "it": "bugfix gestione degli errori sentry.io; dipendenze aggiornate; aggiunto supporto node14",
-        "es": "corrección de errores manejo de errores sentry.io; dependencias actualizadas; Soporte agregado de node14",
-        "pl": "poprawka błędów obsługa sentry.io; zaktualizowane zależności; dodano obsługę node14"
-      },
-      "1.5.6": {
-        "en": "Bugfix reading restore list",
-        "de": "Fehlerbehebung beim Lesen der Wiederherstellungsliste",
-        "ru": "Исправлена ошибка чтения списка восстановления",
-        "pt": "Correção de erros na lista de restauração",
-        "nl": "Herstellijst voor het lezen van bugfixes",
-        "fr": "Correction de la lecture de la liste de restauration",
-        "it": "Elenco di ripristino lettura bugfix",
-        "es": "Lista de restauración de lectura de corrección de errores",
-        "pl": "Poprawka odczytu listy przywracania"
-      },
-      "1.5.5": {
-        "en": "bugfix errorhandling sentry.io",
-        "de": "Bugfix Fehlerbehandlung sentry.io",
-        "ru": "Исправление ошибок Обработка ошибок sentry.io",
-        "pt": "manipulação de erros sentry.io",
-        "nl": "bugfix foutafhandeling sentry.io",
-        "fr": "bugfix errorhandling sentry.io",
-        "it": "bugfix gestione degli errori sentry.io",
-        "es": "corrección de errores manejo de errores sentry.io",
-        "pl": "poprawka błędów obsługa sentry.io"
-      },
-      "1.5.4": {
-        "en": "added osDependencies for nfs and cifs, Bugfixes for errorhandling telegram, pushover, e-mail, ftp list and create backup folder",
-        "de": "osDependencies für nfs und cifs hinzugefügt, Bugfixes für die Fehlerbehandlung von Telegram, Pushover, E-Mail, FTP-Liste und Backup-Ordner erstellen",
-        "ru": "добавлены osDependencies для nfs и cifs, исправления ошибок для телеграмм обработки ошибок, pushover, электронной почты, списка ftp и создания резервной папки",
-        "pt": "osDependencies adicionados para nfs e cifs, correções de erros para telegrama de manipulação de erros, pushover, e-mail, lista de ftp e criar pasta de backup",
-        "nl": "osDependencies toegevoegd voor nfs en cifs, Bugfixes voor foutafhandeling telegram, pushover, e-mail, ftp-lijst en maak back-upmap",
-        "fr": "ajout des dépendances os pour nfs et cifs, corrections de bugs pour le télégramme de gestion des erreurs, pushover, e-mail, liste ftp et créer un dossier de sauvegarde",
-        "it": "aggiunte osDipendenze per nfs e cifs, correzioni di bug per la gestione degli errori telegramma, pushover, e-mail, elenco ftp e creazione di una cartella di backup",
-        "es": "Se agregaron osDependencies para nfs y cifs, correcciones de errores para el manejo de errores de telegramas, pushover, correo electrónico, lista de ftp y crear una carpeta de respaldo",
-        "pl": "dodano osDependencies do nfs i cifs, Bugfixy do obsługi błędów telegramu, pushover, e-mail, listy ftp i utwórz folder kopii zapasowej"
-      },
-      "1.5.3": {
-        "en": "many smal Bugfixes for errorhandling sentry.io",
-        "de": "viele kleine Bugfixes für die Fehlerbehandlung sentry.io",
-        "ru": "исправлено множество мелких ошибок для обработки ошибок sentry.io",
-        "pt": "muitas pequenas correções de bugs para manipulação de erros sentry.io",
-        "nl": "veel kleine bugfixes voor foutafhandeling sentry.io",
-        "fr": "de nombreux petits correctifs pour la gestion des erreurs sentry.io",
-        "it": "molte correzioni di errori per la gestione degli errori sentry.io",
-        "es": "muchas pequeñas correcciones de errores para el manejo de errores sentry.io",
-        "pl": "wiele małych poprawek błędów dotyczących obsługi błędów sentry.io"
       }
     },
     "title": "BackItUp",
