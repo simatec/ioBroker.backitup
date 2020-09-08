@@ -39,6 +39,10 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 1.6.6 (08.09.2020)
+* (simatec) Bugfix clean local backups
+* (simatec) Bugfix mount and umount for sentry.io
+
 ### 1.6.5 (07.09.2020)
 * (simatec) Bugfix GoogleDrive Rate Limit errors 
 * (simatec) small fixes on zigbee backup
