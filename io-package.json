@@ -4,15 +4,15 @@
     "version": "1.6.6",
     "news": {
       "1.6.6": {
-        "en": "Bugfix clean local backups",
-        "de": "Bugfix löschen lokaler Backups",
-        "ru": "Исправление чистых локальных резервных копий",
-        "pt": "Correção de bug para limpar backups locais",
-        "nl": "Bugfix schone lokale back-ups",
-        "fr": "Correctif des sauvegardes locales propres",
-        "it": "Bugfix pulire i backup locali",
-        "es": "Corrección de errores de copias de seguridad locales limpias",
-        "pl": "Naprawiony błąd czyszczenia lokalnych kopii zapasowych"
+        "en": "Bugfix clean local backups, Bugfix mount and umount for sentry.io",
+        "de": "Bugfix bereinigt lokale Backups, Bugfix Mount und Umount für sentry.io",
+        "ru": "Исправление чистых локальных резервных копий, исправление ошибок монтирования и размонтирования для sentry.io",
+        "pt": "Correção de bugs para limpar backups locais, montagem de bugs e umount para sentry.io",
+        "nl": "Bugfix schone lokale back-ups, Bugfix mount en umount voor sentry.io",
+        "fr": "Bugfix nettoyer les sauvegardes locales, monter et démonter Bugfix pour sentry.io",
+        "it": "Bugfix pulisce i backup locali, Bugfix mount e umount per sentry.io",
+        "es": "Corrección de errores de copias de seguridad locales limpias, montaje y desmontaje de corrección de errores para sentry.io",
+        "pl": "Naprawianie błędów czyszczenia lokalnych kopii zapasowych, montowania poprawek błędów i umount dla sentry.io"
       },
       "1.6.5": {
         "en": "Bugfix GoogleDrive Rate Limit errors; small fixes on zigbee backup",
