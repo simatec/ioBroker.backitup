@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.6.6",
+    "version": "1.6.7",
     "news": {
+      "1.6.7": {
+        "en": "Bugfix error on GoogleDrive",
+        "de": "Bugfix-Fehler bei GoogleDrive",
+        "ru": "Исправление ошибки на GoogleDrive",
+        "pt": "Correção de erro no GoogleDrive",
+        "nl": "Bugfix-fout op GoogleDrive",
+        "fr": "Erreur de correction de bogue sur GoogleDrive",
+        "it": "Errore di correzione di bug su GoogleDrive",
+        "es": "Error de corrección de errores en GoogleDrive",
+        "pl": "Błąd naprawy błędu w GoogleDrive"
+      },
       "1.6.6": {
         "en": "Bugfix clean local backups, Bugfix mount and umount for sentry.io",
         "de": "Bugfix bereinigt lokale Backups, Bugfix Mount und Umount für sentry.io",
