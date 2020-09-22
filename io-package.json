@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.6.7",
+    "version": "1.6.8",
     "news": {
+      "1.6.8": {
+        "en": "Translations update for Weblate",
+        "de": "Übersetzungs-Update für Weblate",
+        "ru": "Обновление переводов для Weblate",
+        "pt": "Atualização de traduções para Weblate",
+        "nl": "Vertalingen-update voor Weblate",
+        "fr": "Mise à jour des traductions pour Weblate",
+        "it": "Aggiornamento delle traduzioni per Weblate",
+        "es": "Actualización de traducciones para Weblate",
+        "pl": "Aktualizacja tłumaczeń dla Weblate"
+      },
       "1.6.7": {
         "en": "Bugfix error on GoogleDrive",
         "de": "Bugfix-Fehler bei GoogleDrive",

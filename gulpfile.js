@@ -337,7 +337,7 @@ function languages2words(src) {
     writeWordJs(bigOne, src);
 }
 
-gulp.task('word.js => json', function (done) {
+gulp.task('words.js => json', function (done) {
     words2languages('./admin/');
     done();
 });
@@ -352,7 +352,27 @@ gulp.task('flat => words.js', function (done) {
     done();
 });
 
-gulp.task('json => word.js', function (done) {
+gulp.task('json => words.js', function (done) {
+    languages2words('./admin/');
+    done();
+});
+
+gulp.task('adminWords2languages', function (done) {
+    words2languages('./admin/');
+    done();
+});
+
+gulp.task('adminWords2languagesFlat', function (done) {
+    words2languagesFlat('./admin/');
+    done();
+});
+
+gulp.task('adminLanguagesFlat2words', function (done) {
+    languagesFlat2words('./admin/');
+    done();
+});
+
+gulp.task('adminLanguages2words', function (done) {
     languages2words('./admin/');
     done();
 });
