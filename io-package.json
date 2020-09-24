@@ -4,15 +4,15 @@
     "version": "1.6.8",
     "news": {
       "1.6.8": {
-        "en": "Translations update for Weblate",
-        "de": "Übersetzungs-Update für Weblate",
-        "ru": "Обновление переводов для Weblate",
-        "pt": "Atualização de traduções para Weblate",
-        "nl": "Vertalingen-update voor Weblate",
-        "fr": "Mise à jour des traductions pour Weblate",
-        "it": "Aggiornamento delle traduzioni per Weblate",
-        "es": "Actualización de traducciones para Weblate",
-        "pl": "Aktualizacja tłumaczeń dla Weblate"
+        "en": "dependencies updated, dev-dependencies updated, Translations update for Weblate, translation updated",
+        "de": "Abhängigkeiten aktualisiert, Dev-Abhängigkeiten aktualisiert, Übersetzungen für Weblate aktualisiert, Übersetzung aktualisiert",
+        "ru": "обновлены зависимости, обновлены dev-зависимости, обновлены переводы для Weblate, обновлен перевод",
+        "pt": "dependências atualizadas, dev-dependências atualizadas, atualização de traduções para Weblate, tradução atualizada",
+        "nl": "afhankelijkheden bijgewerkt, dev-afhankelijkheden bijgewerkt, vertalingen bijgewerkt voor Weblate, vertaling bijgewerkt",
+        "fr": "dépendances mises à jour, dépendances dev mises à jour, mise à jour des traductions pour Weblate, traduction mise à jour",
+        "it": "dipendenze aggiornate, dev-dipendenze aggiornate, aggiornamento delle traduzioni per Weblate, traduzione aggiornata",
+        "es": "dependencias actualizadas, dev-dependencias actualizadas, actualización de traducciones para Weblate, traducción actualizada",
+        "pl": "zaktualizowano zależności, zaktualizowano zależności od programistów, zaktualizowano tłumaczenia dla Weblate, zaktualizowano tłumaczenie"
       },
       "1.6.7": {
         "en": "Bugfix error on GoogleDrive",
