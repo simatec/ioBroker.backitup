@@ -39,6 +39,9 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 1.6.9 (30.09.2020)
+* (simatec) Timeout fix for backup process
+
 ### 1.6.8 (24.09.2020)
 * (simatec) Translations update for Weblate
 * (simatec) dependencies updated

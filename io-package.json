@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.6.8",
+    "version": "1.6.9",
     "news": {
+      "1.6.9": {
+        "en": "Timeout fix for backup process",
+        "de": "Timeout-Korrektur für den Sicherungsprozess",
+        "ru": "Исправление тайм-аута для процесса резервного копирования",
+        "pt": "Correção de tempo limite para processo de backup",
+        "nl": "Time-out opgelost voor back-upproces",
+        "fr": "Correction du délai d'expiration pour le processus de sauvegarde",
+        "it": "Correzione del timeout per il processo di backup",
+        "es": "Corrección de tiempo de espera para el proceso de copia de seguridad",
+        "pl": "Poprawka limitu czasu dla procesu tworzenia kopii zapasowej"
+      },
       "1.6.8": {
         "en": "dependencies updated, dev-dependencies updated, Translations update for Weblate, translation updated",
         "de": "Abhängigkeiten aktualisiert, Dev-Abhängigkeiten aktualisiert, Übersetzungen für Weblate aktualisiert, Übersetzung aktualisiert",
