@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.6.9",
+    "version": "1.7.0",
     "news": {
+      "1.7.0": {
+        "en": "small Bugfix for umount on cifs/nfs mount; Dev-Dependencies updated; Dependencies updated",
+        "de": "kleiner Bugfix für umount auf cifs / nfs mount; Dev-Abhängigkeiten aktualisiert; Abhängigkeiten aktualisiert",
+        "ru": "небольшое исправление для umount при монтировании cifs / nfs; Обновлены Dev-Dependencies; Обновлены зависимости",
+        "pt": "pequena correção de bug para umount na montagem cifs / nfs; Dev-Dependencies atualizado; Dependências atualizadas",
+        "nl": "kleine bugfix voor umount op cifs / nfs mount; Dev-afhankelijkheden bijgewerkt; Afhankelijkheden bijgewerkt",
+        "fr": "petit bugfix pour umount sur le montage cifs / nfs; Dépendances de développement mises à jour; Dépendances mises à jour",
+        "it": "piccolo Bugfix per umount su cifs / nfs mount; Dipendenze sviluppatore aggiornate; Dipendenze aggiornate",
+        "es": "pequeña corrección de errores para umount en cifs / nfs mount; Dev-Dependencies actualizado; Dependencias actualizadas",
+        "pl": "mały Bugfix dla umount na montowaniu cifs / nfs; Zaktualizowano zależności Dev; Zaktualizowano zależności"
+      },
       "1.6.9": {
         "en": "Timeout fix for backup process",
         "de": "Timeout-Korrektur für den Sicherungsprozess",

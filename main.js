@@ -612,7 +612,7 @@ function umount() {
                         if (error) {
                             adapter.log.debug('umount: device is busy... wait 5 Minutes!!');
                             timerUmount2 = setTimeout(() =>
-                                child_process.exec(`${adapter.config.sudoMount ? 'sudo umount' : 'umount'} ${backupDir}`, (error, stdout, stderr) => {
+                                child_process.exec(`${adapter.config.sudoMount ? 'sudo umount' : 'umount'} -l ${backupDir}`, (error, stdout, stderr) => {
                                     if (error) {
                                         adapter.log.error(error);
                                     } else {
