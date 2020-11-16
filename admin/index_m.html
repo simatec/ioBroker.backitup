@@ -150,7 +150,7 @@
                         var native = res.rows[i].value.native;
                         if (common.enabled) {
                             $('#influxDBHost').val(native.host).trigger('change');
-                            $('#influxDBPort').val(native.port === '8086' ? 8088 : 8088 || 8088).trigger('change');
+                            $('#influxDBPort').val(native.port === '8086' ? 8086 : 8088 || 8088).trigger('change');
                             $('#influxDBName').val(native.dbname).trigger('change');
                             var id = res.rows[i].value.
                             found = res.rows[i].value._id;
