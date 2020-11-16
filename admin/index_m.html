@@ -141,6 +141,44 @@
                 }
             });
         }
+        function fetchInfluxDBConfig(isInitial) {
+            socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.influxdb.', endkey: 'system.adapter.influxdb.\u9999', include_docs: true}, function (err, res) {
+                var found = false;
+                if (res && res.rows && res.rows.length) {
+                    for (var i = 0; i < res.rows.length; i++) {
+                        var common = res.rows[0].value.common;
+                        var native = res.rows[i].value.native;
+                        if (common.enabled && native.dbtype === 'mysql') {
+                            $('#influxDBHost').val(native.host).trigger('change');
+                            $('#influxDBPort').val(native.port === '0' ? 8088 : native.port || 8088).trigger('change');
+                            $('#influxDBName').val(native.dbname).trigger('change');
+                            var id = res.rows[i].value.
+                            found = res.rows[i].value._id;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        for (var j = 0; j < res.rows.length; j++) {
+                            var _native = res.rows[j].value.native;
+                            if (_native.dbtype === 'influxDB') {
+                                $('#influxDBHost').val(_native.host).trigger('change');
+                                $('#influxDBName').val(_native.dbname).trigger('change');
+                                $('#influxDBPort').val(_native.port === '0' ? 8088 : native.port || 8088).trigger('change');
+                                found = res.rows[j].value._id;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (found) {
+                    M.updateTextFields();
+                    found = found.substring('system.adapter.'.length);
+                    !isInitial && showMessage(_('Config taken from %s', found));
+                } else {
+                    !isInitial && showMessage(_('No config found'));
+                }
+            });
+        }
         function fetchCcuConfig(isInitial) {
             socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.hm-rpc.', endkey: 'system.adapter.hm-rpc.\u9999', include_docs: true}, function (err, res) {
                 if (res && res.rows && res.rows.length) {
@@ -536,6 +574,7 @@
                 fetchMySqlConfig(true)
             }
             $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
+            $('.detect-influxDB').on('click', function () {fetchInfluxDBConfig()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
             $('.detect-history').on('click', function () {fetchHistoryConfig()});
 
@@ -660,6 +699,11 @@
             } else {
                 $('.mysql').hide();
             }
+            if ($('#influxDBEnabled').prop('checked')) {
+                $('.influxDB').show();
+            } else {
+                $('.influxDB').hide();
+            }
             var minimal = $('#minimalEnabled').prop('checked');
             if (minimal) {
                 $('.minimal').show();
@@ -733,6 +777,11 @@
             } else {
                 $('.tab-my-sql').hide();
             }
+            if ($('#influxDBEnabled').prop('checked')) {
+                $('.tab-influxDB').show();
+            } else {
+                $('.tab-influxDB').hide();
+            }
             if ($('#redisEnabled').prop('checked')) {
                 $('.tab-redis').show();
             } else {
@@ -777,6 +826,7 @@
                 <li class="tab col tab-iobroker-backup"><a href="#tab-iobroker-backup" class="translate">iobroker backup</a></li>
                 <li class="tab col tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
                 <li class="tab col tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
+                <li class="tab col tab-influxDB"><a href="#tab-influxDB" class="translate">InfluxDB Backup</a></li>
                 <li class="tab col tab-redis"><a href="#tab-redis" class="translate">Redis Backup</a></li>
                 <li class="tab col tab-history"><a href="#tab-history" class="translate">History Data Backup</a></li>
                 <li class="tab col tab-cifs"><a href="#tab-cifs" class="translate">NAS / Copy</a></li>
@@ -812,6 +862,12 @@
                         <input class="value" id="redisEnabled" type="checkbox"/>
                         <label for="redisEnabled" class="translate">Save Redis state</label>
                     </div>
+                    <div class="input-field col s6 l2 ">
+                        <input class="value" id="influxDBEnabled" type="checkbox"/>
+                        <label for="influxDBEnabled" class="translate">InfluxDB Backup</label>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="input-field col s6 l2">
                         <input class="value" id="historyEnabled" type="checkbox"/>
                         <label for="historyEnabled" class="translate">Save History Data</label>
@@ -1000,6 +1056,35 @@
                     <div class="input-field col s6 l4">
                         <input class="value" id="mysqlSingleTransaction" type="checkbox"/>
                         <label for="mysqlSingleTransaction" class="translate">BEGIN instruction before backup</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- influxDB Backup -->
+            <div id="tab-influxDB" class="col s12 page">
+                <div class="row">
+                    <h6 class="translate title" style="background-color:#174475;">influxDB Backup</h6>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 l3 influxDB">
+                        <a class="waves-effect waves-light btn detect-influxDB"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                    </div>
+                </div>
+                <div class="row influxDB">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="InfluxDBHost" type="text">
+                        <label for="InfluxDBHost" class="translate">Host</label>
+                        <span class="translate">InfluxDB Hostname</span>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="InfluxDBPort" type="text">
+                        <label for="InfluxDBPort" class="translate">port</label>
+                        <span class="translate">InfluxDB port</span>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="InfluxDBName" type="text">
+                        <label for="InfluxDBName" class="translate">name</label>
+                        <span class="translate">InfluxDB database name</span>
                     </div>
                 </div>
             </div>

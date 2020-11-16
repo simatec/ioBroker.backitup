@@ -39,6 +39,9 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 1.7.1-beta.1 (16.11.2020)
+* (simatec) first step for influxdb Backup
+
 ### 1.7.0 (26.10.2020)
 * (simatec) small Bugfix for umount on cifs/nfs mount
 * (simatec) Dev-Dependencies updated

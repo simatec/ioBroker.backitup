@@ -420,6 +420,18 @@ function initConfig(secret) {
         port: adapter.config.mySqlPort,                // database port
         exe: adapter.config.mySqlDumpExe               // path to mysqldump
     };
+    const influxDB = {
+        enabled: adapter.config.influxDBEnabled === undefined ? true : adapter.config.influxDBEnabled,
+        type: 'creator',
+        ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+        nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+        deleteBackupAfter: adapter.config.influxDBDeleteAfter,  // delete old backupfiles after x days
+        host: adapter.config.influxDBHost,                      // database host
+        port: adapter.config.influxDBPort,                      // database port
+    };
 
     // Configurations for standard-IoBroker backup
     backupConfig.iobroker = {
@@ -454,6 +466,19 @@ function initConfig(secret) {
             exe: adapter.config.mySqlDumpExe               // path to mysqldump
         },
         dir: tools.getIobDir(),
+        influxDB: {
+            enabled: adapter.config.influxDBEnabled === undefined ? true : adapter.config.influxDBEnabled,
+            type: 'creator',
+            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            deleteBackupAfter: adapter.config.influxDBDeleteAfter,  // delete old backupfiles after x days
+            dbName: adapter.config.influxDBName,                       // database name
+            host: adapter.config.influxDBHost,                      // database host
+            port: adapter.config.influxDBPort,                      // database port
+        },
         redis: {
             enabled: adapter.config.redisEnabled,
             type: 'creator',

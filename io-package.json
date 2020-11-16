@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.7.0",
+    "version": "1.7.1-beta.1",
     "news": {
       "1.7.0": {
         "en": "small Bugfix for umount on cifs/nfs mount; Dev-Dependencies updated; Dependencies updated",
@@ -227,6 +227,11 @@
     "mySqlPassword": "",
     "mySqlDeleteAfter": 5,
     "mySqlDumpExe": "",
+    "influxDBEnabled": false,
+    "influxDBHost": "localhost",
+    "influxDBPort": "8088",
+    "influxDBName": "iobroker",
+    "influxDBDeleteAfter": 5,
     "cifsEnabled": false,
     "cifsMount": "",
     "cifsUser": "",
