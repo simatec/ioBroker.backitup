@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.7.1-beta.1",
+    "version": "1.7.1-beta.2",
     "news": {
       "1.7.0": {
         "en": "small Bugfix for umount on cifs/nfs mount; Dev-Dependencies updated; Dependencies updated",
