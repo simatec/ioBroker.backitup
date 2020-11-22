@@ -227,6 +227,8 @@
     "mySqlPassword": "",
     "mySqlDeleteAfter": 5,
     "mySqlDumpExe": "",
+    "influxEnabled": false,
+    "influxExe": "",
     "cifsEnabled": false,
     "cifsMount": "",
     "cifsUser": "",

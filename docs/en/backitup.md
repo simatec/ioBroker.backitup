@@ -21,6 +21,9 @@ Backitup offers the possibility to carry out three types (optionally with DB bac
     - This separately adjustable backup, if activated, will be created for "minimal" and will be deleted after expiration of the specified retention time. FTP or CIFS are also valid for this backup unless set for the other IoBroker backup types.
 5. History backup
     - This separately adjustable backup, if activated, will be created for "minimal" and will be deleted after expiration of the specified retention time. FTP or CIFS are also valid for this backup unless set for the other IoBroker backup types.
+6. influx backup
+   - This separately adjustable backup, if activated, will be created with the iobroker backup.
+   - With Windows influx must be installed below "C:\Program Files", otherwise there are no write permissions for the backup directory.
 
 ## 2. Use Ftp, CIFS, NFS, Copy or Dropbox for the optional backup on a Nas?
 - CIFS:
@@ -137,6 +140,17 @@ Those who prefer to manually restore their backups should do the following:
 4. Restore History Data:
     - The History database must be unpacked into the corresponding folder during a restore
 
+5. Restore Influx (Beta)
+   An automatic restore can only be successful, if no influx database is installed on the host (i.e freh IoBroker installation on new host)
+   For a manual restore:
+   - uncompress influx backup in an empty folder (path-to-backup)
+   - influxd restore -portable -db iobroker -newdb iobroker_bak path-to-backup
+   - influx
+   -   > USE iobroker_bak
+   -   > SELECT * INTO iobroker..:MEASUREMENT FROM /.*/ GROUP BY *
+   -   > DROP DATABASE iobroker_bak
+   -   > exit
+   - please see https://docs.influxdata.com/influxdb/v1.8/administration/backup_and_restore/
 
 ## 6. Troubleshooting:
 
@@ -148,7 +162,7 @@ Here is a list of problems encountered so far and their solutions, if any.
 
 1. Olifall (from the forum) had the problem that after the Restore the web interface of the IoBrokers was not attainable, by the following steps over the console he could fix this:
     - sudo iobroker status
-    - Message = "No connection to states 127.0.0.0:6379[redis"
+    - Message = "No connection to states 127.0.0.0:6379[redis]"
     - sudo apt-get install redis-server
 
 2. If the CIFS mount with IP address is not possible, the host name of the NAS should be used

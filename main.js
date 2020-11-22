@@ -453,6 +453,15 @@ function initConfig(secret) {
             port: adapter.config.mySqlPort,                // database port
             exe: adapter.config.mySqlDumpExe               // path to mysqldump
         },
+        influx: {
+            enabled: adapter.config.influxEnabled === undefined ? false : adapter.config.influxEnabled,
+            type: 'creator',
+            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+            exe: adapter.config.influxExe               // path to influxd
+        },
         dir: tools.getIobDir(),
         redis: {
             enabled: adapter.config.redisEnabled,
@@ -541,8 +550,8 @@ function readLogFile() {
             fs.unlinkSync(logName);
 
             // make the messaging
-            config.afterBackup = true;
-            executeScripts(adapter, config, err => {
+            adapter.config.afterBackup = true;
+            executeScripts(adapter, adapter.config, err => {
 
             });
         }
@@ -564,7 +573,7 @@ function createBashScripts() {
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.bat')) {
             try {
-                fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\niobroker host this\ncall iobroker start\nif exist "${path.join(__dirname, 'lib/.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
+                fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker host this\ncall iobroker start\nif exist "${path.join(__dirname, 'lib/.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
             } catch (e) {
                 adapter.log.error('cannot create startIOB.bat: ' + e + 'Please run "iobroker fix"');
             }
@@ -677,7 +686,7 @@ function setStartAll() {
         }
     } else if (adapter.config.startAllRestore == false && fs.existsSync(__dirname + '/lib/.startAll')) {
         try {
-            fs.unlinkSync(__dirname + '/lib/.startAll');
+          fs.unlinkSync(__dirname + '/lib/.startAll');
             adapter.log.debug('Start all Adapter after Restore disabled');
         } catch (e) {
             adapter.log.warn('can not delete startAll file: ' + e + 'Please run "iobroker fix" and try again');

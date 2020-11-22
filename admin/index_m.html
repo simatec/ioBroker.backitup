@@ -259,12 +259,18 @@
             if (parseInt(parts[0], 10).toString() !== parts[0]) {
                 parts.shift();
             }
-            return new Date(
-                parts[0],
-                parseInt(parts[1], 10) - 1,
-                parseInt(parts[2].split('-')[0], 10),
-                parseInt(parts[2].split('-')[1], 10),
-                parseInt(parts[3], 10)).toLocaleString().replace(/:00$/, '');
+            //prevent exception if split fails
+            if (parts.length >= 4)
+            {
+                return new Date(
+                    parts[0],
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[2].split('-')[0], 10),
+                    parseInt(parts[2].split('-')[1], 10),
+                    parseInt(parts[3], 10)).toLocaleString().replace(/:00$/, '');
+            }
+            //Jan 01 1970 00:00:00 target with size 0 bytes
+            return new Date(0);
         }
         function load(settings, onChange) {
             if (!settings) return;
@@ -436,7 +442,7 @@
                                                     // Log Window for Restore Interface
                                                     setTimeout(function () {
                                                         window.open(link, '_blank');
-                                                    }, 4000);
+                                                    }, 8000);
                                                     var name = file.split('/').pop().split('_')[0];
                                                     showDialog(name !== '' ? 'restore' : '');
                                                     showToast(null, _('Restore started'));
@@ -660,6 +666,11 @@
             } else {
                 $('.mysql').hide();
             }
+            if ($('#influxEnabled').prop('checked')) {
+                $('.influx').show();
+            } else {
+                $('.influx').hide();
+            }
             var minimal = $('#minimalEnabled').prop('checked');
             if (minimal) {
                 $('.minimal').show();
@@ -733,6 +744,11 @@
             } else {
                 $('.tab-my-sql').hide();
             }
+            if ($('#influxEnabled').prop('checked')) {
+                $('.tab-influx').show();
+            } else {
+                $('.tab-influx').hide();
+            }
             if ($('#redisEnabled').prop('checked')) {
                 $('.tab-redis').show();
             } else {
@@ -777,6 +793,7 @@
                 <li class="tab col tab-iobroker-backup"><a href="#tab-iobroker-backup" class="translate">iobroker backup</a></li>
                 <li class="tab col tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
                 <li class="tab col tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
+                <li class="tab col tab-influx"><a href="#tab-influx" class="translate">Influx Data Backup</a></li>
                 <li class="tab col tab-redis"><a href="#tab-redis" class="translate">Redis Backup</a></li>
                 <li class="tab col tab-history"><a href="#tab-history" class="translate">History Data Backup</a></li>
                 <li class="tab col tab-cifs"><a href="#tab-cifs" class="translate">NAS / Copy</a></li>
@@ -793,7 +810,7 @@
                         <img src="backitup.png" class="logo">
                     </div>
                 </div>
-                <!-- What to back up -->
+                <!-- What to back up line 1 -->
                 <div class="row">
                     <h6 class="translate title" style="background-color:#174475;">What to back up</h6>
                     <div class="input-field col s6 l2">
@@ -819,6 +836,13 @@
                     <div class="input-field col s6 l2">
                         <input class="value" id="zigbeeEnabled" type="checkbox"/>
                         <label for="zigbeeEnabled" class="translate">Save Zigbee database</label>
+                    </div>
+                </div>
+                <!-- What to back up line 2 -->
+                <div class="row">
+                    <div class="input-field col s6 l2">
+                        <input class="value" id="influxEnabled" type="checkbox"/>
+                        <label for="influxEnabled" class="translate">Save influx database</label>
                     </div>
                 </div>
                 <div class="row">
@@ -1004,6 +1028,23 @@
                 </div>
             </div>
 
+            <!-- influx Backup -->
+            <div id="tab-influx" class="col s12 page">
+                <div class="row">
+                    <h6 class="translate title" style="background-color:#174475;">Save Influx Data</h6>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="translate">Backup of all influx databases on host</div>
+                    </div>
+                </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input type="text" class="value" id="influxExe">
+                        <label for="influxExe" class="translate">Full path</label>
+                        <span class="translate">Path with filename to influxd executable (leave empty to use default)</span>
+                    </div>
+            </div>
+            
             <!-- Redis -->
             <div id="tab-redis" class="col s12 page">
                 <div class="row">

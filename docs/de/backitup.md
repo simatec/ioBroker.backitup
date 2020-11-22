@@ -21,6 +21,9 @@ Backitup bietet die Möglichkeit drei (optional mit DB-Backup) verschiedene Back
    - Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup „minimal“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
 5. History Daten Backup
    - Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup „minimal“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
+6. Influx Daten Backup
+   - Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem IoBroker-Backup mit erstellt.
+   - Unter Windows muss influx unter "C:\Program Files" instaliert sein, sonst fehlen die Schreibrechte auf das Backup-Directory
 
 
 ## 2. Ftp, CIFS, NFS, Copy oder Dropbox für das optionale weitersichern auf einen Nas nutzen?
@@ -138,7 +141,17 @@ Wer seine Backups lieber manuell wiederherstellen möchte, sollte folgende Punkt
 4. Restore History:
     - Die History-Datenbank muss bei einem Restore in den dazugehörigen Ordner entpackt werden.
 
-
+5. Restore Influx (Beta)
+   Ein automatischer Restore ist nur möglich, wenn es auf dem Host noch keine Influx Datenbank existiert (z.B Umzug von IoBroker auf einen neuen Host)
+   Manueller Restore wie folgt:
+   - influx-Backup in einen temporären Ordner(path-to-backup) entpacken
+   - influxd restore -portable -db iobroker -newdb iobroker_bak path-to-backup
+   - influx
+   -   > USE iobroker_bak
+   -   > SELECT * INTO iobroker..:MEASUREMENT FROM /.*/ GROUP BY *
+   -   > DROP DATABASE iobroker_bak
+   -   > exit
+   - siehe auch https://docs.influxdata.com/influxdb/v1.8/administration/backup_and_restore/
 
 ## 6. Fehlersuche
     1. Um Fehler zu loggen, muss Backitup in unter dem IoBroker Reiter Instanzen auf Log-Stufe "debug" gestellt werden.
