@@ -141,6 +141,48 @@
                 }
             });
         }
+        function fetchPgSqlConfig(isInitial) {
+            socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.sql.', endkey: 'system.adapter.sql.\u9999', include_docs: true}, function (err, res) {
+                var found = false;
+                if (res && res.rows && res.rows.length) {
+                    for (var i = 0; i < res.rows.length; i++) {
+                        var common = res.rows[0].value.common;
+                        var native = res.rows[i].value.native;
+                        if (common.enabled && native.dbtype === 'postgresql') {
+                            $('#pgSqlUser').val(native.user).trigger('change');
+                            $('#pgSqlPassword').val(native.password).trigger('change');
+                            $('#pgSqlHost').val(native.host).trigger('change');
+                            $('#pgSqlPort').val(native.port === '0' ? 5432 : native.port || 5432).trigger('change');
+                            $('#pgSqlName').val(native.dbname).trigger('change');
+                            var id = res.rows[i].value.
+                            found = res.rows[i].value._id;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        for (var j = 0; j < res.rows.length; j++) {
+                            var _native = res.rows[j].value.native;
+                            if (_native.dbtype === 'postgresql') {
+                                $('#pgSqlUser').val(_native.user).trigger('change');
+                                $('#pgSqlPassword').val(_native.password).trigger('change');
+                                $('#pgSqlHost').val(_native.host).trigger('change');
+                                $('#pgSqlName').val(_native.dbname).trigger('change');
+                                $('#pgSqlPort').val(_native.port === '0' ? 5432 : native.port || 5432).trigger('change');
+                                found = res.rows[j].value._id;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (found) {
+                    M.updateTextFields();
+                    found = found.substring('system.adapter.'.length);
+                    !isInitial && showMessage(_('Config taken from %s', found));
+                } else {
+                    !isInitial && showMessage(_('No config found'));
+                }
+            });
+        }
         function fetchInfluxDBConfig(isInitial) {
             socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.influxdb.', endkey: 'system.adapter.influxdb.\u9999', include_docs: true}, function (err, res) {
                 var found = false;
@@ -468,7 +510,7 @@
                                                     showError(result.error);
                                                 } else {
                                                     //Create Link for Restore Interface
-													var link = "http://" + location.hostname + ":8091/backitup-restore";
+													var link = "http://" + location.hostname + ":3000/backitup-restore";
                                                     // Log Window for Restore Interface
                                                     setTimeout(function () {
                                                         window.open(link, '_blank');
@@ -571,7 +613,11 @@
             if (!settings.mySqlUser) {
                 fetchMySqlConfig(true)
             }
+            if (!settings.pgSqlUser) {
+                fetchPgSqlConfig(true)
+            }
             $('.detect-mysql').on('click', function () {fetchMySqlConfig()});
+            $('.detect-pgsql').on('click', function () {fetchPgSqlConfig()});
             $('.detect-influxDB').on('click', function () {fetchInfluxDBConfig()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
             $('.detect-history').on('click', function () {fetchHistoryConfig()});
@@ -613,7 +659,7 @@
                     obj[id] = $this.prop('checked');
                 } else {
                     var val = $this.val();
-                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword') {
+                    if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword') {
                         val = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
                     }
                     obj[id] = val;
@@ -697,6 +743,11 @@
             } else {
                 $('.mysql').hide();
             }
+            if ($('#pgSqlEnabled').prop('checked')) {
+                $('.pgsql').show();
+            } else {
+                $('.pgsql').hide();
+            }
             if ($('#influxDBEnabled').prop('checked')) {
                 $('.influxDB').show();
             } else {
@@ -775,6 +826,11 @@
             } else {
                 $('.tab-my-sql').hide();
             }
+            if ($('#pgSqlEnabled').prop('checked')) {
+                $('.tab-pg-sql').show();
+            } else {
+                $('.tab-pg-sql').hide();
+            }
             if ($('#influxDBEnabled').prop('checked')) {
                 $('.tab-influxDB').show();
             } else {
@@ -824,6 +880,7 @@
                 <li class="tab col tab-iobroker-backup"><a href="#tab-iobroker-backup" class="translate">iobroker backup</a></li>
                 <li class="tab col tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
                 <li class="tab col tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
+                <li class="tab col tab-pg-sql"><a href="#tab-pg-sql" class="translate">Postgresql Backup</a></li>
                 <li class="tab col tab-influxDB"><a href="#tab-influxDB" class="translate">InfluxDB Backup</a></li>
                 <li class="tab col tab-redis"><a href="#tab-redis" class="translate">Redis Backup</a></li>
                 <li class="tab col tab-history"><a href="#tab-history" class="translate">History Data Backup</a></li>
@@ -852,13 +909,13 @@
                         <input class="value" id="ccuEnabled" type="checkbox"/>
                         <label for="ccuEnabled" class="translate">Homematic CCU backup</label>
                     </div>
-                    <div class="input-field col s6 l2 ">
-                        <input class="value" id="mySqlEnabled" type="checkbox"/>
-                        <label for="mySqlEnabled" class="translate">MySql Backup</label>
-                    </div>
                     <div class="input-field col s6 l2">
                         <input class="value" id="redisEnabled" type="checkbox"/>
                         <label for="redisEnabled" class="translate">Save Redis state</label>
+                    </div>
+                    <div class="input-field col s6 l2">
+                        <input class="value" id="zigbeeEnabled" type="checkbox"/>
+                        <label for="zigbeeEnabled" class="translate">Save Zigbee database</label>
                     </div>
                 </div>
                 <div class="row">
@@ -870,9 +927,13 @@
                         <input class="value" id="influxDBEnabled" type="checkbox"/>
                         <label for="influxDBEnabled" class="translate">InfluxDB Backup</label>
                     </div>
-                    <div class="input-field col s6 l2">
-                        <input class="value" id="zigbeeEnabled" type="checkbox"/>
-                        <label for="zigbeeEnabled" class="translate">Save Zigbee database</label>
+                    <div class="input-field col s6 l2 ">
+                        <input class="value" id="mySqlEnabled" type="checkbox"/>
+                        <label for="mySqlEnabled" class="translate">MySql Backup</label>
+                    </div>
+                    <div class="input-field col s6 l2 ">
+                        <input class="value" id="pgSqlEnabled" type="checkbox"/>
+                        <label for="pgSqlEnabled" class="translate">Postgresql Backup</label>
                     </div>
                 </div>
                 <div class="row">
@@ -1058,10 +1119,56 @@
                 </div>
             </div>
 
+            <!-- pgsql Backup -->
+            <div id="tab-pg-sql" class="col s12 page">
+                <div class="row">
+                    <h6 class="translate title" style="background-color:#174475;">Postgresql Backup</h6>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 l3 pgsql">
+                        <a class="waves-effect waves-light btn detect-pgsql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                    </div>
+                </div>
+                <div class="row pgsql">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="pgSqlHost" type="text">
+                        <label for="pgSqlHost" class="translate">Host</label>
+                        <span class="translate">Postgresql Hostname</span>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="pgSqlPort" type="text">
+                        <label for="pgSqlPort" class="translate">port</label>
+                        <span class="translate">Postgresql port</span>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="pgSqlName" type="text">
+                        <label for="pgSqlName" class="translate">name</label>
+                        <span class="translate">Postgresql database name</span>
+                    </div>
+                </div>
+                <div class="row pgsql">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="pgSqlUser" type="text">
+                        <label for="pgSqlUser" class="translate">Postgresql username</label>
+                        <span class="translate">Postgresql username</span>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="pgSqlPassword" type="password">
+                        <label for="pgSqlPassword" class="translate">password</label>
+                        <span class="translate">Postgresql password</span>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input type="text" class="value" id="pgSqlDumpExe">
+                        <label for="pgSqlDumpExe" class="translate">Full path</label>
+                        <span class="translate">Path with filename to postgresql executable (leave empty to use default)</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- influxDB Backup -->
             <div id="tab-influxDB" class="col s12 page">
                 <div class="row">
-                    <h6 class="translate title" style="background-color:#174475;">influxDB Backup</h6>
+                    <h6 class="translate title" style="background-color:#174475;">InfluxDB Backup</h6>
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3 influxDB">
@@ -1077,12 +1184,20 @@
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="influxDBPort" type="text">
                         <label for="influxDBPort" class="translate">port</label>
-                        <span class="translate">InfluxDB port</span>
+                        <span class="translate">InfluxDB port (default: 8088)</span>
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="influxDBName" type="text">
                         <label for="influxDBName" class="translate">name</label>
                         <span class="translate">InfluxDB database name</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card-panel" style="background-color:#174475;">
+                            <span class="white-text translate">Configuring remote connections. For detailed information please read the documentation of InfluxDB!!</span>
+                            <span><a href="https://docs.influxdata.com/influxdb/v1.8/administration/backup_and_restore/#configuring-remote-connections" target="_blank" class="translate"> *** Open InfluxDB Documentation ***</a></span>
+                        </div>
                     </div>
                 </div>
             </div>
