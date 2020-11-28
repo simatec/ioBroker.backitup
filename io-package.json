@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.7.0",
+    "version": "1.8.0-beta.1",
     "news": {
+      "1.8.0-beta.1": {
+        "en": "influxDB Backup added; influxDB Restore added; Postgresql Backup added; Postgresql Restore added; translation added; new zigbee Restore added",
+        "de": "influxDB Backup hinzugefügt; influxDB Restore hinzugefügt; Postgresql Backup hinzugefügt; Postgresql Restore hinzugefügt; Übersetzung hinzugefügt; Neue ZigBee-Wiederherstellung hinzugefügt",
+        "ru": "InfxDB Backup добавлен; InfluxDB Restore добавлено; Добавлен Postgresql Backup; Добавлен Postgresql Restore; добавлен перевод; добавлено новое восстановление zigbee",
+        "pt": "influxDB Backup adicionado; Restauração do influxDB adicionada; Backup Postgresql adicionado; Restauração Postgresql adicionada; tradução adicionada; novo zigbee Restore adicionado",
+        "nl": "influxDB Backup toegevoegd; influxDB Restore toegevoegd; Postgresql Backup toegevoegd; Postgresql Restore toegevoegd; vertaling toegevoegd; nieuwe zigbee Restore toegevoegd",
+        "fr": "influxDB Backup ajouté; restauration influxDB ajoutée; Sauvegarde PostgreSQL ajoutée; Restauration de PostgreSQL ajoutée; traduction ajoutée; nouvelle restauration zigbee ajoutée",
+        "it": "Aggiunto backup influxDB; influxDB Restore aggiunto; Postgresql Backup aggiunto; Postgresql Restore aggiunto; traduzione aggiunta; aggiunto nuovo zigbee Restore",
+        "es": "influxDB Backup agregado; influxDB Restore agregado; Se agregó Postgresql Backup; Se agregó Postgresql Restore; traducción agregada; nueva restauración zigbee agregada",
+        "pl": "Dodano kopię zapasową influxDB; Dodano przywracanie influxDB; Dodano kopię zapasową Postgresql; Dodano przywracanie Postgresql; dodane tłumaczenie; dodano nowy zigbee Restore"
+      },
       "1.7.0": {
         "en": "small Bugfix for umount on cifs/nfs mount; Dev-Dependencies updated; Dependencies updated",
         "de": "kleiner Bugfix für umount auf cifs / nfs mount; Dev-Abhängigkeiten aktualisiert; Abhängigkeiten aktualisiert",
@@ -227,6 +238,19 @@
     "mySqlPassword": "",
     "mySqlDeleteAfter": 5,
     "mySqlDumpExe": "",
+    "influxDBEnabled": false,
+    "influxDBHost": "localhost",
+    "influxDBPort": "8088",
+    "influxDBName": "iobroker",
+    "influxDBDeleteAfter": 5,
+    "pgSqlHost": "",
+    "pgSqlPort": "5432",
+    "pgSqlName": "",
+    "pgSqlUser": "",
+    "pgSqlPassword": "",
+    "pgSqlDeleteAfter": 5,
+    "pgSqlDumpExe": "",
+    "pgSqlEnabled": false,
     "cifsEnabled": false,
     "cifsMount": "",
     "cifsUser": "",
