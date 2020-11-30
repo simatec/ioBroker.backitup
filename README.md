@@ -48,6 +48,7 @@ When the adapter crashes or an other Code error happens, this error message that
 * (simatec) new zigbee Restore added
 * (simatec) dependencies updated
 * (simatec) many small bugfixes
+* (simatec) new redis Restore added
 
 ### 1.7.0 (26.10.2020)
 * (simatec) small Bugfix for umount on cifs/nfs mount
