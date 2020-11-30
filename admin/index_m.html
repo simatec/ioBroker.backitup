@@ -626,6 +626,10 @@
                 fillTelegramUser(settings['telegramUser'], obj)
             });
 
+            $('.timepicker').timepicker({
+                "twelveHour": false
+            });
+
             initDialog();
         }
         function fillTelegramUser(id, str) {
@@ -992,7 +996,7 @@
                 </div>
 				<div class="row iobroker">
                     <div class="input-field col s12 m6 l3">
-                        <input class="value" id="minimalTime" type="text">
+                        <input type="time" class="timepicker value" id="minimalTime" type="text">
                         <label for="minimalTime" class="translate">backup time</label>
                         <span class="translate">Backup start time in hh: mm</span>
                     </div>
@@ -1029,7 +1033,7 @@
                 </div>
                 <div class="row ccu">
                     <div class="input-field col s12 m6 l4">
-                        <input class="value" id="ccuTime" type="text">
+                        <input type="time" class="timepicker value" id="ccuTime" type="text">
                         <label for="ccuTime" class="translate">backup time</label>
                         <span class="translate">Backup start time in hh: mm</span>
                     </div>
