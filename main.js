@@ -59,6 +59,28 @@ function startBackup(config, cb) {
     }
 }
 
+/**
+ * Change the external Sentry Logging. After changing the Logging
+ * the adapter restarts once
+ * @param {*} id : adapter.config.sentry_enable for example
+ */
+async function setSentryLogging(value) {
+    try {
+        value = value === true;
+        let idSentry = 'system.adapter.' + adapter.namespace + '.plugins.sentry.enabled';
+        let stateSentry = await adapter.getForeignStateAsync(idSentry);
+        if (stateSentry && stateSentry.val !== value) {
+            await adapter.setForeignStateAsync(idSentry, value);
+            adapter.log.info('Restarting Adapter because of changeing Sentry settings');
+            adapter.restart();
+            return true;
+        }
+    } catch (error) {
+        return false;
+    }
+    return false;
+}
+
 function startAdapter(options) {
     options = options || {};
     Object.assign(options, { name: adapterName });
@@ -103,7 +125,15 @@ function startAdapter(options) {
         }
     });
 
-    adapter.on('ready', () => main(adapter));
+    //adapter.on('ready', () => main(adapter));
+    adapter.on('ready', () => {
+        try {
+            if (setSentryLogging(adapter.config.sentry_enable)) return;
+            main(adapter);
+        } catch (e) {
+            //ignore errors
+        }
+    });
 
     // is called when adapter shuts down - callback has to be called under any circumstances!
     adapter.on('unload', (callback) => {
@@ -431,14 +461,15 @@ function initConfig(secret) {
         deleteBackupAfter: adapter.config.influxDBDeleteAfter,  // delete old backupfiles after x days
         host: adapter.config.influxDBHost,                      // database host
         port: adapter.config.influxDBPort,                      // database port
+        exe: adapter.config.influxDBDumpExe                     // path to influxDBdump
     };
     const pgsql = {
         enabled: adapter.config.pgSqlEnabled === undefined ? true : adapter.config.pgSqlEnabled,
         type: 'creator',
-        ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
-        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
-        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
-        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
+        ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
         nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
         dbName: adapter.config.pgSqlName,              // database name
         user: adapter.config.pgSqlUser,                // database user
@@ -498,10 +529,10 @@ function initConfig(secret) {
         pgsql: {
             enabled: adapter.config.pgSqlEnabled === undefined ? true : adapter.config.pgSqlEnabled,
             type: 'creator',
-            ftp:  Object.assign({}, ftp,  (adapter.config.ftpOwnDir === true) ? {dir:  adapter.config.ftpMinimalDir} : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? {dir:  adapter.config.cifsMinimalDir}  : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? {dir:  adapter.config.dropboxMinimalDir}  : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? {dir:  adapter.config.googledriveMinimalDir}  : {}),
+            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             dbName: adapter.config.pgSqlName,              // database name
             user: adapter.config.pgSqlUser,                // database user

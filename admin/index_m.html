@@ -969,6 +969,10 @@
                         <input class="value" id="debugLevel" type="checkbox"/>
                         <label for="debugLevel" class="translate">Enable / disable debug</label>
                     </div>
+                    <div class="input-field col s12 m6 l3">
+                        <input class="value" id="sentry_enable" type="checkbox"/>
+                        <label for="sentry_enable" class="translate">send analysis data</label>
+                    </div>
                     <div class="input-field col s12 m6 l2">
                         <input type="number" class="value" id="historyEntriesNumber" min="1" max="50"/>
                         <label for="historyEntriesNumber" class="translate">Number of history entries</label>
@@ -1190,10 +1194,17 @@
                         <label for="influxDBPort" class="translate">port</label>
                         <span class="translate">InfluxDB port (default: 8088)</span>
                     </div>
+                </div>
+                <div class="row influxDB">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="influxDBName" type="text">
                         <label for="influxDBName" class="translate">name</label>
                         <span class="translate">InfluxDB database name</span>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input type="text" class="value" id="influxDBDumpExe">
+                        <label for="influxDBDumpExe" class="translate">Full path</label>
+                        <span class="translate">Path with filename to influxd executable (leave empty to use default)</span>
                     </div>
                 </div>
                 <div class="row">

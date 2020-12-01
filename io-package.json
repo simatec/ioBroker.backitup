@@ -242,6 +242,7 @@
     "influxDBHost": "localhost",
     "influxDBPort": "8088",
     "influxDBName": "iobroker",
+    "influxDBDumpExe": "",
     "influxDBDeleteAfter": 5,
     "pgSqlHost": "",
     "pgSqlPort": "5432",
@@ -307,6 +308,7 @@
     "emailOnlyError": false,
     "emailWaitToSend": 0,
     "debugLevel": false,
+    "sentry_enable": true,
     "historyEntriesNumber": 25,
     "restoreSource": "local",
     "startAllRestore": false
