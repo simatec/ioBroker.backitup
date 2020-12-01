@@ -49,6 +49,7 @@ When the adapter crashes or an other Code error happens, this error message that
 * (simatec) dependencies updated
 * (simatec) many small bugfixes
 * (simatec) new redis Restore added
+* (simatec) enable/disable option for Sentry Plugin
 
 ### 1.7.0 (26.10.2020)
 * (simatec) small Bugfix for umount on cifs/nfs mount
