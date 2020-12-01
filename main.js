@@ -126,10 +126,11 @@ function startAdapter(options) {
     });
 
     //adapter.on('ready', () => main(adapter));
-    adapter.on('ready', () => {
+    //adapter.on('ready', () => {
+    adapter.on('ready', async () => {
         try {
-            if (setSentryLogging(adapter.config.sentry_enable)) return;
-            main(adapter);
+            if (await setSentryLogging(adapter.config.sentry_enable)) return;
+            await main(adapter);
         } catch (e) {
             //ignore errors
         }
