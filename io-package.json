@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.8.0-beta.2",
+    "version": "1.8.0-beta.3",
     "news": {
       "1.8.0-beta.2": {
         "en": "influxDB Backup added; influxDB Restore added; Postgresql Backup added; Postgresql Restore added; translation added; new zigbee Restore added; dependencies updated; many small bugfixes; new redis Restore added",

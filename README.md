@@ -39,7 +39,7 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
-### 1.8.0-beta.2 (30.11.2020)
+### 1.8.0-beta.3 (03.12.2020)
 * (simatec) influxDB Backup added
 * (simatec) influxDB Restore added
 * (simatec) Postgresql Backup added
