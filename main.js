@@ -462,7 +462,8 @@ function initConfig(secret) {
         deleteBackupAfter: adapter.config.influxDBDeleteAfter,  // delete old backupfiles after x days
         host: adapter.config.influxDBHost,                      // database host
         port: adapter.config.influxDBPort,                      // database port
-        exe: adapter.config.influxDBDumpExe                     // path to influxDBdump
+        exe: adapter.config.influxDBDumpExe,                     // path to influxDBdump
+        type: adapter.config.influxDBType                        // type of influxdb Backup
     };
     const pgsql = {
         enabled: adapter.config.pgSqlEnabled === undefined ? true : adapter.config.pgSqlEnabled,
@@ -526,7 +527,8 @@ function initConfig(secret) {
             dbName: adapter.config.influxDBName,                       // database name
             host: adapter.config.influxDBHost,                      // database host
             port: adapter.config.influxDBPort,                      // database port
-            exe: adapter.config.influxDBDumpExe                     // path to influxDBdump
+            exe: adapter.config.influxDBDumpExe,                     // path to influxDBdump
+            type: adapter.config.influxDBType                        // type of influxdb Backup
         },
         pgsql: {
             enabled: adapter.config.pgSqlEnabled === undefined ? true : adapter.config.pgSqlEnabled,

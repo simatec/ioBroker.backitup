@@ -1,0 +1,25 @@
+/* You can delete those if you want. I just found them very helpful */
+* {
+    box-sizing: border-box
+}
+.m {
+    /* Don't cut off dropdowns! */
+    overflow: initial;
+}
+
+/* Add your styles here */
+/* Header section*/
+#header-area {margin-top: 2px; margin-bottom: 1px; background-color:#174475;}
+#header-area #header-logo-title .logo {float:left; margin-right: 10px;}
+#header-area #header-logo-title p {line-height: normal !important; margin: 0 !important; padding: 8px 0 0 8px;}
+#header-area #header-logo-title p>span.h-title {font-size: 2em !important; color:white; }
+#header-area #header-logo-title p>span.h-sub-title {font-size: 1.1em !important; color:white; font-style: italic; }
+
+/* Tabs menu */
+.m .tabs .tab a { color: rgba(13, 134, 231, 0.7); } /* Color */
+.m .tabs .active { border-bottom: 2px solid #0d47a1; font-weight: bold;}
+.m .tabs .tab a.active, .m .tabs .tab a:hover { color:#0d47a1; }
+.m .tabs .tab a:hover { border-bottom: 2px solid #46a0e9 !important; }
+.m .row .col.m1 { width: 14%;}
+#tab-area { padding-left:0;padding-right:0; margin-top: 2px; margin-bottom: 2px; background-color:#174475; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2) }
+
