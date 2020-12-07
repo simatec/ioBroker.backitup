@@ -12,16 +12,19 @@
     <script type="text/javascript" src="../../lib/js/materialize.js"></script>
     <script type="text/javascript" src="../../js/adapter-settings.js"></script>
     <script type="text/javascript" src="words.js"></script>
+
+    <!-- Load our own files -->
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <style>
+        
         .m .col .select-wrapper + label {
             top: -26px;
         }
         .m span {
             font-size: 0.9em;
         }
-
         .m .tabs {
-            height: fit-content!important;
+            height: auto!important;
         }
 
         @media only screen and (max-width: 992px) {
@@ -31,7 +34,7 @@
         }
 
         .m .page {
-            height: calc(100% - 118px);
+            height: calc(100% - 190px);
         }
         #dialog-command {
             width: calc(100% - 100px);
@@ -782,6 +785,14 @@
             }
             }).trigger('change');
 
+            $('#influxDBType').on('change', function () {
+                if ($(this).val() === 'remote') {
+                    $('.influxRemote').show();
+                } else if ($(this).val() === 'local') {
+                    $('.influxRemote').hide();
+                }
+            }).trigger('change');
+
             $('#restoreSource').on('change', function () {
                 if ($(this).val() === 'cifs' && $('#cifsOwnDir').prop('checked')) {
                     $('.bkpType').show();
@@ -875,9 +886,18 @@
 </head>
 <body>
 <div class="m adapter-container">
+    <div id="header-area" class="row" >
+        <div id="header-logo-title" class="col s6" >
+            <img class="logo" src="backitup.png" >
+            <p>
+                <span class="translate h-title">Backitup</span><br />
+                <span class="translate h-sub-title">Backup your System …</span>
+            </p>
+        </div>
+    </div>
     <div class="row">
-        <div class="col s12">
-            <ul class="tabs">
+        <div class="col s12" id="tab-area">
+            <ul class="tabs blue lighten-4">
                 <li class="tab col"><a href="#tab-settings" class="translate active">main settings</a></li>
                 <li class="tab col tab-restore"><a href="#tab-restore" class="translate">Restore</a></li>
                 <li class="tab col tab-notification"><a href="#tab-notification" class="translate">Notifications</a></li>
@@ -897,11 +917,13 @@
         <div class="row">
             <!-- main settings -->
             <div id="tab-settings" class="col s12 page">
+                <!--
                 <div class="row">
                     <div class="input-field col s6">
                         <img src="backitup.png" class="logo">
                     </div>
                 </div>
+                -->
                 <!-- What to back up -->
                 <div class="row">
                     <h6 class="translate title" style="background-color:#174475;">What to back up</h6>
@@ -1179,11 +1201,19 @@
                     <h6 class="translate title" style="background-color:#174475;">InfluxDB Backup</h6>
                 </div>
                 <div class="row">
+                    <div class="input-field col s11 m2">
+                        <select class="value" id="influxDBType">
+                            <option value="remote" class="translate">Remote</option>
+                            <option value="local" class="translate">Local</option>
+                        </select>
+                        <label for="influxDBType" class="translate">source type</label>
+                    </div>
                     <div class="input-field col s6 l3 influxDB">
-                        <a class="waves-effect waves-light btn detect-influxDB"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                        <a class="waves-effect waves-light btn detect-influxDB"><i class="material-icons right">search</i><span
+                                class="translate">detect config</span></a>
                     </div>
                 </div>
-                <div class="row influxDB">
+                <div class="row influxRemote">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="influxDBHost" type="text">
                         <label for="influxDBHost" class="translate">Host</label>
@@ -1207,7 +1237,7 @@
                         <span class="translate">Path with filename to influxd executable (leave empty to use default)</span>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row influxRemote">
                     <div class="col s12">
                         <div class="card-panel" style="background-color:#174475;">
                             <span class="white-text translate">Configuring remote connections. For detailed information please read the documentation of InfluxDB!!</span>
@@ -1439,9 +1469,11 @@
                     </div>
                     <div class="input-field col s12 m6 l4">
                         <select class="value" id="smbType">
-                        <option value="vers=1.0" >SMB 1</option>
-                        <option value="vers=2.0" >SMB 2</option>
-                        <option value="vers=3.0" >SMB 3</option>
+                        <option value="vers=1.0" >SMB 1.0</option>
+                        <option value="vers=2.0" >SMB 2.0</option>
+                        <option value="vers=3.0" >SMB 3.0</option>
+                        <option value="vers=3.02" >SMB 3.02</option>
+                        <option value="vers=3.1.1" >SMB 3.1.1</option>
                         </select>
                         <label for="smbType" class="translate">smb type</label>
                     </div>

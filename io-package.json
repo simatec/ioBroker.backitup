@@ -1,18 +1,18 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.8.0-beta.3",
+    "version": "1.8.1",
     "news": {
-      "1.8.0-beta.2": {
-        "en": "influxDB Backup added; influxDB Restore added; Postgresql Backup added; Postgresql Restore added; translation added; new zigbee Restore added; dependencies updated; many small bugfixes; new redis Restore added",
-        "de": "influxDB Backup hinzugefügt; influxDB Restore hinzugefügt; Postgresql Backup hinzugefügt; Postgresql Restore hinzugefügt; Übersetzung hinzugefügt; neue ZigBee-Wiederherstellung hinzugefügt; Abhängigkeiten aktualisiert; viele kleine Bugfixes; Neue Redis-Wiederherstellung hinzugefügt",
-        "ru": "InfxDB Backup добавлен; InfluxDB Restore добавлено; Добавлен Postgresql Backup; Добавлен Postgresql Restore; добавлен перевод; добавлен новый zigbee Restore; обновлены зависимости; множество мелких исправлений; добавлено новое восстановление Redis",
-        "pt": "influxDB Backup adicionado; Restauração do influxDB adicionada; Backup Postgresql adicionado; Restauração Postgresql adicionada; tradução adicionada; nova restauração do zigbee adicionada; dependências atualizadas; muitas pequenas correções de bugs; novo redis Restore adicionado",
-        "nl": "influxDB Backup toegevoegd; influxDB Restore toegevoegd; Postgresql Backup toegevoegd; Postgresql Restore toegevoegd; vertaling toegevoegd; nieuwe zigbee Restore toegevoegd; afhankelijkheden bijgewerkt; veel kleine bugfixes; nieuw is Herstellen toegevoegd",
-        "fr": "influxDB Backup ajouté; restauration influxDB ajoutée; Sauvegarde PostgreSQL ajoutée; Restauration de PostgreSQL ajoutée; traduction ajoutée; nouvelle restauration zigbee ajoutée; dépendances mises à jour; de nombreuses petites corrections de bugs; nouvelle restauration redis ajoutée",
-        "it": "Aggiunto backup influxDB; influxDB Restore aggiunto; Postgresql Backup aggiunto; Postgresql Restore aggiunto; traduzione aggiunta; aggiunto nuovo zigbee Restore; dipendenze aggiornate; molti piccoli bug risolti; new redis Restore aggiunto",
-        "es": "influxDB Backup agregado; influxDB Restore agregado; Se agregó Postgresql Backup; Se agregó Postgresql Restore; traducción agregada; Se agregó una nueva restauración de zigbee; dependencias actualizadas; muchas pequeñas correcciones de errores; nueva restauración de redis agregada",
-        "pl": "Dodano kopię zapasową influxDB; Dodano przywracanie influxDB; Dodano kopię zapasową Postgresql; Dodano przywracanie Postgresql; dodane tłumaczenie; dodano nowy zigbee Restore; zaktualizowane zależności; wiele drobnych poprawek; new redis Restore added"
+      "1.8.1": {
+        "en": "influxDB Backup added; influxDB Restore added; Postgresql Backup added; Postgresql Restore added; translation added; new zigbee Restore added; dependencies updated; many small bugfixes; new redis Restore added; enable/disable option for Sentry Plugin; smb 3.02 support added;  smb 3.1.1 support added",
+        "de": "influxDB Backup hinzugefügt; influxDB Restore hinzugefügt; Postgresql Backup hinzugefügt; Postgresql Restore hinzugefügt; Übersetzung hinzugefügt; neue ZigBee-Wiederherstellung hinzugefügt; Abhängigkeiten aktualisiert; viele kleine Bugfixes; neue Redis-Wiederherstellung hinzugefügt; Option zum Aktivieren / Deaktivieren des Sentry Plugins; Unterstützung für SMB 3.02 hinzugefügt; Unterstützung für SMB 3.1.1 hinzugefügt",
+        "ru": "InfxDB Backup добавлен; InfluxDB Restore добавлено; Добавлен Postgresql Backup; Добавлен Postgresql Restore; добавлен перевод; добавлен новый zigbee Restore; обновлены зависимости; множество мелких исправлений; добавлено новое восстановление Redis; включить / выключить опцию Sentry Plugin; добавлена поддержка smb 3.02; добавлена поддержка smb 3.1.1",
+        "pt": "influxDB Backup adicionado; Restauração do influxDB adicionada; Backup Postgresql adicionado; Restauração Postgresql adicionada; tradução adicionada; nova restauração do zigbee adicionada; dependências atualizadas; muitas pequenas correções de bugs; nova restauração do redis adicionada; habilitar / desabilitar opção para Sentry Plugin; suporte smb 3.02 adicionado; Suporte smb 3.1.1 adicionado",
+        "nl": "influxDB Backup toegevoegd; influxDB Restore toegevoegd; Postgresql Backup toegevoegd; Postgresql Restore toegevoegd; vertaling toegevoegd; nieuwe zigbee Restore toegevoegd; afhankelijkheden bijgewerkt; veel kleine bugfixes; nieuwe redis Herstellen toegevoegd; optie inschakelen / uitschakelen voor Sentry-plug-in; smb 3.02-ondersteuning toegevoegd; smb 3.1.1 ondersteuning toegevoegd",
+        "fr": "influxDB Backup ajouté; restauration influxDB ajoutée; Sauvegarde PostgreSQL ajoutée; Restauration de PostgreSQL ajoutée; traduction ajoutée; nouvelle restauration zigbee ajoutée; dépendances mises à jour; de nombreuses petites corrections de bugs; nouvelle restauration redis ajoutée; option activer / désactiver pour Sentry Plugin; Prise en charge de smb 3.02 ajoutée; Prise en charge de smb 3.1.1 ajoutée",
+        "it": "Aggiunto backup influxDB; influxDB Restore aggiunto; Postgresql Backup aggiunto; Postgresql Restore aggiunto; traduzione aggiunta; aggiunto nuovo zigbee Restore; dipendenze aggiornate; molti piccoli bug risolti; nuovo redis Restore aggiunto; abilitare / disabilitare l'opzione per Sentry Plugin; supporto per smb 3.02 aggiunto; smb 3.1.1 supporto aggiunto",
+        "es": "influxDB Backup agregado; influxDB Restore agregado; Se agregó Postgresql Backup; Se agregó Postgresql Restore; traducción agregada; Se agregó una nueva restauración de zigbee; dependencias actualizadas; muchas pequeñas correcciones de errores; nueva restauración de redis agregada; opción de habilitar / deshabilitar para Sentry Plugin; se agregó soporte para smb 3.02; Se agregó soporte para smb 3.1.1",
+        "pl": "Dodano kopię zapasową influxDB; Dodano przywracanie influxDB; Dodano kopię zapasową Postgresql; Dodano przywracanie Postgresql; dodane tłumaczenie; dodano nowy zigbee Restore; zaktualizowane zależności; wiele drobnych poprawek; dodano nowe narzędzie redis Restore; włączanie / wyłączanie opcji dla Sentry Plugin; dodano obsługę smb 3.02; Dodano obsługę smb 3.1.1"
       },
       "1.7.0": {
         "en": "small Bugfix for umount on cifs/nfs mount; Dev-Dependencies updated; Dependencies updated",
@@ -244,6 +244,7 @@
     "influxDBName": "iobroker",
     "influxDBDumpExe": "",
     "influxDBDeleteAfter": 5,
+    "influxDBType": "local",
     "pgSqlHost": "",
     "pgSqlPort": "5432",
     "pgSqlName": "",
