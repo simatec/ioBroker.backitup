@@ -360,7 +360,14 @@ function initConfig(secret) {
         systemLang
     };
 
-    const history = {
+    const historyHTML = {
+        enabled: true,
+        type: 'message',
+        entriesNumber: adapter.config.historyEntriesNumber,
+        systemLang
+    };
+
+    const historyJSON = {
         enabled: true,
         type: 'message',
         entriesNumber: adapter.config.historyEntriesNumber,
@@ -433,6 +440,7 @@ function initConfig(secret) {
     };
 
     // TODO: Not used anywere
+    /*
     const mysql = {
         enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
         type: 'creator',
@@ -481,7 +489,7 @@ function initConfig(secret) {
         port: adapter.config.pgSqlPort,                // database port
         exe: adapter.config.pgSqlDumpExe               // path to mysqldump
     };
-
+    */
     // Configurations for standard-IoBroker backup
     backupConfig.iobroker = {
         name: 'iobroker',
@@ -573,7 +581,8 @@ function initConfig(secret) {
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: tools.getIobDir() + '/iobroker-data', // specify zigbee path
         },
-        history,
+        historyHTML,
+        historyJSON,
         telegram,
         email,
         pushover,
@@ -595,7 +604,8 @@ function initConfig(secret) {
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsCcuDir } : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxCcuDir } : {}),
         googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveCcuDir } : {}),
-        history,
+        historyHTML,
+        historyJSON,
         telegram,
         email,
         pushover,

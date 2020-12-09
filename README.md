@@ -39,6 +39,11 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 1.8.2 (09.12.2020)
+* (simatec) code cleaned
+* (simatec) code for history.html object revised
+* (simatec) code for history.json object revised
+
 ### 1.8.1 (07.12.2020)
 * (simatec) influxDB Backup added
 * (simatec) influxDB Restore added

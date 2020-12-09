@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.8.1",
+    "version": "1.8.2",
     "news": {
+      "1.8.2": {
+        "en": "code cleaned, code for history.html object revised, code for history.json object revised",
+        "de": "Code bereinigt, Code für history.html-Objekt überarbeitet, Code für history.json-Objekt überarbeitet",
+        "ru": "код очищен, код объекта history.html изменен, код объекта history.json изменен",
+        "pt": "código limpo, código para objeto history.html revisado, código para objeto history.json revisado",
+        "nl": "code opgeschoond, code voor history.html-object herzien, code voor history.json-object herzien",
+        "fr": "code nettoyé, code de l'objet history.html révisé, code de l'objet history.json révisé",
+        "it": "codice pulito, codice per oggetto history.html rivisto, codice per oggetto history.json rivisto",
+        "es": "código limpiado, código para el objeto history.html revisado, código para el objeto history.json revisado",
+        "pl": "oczyszczono kod, poprawiono kod obiektu history.html, zmieniono kod obiektu history.json"
+      },
       "1.8.1": {
         "en": "influxDB Backup added; influxDB Restore added; Postgresql Backup added; Postgresql Restore added; translation added; new zigbee Restore added; dependencies updated; many small bugfixes; new redis Restore added; enable/disable option for Sentry Plugin; smb 3.02 support added;  smb 3.1.1 support added",
         "de": "influxDB Backup hinzugefügt; influxDB Restore hinzugefügt; Postgresql Backup hinzugefügt; Postgresql Restore hinzugefügt; Übersetzung hinzugefügt; neue ZigBee-Wiederherstellung hinzugefügt; Abhängigkeiten aktualisiert; viele kleine Bugfixes; neue Redis-Wiederherstellung hinzugefügt; Option zum Aktivieren / Deaktivieren des Sentry Plugins; Unterstützung für SMB 3.02 hinzugefügt; Unterstützung für SMB 3.1.1 hinzugefügt",
