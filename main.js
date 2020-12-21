@@ -666,7 +666,7 @@ function createBashScripts() {
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.bat')) {
             try {
-                fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\niobroker host this\ncall iobroker start\nif exist "${path.join(__dirname, 'lib/.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
+                fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker host this\ncall iobroker start\nif exist "${path.join(__dirname, 'lib/.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
             } catch (e) {
                 adapter.log.error('cannot create startIOB.bat: ' + e + 'Please run "iobroker fix"');
             }
