@@ -4,15 +4,15 @@
     "version": "1.8.3",
     "news": {
       "1.8.3": {
-        "en": "Bugfix iobroker start after restore on Windows, changed webui-port for restore",
-        "de": "Bugfix iobroker start nach Wiederherstellung unter Windows, Webui-Port für den Restore geändert",
-        "ru": "Исправление запуска iobroker после восстановления в Windows, изменен порт для восстановления Webui",
-        "pt": "Correção de bug do iobroker iniciar após restauração no Windows, porta alterada para restauração Webui",
-        "nl": "Bugfix iobroker start na herstel op Windows, poort gewijzigd voor herstel Webui",
-        "fr": "Bugfix iobroker démarre après la restauration sous Windows, changement de port pour la restauration Webui",
-        "it": "Bugfix iobroker avviato dopo il ripristino su Windows, porta modificata per il ripristino Webui",
-        "es": "Arranque de iobroker después de la restauración en Windows, puerto cambiado para restaurar Webui",
-        "pl": "Bugfix iobroker startuje po przywróceniu w Windows, zmienił port do przywracania Webui"
+        "en": "Bugfix iobroker start after restore on Windows, changed webui-port for restore, Bugfix influxDB Restore",
+        "de": "Bugfix iobroker start nach Restore unter Windows, Webui-Port für Restore geändert, Bugfix influxDB Restore",
+        "ru": "Исправление запуска iobroker после восстановления в Windows, изменение webui-порта для восстановления, Исправление ошибки InfxDB Restore",
+        "pt": "Bugfix iobroker iniciado após restauração no Windows, porta webui alterada para restauração, Bugfix influxDB Restore",
+        "nl": "Bugfix iobroker start na herstel op Windows, webui-port gewijzigd voor herstel, Bugfix influxDB Restore",
+        "fr": "Bugfix iobroker démarre après la restauration sous Windows, modification du port webui pour la restauration, correction du bug influxDB Restore",
+        "it": "Bugfix iobroker avviato dopo il ripristino su Windows, modifica della porta webui per il ripristino, bugfix influxDB Restore",
+        "es": "Bugfix iobroker se inicia después de la restauración en Windows, se cambió el puerto webui para restaurar, Bugfix influxDB Restore",
+        "pl": "Bugfix iobroker uruchamia się po przywróceniu w systemie Windows, zmieniono port webui do przywracania, naprawiono błąd influxDB Restore"
       },
       "1.8.2": {
         "en": "code cleaned, code for history.html object revised, code for history.json object revised",

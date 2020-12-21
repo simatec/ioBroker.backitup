@@ -536,7 +536,7 @@ function initConfig(secret) {
             host: adapter.config.influxDBHost,                      // database host
             port: adapter.config.influxDBPort,                      // database port
             exe: adapter.config.influxDBDumpExe,                     // path to influxDBdump
-            type: adapter.config.influxDBType                        // type of influxdb Backup
+            dbType: adapter.config.influxDBType                        // type of influxdb Backup
         },
         pgsql: {
             enabled: adapter.config.pgSqlEnabled === undefined ? true : adapter.config.pgSqlEnabled,
