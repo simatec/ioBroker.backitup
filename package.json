@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.4.0",
-    "dropbox-v2-api": "^2.4.31",
+    "dropbox-v2-api": "^2.4.32",
     "ftp": "^0.3.10",
     "googleapis": "^66.0.0",
     "node-schedule": "^1.3.2",
