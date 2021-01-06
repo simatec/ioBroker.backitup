@@ -39,6 +39,11 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 1.8.4 (06.01.2021)
+* (simatec) Bugfix influxDB Backup
+* (simatec) Bugfix influxDB Restore
+* (simatec) Jarvis Backup added
+
 ### 1.8.3 (22.12.2020)
 * (simatec) Bugfix iobroker start after restore on Windows
 * (simatec) changed webui-port for restore

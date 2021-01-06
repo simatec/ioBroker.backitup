@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.8.3",
+    "version": "1.8.4",
     "news": {
+      "1.8.4": {
+        "en": "Bugfix influxDB Backup, Bugfix influxDB Restore, Jarvis Backup added",
+        "de": "Bugfix influxDB Backup, Bugfix influxDB Restore, Jarvis Backup hinzugefügt",
+        "ru": "Добавлены исправления InfxDB Backup, Bugfix InfxDB Restore, Jarvis Backup.",
+        "pt": "Bugfix influxDB Backup, Bugfix influxDB Restore, Jarvis Backup adicionado",
+        "nl": "Bugfix influxDB Backup, Bugfix influxDB Restore, Jarvis Backup toegevoegd",
+        "fr": "Correction de bug sauvegarde influxDB, restauration de bugfix influxDB, sauvegarde Jarvis ajoutée",
+        "it": "Bugfix influxDB Backup, Bugfix influxDB Restore, Jarvis Backup aggiunto",
+        "es": "Bugfix influxDB Backup, Bugfix influxDB Restore, Jarvis Backup agregado",
+        "pl": "Bugfix influxDB Backup, Bugfix influxDB Restore, dodane Jarvis Backup"
+      },
       "1.8.3": {
         "en": "Bugfix iobroker start after restore on Windows, changed webui-port for restore, Bugfix influxDB Restore",
         "de": "Bugfix iobroker start nach Restore unter Windows, Webui-Port für Restore geändert, Bugfix influxDB Restore",
@@ -306,6 +317,7 @@
     "historyEnabled": false,
     "historyPath": "media/usb/history",
     "zigbeeEnabled": false,
+    "jarvisEnabled": false,
     "notificationEnabled": false,
     "notificationsType": "Telegram",
     "telegramInstance": "telegram.0",
