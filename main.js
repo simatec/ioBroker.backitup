@@ -579,7 +579,7 @@ function initConfig(secret) {
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
             dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            path: tools.getIobDir() + '/iobroker-data', // specify zigbee path
+            path: tools.getIobDir() + '/iobroker-data' // specify zigbee path
         },
         jarvis: {
             enabled: adapter.config.jarvisEnabled,
@@ -588,7 +588,7 @@ function initConfig(secret) {
             cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
             dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            //path: tools.getIobDir() + '/iobroker-data', // specify zigbee path
+            path: path.join(tools.getIobDir(), 'iobroker-data'), // specify jarvis backup path
         },
         historyHTML,
         historyJSON,
