@@ -39,10 +39,27 @@
         #dialog-command {
             width: calc(100% - 100px);
         }
+        #dialog-message .title {
+            width: 100% !important;
+            background: #64b5f6;
+            color: #FFF;
+            padding: 0.5rem;
+        }
+        #dialog-message .modal-content {
+            width: 100% !important;
+        }
+        #dialog-message .dialog-text {
+            font-size: 16px;
+            font-style: bold;
+            width: 100%;
+        }
         #dialog-command .title {
             background: #64b5f6;
             color: #FFF;
             padding: 0.5rem;
+        }
+        #dialog-command .modal-content {
+            width: 100% !important;
         }
         #dialog-command .textarea {
             margin-bottom: 0;
@@ -455,6 +472,10 @@
                             }
                         }
                     });
+                    if (settings.ftpEnabled === false && settings.dropboxEnabled === false && settings.cifsEnabled === false && settings.googledriveEnabled === false) {
+                        showMessage(_('Backups saved locally'),'Information', 'info');
+                    }
+
                     socket.emit('subscribeStates',  'backitup.' + instance + '.*');
                     socket.emit('subscribeStates',  'system.adapter.backitup.' + instance + '.alive');
                     socket.on('reconnect', function () {
