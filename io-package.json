@@ -4,15 +4,15 @@
     "version": "1.8.4",
     "news": {
       "1.8.4": {
-        "en": "Bugfix influxDB Backup, Bugfix influxDB Restore, Jarvis Backup added, Jarvis Restore added, small Bugfixes",
-        "de": "Bugfix influxDB Backup, Bugfix influxDB Restore, Jarvis Backup hinzugefügt, Jarvis Restore hinzugefügt, kleine Bugfixes",
-        "ru": "Исправление ошибок InfxDB Backup, Исправление ошибок InfxDB Restore, добавлено резервное копирование Jarvis, добавлено восстановление Jarvis, небольшие исправления ошибок",
-        "pt": "Bugfix influxDB Backup, Bugfix influxDB Restore, Jarvis Backup adicionado, Jarvis Restore adicionado, pequenos Bugfixes",
-        "nl": "Bugfix influxDB Backup, Bugfix influxDB Restore, Jarvis Backup toegevoegd, Jarvis Restore toegevoegd, kleine bugfixes",
-        "fr": "Correction de bogue sauvegarde influxDB, correction de bogue restauration influxDB, sauvegarde Jarvis ajoutée, restauration Jarvis ajoutée, petites corrections de bogues",
-        "it": "Bugfix influxDB Backup, Bugfix influxDB Restore, Jarvis Backup aggiunto, Jarvis Restore aggiunto, piccoli bugfix",
-        "es": "Bugfix influxDB Backup, Bugfix influxDB Restore, Jarvis Backup agregado, Jarvis Restore agregado, pequeñas correcciones de errores",
-        "pl": "Bugfix influxDB Backup, Bugfix influxDB Restore, Jarvis Backup added, Jarvis Restore added, small Bugfixes"
+        "en": "Bugfix influxDB, Jarvis Backup/Restore added, Bugfix mysql Backup, Bugfix pgsql Backup, small Bugfixes, Info-Message for backup location added",
+        "de": "Bugfix influxDB, Jarvis Backup / Restore hinzugefügt, Bugfix mysql Backup, Bugfix pgsql Backup, kleine Bugfixes, Info-Nachricht für Backup-Speicherort hinzugefügt",
+        "ru": "Исправление ошибок InfxDB, добавлено резервное копирование / восстановление Jarvis, исправление ошибок резервной копии mysql, исправление ошибок pgsql Backup, небольшие исправления ошибок, добавлено информационное сообщение для местоположения резервной копии",
+        "pt": "Bugfix influxDB, Jarvis Backup / Restore adicionado, Bugfix mysql Backup, Bugfix pgsql Backup, pequenos Bugfixes, Info-Message para local de backup adicionado",
+        "nl": "Bugfix influxDB, Jarvis Backup / Restore toegevoegd, Bugfix mysql Backup, Bugfix pgsql Backup, kleine bugfixes, Info-bericht voor backup locatie toegevoegd",
+        "fr": "Bugfix influxDB, Jarvis Backup / Restore ajouté, Bugfix mysql Backup, Bugfix pgsql Backup, petites corrections de bugs, Info-Message pour l'emplacement de sauvegarde ajouté",
+        "it": "Bugfix influxDB, Jarvis Backup / Restore aggiunto, Bugfix mysql Backup, Bugfix pgsql Backup, small Bugfixes, Info-Message for backup location added",
+        "es": "Bugfix influxDB, Jarvis Backup / Restore agregado, Bugfix mysql Backup, Bugfix pgsql Backup, pequeñas correcciones de errores, Mensaje de información para la ubicación de la copia de seguridad agregada",
+        "pl": "Bugfix influxDB, Jarvis Backup / Restore added, Bugfix mysql Backup, Bugfix pgsql Backup, small Bugfixes, Info-Message for backup location added"
       },
       "1.8.3": {
         "en": "Bugfix iobroker start after restore on Windows, changed webui-port for restore, Bugfix influxDB Restore",
