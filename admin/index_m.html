@@ -39,10 +39,27 @@
         #dialog-command {
             width: calc(100% - 100px);
         }
+        #dialog-message .title {
+            width: 100% !important;
+            background: #64b5f6;
+            color: #FFF;
+            padding: 0.5rem;
+        }
+        #dialog-message .modal-content {
+            width: 100% !important;
+        }
+        #dialog-message .dialog-text {
+            font-size: 16px;
+            font-style: bold;
+            width: 100%;
+        }
         #dialog-command .title {
             background: #64b5f6;
             color: #FFF;
             padding: 0.5rem;
+        }
+        #dialog-command .modal-content {
+            width: 100% !important;
         }
         #dialog-command .textarea {
             margin-bottom: 0;
@@ -455,6 +472,11 @@
                             }
                         }
                     });
+                    if (settings.ftpEnabled === false && settings.dropboxEnabled === false && settings.cifsEnabled === false && settings.googledriveEnabled === false) {
+                        showMessage(_("<br/><br/>According to the Backitup settings, backups are currently stored in the same local file system that is the source of the backup can be accessed more. <br/> <br/>It is recommended to use an external storage space as a backup target."),'Backitup Information!', 'info');
+                        return;
+                    }
+
                     socket.emit('subscribeStates',  'backitup.' + instance + '.*');
                     socket.emit('subscribeStates',  'system.adapter.backitup.' + instance + '.alive');
                     socket.on('reconnect', function () {
@@ -517,7 +539,7 @@
                                                     // Log Window for Restore Interface
                                                     setTimeout(function () {
                                                         window.open(link, '_blank');
-                                                    }, 6000);
+                                                    }, 5000);
                                                     var name = file.split('/').pop().split('_')[0];
                                                     showDialog(name !== '' ? 'restore' : '');
                                                     showToast(null, _('Restore started'));
@@ -943,6 +965,10 @@
                         <input class="value" id="zigbeeEnabled" type="checkbox"/>
                         <label for="zigbeeEnabled" class="translate">Save Zigbee database</label>
                     </div>
+                    <div class="input-field col s6 l2">
+                        <input class="value" id="jarvisEnabled" type="checkbox"/>
+                        <label for="jarvisEnabled" class="translate">Jarvis Backup</label>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l2">
@@ -1003,7 +1029,7 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="card-panel" style="background-color:#174475;">
-                            <span class="white-text translate">Some features of Backitup require additional adapters and tools. For detailed information please read the documentation of Backitup!!</span>
+                            <span class="white-text translate">Some features of Backitup require additional adapters and tools. For detailed information please read the documentation of Backitup!</span>
                             <span><a href="https://github.com/simatec/ioBroker.backitup/blob/master/README.md#iobrokerbackitup" target="_blank" class="translate"> *** Open Readme ***</a></span>
                         </div>
                     </div>
@@ -1240,7 +1266,7 @@
                 <div class="row influxRemote">
                     <div class="col s12">
                         <div class="card-panel" style="background-color:#174475;">
-                            <span class="white-text translate">Configuring remote connections. For detailed information please read the documentation of InfluxDB!!</span>
+                            <span class="white-text translate">Configuring remote connections. For detailed information please read the documentation of InfluxDB!</span>
                             <span><a href="https://docs.influxdata.com/influxdb/v1.8/administration/backup_and_restore/#configuring-remote-connections" target="_blank" class="translate"> *** Open InfluxDB Documentation ***</a></span>
                         </div>
                     </div>
