@@ -39,6 +39,10 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 1.8.5 (11.01.2021)
+* (simatec) Bugfix Jarvis Backup
+* (simatec) Bugfix GUI
+
 ### 1.8.4 (09.01.2021)
 * (simatec) Bugfix influxDB Backup
 * (simatec) Bugfix influxDB Restore

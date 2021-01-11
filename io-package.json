@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.8.4",
+    "version": "1.8.5",
     "news": {
+      "1.8.5": {
+        "en": "Bugfix Jarvis Backup, Bugfix GUI",
+        "de": "Bugfix Jarvis Backup, Bugfix GUI",
+        "ru": "Исправление ошибок Jarvis Backup, исправление ошибок GUI",
+        "pt": "Bugfix Jarvis Backup, Bugfix GUI",
+        "nl": "Bugfix Jarvis Backup, Bugfix GUI",
+        "fr": "Correction de bug Jarvis Backup, interface graphique de correction de bug",
+        "it": "Bugfix Jarvis Backup, Bugfix GUI",
+        "es": "Bugfix Jarvis Backup, Bugfix GUI",
+        "pl": "Bugfix Jarvis Backup, Bugfix GUI"
+      },
       "1.8.4": {
         "en": "Bugfix influxDB, Jarvis Backup/Restore added, Bugfix mysql Backup, Bugfix pgsql Backup, small Bugfixes, Info-Message for backup location added",
         "de": "Bugfix influxDB, Jarvis Backup / Restore hinzugefügt, Bugfix mysql Backup, Bugfix pgsql Backup, kleine Bugfixes, Info-Nachricht für Backup-Speicherort hinzugefügt",
