@@ -383,7 +383,7 @@
                     });
                 } else {
                     var val = settings[id];
-                    if (id === 'mySqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword') {
+                    if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword') {
                         val = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
                     }
                     // do not call onChange direct, because onChange could expect some arguments
@@ -525,7 +525,11 @@
                                     var type = $(this).data('type');
                                     var file = $(this).data('file');
                                     var name = file.split('/').pop().split('_')[0];
-                                    confirmMessage(name !== '' ? _('ioBroker will be restarted during restore.') : _('Ready'), _('Are you sure?'), null, [_('Cancel'), _('OK')], function (result) {
+                                    let message = 'ioBroker will be restarted during restore.'
+                                    if (settings.restoreSource === 'dropbox' || settings.restoreSource === 'googledrive' || settings.restoreSource === 'webdav' || settings.restoreSource === 'ftp') {
+                                        message = (`<br/><br/>1. Confirm with "OK" and the download from the ${settings.restoreSource} begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.`)
+                                    }
+                                    confirmMessage(name !== '' ? _(message) : _('Ready'), _('Are you sure?'), null, [_('Cancel'), _('OK')], function (result) {
                                         if (result === 1) {
                                             $('.do-list').addClass('disabled');
                                             $('#tab-restore').find('.do-restore').addClass('disabled').hide();
@@ -687,7 +691,7 @@
                     obj[id] = $this.prop('checked');
                 } else {
                     var val = $this.val();
-                    if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword') {
+                    if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword') {
                         val = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
                     }
                     obj[id] = val;
@@ -733,6 +737,13 @@
             } else {
                 $('.dropbox-extra').hide();
                 $('.dropbox-standard').show();
+            }
+            if ($('#webdavOwnDir').prop('checked') ) {
+                $('.webDAV-extra').show();
+                $('.webDAV-standard').hide();
+            } else {
+                $('.webDAV-extra').hide();
+                $('.webDAV-standard').show();
             }
             if ($('#googledriveOwnDir').prop('checked') ) {
                 $('.googledrive-extra').show();
@@ -821,6 +832,8 @@
                     $('.bkpType').show();
                 } else if ($(this).val() === 'dropbox' && $('#dropboxOwnDir').prop('checked')) {
                     $('.bkpType').show();
+                } else if ($(this).val() === 'webdav' && $('#webdavOwnDir').prop('checked')) {
+                    $('.bkpType').show();
                 }  else if ($(this).val() === 'googledrive' && $('#googledriveOwnDir').prop('checked')) {
                     $('.bkpType').show();
                 } else {
@@ -902,6 +915,12 @@
             } else {
                 $('.tab-ftp').hide();
             }
+            if ($('#webdavEnabled').prop('checked')) {
+                $('.tab-webDAV').show();
+            } else {
+                $('.tab-webDAV').hide();
+            }
+            
       }
     </script>
 </head>
@@ -933,6 +952,7 @@
                 <li class="tab col tab-ftp"><a href="#tab-ftp" class="translate">FTP</a></li>
                 <li class="tab col tab-dropbox"><a href="#tab-dropbox" class="translate">Dropbox</a></li>
                 <li class="tab col tab-googledrive"><a href="#tab-googledrive" class="translate">Google Drive</a></li>
+                <li class="tab col tab-webDAV"><a href="#tab-webDAV" class="translate">WebDAV</a></li>
             </ul>
         </div>
         <div class="row">
@@ -1004,6 +1024,10 @@
                     <div class="input-field col s6 l2">
                         <input class="value" id="googledriveEnabled" type="checkbox"/>
                         <span for="googledriveEnabled" class="translate">Google Drive</span>
+                    </div>
+                    <div class="input-field col s6 l2">
+                        <input class="value" id="webdavEnabled" type="checkbox"/>
+                        <span for="webdavEnabled" class="translate">WebDAV</span>
                     </div>
                 </div>
                 <div class="row">
@@ -1604,6 +1628,56 @@
                 </div>
             </div>
 
+            <!-- WebDAV settings -->
+            <div id="tab-webDAV" class="col s12 page">
+                <div class="row webDAV">
+                    <h6 class="translate title" style="background-color:#174475;">WebDAV</h6>
+                </div>
+                <div class="row webDAV">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="webdavURL" type="text">
+                        <label for="webdavURL" class="translate">URL</label>
+                        <span class="translate">URL of WebDAV</span>
+                    </div>
+                </div>
+                <div class="row webDAV">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="webdavUsername" type="text">
+                        <label for="webdavUsername" class="translate">Username</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="webdavPassword" type="password">
+                        <label for="webdavPassword" class="translate">Password</label>
+                    </div>
+                </div>
+                <div class="row webDAV">
+                    <div class="input-field col s12">
+                        <input class="value" id="webdavDeleteOldBackup" type="checkbox"/>
+                        <label for="webdavDeleteOldBackup" class="translate">Delete old WebDAV-Backups</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input class="value" id="webdavOwnDir" type="checkbox"/>
+                        <label for="webdavOwnDir" class="translate">Extra path for backup types</label>
+                    </div>
+                </div>
+                <div class="row webDAV webDAV-extra">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="webdavMinimalDir" type="text">
+                        <label for="webdavMinimalDir" class="translate">Path for iobroker backup</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="webdavCcuDir" type="text">
+                        <label for="webdavCcuDir" class="translate">Path for CCU backup</label>
+                    </div>
+                </div>
+                <div class="row webDAV webDAV-standard">
+                    <div class="input-field col s12">
+                        <input class="value" id="webdavDir" type="text">
+                        <label for="webdavDir" class="translate">path</label>
+                    </div>
+                </div>
+            </div>
+
             <!-- dropbox settings -->
             <div id="tab-dropbox" class="col s12 page">
                 <div class="row dropbox">
@@ -1706,6 +1780,7 @@
                             <option value="cifs" class="translate">NAS / Copy</option>
                             <option value="dropbox" class="translate">Dropbox</option>
                             <option value="googledrive" class="translate">Google Drive</option>
+                            <option value="webdav" class="translate">WebDAV</option>
                             <option value="ftp" class="translate">FTP</option>
 						</select>
 						<label for="restoreSource" class="translate">source type</label>

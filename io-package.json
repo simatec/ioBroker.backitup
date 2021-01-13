@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.8.5",
+    "version": "1.9.0",
     "news": {
       "1.8.5": {
         "en": "Bugfix Jarvis Backup, Bugfix GUI",
@@ -150,6 +150,15 @@
     "ccuHost": "",
     "ccuUser": "Admin",
     "ccuPassword": "",
+    "webdavEnabled": false,
+    "webdavUsername": "",
+    "webdavPassword": "",
+    "webdavURL": "",
+    "webdavDeleteOldBackup": false,
+    "webdavOwnDir": false,
+    "webdavMinimalDir": "/backupDir/iobroker",
+    "webdavCcuDir": "/backupDir/ccu",
+    "webdavDir": "/backupDir",
     "dropboxEnabled": false,
     "dropboxAccessToken": "",
     "dropboxDeleteOldBackup": false,
