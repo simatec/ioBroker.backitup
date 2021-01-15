@@ -53,6 +53,17 @@
             font-style: bold;
             width: 100%;
         }
+        .blink {
+            animation-name: animation_blink;
+            animation-timing-function: ease-in;
+            animation-duration: 4s; 
+            animation-iteration-count: infinite;            
+        }
+        @keyframes animation_blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.1; }
+            100% { opacity: 1; }    
+        }
         #dialog-command .title {
             background: #64b5f6;
             color: #FFF;
@@ -475,7 +486,6 @@
                     if (settings.ftpEnabled === false && settings.dropboxEnabled === false && settings.cifsEnabled === false && settings.googledriveEnabled === false) {
                         showMessage(_("<br/><br/>According to the Backitup settings, backups are currently stored in the same local file system that is the source of the backup can be accessed more. <br/> <br/>It is recommended to use an external storage space as a backup target."),'Backitup Information!', 'info');
                     }
-
                     socket.emit('subscribeStates',  'backitup.' + instance + '.*');
                     socket.emit('subscribeStates',  'system.adapter.backitup.' + instance + '.alive');
                     socket.on('reconnect', function () {
@@ -525,20 +535,30 @@
                                     var type = $(this).data('type');
                                     var file = $(this).data('file');
                                     var name = file.split('/').pop().split('_')[0];
+
                                     let message = 'ioBroker will be restarted during restore.'
+                                    let downloadPanel = false;
                                     if (settings.restoreSource === 'dropbox' || settings.restoreSource === 'googledrive' || settings.restoreSource === 'webdav' || settings.restoreSource === 'ftp') {
                                         message = (`<br/><br/>1. Confirm with "OK" and the download from the ${settings.restoreSource} begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.`)
+                                        downloadPanel = true;
                                     }
+
                                     confirmMessage(name !== '' ? _(message) : _('Ready'), _('Are you sure?'), null, [_('Cancel'), _('OK')], function (result) {
                                         if (result === 1) {
+                                            if (downloadPanel) {
+                                                $('.cloudRestore').show();
+                                            } else {
+                                                $('.cloudRestore').hide();
+                                            }
+
                                             $('.do-list').addClass('disabled');
                                             $('#tab-restore').find('.do-restore').addClass('disabled').hide();
-                                            sendTo(null, 'restore', {type: type, fileName: file}, function (result) {
+                                            sendTo(null, 'restore', { type: type, fileName: file }, function (result) {
                                                 if (!result || result.error) {
                                                     showError(result.error);
                                                 } else {
                                                     //Create Link for Restore Interface
-													var link = "http://" + location.hostname + ":8091/backitup-restore";
+                                                    var link = "http://" + location.hostname + ":8091/backitup-restore";
                                                     // Log Window for Restore Interface
                                                     setTimeout(function () {
                                                         window.open(link, '_blank');
@@ -546,6 +566,11 @@
                                                     var name = file.split('/').pop().split('_')[0];
                                                     showDialog(name !== '' ? 'restore' : '');
                                                     showToast(null, _('Restore started'));
+                                                    
+                                                    if (downloadPanel) {
+                                                        $('.cloudRestore').hide();
+                                                        downloadPanel = false;
+                                                    }
                                                 }
                                                 $('.do-list').removeClass('disabled');
                                                 $('#tab-restore').find('.do-restore').removeClass('disabled').show();
@@ -920,6 +945,7 @@
             } else {
                 $('.tab-webDAV').hide();
             }
+            $('.cloudRestore').hide();
             
       }
     </script>
@@ -1788,9 +1814,14 @@
                     <div class="input-field col s6 m2">
                         <a class="waves-effect waves-light btn btn-iobroker do-list"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
                     </div>
-                    <div class="input-field col s6 l3">
+                    <div class="input-field col s6 l6">
                         <input class="value" id="startAllRestore" type="checkbox"/>
                         <label for="startAllRestore" class="translate">start all adapter after restore</label>
+                    </div>
+                    <div class="col s6 l2 cloudRestore">
+                        <div class="chip blink" style="background-color:#64b5f6;">
+                            <span class="white-text translate" style="text-align:center; font-size: 16px;">Download is in progress ...</span>
+                        </div>
                     </div>
                 </div>
                 <div class="row">

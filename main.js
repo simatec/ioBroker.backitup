@@ -410,7 +410,7 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.webdavDeleteOldBackup, // Delete old Backups from webdav
         username: adapter.config.webdavUsername,
-        pass: adapter.config.webdavPassword,
+        pass: adapter.config.webdavPassword ? decrypt(secret, adapter.config.webdavPassword) : '',            // webdav password
         url: adapter.config.webdavURL,
         ownDir: adapter.config.webOwnDir,
         bkpType: adapter.config.restoreType,
@@ -820,13 +820,13 @@ function setStartAll() {
     }
 }
 
-function getName(name, filenumbers) {
+function getName(name, filenumbers, storage) {
     try {
         const parts = name.split('_');
         if (parseInt(parts[0], 10).toString() !== parts[0]) {
             parts.shift();
         }
-        adapter.log.debug(name ? 'detect backup file ' + filenumbers + ': ' + name : 'No backup name was found');
+        adapter.log.debug(name ? 'detect backup file ' + filenumbers + ' from ' + storage + ': ' + name : 'No backup name was found');
         return new Date(
             parts[0],
             parseInt(parts[1], 10) - 1,
@@ -850,30 +850,37 @@ function detectLatestBackupFile(adapter) {
                 backupConfig.iobroker[attr].enabled);
 
         // read one time all stores to detect if some backups detected
-        const promises = stores.map(storage => new Promise(resolve =>
-            list(storage, backupConfig, adapter.log, result => {
-                // find newest file
-                let file = null;
+        let promises;
+        try {
+            promises = stores.map(storage => new Promise(resolve =>
 
-                if (result && result.data && result.data !== 'undefined') {
-                    let filenumbers = 0;
-                    const data = result.data;
-                    Object.keys(data).forEach(type => {
-                        data[type].iobroker && data[type].iobroker
-                            .filter(f => f.size)
-                            .forEach(f => {
-                                filenumbers++;
-                                const date = getName(f.name, filenumbers);
-                                if (!file || file.date < date) {
-                                    file = f;
-                                    file.date = date;
-                                    file.storage = storage;
-                                }
-                            });
-                    });
-                }
-                resolve(file);
-            })));
+                list(storage, backupConfig, adapter.log, result => {
+                    // find newest file
+                    let file = null;
+
+                    if (result && result.data && result.data !== 'undefined') {
+                        let filenumbers = 0;
+                        const data = result.data;
+                        Object.keys(data).forEach(type => {
+                            data[type].iobroker && data[type].iobroker
+                                .filter(f => f.size)
+                                .forEach(f => {
+                                    filenumbers++;
+                                    const date = getName(f.name, filenumbers, storage);
+                                    if (!file || file.date < date) {
+                                        file = f;
+                                        file.date = date;
+                                        file.storage = storage;
+                                    }
+                                });
+                        });
+                    }
+                    resolve(file);
+                })));
+        } catch (e) {
+            adapter.log.warn('No backup file was found');
+        }
+
 
         // find the newest file between storages
         Promise.all(promises)
