@@ -3,6 +3,17 @@
     "name": "backitup",
     "version": "1.9.0",
     "news": {
+      "1.9.0": {
+        "en": "BugFix detect last backup, WebDAV added, BugFix Zigbee, Download Icon for Cloud Restore added",
+        "de": "BugFix Erkennung der letzten Sicherung, WebDAV hinzugefügt, BugFix Zigbee, Download-Symbol für Cloud-Wiederherstellung hinzugefügt",
+        "ru": "BugFix обнаруживает последнюю резервную копию, добавлен WebDAV, BugFix Zigbee, добавлен значок загрузки для облачного восстановления",
+        "pt": "BugFix detecta o último backup, WebDAV adicionado, BugFix Zigbee, ícone de download para Cloud Restore adicionado",
+        "nl": "BugFix detecteert laatste back-up, WebDAV toegevoegd, BugFix Zigbee, Downloadpictogram voor Cloud Restore toegevoegd",
+        "fr": "BugFix détecte la dernière sauvegarde, WebDAV ajouté, BugFix Zigbee, icône de téléchargement pour Cloud Restore ajoutée",
+        "it": "BugFix rileva l'ultimo backup, WebDAV aggiunto, BugFix Zigbee, Icona di download per Cloud Restore aggiunti",
+        "es": "BugFix detecta la última copia de seguridad, se agregó WebDAV, BugFix Zigbee, se agregó el ícono de descarga para la restauración en la nube",
+        "pl": "BugFix wykrywa ostatnią kopię zapasową, dodano WebDAV, BugFix Zigbee, dodano ikonę pobierania dla przywracania z chmury"
+      },
       "1.8.5": {
         "en": "Bugfix Jarvis Backup, Bugfix GUI",
         "de": "Bugfix Jarvis Backup, Bugfix GUI",
@@ -151,9 +162,9 @@
     "ccuUser": "Admin",
     "ccuPassword": "",
     "webdavEnabled": false,
-    "webdavUsername": "",
+    "webdavUsername": "username",
     "webdavPassword": "",
-    "webdavURL": "",
+    "webdavURL": "https://example.com/remote.php/dav/files/username/",
     "webdavDeleteOldBackup": false,
     "webdavOwnDir": false,
     "webdavMinimalDir": "/backupDir/iobroker",
