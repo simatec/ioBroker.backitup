@@ -394,7 +394,7 @@
                     });
                 } else {
                     var val = settings[id];
-                    if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword') {
+                    if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword') {
                         val = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
                     }
                     // do not call onChange direct, because onChange could expect some arguments
@@ -716,7 +716,7 @@
                     obj[id] = $this.prop('checked');
                 } else {
                     var val = $this.val();
-                    if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword') {
+                    if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword') {
                         val = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
                     }
                     obj[id] = val;
@@ -945,6 +945,11 @@
             } else {
                 $('.tab-webDAV').hide();
             }
+            if ($('#grafanaEnabled').prop('checked')) {
+                $('.tab-grafana').show();
+            } else {
+                $('.tab-grafana').hide();
+            }
             $('.cloudRestore').hide();
             
       }
@@ -979,6 +984,7 @@
                 <li class="tab col tab-dropbox"><a href="#tab-dropbox" class="translate">Dropbox</a></li>
                 <li class="tab col tab-googledrive"><a href="#tab-googledrive" class="translate">Google Drive</a></li>
                 <li class="tab col tab-webDAV"><a href="#tab-webDAV" class="translate">WebDAV</a></li>
+                <li class="tab col tab-grafana"><a href="#tab-grafana" class="translate">Grafana Backup</a></li>
             </ul>
         </div>
         <div class="row">
@@ -1007,6 +1013,10 @@
                         <label for="redisEnabled" class="translate">Save Redis state</label>
                     </div>
                     <div class="input-field col s6 l2">
+                        <input class="value" id="scriptsEnabled" type="checkbox"/>
+                        <label for="scriptsEnabled" class="translate">Scripts Backup</label>
+                    </div>
+                    <div class="input-field col s6 l2">
                         <input class="value" id="zigbeeEnabled" type="checkbox"/>
                         <label for="zigbeeEnabled" class="translate">Save Zigbee database</label>
                     </div>
@@ -1031,6 +1041,10 @@
                     <div class="input-field col s6 l2 ">
                         <input class="value" id="pgSqlEnabled" type="checkbox"/>
                         <label for="pgSqlEnabled" class="translate">Postgresql Backup</label>
+                    </div>
+                    <div class="input-field col s6 l2 ">
+                        <input class="value" id="grafanaEnabled" type="checkbox"/>
+                        <label for="grafanaEnabled" class="translate">Grafana Backup</label>
                     </div>
                 </div>
                 <div class="row">
@@ -1268,6 +1282,44 @@
                         <span class="translate">Path with filename to postgresql executable (leave empty to use default)</span>
                     </div>
                 </div>
+            </div>
+
+            <!-- Grafana Backup -->
+            <div id="tab-grafana" class="col s12 page">
+                <div class="row">
+                    <h6 class="translate title" style="background-color:#174475;">Grafana Backup</h6>
+                </div>
+                <div class="row grafana">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="grafanaHost" type="text">
+                        <label for="grafanaHost" class="translate">Host</label>
+                        <span class="translate">Grafana Hostname</span>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="grafanaPort" type="text">
+                        <label for="grafanaPort" class="translate">port</label>
+                        <span class="translate">Grafana port</span>
+                    </div>
+                </div>
+                <div class="row grafana">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="grafanaUsername" type="text">
+                        <label for="grafanaUsername" class="translate">Grafana username</label>
+                        <span class="translate">Grafana username</span>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="grafanaPassword" type="password">
+                        <label for="grafanaPassword" class="translate">password</label>
+                        <span class="translate">Grafana password</span>
+                    </div>
+                </div>
+                <div class="row grafana">
+                <div class="input-field col s12 m6 l8">
+                    <input class="value" id="grafanaApiKey" type="password">
+                    <label for="grafanaApiKey" class="translate">Grafana API-Key</label>
+                    <span class="translate">Grafana API-Key</span>
+                </div>
+            </div>
             </div>
 
             <!-- influxDB Backup -->
