@@ -243,6 +243,8 @@
     "redisPath": "/var/lib/redis",
     "historyEnabled": false,
     "historyPath": "media/usb/history",
+    "scriptsPath": "/opt/iobroker/iobroker-data",
+    "scriptsEnabled": false,
     "zigbeeEnabled": false,
     "jarvisEnabled": false,
     "notificationEnabled": false,

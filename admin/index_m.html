@@ -310,6 +310,36 @@
                 }
             });
         }
+        function fetchScriptsConfig(isInitial) {
+            socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.javascript.', endkey: 'system.adapter.javascript.\u9999', include_docs: true}, function (err, res) {
+                if (res && res.rows && res.rows.length) {
+                    var found = false;
+                    for (var i = 0; i < res.rows.length; i++) {
+                        var common = res.rows[i].value.common;
+                        if (common.enabled) {
+                            var native = res.rows[i].value.native;
+                            $('#scriptsPath').val(native.mirrorPath).trigger('change');
+                            found = res.rows[i].value._id;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        for (var j = 0; j < res.rows.length; j++) {
+                            var _native = res.rows[j].value.native;
+                            $('#scriptsPath').val(_native.mirrorPath).trigger('change');
+                            found = res.rows[j].value._id;
+                        }
+                    }
+                }
+                if (found) {
+                    M.updateTextFields();
+                    found = found.substring('system.adapter.'.length);
+                    !isInitial && showMessage(_('Config taken from %s', found));
+                } else {
+                    !isInitial && showMessage(_('No config found'));
+                }
+            });
+        }
         function initDialog() {
             $dialogCommand = $('#dialog-command');
             $output = $dialogCommand.find('#stdout');
@@ -556,10 +586,10 @@
                                     var file = $(this).data('file');
                                     var name = file.split('/').pop().split('_')[0];
 
-                                    let message = 'ioBroker will be restarted during restore.'
+                                    let message = ('ioBroker will be restarted during restore.');
                                     let downloadPanel = false;
                                     if (settings.restoreSource === 'dropbox' || settings.restoreSource === 'googledrive' || settings.restoreSource === 'webdav' || settings.restoreSource === 'ftp') {
-                                        message = (`<br/><br/>1. Confirm with "OK" and the download from the ${settings.restoreSource} begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.`)
+                                        message = ('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
                                         downloadPanel = true;
                                     }
 
@@ -683,6 +713,9 @@
             if (!settings.historyPath) {
                 fetchHistoryConfig(true);
             }
+            if (!settings.scriptsPath) {
+                fetchScriptsConfig(true);
+            }
             if (!settings.mySqlUser) {
                 fetchMySqlConfig(true)
             }
@@ -694,6 +727,7 @@
             $('.detect-influxDB').on('click', function () {fetchInfluxDBConfig()});
             $('.detect-ccu').on('click', function () {fetchCcuConfig()});
             $('.detect-history').on('click', function () {fetchHistoryConfig()});
+            $('.detect-scripts').on('click', function () {fetchScriptsConfig()});
 
             sendTo(null, 'getTelegramUser', null, function (obj) {
                 fillTelegramUser(settings['telegramUser'], obj)
@@ -806,6 +840,11 @@
                 $('.history_path').show();
             } else {
                 $('.history_path').hide();
+            }
+            if ($('#scriptsEnabled').prop('checked')) {
+                $('.scripts_path').show();
+            } else {
+                $('.scripts_path').hide();
             }
             if ($('#telegramEnabled').prop('checked')) {
                 $('.telegram_inst').show();
@@ -970,6 +1009,11 @@
             } else {
                 $('.tab-grafana').hide();
             }
+            if ($('#scriptsEnabled').prop('checked')) {
+                $('.tab-scripts').show();
+            } else {
+                $('.tab-scripts').hide();
+            }
             $('.cloudRestore').hide();
             
       }
@@ -1005,6 +1049,7 @@
                 <li class="tab col tab-googledrive"><a href="#tab-googledrive" class="translate">Google Drive</a></li>
                 <li class="tab col tab-webDAV"><a href="#tab-webDAV" class="translate">WebDAV</a></li>
                 <li class="tab col tab-grafana"><a href="#tab-grafana" class="translate">Grafana Backup</a></li>
+                <li class="tab col tab-scripts"><a href="#tab-scripts" class="translate">Scripts Backup</a></li>
             </ul>
         </div>
         <div class="row">
@@ -1426,6 +1471,29 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="translate">Backup of all stored data of the history adapter</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scripts Backup -->
+            <div id="tab-scripts" class="col s12 page">
+                <div class="row">
+                    <h6 class="translate title" style="background-color:#174475;">Scripts Backup</h6>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 l3">
+                        <a class="waves-effect waves-light btn detect-scripts"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 l6 scripts_path">
+                        <input class="value" id="scriptsPath" type="text"/>
+                        <label for="scriptsPath" class="translate">Scripts data path</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="translate">Backup of all scripts from Javascript adapter</div>
                     </div>
                 </div>
             </div>
