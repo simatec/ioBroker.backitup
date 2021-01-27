@@ -199,7 +199,7 @@
     "influxDBDumpExe": "",
     "influxDBDeleteAfter": 5,
     "influxDBType": "local",
-    "grafanaEnabled": true,
+    "grafanaEnabled": false,
     "grafanaHost": "",
     "grafanaPort": "3000",
     "grafanaUsername": "admin",
