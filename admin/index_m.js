@@ -57,9 +57,9 @@ function fetchMySqlConfig(isInitial) {
         if (found) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found));
+            !isInitial && showMessage(_('Config taken from %s', found), 'Backitup Information!', 'info');
         } else {
-            !isInitial && showMessage(_('No config found'));
+            !isInitial && showMessage(_('No config found'), 'Backitup Warning!', 'info');
         }
     });
 }
@@ -99,9 +99,9 @@ function fetchPgSqlConfig(isInitial) {
         if (found) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found));
+            !isInitial && showMessage(_('Config taken from %s', found), 'Backitup Information!', 'info');
         } else {
-            !isInitial && showMessage(_('No config found'));
+            !isInitial && showMessage(_('No config found'), 'Backitup Warning!', 'info');
         }
     });
 }
@@ -135,9 +135,9 @@ function fetchInfluxDBConfig(isInitial) {
         if (found) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found));
+            !isInitial && showMessage(_('Config taken from %s', found), 'Backitup Information!', 'info');
         } else {
-            !isInitial && showMessage(_('No config found'));
+            !isInitial && showMessage(_('No config found'), 'Backitup Warning!', 'info');
         }
     });
 }
@@ -165,9 +165,9 @@ function fetchCcuConfig(isInitial) {
         if (found) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found));
+            !isInitial && showMessage(_('Config taken from %s', found), 'Backitup Information!', 'info');
         } else {
-            !isInitial && showMessage(_('No config found'));
+            !isInitial && showMessage(_('No config found'), 'Backitup Warning!', 'info');
         }
     });
 }
@@ -195,14 +195,15 @@ function fetchHistoryConfig(isInitial) {
         if (found) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found));
+            !isInitial && showMessage(_('Config taken from %s', found), 'Backitup Information!', 'info');
         } else {
-            !isInitial && showMessage(_('No config found'));
+            !isInitial && showMessage(_('No config found'), 'Backitup Warning!', 'info');
         }
     });
 }
 function fetchJavascriptsConfig(isInitial) {
     socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.javascript.', endkey: 'system.adapter.javascript.\u9999', include_docs: true }, function (err, res) {
+        let javaScriptPth;
         if (res && res.rows && res.rows.length) {
             var found = false;
             for (var i = 0; i < res.rows.length; i++) {
@@ -210,6 +211,7 @@ function fetchJavascriptsConfig(isInitial) {
                 if (common.enabled) {
                     var native = res.rows[i].value.native;
                     $('#javascriptsPath').val(native.mirrorPath).trigger('change');
+                    javaScriptPth = native.mirrorPath;
                     found = res.rows[i].value._id;
                     break;
                 }
@@ -218,16 +220,17 @@ function fetchJavascriptsConfig(isInitial) {
                 for (var j = 0; j < res.rows.length; j++) {
                     var _native = res.rows[j].value.native;
                     $('#javascriptsPath').val(_native.mirrorPath).trigger('change');
+                    javaScriptPth = _native.mirrorPath;
                     found = res.rows[j].value._id;
                 }
             }
         }
-        if (found) {
+        if (found && javaScriptPth !== '') {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found));
+            !isInitial && showMessage(_('Config taken from %s', found), 'Backitup Information!', 'info');
         } else {
-            !isInitial && showMessage(_('No config found'));
+            !isInitial && showMessage(_("No config found. Please check the settings in the Javascript adapter"), 'Backitup Warning!', 'info');
         }
     });
 }
