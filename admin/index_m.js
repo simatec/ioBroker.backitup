@@ -263,12 +263,12 @@ function initDialog() {
         $dialogCommand.modal('close');
     });
 }
-function showDialog(type) {
-    $output.val(_('Started...'));
+function showDialog(type, isStopped) {
+    $output.val(_(`Started ${type} ...`));
     $dialogCommand.modal('open');
     $dialogCommand.find('.progress-dont-close').removeClass('disabled');
     $dialogCommandProgress.show();
-    if (type === 'restore') {
+    if (type === 'restore' && isStopped === true) {
         showToast($dialogCommand, _('ioBroker will be stopped and started again. Please wait'), null, 10000);
     }
     lastMessage = '';
@@ -341,7 +341,7 @@ function load(settings, onChange) {
                         ack: false
                     }, function (err) {
                         if (!err) {
-                            showDialog(type);
+                            showDialog(type, null);
                             showToast(null, _('Backup started'));
                         } else {
                             showError(err);
@@ -414,12 +414,15 @@ function load(settings, onChange) {
                 socket.emit('subscribeStates', 'system.adapter.backitup.' + instance + '.alive');
             });
             $('.do-list').removeClass('disabled').on('click', function () {
+                /*
                 if (changed) {
                     showMessage(_('Save the configuration first'));
                     return;
                 }
+                */
                 $('.do-list').addClass('disabled');
                 $('#tab-restore').find('.root').html('');
+                console.log('Restore Type: ' + $( '#restoreSource').val());
                 sendTo(null, 'list', $('#restoreSource').val(), function (result) {
                     $('.do-list').removeClass('disabled');
                     console.log(result);
@@ -463,7 +466,16 @@ function load(settings, onChange) {
                                 message = ('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
                                 downloadPanel = true;
                             }
-
+                            let isStopped = false;
+                            if (file.search('grafana') == -1 && file.search('jarvis') == -1 && file.search('javascripts') == -1) {
+                                isStopped = true;
+                            } else {
+                                if (downloadPanel) {
+                                    message = ('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After the download, the restore begins without restarting ioBroker.');
+                                } else {
+                                    message = ('ioBroker will not be restarted for this restore.');
+                                }
+                            }
                             confirmMessage(name !== '' ? _(message) : _('Ready'), _('Are you sure?'), null, [_('Cancel'), _('OK')], function (result) {
                                 if (result === 1) {
                                     if (downloadPanel) {
@@ -474,19 +486,27 @@ function load(settings, onChange) {
 
                                     $('.do-list').addClass('disabled');
                                     $('#tab-restore').find('.do-restore').addClass('disabled').hide();
+
+                                    var name = file.split('/').pop().split('_')[0];
+                                    showDialog(name !== '' ? 'restore' : '', isStopped);
+                                    showToast(null, _('Restore started'));
+
                                     sendTo(null, 'restore', { type: type, fileName: file }, function (result) {
                                         if (!result || result.error) {
-                                            showError(result.error);
+                                            showError('Error: ' + JSON.stringify(result.error));
                                         } else {
-                                            //Create Link for Restore Interface
-                                            var link = "http://" + location.hostname + ":8091/backitup-restore";
-                                            // Log Window for Restore Interface
-                                            setTimeout(function () {
-                                                window.open(link, '_blank');
-                                            }, 5000);
-                                            var name = file.split('/').pop().split('_')[0];
-                                            showDialog(name !== '' ? 'restore' : '');
-                                            showToast(null, _('Restore started'));
+                                            console.log('Restore finish!')
+                                            if (isStopped) {
+                                                //Create Link for Restore Interface
+                                                var link = "http://" + location.hostname + ":8091/backitup-restore";
+                                                // Log Window for Restore Interface
+                                                setTimeout(function () {
+                                                    window.open(link, '_blank');
+                                                }, 5000);
+                                            }
+                                            //var name = file.split('/').pop().split('_')[0];
+                                            //showDialog(name !== '' ? 'restore' : '', isStopped);
+                                            //showToast(null, _('Restore started'));
 
                                             if (downloadPanel) {
                                                 $('.cloudRestore').hide();

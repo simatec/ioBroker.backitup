@@ -4,15 +4,15 @@
     "version": "1.9.0",
     "news": {
       "1.9.0": {
-        "en": "BugFix detect last backup, WebDAV added, BugFix Zigbee, Download Icon for Cloud Restore added",
-        "de": "BugFix Erkennung der letzten Sicherung, WebDAV hinzugefügt, BugFix Zigbee, Download-Symbol für Cloud-Wiederherstellung hinzugefügt",
-        "ru": "BugFix обнаруживает последнюю резервную копию, добавлен WebDAV, BugFix Zigbee, добавлен значок загрузки для облачного восстановления",
-        "pt": "BugFix detecta o último backup, WebDAV adicionado, BugFix Zigbee, ícone de download para Cloud Restore adicionado",
-        "nl": "BugFix detecteert laatste back-up, WebDAV toegevoegd, BugFix Zigbee, Downloadpictogram voor Cloud Restore toegevoegd",
-        "fr": "BugFix détecte la dernière sauvegarde, WebDAV ajouté, BugFix Zigbee, icône de téléchargement pour Cloud Restore ajoutée",
-        "it": "BugFix rileva l'ultimo backup, WebDAV aggiunto, BugFix Zigbee, Icona di download per Cloud Restore aggiunti",
-        "es": "BugFix detecta la última copia de seguridad, se agregó WebDAV, BugFix Zigbee, se agregó el ícono de descarga para la restauración en la nube",
-        "pl": "BugFix wykrywa ostatnią kopię zapasową, dodano WebDAV, BugFix Zigbee, dodano ikonę pobierania dla przywracania z chmury"
+        "en": "BugFix detect last backup, WebDAV added, BugFix Zigbee, Download Icon for Cloud Restore added, javscript Backup added, Grafana Backup added, Restore added for some types without restart, timestamp for history-json added, Source code rewritten, Restore revised, fixed many small bugs",
+        "de": "BugFix Erkennung der letzten Sicherung, WebDAV hinzugefügt, BugFix Zigbee, Download-Symbol für Cloud-Wiederherstellung hinzugefügt, Javscript Backup hinzugefügt, Grafana Backup hinzugefügt, Wiederherstellung für einige Typen ohne Neustart hinzugefügt, Zeitstempel für History-JSON hinzugefügt, Quellcode neu geschrieben, Wiederherstellung überarbeitet, viele kleine Fehler behoben",
+        "ru": "BugFix обнаруживает последнюю резервную копию, добавлен WebDAV, BugFix Zigbee, добавлен значок загрузки для облачного восстановления, добавлено резервное копирование javscript, добавлено резервное копирование Grafana, добавлено восстановление для некоторых типов без перезапуска, добавлена временная метка для history-json, исходный код переписан, восстановление исправлено, многие исправлены мелкие ошибки",
+        "pt": "BugFix detecta o último backup, WebDAV adicionado, BugFix Zigbee, Ícone de download para Cloud Restore adicionado, javscript Backup adicionado, Grafana Backup adicionado, Restauração adicionada para alguns tipos sem reiniciar, carimbo de data / hora para histórico-json adicionado, Código fonte reescrito, Restauração revisada, corrigida muitos pequenos insetos",
+        "nl": "BugFix detecteert laatste back-up, WebDAV toegevoegd, BugFix Zigbee, Downloadicoon voor Cloud Restore toegevoegd, Javscript Backup toegevoegd, Grafana Backup toegevoegd, Restore toegevoegd voor sommige typen zonder herstart, tijdstempel voor history-json toegevoegd, Broncode herschreven, Herstel herzien, veel opgelost kleine bugs",
+        "fr": "BugFix détecte la dernière sauvegarde, WebDAV ajouté, BugFix Zigbee, Icône de téléchargement pour Cloud Restore ajoutée, Sauvegarde javscript ajoutée, Sauvegarde Grafana ajoutée, Restauration ajoutée pour certains types sans redémarrage, horodatage pour history-json ajouté, Code source réécrit, Restauration révisée, beaucoup corrigée petits bugs",
+        "it": "BugFix rileva l'ultimo backup, WebDAV aggiunto, BugFix Zigbee, Icona di download per Cloud Restore aggiunto, javscript Backup aggiunto, Grafana Backup aggiunto, Restore aggiunto per alcuni tipi senza riavvio, timestamp per history-json aggiunto, codice sorgente riscritto, Restore revisionato, riparato molti piccoli insetti",
+        "es": "BugFix detecta la última copia de seguridad, se agregó WebDAV, se agregó BugFix Zigbee, se agregó el ícono de descarga para la restauración en la nube, se agregó la copia de seguridad de javscript, se agregó la copia de seguridad de Grafana, se agregó la restauración para algunos tipos sin reiniciar, se agregó la marca de tiempo para el historial-json, se reescribió el código fuente, se revisó la restauración, se corrigieron muchos pequeños bichos",
+        "pl": "BugFix wykrywa ostatnią kopię zapasową, dodano WebDAV, BugFix Zigbee, dodano ikonę pobierania do przywracania w chmurze, dodano kopię zapasową javscript, dodano kopię zapasową Grafana, dodano przywracanie niektórych typów bez ponownego uruchamiania, dodano sygnaturę czasową dla history-json, przepisano kod źródłowy, przywrócono poprawione, naprawiono wiele małe błędy"
       },
       "1.8.5": {
         "en": "Bugfix Jarvis Backup, Bugfix GUI",

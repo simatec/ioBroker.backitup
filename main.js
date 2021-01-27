@@ -454,57 +454,6 @@ function initConfig(secret) {
         pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for NAS Server
     };
 
-    // TODO: Not used anywere
-    /*
-    const mysql = {
-        enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
-        type: 'creator',
-        ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-        nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-        mysqlQuick: adapter.config.mysqlQuick,
-        mysqlSingleTransaction: adapter.config.mysqlSingleTransaction,
-        dbName: adapter.config.mySqlName,              // database name
-        user: adapter.config.mySqlUser,                // database user
-        pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
-        deleteBackupAfter: adapter.config.mySqlDeleteAfter, // delete old backupfiles after x days
-        host: adapter.config.mySqlHost,                // database host
-        port: adapter.config.mySqlPort,                // database port
-        exe: adapter.config.mySqlDumpExe               // path to mysqldump
-    };
-    const influxDB = {
-        enabled: adapter.config.influxDBEnabled === undefined ? true : adapter.config.influxDBEnabled,
-        type: 'creator',
-        ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-        nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-        deleteBackupAfter: adapter.config.influxDBDeleteAfter,  // delete old backupfiles after x days
-        host: adapter.config.influxDBHost,                      // database host
-        port: adapter.config.influxDBPort,                      // database port
-        exe: adapter.config.influxDBDumpExe,                     // path to influxDBdump
-        type: adapter.config.influxDBType                        // type of influxdb Backup
-    };
-    const pgsql = {
-        enabled: adapter.config.pgSqlEnabled === undefined ? true : adapter.config.pgSqlEnabled,
-        type: 'creator',
-        ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-        nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-        dbName: adapter.config.pgSqlName,              // database name
-        user: adapter.config.pgSqlUser,                // database user
-        pass: adapter.config.pgSqlPassword ? decrypt(secret, adapter.config.pgSqlPassword) : '',            // database password
-        deleteBackupAfter: adapter.config.pgSqlDeleteAfter, // delete old backupfiles after x days
-        host: adapter.config.pgSqlHost,                // database host
-        port: adapter.config.pgSqlPort,                // database port
-        exe: adapter.config.pgSqlDumpExe               // path to mysqldump
-    };
-    */
     // Configurations for standard-IoBroker backup
     backupConfig.iobroker = {
         name: 'iobroker',
@@ -739,7 +688,7 @@ function createBashScripts() {
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
             try {
-                fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo systemctl start redis-server\nfi\niobroker host this\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start`);
+                fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo service redis-server start\nfi\niobroker host this\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start`);
                 fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
             } catch (e) {
                 adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
@@ -747,7 +696,7 @@ function createBashScripts() {
         }
         if (!fs.existsSync(__dirname + '/lib/external.sh')) {
             try {
-                fs.writeFileSync(__dirname + '/lib/external.sh', `# restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo systemctl stop redis-server\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop;\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
+                fs.writeFileSync(__dirname + '/lib/external.sh', `# restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo service redis-server stop\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop;\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
                 fs.chmodSync(__dirname + '/lib/external.sh', 508);
             } catch (e) {
                 adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
