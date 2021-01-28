@@ -1,9 +1,9 @@
 {
   "common": {
     "name": "backitup",
-    "version": "1.9.0",
+    "version": "2.0.0-beta.1",
     "news": {
-      "1.9.0": {
+      "2.0.0": {
         "en": "BugFix detect last backup, WebDAV added, BugFix Zigbee, Download Icon for Cloud Restore added, javscript Backup added, Grafana Backup added, Restore added for some types without restart, timestamp for history-json added, Source code rewritten, Restore revised, fixed many small bugs",
         "de": "BugFix Erkennung der letzten Sicherung, WebDAV hinzugefügt, BugFix Zigbee, Download-Symbol für Cloud-Wiederherstellung hinzugefügt, Javscript Backup hinzugefügt, Grafana Backup hinzugefügt, Wiederherstellung für einige Typen ohne Neustart hinzugefügt, Zeitstempel für History-JSON hinzugefügt, Quellcode neu geschrieben, Wiederherstellung überarbeitet, viele kleine Fehler behoben",
         "ru": "BugFix обнаруживает последнюю резервную копию, добавлен WebDAV, BugFix Zigbee, добавлен значок загрузки для облачного восстановления, добавлено резервное копирование javscript, добавлено резервное копирование Grafana, добавлено восстановление для некоторых типов без перезапуска, добавлена временная метка для history-json, исходный код переписан, восстановление исправлено, многие исправлены мелкие ошибки",

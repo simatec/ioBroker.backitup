@@ -39,7 +39,7 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
-### 1.9.0 (xx.xx.2021) - Beta for 2.0.0
+### 2.0.0 (28.01.2021)
 * (simatec) BugFix detect last backup
 * (simatec) WebDAV added
 * (simatec) BugFix Zigbee
