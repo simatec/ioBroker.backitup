@@ -57,9 +57,9 @@ function fetchMySqlConfig(isInitial) {
         if (found) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found), 'Backitup Information!', 'info');
+            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
         } else {
-            !isInitial && showMessage(_('No config found'), 'Backitup Warning!', 'info');
+            !isInitial && showMessage(_('No config found'), _('Backitup Warning!'), 'info');
         }
     });
 }
@@ -99,9 +99,9 @@ function fetchPgSqlConfig(isInitial) {
         if (found) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found), 'Backitup Information!', 'info');
+            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
         } else {
-            !isInitial && showMessage(_('No config found'), 'Backitup Warning!', 'info');
+            !isInitial && showMessage(_('No config found'), _('Backitup Warning!'), 'info');
         }
     });
 }
@@ -135,9 +135,9 @@ function fetchInfluxDBConfig(isInitial) {
         if (found) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found), 'Backitup Information!', 'info');
+            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
         } else {
-            !isInitial && showMessage(_('No config found'), 'Backitup Warning!', 'info');
+            !isInitial && showMessage(_('No config found'), _('Backitup Warning!'), 'info');
         }
     });
 }
@@ -165,9 +165,9 @@ function fetchCcuConfig(isInitial) {
         if (found) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found), 'Backitup Information!', 'info');
+            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
         } else {
-            !isInitial && showMessage(_('No config found'), 'Backitup Warning!', 'info');
+            !isInitial && showMessage(_('No config found'), _('Backitup Warning!'), 'info');
         }
     });
 }
@@ -195,9 +195,9 @@ function fetchHistoryConfig(isInitial) {
         if (found) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found), 'Backitup Information!', 'info');
+            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
         } else {
-            !isInitial && showMessage(_('No config found'), 'Backitup Warning!', 'info');
+            !isInitial && showMessage(_('No config found'), _('Backitup Warning!'), 'info');
         }
     });
 }
@@ -228,9 +228,9 @@ function fetchJavascriptsConfig(isInitial) {
         if (found && javaScriptPth !== '') {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found), 'Backitup Information!', 'info');
+            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
         } else {
-            !isInitial && showMessage(_("No config found. Please check the settings in the Javascript adapter"), 'Backitup Warning!', 'info');
+            !isInitial && showMessage(_("No config found. Please check the settings in the Javascript adapter"), _('Backitup Warning!'), 'info');
         }
     });
 }
@@ -408,7 +408,7 @@ function load(settings, onChange) {
                                 }
             });
             if (settings.ftpEnabled === false && settings.dropboxEnabled === false && settings.cifsEnabled === false && settings.googledriveEnabled === false && settings.webdavEnabled === false) {
-                showMessage(_("<br/><br/>According to the Backitup settings, backups are currently stored in the same local file system that is the source of the backup can be accessed more. <br/> <br/>It is recommended to use an external storage space as a backup target."), 'Backitup Information!', 'info');
+                showMessage(_("<br/><br/>According to the Backitup settings, backups are currently stored in the same local file system that is the source of the backup can be accessed more. <br/> <br/>It is recommended to use an external storage space as a backup target."), _('Backitup Information!'), 'info');
             }
             socket.emit('subscribeStates', 'backitup.' + instance + '.*');
             socket.emit('subscribeStates', 'system.adapter.backitup.' + instance + '.alive');
