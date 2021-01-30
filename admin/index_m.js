@@ -470,7 +470,14 @@ function load(settings, onChange) {
                                 downloadPanel = true;
                             }
                             let isStopped = false;
-                            if (file.search('grafana') == -1 && file.search('jarvis') == -1 && file.search('javascripts') == -1) {
+                            if (file.search('grafana') == -1 &&
+                                file.search('jarvis') == -1 &&
+                                file.search('javascripts') == -1 &&
+                                file.search('mysql') == -1 &&
+                                file.search('influxDB') == -1 &&
+                                file.search('pgsql') == -1 &&
+                                file.search('zigbee') == -1 &&
+                                file.search('historyDB') == -1) {
                                 isStopped = true;
                             } else {
                                 if (downloadPanel) {
