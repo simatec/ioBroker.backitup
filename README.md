@@ -39,10 +39,11 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
-### 2.0.0 (28.01.2021)
+### 2.0.0 (31.01.2021)
 * (simatec) BugFix detect last backup
 * (simatec) WebDAV added
 * (simatec) BugFix Zigbee
+* (simatec) stop/start Instances on restore
 * (simatec) Download Icon for Cloud Restore added
 * (simatec) javscript Backup added
 * (simatec) Grafana Backup added
