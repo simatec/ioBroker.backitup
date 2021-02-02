@@ -1,48 +1,119 @@
+![Logo](img/backitup.png)
+# # ioBroker.backitup
+
+# Inhalt
+* [Grundlegendes](#grundlegendes)
+* [Abhängigkeiten](#abhängkeiten)
+* [Installation](#installation)
+* [Backuptypen](#adapterkonfiguration---haupteinstellungen)
+	* [ioBroker Backup](#ioBroker-Backup)
+	* [CCU Backup (Homematic)](#CCU-Backup-(Homematic))
+	* [Mysql-Backup](#Mysql-Backup)
+	* [InfluxDB-Backup](#InfluxDB-Backup)
+    * [PGSql-Backup](#PGSql-Backup)
+    * [Javascript-Backup](#Javascript-Backup)
+    * [Jarvis-Backup](#Jarvis-Backup)
+    * [Zigbee-Backup](#Zigbee-Backup)
+    * [Grafana-Backup](#Grafana-Backup)
+* [Speicher-Optionen](#Speicher-Optionen)
+    * [CIFS](#CIFS)
+    * [NFS](#NFS)
+    * [FTP](#FTP)
+    * [Copy](#Copy)
+    * [Dropbox](#Dropbox)
+    * [Google Drive](#Google-Drive)
+    * [WebDAV](#WebDAV)
+* [Verwendung](#Verwendung)
+* [Benachichtigungen](#Benachichtigungen)
+* [Restore](#Restore)
+* [Fehlersuche](#Fehlersuche)
+* [Aufgetretene Fehler / Lösungen](#Aufgetretene-Fehler-/-Lösungen)
+
+---
+
+# Grundlegendes
 Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
 Der Adapter ist für Multiplattformen geeignet und kann  neben Linux-Installationen auch auf Windows und Mac Installationen verwendet werden.
 
-Für den CIFS Mount muss zwingend cifs-utils installiert sein.
+---
+
+# Abhängigkeiten
+* Für den CIFS Mount muss zwingend cifs-utils installiert sein.
     - `sudo apt-get install cifs-utils`
 
-Für den NFS Mount muss zwingend nfs-common installiert sein.
+* Für den NFS Mount muss zwingend nfs-common installiert sein.
     - `sudo apt-get install nfs-common`
 
-## 1. Backuptypen
-Backitup bietet die Möglichkeit drei (optional mit DB-Backup) verschiedene Backuptypen zyklisch oder auf Knopfdruck durch zu führen. Jedes Backup wird standardmäßig im Verzeichnis /opt/iobroker/backups/ abgelegt. Optional kann ein FTP-Upload eingerichtet oder alternativ ein CIFS-Mount genutzt werden.
+* Für die verwendung des MySql-Backups muss mysqldump auf dem System installiert sein
 
-1. Standard Backup
-   - Dieses Backup entspricht dem in IoBroker enthaltenen Backup welches man in der Konsole über den Aufruf „./iobroker backup“ starten kann. Nur wird es hier durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt ohne die Konsole verwenden zu müssen.
-2. CCU Backup (Homematic)
+* Für die Verwendung des InfluxDB Backups muss influxd installiert sein
+
+---
+
+# Backuptypen
+Backitup bietet sehr viele Möglichkeiten verschiedene Backuptypen zyklisch oder auf Knopfdruck durch zu führen. Jedes Backup wird standardmäßig im Verzeichnis /opt/iobroker/backups/ abgelegt. Optional kann ein FTP-Upload eingerichtet oder alternativ ein CIFS/NFS-Mount genutzt werden.
+
+## ioBroker Backup
+   Dieses Backup entspricht dem in IoBroker enthaltenen Backup welches man in der Konsole über den Aufruf „./iobroker backup“ starten kann. Nur wird es hier durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt ohne die Konsole verwenden zu müssen.
+
+## CCU Backup (Homematic)
    -  Dieses Backup bietet die Möglichkeit 3 verschiedene Varianten einer Homematic Installations (CCU-Original / pivCCU / Raspberrymatic) zu sichern. Auch die Ausführung dieses Backups kann durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt werden.
-3. Mysql-Backup (Localhost)
-   - Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup „minimal“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
-4. Redis-Backup
-   - Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup „minimal“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
-5. History Daten Backup
-   - Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup „minimal“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
+
+## Mysql-Backup
+   Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup „minimal“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
+
+## Redis-Backup
+   Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup „minimal“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
+
+## History Daten Backup
+   Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup „minimal“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
+
+## InfluxDB-Backup
 
 
-## 2. Ftp, CIFS, NFS, Copy oder Dropbox für das optionale weitersichern auf einen Nas nutzen?
-  - CIFS:
+## PGSql-Backup
+
+
+## Javascript-Backup
+
+
+## Jarvis-Backup
+
+
+## Zigbee-Backup
+
+
+## Grafana-Backup
+
+
+---
+
+# Speicher-Optionen
+
+  ## CIFS:
     -	CIFS-Mount ist unter Linux kein Problem.
     -   Es sollte beachtet werden, dass cifs-utils installiert ist
     -   Die Pfadangabe sollte wie folgt aussehen (Bsp: "/Freigabename/Pfadangabe")
     -	Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
-  - NFS:
+
+  ## NFS:
     -	NFS-Mount ist unter Linux kein Problem.
     -   Es sollte beachtet werden, dass nfs-common installiert ist
     -   Die Pfadangabe sollte wie folgt aussehen (Bsp: "/Freigabename/Pfadangabe")
     -	Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
-  - FTP:
+
+  ## FTP:
     -	FTP ist auf allen OS möglich und dient als eine Alternative zum CIFS Mount
     -   Die Pfadangabe unter FTP muss immer mit "/" beginnen (Bsp: "/Pfadangabe")
     -	Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
-  - Copy:
+  
+  ## Copy:
     -	Sollte kein CIFS-Mount möglich sein, besteht eine weitere Möglichkeit der Copy-Funktion
     -   Hier muss in den CIFS-Einstellungen die Pfadangabe eingetragen werden, wo hin kopiert werden soll
     -   Die Angabe der IP Adresse muss für die Copy-Funktion leer bleiben
-  - Dropbox: 
+  
+  ## Dropbox: 
     -	Um die Sicherung in der Dropbox zu nutzen, muss ein Access Token und eine APP unter https://www.dropbox.com/developers/apps erstellt werden
     -   Schritt 1: Den Button "Create Backup" nutzen
     -   Schritt 2: "Dropbox API" auswählen
@@ -50,21 +121,32 @@ Backitup bietet die Möglichkeit drei (optional mit DB-Backup) verschiedene Back
     -   Schritt 4: "Name your app" vergeben
     -   Schritt 5: "Generated access token" Button drücken (Der Token wird in den Einstellungen von Backitup eingetragen)
     -   In deiner Dropbox gibt es nun einen neuen Ordner mit dem Namen "Apps"
-  - Google Drive:
+  
+  ## Google Drive:
     -	Um die Sicherung in der Google Drive zu nutzen, muss ein Access Token holen. Das kann man auf der Konfigurationsseite machen
     -   ioBroker greift nur auf die definierte Bereiche an. Das Code für oAuth kann man [hier](https://github.com/simatec/ioBroker.backitup/blob/master/docs/oAuthService.js) ansehen.
     -   Keine Tokens oder Anwenderdaten werden in der Cloud gespeichert.
 
-## 3. Verwendung
-1.	Der Adapter erstellt 7 Datenpunkte zur Verwendung in Vis
-	- oneClick.ccu -> dient als Auslösetrigger für ein CCU-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
-	- oneClick.minimal -> dient als Auslösetrigger für ein Standard-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
+  ## WebDAV:
 
-	- history.html -> dient als History-Log welcher in Vis via CCS vom Design anpassbar ist.
-	- history.ccuLastTime -> speichert das Erstell-Datum und die Uhrzeit des letzten CCU Backups
-	- history.minimalLastTime -> speichert das Erstell-Datum und die Uhrzeit des letzten Standard Backups
-    - history.ccuSuccess -> zeigt bei erfolgreichen Backup den State "true"
-    - history.minimalSuccess -> zeigt bei erfolgreichen Backup den State "true"
+---
+
+# Verwendung
+1.	Der Adapter erstellt einige Datenpunkte zur Verwendung in Vis
+	* oneClick.ccu -> dient als Auslösetrigger für ein CCU-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
+	* oneClick.minimal -> dient als Auslösetrigger für ein Standard-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
+
+	* history.html -> dient als History-Log welcher in Vis via CCS vom Design anpassbar ist.
+    * history.json -> dient als History-Log welcher in Vis via CCS vom Design anpassbar ist.
+	* history.ccuLastTime -> speichert das Erstell-Datum und die Uhrzeit des letzten CCU Backups
+	* history.minimalLastTime -> speichert das Erstell-Datum und die Uhrzeit des letzten Standard Backups
+    * history.ccuSuccess -> zeigt bei erfolgreichen Backup den State "true"
+    * history.minimalSuccess -> zeigt bei erfolgreichen Backup den State "true"
+    * history.iobrokerLastTime -> zeigt die letzte ioBroker Sicherung
+    * history.ccuLastTime -> zeigt die letzte CCU Sicherung
+    * info.ccuNextTime -> zeigt die nächste Ausführungszeit des CCU-Backups
+    * info.iobrokerNextTime -> zeigt die nächste Ausführungszeit des ioBroker-Backups
+    * info.latestBackup -> zeigt als json das letzte beim Start ermittelte Backup
 
 2. History-Log in Vis anzeigen
    - Es ist möglich den History-Log bspw. in einem Html-Widget durch eintragen folgender Zeile in HTML darzustellen:
@@ -104,12 +186,20 @@ Syntax: {BackitupInstanz.history.html}
 
 Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || wert === true ? "Text während der Backuperstellung" : "Standard-Text"}
 
-5. Backitup unterstützt für die Benachrichtigung nach einem erfolgreichen Backup folgende Messenger.
-   - Telegram
-   - Pushover
-   - E-Mail 
+---
 
-## 4. Restore:
+# Benachichtigungen
+ Backitup unterstützt für die Benachrichtigung nach einem erfolgreichen Backup folgende Messenger.
+ Zur Verwendung müssen die jeweiligen Adapter installiert und eigerichtet sein.
+ 
+   * Telegram
+   * Pushover
+   * E-Mail 
+   * Whatsapp
+
+---
+
+# Restore
 
 Es ist möglich das minimal-Backup, als auch mysql, History Daten und Redis entweder vom lokalen Pfad, aus der Dropbox, GoogleDrive, via FTP oder vom NAS wiederherzustellen.
 Aktuell befindet sich der Restore noch in der Betaphase.
@@ -120,7 +210,7 @@ Bei allen Backuptypen wird beim Restore iobroker gestoppt und im Anschluss autom
 
 Wer seine Backups lieber manuell wiederherstellen möchte, sollte folgende Punkte durchführen:
 
-1. Restore eines minimalen / normalen IoBroker Backups:
+1. Restore eines IoBroker Backups:
     - Das Backup muss wie gewohnt im  Verzeichnis „opt/iobroker/backups/“ liegen
     - Es kann über die Konsole mit Hilfe des Befehls: „iobroker restore (Nummer des Backups aus der Liste)“ wieder hergestellt werden.
     - Nach dem Restore ist ein "iobroker upload all" nötig
@@ -138,12 +228,14 @@ Wer seine Backups lieber manuell wiederherstellen möchte, sollte folgende Punkt
 4. Restore History:
     - Die History-Datenbank muss bei einem Restore in den dazugehörigen Ordner entpackt werden.
 
+---
 
-
-## 6. Fehlersuche
+# Fehlersuche
     1. Um Fehler zu loggen, muss Backitup in unter dem IoBroker Reiter Instanzen auf Log-Stufe "debug" gestellt werden.
 
-## 7. Aufgetretene Fehler / Lösungen:
+--- 
+
+# Aufgetretene Fehler / Lösungen:
 Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vorhanden.
 
 1.	Olifall (aus dem Forum) hatte das Problem dass nach dem Restore das Webinterface des IoBrokers nicht mehr erreichbar war, durch folgende Schritte über die Konsole konnte er dies beheben:
