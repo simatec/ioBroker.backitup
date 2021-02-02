@@ -58,7 +58,7 @@ Backitup bietet sehr viele Möglichkeiten verschiedene Backuptypen zyklisch oder
    Dieses Backup entspricht dem in IoBroker enthaltenen Backup welches man in der Konsole über den Aufruf „./iobroker backup“ starten kann. Nur wird es hier durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt ohne die Konsole verwenden zu müssen.
 
 ## CCU Backup (Homematic)
-   -  Dieses Backup bietet die Möglichkeit 3 verschiedene Varianten einer Homematic Installations (CCU-Original / pivCCU / Raspberrymatic) zu sichern. Auch die Ausführung dieses Backups kann durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt werden.
+   Dieses Backup bietet die Möglichkeit 3 verschiedene Varianten einer Homematic Installations (CCU-Original / pivCCU / Raspberrymatic) zu sichern. Auch die Ausführung dieses Backups kann durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt werden.
 
 ## Mysql-Backup
    Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup „minimal“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
@@ -92,10 +92,10 @@ Backitup bietet sehr viele Möglichkeiten verschiedene Backuptypen zyklisch oder
 # Speicher-Optionen
 
   ## CIFS:
-    -	CIFS-Mount ist unter Linux kein Problem.
-    -   Es sollte beachtet werden, dass cifs-utils installiert ist
-    -   Die Pfadangabe sollte wie folgt aussehen (Bsp: "/Freigabename/Pfadangabe")
-    -	Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
+    >	CIFS-Mount ist unter Linux kein Problem.
+    >   Es sollte beachtet werden, dass cifs-utils installiert ist
+    >   Die Pfadangabe sollte wie folgt aussehen (Bsp: "/Freigabename/Pfadangabe")
+    >	Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
 
   ## NFS:
     -	NFS-Mount ist unter Linux kein Problem.
@@ -123,9 +123,9 @@ Backitup bietet sehr viele Möglichkeiten verschiedene Backuptypen zyklisch oder
     -   In deiner Dropbox gibt es nun einen neuen Ordner mit dem Namen "Apps"
   
   ## Google Drive:
-    -	Um die Sicherung in der Google Drive zu nutzen, muss ein Access Token holen. Das kann man auf der Konfigurationsseite machen
-    -   ioBroker greift nur auf die definierte Bereiche an. Das Code für oAuth kann man [hier](https://github.com/simatec/ioBroker.backitup/blob/master/docs/oAuthService.js) ansehen.
-    -   Keine Tokens oder Anwenderdaten werden in der Cloud gespeichert.
+    >	Um die Sicherung in der Google Drive zu nutzen, muss ein Access Token holen. Das kann man auf der Konfigurationsseite machen
+    >   ioBroker greift nur auf die definierte Bereiche an. Das Code für oAuth kann man [hier](https://github.com/simatec/ioBroker.backitup/blob/master/docs/oAuthService.js) ansehen.
+    >  Keine Tokens oder Anwenderdaten werden in der Cloud gespeichert.
 
   ## WebDAV:
 
@@ -191,7 +191,7 @@ Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || 
 # Benachichtigungen
  Backitup unterstützt für die Benachrichtigung nach einem erfolgreichen Backup folgende Messenger.
  Zur Verwendung müssen die jeweiligen Adapter installiert und eigerichtet sein.
- 
+
    * Telegram
    * Pushover
    * E-Mail 
