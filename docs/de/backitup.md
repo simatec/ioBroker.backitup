@@ -131,9 +131,9 @@ ioBroker greift nur auf die definierte Bereiche an. Das Code für oAuth kann man
 Keine Tokens oder Anwenderdaten werden in der Cloud gespeichert.
 
 ## WebDAV
-Mit WebDAV bietet Backitup die Möglichkeit mehrere Cloudsysteme anzusprechen. Die bekannteste ist hier NextCloud.
-Um eine WebDAV-Verbindung herzustellen, weren der Username und das Passwort des Cloud Accounts benötigt.
-Die Verbindung zur Cloud erfolgt über eine verschlüsselte Verbindung.
+Mit WebDAV bietet Backitup die Möglichkeit mehrere Cloudsysteme anzusprechen. <br>Die bekannteste ist hier NextCloud.
+Um eine WebDAV-Verbindung herzustellen, weren der Username und das Passwort des Cloud Accounts benötigt.<br>
+Die Verbindung zur Cloud erfolgt über eine verschlüsselte Verbindung.<br><br>
 
 Um eine Verbindung aufbauen zu können, muss der Hostname der Cloud alle Sicherheitszertifikate erfüllen.
 Eine Verbindung mit lokaler IP-Adresse ist nicht möglich, da diese keine Lets Encrypt Zertifikate enthält.
