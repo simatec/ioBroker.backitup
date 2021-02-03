@@ -145,7 +145,7 @@ Eine Verbindung mit lokaler IP-Adresse ist nicht möglich, da diese keine Lets E
 # Verwendung
 1.	Der Adapter erstellt einige Datenpunkte zur Verwendung in Vis
 	* oneClick.ccu -> dient als Auslösetrigger für ein CCU-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
-	* oneClick.minimal -> dient als Auslösetrigger für ein Standard-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
+	* oneClick.minimal -> dient als Auslösetrigger für ein Standard-Backup (Kann in Vis durch einen Button auf true gesetzt werden)<br>
 
 	* history.html -> dient als History-Log welcher in Vis via CCS vom Design anpassbar ist.
     * history.json -> dient als History-Log welcher in Vis via CCS vom Design anpassbar ist.
