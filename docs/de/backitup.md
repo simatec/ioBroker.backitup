@@ -1,4 +1,4 @@
-![Logo](admin/backitup.png)
+![Logo](img/backitup.png)
 # ioBroker.backitup
 
 ![Number of Installations](http://iobroker.live/badges/backitup-installed.svg)
@@ -15,13 +15,12 @@
 # Inhalt
 * [Grundlegendes](#grundlegendes)
 * [Abhängigkeiten](#abhängkeiten)
-* [Installation](#installation)
-* [Backuptypen](#adapterkonfiguration---haupteinstellungen)
+* [Backuptypen](#Backuptypen)
 	* [ioBroker Backup](#ioBroker-Backup)
 	* [CCU Backup (Homematic)](#CCU-Backup-(Homematic))
 	* [Mysql-Backup](#Mysql-Backup)
 	* [InfluxDB-Backup](#InfluxDB-Backup)
-    * [PGSql-Backup](#PGSql-Backup)
+    * [PostgreSQL-Backup](#PostgreSQL-Backup)
     * [Javascript-Backup](#Javascript-Backup)
     * [Jarvis-Backup](#Jarvis-Backup)
     * [Zigbee-Backup](#Zigbee-Backup)
@@ -57,8 +56,13 @@ Der Adapter ist für Multiplattformen geeignet und kann  neben Linux-Installatio
     - `sudo apt-get install nfs-common`
 
 * Für die verwendung des MySql-Backups muss mysqldump auf dem System installiert sein
+    - `sudo apt-get install mysql-client`
+
+* Für die verwendung des PostgreSQL-Backups muss mysqldump auf dem System installiert sein
+    - [Installationsanleitung PostgreSQL](https://www.postgresql.org/download/linux/debian/)
 
 * Für die Verwendung des InfluxDB Backups muss influxd installiert sein
+    - [Installationsanleitung InfluxDB](https://docs.influxdata.com/influxdb/v1.8/introduction/install/)
 
 ---
 
@@ -66,37 +70,63 @@ Der Adapter ist für Multiplattformen geeignet und kann  neben Linux-Installatio
 Backitup bietet sehr viele Möglichkeiten verschiedene Backuptypen zyklisch oder auf Knopfdruck durch zu führen. Jedes Backup wird standardmäßig im Verzeichnis /opt/iobroker/backups/ abgelegt. Optional kann ein FTP-Upload eingerichtet oder alternativ ein CIFS/NFS-Mount genutzt werden.
 
 ## ioBroker Backup
-   Dieses Backup entspricht dem in IoBroker enthaltenen Backup welches man in der Konsole über den Aufruf „./iobroker backup“ starten kann. Nur wird es hier durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt ohne die Konsole verwenden zu müssen.
+Dieses Backup entspricht dem in IoBroker enthaltenen Backup welches man in der Konsole über den Aufruf `iobroker backup` starten kann. Nur wird es hier durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt ohne die Konsole verwenden zu müssen.
 
 ## CCU Backup (Homematic)
-   Dieses Backup bietet die Möglichkeit 3 verschiedene Varianten einer Homematic Installations (CCU-Original / pivCCU / Raspberrymatic) zu sichern. Auch die Ausführung dieses Backups kann durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt werden.
+Dieses Backup bietet die Möglichkeit 3 verschiedene Varianten einer Homematic Installations (CCU-Original / pivCCU / Raspberrymatic) zu sichern. Auch die Ausführung dieses Backups kann durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt werden.
 
 ## Mysql-Backup
-   Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup „minimal“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
+Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
+Wichig hierbei ist, dass auch wenn der Mysql-Server auf einem entferten System läuft, die mysqldump auf dem ioBroker System laufen muss.<br>Für Linuxsysteme wäre der Installationsbefehl wie folgt: `sudo apt-get install mysql-client`
 
 ## Redis-Backup
-   Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup „minimal“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
+Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br>
+Zur Verwendung von Redis mit Backitup sollten die Rechte für den iobroker-User angepasst werden:<br>
+    ```
+    sudo usermod -a -G redis iobroker
+    sudo reboot
+    ```
 
 ## History Daten Backup
-   Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup „minimal“ erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
+Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
 
 ## InfluxDB-Backup
+Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
+Um ein InfluxDB Backup ausführen zu können, muss Influxd auf dem iobroker.System installiert sein.<br>
+Hierbei ist es egal, ob die Datenbank lokal verwaltet wird oder auf einen anderen Server läuft.<br><br>
+Wenn die InfluxDB von einem entfernten Server gesichert werden soll, müssen in der influxdb.conf auf dem entfernten Server die Remote-Rechte angepasst werden.
 
+```
+bind <IP-des-Servers>:8088
+```
+oder 
+```
+bind 0.0.0.0:8088
+```
 
-## PGSql-Backup
+Weitere Informationen zur Datensicherung der InfluxDB sind [hier](https://docs.influxdata.com/influxdb/v1.8/administration/backup_and_restore/#online-backup-and-restore-for-influxdb-oss) zu finden.
 
+## PostgreSQL-Backup
+Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
+Wichig hierbei ist, dass auch wenn der PostgreSQL-Server auf einem entferten System läuft, die PostgreSQL auf dem ioBroker System laufen muss.<br>Für Linuxsysteme gibt es [hier](https://www.postgresql.org/download/linux/debian/) eine Installationsanleitung
 
 ## Javascript-Backup
-
+Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
+Um das Javascript Backup erstellen zu können, muss im Vorfeld in der Javascript-Adapter Konfiguration die Menüpunkte "Spiegeln von Skripten in den Dateipfad" und "Instanz, die Spiegelung macht" festgelegt werden.<br>
+Backitup kann dann im Konfiguartionsmenü die Einstellungen übernehmen
 
 ## Jarvis-Backup
-
+Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
+Ein Backup der Jarvis-Konfiguration ist ab eine Jarvis-Version 2.2.0-beta.7 möglich.
 
 ## Zigbee-Backup
-
+Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
 
 ## Grafana-Backup
-
+Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
+Um ein Grafana-Backup erstellen zu können, wird der Benutzername und das Passwort des Grafana-Servers benötigt.<br><br>
+Des Weiteren muss in der Grafana-Weboberfläche ein Api-Key erzeugt werden, um Zugriff auf die Dashboards zu bekommen.<br>
+Der Api-Key kann unter "Configuration → API Keys" erstellt werden.
 
 ---
 
@@ -152,7 +182,7 @@ Eine Verbindung mit lokaler IP-Adresse ist nicht möglich, da diese keine Lets E
 # Verwendung
 1.	Der Adapter erstellt einige Datenpunkte zur Verwendung in Vis<br>
 	* oneClick.ccu -> dient als Auslösetrigger für ein CCU-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
-	* oneClick.minimal -> dient als Auslösetrigger für ein Standard-Backup (Kann in Vis durch einen Button auf true gesetzt werden)<br><br>
+	* oneClick.iobroker -> dient als Auslösetrigger für ein Standard-Backup (Kann in Vis durch einen Button auf true gesetzt werden)<br><br>
 	* history.html -> dient als History-Log welcher in Vis via CCS vom Design anpassbar ist.
     * history.json -> dient als History-Log welcher in Vis via CCS vom Design anpassbar ist.
 	* history.ccuLastTime -> speichert das Erstell-Datum und die Uhrzeit des letzten CCU Backups
@@ -180,7 +210,7 @@ Syntax: {BackitupInstanz.history.html}
        width:100%;
    /*    overflow-y:scroll; */
    }
-   .backup-type-minimal
+   .backup-type-iobroker
        {
            float:left;
            color:white;
@@ -197,7 +227,7 @@ Syntax: {BackitupInstanz.history.html}
    - Wenn ein OneClick-Datenpunkt auf true gesetzt wird startet das entsprechende Backup und nach einer vordefinierten Zeit wird dieser Datenpunkt wieder auf false gesetzt somit ist es möglich einen Button mit Status zu erstellen, hierzu folgende Zeile anpassen und in Vis als Knopftext eintragen:
 
 ```
-{wert: backitup.0.oneClick.minimal; wert === "true" || wert === true ? "Minimal Backup </br> wird erstellt" : "Minimal Backup </br> starten"}
+{wert: backitup.0.oneClick.iobroker; wert === "true" || wert === true ? "Minimal Backup </br> wird erstellt" : "Minimal Backup </br> starten"}
 
 ```
 
@@ -218,7 +248,7 @@ Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || 
 
 # Restore
 
-Es ist möglich das minimal-Backup, als auch mysql, History Daten und Redis entweder vom lokalen Pfad, aus der Dropbox, GoogleDrive, via FTP oder vom NAS wiederherzustellen.
+Es ist möglich das iobroker-Backup, als auch mysql, History Daten und Redis entweder vom lokalen Pfad, aus der Dropbox, GoogleDrive, via FTP oder vom NAS wiederherzustellen.
 Aktuell befindet sich der Restore noch in der Betaphase.
 
 Das CCU-Backup muss weiterhin über das Webinterface der CCU wiederhergestellt werden.
@@ -271,7 +301,8 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vor
     Führt bitte folgende Befehle auf eure Iobrokerumgebung in der Konsole aus:
 
     ```
-    curl -fsL https://iobroker.net/fix.sh | bash -
+    iobroker stop
+    iobroker fix
     sudo reboot
     ```
 8.  Solltet Ihr eine Fehlermeldung beim erstellen der Redis Datenbank bekommen, prüft bitte, ob euer User iobroker die Rechte hat und ob er in der User-Gruppe Redis vorhanden ist.
