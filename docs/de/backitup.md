@@ -93,8 +93,11 @@ Backitup bietet sehr viele Möglichkeiten verschiedene Backuptypen zyklisch oder
 
 ## CIFS
 CIFS-Mount ist unter Linux kein Problem.
+
 Es sollte beachtet werden, dass cifs-utils installiert ist
+
 Die Pfadangabe sollte wie folgt aussehen (Bsp: "/Freigabename/Pfadangabe")
+
 Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
 
   ## NFS
