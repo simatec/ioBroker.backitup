@@ -248,12 +248,15 @@ Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || 
 
 # Restore
 
-Es ist möglich das iobroker-Backup, als auch mysql, History Daten und Redis entweder vom lokalen Pfad, aus der Dropbox, GoogleDrive, via FTP oder vom NAS wiederherzustellen.
-Aktuell befindet sich der Restore noch in der Betaphase.
+Mit Backitup ist es möglich, alle erzeugten Backup-Typen über das Konfiguartionsmenü im ioBroker auch wiederherzustellen.<br><br>
+Es kann aus allen Speichermedien ein restore ausgeführt werden.<br>
+Grundsätzlich ist aber der sicherste Weg, den restore lokal auszuführen.<br><br>
+Dafür müssen die Backups im iobroker Backup-Ordner abgelegt werden.
+Auf Linuxsystemen befindet sich dieser Ordner unter folgenden Pfad: `/opt/iobroker/backups`
 
 Das CCU-Backup muss weiterhin über das Webinterface der CCU wiederhergestellt werden.
 
-Bei allen Backuptypen wird beim Restore iobroker gestoppt und im Anschluss automatisch wieder gestartet.
+Bei Backuptypen "iobroker" und "redis" wird beim Restore iobroker gestoppt und im Anschluss automatisch wieder gestartet.
 
 Wer seine Backups lieber manuell wiederherstellen möchte, sollte folgende Punkte durchführen:
 
@@ -269,11 +272,7 @@ Wer seine Backups lieber manuell wiederherstellen möchte, sollte folgende Punkt
     - Den Befehl:“reboot“ auf der Raspberrymatic ausführen um den PI neu zu starten
     - Alternativ kann das Backup natürlich auch wie gewohnt über das Webinterface wieder hergestellt werden.
 
-3. Restore Redis:
-    - Die Redis-Datenbank muss bei einem Restore in den dazugehörigen Ordner entpackt werden. (Bsp: /var/lib/redis) 
-
-4. Restore History:
-    - Die History-Datenbank muss bei einem Restore in den dazugehörigen Ordner entpackt werden.
+Eine detailierte Anleitung zum Restore mit Backitup und auch zum manuellen Restore ist [hier](https://forum.iobroker.net/topic/27271/howto-iobroker-restore-unter-linux-durchf%C3%BChren) zu finden.
 
 ---
 
