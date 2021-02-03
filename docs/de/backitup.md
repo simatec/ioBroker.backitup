@@ -1,5 +1,16 @@
-![Logo](img/backitup.png)
-# # ioBroker.backitup
+![Logo](admin/backitup.png)
+# ioBroker.backitup
+
+![Number of Installations](http://iobroker.live/badges/backitup-installed.svg)
+![Number of Installations](http://iobroker.live/badges/backitup-stable.svg)
+[![NPM version](http://img.shields.io/npm/v/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
+[![Dependency Status](https://img.shields.io/david/simatec/iobroker.backitup.svg)](https://david-dm.org/simatec/iobroker.backitup)
+[![Known Vulnerabilities](https://snyk.io/test/github/simatec/ioBroker.backitup/badge.svg)](https://snyk.io/test/github/simatec/ioBroker.backitup)
+[![Travis-CI](http://img.shields.io/travis/simatec/ioBroker.backitup/master.svg)](https://travis-ci.org/simatec/ioBroker.backitup)
+
+[![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
+
 
 # Inhalt
 * [Grundlegendes](#grundlegendes)
