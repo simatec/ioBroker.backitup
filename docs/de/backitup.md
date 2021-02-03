@@ -92,61 +92,56 @@ Backitup bietet sehr viele Möglichkeiten verschiedene Backuptypen zyklisch oder
 # Speicher-Optionen
 
 ## CIFS
-CIFS-Mount ist unter Linux kein Problem.
+CIFS-Mount ist unter Linux kein Problem.<br>
 Es sollte beachtet werden, dass cifs-utils installiert ist
 
-Die Pfadangabe sollte wie folgt aussehen (Bsp: "/Freigabename/Pfadangabe")
+Die Pfadangabe sollte wie folgt aussehen (Bsp: "/Freigabename/Pfadangabe")<br>
 Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
 
   ## NFS
-NFS-Mount ist unter Linux kein Problem.
-Es sollte beachtet werden, dass nfs-common installiert ist
-Die Pfadangabe sollte wie folgt aussehen (Bsp: "/Freigabename/Pfadangabe").
+NFS-Mount ist unter Linux kein Problem.<br>
+Es sollte beachtet werden, dass nfs-common installiert ist<br><br>
+Die Pfadangabe sollte wie folgt aussehen (Bsp: "/Freigabename/Pfadangabe").<br>
 Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
 
 ## FTP
-FTP ist auf allen OS möglich und dient als eine Alternative zum CIFS Mount
-Die Pfadangabe unter FTP muss immer mit "/" beginnen (Bsp: "/Pfadangabe")
+FTP ist auf allen OS möglich und dient als eine Alternative zum CIFS Mount<br>
+Die Pfadangabe unter FTP muss immer mit "/" beginnen (Bsp: "/Pfadangabe")<br>
 Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen
   
 ## Copy
-Sollte kein CIFS-Mount möglich sein, besteht eine weitere Möglichkeit der Copy-Funktion
-Hier muss in den CIFS-Einstellungen die Pfadangabe eingetragen werden, wo hin kopiert werden soll
-Die Angabe der IP Adresse muss für die Copy-Funktion leer bleiben
+Sollte kein CIFS-Mount möglich sein, besteht eine weitere Möglichkeit der Copy-Funktion<br>
+Hier muss in den CIFS-Einstellungen die Pfadangabe eingetragen werden, wo hin kopiert werden soll.<br>
+Die Angabe der IP Adresse muss für die Copy-Funktion leer bleiben.
   
 ## Dropbox
-Um die Sicherung in der Dropbox zu nutzen, muss ein Access Token und eine APP unter https://www.dropbox.com/developers/apps erstellt werden
-
+Um die Sicherung in der Dropbox zu nutzen, muss ein Access Token und eine APP unter https://www.dropbox.com/developers/apps erstellt werden<br><br>
 * Schritt 1: Den Button "Create Backup" nutzen
 * Schritt 2: "Dropbox API" auswählen
 * Schritt 3: "App folder" auswählen
 * Schritt 4: "Name your app" vergeben
-* Schritt 5: "Generated access token" Button drücken (Der Token wird in den Einstellungen von Backitup eingetragen)
-
+* Schritt 5: "Generated access token" Button drücken (Der Token wird in den Einstellungen von Backitup eingetragen)<br><br>
 In deiner Dropbox gibt es nun einen neuen Ordner mit dem Namen "Apps"
   
 ## Google Drive
-Um die Sicherung in der Google Drive zu nutzen, muss ein Access Token holen. Das kann man auf der Konfigurationsseite machen
-ioBroker greift nur auf die definierte Bereiche an. Das Code für oAuth kann man [hier](https://github.com/simatec/ioBroker.backitup/blob/master/docs/oAuthService.js) ansehen.
+Um die Sicherung in der Google Drive zu nutzen, muss ein Access Token holen. Das kann man auf der Konfigurationsseite machen.<br>
+ioBroker greift nur auf die definierte Bereiche an. Das Code für oAuth kann man [hier](https://github.com/simatec/ioBroker.backitup/blob/master/docs/oAuthService.js) ansehen.<br><br>
 Keine Tokens oder Anwenderdaten werden in der Cloud gespeichert.
 
 ## WebDAV
-Mit WebDAV bietet Backitup die Möglichkeit mehrere Cloudsysteme anzusprechen. <br>Die bekannteste ist hier NextCloud.
+Mit WebDAV bietet Backitup die Möglichkeit mehrere Cloudsysteme anzusprechen.<br>Die bekannteste ist hier NextCloud.
 Um eine WebDAV-Verbindung herzustellen, weren der Username und das Passwort des Cloud Accounts benötigt.<br>
 Die Verbindung zur Cloud erfolgt über eine verschlüsselte Verbindung.<br><br>
-
 Um eine Verbindung aufbauen zu können, muss der Hostname der Cloud alle Sicherheitszertifikate erfüllen.
-Eine Verbindung mit lokaler IP-Adresse ist nicht möglich, da diese keine Lets Encrypt Zertifikate enthält.
-
+Eine Verbindung mit lokaler IP-Adresse ist nicht möglich, da diese keine Lets Encrypt Zertifikate enthält.<br><br>
 > Beispiel URL: "https://example.com/remote.php/dav/files/username/"
 
 ---
 
 # Verwendung
-1.	Der Adapter erstellt einige Datenpunkte zur Verwendung in Vis
+1.	Der Adapter erstellt einige Datenpunkte zur Verwendung in Vis<br>
 	* oneClick.ccu -> dient als Auslösetrigger für ein CCU-Backup (Kann in Vis durch einen Button auf true gesetzt werden)
-	* oneClick.minimal -> dient als Auslösetrigger für ein Standard-Backup (Kann in Vis durch einen Button auf true gesetzt werden)<br>
-
+	* oneClick.minimal -> dient als Auslösetrigger für ein Standard-Backup (Kann in Vis durch einen Button auf true gesetzt werden)<br><br>
 	* history.html -> dient als History-Log welcher in Vis via CCS vom Design anpassbar ist.
     * history.json -> dient als History-Log welcher in Vis via CCS vom Design anpassbar ist.
 	* history.ccuLastTime -> speichert das Erstell-Datum und die Uhrzeit des letzten CCU Backups
