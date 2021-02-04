@@ -19,6 +19,7 @@
 	* [ioBroker Backup](#ioBroker-Backup)
 	* [CCU Backup (Homematic)](#CCU-Backup-(Homematic))
 	* [Mysql-Backup](#Mysql-Backup)
+    * [Redis-Backup](#Redis-Backup)
 	* [InfluxDB-Backup](#InfluxDB-Backup)
     * [PostgreSQL-Backup](#PostgreSQL-Backup)
     * [Javascript-Backup](#Javascript-Backup)
