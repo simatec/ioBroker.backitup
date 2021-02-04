@@ -291,7 +291,7 @@ Eine detailierte Anleitung zum Restore mit Backitup und auch zum manuellen Resto
 ---
 
 # Fehlersuche
-    1. Um Fehler zu loggen, muss Backitup in unter dem IoBroker Reiter Instanzen auf Log-Stufe "debug" gestellt werden.
+    Um Fehler zu loggen, muss Backitup in unter dem IoBroker Reiter Instanzen auf Log-Stufe "debug" gestellt werden.
 
 *[zurück](#Inhalt)*
 --- 
