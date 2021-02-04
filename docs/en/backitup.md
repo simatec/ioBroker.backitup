@@ -94,8 +94,8 @@ If activated, this separately adjustable backup is created with every ioBroker b
 
 ## InfluxDB backup
 If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set.<br><br>
-** To be able to perform an InfluxDB backup, Influxd must be installed on the iobroker system. ** <br>
-** It does not matter whether the database is managed locally or on another server. **<br><br>
+**To be able to perform an InfluxDB backup, Influxd must be installed on the iobroker system.** <br>
+**It does not matter whether the database is managed locally or on another server.**<br><br>
 If the InfluxDB is to be backed up from a remote server, the remote rights for the RPC service must be adjusted in influxdb.conf on the remote server.
 
 ``
@@ -106,7 +106,7 @@ or
 bind-address = "0.0.0.0:8088"
 ``
 
-** After changing the configuration, the InfluxDB service must be restarted. **
+**After changing the configuration, the InfluxDB service must be restarted.**
 
 Further information on the data backup of the InfluxDB can be found [here] (https://docs.influxdata.com/influxdb/v1.8/administration/backup_and_restore/#online-backup-and-restore-for-influxdb-oss).
 
@@ -121,16 +121,16 @@ Backitup can then take over the settings in the configuration menu
 
 ## Jarvis backup
 If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set.<br><br>
-*** A backup of the Jarvis configuration is possible from Jarvis version 2.2.0-beta.7. ***
+***A backup of the Jarvis configuration is possible from Jarvis version 2.2.0-beta.7.***
 
 ## Zigbee backup
 If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup, provided that the other IoBroker backup types are set.
 
 ## Grafana backup
 If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set.<br><br>
-** In order to be able to create a Grafana backup, the Grafana username and password are required. ***<br><br>
-** Furthermore, an API key must be generated in the Grafana web interface in order to get access to the dashboards. ** <br>
-The API key can be created under *** "Configuration → API Keys" ***.
+**In order to be able to create a Grafana backup, the Grafana username and password are required.**<br><br>
+**Furthermore, an API key must be generated in the Grafana web interface in order to get access to the dashboards.** <br>
+The API key can be created under ***"Configuration → API Keys"***.
 
 *[back](#Content)*
 ---
@@ -138,26 +138,26 @@ The API key can be created under *** "Configuration → API Keys" ***.
 # Storage options
 
 ## CIFS
-CIFS mount is no problem under Linux. <br>
+CIFS mount is no problem under Linux.<br>
 It should be noted that cifs-utils is installed
 
-The path specification should look like this (example: "/ share name / path specification") <br>
+The path specification should look like this (example: "/ share name / path specification")<br>
 You can optionally activate / deactivate whether the backups should be deleted from the NAS
 
-  ## NFS
-NFS mount is no problem under Linux. <br>
+## NFS
+NFS mount is no problem under Linux.<br>
 It should be noted that nfs-common is installed<br><br>
-The path specification should look like this (example: "/ share name / path specification"). <br>
+The path specification should look like this (example: "/ share name / path specification").<br>
 You can optionally activate / deactivate whether the backups should be deleted from the NAS
 
 ## FTP
-FTP is possible on all OS and serves as an alternative to the CIFS Mount <br>
-The path specification under FTP must always begin with "/" (example: "/ path specification") <br>
+FTP is possible on all OS and serves as an alternative to the CIFS Mount<br>
+The path specification under FTP must always begin with "/" (example: "/ path specification")<br>
 You can optionally activate / deactivate whether the backups should be deleted from the NAS
   
 ## Copy
-If a CIFS mount is not possible, there is another possibility of the copy function <br>
-Here in the CIFS settings the path must be entered where the copy is to be made. <br>
+If a CIFS mount is not possible, there is another possibility of the copy function<br>
+Here in the CIFS settings the path must be entered where the copy is to be made.<br>
 The specification of the IP address must remain empty for the copy function.
   
 ## Dropbox
@@ -176,7 +176,7 @@ No tokens or user data are stored in the cloud.
 
 ## WebDAV
 With WebDAV, Backitup offers the possibility to address several cloud systems. <br> The best known is NextCloud.
-To establish a WebDAV connection, the username and password of the cloud account are required. <br>
+To establish a WebDAV connection, the username and password of the cloud account are required.<br>
 The connection to the cloud is made via an encrypted connection.<br><br>
 In order to be able to establish a connection, the host name of the cloud must meet all security certificates.
 A connection with a local IP address is not possible because it does not contain any Lets Encrypt certificates.<br><br>
@@ -186,7 +186,7 @@ A connection with a local IP address is not possible because it does not contain
 ---
 
 # Use
-1. The adapter creates some data points for use in Vis <br>
+1. The adapter creates some data points for use in Vis<br>
     * oneClick.ccu -> serves as a trigger for a CCU backup (can be set to true in Vis using a button)
     * oneClick.iobroker -> serves as a trigger for a standard backup (can be set to true in Vis with a button)<br><br>
     * history.html -> serves as a history log which can be adapted from the design in Vis via CCS.
@@ -263,13 +263,13 @@ On Linux systems this folder is located under the following path: `/opt/iobroker
 
 With the backup types "iobroker" and "redis", the iobroker is stopped during the restore and then restarted automatically. <br>
 After stopping the iobroker, a new browser tab opens showing the progress of the restore.<br><br>
-*** If this tab does not open, the browser settings for block popups must be checked. ***<br><br>
+***If this tab does not open, the browser settings for block popups must be checked.***<br><br>
 
-** iobroker is not stopped with all other backup types. Here only the affected adapters are temporarily stopped. **<br><br>
+**iobroker is not stopped with all other backup types. Here only the affected adapters are temporarily stopped.**<br><br>
 
 If you prefer to restore your backups manually, you should do the following:
 
-*** Restore an IoBroker backup: ***
+***Restore an IoBroker backup:***
     - As usual, the backup must be in the directory `opt/iobroker/backups`
     - It can be restored via the console using the command: `iobroker restore <Backupfilename>`.
     - After the restore an `iobroker upload all` is necessary
@@ -277,9 +277,9 @@ If you prefer to restore your backups manually, you should do the following:
 
 Detailed instructions for restoring with Backup and also for manual restoring can be found [here] (https://forum.iobroker.net/topic/27271/howto-iobroker-restore-unter-linux-durchf%C3%BChren).
 
-** The CCU backup must still be restored via the CCU's web interface. **
+**The CCU backup must still be restored via the CCU's web interface.**
 
-*** Restore a Raspberrymatic / CCU backup: ***
+***Restore a Raspberrymatic / CCU backup:***
     - Copy the * .sbk file via SCP into the directory "/usr/local/tmp directory" on the Raspberrymatic
     - Log in to the Raspberrymatic as a root user via the console
     - Execute the command: “/bin/restoreBackup.sh /user/local/tmp / EuerBackupDateiname” on the Raspberrymatic.
