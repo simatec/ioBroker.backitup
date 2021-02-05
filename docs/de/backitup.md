@@ -47,7 +47,7 @@ Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-In
 
 Der Adapter ist für Multiplattformen geeignet und kann  neben Linux-Installationen auch auf Windows und Mac Installationen verwendet werden.
 
-*[zurück](#Inhalt)*
+[zurück](#Inhalt)
 ---
 
 # Abhängigkeiten
@@ -66,7 +66,7 @@ Der Adapter ist für Multiplattformen geeignet und kann  neben Linux-Installatio
 * Für die Verwendung des InfluxDB Backups muss influxd installiert sein
     - [Installationsanleitung InfluxDB](https://docs.influxdata.com/influxdb/v1.8/introduction/install/)
 
-*[zurück](#Inhalt)*
+[zurück](#Inhalt)
 ---
 
 # Backuptypen
@@ -129,11 +129,11 @@ Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backu
 
 ## Grafana-Backup
 Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
-**Um ein Grafana-Backup erstellen zu können, wird der Benutzername und das Passwort von Grafana benötigt.***<br><br>
+**Um ein Grafana-Backup erstellen zu können, wird der Benutzername und das Passwort von Grafana benötigt.**<br><br>
 **Des Weiteren muss in der Grafana-Weboberfläche ein Api-Key erzeugt werden, um Zugriff auf die Dashboards zu bekommen.**<br>
 Der Api-Key kann unter ***"Configuration → API Keys"*** erstellt werden.
 
-*[zurück](#Inhalt)*
+[zurück](#Inhalt)
 ---
 
 # Speicher-Optionen
@@ -183,7 +183,7 @@ Um eine Verbindung aufbauen zu können, muss der Hostname der Cloud alle Sicherh
 Eine Verbindung mit lokaler IP-Adresse ist nicht möglich, da diese keine Lets Encrypt Zertifikate enthält.<br><br>
 > Beispiel URL: "https://example.com/remote.php/dav/files/username/"
 
-*[zurück](#Inhalt)*
+[zurück](#Inhalt)
 ---
 
 # Verwendung
@@ -240,7 +240,7 @@ Syntax: {BackitupInstanz.history.html}
 
 Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || wert === true ? "Text während der Backuperstellung" : "Standard-Text"}
 
-*[zurück](#Inhalt)*
+[zurück](#Inhalt)
 ---
 
 # Benachichtigungen
@@ -252,7 +252,7 @@ Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || 
    * E-Mail 
    * Whatsapp
 
-*[zurück](#Inhalt)*
+[zurück](#Inhalt)
 ---
 
 # Restore
@@ -288,13 +288,13 @@ Eine detailierte Anleitung zum Restore mit Backitup und auch zum manuellen Resto
     - Den Befehl:“reboot“ auf der Raspberrymatic ausführen um den PI neu zu starten
     - Alternativ kann das Backup natürlich auch wie gewohnt über das Webinterface wieder hergestellt werden.
 
-*[zurück](#Inhalt)*
+[zurück](#Inhalt)
 ---
 
 # Fehlersuche
     Um Fehler zu loggen, muss Backitup in unter dem IoBroker Reiter Instanzen auf Log-Stufe "debug" gestellt werden.
 
-*[zurück](#Inhalt)*
+[zurück](#Inhalt)
 --- 
 
 # Aufgetretene Fehler / Lösungen:
@@ -329,5 +329,5 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vor
     ```
     Wenn ihr nicht mit dem Installerscript eure Iobroker Installation aufgesetzt habt und euer User einen anderen Namen hat, bitte in dem Befehl "iobroker" durch euren User ersetzen.
 
-*[zurück](#Inhalt)*
+[zurück](#Inhalt)
 ---

@@ -46,7 +46,7 @@ Backitup is a backup solution with which the cyclical backup of an IoBroker inst
 
 The adapter is suitable for multi-platforms and can be used on Windows and Mac installations in addition to Linux installations.
 
-*[back](#Content)*
+[back](#Content)
 ---
 
 # Dependencies
@@ -65,7 +65,7 @@ The adapter is suitable for multi-platforms and can be used on Windows and Mac i
 * Influxd must be installed to use the InfluxDB backup
      - [Installation instructions InfluxDB](https://docs.influxdata.com/influxdb/v1.8/introduction/install/)
 
-*[back](#Content)*
+[back](#Content)
 ---
 
 # Backup types
@@ -132,7 +132,7 @@ If activated, this separately adjustable backup is created with every ioBroker b
 **Furthermore, an API key must be generated in the Grafana web interface in order to get access to the dashboards.** <br>
 The API key can be created under ***"Configuration → API Keys"***.
 
-*[back](#Content)*
+[back](#Content)
 ---
 
 # Storage options
@@ -182,7 +182,7 @@ In order to be able to establish a connection, the host name of the cloud must m
 A connection with a local IP address is not possible because it does not contain any Lets Encrypt certificates.<br><br>
 > Example URL: "https://example.com/remote.php/dav/files/username/"
 
-*[back](#Content)*
+[back](#Content)
 ---
 
 # Use
@@ -238,7 +238,7 @@ Syntax: {BackitupInstance.history.html}
 ```
 Syntax: {value: <BackitupInstance>.oneClick.<trigger>; value ==="true" || value === true ? "Text during backup creation" : "Standard text"}
 
-*[back](#Content)*
+[back](#Content)
 ---
 
 # Notifications
@@ -250,7 +250,7 @@ Syntax: {value: <BackitupInstance>.oneClick.<trigger>; value ==="true" || value 
     * Email
     * Whatsapp
 
-*[back](#Content)*
+[back](#Content)
 ---
 
 # Restore
@@ -286,14 +286,14 @@ Detailed instructions for restoring with Backup and also for manual restoring ca
     - Execute the command: “reboot“ on the Raspberrymatic to restart the PI
     - Alternatively, the backup can of course also be restored as usual via the web interface.
 
-*[back](#Content)*
+[back](#Content)
 ---
 
 # Troubleshooting:
 
 In order to make mistakes, Backitup must be set to log level "debug" in the IoBroker rider instances
 
-*[back](#Content)*
+[back](#Content)
 ---
 
 # Errors / solutions encountered
@@ -329,5 +329,5 @@ Here is a list of the problems that have occurred so far and their solutions, if
     ``
     If you have not set up your Iobroker installation with the installer script and your user has a different name, please replace "iobroker" with your user in the command.
 
-*[back](#Content)*
+[back](#Content)
 ---
