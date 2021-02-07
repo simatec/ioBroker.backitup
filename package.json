@@ -1,6 +1,6 @@
 {
   "name": "iobroker.backitup",
-  "version": "2.0.0-beta.4",
+  "version": "2.0.0-beta.5",
   "engines": {
     "node": ">=10.0.0"
   },
@@ -39,7 +39,7 @@
   "dependencies": {
     "@iobroker/adapter-core": "^2.4.0",
     "dropbox-v2-api": "^2.4.35",
-    "webdav": "^3.6.2",
+    "webdav": "^4.0.0",
     "ftp": "^0.3.10",
     "googleapis": "^67.0.0",
     "node-schedule": "^2.0.0",
