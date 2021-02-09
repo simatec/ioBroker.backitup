@@ -412,7 +412,7 @@ function initConfig(secret) {
         username: adapter.config.webdavUsername,
         pass: adapter.config.webdavPassword ? decrypt(secret, adapter.config.webdavPassword) : '',            // webdav password
         url: adapter.config.webdavURL,
-        ownDir: adapter.config.webOwnDir,
+        ownDir: adapter.config.webdavOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.webdavOwnDir === true) ? null : adapter.config.webdavDir,
         dirMinimal: adapter.config.webdavMinimalDir
