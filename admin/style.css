@@ -16,8 +16,8 @@
 #header-area #header-logo-title p>span.h-sub-title {font-size: 1.1em !important; color:white; font-style: italic; }
 
 /* restore list */
-.collapsible.root .collapsible-header {font-size: 1.1em; font-weight: bold;}
-.collapsible.root .collapsible-header.top {background-color:#174475; color:white; font-size: 1.3em !important; font-weight: bold;}
+.collapsible.root .collapsible-header {font-size: 1.0em; font-weight: bold;}
+.collapsible.root .collapsible-header.top {background-color:#174475; color:white; font-size: 1.2em !important; font-weight: bold;}
 
 /* Tabs menu */
 .m .tabs .tab a { color: rgba(13, 134, 231, 0.7); } /* Color */
