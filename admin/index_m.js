@@ -435,16 +435,41 @@ function load(settings, onChange) {
                     if (result && result.data) {
                         var text = '';
                         var data = result.data;
+                        console.log(data);
                         for (var type in data) {
                             if (!data.hasOwnProperty(type)) continue;
-                            text += '<li><div class="collapsible-header">' + type + '</div>';
+
+                            let storageTyp;
+                            // Storage Translate
+                            switch (type) {
+                                case 'webdav':
+                                    storageTyp = 'WebDAV';
+                                    break;
+                                case 'nas / copy':
+                                    storageTyp = 'NAS / Copy';
+                                    break;
+                                case 'local':
+                                    storageTyp = 'Local';
+                                    break;
+                                case 'dropbox':
+                                    storageTyp = 'Dropbox';
+                                    break;
+                                case 'ftp':
+                                    storageTyp = 'FTP';
+                                    break;
+                                case 'googledrive':
+                                    storageTyp = 'Google Drive';
+                                    break;
+                            }
+
+                            text += '<li><div class="collapsible-header top">' + _(storageTyp) + '</div>';
                             text += '<ul class="collapsible-body collection">';
                             for (var storage in data[type]) {
                                 if (data[type].hasOwnProperty(storage)) {
-                                    text += '<ul class="collapsible"><li><div class="collapsible-header">' + storage + '</div>';
+                                    text += '<ul class="collapsible"><li><div class="collapsible-header">' + storage.toUpperCase() + '</div>';
                                     text += '<ul class="collapsible-body collection">';
                                     for (var i = data[type][storage].length - 1; i >= 0; i--) {
-                                        text += '<li class="collection-item"><div>' + getName(data[type][storage][i].name) + ' (' + getSize(data[type][storage][i].size) + ')' +
+                                        text += '<li class="collection-item"><div>' + getName(data[type][storage][i].name) + ' <b>>>> ' + data[type][storage][i].name + ' <<<</b> (' + getSize(data[type][storage][i].size) + ')' +
                                             '<a class="secondary-content do-restore" data-file="' + data[type][storage][i].path + '" data-type="' + type + '"><i class="material-icons">restore</i></a>' +
                                             '</div></li>';
                                     }
