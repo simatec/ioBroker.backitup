@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.0.0-beta.8",
+    "version": "2.0.0-beta.9",
     "news": {
       "2.0.0": {
         "en": "BugFix detect last backup, WebDAV added, BugFix Zigbee, stop/start Instances on restore, Download Icon for Cloud Restore added, javscript Backup added, Grafana Backup added, Restore added for some types without restart, timestamp for history-json added, Source code rewritten, Restore revised, fixed many small bugs",
