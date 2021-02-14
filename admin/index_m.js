@@ -633,21 +633,25 @@ function load(settings, onChange) {
         fillInstances('pushoverInstance', instances, settings['pushoverInstance']);
     });
 
-    if (!settings.ccuHost) {
+    if ($('#ccuEnabled').prop('checked') && !settings.ccuHost) {
         fetchCcuConfig(true);
     }
-    if (!settings.historyPath) {
+    if ($('#historyEnabled').prop('checked') && !settings.historyPath) {
         fetchHistoryConfig(true);
     }
-    if (!settings.javascriptsPath) {
+    if ($('#javascriptsEnabled').prop('checked') && !settings.javascriptsPath) {
         fetchJavascriptsConfig(true);
     }
-    if (!settings.mySqlUser) {
+    if ($('#mySqlEnabled').prop('checked') && !settings.mySqlUser) {
         fetchMySqlConfig(true)
     }
-    if (!settings.pgSqlUser) {
+    if ($('#pgSqlEnabled').prop('checked') && !settings.pgSqlUser) {
         fetchPgSqlConfig(true)
     }
+     if ($('#influxDBEnabled').prop('checked') && !settings.influxDBName) {
+        fetchInfluxDBConfig(true)
+    }
+
     $('.detect-mysql').on('click', function () { fetchMySqlConfig() });
     $('.detect-pgsql').on('click', function () { fetchPgSqlConfig() });
     $('.detect-influxDB').on('click', function () { fetchInfluxDBConfig() });
