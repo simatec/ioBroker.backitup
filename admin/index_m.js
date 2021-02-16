@@ -234,6 +234,49 @@ function fetchJavascriptsConfig(isInitial) {
         }
     });
 }
+let ignoreMessage = [];
+
+function cleanIgnoreMessage(name) {
+    for (const i in ignoreMessage) {
+        if (ignoreMessage[i] == name) {
+            ignoreMessage.splice(i, 1);
+            break;
+        }
+    }
+}
+
+function checkAdapterInstall(name, backitupHost) {
+    let ignore = false;
+    let adapterName = name;
+
+    if (name == 'pgsql' || name == 'mysql') {
+        adapterName = 'sql';
+    }
+    for (const i in ignoreMessage) {
+        if (ignoreMessage[i] == name) {
+            ignore = true;
+            break;
+        }
+    }
+    if (!ignore) {
+        socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.' + adapterName + '.', endkey: 'system.adapter.' + adapterName + '.\u9999', include_docs: true }, function (err, res) {
+            if (res && res.rows && res.rows.length) {
+                for (var i = 0; i < res.rows.length; i++) {
+                    var common = res.rows[i].value.common;
+                    if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'jarvis' || adapterName == 'history' || adapterName == 'javascript')) {
+                        showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
+                        ignoreMessage.push(name);
+                        break;
+                    }
+                }
+            } else {
+                showMessage(_("No %s Instance found. Please check your System", adapterName), _('Backitup Warning!'), 'info');
+                ignoreMessage.push(name);
+            }
+        });
+    }
+}
+
 function initDialog() {
     $dialogCommand = $('#dialog-command');
     $output = $dialogCommand.find('#stdout');
@@ -425,7 +468,7 @@ function load(settings, onChange) {
                 */
                 $('.do-list').addClass('disabled');
                 $('#tab-restore').find('.root').html('');
-                console.log('Restore Type: ' + $( '#restoreSource').val());
+                console.log('Restore Type: ' + $('#restoreSource').val());
                 sendTo(null, 'list', $('#restoreSource').val(), function (result) {
                     $('.do-list').removeClass('disabled');
                     console.log(result);
@@ -648,7 +691,7 @@ function load(settings, onChange) {
     if ($('#pgSqlEnabled').prop('checked') && !settings.pgSqlUser) {
         fetchPgSqlConfig(true)
     }
-     if ($('#influxDBEnabled').prop('checked') && !settings.influxDBName) {
+    if ($('#influxDBEnabled').prop('checked') && !settings.influxDBName) {
         fetchInfluxDBConfig(true)
     }
 
@@ -885,19 +928,25 @@ function showHideSettings() {
         $('.tab-notification').hide();
     }
     if ($('#mySqlEnabled').prop('checked')) {
+        checkAdapterInstall('mysql', common.host);
         $('.tab-my-sql').show();
     } else {
         $('.tab-my-sql').hide();
+        cleanIgnoreMessage('mysql');
     }
     if ($('#pgSqlEnabled').prop('checked')) {
+        checkAdapterInstall('pgsql', common.host);
         $('.tab-pg-sql').show();
     } else {
         $('.tab-pg-sql').hide();
+        cleanIgnoreMessage('pgsql');
     }
     if ($('#influxDBEnabled').prop('checked')) {
-        $('.tab-influxDB').show();
+        checkAdapterInstall('influxdb', common.host);
+        $('.tab-influxdb').show();
     } else {
         $('.tab-influxDB').hide();
+        cleanIgnoreMessage('influxdb');
     }
     if ($('#redisEnabled').prop('checked')) {
         $('.tab-redis').show();
@@ -905,9 +954,11 @@ function showHideSettings() {
         $('.tab-redis').hide();
     }
     if ($('#historyEnabled').prop('checked')) {
+        checkAdapterInstall('history', common.host);
         $('.tab-history').show();
     } else {
         $('.tab-history').hide();
+        cleanIgnoreMessage('history');
     }
     if ($('#dropboxEnabled').prop('checked')) {
         $('.tab-dropbox').show();
@@ -940,9 +991,22 @@ function showHideSettings() {
         $('.tab-grafana').hide();
     }
     if ($('#javascriptsEnabled').prop('checked')) {
+        checkAdapterInstall('javascript', common.host);
         $('.tab-javascripts').show();
     } else {
         $('.tab-javascripts').hide();
+        cleanIgnoreMessage('javascript');
     }
+    if ($('#zigbeeEnabled').prop('checked')) {
+        checkAdapterInstall('zigbee', common.host);
+    } else {
+        cleanIgnoreMessage('zigbee');
+    }
+    if ($('#jarvisEnabled').prop('checked')) {
+        checkAdapterInstall('jarvis', common.host);
+    } else {
+        cleanIgnoreMessage('jarvis');
+    }
+
     $('.cloudRestore').hide();
 }

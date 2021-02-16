@@ -99,6 +99,8 @@
   "NAS settings": "Configurações NAS",
   "Name suffix": "sufixo",
   "New %e Backup created on %t": "Novo %e Backup criado em %t",
+  "No %s Instance found on this host. Please check your System": "Nenhuma instância %s encontrada neste host. Verifique o seu sistema",
+  "No %s Instance found. Please check your System": "Nenhuma instância %s encontrada. Verifique o seu sistema",
   "No backups yet": "Nenhum backup ainda",
   "No config found": "Nenhuma configuração encontrada",
   "No config found. Please check the settings in the Javascript adapter": "Nenhuma configuração encontrada. Por favor, verifique as configurações no adaptador Javascript",

@@ -99,6 +99,8 @@
   "NAS settings": "NAS settings",
   "Name suffix": "Name suffix",
   "New %e Backup created on %t": "New %e backup created on %t",
+  "No %s Instance found on this host. Please check your System": "No %s Instance found on this host. Please check your System",
+  "No %s Instance found. Please check your System": "No %s Instance found. Please check your System",
   "No backups yet": "No backups yet",
   "No config found": "No config found",
   "No config found. Please check the settings in the Javascript adapter": "No config found. Please check the settings in the JavaScript adapter",

@@ -52,6 +52,8 @@ When the adapter crashes or an other Code error happens, this error message that
 * (simatec) Source code rewritten
 * (simatec) Restore revised
 * (simatec) fixed many small bugs
+* (simatec) Added warning messages
+* (simatec) Fixed cloud restore
 
 ### 1.8.5 (11.01.2021)
 * (simatec) Bugfix Jarvis Backup
