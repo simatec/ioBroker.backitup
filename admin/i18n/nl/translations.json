@@ -153,6 +153,8 @@
   "Telegram": "Telegram",
   "Telegram Receiver": "Telegram-ontvanger",
   "Telegram instance": "Telegram-instantie",
+  "Test connection": "Test verbinding",
+  "The connection to the WebDAV server was established successfully.": "De verbinding met de WebDAV-server is tot stand gebracht.",
   "Total": "Totaal",
   "Total backup": "Volledige back-up",
   "Type": "Type",

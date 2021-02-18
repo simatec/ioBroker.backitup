@@ -153,6 +153,8 @@
   "Telegram": "Telegram",
   "Telegram Receiver": "Telegram Receiver",
   "Telegram instance": "Istanza di Telegram",
+  "Test connection": "Verifica connessione",
+  "The connection to the WebDAV server was established successfully.": "La connessione al server WebDAV è stata stabilita correttamente.",
   "Total": "Totale",
   "Total backup": "Backup completo",
   "Type": "genere",

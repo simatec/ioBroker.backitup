@@ -197,6 +197,25 @@ function startAdapter(options) {
                         }
                     });
                     break;
+
+                case 'testWebDAV':
+                    if (obj.message) {
+                        const { createClient } = require("webdav");
+
+                        const client = createClient(
+                            obj.message.config.host,
+                            {
+                                username: obj.message.config.username,
+                                password: obj.message.config.password,
+                                maxBodyLength: Infinity
+                            });
+
+                        client
+                            .getDirectoryContents('')
+                            .then(contents => obj.callback && adapter.sendTo(obj.from, obj.command, contents, obj.callback))
+                            .catch(err => adapter.sendTo(obj.from, obj.command, { error: JSON.stringify(err.message) }, obj.callback));
+                        }
+                    break;
             }
         }
     });

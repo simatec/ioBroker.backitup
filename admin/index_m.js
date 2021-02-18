@@ -459,6 +459,31 @@ function load(settings, onChange) {
                 socket.emit('subscribeStates', 'backitup.' + instance + '.*');
                 socket.emit('subscribeStates', 'system.adapter.backitup.' + instance + '.alive');
             });
+
+            $('#testWebDAV').on('click', function () {
+                getIsAdapterAlive(function (isAlive) {
+                    if (!isAlive) {
+                        showToast(null, _('Start or enable adapter first'));
+                    } else {
+                        $('#testWebDAV').addClass('disabled');
+                        sendTo(null, 'testWebDAV', {
+                            config: {
+                                host:     $('#webdavURL').val(),
+                                username:     $('#webdavUsername').val(),
+                                password: $('#webdavPassword').val()
+                            }
+                        }, function (response) {
+                            $('#testWebDAV').removeClass('disabled');
+                            if (response.error) {
+                                showError('Error: ' + response.error);
+                            } else {
+                                showMessage(_('The connection to the WebDAV server was established successfully.'), _('Backitup Information!'), 'info');
+                            }
+                        });
+                    }
+                });
+            });
+
             $('.do-list').removeClass('disabled').on('click', function () {
                 /*
                 if (changed) {
@@ -505,11 +530,12 @@ function load(settings, onChange) {
                                     break;
                             }
 
-                            text += '<li><div class="collapsible-header top">' + _(storageTyp) + '</div>';
+                            //text += '<li><div class="collapsible-header top">' + _(storageTyp) + '</div>';
+                            text += '<li><div class="collapsible-header top"><i class="material-icons">expand_more</i><h6>' + _(storageTyp) + '</h6></div>';
                             text += '<ul class="collapsible-body collection">';
                             for (var storage in data[type]) {
                                 if (data[type].hasOwnProperty(storage)) {
-                                    text += '<ul class="collapsible"><li><div class="collapsible-header">' + storage.toUpperCase() + '</div>';
+                                    text += '<ul class="collapsible"><li><div class="collapsible-header"><i class="material-icons">expand_more</i><h6>' + storage.toUpperCase() + '</h6></div>';
                                     text += '<ul class="collapsible-body collection">';
                                     for (var i = data[type][storage].length - 1; i >= 0; i--) {
                                         text += '<li class="collection-item"><div>' + getName(data[type][storage][i].name) + ' <b>>>> ' + data[type][storage][i].name + ' <<<</b> (' + getSize(data[type][storage][i].size) + ')' +
