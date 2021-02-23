@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "news": {
+      "2.0.1": {
+        "en": "BugFix redis backup/restore, dependencies node-tar added, BugFix notification, BugFix Grafana backup",
+        "de": "BugFix redis Backup/Restore, Abhängigkeiten für node-tar hinzugefügt, BugFix-Benachrichtigung, BugFix Grafana Backup",
+        "ru": "BugFix redis резервное копирование/восстановление, зависимости node-tar добавлены, уведомление BugFix, резервное копирование BugFix Grafana",
+        "pt": "BugFix redis backup/restore, dependências node-tar adicionadas, notificação BugFix, backup BugFix Grafana",
+        "nl": "BugFix maakt back-up/herstel opnieuw, afhankelijkheden node-tar toegevoegd, BugFix-melding, BugFix Grafana-back-up",
+        "fr": "Sauvegarde/restauration BugFix redis, ajout de dépendances node-tar, notification BugFix, sauvegarde BugFix Grafana",
+        "it": "BugFix redis backup/ripristino, dipendenze node-tar aggiunto, notifica BugFix, BugFix Grafana backup",
+        "es": "BugFix redis copia de seguridad/restauración, dependencias node-tar agregado, notificación de BugFix, copia de seguridad de BugFix Grafana",
+        "pl": "BugFix redis backup/przywracanie, dodano zależności node-tar, powiadomienie BugFix, backup BugFix Grafana"
+      },
       "2.0.0": {
         "en": "BugFix detect last backup, WebDAV added, BugFix Zigbee, stop/start Instances on restore, Download Icon for Cloud Restore added, javscript Backup added, Grafana Backup added, Restore added for some types without restart, timestamp for history-json added, Source code rewritten, Restore revised, fixed many small bugs",
         "de": "BugFix Erkennung der letzten Sicherung, WebDAV hinzugefügt, BugFix Zigbee, Stop/Start der Instanzen bei Wiederherstellung, Download-Symbol für Cloud-Wiederherstellung hinzugefügt, Javscript-Sicherung hinzugefügt, Grafana-Sicherung hinzugefügt, Wiederherstellung für einige Typen ohne Neustart hinzugefügt, Zeitstempel für History-JSON hinzugefügt, Quellcode umgeschrieben, Restore überarbeitet, viele kleine Fehler behoben",
@@ -144,10 +155,10 @@
     }
   },
   "native": {
-    "minimalEnabled": false,
-    "minimalTime": "02:00",
+    "minimalEnabled": true,
+    "minimalTime": "02:40",
     "minimalEveryXDays": 1,
-    "minimalDeleteAfter": 5,
+    "minimalDeleteAfter": 10,
     "minimalNameSuffix": "",
     "redisMinimalEnabled": false,
     "mysqlMinimalEnabled": false,
@@ -156,7 +167,7 @@
     "ccuEnabled": false,
     "ccuTime": "01:30",
     "ccuEveryXDays": 3,
-    "ccuDeleteAfter": 5,
+    "ccuDeleteAfter": 10,
     "ccuNameSuffix": "",
     "ccuHost": "",
     "ccuUser": "Admin",

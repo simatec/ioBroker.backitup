@@ -39,6 +39,12 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 2.0.1 (23.02.2021)
+* (simatec) BugFix redis backup/restore
+* (simatec) dependencies node-tar added
+* (simatec) BugFix Notification
+* (simatec) BugFix Grafana backup
+
 ### 2.0.0 (31.01.2021)
 * (simatec) BugFix detect last backup
 * (simatec) WebDAV added
