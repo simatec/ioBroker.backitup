@@ -185,17 +185,21 @@ function startAdapter(options) {
                     break;
 
                 case 'getTelegramUser':
-                    adapter.getForeignState(adapter.config.telegramInstance + '.communicate.users', (err, state) => {
-                        err && adapter.log.error(err);
-                        if (state && state.val) {
-                            try {
-                                adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
-                            } catch (err) {
-                                err && adapter.log.error(err);
-                                adapter.log.error('Cannot parse stored user IDs from Telegram!');
+                    if (obj && obj.message) {
+                        const inst = obj.message.config.instance ? obj.message.config.instance : adapter.config.telegramInstance;
+                        adapter.log.debug('telegram-instance: ' + inst)
+                        adapter.getForeignState(inst + '.communicate.users', (err, state) => {
+                            err && adapter.log.error(err);
+                            if (state && state.val) {
+                                try {
+                                    adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
+                                } catch (err) {
+                                    err && adapter.log.error(err);
+                                    adapter.log.error('Cannot parse stored user IDs from Telegram!');
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                     break;
 
                 case 'testWebDAV':

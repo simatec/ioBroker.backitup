@@ -728,7 +728,7 @@ function load(settings, onChange) {
     $('.detect-history').on('click', function () { fetchHistoryConfig() });
     $('.detect-javascripts').on('click', function () { fetchJavascriptsConfig() });
 
-    sendTo(null, 'getTelegramUser', null, function (obj) {
+    sendTo(null, 'getTelegramUser', { config: { instance: settings.telegramInstance } }, function (obj) {
         fillTelegramUser(settings['telegramUser'], obj, settings.telegramInstance)
     });
 
@@ -742,7 +742,7 @@ function load(settings, onChange) {
 function fillTelegramUser(id, str, telegramInst) {
     var useUserName = false;
 
-    if (telegramInst !== '') {
+    if (telegramInst !== null) {
         socket.emit('getObject', `system.adapter.${telegramInst}`, function (err, obj) {
             if (obj && obj.native) {
                 var native = obj.native;
@@ -1054,11 +1054,15 @@ function showHideSettings(settings) {
         cleanIgnoreMessage('jarvis');
     }
     $('#telegramInstance').on('change', function () {
-        var telegramInst = $(this).val();
-        sendTo(null, 'getTelegramUser', null, function (obj) {
-            fillTelegramUser(settings['telegramUser'], obj, telegramInst)
-        });
+        let telegramInst = $(this).val();
+        if (telegramInst && telegramInst.length >= 10) {
+            sendTo(null, 'getTelegramUser', { config: { instance: $(this).val() } }, function (obj) {
+                fillTelegramUser(settings['telegramUser'], obj, telegramInst);
+            });
+        } else {
+            fillTelegramUser(settings['telegramUser'], null, null);
+        }
     }).trigger('change');
-    
+
     $('.cloudRestore').hide();
 }
