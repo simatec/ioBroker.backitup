@@ -356,7 +356,7 @@ function load(settings, onChange) {
         if ($key.attr('type') === 'checkbox') {
             // do not call onChange direct, because onChange could expect some arguments
             $key.prop('checked', settings[id]).on('change', function () {
-                showHideSettings();
+                showHideSettings(settings);
                 onChange();
             });
         } else {
@@ -468,8 +468,8 @@ function load(settings, onChange) {
                         $('#testWebDAV').addClass('disabled');
                         sendTo(null, 'testWebDAV', {
                             config: {
-                                host:     $('#webdavURL').val(),
-                                username:     $('#webdavUsername').val(),
+                                host: $('#webdavURL').val(),
+                                username: $('#webdavUsername').val(),
                                 password: $('#webdavPassword').val()
                             }
                         }, function (response) {
@@ -684,7 +684,7 @@ function load(settings, onChange) {
         $('#googledriveAccessJson_span').text(_('Not present'));
     }
 
-    showHideSettings();
+    showHideSettings(settings);
     onChange(false);
     M.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
     getAdapterInstances('telegram', function (instances) {
@@ -729,7 +729,7 @@ function load(settings, onChange) {
     $('.detect-javascripts').on('click', function () { fetchJavascriptsConfig() });
 
     sendTo(null, 'getTelegramUser', null, function (obj) {
-        fillTelegramUser(settings['telegramUser'], obj)
+        fillTelegramUser(settings['telegramUser'], obj, settings.telegramInstance)
     });
 
     $('.timepicker').timepicker({
@@ -738,17 +738,37 @@ function load(settings, onChange) {
 
     initDialog();
 }
-function fillTelegramUser(id, str) {
-    var user = str.replace(/[{}"\\]/g, "").split(',');
-    var $sel = $('#telegramUser');
-    $sel.html('<option value="allTelegramUsers">' + _('All Receiver') + '</option>');
 
-    user.forEach(function (val) {
-        val = val.split(':');
-        $('#telegramUser').append('<option value="' + val[1] + '"' + (id === val[1] ? ' selected' : '') + '>' + val[1] + '</option>');
-    });
-    $sel.select();
+function fillTelegramUser(id, str, telegramInst) {
+    var useUserName = false;
+
+    if (telegramInst !== '') {
+        socket.emit('getObject', `system.adapter.${telegramInst}`, function (err, obj) {
+            if (obj && obj.native) {
+                var native = obj.native;
+                useUserName = native.useUsername;
+            }
+            var $sel = $('#telegramUser');
+            $sel.html('<option value="allTelegramUsers">' + _('All Receiver') + '</option>');
+            const userList = JSON.parse(str);
+            if (useUserName) {
+                for (const i in userList) {
+                    $('#telegramUser').append('<option value="' + userList[i].userName + '"' + (id === userList[i].userName ? ' selected' : '') + '>' + userList[i].userName + '</option>');
+                }
+            } else {
+                for (const i in userList) {
+                    $('#telegramUser').append('<option value="' + userList[i].firstName + '"' + (id === userList[i].firstName ? ' selected' : '') + '>' + userList[i].firstName + '</option>');
+                }
+            }
+            $sel.select();
+        });
+    } else {
+        var $sel = $('#telegramUser');
+        $sel.html('<option value="none">' + _('none') + '</option>');
+        $sel.select();
+    }
 }
+
 function fillInstances(id, arr, val) {
     var $sel = $('#' + id);
     $sel.html('<option value="">' + _('none') + '</option>');
@@ -777,7 +797,7 @@ function save(callback) {
     });
     callback(obj);
 }
-function showHideSettings() {
+function showHideSettings(settings) {
     if ($('#ftpEnabled').prop('checked')) {
         $('.ftp').show();
         if ($('#ftpOwnDir').prop('checked')) {
@@ -1033,6 +1053,12 @@ function showHideSettings() {
     } else {
         cleanIgnoreMessage('jarvis');
     }
-
+    $('#telegramInstance').on('change', function () {
+        var telegramInst = $(this).val();
+        sendTo(null, 'getTelegramUser', null, function (obj) {
+            fillTelegramUser(settings['telegramUser'], obj, telegramInst)
+        });
+    }).trigger('change');
+    
     $('.cloudRestore').hide();
 }
