@@ -4,6 +4,7 @@
   ", and copied / moved via FTP to %h%d": ", en gekopieerd/verplaatst via FTP naar %h%d",
   ", and stored in dropbox": " en opgeslagen in dropbox",
   ", and stored in google drive": " en opgeslagen in Google Drive",
+  ", and stored in webdav": ", en opgeslagen in WebDAV",
   ", and stored under %h%d": "en opgeslagen onder %h%d",
   "<br/><br/>1. Confirm with \"OK\" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.": "<br/><br/>1. Bevestig met \"OK\" en het downloaden begint. Wacht tot het downloaden is voltooid! <br/><br/>2. Na het downloaden zal ioBroker opnieuw opstarten tijdens het herstellen.",
   "<br/><br/>1. Confirm with \"OK\" and the download begins. Please wait until the download is finished!<br/><br/>2. After the download, the restore begins without restarting ioBroker.": "<br/><br/>1. Bevestig met \"OK\" en het downloaden begint. Wacht tot het downloaden is voltooid!<br/><br/> 2. Na het downloaden begint het herstel zonder ioBroker opnieuw op te starten",
