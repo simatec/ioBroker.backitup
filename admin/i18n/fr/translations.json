@@ -9,6 +9,7 @@
   "<br/><br/>1. Confirm with \"OK\" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.": "<br/><br/>1. Confirmez avec \"OK\" et le téléchargement commence. Veuillez attendre la fin du téléchargement! <br/><br/>2. Après le téléchargement, ioBroker redémarrera pendant la restauration.",
   "<br/><br/>1. Confirm with \"OK\" and the download begins. Please wait until the download is finished!<br/><br/>2. After the download, the restore begins without restarting ioBroker.": "<br/><br/>1. Confirmez par \"OK\" et le téléchargement commence. Veuillez patienter jusqu'à la fin du téléchargement!<br/><br/> 2. Après le téléchargement, la restauration commence sans redémarrer ioBroker",
   "<br/><br/>According to the Backitup settings, backups are currently stored in the same local file system that is the source of the backup can be accessed more. <br/> <br/>It is recommended to use an external storage space as a backup target.": "<br/><br/>Selon les paramètres de sauvegarde, les sauvegardes sont actuellement stockées dans le même système de fichiers local qui est la source de la sauvegarde est plus accessible.<br/><br/> Il est recommandé d'utiliser un espace de stockage externe comme cible de sauvegarde.",
+  "AOF activated": "AOF activé",
   "Access token": "Jeton d'accès",
   "Access token:": "Jeton d'accès:",
   "Additional setting": "Paramètre supplémentaire",
