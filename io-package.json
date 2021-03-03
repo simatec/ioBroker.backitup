@@ -3,6 +3,17 @@
     "name": "backitup",
     "version": "2.0.2",
     "news": {
+      "2.0.2": {
+        "en": "BugFix redis backup, aof for redis added",
+        "de": "BugFix Redis Backup, AOF für Redis hinzugefügt",
+        "ru": "BugFix redis backup, добавлен aof для redis",
+        "pt": "Backup do BugFix redis, aof para redis adicionado",
+        "nl": "BugFix maakt back-up opnieuw, een van voor redis toegevoegd",
+        "fr": "BugFix redis sauvegarde, aof pour redis ajouté",
+        "it": "BugFix redis backup, aof for redis aggiunto",
+        "es": "BugFix redis backup, aof para redis agregado",
+        "pl": "BugFix redis kopia zapasowa, dodano aof dla redis"
+      },
       "2.0.1": {
         "en": "BugFix redis backup/restore, dependencies node-tar added, BugFix notification, BugFix Grafana backup",
         "de": "BugFix redis Backup/Restore, Abhängigkeiten für node-tar hinzugefügt, BugFix-Benachrichtigung, BugFix Grafana Backup",
@@ -252,6 +263,7 @@
     "ftpDeleteOldBackup": false,
     "redisEnabled": false,
     "redisPath": "/var/lib/redis",
+    "redisAOFactive": false,
     "historyEnabled": false,
     "historyPath": "media/usb/history",
     "javascriptsPath": "/media/usb/scripts",
