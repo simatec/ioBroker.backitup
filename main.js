@@ -553,6 +553,7 @@ function initConfig(secret) {
             dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+            aof: adapter.config.redisAOFactive,
             path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
         },
         historyDB: {
