@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "news": {
+      "2.0.3": {
+        "en": "Promise for redis aof added, BugFix Grafana restore, small BugFix umount",
+        "de": "Promise für Redis aof hinzugefügt, BugFix Grafana Restore, kleine BugFix umount",
+        "ru": "Добавлено обещание для redis aof, восстановление BugFix Grafana, небольшая настройка BugFix",
+        "pt": "Adicionada promessa para redis aof, BugFix Grafana restore, small BugFix umount",
+        "nl": "Belofte voor redis aof toegevoegd, BugFix Grafana herstel, kleine BugFix umount",
+        "fr": "Promesse pour redis aof ajouté, restauration BugFix Grafana, petit BugFix umount",
+        "it": "È stata aggiunta la promessa per la correzione, il ripristino di BugFix Grafana, l'umount di BugFix piccolo",
+        "es": "Promesa para redis aof agregada, restauración de BugFix Grafana, montaje pequeño de BugFix",
+        "pl": "Dodano obietnicę dla redis aof, BugFix Grafana restore, small BugFix umount"
+      },
       "2.0.2": {
         "en": "BugFix redis backup, aof for redis added",
         "de": "BugFix Redis Backup, AOF für Redis hinzugefügt",
