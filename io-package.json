@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.0.3",
+    "version": "2.0.4",
     "news": {
+      "2.0.4": {
+        "en": "Bugfix history json, BugFix Redis backup, chmod for backup directory added",
+        "de": "Bugfix-history json, BugFix Redis-Backup, chmod für Backup-Verzeichnis hinzugefügt",
+        "ru": "История исправлений ошибок json, резервное копирование BugFix Redis, добавлен chmod для каталога резервных копий",
+        "pt": "Histórico de correção de bug json, backup BugFix Redis, chmod para diretório de backup adicionado",
+        "nl": "Bugfix geschiedenis json, BugFix Redis backup, chmod voor backup directory toegevoegd",
+        "fr": "Historique de bugfix json, sauvegarde BugFix Redis, chmod pour le répertoire de sauvegarde ajouté",
+        "it": "Cronologia bugfix json, backup BugFix Redis, chmod per directory di backup aggiunti",
+        "es": "Historial de corrección de errores json, copia de seguridad de BugFix Redis, chmod para directorio de copia de seguridad agregado",
+        "pl": "JSON historii poprawek błędów, kopia zapasowa BugFix Redis, dodano chmod do katalogu kopii zapasowych"
+      },
       "2.0.3": {
         "en": "Promise for redis aof added, BugFix Grafana restore, small BugFix umount",
         "de": "Promise für Redis aof hinzugefügt, BugFix Grafana Restore, kleine BugFix umount",

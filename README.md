@@ -39,6 +39,11 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 2.0.4 (09.03.2021)
+* (simatec) Bugfix history json
+* (simatec) BugFix Redis backup
+* (simatec) chmod for backup directory added
+
 ### 2.0.3 (04.03.2021)
 * (simatec) Promise for redis aof added
 * (simatec) BugFix Grafana restore
