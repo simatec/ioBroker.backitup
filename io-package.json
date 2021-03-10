@@ -4,15 +4,15 @@
     "version": "2.0.4",
     "news": {
       "2.0.4": {
-        "en": "Bugfix history json, BugFix Redis backup, chmod for backup directory added",
-        "de": "Bugfix-history json, BugFix Redis-Backup, chmod für Backup-Verzeichnis hinzugefügt",
-        "ru": "История исправлений ошибок json, резервное копирование BugFix Redis, добавлен chmod для каталога резервных копий",
-        "pt": "Histórico de correção de bug json, backup BugFix Redis, chmod para diretório de backup adicionado",
-        "nl": "Bugfix geschiedenis json, BugFix Redis backup, chmod voor backup directory toegevoegd",
-        "fr": "Historique de bugfix json, sauvegarde BugFix Redis, chmod pour le répertoire de sauvegarde ajouté",
-        "it": "Cronologia bugfix json, backup BugFix Redis, chmod per directory di backup aggiunti",
-        "es": "Historial de corrección de errores json, copia de seguridad de BugFix Redis, chmod para directorio de copia de seguridad agregado",
-        "pl": "JSON historii poprawek błędów, kopia zapasowa BugFix Redis, dodano chmod do katalogu kopii zapasowych"
+        "en": "Bugfix history json, BugFix Redis backup, chmod for backup directory added, error handling for Grafana backup added",
+        "de": "Bugfix-history json, BugFix Redis-Backup, chmod für Backup-Verzeichnis hinzugefügt, Fehlerbehandlung für Grafana-Backup hinzugefügt",
+        "ru": "История исправлений ошибок json, резервное копирование BugFix Redis, chmod для резервного каталога добавлены, добавлена обработка ошибок для резервного копирования Grafana",
+        "pt": "Histórico de correção de bugs json, backup de BugFix Redis, chmod para diretório de backup adicionado, tratamento de erros para backup de Grafana adicionado",
+        "nl": "Bugfix-geschiedenis json, BugFix Redis-back-up, chmod voor back-upmap toegevoegd, foutafhandeling voor Grafana-back-up toegevoegd",
+        "fr": "Historique des corrections de bogues json, sauvegarde BugFix Redis, chmod pour le répertoire de sauvegarde ajouté, gestion des erreurs pour la sauvegarde Grafana ajoutée",
+        "it": "Cronologia bugfix json, backup BugFix Redis, chmod per directory di backup aggiunto, gestione degli errori per backup Grafana aggiunta",
+        "es": "Historial de corrección de errores json, copia de seguridad de BugFix Redis, chmod para el directorio de copia de seguridad agregado, manejo de errores para la copia de seguridad de Grafana agregado",
+        "pl": "Json historii poprawek błędów, kopia zapasowa BugFix Redis, dodano chmod dla katalogu kopii zapasowych, dodano obsługę błędów dla kopii zapasowej Grafana"
       },
       "2.0.3": {
         "en": "Promise for redis aof added, BugFix Grafana restore, small BugFix umount",
