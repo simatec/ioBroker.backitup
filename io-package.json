@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.0.4",
+    "version": "2.0.5",
     "news": {
+      "2.0.5": {
+        "en": "error handling for redis backup added, error handling for history backup added, BugFix Grafana backup",
+        "de": "Fehlerbehandlung für Redis-Backup hinzugefügt, Fehlerbehandlung für History-Backup hinzugefügt, BugFix Grafana-Backup",
+        "ru": "добавлена обработка ошибок для резервного копирования Redis, добавлена обработка ошибок для резервного копирования истории, резервное копирование BugFix Grafana",
+        "pt": "tratamento de erros para backup redis adicionado, tratamento de erros para backup de histórico adicionado, backup BugFix Grafana",
+        "nl": "foutafhandeling voor redis-back-up toegevoegd, foutafhandeling voor geschiedenisback-up toegevoegd, BugFix Grafana-back-up",
+        "fr": "gestion des erreurs pour la sauvegarde redis ajoutée, gestion des erreurs pour la sauvegarde de l'historique ajoutée, sauvegarde BugFix Grafana",
+        "it": "aggiunta la gestione degli errori per il backup redis, aggiunta la gestione degli errori per il backup della cronologia, backup BugFix Grafana",
+        "es": "manejo de errores para la copia de seguridad de redis agregado, manejo de errores para la copia de seguridad del historial agregado, copia de seguridad de BugFix Grafana",
+        "pl": "dodano obsługę błędów dla kopii zapasowej redis, dodano obsługę błędów dla kopii zapasowej historii, dodano kopię zapasową BugFix Grafana"
+      },
       "2.0.4": {
         "en": "Bugfix history json, BugFix Redis backup, chmod for backup directory added, error handling for Grafana backup added",
         "de": "Bugfix-history json, BugFix Redis-Backup, chmod für Backup-Verzeichnis hinzugefügt, Fehlerbehandlung für Grafana-Backup hinzugefügt",
