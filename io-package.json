@@ -181,6 +181,21 @@
     "materialize": true,
     "messagebox": true,
     "stopBeforeUpdate": true,
+    "materializeTab": true,
+    "adminTab": {
+      "name": {
+        "en": "Backitup",
+        "de": "Backitup",
+        "ru": "Backitup",
+        "pt": "Backitup",
+        "nl": "Backitup",
+        "fr": "Backitup",
+        "it": "Backitup",
+        "es": "Backitup",
+        "pl": "Backitup"
+      },
+      "fa-icon": "</i><img style='width:24px;margin-bottom:-6px;' src='/adapter/backitup/backitup.svg'><i>"
+    },
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/simatec/ioBroker.backitup/master/admin/backitup.png",
     "keywords": [

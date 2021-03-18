@@ -1,0 +1,177 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+
+    <link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+    <link rel="stylesheet" type="text/css" href="../../css/adapter.css" />
+
+    <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+    
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">-->
+    <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+
+    <script type="text/javascript" src="../../lib/js/materialize.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>-->
+    <script type="text/javascript" src="materialize.min.js"></script>
+
+    
+    <!--<script type="text/javascript" src="../../js/adapter-settings.js"></script>-->
+
+    <script type="text/javascript" src="../../js/translate.js"></script>
+    <script type="text/javascript" src="adapter-settings.js"></script>
+
+    <script type="text/javascript" src="words.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="tab_m.js"></script>
+    <style>
+        .m .col .select-wrapper+label {
+            top: -26px;
+        }
+    
+        .m .col .select-wrapper .caret {
+            top: 15px;
+        }
+    
+        .m span {
+            font-size: 0.9em;
+        }
+    
+        .m .page {
+            height: calc(100% - 190px);
+        }
+        #header-area {
+            margin-top: -5px; 
+            margin-bottom: 1px; 
+            background-color:#174475;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="m adapter-container">
+        <div id="header-area" class="row" >
+            <div id="header-logo-title" class="col s6" >
+                <img class="logo" src="backitup.png" >
+                <p>
+                    <span class="translate h-title">Backitup</span><br />
+                    <span class="translate h-sub-title">Backup your System …</span>
+                </p>
+            </div>
+        </div>
+         
+        <div class="row">
+            <h6 class="translate title" style="background-color:#174475;">backups</h6>
+        </div>
+        <div class="row">
+            <div class="input-field col s6 l2">
+                <a class="waves-effect waves-light btn btn-iobroker do-backup" data-type="iobroker"><i class="material-icons right">backup</i><span class="translate">iobroker backup now</span></a>
+            </div>
+            <div class="input-field col s6 l2 ccu">
+                <a class="waves-effect waves-light btn btn-ccu do-backup" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">Homematic backup now</span></a>
+            </div>
+        </div>
+        <div class="row">
+            <h6 class="translate title" style="background-color:#174475;">backup options</h6>
+        </div>
+        <div class="row">
+            <div class="translate chip" id="optionIobroker_i">ioBroker</div>
+            <div class="translate chip" id="optionIobroker_a" style="background-color:#84fa8e;">ioBroker</div>
+            <div class="translate chip" id="optionCCU_i">Homematic CCU backup</div>
+            <div class="translate chip" id="optionCCU_a" style="background-color:#84fa8e;">Homematic CCU backup</div>
+            <div class="translate chip" id="optionRedis_i">Save Redis state</div>
+            <div class="translate chip" id="optionRedis_a" style="background-color:#84fa8e;">Save Redis state</div>
+            <div class="translate chip" id="optionJavascripts_i">Javascripts Backup</div>
+            <div class="translate chip" id="optionJavascripts_a" style="background-color:#84fa8e;">Javascripts Backup</div>
+            <div class="translate chip" id="optionZigbee_i">Save Zigbee database</div>
+            <div class="translate chip" id="optionZigbee_a" style="background-color:#84fa8e;">Save Zigbee database</div>
+            <div class="translate chip" id="optionHistory_i">Save History Data</div>
+            <div class="translate chip" id="optionHistory_a" style="background-color:#84fa8e;">Save History Data</div>
+            <div class="translate chip" id="optionInfluxdb_i">InfluxDB Backup</div>
+            <div class="translate chip" id="optionInfluxdb_a" style="background-color:#84fa8e;">InfluxDB Backup</div>
+            <div class="translate chip" id="optionMySQL_i">MySql Backup</div>
+            <div class="translate chip" id="optionMySQL_a" style="background-color:#84fa8e;">MySql Backup</div>
+            <div class="translate chip" id="optionPgSQL_i">Postgresql Backup</div>
+            <div class="translate chip" id="optionPgSQL_a" style="background-color:#84fa8e;">Postgresql Backup</div>
+            <div class="translate chip" id="optionGrafana_i">Grafana Backup</div>
+            <div class="translate chip" id="optionGrafana_a" style="background-color:#84fa8e;">Grafana Backup</div>
+            <div class="translate chip" id="optionJarvis_i">Jarvis Backup</div>
+            <div class="translate chip" id="optionJarvis_a" style="background-color:#84fa8e;">Jarvis Backup</div>
+        </div>
+        <div class="row">
+            <h6 class="translate title" style="background-color:#174475;">storage options</h6>
+        </div>
+        <div class="row">
+            <div class="translate chip" id="optionNAS_i">NAS / Copy</div>
+            <div class="translate chip" id="optionNAS_a" style="background-color:#84fa8e;">NAS / Copy</div>
+            <div class="translate chip" id="optionFTP_i">FTP</div>
+            <div class="translate chip" id="optionFTP_a" style="background-color:#84fa8e;">FTP</div>
+            <div class="translate chip" id="optionDropbox_i">Dropbox</div>
+            <div class="translate chip" id="optionDropbox_a" style="background-color:#84fa8e;">Dropbox</div>
+            <div class="translate chip" id="optionGoogleDrive_i">Google Drive</div>
+            <div class="translate chip" id="optionGoogleDrive_a" style="background-color:#84fa8e;">Google Drive</div>
+            <div class="translate chip" id="optionWebDAV_i">WebDAV</div>
+            <div class="translate chip" id="optionWebDAV_a" style="background-color:#84fa8e;">WebDAV</div>
+        </div>
+        <!-- Restore -->
+        <div class="row">
+            <h6 class="translate title" style="background-color:#174475;">Restore</h6>
+        </div>
+        <div class="row">
+            <div class="input-field col s11 m2">
+                <select class="value" id="restoreSource">
+                    <option value="local" class="translate">Local</option>
+                    <option value="cifs" class="translate">NAS / Copy</option>
+                    <option value="dropbox" class="translate">Dropbox</option>
+                    <option value="googledrive" class="translate">Google Drive</option>
+                    <option value="webdav" class="translate">WebDAV</option>
+                    <option value="ftp" class="translate">FTP</option>
+                </select>
+                <label for="restoreSource" class="translate">source type</label>
+            </div>
+            <div class="input-field col s6 m2">
+                <a class="waves-effect waves-light btn btn-iobroker do-list"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
+            </div>
+            <div class="col s6 l2 cloudRestore">
+                <div class="chip blink" style="background-color:#64b5f6;">
+                    <span class="white-text translate" style="text-align:center; font-size: 16px;">Download is in progress ...</span>
+                </div>
+            </div>
+        </div>
+        <div class="row doRestore">
+            <ul class="collapsible root">
+            </ul>
+        </div>
+        
+        <!-- Dialog -->
+        <div id="dialog-command" class="modal modal-fixed-footer" style="display: none">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col s12">
+                        <h6 class="title"><span class="translate">Backitup execution</span>: <span class="command"></span></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="progress">
+                            <div class="indeterminate"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row textarea">
+                    <div class="col s12">
+                        <textarea id="stdout" readonly cols="120" rows="30"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="progress-dont-close"><input type="checkbox" class="filled-in" /><span class="translate">close on ready</span></div>
+                <a class="modal-action modal-close waves-effect waves-green btn"><i class="large material-icons">close</i><span class="translate">Close</span></a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

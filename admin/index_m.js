@@ -7,6 +7,7 @@ var $output = null;
 var $dialogCommandProgress;
 var lastMessage = '';
 function encrypt(key, value) {
+    console.log('index_m: encrypt');
     var result = '';
     for (var i = 0; i < value.length; i++) {
         result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
@@ -14,6 +15,7 @@ function encrypt(key, value) {
     return result;
 }
 function decrypt(key, value) {
+    console.log('index_m: decrypt');
     var result = '';
     for (var i = 0; i < value.length; i++) {
         result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
@@ -22,6 +24,7 @@ function decrypt(key, value) {
 }
 
 function fetchMySqlConfig(isInitial) {
+    console.log('index_m: fetchmysql');
     socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.sql.', endkey: 'system.adapter.sql.\u9999', include_docs: true }, function (err, res) {
         var found = false;
         if (res && res.rows && res.rows.length) {
@@ -64,6 +67,7 @@ function fetchMySqlConfig(isInitial) {
     });
 }
 function fetchPgSqlConfig(isInitial) {
+    console.log('index_m: fetchpgsql');
     socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.sql.', endkey: 'system.adapter.sql.\u9999', include_docs: true }, function (err, res) {
         var found = false;
         if (res && res.rows && res.rows.length) {
@@ -106,6 +110,7 @@ function fetchPgSqlConfig(isInitial) {
     });
 }
 function fetchInfluxDBConfig(isInitial) {
+    console.log('index_m: fetchinflux');
     socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.influxdb.', endkey: 'system.adapter.influxdb.\u9999', include_docs: true }, function (err, res) {
         var found = false;
         if (res && res.rows && res.rows.length) {
@@ -142,6 +147,7 @@ function fetchInfluxDBConfig(isInitial) {
     });
 }
 function fetchCcuConfig(isInitial) {
+    console.log('index_m: fetchccu');
     socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.hm-rpc.', endkey: 'system.adapter.hm-rpc.\u9999', include_docs: true }, function (err, res) {
         if (res && res.rows && res.rows.length) {
             var found = false;
@@ -172,6 +178,7 @@ function fetchCcuConfig(isInitial) {
     });
 }
 function fetchHistoryConfig(isInitial) {
+    console.log('index_m: fetchHistory');
     socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.history.', endkey: 'system.adapter.history.\u9999', include_docs: true }, function (err, res) {
         if (res && res.rows && res.rows.length) {
             var found = false;
@@ -202,6 +209,7 @@ function fetchHistoryConfig(isInitial) {
     });
 }
 function fetchJavascriptsConfig(isInitial) {
+    console.log('index_m: fetchjavascripts');
     socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.javascript.', endkey: 'system.adapter.javascript.\u9999', include_docs: true }, function (err, res) {
         let javaScriptPth;
         if (res && res.rows && res.rows.length) {
@@ -237,6 +245,7 @@ function fetchJavascriptsConfig(isInitial) {
 let ignoreMessage = [];
 
 function cleanIgnoreMessage(name) {
+    console.log('index_m: cleanIgnoreMessage');
     for (const i in ignoreMessage) {
         if (ignoreMessage[i] == name) {
             ignoreMessage.splice(i, 1);
@@ -246,6 +255,7 @@ function cleanIgnoreMessage(name) {
 }
 
 function checkAdapterInstall(name, backitupHost) {
+    console.log('index_m: checkAdapterInstall');
     let ignore = false;
     let adapterName = name;
 
@@ -278,6 +288,7 @@ function checkAdapterInstall(name, backitupHost) {
 }
 
 function initDialog() {
+    console.log('index_m: initDialog');
     $dialogCommand = $('#dialog-command');
     $output = $dialogCommand.find('#stdout');
     $dialogCommandProgress = $dialogCommand.find('.progress div');
@@ -310,6 +321,7 @@ function initDialog() {
     });
 }
 function showDialog(type, isStopped) {
+    console.log('index_m: showDialog');
     $output.val(_(`Started ${type} ...`));
     $dialogCommand.modal('open');
     $dialogCommand.find('.progress-dont-close').removeClass('disabled');
@@ -320,6 +332,7 @@ function showDialog(type, isStopped) {
     lastMessage = '';
 }
 function getSize(bytes) {
+    console.log('index_m: getSize');
     if (bytes > 1024 * 1024 * 512) {
         return Math.round(bytes / (1024 * 1024 * 1024) * 10) / 10 + 'GiB';
     } else if (bytes > 1024 * 1024) {
@@ -331,6 +344,7 @@ function getSize(bytes) {
     }
 }
 function getName(name) {
+    console.log('index_m: getName');
     var parts = name.split('_');
     if (parseInt(parts[0], 10).toString() !== parts[0]) {
         parts.shift();
@@ -343,6 +357,7 @@ function getName(name) {
         parseInt(parts[3], 10)).toLocaleString().replace(/:00$/, '');
 }
 function load(settings, onChange) {
+    console.log('index_m: load');
     if (!settings) return;
     if (settings.redisEnabled === undefined) {
         settings.redisEnabled = adapter.config.backupRedis;
@@ -356,6 +371,7 @@ function load(settings, onChange) {
         if ($key.attr('type') === 'checkbox') {
             // do not call onChange direct, because onChange could expect some arguments
             $key.prop('checked', settings[id]).on('change', function () {
+                console.log('index_m: load checked' + JSON.stringify($key.attr('id')));
                 showHideSettings(settings);
                 onChange();
             });
@@ -366,8 +382,10 @@ function load(settings, onChange) {
             }
             // do not call onChange direct, because onChange could expect some arguments
             $key.val(val).on('change', function () {
+                console.log('index_m: load change' + val);
                 onChange();
             }).on('keyup', function () {
+                console.log('index_m: load keyup');
                 onChange();
             });
         }
@@ -729,6 +747,7 @@ function load(settings, onChange) {
     $('.detect-javascripts').on('click', function () { fetchJavascriptsConfig() });
 
     sendTo(null, 'getTelegramUser', { config: { instance: settings.telegramInstance } }, function (obj) {
+        console.log('index_m: load fillTelegramUser');
         fillTelegramUser(settings['telegramUser'], obj, settings.telegramInstance)
     });
 
@@ -740,6 +759,7 @@ function load(settings, onChange) {
 }
 
 function fillTelegramUser(id, str, telegramInst) {
+    console.log('index_m: fillTelegramUser');
     var useUserName = false;
 
     if (telegramInst !== null) {
@@ -770,6 +790,7 @@ function fillTelegramUser(id, str, telegramInst) {
 }
 
 function fillInstances(id, arr, val) {
+    console.log('index_m: fillInstances');
     var $sel = $('#' + id);
     $sel.html('<option value="">' + _('none') + '</option>');
     for (var i = 0; i < arr.length; i++) {
@@ -781,6 +802,7 @@ function fillInstances(id, arr, val) {
     $sel.select();
 }
 function save(callback) {
+    console.log('index_m: save');
     var obj = {};
     $('.value').each(function () {
         var $this = $(this);
@@ -796,8 +818,10 @@ function save(callback) {
         }
     });
     callback(obj);
+    
 }
 function showHideSettings(settings) {
+    console.log('index_m: showHideSettings');
     if ($('#ftpEnabled').prop('checked')) {
         $('.ftp').show();
         if ($('#ftpOwnDir').prop('checked')) {
@@ -928,22 +952,6 @@ function showHideSettings(settings) {
         }
     }).trigger('change');
 
-    $('#restoreSource').on('change', function () {
-        if ($(this).val() === 'cifs' && $('#cifsOwnDir').prop('checked')) {
-            $('.bkpType').show();
-        } else if ($(this).val() === 'ftp' && $('#ftpOwnDir').prop('checked')) {
-            $('.bkpType').show();
-        } else if ($(this).val() === 'dropbox' && $('#dropboxOwnDir').prop('checked')) {
-            $('.bkpType').show();
-        } else if ($(this).val() === 'webdav' && $('#webdavOwnDir').prop('checked')) {
-            $('.bkpType').show();
-        } else if ($(this).val() === 'googledrive' && $('#googledriveOwnDir').prop('checked')) {
-            $('.bkpType').show();
-        } else {
-            $('.bkpType').hide();
-        }
-    }).trigger('change');
-
     $('#notificationsType').on('change', function () {
         if ($(this).val() === 'Telegram') {
             $('.email').hide();
@@ -1054,8 +1062,10 @@ function showHideSettings(settings) {
         cleanIgnoreMessage('jarvis');
     }
     $('#telegramInstance').on('change', function () {
+        console.log('index_m: showHideSettings telegramInstance');
         let telegramInst = $(this).val();
         if (telegramInst && telegramInst.length >= 10) {
+            console.log('index_m: showHideSettings telegramInstance tab');
             sendTo(null, 'getTelegramUser', { config: { instance: $(this).val() } }, function (obj) {
                 fillTelegramUser(settings['telegramUser'], obj, telegramInst);
             });
