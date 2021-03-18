@@ -7,6 +7,10 @@ var $output = null;
 var $dialogCommandProgress;
 var lastMessage = '';
 
+$(document).ready(function () {
+    $('select').material_select();
+});
+
 function initDialog() {
     console.log('tab_m: initDialog');
     $dialogCommand = $('#dialog-command');
@@ -54,7 +58,6 @@ function showDialog(type, isStopped) {
     lastMessage = '';
 }
 function getSize(bytes) {
-    console.log('tab_m: getSize');
     if (bytes > 1024 * 1024 * 512) {
         return Math.round(bytes / (1024 * 1024 * 1024) * 10) / 10 + 'GiB';
     } else if (bytes > 1024 * 1024) {
@@ -66,7 +69,6 @@ function getSize(bytes) {
     }
 }
 function getName(name) {
-    console.log('tab_m: getName');
     var parts = name.split('_');
     if (parseInt(parts[0], 10).toString() !== parts[0]) {
         parts.shift();
@@ -103,11 +105,6 @@ function load(settings, onChange) {
         } else {
             
             var val = settings[id];
-            /*
-            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword') {
-                val = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
-            }
-            */
             // do not call onChange direct, because onChange could expect some arguments
             $key.val(val).on('change', function () {
                 console.log('tab_m: load change' + JSON.stringify($key.val(val)));
@@ -337,10 +334,6 @@ function load(settings, onChange) {
             $('.do-list').addClass('disabled');
         }
     });
-
-    $(document).ready(function () {
-        $('select').material_select();
-    });
     showHideSettings(settings);
     onChange(false);
     
@@ -466,6 +459,4 @@ function showHideSettings(settings) {
     }
 
     $('.cloudRestore').hide();
-    onChange(false);
-    Materialize.updateTextFields();
 }
