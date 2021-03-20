@@ -7,12 +7,8 @@ var $output = null;
 var $dialogCommandProgress;
 var lastMessage = '';
 
-$(document).ready(function () {
-    $('select').material_select();
-});
 
 function initDialog() {
-    console.log('tab_m: initDialog');
     $dialogCommand = $('#dialog-command');
     $output = $dialogCommand.find('#stdout');
     $dialogCommandProgress = $dialogCommand.find('.progress div');
@@ -47,7 +43,6 @@ function initDialog() {
     });
 }
 function showDialog(type, isStopped) {
-    console.log('tab_m: showDialog');
     $output.val(_(`Started ${type} ...`));
     $dialogCommand.modal('open');
     $dialogCommand.find('.progress-dont-close').removeClass('disabled');
@@ -81,24 +76,13 @@ function getName(name) {
         parseInt(parts[3], 10)).toLocaleString().replace(/:00$/, '');
 }
 function load(settings, onChange) {
-    console.log('tab_m: load');
     if (!settings) return;
-    //showHideSettings(settings);
-    /*
-    if (settings.redisEnabled === undefined) {
-        settings.redisEnabled = adapter.config.backupRedis;
-    }
-    if (settings.cifsMount === 'CIFS') {
-        settings.cifsMount = '';
-    }
-    */
     $('.value').each(function () {
         var $key = $(this);
         var id = $key.attr('id');
         if ($key.attr('type') === 'checkbox') {
             // do not call onChange direct, because onChange could expect some arguments
             $key.prop('checked', settings[id]).on('change', function () {
-                console.log('tab_m: load checked' + JSON.stringify($key.attr('id')));
                 showHideSettings(settings);
                 onChange(false);
             });
@@ -107,17 +91,14 @@ function load(settings, onChange) {
             var val = settings[id];
             // do not call onChange direct, because onChange could expect some arguments
             $key.val(val).on('change', function () {
-                console.log('tab_m: load change' + JSON.stringify($key.val(val)));
                 onChange(false);
             }).on('keyup', function () {
-                console.log('tab_m: load keyup');
                 onChange(false);
             });
         }
     });
     
     getIsAdapterAlive(function (isAlive) {
-        console.log('tab_m: getIsAdapterAlive');
         if (isAlive || common.enabled) {
             $('.do-backup')
                 .removeClass('disabled')
@@ -253,7 +234,7 @@ function load(settings, onChange) {
                             }
                             text += '</ul></li>';
                         }
-
+                        $('.doRestore').show();
                         var $tabAdmin = $('.doRestore');
                         $tabAdmin
                             .find('.root')
@@ -334,128 +315,96 @@ function load(settings, onChange) {
             $('.do-list').addClass('disabled');
         }
     });
+
     showHideSettings(settings);
     onChange(false);
     
-    Materialize.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
+    M.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
     
     initDialog();
 }
 
 function showHideSettings(settings) {
-    console.log('tab_m: showHideSettings');
 
     if (settings.jarvisEnabled) {
-        $('#optionJarvis_i').hide();
-        $('#optionJarvis_a').show();
+        $('.jarvis-mode').addClass('red lighten-3');
     } else {
-        $('#optionJarvis_a').hide();
-        $('#optionJarvis_i').show();
+        $('.jarvis-mode').addClass('blue lighten-3');
     }
     if (settings.minimalEnabled) {
-        $('#optionIobroker_a').show();
-        $('#optionIobroker_i').hide();
+        $('.iobroker-mode').addClass('red lighten-3');
     } else {
-        $('#optionIobroker_i').show();
-        $('#optionIobroker_a').hide();
+        $('.iobroker-mode').addClass('blue lighten-3');
     }
     if (settings.ccuEnabled) {
-        $('#optionCCU_a').show();
-        $('#optionCCU_i').hide();
+        $('.ccu-mode').addClass('red lighten-3');
     } else {
-        $('#optionCCU_i').show();
-        $('#optionCCU_a').hide();
+        $('.ccu-mode').addClass('blue lighten-3');
     }
     if (settings.redisEnabled) {
-        $('#optionRedis_a').show();
-        $('#optionRedis_i').hide();
+        $('.redis-mode').addClass('red lighten-3');
     } else {
-        $('#optionRedis_i').show();
-        $('#optionRedis_a').hide();
+        $('.redis-mode').addClass('blue lighten-3');
     }
     if (settings.javascriptsEnabled) {
-        $('#optionJavascripts_a').show();
-        $('#optionJavascripts_i').hide();
+        $('.js-mode').addClass('red lighten-3');
     } else {
-        $('#optionJavascripts_i').show();
-        $('#optionJavascripts_a').hide();
+        $('.js-mode').addClass('blue lighten-3');
     }
     if (settings.zigbeeEnabled) {
-        $('#optionZigbee_a').show();
-        $('#optionZigbee_i').hide();
+        $('.zigbee-mode').addClass('red lighten-3');
     } else {
-        $('#optionZigbee_i').show();
-        $('#optionZigbee_a').hide();
+        $('.zigbee-mode').addClass('blue lighten-3');
     }
     if (settings.historyEnabled) {
-        $('#optionHistory_a').show();
-        $('#optionHistory_i').hide();
+        $('.historydb-mode').addClass('red lighten-3');
     } else {
-        $('#optionHistory_i').show();
-        $('#optionHistory_a').hide();
+        $('.historydb-mode').addClass('blue lighten-3');
     }
     if (settings.influxDBEnabled) {
-        $('#optionInfluxdb_a').show();
-        $('#optionInfluxdb_i').hide();
+        $('.influxdb-mode').addClass('red lighten-3');
     } else {
-        $('#optionInfluxdb_i').show();
-        $('#optionInfluxdb_a').hide();
+        $('.influxdb-mode').addClass('blue lighten-3');
     }
     if (settings.mySqlEnabled) {
-        $('#optionMySQL_a').show();
-        $('#optionMySQL_i').hide();
+        $('.mysql-mode').addClass('red lighten-3');
     } else {
-        $('#optionMySQL_i').show();
-        $('#optionMySQL_a').hide();
+        $('.mysql-mode').addClass('blue lighten-3');
     }
     if (settings.pgSqlEnabled) {
-        $('#optionPgSQL_a').show();
-        $('#optionPgSQL_i').hide();
+        $('.pgsql-mode').addClass('red lighten-3');
     } else {
-        $('#optionPgSQL_i').show();
-        $('#optionPgSQL_a').hide();
+        $('.pgsql-mode').addClass('blue lighten-3');
     }
     if (settings.grafanaEnabled) {
-        $('#optionGrafana_a').show();
-        $('#optionGrafana_i').hide();
+        $('.grafana-mode').addClass('red lighten-3');
     } else {
-        $('#optionGrafana_i').show();
-        $('#optionGrafana_a').hide();
+        $('.grafana-mode').addClass('blue lighten-3');
     }
     if (settings.cifsEnabled) {
-        $('#optionNAS_a').show();
-        $('#optionNAS_i').hide();
+        $('.nas-mode').addClass('red lighten-3');
     } else {
-        $('#optionNAS_i').show();
-        $('#optionNAS_a').hide();
+        $('.nas-mode').addClass('blue lighten-3');
     }
     if (settings.ftpEnabled) {
-        $('#optionFTP_a').show();
-        $('#optionFTP_i').hide();
+        $('.ftp-mode').addClass('red lighten-3');
     } else {
-        $('#optionFTP_i').show();
-        $('#optionFTP_a').hide();
+        $('.ftp-mode').addClass('blue lighten-3');
     }
     if (settings.dropboxEnabled) {
-        $('#optionDropbox_a').show();
-        $('#optionDropbox_i').hide();
+        $('.dropbox-mode').addClass('red lighten-3');
     } else {
-        $('#optionDropbox_i').show();
-        $('#optionDropbox_a').hide();
+        $('.dropbox-mode').addClass('blue lighten-3');
     }
     if (settings.googledriveEnabled) {
-        $('#optionGoogleDrive_a').show();
-        $('#optionGoogleDrive_i').hide();
+        $('.googledrive-mode').addClass('red lighten-3');
     } else {
-        $('#optionGoogleDrive_i').show();
-        $('#optionGoogleDrive_a').hide();
+        $('.googledrive-mode').addClass('blue lighten-3');
     }
     if (settings.webdavEnabled) {
-        $('#optionWebDAV_a').show();
-        $('#optionWebDAV_i').hide();
+        $('.webdav-mode').addClass('red lighten-3');
     } else {
-        $('#optionWebDAV_i').show();
-        $('#optionWebDAV_a').hide();
+        $('.webdav-mode').addClass('blue lighten-3');
     }
 
     $('.cloudRestore').hide();

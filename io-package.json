@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.0.5",
+    "version": "2.0.6",
     "news": {
       "2.0.5": {
         "en": "error handling for redis backup added, error handling for history backup added, BugFix Grafana backup",
@@ -183,16 +183,17 @@
     "stopBeforeUpdate": true,
     "materializeTab": true,
     "adminTab": {
+      "singleton": true,
       "name": {
-        "en": "Backitup",
-        "de": "Backitup",
-        "ru": "Backitup",
-        "pt": "Backitup",
-        "nl": "Backitup",
-        "fr": "Backitup",
-        "it": "Backitup",
-        "es": "Backitup",
-        "pl": "Backitup"
+        "en": "Backup",
+        "de": "Backup",
+        "ru": "Резервный",
+        "pt": "Cópia de segurança",
+        "nl": "Back-up",
+        "fr": "Sauvegarde",
+        "it": "Backup",
+        "es": "Respaldo",
+        "pl": "Utworzyć kopię zapasową"
       },
       "fa-icon": "</i><img style='width:24px;margin-bottom:-6px;' src='/adapter/backitup/backitup.svg'><i>"
     },

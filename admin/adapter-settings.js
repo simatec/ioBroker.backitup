@@ -68,11 +68,42 @@ function loadSettings(callback) {
             $('.adapter-instance').html(adapter + '.' + instance);
             $('.adapter-config').html('system.adapter.' + adapter + '.' + instance);
             common = res.common;
-            if (res.common && res.common.name) $('.adapter-name').html(res.common.name);
+            res.common && res.common.name && $('.adapter-name').html(res.common.name);
             if (typeof load === 'undefined') {
                 alert('Please implement save function in your admin/index.html');
             } else {
+                // decode all native attributes listed in res.encryptedNative
+                if (res.encryptedNative && typeof res.encryptedNative === 'object' && res.encryptedNative instanceof Array) {
+                    for (var i = 0; i < res.encryptedNative.length; i++) {
+                        if (res.native[res.encryptedNative[i]]) {
+                            res.native[res.encryptedNative[i]] = decrypt(res.native[res.encryptedNative[i]]);
+                        }
+                    }
+                } else {
+                    var idx = supportedFeatures.indexOf('ADAPTER_AUTO_DECRYPT_NATIVE');
+                    if (idx !== -1) {
+                        // if no encryptedNative exists the feature is irrelevant, remove for compatibility reasons
+                        supportedFeatures.splice(idx, 1);
+                    }
+                }
+
                 load(res.native, onChange);
+                // init selects
+                if (isMaterialize) {
+                    $('select').select();
+                    M.updateTextFields();
+
+                    // workaround for materialize checkbox problem
+                    $('input[type="checkbox"]+span').off('click').on('click', function (event) {
+                        var $input = $(this).prev();
+                        if (!$input.prop('disabled')) {
+                            $input.prop('checked', !$input.prop('checked')).trigger('change');
+                            // prevent propagation to prevent original handling from reverting our value change
+                            event.preventDefault();
+                            event.stopImmediatePropagation();
+                        }
+                    });
+                }
             }
             if (typeof callback === 'function') {
                 callback();
@@ -81,7 +112,7 @@ function loadSettings(callback) {
             if (typeof callback === 'function') {
                 callback();
             }
-            alert('error loading settings for ' + _adapterInstance + '\n\n' + err);
+            alert('error loading settings for ' + id + '\n\n' + err);
         }
     });
 }
