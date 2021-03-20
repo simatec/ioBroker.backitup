@@ -183,6 +183,7 @@
     "stopBeforeUpdate": true,
     "materializeTab": true,
     "adminTab": {
+      "ignoreConfigUpdate": true,
       "singleton": true,
       "name": {
         "en": "Backup",
