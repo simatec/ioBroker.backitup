@@ -39,6 +39,9 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 2.1.0 (21.03.2021)
+* (simatec) adminTab added
+
 ### 2.0.5 (14.03.2021)
 * (simatec) error handling for redis backup added
 * (simatec) error handling for history backup added

@@ -31,7 +31,7 @@
             margin-top: -5px; 
             margin-bottom: 1px; 
             background-color:#3399CC;
-            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
         }
         body {
             background-color:#fff;
@@ -58,16 +58,31 @@
         .chip {
             margin-top: 0.5rem;
             margin-bottom: 0.2rem;
-            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
             box-shadow: 0px 3px 3px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
             text-align: center; 
-            font-size: 16px; 
+            font-size: 16px;
+            
+        }
+        .title {
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        }
+        .btn-iobroker {
+            width: 100%;
+            margin-top: 0.3rem;
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        }
+        .btn-ccu {
+            width: 100%;
+            margin-top: 0.3rem;
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 
 <body>
     <div class="m adapter-container">
+        <!-- Header -->
         <div id="header-area" class="row" >
             <div id="header-logo-title" class="col s6" >
                 <img class="logo" src="backitup.png" >
@@ -77,20 +92,21 @@
                 </p>
             </div>
         </div>
-         
+        <!-- Backup Informations -->
         <div class="row">
-            <h6 class="translate title" style="background-color:#174475;">Backup your System …</h6>
+            <h6 class="translate title" style="background-color:#174475;">Backupinformations</h6>
         </div>
         <div class="row">
-            <div class="input-field col s6 l2">
-                <a class="waves-effect waves-light btn btn-iobroker do-backup" style="background-color:#3399CC;" "data-type="iobroker"><i class="material-icons right">backup</i><span class="translate">iobroker backup now</span></a>
-            </div>
-            <div class="input-field col s6 l2 ccu">
-                <a class="waves-effect waves-light btn btn-ccu do-backup" style="background-color:#3399CC;" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">Homematic backup now</span></a>
+            <div class="col s6 l12">
+                <div class="chip white-text" id="lastIobrokerBackup"></div>
+                <div class="chip white-text" id="nextIobrokerBackup"></div>
+                <div class="chip white-text ccuBackup" id="lastCCUBackup"></div>
+                <div class="chip white-text ccuBackup" id="nextCCUBackup"></div>
             </div>
         </div>
+        <!-- Backup Options -->
         <div class="row">
-            <h6 class="translate title" style="background-color:#174475;">What to back up</h6>
+            <h6 class="translate title" style="background-color:#174475;">activated backupoptions</h6>
         </div>
         <div class="row">
             <div class="col s6 l12">
@@ -107,8 +123,9 @@
                 <div class="translate chip white-text jarvis-mode" id="optionJarvis">Jarvis Backup</div>
             </div>
         </div>
+        <!-- Storage Options -->
         <div class="row">
-            <h6 class="translate title" style="background-color:#174475;">Storage location</h6>
+            <h6 class="translate title" style="background-color:#174475;">activated storageoptions</h6>
         </div>
         <div class="row">
             <div class="col s6 l12">
@@ -119,12 +136,24 @@
                 <div class="translate chip white-text webdav-mode" id="optionWebDAV">WebDAV</div>
             </div>
         </div>
+        <!-- Backups Now -->
+        <div class="row">
+            <h6 class="translate title" style="background-color:#174475;">System backup</h6>
+        </div>
+        <div class="row">
+            <div class="input-field col s6 l3">
+                <a class="waves-effect waves-light btn btn-iobroker do-backup" style="background-color:#3399CC;" "data-type="iobroker"><i class="material-icons right">backup</i><span class="translate">iobroker start backup</span></a>
+            </div>
+            <div class="input-field col s6 l3 ccuBackup">
+                <a class="waves-effect waves-light btn btn-ccu do-backup" style="background-color:#3399CC;" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">Homematic start backup</span></a>
+            </div>
+        </div>
         <!-- Restore -->
         <div class="row">
             <h6 class="translate title" style="background-color:#174475;">Restore</h6>
         </div>
         <div class="row" style="margin-bottom: 0">
-            <div class="input-field col s11 m2">
+            <div class="input-field col s11 m3">
                 <select class="value" id="restoreSource">
                     <option value="local" class="translate">Local</option>
                     <option value="cifs" class="translate">NAS / Copy</option>
@@ -135,7 +164,7 @@
                 </select>
                 <label for="restoreSource" class="translate">source type</label>
             </div>
-            <div class="input-field col s6 m2">
+            <div class="input-field col s6 m3">
                 <a class="waves-effect waves-light btn btn-iobroker do-list" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
             </div>
             <div class="col s6 l2 cloudRestore">

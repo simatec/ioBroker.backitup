@@ -315,6 +315,41 @@ function load(settings, onChange) {
             $('.do-list').addClass('disabled');
         }
     });
+    socket.emit('getState', adapter + '.' + instance + '.history.iobrokerLastTime', function (err, state) {
+        if (state && state.val) {
+            $('#lastIobrokerBackup').addClass('blue lighten-2');
+            $('#lastIobrokerBackup').text(_('Last iobroker Backup: ') + state.val);
+        }
+    });
+    socket.emit('getState', adapter + '.' + instance + '.history.ccuLastTime', function (err, state) {
+        if (state && state.val) {
+            $('#lastCCUBackup').addClass('blue lighten-2');
+            $('#lastCCUBackup').text(_('Last Homematic Backup: ') + state.val);
+        }
+    });
+    socket.emit('getState', adapter + '.' + instance + '.info.iobrokerNextTime', function (err, state) {
+        if (state && state.val) {
+            $('#nextIobrokerBackup').addClass('blue lighten-2');
+            $('#nextIobrokerBackup').text(_('Next iobroker Backup: ') + state.val);
+        }
+    });
+    socket.emit('getState', adapter + '.' + instance + '.info.ccuNextTime', function (err, state) {
+        if (state && state.val) {
+            $('#nextCCUBackup').addClass('blue lighten-2');
+            $('#nextCCUBackup').text(_('Next Homematic Backup: ') + state.val);
+        }
+    });
+    socket.on('stateChange', function (id, state) {
+        if (id === 'backitup.' + instance + '.history.iobrokerLastTime') {
+            if (state && state.val) {
+                $('#lastIobrokerBackup').text(_('Last iobroker Backup: ') + state.val);
+            }
+        } else if (id === 'backitup.' + instance + '.history.ccuLastTime') {
+            if (state && state.val) {
+                $('#lastCCUBackup').text(_('Last Homematic Backup: ') + state.val);
+            }
+        }
+    });
 
     showHideSettings(settings);
     onChange(false);
@@ -327,84 +362,90 @@ function load(settings, onChange) {
 function showHideSettings(settings) {
 
     if (settings.jarvisEnabled) {
-        $('.jarvis-mode').addClass('red lighten-3');
+        $('.jarvis-mode').addClass('green lighten-2');
     } else {
-        $('.jarvis-mode').addClass('blue lighten-3');
+        $('.jarvis-mode').hide();
     }
     if (settings.minimalEnabled) {
-        $('.iobroker-mode').addClass('red lighten-3');
+        $('.iobroker-mode').addClass('green lighten-2');
     } else {
-        $('.iobroker-mode').addClass('blue lighten-3');
+        $('.iobroker-mode').hide();
     }
     if (settings.ccuEnabled) {
-        $('.ccu-mode').addClass('red lighten-3');
+        $('.ccu-mode').addClass('green lighten-2');
     } else {
-        $('.ccu-mode').addClass('blue lighten-3');
+        $('.ccu-mode').hide();
     }
     if (settings.redisEnabled) {
-        $('.redis-mode').addClass('red lighten-3');
+        $('.redis-mode').addClass('green lighten-2');
     } else {
-        $('.redis-mode').addClass('blue lighten-3');
+        $('.redis-mode').hide();
     }
     if (settings.javascriptsEnabled) {
-        $('.js-mode').addClass('red lighten-3');
+        $('.js-mode').addClass('green lighten-2');
     } else {
-        $('.js-mode').addClass('blue lighten-3');
+        $('.js-mode').hide();
     }
     if (settings.zigbeeEnabled) {
-        $('.zigbee-mode').addClass('red lighten-3');
+        $('.zigbee-mode').addClass('green lighten-2');
     } else {
-        $('.zigbee-mode').addClass('blue lighten-3');
+        $('.zigbee-mode').hide();
     }
     if (settings.historyEnabled) {
-        $('.historydb-mode').addClass('red lighten-3');
+        $('.historydb-mode').addClass('green lighten-2');
     } else {
-        $('.historydb-mode').addClass('blue lighten-3');
+        $('.historydb-mode').hide();
     }
     if (settings.influxDBEnabled) {
-        $('.influxdb-mode').addClass('red lighten-3');
+        $('.influxdb-mode').addClass('green lighten-2');
     } else {
-        $('.influxdb-mode').addClass('blue lighten-3');
+        $('.influxdb-mode').hide();
     }
     if (settings.mySqlEnabled) {
-        $('.mysql-mode').addClass('red lighten-3');
+        $('.mysql-mode').addClass('green lighten-2');
     } else {
-        $('.mysql-mode').addClass('blue lighten-3');
+        $('.mysql-mode').hide();
     }
     if (settings.pgSqlEnabled) {
-        $('.pgsql-mode').addClass('red lighten-3');
+        $('.pgsql-mode').addClass('green lighten-2');
     } else {
-        $('.pgsql-mode').addClass('blue lighten-3');
+        $('.pgsql-mode').hide();
     }
     if (settings.grafanaEnabled) {
-        $('.grafana-mode').addClass('red lighten-3');
+        $('.grafana-mode').addClass('green lighten-2');
     } else {
-        $('.grafana-mode').addClass('blue lighten-3');
+        $('.grafana-mode').hide();
     }
     if (settings.cifsEnabled) {
-        $('.nas-mode').addClass('red lighten-3');
+        $('.nas-mode').addClass('green lighten-2');
     } else {
-        $('.nas-mode').addClass('blue lighten-3');
+        $('.nas-mode').hide();
     }
     if (settings.ftpEnabled) {
-        $('.ftp-mode').addClass('red lighten-3');
+        $('.ftp-mode').addClass('green lighten-2');
     } else {
-        $('.ftp-mode').addClass('blue lighten-3');
+        $('.ftp-mode').hide();
     }
     if (settings.dropboxEnabled) {
-        $('.dropbox-mode').addClass('red lighten-3');
+        $('.dropbox-mode').addClass('green lighten-2');
     } else {
-        $('.dropbox-mode').addClass('blue lighten-3');
+        $('.dropbox-mode').hide();
     }
     if (settings.googledriveEnabled) {
-        $('.googledrive-mode').addClass('red lighten-3');
+        $('.googledrive-mode').addClass('green lighten-2');
     } else {
-        $('.googledrive-mode').addClass('blue lighten-3');
+        $('.googledrive-mode').hide();
     }
     if (settings.webdavEnabled) {
-        $('.webdav-mode').addClass('red lighten-3');
+        $('.webdav-mode').addClass('green lighten-2');
     } else {
-        $('.webdav-mode').addClass('blue lighten-3');
+        $('.webdav-mode').hide();
+    }
+
+    if (settings.ccuEnabled) {
+        $('.ccuBackup').show();
+    } else {
+        $('.ccuBackup').hide();
     }
 
     $('.cloudRestore').hide();
