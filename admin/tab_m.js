@@ -339,6 +339,11 @@ function load(settings, onChange) {
             $('#nextCCUBackup').text(_('Next Homematic Backup: ') + state.val);
         }
     });
+    socket.emit('getState', adapter + '.' + instance + '.history.json', function (err, state) {
+        if (state && state.val) {
+            fillBackupJSON(JSON.parse(state.val));
+        }
+    });
     socket.on('stateChange', function (id, state) {
         if (id === 'backitup.' + instance + '.history.iobrokerLastTime') {
             if (state && state.val) {
@@ -348,15 +353,57 @@ function load(settings, onChange) {
             if (state && state.val) {
                 $('#lastCCUBackup').text(_('Last Homematic Backup: ') + state.val);
             }
+        } else if (id === 'backitup.' + instance + '.history.json') {
+            if (state && state.val) {
+                fillBackupJSON(JSON.parse(state.val));
+            }
         }
     });
 
+    $('.detect-backups').on('click', function () { initDialogBackups(); });
     showHideSettings(settings);
     onChange(false);
     
     M.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
     
     initDialog();
+}
+
+function fillBackupJSON(lastBackups) {
+    var text = '';
+    text += '<thead><tr><th>' + _('backup time') + '</th><th>' + _('Type') + '</th><th>' + _('name') + '</th><th>' + _('source type') + '</th><th>' + _('filesize') + '</th></tr></thead><tbody>';
+    if (lastBackups.length > 0) {
+        for (var i in lastBackups) {
+            console.log(lastBackups[i].date)
+            text += `<tr><td>${lastBackups[i].date}</td><td>${lastBackups[i].type}</td><td>${lastBackups[i].name}</td><td>${lastBackups[i].storage}</td><td>${lastBackups[i].filesize}</td></tr>`;
+        }
+    }
+    text += '</tbody>';
+    var $popupBackups = $('.table-values-div');
+    $popupBackups
+        .find('.fillBackups')
+        .html(text);
+}
+
+function initDialogBackups() {
+    var $dialogBackups = $('#dialog-backups-show');
+    if (!$dialogBackups.data('inited')) {
+        $dialogBackups.data('inited', true);
+        $dialogBackups.modal({
+            dismissible: false
+        });
+
+        $dialogBackups.find('.detect-backups').on('click', function () {
+            var $dialogBackups = $('#dialog-backups-show');
+            /*
+            var callback = $dialogBackups.data('callback');
+            if (typeof callback === 'function') callback();
+            $dialogBackups.data('callback', null);
+            */
+        });
+    }
+    //$dialogBackups.data('callback', callback);
+    $dialogBackups.modal('open');
 }
 
 function showHideSettings(settings) {

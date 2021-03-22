@@ -77,6 +77,50 @@
             margin-top: 0.3rem;
             box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
         }
+        .detect-backups {
+            width: 100%;
+            margin-top: 0.3rem;
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        }
+
+        #dialog-backups-show {
+            width: calc(100% - 100px);
+        }
+        #dialog-backups-show .title {
+            width: 100%;
+            margin-left: auto;
+            left: auto;
+            right: auto;
+            background: #174475;
+            color: #FFF;
+            padding: 0.5rem;
+        }
+        #dialog-backups-show .modal-footer {
+            padding: 4px 20px;
+            margin-left: 0.4rem;
+        }
+        #dialog-backups-show .modal-content {
+            width: 100% !important;
+            height: calc(100% - 10px) !important;
+        }
+
+        #dialog-backups-show .page {
+            width: calc(100% - 10px) !important;
+            padding-left:20;
+            height: calc(100% - 100px);
+        }
+        #dialog-backups-show {
+            z-index: 9900 !important;
+        }
+
+        #dialog-backups-show {
+            max-height: 95% !important;
+            max-width: 85% !important;
+            width: 80% !important;
+            height: 90% !important;
+            overflow: visible !important;
+            top: 10px !important;
+        }
     </style>
 </head>
 
@@ -147,6 +191,9 @@
             <div class="input-field col s6 l3 ccuBackup">
                 <a class="waves-effect waves-light btn btn-ccu do-backup" style="background-color:#3399CC;" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">Homematic start backup</span></a>
             </div>
+            <div class="input-field col s6 l3">
+                <a class="waves-effect waves-light btn detect-backups" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">Backup history</span></a>
+            </div>
         </div>
         <!-- Restore -->
         <div class="row">
@@ -204,6 +251,68 @@
                 <a class="modal-action modal-close waves-effect waves-green btn"><i class="large material-icons">close</i><span class="translate">Close</span></a>
             </div>
         </div>
+        <!-- Popup Backups -->
+        <div id="dialog-backups-show" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <div class="row">
+                    <h6 class="title"><span class="translate">Backup history</span></h6>
+                </div>
+                <div class="row">
+                    <div class="table-values-div page">
+                        <table class="highlight fillBackups">
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i
+                        class="large material-icons left">close</i><span class="translate">Close</span></a>
+            </div>
+        </div>
     </div>
+    
+    <!--<div class="m material-dialogs">
+        <div id="dialog-backups-show" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col s12">
+                        <h6 class="title"><span class="translate">Backup archive</span></h6>
+                    </div>
+                </div>
+                <div class="table-values-div striped">
+                    <table class="striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Item Name</th>
+                                <th>Item Price</th>
+                            </tr>
+                          </thead>
+                  
+                          <tbody>
+                            <tr>
+                              <td>Alvin</td>
+                              <td>Eclair</td>
+                              <td>$0.87</td>
+                            </tr>
+                            <tr>
+                              <td>Alan</td>
+                              <td>Jellybean</td>
+                              <td>$3.76</td>
+                            </tr>
+                            <tr>
+                              <td>Jonathan</td>
+                              <td>Lollipop</td>
+                              <td>$7.00</td>
+                            </tr>
+                          </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i class="large material-icons left">close</i><span class="translate">Close</span></a>
+            </div>
+        </div>
+    </div>-->
 </body>
 </html>

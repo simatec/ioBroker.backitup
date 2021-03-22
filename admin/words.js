@@ -214,6 +214,26 @@ var _systemDictionary = {
     "smb type": {                                    "en": "SMB type",                                        "de": "SMB-Typ",                                         "ru": "Тип SMB",                                         "pt": "Tipo SMB",                                        "nl": "SMB-type",                                        "fr": "Type de SMB",                                     "it": "Tipo SMB",                                        "es": "Tipo SMB",                                        "pl": "Typ SMB"},
     "source type": {                                 "en": "Backup source",                                   "de": "Sicherungsquelle",                                "ru": "Источник резервного копирования",                 "pt": "Fonte de backup",                                 "nl": "Back-upbron",                                     "fr": "Source de sauvegarde",                            "it": "Fonte di backup",                                 "es": "Fuente de respaldo",                              "pl": "Źródło kopii zapasowej"},
     "start all adapter after restore": {             "en": "Start all adapters after restore",                "de": "Alle Adapter nach der Wiederherstellung starten", "ru": "Запустите все адаптеры после восстановления",     "pt": "Inicie todos os adaptadores após a restauração",  "nl": "Start alle adapters na het herstel",              "fr": "Démarrer tous les adaptateurs après la restauration", "it": "Avviare tutti gli adattatori dopo il ripristino", "es": "Inicie todos los adaptadores después de la restauración.", "pl": "Uruchom wszystkie adaptery po przywróceniu"},
+    "filesize": {
+        "en": "filesize",
+        "de": "Dateigröße",
+        "ru": "размер файла",
+        "pt": "tamanho do arquivo",
+        "nl": "bestandsgrootte",
+        "fr": "taille du fichier",
+        "it": "dimensione del file",
+        "es": "tamaño del archivo",
+        "pl": "rozmiar pliku"},
+        "Backup history": {
+            "en": "Backup history",
+            "de": "Backup-Verlauf",
+            "ru": "История резервного копирования",
+            "pt": "Histórico de backup",
+            "nl": "Back-up geschiedenis",
+            "fr": "Historique de sauvegarde",
+            "it": "Cronologia di backup",
+            "es": "Historial de copias de seguridad",
+            "pl": "Historia kopii zapasowych"},
 };
 if (typeof module !== "undefined" && module.parent) {
     module.exports = _systemDictionary;
