@@ -361,6 +361,7 @@ function load(settings, onChange) {
     });
 
     $('.detect-backups').on('click', function () { initDialogBackups(); });
+    
     showHideSettings(settings);
     onChange(false);
     
@@ -374,7 +375,6 @@ function fillBackupJSON(lastBackups) {
     text += '<thead><tr><th>' + _('backup time') + '</th><th>' + _('Type') + '</th><th>' + _('name') + '</th><th>' + _('source type') + '</th><th>' + _('filesize') + '</th></tr></thead><tbody>';
     if (lastBackups.length > 0) {
         for (var i in lastBackups) {
-            console.log(lastBackups[i].date)
             text += `<tr><td>${lastBackups[i].date}</td><td>${lastBackups[i].type}</td><td>${lastBackups[i].name}</td><td>${lastBackups[i].storage}</td><td>${lastBackups[i].filesize}</td></tr>`;
         }
     }
@@ -394,15 +394,9 @@ function initDialogBackups() {
         });
 
         $dialogBackups.find('.detect-backups').on('click', function () {
-            var $dialogBackups = $('#dialog-backups-show');
-            /*
-            var callback = $dialogBackups.data('callback');
-            if (typeof callback === 'function') callback();
-            $dialogBackups.data('callback', null);
-            */
+            $dialogBackups = $('#dialog-backups-show');
         });
     }
-    //$dialogBackups.data('callback', callback);
     $dialogBackups.modal('open');
 }
 
