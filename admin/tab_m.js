@@ -372,7 +372,7 @@ function load(settings, onChange) {
 
 function fillBackupJSON(lastBackups) {
     var text = '';
-    text += '<thead><tr style="background-color:#3399CC; color:#fff"><th>' + _('backup time') + '</th><th>' + _('Type') + '</th><th>' + _('name') + '</th><th>' + _('source type') + '</th><th>' + _('filesize') + '</th></tr></thead><tbody>';
+    text += '<thead><tr style="background-color:#3399CC; color:#fff"><th>' + _('backup time') + '</th><th>' + _('Type') + '</th><th>' + _('name') + '</th><th>' + _('source type') + '</th><th>' + _('filesize') + '</th></tr></thead><tbody style="font-size:0.8rem">';
     if (lastBackups.length > 0) {
         for (var i in lastBackups) {
             text += `<tr><td>${lastBackups[i].date}</td><td>${lastBackups[i].type}</td><td>${lastBackups[i].name}</td><td>${lastBackups[i].storage}</td><td>${lastBackups[i].filesize}</td></tr>`;
