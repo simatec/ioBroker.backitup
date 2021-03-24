@@ -557,7 +557,7 @@ function load(settings, onChange) {
                             var file = $(this).data('file');
                             var name = file.split('/').pop().split('_')[0];
 
-                            let message = ('ioBroker will be restarted during restore.');
+                            let message = ('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
                             let downloadPanel = false;
                             if (settings.restoreSource === 'dropbox' || settings.restoreSource === 'googledrive' || settings.restoreSource === 'webdav' || settings.restoreSource === 'ftp') {
                                 message = ('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
@@ -577,7 +577,7 @@ function load(settings, onChange) {
                                 if (downloadPanel) {
                                     message = ('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After the download, the restore begins without restarting ioBroker.');
                                 } else {
-                                    message = ('ioBroker will not be restarted for this restore.');
+                                    message = ('<br/><br/>ioBroker will not be restarted for this restore.<br/><br/>Confirm with \"OK\".');
                                 }
                             }
                             confirmMessage(name !== '' ? _(message) : _('Ready'), _('Are you sure?'), null, [_('Cancel'), _('OK')], function (result) {
@@ -796,6 +796,7 @@ function save(callback) {
         }
     });
     callback(obj);
+    
 }
 function showHideSettings(settings) {
     if ($('#ftpEnabled').prop('checked')) {
@@ -925,22 +926,6 @@ function showHideSettings(settings) {
             $('.influxRemote').show();
         } else if ($(this).val() === 'local') {
             $('.influxRemote').hide();
-        }
-    }).trigger('change');
-
-    $('#restoreSource').on('change', function () {
-        if ($(this).val() === 'cifs' && $('#cifsOwnDir').prop('checked')) {
-            $('.bkpType').show();
-        } else if ($(this).val() === 'ftp' && $('#ftpOwnDir').prop('checked')) {
-            $('.bkpType').show();
-        } else if ($(this).val() === 'dropbox' && $('#dropboxOwnDir').prop('checked')) {
-            $('.bkpType').show();
-        } else if ($(this).val() === 'webdav' && $('#webdavOwnDir').prop('checked')) {
-            $('.bkpType').show();
-        } else if ($(this).val() === 'googledrive' && $('#googledriveOwnDir').prop('checked')) {
-            $('.bkpType').show();
-        } else {
-            $('.bkpType').hide();
         }
     }).trigger('change');
 

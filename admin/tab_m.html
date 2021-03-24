@@ -1,0 +1,301 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+
+    <link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+    <link rel="stylesheet" type="text/css" href="../../css/adapter.css" />
+
+    <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="../../lib/js/materialize.js"></script>
+
+    <script type="text/javascript" src="../../js/translate.js"></script>
+    <script type="text/javascript" src="adapter-settings.js"></script>
+
+    <script type="text/javascript" src="words.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="tab_m.js"></script>
+    <style>
+        .m .col .select-wrapper+label {
+            top: -26px;
+        }
+        .m span {
+            font-size: 0.9em;
+        }
+        .m .page {
+            height: calc(100% - 190px);
+        }
+        #header-area {
+            margin-top: -5px; 
+            margin-bottom: 1px; 
+            background-color:#3399CC;
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        }
+        body {
+            background-color:#fff;
+        }
+        .collapsible.root .collapsible-header { 
+            padding-top: 0.2rem; 
+            padding-bottom: 0.2rem; 
+        }
+        .collapsible.root .collapsible-header h6 {
+            font-size: 1.0em; 
+            font-weight: bold;
+        }
+        .collapsible.root .collapsible-header.top {
+            background-color:#3399CC; 
+            color:white; padding-top: 0.2rem; 
+            padding-bottom: 0.2rem; 
+        }
+        .collapsible.root .collapsible-header.top h6 {
+            background-color:#3399CC; 
+            color:white; 
+            font-size: 1.2em !important; 
+            font-weight: bold;
+        }
+        .m .chip {
+            display: inline-block;
+            height: 32;
+            font-size: 13px;
+            font-weight: 500;
+            /*text-shadow: 1px 1px 1px rgb(153, 152, 152);*/
+            color: #000;
+            line-height: 32px;
+            padding: 0 12px;
+            border-radius: 0px;
+            background-color: #e4e4e4;
+            margin-bottom: 5px;
+            margin-right: 5px;
+        }
+        .chip {
+            margin-top: 0.5rem;
+            margin-bottom: 0.2rem;
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .title {
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        }
+        .btn-iobroker {
+            width: 100%;
+            margin-top: 0.3rem;
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        }
+        .btn-ccu {
+            width: 100%;
+            margin-top: 0.3rem;
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        }
+        .detect-backups {
+            width: 100%;
+            margin-top: 0.3rem;
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        }
+
+        #dialog-backups-show {
+            width: calc(100% - 100px);
+            background-color: #fff;
+        }
+        #dialog-backups-show .title {
+            width: 100%;
+            margin-left: auto;
+            left: auto;
+            right: auto;
+            background: #174475;
+            color: #FFF;
+            padding: 0.5rem;
+        }
+        #dialog-backups-show .modal-footer {
+            padding: 4px 20px;
+            margin-left: 0.4rem;
+        }
+        #dialog-backups-show .modal-content {
+            width: 100% !important;
+            height: calc(100% - 10px) !important;
+        }
+
+        #dialog-backups-show .page {
+            width: calc(100% - 10px) !important;
+            padding-left:20;
+            height: calc(100% - 115px);
+        }
+        #dialog-backups-show {
+            z-index: 9900 !important;
+        }
+
+        #dialog-backups-show {
+            max-height: 95% !important;
+            max-width: 85% !important;
+            width: 80% !important;
+            height: 90% !important;
+            overflow: visible !important;
+            top: 10px !important;
+        }
+        .tableFixHead { 
+            overflow-y: auto;
+        }
+        .tableFixHead thead th {
+            position: sticky; top: 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 8px 16px;
+        }
+        th {
+            background:#3399CC;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="m adapter-container">
+        <!-- Header -->
+        <div id="header-area" class="row" >
+            <div id="header-logo-title" class="col s6" >
+                <img class="logo" src="backitup.png" >
+                <p>
+                    <span class="translate h-title">Backitup</span><br />
+                    <span class="translate h-sub-title">Backup your System …</span>
+                </p>
+            </div>
+        </div>
+        <!-- Backup Informations -->
+        <div class="row">
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;">Backupinformations</h6>
+        </div>
+        <div class="row">
+            <div class="col s6 l12">
+                <div class="chip" id="lastIobrokerBackup"></div>
+                <div class="chip" id="nextIobrokerBackup"></div>
+                <div class="chip ccuBackup" id="lastCCUBackup"></div>
+                <div class="chip ccuBackup" id="nextCCUBackup"></div>
+            </div>
+        </div>
+        <!-- Backup Options -->
+        <div class="row">
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;">activated backupoptions</h6>
+        </div>
+        <div class="row">
+            <div class="col s6 l12">
+                <div class="translate chip iobroker-mode" id="optionIobroker">ioBroker</div>
+                <div class="translate chip ccu-mode" id="optionCCU">Homematic CCU backup</div>
+                <div class="translate chip redis-mode" id="optionRedis">Save Redis state</div>
+                <div class="translate chip js-mode" id="optionJavascripts">Javascripts Backup</div>
+                <div class="translate chip zigbee-mode" id="optionZigbee">Save Zigbee database</div>
+                <div class="translate chip historydb-mode" id="optionHistory">Save History Data</div>
+                <div class="translate chip influxdb-mode" id="optionInfluxdb">InfluxDB Backup</div>
+                <div class="translate chip mysql-mode" id="optionMySQL">MySql Backup</div>
+                <div class="translate chip pgsql-mode" id="optionPgSQL">Postgresql Backup</div>
+                <div class="translate chip grafana-mode" id="optionGrafana">Grafana Backup</div>
+                <div class="translate chip jarvis-mode" id="optionJarvis">Jarvis Backup</div>
+            </div>
+        </div>
+        <!-- Storage Options -->
+        <div class="row">
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;">activated storageoptions</h6>
+        </div>
+        <div class="row">
+            <div class="col s6 l12">
+                <div class="translate chip nas-mode" id="optionNAS">NAS / Copy</div>
+                <div class="translate chip ftp-mode" id="optionFTP">FTP</div>
+                <div class="translate chip dropbox-mode" id="optionDropbox">Dropbox</div>
+                <div class="translate chip googledrive-mode" id="optionGoogleDrive">Google Drive</div>
+                <div class="translate chip webdav-mode" id="optionWebDAV">WebDAV</div>
+            </div>
+        </div>
+        <!-- Backups Now -->
+        <div class="row">
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;">System backup</h6>
+        </div>
+        <div class="row">
+            <div class="input-field col s6 l3">
+                <a class="waves-effect waves-light btn btn-iobroker do-backup" style="background-color:#3399CC;" data-type="iobroker"><i class="material-icons right">backup</i><span class="translate">iobroker start backup</span></a>
+            </div>
+            <div class="input-field col s6 l3 ccuBackup">
+                <a class="waves-effect waves-light btn btn-ccu do-backup" style="background-color:#3399CC;" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">Homematic start backup</span></a>
+            </div>
+            <div class="input-field col s6 l3">
+                <a class="waves-effect waves-light btn detect-backups" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">Backup history</span></a>
+            </div>
+        </div>
+        <!-- Restore -->
+        <div class="row">
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;">Restore</h6>
+        </div>
+        <div class="row" style="margin-bottom: 0">
+            <div class="input-field col s11 m3">
+                <select class="value" id="restoreSource">
+                    <option value="local" class="translate">Local</option>
+                    <option value="cifs" class="translate">NAS / Copy</option>
+                    <option value="dropbox" class="translate">Dropbox</option>
+                    <option value="googledrive" class="translate">Google Drive</option>
+                    <option value="webdav" class="translate">WebDAV</option>
+                    <option value="ftp" class="translate">FTP</option>
+                </select>
+                <label for="restoreSource" class="translate">source type</label>
+            </div>
+            <div class="input-field col s6 m3">
+                <a class="waves-effect waves-light btn btn-iobroker do-list" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
+            </div>
+            <div class="col s6 l2 cloudRestore">
+                <div class="chip blink" style="background-color:#64b5f6;">
+                    <span class="white-text translate" style="text-align:center; font-size: 16px;">Download is in progress ...</span>
+                </div>
+            </div>
+        </div>
+        <div class="row doRestore" style="display: none">
+            <ul class="collapsible root">
+            </ul>
+        </div>
+        
+        <!-- Dialog -->
+        <div id="dialog-command" class="modal modal-fixed-footer" style="display: none">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col s12">
+                        <h6 class="title"><span class="translate">Backitup execution</span>: <span class="command"></span></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="progress">
+                            <div class="indeterminate"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row textarea">
+                    <div class="col s12">
+                        <textarea id="stdout" readonly cols="120" rows="30"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="progress-dont-close"><input type="checkbox" class="filled-in" /><span class="translate">close on ready</span></div>
+                <a class="modal-action modal-close waves-effect waves-green btn"><i class="large material-icons">close</i><span class="translate">Close</span></a>
+            </div>
+        </div>
+        <!-- Popup Backups -->
+        <div id="dialog-backups-show" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <div class="row">
+                    <h6 class="title"><span class="translate">Backup history</span></h6>
+                </div>
+                <div class="row tableBackups">
+                    <div class="table-values-div tableFixHead page">
+                        <table class="highlight fillBackups">
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color: #fff;">
+                <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i
+                        class="large material-icons left">close</i><span class="translate">Close</span></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
