@@ -4,15 +4,15 @@
     "version": "2.1.0",
     "news": {
       "2.1.0": {
-        "en": "adminTab added",
-        "de": "adminTab hinzugefügt",
-        "ru": "adminTab добавлен",
-        "pt": "adminTab adicionado",
-        "nl": "adminTab toegevoegd",
-        "fr": "adminTab ajouté",
-        "it": "adminTab aggiunto",
-        "es": "adminTab agregado",
-        "pl": "Dodano zakładkę admin"
+        "en": "Admin-Tab added, dependencies targz removed, dependencies tar-fs added, dependencies updated, small Bugfixes",
+        "de": "Admin-Tab hinzugefügt, Abhängigkeiten targz entfernt, Abhängigkeiten tar-fs hinzugefügt, Abhängigkeiten aktualisiert, kleine Bugfixes",
+        "ru": "Добавлена вкладка администратора, удалены зависимости targz, добавлены зависимости tar-fs, зависимости обновлены, небольшие исправления",
+        "pt": "Admin-Tab adicionado, dependências targz removidas, dependências tar-fs adicionadas, dependências atualizadas, pequenas correções de bugs",
+        "nl": "Admin-Tab toegevoegd, afhankelijkheden targz verwijderd, afhankelijkheden tar-fs toegevoegd, afhankelijkheden bijgewerkt, kleine bugfixes",
+        "fr": "Admin-Tab ajouté, dépendances targz supprimées, dépendances tar-fs ajoutées, dépendances mises à jour, petites corrections de bugs",
+        "it": "Scheda di amministrazione aggiunta, dipendenze targz rimosse, dipendenze tar-fs aggiunte, dipendenze aggiornate, piccoli bug risolti",
+        "es": "Se agregó la pestaña Admin, se eliminaron las dependencias targz, se agregaron las dependencias tar-fs, se actualizaron las dependencias, pequeñas correcciones de errores",
+        "pl": "Dodano kartę administratora, usunięto zależności docelowez, dodano zależności tar-fs, zaktualizowano zależności, małe poprawki błędów"
       },
       "2.0.5": {
         "en": "error handling for redis backup added, error handling for history backup added, BugFix Grafana backup",

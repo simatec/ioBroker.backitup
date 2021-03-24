@@ -245,9 +245,9 @@ function load(settings, onChange) {
                             var file = $(this).data('file');
                             var name = file.split('/').pop().split('_')[0];
 
-                            let message = ('ioBroker will be restarted during restore.');
+                            let message = ('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
                             let downloadPanel = false;
-                            if (settings.restoreSource === 'dropbox' || settings.restoreSource === 'googledrive' || settings.restoreSource === 'webdav' || settings.restoreSource === 'ftp') {
+                            if ($('#restoreSource').val() === 'dropbox' || $('#restoreSource').val() === 'googledrive' || $('#restoreSource').val() === 'webdav' || $('#restoreSource').val() === 'ftp') {
                                 message = ('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
                                 downloadPanel = true;
                             }
@@ -265,7 +265,7 @@ function load(settings, onChange) {
                                 if (downloadPanel) {
                                     message = ('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After the download, the restore begins without restarting ioBroker.');
                                 } else {
-                                    message = ('ioBroker will not be restarted for this restore.');
+                                    message = ('<br/><br/>ioBroker will not be restarted for this restore.<br/><br/>Confirm with \"OK\".');
                                 }
                             }
                             confirmMessage(name !== '' ? _(message) : _('Ready'), _('Are you sure?'), null, [_('Cancel'), _('OK')], function (result) {
@@ -317,25 +317,21 @@ function load(settings, onChange) {
     });
     socket.emit('getState', adapter + '.' + instance + '.history.iobrokerLastTime', function (err, state) {
         if (state && state.val) {
-            $('#lastIobrokerBackup').addClass('blue lighten-2');
             $('#lastIobrokerBackup').text(_('Last iobroker Backup: ') + state.val);
         }
     });
     socket.emit('getState', adapter + '.' + instance + '.history.ccuLastTime', function (err, state) {
         if (state && state.val) {
-            $('#lastCCUBackup').addClass('blue lighten-2');
             $('#lastCCUBackup').text(_('Last Homematic Backup: ') + state.val);
         }
     });
     socket.emit('getState', adapter + '.' + instance + '.info.iobrokerNextTime', function (err, state) {
         if (state && state.val) {
-            $('#nextIobrokerBackup').addClass('blue lighten-2');
             $('#nextIobrokerBackup').text(_('Next iobroker Backup: ') + state.val);
         }
     });
     socket.emit('getState', adapter + '.' + instance + '.info.ccuNextTime', function (err, state) {
         if (state && state.val) {
-            $('#nextCCUBackup').addClass('blue lighten-2');
             $('#nextCCUBackup').text(_('Next Homematic Backup: ') + state.val);
         }
     });
@@ -402,84 +398,52 @@ function initDialogBackups() {
 
 function showHideSettings(settings) {
 
-    if (settings.jarvisEnabled) {
-        $('.jarvis-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.jarvisEnabled) {
         $('.jarvis-mode').hide();
     }
-    if (settings.minimalEnabled) {
-        $('.iobroker-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.minimalEnabled) {
         $('.iobroker-mode').hide();
     }
-    if (settings.ccuEnabled) {
-        $('.ccu-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.ccuEnabled) {
         $('.ccu-mode').hide();
     }
-    if (settings.redisEnabled) {
-        $('.redis-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.redisEnabled) {
         $('.redis-mode').hide();
     }
-    if (settings.javascriptsEnabled) {
-        $('.js-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.javascriptsEnabled) {
         $('.js-mode').hide();
     }
-    if (settings.zigbeeEnabled) {
-        $('.zigbee-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.zigbeeEnabled) {
         $('.zigbee-mode').hide();
     }
-    if (settings.historyEnabled) {
-        $('.historydb-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.historyEnabled) {
         $('.historydb-mode').hide();
     }
-    if (settings.influxDBEnabled) {
-        $('.influxdb-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.influxDBEnabled) {
         $('.influxdb-mode').hide();
     }
-    if (settings.mySqlEnabled) {
-        $('.mysql-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.mySqlEnabled) {
         $('.mysql-mode').hide();
     }
-    if (settings.pgSqlEnabled) {
-        $('.pgsql-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.pgSqlEnabled) {
         $('.pgsql-mode').hide();
     }
-    if (settings.grafanaEnabled) {
-        $('.grafana-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.grafanaEnabled) {
         $('.grafana-mode').hide();
     }
-    if (settings.cifsEnabled) {
-        $('.nas-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.cifsEnabled) {
         $('.nas-mode').hide();
     }
-    if (settings.ftpEnabled) {
-        $('.ftp-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.ftpEnabled) {
         $('.ftp-mode').hide();
     }
-    if (settings.dropboxEnabled) {
-        $('.dropbox-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.dropboxEnabled) {
         $('.dropbox-mode').hide();
     }
-    if (settings.googledriveEnabled) {
-        $('.googledrive-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.googledriveEnabled) {
         $('.googledrive-mode').hide();
     }
-    if (settings.webdavEnabled) {
-        $('.webdav-mode').addClass('green lighten-2');
-    } else {
+    if (!settings.webdavEnabled) {
         $('.webdav-mode').hide();
     }
 

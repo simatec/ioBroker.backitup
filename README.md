@@ -39,8 +39,12 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
-### 2.1.0 (21.03.2021)
-* (simatec) adminTab added
+### 2.1.0 (24.03.2021)
+* (simatec) Admin-Tab added
+* (simatec) dependencies targz removed
+* (simatec) dependencies tar-fs added
+* (simatec) dependencies updated
+* (simatec) small Bugfixes
 
 ### 2.0.5 (14.03.2021)
 * (simatec) error handling for redis backup added

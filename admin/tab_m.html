@@ -23,7 +23,6 @@
         .m span {
             font-size: 0.9em;
         }
-        
         .m .page {
             height: calc(100% - 190px);
         }
@@ -55,14 +54,25 @@
             font-size: 1.2em !important; 
             font-weight: bold;
         }
+        .m .chip {
+            display: inline-block;
+            height: 32;
+            font-size: 13px;
+            font-weight: 500;
+            /*text-shadow: 1px 1px 1px rgb(153, 152, 152);*/
+            color: #000;
+            line-height: 32px;
+            padding: 0 12px;
+            border-radius: 0px;
+            background-color: #e4e4e4;
+            margin-bottom: 5px;
+            margin-right: 5px;
+        }
         .chip {
             margin-top: 0.5rem;
             margin-bottom: 0.2rem;
-            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
-            box-shadow: 0px 3px 3px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
-            text-align: center; 
-            font-size: 16px;
-            
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+            text-align: center;
         }
         .title {
             box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
@@ -85,6 +95,7 @@
 
         #dialog-backups-show {
             width: calc(100% - 100px);
+            background-color: #fff;
         }
         #dialog-backups-show .title {
             width: 100%;
@@ -107,7 +118,7 @@
         #dialog-backups-show .page {
             width: calc(100% - 10px) !important;
             padding-left:20;
-            height: calc(100% - 100px);
+            height: calc(100% - 115px);
         }
         #dialog-backups-show {
             z-index: 9900 !important;
@@ -120,6 +131,22 @@
             height: 90% !important;
             overflow: visible !important;
             top: 10px !important;
+        }
+        .tableFixHead { 
+            overflow-y: auto;
+        }
+        .tableFixHead thead th {
+            position: sticky; top: 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 8px 16px;
+        }
+        th {
+            background:#3399CC;
         }
     </style>
 </head>
@@ -138,55 +165,55 @@
         </div>
         <!-- Backup Informations -->
         <div class="row">
-            <h6 class="translate title" style="background-color:#174475;">Backupinformations</h6>
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;">Backupinformations</h6>
         </div>
         <div class="row">
             <div class="col s6 l12">
-                <div class="chip white-text" id="lastIobrokerBackup"></div>
-                <div class="chip white-text" id="nextIobrokerBackup"></div>
-                <div class="chip white-text ccuBackup" id="lastCCUBackup"></div>
-                <div class="chip white-text ccuBackup" id="nextCCUBackup"></div>
+                <div class="chip" id="lastIobrokerBackup"></div>
+                <div class="chip" id="nextIobrokerBackup"></div>
+                <div class="chip ccuBackup" id="lastCCUBackup"></div>
+                <div class="chip ccuBackup" id="nextCCUBackup"></div>
             </div>
         </div>
         <!-- Backup Options -->
         <div class="row">
-            <h6 class="translate title" style="background-color:#174475;">activated backupoptions</h6>
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;">activated backupoptions</h6>
         </div>
         <div class="row">
             <div class="col s6 l12">
-                <div class="translate chip white-text iobroker-mode" id="optionIobroker">ioBroker</div>
-                <div class="translate chip white-text ccu-mode" id="optionCCU">Homematic CCU backup</div>
-                <div class="translate chip white-text redis-mode" id="optionRedis">Save Redis state</div>
-                <div class="translate chip white-text js-mode" id="optionJavascripts">Javascripts Backup</div>
-                <div class="translate chip white-text zigbee-mode" id="optionZigbee" style="background-color:#3399CC;">Save Zigbee database</div>
-                <div class="translate chip white-text historydb-mode" id="optionHistory">Save History Data</div>
-                <div class="translate chip white-text influxdb-mode" id="optionInfluxdb">InfluxDB Backup</div>
-                <div class="translate chip white-text mysql-mode" id="optionMySQL">MySql Backup</div>
-                <div class="translate chip white-text pgsql-mode" id="optionPgSQL">Postgresql Backup</div>
-                <div class="translate chip white-text grafana-mode" id="optionGrafana">Grafana Backup</div>
-                <div class="translate chip white-text jarvis-mode" id="optionJarvis">Jarvis Backup</div>
+                <div class="translate chip iobroker-mode" id="optionIobroker">ioBroker</div>
+                <div class="translate chip ccu-mode" id="optionCCU">Homematic CCU backup</div>
+                <div class="translate chip redis-mode" id="optionRedis">Save Redis state</div>
+                <div class="translate chip js-mode" id="optionJavascripts">Javascripts Backup</div>
+                <div class="translate chip zigbee-mode" id="optionZigbee">Save Zigbee database</div>
+                <div class="translate chip historydb-mode" id="optionHistory">Save History Data</div>
+                <div class="translate chip influxdb-mode" id="optionInfluxdb">InfluxDB Backup</div>
+                <div class="translate chip mysql-mode" id="optionMySQL">MySql Backup</div>
+                <div class="translate chip pgsql-mode" id="optionPgSQL">Postgresql Backup</div>
+                <div class="translate chip grafana-mode" id="optionGrafana">Grafana Backup</div>
+                <div class="translate chip jarvis-mode" id="optionJarvis">Jarvis Backup</div>
             </div>
         </div>
         <!-- Storage Options -->
         <div class="row">
-            <h6 class="translate title" style="background-color:#174475;">activated storageoptions</h6>
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;">activated storageoptions</h6>
         </div>
         <div class="row">
             <div class="col s6 l12">
-                <div class="translate chip white-text nas-mode" id="optionNAS">NAS / Copy</div>
-                <div class="translate chip white-text ftp-mode" id="optionFTP">FTP</div>
-                <div class="translate chip white-text dropbox-mode" id="optionDropbox">Dropbox</div>
-                <div class="translate chip white-text googledrive-mode" id="optionGoogleDrive">Google Drive</div>
-                <div class="translate chip white-text webdav-mode" id="optionWebDAV">WebDAV</div>
+                <div class="translate chip nas-mode" id="optionNAS">NAS / Copy</div>
+                <div class="translate chip ftp-mode" id="optionFTP">FTP</div>
+                <div class="translate chip dropbox-mode" id="optionDropbox">Dropbox</div>
+                <div class="translate chip googledrive-mode" id="optionGoogleDrive">Google Drive</div>
+                <div class="translate chip webdav-mode" id="optionWebDAV">WebDAV</div>
             </div>
         </div>
         <!-- Backups Now -->
         <div class="row">
-            <h6 class="translate title" style="background-color:#174475;">System backup</h6>
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;">System backup</h6>
         </div>
         <div class="row">
             <div class="input-field col s6 l3">
-                <a class="waves-effect waves-light btn btn-iobroker do-backup" style="background-color:#3399CC;" "data-type="iobroker"><i class="material-icons right">backup</i><span class="translate">iobroker start backup</span></a>
+                <a class="waves-effect waves-light btn btn-iobroker do-backup" style="background-color:#3399CC;" data-type="iobroker"><i class="material-icons right">backup</i><span class="translate">iobroker start backup</span></a>
             </div>
             <div class="input-field col s6 l3 ccuBackup">
                 <a class="waves-effect waves-light btn btn-ccu do-backup" style="background-color:#3399CC;" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">Homematic start backup</span></a>
@@ -197,7 +224,7 @@
         </div>
         <!-- Restore -->
         <div class="row">
-            <h6 class="translate title" style="background-color:#174475;">Restore</h6>
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;">Restore</h6>
         </div>
         <div class="row" style="margin-bottom: 0">
             <div class="input-field col s11 m3">
@@ -257,14 +284,14 @@
                 <div class="row">
                     <h6 class="title"><span class="translate">Backup history</span></h6>
                 </div>
-                <div class="row">
-                    <div class="table-values-div page">
+                <div class="row tableBackups">
+                    <div class="table-values-div tableFixHead page">
                         <table class="highlight fillBackups">
                         </table>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" style="background-color: #fff;">
                 <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i
                         class="large material-icons left">close</i><span class="translate">Close</span></a>
             </div>
