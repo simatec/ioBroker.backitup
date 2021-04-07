@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "news": {
+      "2.1.1": {
+        "en": "Bugfix redis, debug Log for Restore request added",
+        "de": "Bugfix redis, Debug Log für Restore Abfrage hinzugefügt",
+        "ru": "Исправление ошибок redis, добавлен журнал отладки для запроса на восстановление",
+        "pt": "Correção de bug redis, registro de depuração para solicitação de restauração adicionado",
+        "nl": "Bugfix opnieuw gemaakt, foutopsporingslogboek voor herstelverzoek toegevoegd",
+        "fr": "Correction de bug redis, journal de débogage pour la demande de restauration ajouté",
+        "it": "Correzione del bug, aggiunta del registro di debug per la richiesta di ripristino",
+        "es": "Corrección de errores redis, registro de depuración para solicitud de restauración agregado",
+        "pl": "Naprawiono błąd, dodano dziennik debugowania dla żądania przywrócenia"
+      },
       "2.1.0": {
         "en": "Admin-Tab added, dependencies targz removed, dependencies tar-fs added, dependencies updated, small Bugfixes",
         "de": "Admin-Tab hinzugefügt, Abhängigkeiten targz entfernt, Abhängigkeiten tar-fs hinzugefügt, Abhängigkeiten aktualisiert, kleine Bugfixes",

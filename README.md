@@ -39,6 +39,10 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 2.1.1 (07.04.2021)
+* (simatec) Bugfix redis
+* (simatec) debug Log for Restore request added
+
 ### 2.1.0 (24.03.2021)
 * (simatec) Admin-Tab added
 * (simatec) dependencies targz removed
