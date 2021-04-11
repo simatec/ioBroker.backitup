@@ -4,15 +4,15 @@
     "version": "2.1.1",
     "news": {
       "2.1.1": {
-        "en": "Bugfix redis, debug Log for Restore request added",
-        "de": "Bugfix redis, Debug Log für Restore Abfrage hinzugefügt",
-        "ru": "Исправление ошибок redis, добавлен журнал отладки для запроса на восстановление",
-        "pt": "Correção de bug redis, registro de depuração para solicitação de restauração adicionado",
-        "nl": "Bugfix opnieuw gemaakt, foutopsporingslogboek voor herstelverzoek toegevoegd",
-        "fr": "Correction de bug redis, journal de débogage pour la demande de restauration ajouté",
-        "it": "Correzione del bug, aggiunta del registro di debug per la richiesta di ripristino",
-        "es": "Corrección de errores redis, registro de depuración para solicitud de restauración agregado",
-        "pl": "Naprawiono błąd, dodano dziennik debugowania dla żądania przywrócenia"
+        "en": "Bugfix redis, debug Log for Restore request added, Bugfix influxdb, ignore Filenames for javascript-Backup added",
+        "de": "Bugfix redis, Debug Log for Restore Abfrage hinzugefügt, Bugfix influxdb, ignorieren von Dateinamen für Javascript-Backup hinzugefügt",
+        "ru": "Исправление ошибок redis, добавлен журнал отладки для запроса на восстановление, исправление ошибок Infxdb, добавлено игнорирование имен файлов для javascript-Backup",
+        "pt": "Bugfix redis, log de depuração para solicitação de restauração adicionado, Bugfix influxdb, ignorar nomes de arquivo para javascript-Backup adicionado",
+        "nl": "Bugfix opnieuw gemaakt, foutopsporingslogboek voor herstelverzoek toegevoegd, Bugfix influxdb, negeer bestandsnamen voor javascript-back-up toegevoegd",
+        "fr": "Correction de bogue redis, journal de débogage pour la demande de restauration ajouté, correction de bogue influxdb, ignorer les noms de fichiers pour javascript-sauvegarde ajouté",
+        "it": "Bugfix redis, debug Log for Restore request added, Bugfix influxdb, ignore Filenames for javascript-Backup added",
+        "es": "Corrección de errores redis, registro de depuración para solicitud de restauración agregado, corrección de errores influxdb, ignorar nombres de archivo para javascript-Backup agregado",
+        "pl": "Naprawiono błąd, dodano dziennik debugowania dla żądania przywrócenia, poprawiono błąd influxdb, dodano ignorowanie nazw plików dla kopii zapasowej javascript"
       },
       "2.1.0": {
         "en": "Admin-Tab added, dependencies targz removed, dependencies tar-fs added, dependencies updated, small Bugfixes",
