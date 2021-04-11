@@ -187,7 +187,7 @@ function load(settings, onChange) {
                     $('.do-list').removeClass('disabled');
                     console.log(result);
                     if (result && result.error) {
-                        showError(result.error);
+                        showError(JSON.stringify(result.error));
                     }
                     if (result && result.data) {
                         var text = '';
