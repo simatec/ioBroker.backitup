@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.1",
+    "version": "2.1.2",
     "news": {
+      "2.1.2": {
+        "en": "Creation of temporary folders changed, Filter for redis rdb files changed, automatic deletion of old influx databases added, noserverino option for CIFS mount added, dependencies updated",
+        "de": "Erstellung temporärer Ordner geändert, Filter für Redis RDB-Dateien geändert, automatisches Löschen alter Influx-Datenbanken hinzugefügt, noserverino-Option für CIFS-Mount hinzugefügt, Abhängigkeiten aktualisiert",
+        "ru": "Изменено создание временных папок, изменен фильтр для файлов redis rdb, добавлено автоматическое удаление старых баз данных притока, добавлена опция noserverino для монтирования CIFS, обновлены зависимости",
+        "pt": "Criação de pastas temporárias alteradas, filtro para arquivos redis rdb alterados, exclusão automática de bancos de dados de influxo antigos adicionados, opção noserverino para montagem CIFS adicionada, dependências atualizadas",
+        "nl": "Aanmaak van tijdelijke mappen gewijzigd, Filter voor redis rdb-bestanden gewijzigd, automatische verwijdering van oude influx-databases toegevoegd, noserverino-optie voor CIFS-koppeling toegevoegd, afhankelijkheden bijgewerkt",
+        "fr": "Création de dossiers temporaires modifiés, filtre pour les fichiers redis rdb modifié, suppression automatique des anciennes bases de données influx ajoutées, option noserverino pour le montage CIFS ajoutée, dépendances mises à jour",
+        "it": "Creazione di cartelle temporanee modificata, Filtro per file redis rdb modificato, eliminazione automatica dei vecchi database di influsso aggiunta, opzione noserverino per montaggio CIFS aggiunta, dipendenze aggiornate",
+        "es": "Se modificó la creación de carpetas temporales, se modificó el filtro para archivos redis rdb, se agregó la eliminación automática de las bases de datos de afluencia antiguas, se agregó la opción noserverino para el montaje CIFS, se actualizaron las dependencias",
+        "pl": "Zmieniono tworzenie folderów tymczasowych, zmieniono filtrowanie plików redis rdb, dodano automatyczne usuwanie starych baz danych napływowych, dodano opcję noserverino dla montowania CIFS, zaktualizowano zależności"
+      },
       "2.1.1": {
         "en": "Bugfix redis, debug Log for Restore request added, Bugfix influxdb, ignore Filenames for javascript-Backup added",
         "de": "Bugfix redis, Debug Log for Restore Abfrage hinzugefügt, Bugfix influxdb, ignorieren von Dateinamen für Javascript-Backup hinzugefügt",
@@ -90,72 +101,6 @@
         "it": "BugFix rileva l'ultimo backup, WebDAV aggiunto, BugFix Zigbee, arresta / avvia istanze al ripristino, Icona di download per Cloud Restore aggiunta, javscript Backup aggiunto, Grafana Backup aggiunto, Restore aggiunto per alcuni tipi senza riavvio, timestamp per history-json aggiunto, codice sorgente riscritto, ripristino rivisto, corretti molti piccoli bug",
         "es": "BugFix detecta la última copia de seguridad, se agrega WebDAV, BugFix Zigbee, se detiene / inicia las instancias en la restauración, se agrega el ícono de descarga para la restauración en la nube, se agrega la copia de seguridad de javscript, se agrega la copia de seguridad de Grafana, se agrega la restauración para algunos tipos sin reiniciar, se agrega la marca de tiempo para el historial-json, el código fuente reescrito, Restaurar revisado, arreglado muchos errores pequeños",
         "pl": "BugFix wykrywa ostatnią kopię zapasową, dodano WebDAV, BugFix Zigbee, zatrzymano / uruchom instancje przy przywracaniu, dodano ikonę pobierania do przywracania w chmurze, dodano kopię zapasową javscript, dodano kopię zapasową Grafana, dodano przywracanie niektórych typów bez ponownego uruchamiania, dodano sygnaturę czasową dla history-json, kod źródłowy przepisany, Przywróć poprawione, naprawiono wiele małych błędów"
-      },
-      "1.8.5": {
-        "en": "Bugfix Jarvis Backup, Bugfix GUI",
-        "de": "Bugfix Jarvis Backup, Bugfix GUI",
-        "ru": "Исправление ошибок Jarvis Backup, исправление ошибок GUI",
-        "pt": "Bugfix Jarvis Backup, Bugfix GUI",
-        "nl": "Bugfix Jarvis Backup, Bugfix GUI",
-        "fr": "Correction de bug Jarvis Backup, interface graphique de correction de bug",
-        "it": "Bugfix Jarvis Backup, Bugfix GUI",
-        "es": "Bugfix Jarvis Backup, Bugfix GUI",
-        "pl": "Bugfix Jarvis Backup, Bugfix GUI"
-      },
-      "1.8.4": {
-        "en": "Bugfix influxDB, Jarvis Backup/Restore added, Bugfix mysql Backup, Bugfix pgsql Backup, small Bugfixes, Info-Message for backup location added",
-        "de": "Bugfix influxDB, Jarvis Backup / Restore hinzugefügt, Bugfix mysql Backup, Bugfix pgsql Backup, kleine Bugfixes, Info-Nachricht für Backup-Speicherort hinzugefügt",
-        "ru": "Исправление ошибок InfxDB, добавлено резервное копирование / восстановление Jarvis, исправление ошибок резервной копии mysql, исправление ошибок pgsql Backup, небольшие исправления ошибок, добавлено информационное сообщение для местоположения резервной копии",
-        "pt": "Bugfix influxDB, Jarvis Backup / Restore adicionado, Bugfix mysql Backup, Bugfix pgsql Backup, pequenos Bugfixes, Info-Message para local de backup adicionado",
-        "nl": "Bugfix influxDB, Jarvis Backup / Restore toegevoegd, Bugfix mysql Backup, Bugfix pgsql Backup, kleine bugfixes, Info-bericht voor backup locatie toegevoegd",
-        "fr": "Bugfix influxDB, Jarvis Backup / Restore ajouté, Bugfix mysql Backup, Bugfix pgsql Backup, petites corrections de bugs, Info-Message pour l'emplacement de sauvegarde ajouté",
-        "it": "Bugfix influxDB, Jarvis Backup / Restore aggiunto, Bugfix mysql Backup, Bugfix pgsql Backup, small Bugfixes, Info-Message for backup location added",
-        "es": "Bugfix influxDB, Jarvis Backup / Restore agregado, Bugfix mysql Backup, Bugfix pgsql Backup, pequeñas correcciones de errores, Mensaje de información para la ubicación de la copia de seguridad agregada",
-        "pl": "Bugfix influxDB, Jarvis Backup / Restore added, Bugfix mysql Backup, Bugfix pgsql Backup, small Bugfixes, Info-Message for backup location added"
-      },
-      "1.8.3": {
-        "en": "Bugfix iobroker start after restore on Windows, changed webui-port for restore, Bugfix influxDB Restore",
-        "de": "Bugfix iobroker start nach Restore unter Windows, Webui-Port für Restore geändert, Bugfix influxDB Restore",
-        "ru": "Исправление запуска iobroker после восстановления в Windows, изменение webui-порта для восстановления, Исправление ошибки InfxDB Restore",
-        "pt": "Bugfix iobroker iniciado após restauração no Windows, porta webui alterada para restauração, Bugfix influxDB Restore",
-        "nl": "Bugfix iobroker start na herstel op Windows, webui-port gewijzigd voor herstel, Bugfix influxDB Restore",
-        "fr": "Bugfix iobroker démarre après la restauration sous Windows, modification du port webui pour la restauration, correction du bug influxDB Restore",
-        "it": "Bugfix iobroker avviato dopo il ripristino su Windows, modifica della porta webui per il ripristino, bugfix influxDB Restore",
-        "es": "Bugfix iobroker se inicia después de la restauración en Windows, se cambió el puerto webui para restaurar, Bugfix influxDB Restore",
-        "pl": "Bugfix iobroker uruchamia się po przywróceniu w systemie Windows, zmieniono port webui do przywracania, naprawiono błąd influxDB Restore"
-      },
-      "1.8.2": {
-        "en": "code cleaned, code for history.html object revised, code for history.json object revised",
-        "de": "Code bereinigt, Code für history.html-Objekt überarbeitet, Code für history.json-Objekt überarbeitet",
-        "ru": "код очищен, код объекта history.html изменен, код объекта history.json изменен",
-        "pt": "código limpo, código para objeto history.html revisado, código para objeto history.json revisado",
-        "nl": "code opgeschoond, code voor history.html-object herzien, code voor history.json-object herzien",
-        "fr": "code nettoyé, code de l'objet history.html révisé, code de l'objet history.json révisé",
-        "it": "codice pulito, codice per oggetto history.html rivisto, codice per oggetto history.json rivisto",
-        "es": "código limpiado, código para el objeto history.html revisado, código para el objeto history.json revisado",
-        "pl": "oczyszczono kod, poprawiono kod obiektu history.html, zmieniono kod obiektu history.json"
-      },
-      "1.8.1": {
-        "en": "influxDB Backup added; influxDB Restore added; Postgresql Backup added; Postgresql Restore added; translation added; new zigbee Restore added; dependencies updated; many small bugfixes; new redis Restore added; enable/disable option for Sentry Plugin; smb 3.02 support added;  smb 3.1.1 support added",
-        "de": "influxDB Backup hinzugefügt; influxDB Restore hinzugefügt; Postgresql Backup hinzugefügt; Postgresql Restore hinzugefügt; Übersetzung hinzugefügt; neue ZigBee-Wiederherstellung hinzugefügt; Abhängigkeiten aktualisiert; viele kleine Bugfixes; neue Redis-Wiederherstellung hinzugefügt; Option zum Aktivieren / Deaktivieren des Sentry Plugins; Unterstützung für SMB 3.02 hinzugefügt; Unterstützung für SMB 3.1.1 hinzugefügt",
-        "ru": "InfxDB Backup добавлен; InfluxDB Restore добавлено; Добавлен Postgresql Backup; Добавлен Postgresql Restore; добавлен перевод; добавлен новый zigbee Restore; обновлены зависимости; множество мелких исправлений; добавлено новое восстановление Redis; включить / выключить опцию Sentry Plugin; добавлена поддержка smb 3.02; добавлена поддержка smb 3.1.1",
-        "pt": "influxDB Backup adicionado; Restauração do influxDB adicionada; Backup Postgresql adicionado; Restauração Postgresql adicionada; tradução adicionada; nova restauração do zigbee adicionada; dependências atualizadas; muitas pequenas correções de bugs; nova restauração do redis adicionada; habilitar / desabilitar opção para Sentry Plugin; suporte smb 3.02 adicionado; Suporte smb 3.1.1 adicionado",
-        "nl": "influxDB Backup toegevoegd; influxDB Restore toegevoegd; Postgresql Backup toegevoegd; Postgresql Restore toegevoegd; vertaling toegevoegd; nieuwe zigbee Restore toegevoegd; afhankelijkheden bijgewerkt; veel kleine bugfixes; nieuwe redis Herstellen toegevoegd; optie inschakelen / uitschakelen voor Sentry-plug-in; smb 3.02-ondersteuning toegevoegd; smb 3.1.1 ondersteuning toegevoegd",
-        "fr": "influxDB Backup ajouté; restauration influxDB ajoutée; Sauvegarde PostgreSQL ajoutée; Restauration de PostgreSQL ajoutée; traduction ajoutée; nouvelle restauration zigbee ajoutée; dépendances mises à jour; de nombreuses petites corrections de bugs; nouvelle restauration redis ajoutée; option activer / désactiver pour Sentry Plugin; Prise en charge de smb 3.02 ajoutée; Prise en charge de smb 3.1.1 ajoutée",
-        "it": "Aggiunto backup influxDB; influxDB Restore aggiunto; Postgresql Backup aggiunto; Postgresql Restore aggiunto; traduzione aggiunta; aggiunto nuovo zigbee Restore; dipendenze aggiornate; molti piccoli bug risolti; nuovo redis Restore aggiunto; abilitare / disabilitare l'opzione per Sentry Plugin; supporto per smb 3.02 aggiunto; smb 3.1.1 supporto aggiunto",
-        "es": "influxDB Backup agregado; influxDB Restore agregado; Se agregó Postgresql Backup; Se agregó Postgresql Restore; traducción agregada; Se agregó una nueva restauración de zigbee; dependencias actualizadas; muchas pequeñas correcciones de errores; nueva restauración de redis agregada; opción de habilitar / deshabilitar para Sentry Plugin; se agregó soporte para smb 3.02; Se agregó soporte para smb 3.1.1",
-        "pl": "Dodano kopię zapasową influxDB; Dodano przywracanie influxDB; Dodano kopię zapasową Postgresql; Dodano przywracanie Postgresql; dodane tłumaczenie; dodano nowy zigbee Restore; zaktualizowane zależności; wiele drobnych poprawek; dodano nowe narzędzie redis Restore; włączanie / wyłączanie opcji dla Sentry Plugin; dodano obsługę smb 3.02; Dodano obsługę smb 3.1.1"
-      },
-      "1.7.0": {
-        "en": "small Bugfix for umount on cifs/nfs mount; Dev-Dependencies updated; Dependencies updated",
-        "de": "kleiner Bugfix für umount auf cifs / nfs mount; Dev-Abhängigkeiten aktualisiert; Abhängigkeiten aktualisiert",
-        "ru": "небольшое исправление для umount при монтировании cifs / nfs; Обновлены Dev-Dependencies; Обновлены зависимости",
-        "pt": "pequena correção de bug para umount na montagem cifs / nfs; Dev-Dependencies atualizado; Dependências atualizadas",
-        "nl": "kleine bugfix voor umount op cifs / nfs mount; Dev-afhankelijkheden bijgewerkt; Afhankelijkheden bijgewerkt",
-        "fr": "petit bugfix pour umount sur le montage cifs / nfs; Dépendances de développement mises à jour; Dépendances mises à jour",
-        "it": "piccolo Bugfix per umount su cifs / nfs mount; Dipendenze sviluppatore aggiornate; Dipendenze aggiornate",
-        "es": "pequeña corrección de errores para umount en cifs / nfs mount; Dev-Dependencies actualizado; Dependencias actualizadas",
-        "pl": "mały Bugfix dla umount na montowaniu cifs / nfs; Zaktualizowano zależności Dev; Zaktualizowano zależności"
       }
     },
     "title": "BackItUp",
@@ -293,6 +238,7 @@
     "influxDBDumpExe": "",
     "influxDBDeleteAfter": 5,
     "influxDBType": "local",
+    "deleteOldDataBase": false,
     "grafanaEnabled": false,
     "grafanaHost": "",
     "grafanaPort": "3000",
@@ -320,6 +266,7 @@
     "connectType": "NFS",
     "smbType": "vers=1.0",
     "sudoMount": true,
+    "noserverino": false,
     "wakeOnLAN": false,
     "macAd": "20:DE:20:DE:20:DE",
     "wolWait": 25,
