@@ -924,8 +924,10 @@ function showHideSettings(settings) {
     $('#influxDBType').on('change', function () {
         if ($(this).val() === 'remote') {
             $('.influxRemote').show();
+            $('.influxLocal').hide();
         } else if ($(this).val() === 'local') {
             $('.influxRemote').hide();
+            $('.influxLocal').show();
         }
     }).trigger('change');
 

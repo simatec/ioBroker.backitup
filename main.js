@@ -468,6 +468,7 @@ function initConfig(secret) {
         smb: adapter.config.smbType,
         sudo: adapter.config.sudoMount,
         cifsDomain: adapter.config.cifsDomain,
+        clientInodes: adapter.config.noserverino,
         deleteOldBackup: adapter.config.cifsDeleteOldBackup, //Delete old Backups from Network Disk
         ownDir: adapter.config.cifsOwnDir,
         bkpType: adapter.config.restoreType,
@@ -522,11 +523,12 @@ function initConfig(secret) {
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             deleteBackupAfter: adapter.config.influxDBDeleteAfter,  // delete old backupfiles after x days
-            dbName: adapter.config.influxDBName,                       // database name
+            dbName: adapter.config.influxDBName,                    // database name
             host: adapter.config.influxDBHost,                      // database host
             port: adapter.config.influxDBPort,                      // database port
-            exe: adapter.config.influxDBDumpExe,                     // path to influxDBdump
-            dbType: adapter.config.influxDBType                        // type of influxdb Backup
+            exe: adapter.config.influxDBDumpExe,                    // path to influxDBdump
+            dbType: adapter.config.influxDBType,                    // type of influxdb Backup
+            deleteDataBase: adapter.config.deleteOldDataBase             // delete old database for restore
         },
         pgsql: {
             enabled: adapter.config.pgSqlEnabled === undefined ? true : adapter.config.pgSqlEnabled,

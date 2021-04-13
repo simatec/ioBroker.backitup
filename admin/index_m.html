@@ -428,6 +428,12 @@
                         <span class="translate">Path with filename to influxd executable (leave empty to use default)</span>
                     </div>
                 </div>
+                <div class="row influxDB influxLocal">
+                    <div class="input-field col s6 l4">
+                        <input class="value" id="deleteOldDataBase" type="checkbox" />
+                        <label for="deleteOldDataBase" class="translate">automatically delete old Influx-database before restore</label>
+                    </div>
+                </div>
                 <div class="row influxRemote">
                     <div class="col s12">
                         <div class="card-panel" style="background-color:#174475;">
@@ -677,6 +683,16 @@
                         <input class="value" id="cifsDomain" type="text">
                         <label for="cifsDomain" class="translate">Domainname (optional)</label>
                     </div>
+                    <div class="input-field col s12 m6 l4 nfs">
+                        <select class="value" id="smbType">
+                        <option value="vers=1.0" >SMB 1.0</option>
+                        <option value="vers=2.0" >SMB 2.0</option>
+                        <option value="vers=3.0" >SMB 3.0</option>
+                        <option value="vers=3.02" >SMB 3.02</option>
+                        <option value="vers=3.1.1" >SMB 3.1.1</option>
+                        </select>
+                        <label for="smbType" class="translate">smb type</label>
+                    </div>
                 </div>
                 <div class="row nfs">
                     <div class="input-field col s12 m6 l4">
@@ -687,15 +703,9 @@
                         <input class="value" id="cifsPassword" type="password">
                         <label for="cifsPassword" class="translate">Password</label>
                     </div>
-                    <div class="input-field col s12 m6 l4">
-                        <select class="value" id="smbType">
-                        <option value="vers=1.0" >SMB 1.0</option>
-                        <option value="vers=2.0" >SMB 2.0</option>
-                        <option value="vers=3.0" >SMB 3.0</option>
-                        <option value="vers=3.02" >SMB 3.02</option>
-                        <option value="vers=3.1.1" >SMB 3.1.1</option>
-                        </select>
-                        <label for="smbType" class="translate">smb type</label>
+                    <div class="input-field col s6 l4">
+                        <input class="value" id="noserverino" type="checkbox"/>
+                        <label for="noserverino" class="translate">mount with option "noserverino"</label>
                     </div>
                 </div>
                 <div class="row cifs">
