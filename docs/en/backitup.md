@@ -57,7 +57,7 @@ The adapter is suitable for multi-platforms and can be used on Windows and Mac i
      - `sudo apt-get install nfs-common`
 
 * To use the MySql backup, mysqldump must be installed on the system
-     - `sudo apt-get install mysql-client`
+     - `sudo apt-get install mysql-client` or under Debian `sudo apt-get install default-mysql-client`
 
 * To use the PostgreSQL backup, mysqldump must be installed on the system
      - [Installation instructions PostgreSQL](https://www.postgresql.org/download/linux/debian/)
@@ -79,7 +79,7 @@ This backup offers the possibility to save 3 different variants of a Homematic i
 
 ## Mysql backup
 If activated, this separately adjustable backup is created with every ioBroker backup and is also deleted after the specified retention time has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set.<br><br>
-It is important that even if the mysql server is running on a remote system, the mysqldump must run on the ioBroker system. <br> For Linux systems, the installation command would be as follows: `sudo apt-get install mysql-client`
+It is important that even if the mysql server is running on a remote system, the mysqldump must run on the ioBroker system. <br> For Linux systems, the installation command would be as follows: `sudo apt-get install mysql-client` or under Debian `sudo apt-get install default-mysql-client`
 
 ## Redis backup
 If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup provided the other IoBroker backup types are set. <br>
@@ -161,12 +161,14 @@ Here in the CIFS settings the path must be entered where the copy is to be made.
 The specification of the IP address must remain empty for the copy function.
   
 ## Dropbox
-To use the backup in the Dropbox, an access token and an APP must be created at https://www.dropbox.com/developers/apps <br><br>
+To use the backup in the Dropbox, an access token and an APP must be created at https://www.dropbox.com/developers/apps<br><br>
 * Step 1: Use the "Create Backup" button
-* Step 2: Select "Dropbox API"
+* Step 2: Select "Scoped access"
 * Step 3: Select "App folder"
-* Step 4: Enter "Name your app"
-* Step 5: Press the "Generated access token" button (the token is entered in the Backitup settings)<br><br>
+* Step 4: Enter "Name your app" and select the "Create App" button
+* Step 5: In the "Permissions" tab, set all 4 ticks in the "Files and folders" area
+* Step 6: In the "Settings" tab, set the "Access token expiration" to "No expiration"
+* Step 7: Press the "Generated access token" button (This generated token is entered in the Backitup settings)<br><br>
 In your Dropbox there is now a new folder called "Apps"
   
 ## Google Drive
