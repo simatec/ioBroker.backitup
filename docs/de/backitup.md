@@ -133,7 +133,7 @@ Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backu
 **Des Weiteren muss in der Grafana-Weboberfläche ein Api-Key erzeugt werden, um Zugriff auf die Dashboards zu bekommen.**<br>
 Der Api-Key kann unter ***"Configuration → API Keys"*** erstellt werden.
 
-[zurück](#Inhalt)
+### [zurück](#Inhalt)
 ---
 
 # Speicher-Optionen
