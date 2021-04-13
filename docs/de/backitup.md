@@ -58,7 +58,7 @@ Der Adapter ist für Multiplattformen geeignet und kann  neben Linux-Installatio
     - `sudo apt-get install nfs-common`
 
 * Für die verwendung des MySql-Backups muss mysqldump auf dem System installiert sein
-    - `sudo apt-get install mysql-client`
+    - `sudo apt-get install mysql-client` oder unter Debian `sudo apt-get install default-mysql-client`
 
 * Für die verwendung des PostgreSQL-Backups muss mysqldump auf dem System installiert sein
     - [Installationsanleitung PostgreSQL](https://www.postgresql.org/download/linux/debian/)
@@ -80,7 +80,7 @@ Dieses Backup bietet die Möglichkeit 3 verschiedene Varianten einer Homematic I
 
 ## Mysql-Backup
 Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
-Wichig hierbei ist, dass auch wenn der Mysql-Server auf einem entferten System läuft, die mysqldump auf dem ioBroker System laufen muss.<br>Für Linuxsysteme wäre der Installationsbefehl wie folgt: `sudo apt-get install mysql-client`
+Wichig hierbei ist, dass auch wenn der Mysql-Server auf einem entferten System läuft, die mysqldump auf dem ioBroker System laufen muss.<br>Für Linuxsysteme wäre der Installationsbefehl wie folgt: `sudo apt-get install mysql-client` oder unter Debian `sudo apt-get install default-mysql-client`
 
 ## Redis-Backup
 Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br>
@@ -164,10 +164,12 @@ Die Angabe der IP Adresse muss für die Copy-Funktion leer bleiben.
 ## Dropbox
 Um die Sicherung in der Dropbox zu nutzen, muss ein Access Token und eine APP unter https://www.dropbox.com/developers/apps erstellt werden<br><br>
 * Schritt 1: Den Button "Create Backup" nutzen
-* Schritt 2: "Dropbox API" auswählen
+* Schritt 2: "Scoped access" auswählen
 * Schritt 3: "App folder" auswählen
-* Schritt 4: "Name your app" vergeben
-* Schritt 5: "Generated access token" Button drücken (Der Token wird in den Einstellungen von Backitup eingetragen)<br><br>
+* Schritt 4: "Name your app" vergeben und "Create App" Button wählen
+* Schritt 5: Im Tab-Reiter "Permissions" alle 4 Häckchen im Bereich "Files and folders" setzen
+* Schritt 6: Im Tab-Reiter "Settings" die "Access token expiration" auf "No expiration" stellen
+* Schritt 7: "Generated access token" Button drücken (Dieser erzeugte Token wird in den Einstellungen von Backitup eingetragen)<br><br>
 In deiner Dropbox gibt es nun einen neuen Ordner mit dem Namen "Apps"
   
 ## Google Drive
