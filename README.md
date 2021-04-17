@@ -40,6 +40,11 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 2.1.3 (17.04.2021)
+* (simatec) Admin-Tab changed
+* (simatec) Javascript Restore changed
+
+
 ### 2.1.2 (13.04.2021)
 * (simatec) Creation of temporary folders changed
 * (simatec) Filter for redis rdb files changed

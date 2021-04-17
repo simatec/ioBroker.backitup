@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "news": {
+      "2.1.3": {
+        "en": "Admin-Tab changed, Javascript Restore changed",
+        "de": "Admin-Tab geändert, Javascript Restore geändert",
+        "ru": "Вкладка администратора изменена, восстановление Javascript изменено",
+        "pt": "Admin-Tab alterado, Javascript Restore alterado",
+        "nl": "Admin-Tab gewijzigd, Javascript Restore gewijzigd",
+        "fr": "L'onglet Admin a été modifié, la restauration Javascript a été modifiée",
+        "it": "Scheda Amministratore modificata, Ripristino Javascript modificato",
+        "es": "La pestaña de administración cambió, la restauración de JavaScript cambió",
+        "pl": "Zmieniono kartę Admin, zmieniono przywracanie JavaScript"
+      },
       "2.1.2": {
         "en": "Creation of temporary folders changed, Filter for redis rdb files changed, automatic deletion of old influx databases added, noserverino option for CIFS mount added, dependencies updated",
         "de": "Erstellung temporärer Ordner geändert, Filter für Redis RDB-Dateien geändert, automatisches Löschen alter Influx-Datenbanken hinzugefügt, noserverino-Option für CIFS-Mount hinzugefügt, Abhängigkeiten aktualisiert",

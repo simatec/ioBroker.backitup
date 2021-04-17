@@ -24,7 +24,7 @@
             font-size: 0.9em;
         }
         .m .page {
-            height: calc(100% - 190px);
+            height: calc(100% - 220px);
         }
         #header-area {
             margin-top: -5px; 
@@ -34,6 +34,11 @@
         }
         body {
             background-color:#fff;
+            height: calc(100% - 100px);
+            /*padding: 7px;*/
+        }
+        .iframe-in-tab {
+            height: calc(100% - 5px);
         }
         .collapsible.root .collapsible-header { 
             padding-top: 0.2rem; 
@@ -57,8 +62,8 @@
         .m .chip {
             display: inline-block;
             height: 32;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 12px;
+            /*font-weight: 500;*/
             /*text-shadow: 1px 1px 1px rgb(153, 152, 152);*/
             color: #000;
             line-height: 32px;
@@ -148,13 +153,27 @@
         th {
             background:#3399CC;
         }
+        .footer {
+            position: fixed; 
+            bottom: 0 !important;
+            width: 100% !important;
+            margin-bottom: -7px;
+            overflow: overlay;
+            z-index: 997;
+        }
+        .header-fix {
+            position: sticky;
+            top: 0;
+            overflow: overlay;
+            z-index: 997;
+        }
     </style>
 </head>
 
 <body>
     <div class="m adapter-container">
         <!-- Header -->
-        <div id="header-area" class="row" >
+        <div id="header-area" class="row header-fix">
             <div id="header-logo-title" class="col s6" >
                 <img class="logo" src="backitup.png" >
                 <p>
@@ -241,6 +260,21 @@
             <div class="input-field col s6 m3">
                 <a class="waves-effect waves-light btn btn-iobroker do-list" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
             </div>
+            <div class="col s6 l2 preloader-background" style="display: none;">
+                <div class="preloader-wrapper active">
+                    <div class="spinner-layer spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col s6 l2 cloudRestore">
                 <div class="chip blink" style="background-color:#64b5f6;">
                     <span class="white-text translate" style="text-align:center; font-size: 16px;">Download is in progress ...</span>
@@ -296,6 +330,10 @@
                         class="large material-icons left">close</i><span class="translate">Close</span></a>
             </div>
         </div>
+        <div class="row footer" style="margin-bottom: -7px;">
+            <h6 class="translate title" style="background-color:#3399CC; font-size: 0.8rem;text-align: center;">All backup settings can be changed in the adapter configuration of Backitup.</h6>
+        </div>
     </div>
+    
 </body>
 </html>
