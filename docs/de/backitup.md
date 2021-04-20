@@ -163,7 +163,7 @@ Die Angabe der IP Adresse muss für die Copy-Funktion leer bleiben.
   
 ## Dropbox
 Um die Sicherung in der Dropbox zu nutzen, muss ein Access Token und eine APP unter https://www.dropbox.com/developers/apps erstellt werden<br><br>
-* Schritt 1: Den Button "Create Backup" nutzen
+* Schritt 1: Den Button "Create App" nutzen
 * Schritt 2: "Scoped access" auswählen
 * Schritt 3: "App folder" auswählen
 * Schritt 4: "Name your app" vergeben und "Create App" Button wählen
