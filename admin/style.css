@@ -3,8 +3,9 @@
     box-sizing: border-box
 }
 .m {
-    /* Don't cut off dropdowns! */
-    overflow: initial;
+    /* Don't cut off dropdowns! 
+    overflow: initial;*/
+    overflow: hidden;
 }
 
 /* Add your styles here */
