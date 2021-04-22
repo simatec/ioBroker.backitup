@@ -180,6 +180,8 @@ function load(settings, onChange) {
             });
 
             $('.do-list').removeClass('disabled').on('click', function () {
+                $('.doRestore').hide();
+                $('.progress-search').show();
                 $('.do-list').addClass('disabled');
                 $('.doRestore').find('.root').html('');
                 console.log('Restore Type: ' + $('#restoreSource').val());
@@ -187,9 +189,11 @@ function load(settings, onChange) {
                     $('.do-list').removeClass('disabled');
                     console.log(result);
                     if (result && result.error) {
+                        $('.progress-search').hide();
                         showError(JSON.stringify(result.error));
                     }
                     if (result && result.data) {
+                        $('.progress-search').hide();
                         var text = '';
                         var data = result.data;
                         console.log(data);
@@ -322,7 +326,7 @@ function load(settings, onChange) {
     });
     socket.emit('getState', adapter + '.' + instance + '.history.ccuLastTime', function (err, state) {
         if (state && state.val) {
-            $('#lastCCUBackup').text(_('Last Homematic Backup: ') + state.val);
+            $('#lastCCUBackup').text(_('Last CCU Backup: ') + state.val);
         }
     });
     socket.emit('getState', adapter + '.' + instance + '.info.iobrokerNextTime', function (err, state) {
@@ -332,7 +336,7 @@ function load(settings, onChange) {
     });
     socket.emit('getState', adapter + '.' + instance + '.info.ccuNextTime', function (err, state) {
         if (state && state.val) {
-            $('#nextCCUBackup').text(_('Next Homematic Backup: ') + state.val);
+            $('#nextCCUBackup').text(_('Next CCU Backup: ') + state.val);
         }
     });
     socket.emit('getState', adapter + '.' + instance + '.history.json', function (err, state) {
@@ -452,6 +456,9 @@ function showHideSettings(settings) {
     } else {
         $('.ccuBackup').hide();
     }
+    $('#restoreSource').on('change', function () {
+        $('.doRestore').hide();
+    }).trigger('change');
 
     $('.cloudRestore').hide();
 }

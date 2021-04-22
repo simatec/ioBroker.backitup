@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "news": {
+      "2.1.3": {
+        "en": "Admin-Tab changed, Javascript Restore changed, Admin-Tab redesigned, Config redesigned, Preparation for admin 5",
+        "de": "Admin-Tab geändert, Javascript-Wiederherstellung geändert, Admin-Tab neu gestaltet, Konfiguration neu gestaltet, Vorbereitung für Admin 5",
+        "ru": "Вкладка администратора изменена, восстановление Javascript изменено, вкладка администратора изменена, конфигурация переработана, подготовка к работе с администратором 5",
+        "pt": "Admin-Tab alterado, Javascript Restore alterado, Admin-Tab redesenhado, Configuração redesenhada, Preparação para admin 5",
+        "nl": "Admin-Tab gewijzigd, Javascript Restore gewijzigd, Admin-Tab opnieuw ontworpen, Config opnieuw ontworpen, Voorbereiding voor admin 5",
+        "fr": "Admin-Tab changé, Javascript Restore changé, Admin-Tab repensé, Config repensé, Préparation pour admin 5",
+        "it": "Scheda di amministrazione modificata, Ripristino JavaScript modificato, Scheda di amministrazione riprogettata, Configurazione riprogettata, Preparazione per l'amministratore 5",
+        "es": "Admin-Tab cambió, Javascript Restore cambió, Admin-Tab rediseñado, Configuración rediseñada, Preparación para admin 5",
+        "pl": "Zmieniono kartę Admin, zmieniono przywracanie JavaScript, przeprojektowano kartę Admin, przeprojektowano konfigurację, przygotowanie dla administratora 5"
+      },
       "2.1.2": {
         "en": "Creation of temporary folders changed, Filter for redis rdb files changed, automatic deletion of old influx databases added, noserverino option for CIFS mount added, dependencies updated",
         "de": "Erstellung temporärer Ordner geändert, Filter für Redis RDB-Dateien geändert, automatisches Löschen alter Influx-Datenbanken hinzugefügt, noserverino-Option für CIFS-Mount hinzugefügt, Abhängigkeiten aktualisiert",

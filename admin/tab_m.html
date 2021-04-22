@@ -1,4 +1,4 @@
-<html>
+<html style="padding: 1px;"> <!-- padding only for temp border added-->
 
 <head>
     <meta name="viewport" content="width = device-width, initial-scale = 1">
@@ -17,6 +17,10 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
     <script type="text/javascript" src="tab_m.js"></script>
     <style>
+        .m {
+            /* Don't cut off dropdowns! */
+            overflow: initial;
+        }
         .m .col .select-wrapper+label {
             top: -26px;
         }
@@ -24,16 +28,20 @@
             font-size: 0.9em;
         }
         .m .page {
-            height: calc(100% - 190px);
+            height: calc(100% - 220px);
         }
         #header-area {
-            margin-top: -5px; 
+            margin-top: -5px;
+            margin-top: 0px;
             margin-bottom: 1px; 
             background-color:#3399CC;
             box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
         }
         body {
-            background-color:#fff;
+            height: auto;
+            box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)!important;
+            border-radius: 4px!important;
         }
         .collapsible.root .collapsible-header { 
             padding-top: 0.2rem; 
@@ -46,7 +54,8 @@
         .collapsible.root .collapsible-header.top {
             background-color:#3399CC; 
             color:white; padding-top: 0.2rem; 
-            padding-bottom: 0.2rem; 
+            padding-bottom: 0.2rem;
+            border-radius: 4px;
         }
         .collapsible.root .collapsible-header.top h6 {
             background-color:#3399CC; 
@@ -54,16 +63,17 @@
             font-size: 1.2em !important; 
             font-weight: bold;
         }
+        .m .collapsible {
+            border-radius: 4px;
+        }
         .m .chip {
             display: inline-block;
             height: 32;
-            font-size: 13px;
-            font-weight: 500;
-            /*text-shadow: 1px 1px 1px rgb(153, 152, 152);*/
+            font-size: 12px;
             color: #000;
             line-height: 32px;
             padding: 0 12px;
-            border-radius: 0px;
+            border-radius: 4px;
             background-color: #e4e4e4;
             margin-bottom: 5px;
             margin-right: 5px;
@@ -73,6 +83,7 @@
             margin-bottom: 0.2rem;
             box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
             text-align: center;
+            border-radius: 4px;
         }
         .title {
             box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
@@ -80,22 +91,23 @@
         .btn-iobroker {
             width: 100%;
             margin-top: 0.3rem;
+            border-radius: 4px;
             box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
         }
         .btn-ccu {
             width: 100%;
             margin-top: 0.3rem;
+            border-radius: 4px;
             box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
         }
         .detect-backups {
             width: 100%;
             margin-top: 0.3rem;
+            border-radius: 4px;
             box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
         }
-
-        #dialog-backups-show {
-            width: calc(100% - 100px);
-            background-color: #fff;
+        .m .btn, .m .btn-flat, .m .btn-large, .m .btn-small {
+            border-radius: 4px;
         }
         #dialog-backups-show .title {
             width: 100%;
@@ -103,8 +115,8 @@
             left: auto;
             right: auto;
             background: #174475;
-            color: #FFF;
             padding: 0.5rem;
+            border-radius: 4px;
         }
         #dialog-backups-show .modal-footer {
             padding: 4px 20px;
@@ -114,16 +126,11 @@
             width: 100% !important;
             height: calc(100% - 10px) !important;
         }
-
         #dialog-backups-show .page {
             width: calc(100% - 10px) !important;
             padding-left:20;
             height: calc(100% - 115px);
         }
-        #dialog-backups-show {
-            z-index: 9900 !important;
-        }
-
         #dialog-backups-show {
             max-height: 95% !important;
             max-width: 85% !important;
@@ -131,6 +138,9 @@
             height: 90% !important;
             overflow: visible !important;
             top: 10px !important;
+            width: calc(100% - 100px);
+            border-radius: 4px;
+            z-index: 9900 !important;
         }
         .tableFixHead { 
             overflow-y: auto;
@@ -148,13 +158,55 @@
         th {
             background:#3399CC;
         }
+        .footer {
+            position: fixed; 
+            bottom: 0 !important;
+            width: calc(100% - 0.1rem);
+            margin-bottom: -7px;
+            overflow: overlay;
+            z-index: 997;
+        }
+        .header-fix {
+            position: sticky;
+            top: 0;
+            overflow: overlay;
+            z-index: 997;
+        }
+        #dialog-confirm {
+            border-radius: 4px;
+        }
+        #dialog-confirm .title {
+            width: 100% !important;
+            background: #174475;
+            color: #FFF;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        #dialog-command .title {
+            width: 100% !important;
+            background: #174475;
+            color: #FFF;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        #dialog-command .btn {
+            margin-right: 0.5rem;
+            background-color: #3399CC;
+        }
+        #dialog-command .modal-footer {
+            padding: 4px 20px;
+            margin-left: 0.4rem;
+        }
+        #dialog-command {
+            border-radius: 4px;
+        }
     </style>
 </head>
 
 <body>
     <div class="m adapter-container">
         <!-- Header -->
-        <div id="header-area" class="row" >
+        <div id="header-area" class="row header-fix">
             <div id="header-logo-title" class="col s6" >
                 <img class="logo" src="backitup.png" >
                 <p>
@@ -164,8 +216,8 @@
             </div>
         </div>
         <!-- Backup Informations -->
-        <div class="row">
-            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;">Backupinformations</h6>
+        <div class="row" style="padding: 2px;">
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Backupinformations</h6>
         </div>
         <div class="row">
             <div class="col s6 l12">
@@ -176,8 +228,8 @@
             </div>
         </div>
         <!-- Backup Options -->
-        <div class="row">
-            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;">activated backupoptions</h6>
+        <div class="row" style="padding: 2px;">
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;; border-radius: 4px;">activated backupoptions</h6>
         </div>
         <div class="row">
             <div class="col s6 l12">
@@ -195,8 +247,8 @@
             </div>
         </div>
         <!-- Storage Options -->
-        <div class="row">
-            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;">activated storageoptions</h6>
+        <div class="row" style="padding: 2px;">
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;; border-radius: 4px;">activated storageoptions</h6>
         </div>
         <div class="row">
             <div class="col s6 l12">
@@ -208,8 +260,8 @@
             </div>
         </div>
         <!-- Backups Now -->
-        <div class="row">
-            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;">System backup</h6>
+        <div class="row" style="padding: 2px;">
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;; border-radius: 4px;">System backup</h6>
         </div>
         <div class="row">
             <div class="input-field col s6 l3">
@@ -223,8 +275,8 @@
             </div>
         </div>
         <!-- Restore -->
-        <div class="row">
-            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;">Restore</h6>
+        <div class="row" style="padding: 2px;">
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;; border-radius: 4px;">Restore</h6>
         </div>
         <div class="row" style="margin-bottom: 0">
             <div class="input-field col s11 m3">
@@ -247,9 +299,19 @@
                 </div>
             </div>
         </div>
-        <div class="row doRestore" style="display: none">
+        <div class="row">
+            <div class="col s12 progress-search" style="display: none;">
+                <div class="progress">
+                    <div class="indeterminate"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row doRestore" style="padding: 2px; display: none">
             <ul class="collapsible root">
             </ul>
+        </div>
+        <div class="row footer" style="margin-bottom: -7px;">
+            <h6 class="translate title" style="background-color:#3399CC; font-size: 0.8rem;text-align: center; border-radius: 4px;">All backup settings can be changed in the adapter configuration of Backitup.</h6>
         </div>
         
         <!-- Dialog -->
@@ -275,7 +337,8 @@
             </div>
             <div class="modal-footer">
                 <div class="progress-dont-close"><input type="checkbox" class="filled-in" /><span class="translate">close on ready</span></div>
-                <a class="modal-action modal-close waves-effect waves-green btn"><i class="large material-icons">close</i><span class="translate">Close</span></a>
+                <a class="modal-action modal-close waves-effect waves-green btn btn-close" style="background-color:#3399CC;border-radius: 4px;"><i
+                    class="large material-icons left">close</i><span class="translate">Close</span></a>
             </div>
         </div>
         <!-- Popup Backups -->
@@ -291,8 +354,8 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer" style="background-color: #fff;">
-                <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn btn-close" style="background-color:#3399CC;border-radius: 4px;"><i
                         class="large material-icons left">close</i><span class="translate">Close</span></a>
             </div>
         </div>
