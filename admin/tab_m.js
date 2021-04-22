@@ -180,6 +180,7 @@ function load(settings, onChange) {
             });
 
             $('.do-list').removeClass('disabled').on('click', function () {
+                $('.doRestore').hide();
                 $('.progress-search').show();
                 $('.do-list').addClass('disabled');
                 $('.doRestore').find('.root').html('');
@@ -188,6 +189,7 @@ function load(settings, onChange) {
                     $('.do-list').removeClass('disabled');
                     console.log(result);
                     if (result && result.error) {
+                        $('.progress-search').hide();
                         showError(JSON.stringify(result.error));
                     }
                     if (result && result.data) {
@@ -454,6 +456,9 @@ function showHideSettings(settings) {
     } else {
         $('.ccuBackup').hide();
     }
+    $('#restoreSource').on('change', function () {
+        $('.doRestore').hide();
+    }).trigger('change');
 
     $('.cloudRestore').hide();
 }

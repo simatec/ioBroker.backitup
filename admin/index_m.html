@@ -62,8 +62,8 @@
                 </div>
                 -->
                 <!-- What to back up -->
-                <div class="row">
-                    <h6 class="translate title" style="background-color:#174475;">What to back up</h6>
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">What to back up</h6>
                     <div class="input-field col s6 l2">
                         <input class="value" id="minimalEnabled" type="checkbox"/>
                         <label for="minimalEnabled" class="translate">iobroker backup</label>
@@ -111,8 +111,8 @@
                         <label for="grafanaEnabled" class="translate">Grafana Backup</label>
                     </div>
                 </div>
-                <div class="row">
-                    <h6 class="translate title" style="background-color:#174475;">Storage location</h6>
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Storage location</h6>
                     <div class="input-field col s6 l2">
                         <input class="value" id="cifsEnabled" type="checkbox"/>
                         <span for="cifsEnabled" class="translate">NAS / Copy</span>
@@ -134,8 +134,8 @@
                         <span for="webdavEnabled" class="translate">WebDAV</span>
                     </div>
                 </div>
-                <div class="row">
-                    <h6 class="translate title" style="background-color:#174475;">Additional setting</h6>
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Additional setting</h6>
                     <div class="input-field col s12 m6 l3">
                         <input class="value" id="notificationEnabled" type="checkbox"/>
                         <label for="notificationEnabled" class="translate">Enable / Disable Notifications</label>
@@ -165,12 +165,12 @@
 
             <!-- iobroker Backup -->
             <div id="tab-iobroker-backup" class="col s12 page">
-                <div class="row">
-                    <h6 class="translate title" style="background-color:#174475;">iobroker backup</h6>
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">iobroker backup</h6>
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3">
-                        <a class="waves-effect waves-light btn btn-iobroker do-backup" data-type="iobroker"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
+                        <a class="waves-effect waves-light btn btn-iobroker do-backup" style="background-color:#3399CC;" data-type="iobroker"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
                     </div>
                 </div>
 				<div class="row iobroker">
@@ -199,15 +199,15 @@
 
             <!-- CCU Backup -->
             <div id="tab-ccu-backup" class="col s12 page">
-                <div class="row">
-                    <h6 class="translate title" style="background-color:#174475;">Homematic CCU backup</h6>
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Homematic CCU backup</h6>
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3 ccu">
-                        <a class="waves-effect waves-light btn btn-ccu do-backup" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
+                        <a class="waves-effect waves-light btn btn-ccu do-backup" style="background-color:#3399CC;" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
                     </div>
                     <div class="input-field col s6 l3 ccu">
-                        <a class="waves-effect waves-light btn detect-ccu"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                        <a class="waves-effect waves-light btn detect-ccu" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
                     </div>
                 </div>
                 <div class="row ccu">
@@ -248,12 +248,12 @@
 
             <!-- Mysql Backup -->
             <div id="tab-my-sql" class="col s12 page">
-                <div class="row">
-                    <h6 class="translate title" style="background-color:#174475;">MySql Backup</h6>
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">MySql Backup</h6>
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3 mysql">
-                        <a class="waves-effect waves-light btn detect-mysql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                        <a class="waves-effect waves-light btn detect-mysql"style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
                     </div>
                 </div>
                 <div class="row mysql">
@@ -304,12 +304,12 @@
 
             <!-- pgsql Backup -->
             <div id="tab-pg-sql" class="col s12 page">
-                <div class="row">
-                    <h6 class="translate title" style="background-color:#174475;">Postgresql Backup</h6>
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Postgresql Backup</h6>
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3 pgsql">
-                        <a class="waves-effect waves-light btn detect-pgsql"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                        <a class="waves-effect waves-light btn detect-pgsql" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
                     </div>
                 </div>
                 <div class="row pgsql">
@@ -350,8 +350,8 @@
 
             <!-- Grafana Backup -->
             <div id="tab-grafana" class="col s12 page">
-                <div class="row">
-                    <h6 class="translate title" style="background-color:#174475;">Grafana Backup</h6>
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Grafana Backup</h6>
                 </div>
                 <div class="row grafana">
                     <div class="input-field col s12 m6 l4">
@@ -388,8 +388,8 @@
 
             <!-- influxDB Backup -->
             <div id="tab-influxDB" class="col s12 page">
-                <div class="row">
-                    <h6 class="translate title" style="background-color:#174475;">InfluxDB Backup</h6>
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">InfluxDB Backup</h6>
                 </div>
                 <div class="row">
                     <div class="input-field col s11 m2">
@@ -400,7 +400,7 @@
                         <label for="influxDBType" class="translate">source type</label>
                     </div>
                     <div class="input-field col s6 l3 influxDB">
-                        <a class="waves-effect waves-light btn detect-influxDB"><i class="material-icons right">search</i><span
+                        <a class="waves-effect waves-light btn detect-influxDB" style="background-color:#3399CC;"><i class="material-icons right">search</i><span
                                 class="translate">detect config</span></a>
                     </div>
                 </div>
@@ -446,8 +446,8 @@
 
             <!-- Redis -->
             <div id="tab-redis" class="col s12 page">
-                <div class="row">
-                    <h6 class="translate title" style="background-color:#174475;">Save Redis state</h6>
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Save Redis state</h6>
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l6 redis_path">
@@ -465,12 +465,12 @@
 
             <!-- History Backup -->
             <div id="tab-history" class="col s12 page">
-                <div class="row">
-                    <h6 class="translate title" style="background-color:#174475;">Save History Data</h6>
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Save History Data</h6>
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3">
-                        <a class="waves-effect waves-light btn detect-history"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                        <a class="waves-effect waves-light btn detect-history" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
                     </div>
                 </div>
                 <div class="row">
@@ -488,12 +488,12 @@
             
             <!-- Javascripts Backup -->
             <div id="tab-javascripts" class="col s12 page">
-                <div class="row">
-                    <h6 class="translate title" style="background-color:#174475;">Javascripts Backup</h6>
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Javascripts Backup</h6>
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3">
-                        <a class="waves-effect waves-light btn detect-javascripts"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                        <a class="waves-effect waves-light btn detect-javascripts" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
                     </div>
                 </div>
                 <div class="row">
@@ -511,8 +511,8 @@
 
             <!-- notifications -->
             <div id="tab-notification" class="col s12 page">
-                <div class="row">
-                    <h6 class="translate title" style="background-color:#174475;">Notifications</h6>
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Notifications</h6>
                 </div>
                 <div class="row">
                     <div class="input-field col s11 m2">
@@ -660,8 +660,8 @@
 
             <!-- nas / copy settings -->
             <div id="tab-cifs" class="col s12 page">
-                <div class="row cifs">
-                    <h6 class="translate title" style="background-color:#174475;">NAS / Copy</h6>
+                <div class="row cifs" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">NAS / Copy</h6>
                 </div>
                 <div class="row cifs">
                     <div class="input-field col s11 m2">
@@ -757,8 +757,8 @@
 
             <!-- ftp settings -->
             <div id="tab-ftp" class="col s12 page">
-                <div class="row ftp">
-                    <h6 class="translate title" style="background-color:#174475;">FTP</h6>
+                <div class="row ftp" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">FTP</h6>
                 </div>
                 <div class="row ftp">
                     <div class="input-field col s12 m6 l4">
@@ -811,8 +811,8 @@
 
             <!-- WebDAV settings -->
             <div id="tab-webDAV" class="col s12 page">
-                <div class="row webDAV">
-                    <h6 class="translate title" style="background-color:#174475;">WebDAV</h6>
+                <div class="row webDAV" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">WebDAV</h6>
                 </div>
                 <div class="row webDAV">
                     <div class="input-field col s12 m6 l4">
@@ -833,7 +833,7 @@
                 </div>
                 <div class="row webDAV">
                     <div class="col s12">
-                        <a id="testWebDAV" class="waves-effect waves-light btn"><i class="material-icons left">wifi_tethering</i><span class="translate">Test connection</span></a>
+                        <a id="testWebDAV" class="waves-effect waves-light btn" style="background-color:#3399CC;"><i class="material-icons left">wifi_tethering</i><span class="translate">Test connection</span></a>
                     </div>
                 </div>
                 <div class="row webDAV">
@@ -866,8 +866,8 @@
 
             <!-- dropbox settings -->
             <div id="tab-dropbox" class="col s12 page">
-                <div class="row dropbox">
-                    <h6 class="translate title" style="background-color:#174475;">Dropbox</h6>
+                <div class="row dropbox" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Dropbox</h6>
                 </div>
                 <div class="row dropbox">
                     <div class="input-field col s12">
@@ -906,15 +906,15 @@
 
             <!-- googledrive settings -->
             <div id="tab-googledrive" class="col s12 page">
-                <div class="row googledrive">
-                    <h6 class="translate title" style="background-color:#174475;">Google Drive</h6>
+                <div class="row googledrive" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Google Drive</h6>
                 </div>
                 <div class="row googledrive">
                     <div class="input-field col s3">
                         <input class="value" id="googledriveAccessJson" type="hidden"/>
                         <span class="translate">Access token: </span>
                         <span class="translate" id="googledriveAccessJson_span" style="font-weight: bold">Not present</span>
-                        <a class="waves-effect waves-light btn btn-iobroker get-googledrive-json"><i class="material-icons right">backup</i><span class="translate">Get Google Drive Access</span></a>
+                        <a class="waves-effect waves-light btn btn-iobroker get-googledrive-json" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Get Google Drive Access</span></a>
                     </div>
                     <div class="input-field col s12 get-googledrive-url" style="display: none">
                         <span class="translate">Authorize this app by visiting this url: </span>
@@ -923,7 +923,7 @@
                     <div class="input-field col s3 get-googledrive-code" style="display: none">
                         <input id="get-googledrive-code" type="text"/>
                         <label for="get-googledrive-code" class="translate">Enter the code from that page here</label>
-                        <a class="waves-effect waves-light btn btn-iobroker get-googledrive-submit"><i class="material-icons right">backup</i><span class="translate">Submit</span></a>
+                        <a class="waves-effect waves-light btn btn-iobroker get-googledrive-submit" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Submit</span></a>
                     </div>
                 </div>
                 <div class="row googledrive">
@@ -956,8 +956,8 @@
 
             <!-- restore settings -->
             <div id="tab-restore" class="col s12 page">
-                <div class="row">
-                    <h6 class="translate title" style="background-color:#174475;">Restore</h6>
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Restore</h6>
                 </div>
                 <div class="row" style="margin-bottom: 0">
                     <div class="input-field col s11 m2">
@@ -972,7 +972,7 @@
 						<label for="restoreSource" class="translate">source type</label>
                     </div>
                     <div class="input-field col s6 m2">
-                        <a class="waves-effect waves-light btn btn-iobroker do-list"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
+                        <a class="waves-effect waves-light btn btn-iobroker do-list" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
                     </div>
                     <div class="input-field col s6 l6">
                         <input class="value" id="startAllRestore" type="checkbox"/>
@@ -985,6 +985,13 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col s12 progress-search" style="display: none;">
+                        <div class="progress">
+                            <div class="indeterminate"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row doRestore" style="padding: 2px; display: none">
                     <ul class="collapsible root">
                     </ul>
                 </div>
@@ -1013,7 +1020,8 @@
         </div>
         <div class="modal-footer">
             <div class="progress-dont-close"><input type="checkbox" class="filled-in" /><span class="translate">close on ready</span></div>
-            <a class="modal-action modal-close waves-effect waves-green btn"><i class="large material-icons">close</i><span class="translate">Close</span></a>
+            <a class="modal-action modal-close waves-effect waves-green btn btn-close" style="background-color:#3399CC;border-radius: 4px;"><i
+                class="large material-icons left">close</i><span class="translate">Close</span></a>
         </div>
     </div>
 </div>

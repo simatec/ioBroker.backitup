@@ -493,14 +493,18 @@ function load(settings, onChange) {
                 */
                 $('.do-list').addClass('disabled');
                 $('#tab-restore').find('.root').html('');
+                $('.doRestore').hide();
+                $('.progress-search').show();
                 console.log('Restore Type: ' + $('#restoreSource').val());
                 sendTo(null, 'list', $('#restoreSource').val(), function (result) {
                     $('.do-list').removeClass('disabled');
                     console.log(result);
                     if (result && result.error) {
+                        $('.progress-search').hide();
                         showError(JSON.stringify(result.error));
                     }
                     if (result && result.data) {
+                        $('.progress-search').hide();
                         var text = '';
                         var data = result.data;
                         console.log(data);
@@ -547,6 +551,7 @@ function load(settings, onChange) {
                             }
                             text += '</ul></li>';
                         }
+                        $('.doRestore').show();
                         var $tabRestore = $('#tab-restore');
                         $tabRestore
                             .find('.root')
@@ -929,6 +934,10 @@ function showHideSettings(settings) {
             $('.influxRemote').hide();
             $('.influxLocal').show();
         }
+    }).trigger('change');
+
+    $('#restoreSource').on('change', function () {
+            $('.doRestore').hide();
     }).trigger('change');
 
     $('#notificationsType').on('change', function () {
