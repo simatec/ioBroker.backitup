@@ -180,6 +180,7 @@ function load(settings, onChange) {
             });
 
             $('.do-list').removeClass('disabled').on('click', function () {
+                initDialogRestore();
                 $('.doRestore').hide();
                 $('.progress-search').show();
                 $('.do-list').addClass('disabled');
@@ -244,6 +245,10 @@ function load(settings, onChange) {
                             .find('.root')
                             .html(text);
                         $tabAdmin.find('.collapsible').collapsible();
+
+                        var expandHeader = M.Collapsible.getInstance($('.collapsible'));
+                        expandHeader.open();
+
                         $tabAdmin.find('.do-restore').on('click', function () {
                             var type = $(this).data('type');
                             var file = $(this).data('file');
@@ -279,7 +284,8 @@ function load(settings, onChange) {
                                     } else {
                                         $('.cloudRestore').hide();
                                     }
-
+                                    
+                                    $('#dialog-restore-show').modal('close');
                                     $('.do-list').addClass('disabled');
                                     $('.doRestore').find('.do-restore').addClass('disabled').hide();
 
@@ -307,6 +313,7 @@ function load(settings, onChange) {
                                         }
                                         $('.do-list').removeClass('disabled');
                                         $('.doRestore').find('.do-restore').removeClass('disabled').show();
+                                        //$('#dialog-restore-show').show();
                                     });
                                 }
                             });
@@ -398,6 +405,21 @@ function initDialogBackups() {
         });
     }
     $dialogBackups.modal('open');
+}
+
+function initDialogRestore() {
+    var $dialogRestore = $('#dialog-restore-show');
+    if (!$dialogRestore.data('inited')) {
+        $dialogRestore.data('inited', true);
+        $dialogRestore.modal({
+            dismissible: false
+        });
+
+        $dialogRestore.find('.do-list').on('click', function () {
+            $dialogRestore = $('#dialog-restore-show');
+        });
+    }
+    $dialogRestore.modal('open');
 }
 
 function showHideSettings(settings) {

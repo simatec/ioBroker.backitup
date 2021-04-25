@@ -56,6 +56,10 @@
             color:white; padding-top: 0.2rem; 
             padding-bottom: 0.2rem;
             border-radius: 4px;
+            position: sticky;
+            top: 0;
+            overflow: overlay;
+            z-index: 997;
         }
         .collapsible.root .collapsible-header.top h6 {
             background-color:#3399CC; 
@@ -65,6 +69,14 @@
         }
         .m .collapsible {
             border-radius: 4px;
+        }
+        .m .collapsible-body {
+            display: none;
+            border-bottom: 1px solid #ddd;
+            box-sizing: border-box;
+            padding: 2rem;
+            overflow: overlay;
+            height: calc(100% - 48px);
         }
         .m .chip {
             display: inline-block;
@@ -140,8 +152,47 @@
             top: 10px !important;
             width: calc(100% - 100px);
             border-radius: 4px;
-            z-index: 9900 !important;
+            /*z-index: 1005 !important;*/
         }
+
+        #dialog-restore-show .title {
+            width: 100%;
+            margin-left: auto;
+            left: auto;
+            right: auto;
+            background: #174475;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        #dialog-restore-show .modal-footer {
+            padding: 4px 20px;
+            margin-left: 0.4rem;
+        }
+        #dialog-restore-show .modal-content {
+            width: 100% !important;
+            height: calc(100% - 20px) !important;
+        }
+        #dialog-restore-show .root {
+            width: 100%;
+            height: calc(100% - 150px);
+            overflow: auto;
+        }
+        #dialog-restore-show {
+            max-height: 95% !important;
+            max-width: 85% !important;
+            width: 80% !important;
+            height: 90% !important;
+            overflow: visible !important;
+            top: 10px !important;
+            width: calc(100% - 100px);
+            border-radius: 4px;
+            /*z-index: 1005 !important;*/
+        }
+        /*
+        .modal-overlay {
+            z-index: 1004 !important;
+        }
+        */
         .tableFixHead { 
             overflow-y: auto;
         }
@@ -174,6 +225,7 @@
         }
         #dialog-confirm {
             border-radius: 4px;
+            /*z-index: 1006 !important;*/
         }
         #dialog-confirm .title {
             width: 100% !important;
@@ -199,6 +251,7 @@
         }
         #dialog-command {
             border-radius: 4px;
+            z-index: 1010 !important;
         }
     </style>
 </head>
@@ -299,6 +352,7 @@
                 </div>
             </div>
         </div>
+        <!--
         <div class="row">
             <div class="col s12 progress-search" style="display: none;">
                 <div class="progress">
@@ -310,10 +364,53 @@
             <ul class="collapsible root">
             </ul>
         </div>
+        -->
         <div class="row footer" style="margin-bottom: -7px;">
             <h6 class="translate title" style="background-color:#3399CC; font-size: 0.8rem;text-align: center; border-radius: 4px;">All backup settings can be changed in the adapter configuration of Backitup.</h6>
         </div>
-        
+
+        <!-- Popup Backups -->
+        <div id="dialog-backups-show" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <div class="row">
+                    <h6 class="title"><span class="translate">Backup history</span></h6>
+                </div>
+                <div class="row tableBackups">
+                    <div class="table-values-div tableFixHead page">
+                        <table class="highlight fillBackups">
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn btn-close" style="background-color:#3399CC;border-radius: 4px;"><i
+                        class="large material-icons left">close</i><span class="translate">Close</span></a>
+            </div>
+        </div>
+        <!-- Popup Restore -->
+        <div id="dialog-restore-show" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <div class="row">
+                    <h6 class="title"><span class="translate">Restore</span></h6>
+                </div>
+                <div class="row">
+                    <div class="col s12 progress-search" style="display: none;">
+                        <div class="progress">
+                            <div class="indeterminate"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row doRestore" style="padding: 2px;">
+                    <ul class="collapsible root">
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn btn-close" style="background-color:#3399CC;border-radius: 4px;"><i
+                        class="large material-icons left">close</i><span class="translate">Close</span></a>
+            </div>
+        </div>
+
         <!-- Dialog -->
         <div id="dialog-command" class="modal modal-fixed-footer" style="display: none">
             <div class="modal-content">
@@ -339,24 +436,6 @@
                 <div class="progress-dont-close"><input type="checkbox" class="filled-in" /><span class="translate">close on ready</span></div>
                 <a class="modal-action modal-close waves-effect waves-green btn btn-close" style="background-color:#3399CC;border-radius: 4px;"><i
                     class="large material-icons left">close</i><span class="translate">Close</span></a>
-            </div>
-        </div>
-        <!-- Popup Backups -->
-        <div id="dialog-backups-show" class="modal modal-fixed-footer">
-            <div class="modal-content">
-                <div class="row">
-                    <h6 class="title"><span class="translate">Backup history</span></h6>
-                </div>
-                <div class="row tableBackups">
-                    <div class="table-values-div tableFixHead page">
-                        <table class="highlight fillBackups">
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a class="modal-action modal-close waves-effect waves-green btn btn-close" style="background-color:#3399CC;border-radius: 4px;"><i
-                        class="large material-icons left">close</i><span class="translate">Close</span></a>
             </div>
         </div>
     </div>
