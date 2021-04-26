@@ -224,7 +224,7 @@ function load(settings, onChange) {
                                     break;
                             }
                             text += '<li><div class="collapsible-header top"><i class="material-icons">expand_more</i><h6>' + _(storageTyp) + '</h6></div>';
-                            text += '<ul class="collapsible-body collection">';
+                            text += '<ul class="collapsible-body collection head">';
                             for (var storage in data[type]) {
                                 if (data[type].hasOwnProperty(storage)) {
                                     text += '<ul class="collapsible"><li><div class="collapsible-header"><i class="material-icons">expand_more</i><h6>' + storage.toUpperCase() + '</h6></div>';

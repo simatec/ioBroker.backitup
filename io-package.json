@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.3",
+    "version": "2.1.4",
     "news": {
+      "2.1.4": {
+        "en": "Redesign Restore GUI, small GUI Bugfix",
+        "de": "Redesign Restore GUI, kleiner GUI Bugfix",
+        "ru": "Редизайн Восстановить графический интерфейс, небольшое исправление ошибки графического интерфейса",
+        "pt": "Redesign Restaurar GUI, pequena correção de bug de GUI",
+        "nl": "Herontwerp Herstel GUI, kleine GUI Bugfix",
+        "fr": "Redesign Restore GUI, petite correction de bogue GUI",
+        "it": "Riprogettazione della GUI di ripristino, piccola correzione dei bug della GUI",
+        "es": "Rediseño Restaurar GUI, pequeña corrección de errores de GUI",
+        "pl": "Przeprojektowanie GUI przywracania, mały błąd GUI"
+      },
       "2.1.3": {
         "en": "Admin-Tab changed, Javascript Restore changed, Admin-Tab redesigned, Config redesigned, Preparation for admin 5",
         "de": "Admin-Tab geändert, Javascript-Wiederherstellung geändert, Admin-Tab neu gestaltet, Konfiguration neu gestaltet, Vorbereitung für Admin 5",

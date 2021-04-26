@@ -70,14 +70,35 @@
         .m .collapsible {
             border-radius: 4px;
         }
-        .m .collapsible-body {
+        .m .secondary-content {
+            float: right;
+            color: #3399CC;
+        }
+        .m .collapsible-body.collection.head {
+            /*
             display: none;
             border-bottom: 1px solid #ddd;
             box-sizing: border-box;
             padding: 2rem;
             overflow: overlay;
+            */
             height: calc(100% - 48px);
         }
+        .m .collapsible-body.collection {
+            /*
+            display: none;
+            border-bottom: 1px solid #ddd;
+            box-sizing: border-box;
+            padding: 2rem;
+            */
+            overflow: overlay;
+            /*height: auto !important;*/
+        }
+        /*
+        li.active .collapsible-body.collection {
+            height: auto !important;
+        }
+        */
         .m .chip {
             display: inline-block;
             height: 32;
