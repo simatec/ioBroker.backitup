@@ -358,7 +358,7 @@ function load(settings, onChange) {
             }
         } else if (id === 'backitup.' + instance + '.history.ccuLastTime') {
             if (state && state.val) {
-                $('#lastCCUBackup').text(_('Last Homematic Backup: ') + state.val);
+                $('#lastCCUBackup').text(_('Last CCU Backup: ') + state.val);
             }
         } else if (id === 'backitup.' + instance + '.history.json') {
             if (state && state.val) {
