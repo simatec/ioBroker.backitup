@@ -371,7 +371,12 @@ function load(settings, onChange) {
     
     showHideSettings(settings);
     onChange(false);
-    
+
+    setTimeout (() => {
+        $('.load').hide();
+        $('.loadFinish').fadeIn();
+    }, 200);
+
     M.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
     
     initDialog();

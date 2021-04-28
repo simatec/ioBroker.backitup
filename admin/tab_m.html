@@ -278,7 +278,16 @@
 </head>
 
 <body>
-    <div class="m adapter-container">
+    <div class="m adapter-container load">
+        <div class="row">
+            <div class="col s12">
+                <div class="progress">
+                    <div class="indeterminate"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="m adapter-container loadFinish" style="display: none;">
         <!-- Header -->
         <div id="header-area" class="row header-fix">
             <div id="header-logo-title" class="col s6" >
@@ -287,6 +296,11 @@
                     <span class="translate h-title">Backitup</span><br />
                     <span class="translate h-sub-title">Backup your System …</span>
                 </p>
+            </div>
+            <div class="col s12 load">
+                <div class="progress">
+                    <div class="indeterminate"></div>
+                </div>
             </div>
         </div>
         <!-- Backup Informations -->
