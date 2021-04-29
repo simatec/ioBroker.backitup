@@ -358,7 +358,7 @@ function load(settings, onChange) {
             }
         } else if (id === 'backitup.' + instance + '.history.ccuLastTime') {
             if (state && state.val) {
-                $('#lastCCUBackup').text(_('Last Homematic Backup: ') + state.val);
+                $('#lastCCUBackup').text(_('Last CCU Backup: ') + state.val);
             }
         } else if (id === 'backitup.' + instance + '.history.json') {
             if (state && state.val) {
@@ -371,7 +371,12 @@ function load(settings, onChange) {
     
     showHideSettings(settings);
     onChange(false);
-    
+
+    setTimeout (() => {
+        $('.load').hide();
+        $('.loadFinish').fadeIn();
+    }, 200);
+
     M.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
     
     initDialog();

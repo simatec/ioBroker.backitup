@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.4",
+    "version": "2.1.5",
     "news": {
+      "2.1.5": {
+        "en": "Bugfix AdminTab, small Bugfix",
+        "de": "Bugfix AdminTab, kleiner Bugfix",
+        "ru": "Исправление ошибок AdminTab, небольшое исправление ошибок",
+        "pt": "Bugfix AdminTab, pequeno Bugfix",
+        "nl": "Bugfix AdminTab, kleine Bugfix",
+        "fr": "Correctif AdminTab, petit Bugfix",
+        "it": "Bugfix AdminTab, piccolo Bugfix",
+        "es": "Corrección de errores AdminTab, pequeña corrección de errores",
+        "pl": "Bugfix AdminTab, mała Bugfix"
+      },
       "2.1.4": {
         "en": "Redesign Restore GUI, small GUI Bugfix",
         "de": "Redesign Restore GUI, kleiner GUI Bugfix",
@@ -202,7 +213,8 @@
       "sentry": {
         "dsn": "https://e8510540c3a343aa8ce5678a4b3c8107@sentry.iobroker.net/36"
       }
-    }
+    },
+    "installedFrom": "simatec/ioBroker.backitup#dev"
   },
   "native": {
     "minimalEnabled": true,
