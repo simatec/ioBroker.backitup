@@ -192,7 +192,11 @@ function fetchHistoryConfig(isInitial) {
                 }
             }
         }
-        if (found) {
+        if (found && native.storeDir == '' && _native.storeDir == '') {
+            M.updateTextFields();
+            found = found.substring('system.adapter.'.length);
+            !isInitial && showMessage(_('No Config found from %s', found), _('Backitup Information!'), 'info');
+        } else if (found && (native.storeDir !== '' || _native.storeDir !== '')) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
             !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');

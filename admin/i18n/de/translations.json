@@ -113,6 +113,7 @@
   "Next iobroker Backup: ": "Nächstes iobroker Backup: ",
   "No %s Instance found on this host. Please check your System": "Auf diesem Host wurde keine %s-Instanz gefunden. Bitte überprüfen Sie Ihr System",
   "No %s Instance found. Please check your System": "Keine %s Instanz gefunden. Bitte überprüfen Sie Ihr System",
+  "No Config found from %s": "Keine Konfiguration von %s gefunden",
   "No backups yet": "Noch keine Sicherung erstellt",
   "No config found": "Keine Konfiguration gefunden",
   "No config found. Please check the settings in the Javascript adapter": "Keine Konfiguration gefunden. Bitte die Einstellungen im JavaScript-Adapter überprüfen",
