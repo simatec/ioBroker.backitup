@@ -41,7 +41,7 @@
     "dropbox-v2-api": "^2.4.38",
     "webdav": "^4.1.0",
     "ftp": "^0.3.10",
-    "googleapis": "^72.0.0",
+    "googleapis": "^73.0.0",
     "node-schedule": "^2.0.0",
     "node-wol": "^0.1.1",
     "request": "^2.88.2",
