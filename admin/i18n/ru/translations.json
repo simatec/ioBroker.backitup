@@ -113,6 +113,7 @@
   "Next iobroker Backup: ": "Следующее резервное копирование iobroker: ",
   "No %s Instance found on this host. Please check your System": "На этом хосте не найдено ни одного экземпляра %s. Пожалуйста, проверьте свою систему",
   "No %s Instance found. Please check your System": "Экземпляр %s не найден. Пожалуйста, проверьте свою систему",
+  "No Config found from %s": "Конфигурация из %s не найдена",
   "No backups yet": "Пока нет резервных копий",
   "No config found": "Конфигурация не найдена",
   "No config found. Please check the settings in the Javascript adapter": "Конфигурации не найдено. Пожалуйста, проверьте настройки в адаптере Javascript",

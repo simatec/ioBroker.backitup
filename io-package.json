@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.5",
+    "version": "2.1.6",
     "news": {
+      "2.1.6": {
+        "en": "Bugfix for js-controller 3.3.x, small Bugfix Dropbox Log, small Bugfix for History Config reading",
+        "de": "Bugfix für js-controller 3.3.x, kleiner Bugfix Dropbox Log, kleiner Bugfix für das Lesen der History Config",
+        "ru": "Исправление ошибки для js-controller 3.3.x, небольшой журнал ошибок Dropbox Log, небольшое исправление ошибок для чтения конфигурации истории",
+        "pt": "Bugfix para js-controller 3.3.x, pequeno Bugfix Dropbox Log, pequeno Bugfix para leitura de configuração de histórico",
+        "nl": "Bugfix voor js-controller 3.3.x, kleine Bugfix Dropbox Log, kleine Bugfix voor History Config lezen",
+        "fr": "Correction de bug pour js-controller 3.3.x, petit Bugfix Dropbox Log, petit Bugfix pour la lecture de History Config",
+        "it": "Bugfix per js-controller 3.3.x, piccolo bugfix Dropbox Log, piccolo bugfix per la lettura della configurazione della cronologia",
+        "es": "Corrección de errores para js-controller 3.3.x, pequeño registro de Dropbox de corrección de errores, corrección de errores pequeños para la lectura de la configuración del historial",
+        "pl": "Poprawka błędu dla kontrolera js 3.3.x, mały Bugfix Dropbox Log, mały Bugfix dla odczytu konfiguracji historii"
+      },
       "2.1.5": {
         "en": "Bugfix AdminTab, small Bugfix",
         "de": "Bugfix AdminTab, kleiner Bugfix",
@@ -181,6 +192,8 @@
     "materialize": true,
     "messagebox": true,
     "stopBeforeUpdate": true,
+    "connectionType": "local",
+    "dataSource": "assumption",
     "materializeTab": true,
     "adminTab": {
       "ignoreConfigUpdate": true,
@@ -213,8 +226,7 @@
       "sentry": {
         "dsn": "https://e8510540c3a343aa8ce5678a4b3c8107@sentry.iobroker.net/36"
       }
-    },
-    "installedFrom": "simatec/ioBroker.backitup#dev"
+    }
   },
   "native": {
     "minimalEnabled": true,

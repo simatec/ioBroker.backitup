@@ -113,6 +113,7 @@
   "Next iobroker Backup: ": "Siguiente copia de seguridad de iobroker: ",
   "No %s Instance found on this host. Please check your System": "No se encontró ninguna instancia %s en este host. Por favor revise su sistema",
   "No %s Instance found. Please check your System": "No se encontró ninguna instancia de %s. Por favor revise su sistema",
+  "No Config found from %s": "No se encontró ninguna configuración de %s",
   "No backups yet": "Aún no hay copias de seguridad",
   "No config found": "No se encontraron configuraciones",
   "No config found. Please check the settings in the Javascript adapter": "No se encontró ninguna configuración. Verifique la configuración en el adaptador de JavaScript",

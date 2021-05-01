@@ -668,10 +668,10 @@ function readLogFile() {
                     } else {
                         adapter.log.debug(line);
                     }
-                    adapter.setState('output.line', line);
+                    adapter.setState('output.line', line, true);
                 }
             });
-            adapter.setState('output.line', '[EXIT] 0');
+            adapter.setState('output.line', '[EXIT] 0', true);
             fs.unlinkSync(logName);
 
             // make the messaging
