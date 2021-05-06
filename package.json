@@ -2,7 +2,7 @@
   "name": "iobroker.backitup",
   "version": "2.1.6",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   },
   "description": "Backitup enables the cyclic creation of backups of an IoBroker / Homematic installation",
   "author": {
