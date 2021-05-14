@@ -4,9 +4,9 @@ var parts = path.split('/');
 parts.splice(-3);
 
 const socket   = io.connect('/', {path: parts.join('/') + '/socket.io'});
-//const instance = window.location.search.slice(-1) || 0;
-var query    = window.location.search.replace(/^\?/, '').split('&');
-var instance = query[0] || 0;
+const query    = window.location.search.replace(/^\?/, '').split('&');
+const instance = query[0].split('=')[1] || 0;
+
 let common   = null; // common information of adapter
 const host     = null; // host object on which the adapter runs
 const changed  = false;
