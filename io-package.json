@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.6",
+    "version": "2.1.7",
     "news": {
+      "2.1.7": {
+        "en": "Bugfix mysql Restore, Bugfix pgsql Restore, small Bugfix, dependencies updated, node-16 support added",
+        "de": "Bugfix mysql Restore, Bugfix pgsql Restore, kleiner Bugfix, Abhängigkeiten aktualisiert, Node-16-Unterstützung hinzugefügt",
+        "ru": "Исправление ошибок mysql Restore, Bugfix pgsql Restore, small Bugfix, зависимости обновлены, добавлена поддержка node-16",
+        "pt": "Bugfix mysql Restore, Bugfix pgsql Restore, bugfix pequeno, dependências atualizadas, suporte a node-16 adicionado",
+        "nl": "Bugfix mysql Restore, Bugfix pgsql Restore, kleine Bugfix, afhankelijkheden bijgewerkt, node-16 ondersteuning toegevoegd",
+        "fr": "Bugfix mysql Restore, Bugfix pgsql Restore, petit bugfix, dépendances mises à jour, support node-16 ajouté",
+        "it": "Bugfix mysql Restore, Bugfix pgsql Restore, piccolo bugfix, dipendenze aggiornate, supporto node-16 aggiunto",
+        "es": "Bugfix MySql Restore, Bugfix pgsql Restore, pequeño Bugfix, dependencias actualizadas, soporte de nodo 16 agregado",
+        "pl": "Bugfix mysql Restore, Bugfix pgsql Restore, mały błąd, zaktualizowano zależności, dodano obsługę Node-16"
+      },
       "2.1.6": {
         "en": "Bugfix for js-controller 3.3.x, small Bugfix Dropbox Log, small Bugfix for History Config reading",
         "de": "Bugfix für js-controller 3.3.x, kleiner Bugfix Dropbox Log, kleiner Bugfix für das Lesen der History Config",

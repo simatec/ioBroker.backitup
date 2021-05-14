@@ -40,6 +40,13 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 2.1.7 (14.05.2021)
+* (simatec) Bugfix mysql Restore
+* (simatec) Bugfix pgsql Restore
+* (simatec) small Bugfix
+* (simatec) dependencies updated
+* (simatec) node 16 support added
+
 ### 2.1.6 (01.05.2021)
 * (simatec) Bugfix for js-controller 3.3.x
 * (simatec) small Bugfix Dropbox Log
