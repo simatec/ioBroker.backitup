@@ -1,10 +1,12 @@
 /*global $, location, socket, document, window, io, alert, load, systemDictionary, systemLang, translateAll*/
-const path = location.pathname;
-const parts = path.split('/');
+var path = location.pathname;
+var parts = path.split('/');
 parts.splice(-3);
 
 const socket   = io.connect('/', {path: parts.join('/') + '/socket.io'});
-const instance = window.location.search.slice(-1) || 0;
+//const instance = window.location.search.slice(-1) || 0;
+var query    = window.location.search.replace(/^\?/, '').split('&');
+var instance = query[0] || 0;
 let common   = null; // common information of adapter
 const host     = null; // host object on which the adapter runs
 const changed  = false;
@@ -16,7 +18,7 @@ var isMaterialize = true;
 
 const tmp = window.location.pathname.split('/');
 adapter = tmp[tmp.length - 2];
-const _adapterInstance = 'system.adapter.' + adapter + '.' + instance;
+const id = 'system.adapter.' + adapter + '.' + instance;
 
 $(document).ready(function () {
     'use strict';
@@ -63,7 +65,7 @@ function loadSystemConfig(callback) {
 }
 
 function loadSettings(callback) {
-    socket.emit('getObject', _adapterInstance, function (err, res) {
+    socket.emit('getObject', id, function (err, res) {
         if (!err && res && res.native) {
             $('.adapter-instance').html(adapter + '.' + instance);
             $('.adapter-config').html('system.adapter.' + adapter + '.' + instance);
@@ -246,7 +248,7 @@ function getIsAdapterAlive(adapter, callback) {
         callback = adapter;
         adapter = null;
     }
-    getState(_adapterInstance + '.alive', function (err, obj) {
+    getState(id + '.alive', function (err, obj) {
         if (!obj || !obj.val) {
             callback(false);
         } else {
