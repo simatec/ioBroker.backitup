@@ -40,6 +40,9 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 2.1.9 (15.05.2021)
+* (simatec) adminTab for admin 5 changed
+
 ### 2.1.8 (14.05.2021)
 * (simatec) adminTab for admin 5 changed
 

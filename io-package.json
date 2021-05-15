@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.8",
+    "version": "2.1.9",
     "news": {
+      "2.1.9": {
+        "en": "adminTab for admin 5 changed",
+        "de": "adminTab für admin 5 geändert",
+        "ru": "adminTab для администратора 5 изменен",
+        "pt": "adminTab para admin 5 alterado",
+        "nl": "adminTabblad voor admin 5 gewijzigd",
+        "fr": "adminTab for admin 5 a changé",
+        "it": "adminTab per admin 5 è cambiato",
+        "es": "adminTab para admin 5 cambiado",
+        "pl": "Zmieniono zakładkę admin dla admin 5"
+      },
       "2.1.8": {
         "en": "adminTab for admin 5 changed",
         "de": "adminTab für admin 5 geändert",
@@ -218,8 +229,6 @@
     "dataSource": "assumption",
     "materializeTab": true,
     "adminTab": {
-      "ignoreConfigUpdate": true,
-      "singleton": false,
       "name": {
         "en": "Backup",
         "de": "Backup",
@@ -231,6 +240,7 @@
         "es": "Respaldo",
         "pl": "Utworzyć kopię zapasową"
       },
+      "ignoreConfigUpdate": true,
       "fa-icon": "</i><img style='width:24px;margin-bottom:-6px;' src='/adapter/backitup/backitup.svg'><i>"
     },
     "enabled": true,

@@ -4,8 +4,33 @@ var parts = path.split('/');
 parts.splice(-3);
 
 const socket   = io.connect('/', {path: parts.join('/') + '/socket.io'});
-const query    = window.location.search.replace(/^\?/, '').split('&');
-const instance = query[0].split('=')[1] || 0;
+//const query    = window.location.search.replace(/^\?/, '').split('&');
+//const instance = query[0].split('=')[1] || 0;
+
+var query = (window.location.search || '').replace(/^\?/, '').replace(/#.*$/, '');
+var args = {};
+
+// parse parameters
+query.trim().split('&').filter(function (t) {return t.trim();}).forEach(function (b, i) {
+    const parts = b.split('=');
+    if (!i && parts.length === 1 && !isNaN(parseInt(b, 10))) {
+        args.instance = parseInt(b,  10);
+    }
+    var name = parts[0];
+    args[name] = parts.length === 2 ? parts[1] : true;
+
+    if (name === 'instance') {
+        args.instance = parseInt( args.instance,  10) || 0;
+    }
+
+    if (args[name] === 'true') {
+        args[name] = true;
+    } else if (args[name] === 'false') {
+        args[name] = false;
+    }
+});
+
+var instance = args.instance;
 
 let common   = null; // common information of adapter
 const host     = null; // host object on which the adapter runs
