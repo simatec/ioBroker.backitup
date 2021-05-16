@@ -4,9 +4,6 @@ var parts = path.split('/');
 parts.splice(-3);
 
 const socket   = io.connect('/', {path: parts.join('/') + '/socket.io'});
-//const query    = window.location.search.replace(/^\?/, '').split('&');
-//const instance = query[0].split('=')[1] || 0;
-
 var query = (window.location.search || '').replace(/^\?/, '').replace(/#.*$/, '');
 var args = {};
 
