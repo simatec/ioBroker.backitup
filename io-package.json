@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.9",
+    "version": "2.1.10",
     "news": {
+      "2.1.10": {
+        "en": "Bugfix adminTab",
+        "de": "Bugfix adminTab",
+        "ru": "Исправление ошибки adminTab",
+        "pt": "Bugfix adminTab",
+        "nl": "Bugfix adminTab",
+        "fr": "Correctif AdminTab",
+        "it": "Bugfix adminTab",
+        "es": "Corrección de errores adminTab",
+        "pl": "Bugfix adminTab"
+      },
       "2.1.9": {
         "en": "adminTab for admin 5 changed",
         "de": "adminTab für admin 5 geändert",
@@ -112,72 +123,6 @@
         "it": "Scheda di amministrazione aggiunta, dipendenze targz rimosse, dipendenze tar-fs aggiunte, dipendenze aggiornate, piccoli bug risolti",
         "es": "Se agregó la pestaña Admin, se eliminaron las dependencias targz, se agregaron las dependencias tar-fs, se actualizaron las dependencias, pequeñas correcciones de errores",
         "pl": "Dodano kartę administratora, usunięto zależności docelowez, dodano zależności tar-fs, zaktualizowano zależności, małe poprawki błędów"
-      },
-      "2.0.5": {
-        "en": "error handling for redis backup added, error handling for history backup added, BugFix Grafana backup",
-        "de": "Fehlerbehandlung für Redis-Backup hinzugefügt, Fehlerbehandlung für History-Backup hinzugefügt, BugFix Grafana-Backup",
-        "ru": "добавлена обработка ошибок для резервного копирования Redis, добавлена обработка ошибок для резервного копирования истории, резервное копирование BugFix Grafana",
-        "pt": "tratamento de erros para backup redis adicionado, tratamento de erros para backup de histórico adicionado, backup BugFix Grafana",
-        "nl": "foutafhandeling voor redis-back-up toegevoegd, foutafhandeling voor geschiedenisback-up toegevoegd, BugFix Grafana-back-up",
-        "fr": "gestion des erreurs pour la sauvegarde redis ajoutée, gestion des erreurs pour la sauvegarde de l'historique ajoutée, sauvegarde BugFix Grafana",
-        "it": "aggiunta la gestione degli errori per il backup redis, aggiunta la gestione degli errori per il backup della cronologia, backup BugFix Grafana",
-        "es": "manejo de errores para la copia de seguridad de redis agregado, manejo de errores para la copia de seguridad del historial agregado, copia de seguridad de BugFix Grafana",
-        "pl": "dodano obsługę błędów dla kopii zapasowej redis, dodano obsługę błędów dla kopii zapasowej historii, dodano kopię zapasową BugFix Grafana"
-      },
-      "2.0.4": {
-        "en": "Bugfix history json, BugFix Redis backup, chmod for backup directory added, error handling for Grafana backup added",
-        "de": "Bugfix-history json, BugFix Redis-Backup, chmod für Backup-Verzeichnis hinzugefügt, Fehlerbehandlung für Grafana-Backup hinzugefügt",
-        "ru": "История исправлений ошибок json, резервное копирование BugFix Redis, chmod для резервного каталога добавлены, добавлена обработка ошибок для резервного копирования Grafana",
-        "pt": "Histórico de correção de bugs json, backup de BugFix Redis, chmod para diretório de backup adicionado, tratamento de erros para backup de Grafana adicionado",
-        "nl": "Bugfix-geschiedenis json, BugFix Redis-back-up, chmod voor back-upmap toegevoegd, foutafhandeling voor Grafana-back-up toegevoegd",
-        "fr": "Historique des corrections de bogues json, sauvegarde BugFix Redis, chmod pour le répertoire de sauvegarde ajouté, gestion des erreurs pour la sauvegarde Grafana ajoutée",
-        "it": "Cronologia bugfix json, backup BugFix Redis, chmod per directory di backup aggiunto, gestione degli errori per backup Grafana aggiunta",
-        "es": "Historial de corrección de errores json, copia de seguridad de BugFix Redis, chmod para el directorio de copia de seguridad agregado, manejo de errores para la copia de seguridad de Grafana agregado",
-        "pl": "Json historii poprawek błędów, kopia zapasowa BugFix Redis, dodano chmod dla katalogu kopii zapasowych, dodano obsługę błędów dla kopii zapasowej Grafana"
-      },
-      "2.0.3": {
-        "en": "Promise for redis aof added, BugFix Grafana restore, small BugFix umount",
-        "de": "Promise für Redis aof hinzugefügt, BugFix Grafana Restore, kleine BugFix umount",
-        "ru": "Добавлено обещание для redis aof, восстановление BugFix Grafana, небольшая настройка BugFix",
-        "pt": "Adicionada promessa para redis aof, BugFix Grafana restore, small BugFix umount",
-        "nl": "Belofte voor redis aof toegevoegd, BugFix Grafana herstel, kleine BugFix umount",
-        "fr": "Promesse pour redis aof ajouté, restauration BugFix Grafana, petit BugFix umount",
-        "it": "È stata aggiunta la promessa per la correzione, il ripristino di BugFix Grafana, l'umount di BugFix piccolo",
-        "es": "Promesa para redis aof agregada, restauración de BugFix Grafana, montaje pequeño de BugFix",
-        "pl": "Dodano obietnicę dla redis aof, BugFix Grafana restore, small BugFix umount"
-      },
-      "2.0.2": {
-        "en": "BugFix redis backup, aof for redis added",
-        "de": "BugFix Redis Backup, AOF für Redis hinzugefügt",
-        "ru": "BugFix redis backup, добавлен aof для redis",
-        "pt": "Backup do BugFix redis, aof para redis adicionado",
-        "nl": "BugFix maakt back-up opnieuw, een van voor redis toegevoegd",
-        "fr": "BugFix redis sauvegarde, aof pour redis ajouté",
-        "it": "BugFix redis backup, aof for redis aggiunto",
-        "es": "BugFix redis backup, aof para redis agregado",
-        "pl": "BugFix redis kopia zapasowa, dodano aof dla redis"
-      },
-      "2.0.1": {
-        "en": "BugFix redis backup/restore, dependencies node-tar added, BugFix notification, BugFix Grafana backup",
-        "de": "BugFix redis Backup/Restore, Abhängigkeiten für node-tar hinzugefügt, BugFix-Benachrichtigung, BugFix Grafana Backup",
-        "ru": "BugFix redis резервное копирование/восстановление, зависимости node-tar добавлены, уведомление BugFix, резервное копирование BugFix Grafana",
-        "pt": "BugFix redis backup/restore, dependências node-tar adicionadas, notificação BugFix, backup BugFix Grafana",
-        "nl": "BugFix maakt back-up/herstel opnieuw, afhankelijkheden node-tar toegevoegd, BugFix-melding, BugFix Grafana-back-up",
-        "fr": "Sauvegarde/restauration BugFix redis, ajout de dépendances node-tar, notification BugFix, sauvegarde BugFix Grafana",
-        "it": "BugFix redis backup/ripristino, dipendenze node-tar aggiunto, notifica BugFix, BugFix Grafana backup",
-        "es": "BugFix redis copia de seguridad/restauración, dependencias node-tar agregado, notificación de BugFix, copia de seguridad de BugFix Grafana",
-        "pl": "BugFix redis backup/przywracanie, dodano zależności node-tar, powiadomienie BugFix, backup BugFix Grafana"
-      },
-      "2.0.0": {
-        "en": "BugFix detect last backup, WebDAV added, BugFix Zigbee, stop/start Instances on restore, Download Icon for Cloud Restore added, javscript Backup added, Grafana Backup added, Restore added for some types without restart, timestamp for history-json added, Source code rewritten, Restore revised, fixed many small bugs",
-        "de": "BugFix Erkennung der letzten Sicherung, WebDAV hinzugefügt, BugFix Zigbee, Stop/Start der Instanzen bei Wiederherstellung, Download-Symbol für Cloud-Wiederherstellung hinzugefügt, Javscript-Sicherung hinzugefügt, Grafana-Sicherung hinzugefügt, Wiederherstellung für einige Typen ohne Neustart hinzugefügt, Zeitstempel für History-JSON hinzugefügt, Quellcode umgeschrieben, Restore überarbeitet, viele kleine Fehler behoben",
-        "ru": "BugFix обнаруживает последнюю резервную копию, добавлен WebDAV, BugFix Zigbee, останавливает / запускает экземпляры при восстановлении, добавлен значок загрузки для облачного восстановления, добавлено резервное копирование javscript, добавлено резервное копирование Grafana, добавлено восстановление для некоторых типов без перезапуска, добавлена метка времени для history-json, исходный код переписан, Восстановить исправлен, исправлено множество мелких ошибок",
-        "pt": "BugFix detectar último backup, WebDAV adicionado, BugFix Zigbee, parar / iniciar instâncias na restauração, Ícone de download para restauração em nuvem adicionado, backup javscript adicionado, backup Grafana adicionado, restauração adicionada para alguns tipos sem reiniciar, carimbo de data / hora para histórico-json adicionado, código-fonte reescrito, Restaurar revisado, corrigiu muitos pequenos bugs",
-        "nl": "BugFix detecteert laatste back-up, WebDAV toegevoegd, BugFix Zigbee, stop / start Instances bij herstel, Downloadpictogram voor Cloud Restore toegevoegd, Javscript Backup toegevoegd, Grafana Backup toegevoegd, Restore toegevoegd voor sommige typen zonder herstart, tijdstempel voor history-json toegevoegd, Broncode herschreven, Herstel herzien, veel kleine bugs verholpen",
-        "fr": "BugFix détecte la dernière sauvegarde, WebDAV ajouté, BugFix Zigbee, arrêter / démarrer les instances lors de la restauration, icône de téléchargement pour Cloud Restore ajoutée, sauvegarde javscript ajoutée, sauvegarde Grafana ajoutée, restauration ajoutée pour certains types sans redémarrage, horodatage pour history-json ajouté, code source réécrit, Restaurer révisé, corrigé de nombreux petits bugs",
-        "it": "BugFix rileva l'ultimo backup, WebDAV aggiunto, BugFix Zigbee, arresta / avvia istanze al ripristino, Icona di download per Cloud Restore aggiunta, javscript Backup aggiunto, Grafana Backup aggiunto, Restore aggiunto per alcuni tipi senza riavvio, timestamp per history-json aggiunto, codice sorgente riscritto, ripristino rivisto, corretti molti piccoli bug",
-        "es": "BugFix detecta la última copia de seguridad, se agrega WebDAV, BugFix Zigbee, se detiene / inicia las instancias en la restauración, se agrega el ícono de descarga para la restauración en la nube, se agrega la copia de seguridad de javscript, se agrega la copia de seguridad de Grafana, se agrega la restauración para algunos tipos sin reiniciar, se agrega la marca de tiempo para el historial-json, el código fuente reescrito, Restaurar revisado, arreglado muchos errores pequeños",
-        "pl": "BugFix wykrywa ostatnią kopię zapasową, dodano WebDAV, BugFix Zigbee, zatrzymano / uruchom instancje przy przywracaniu, dodano ikonę pobierania do przywracania w chmurze, dodano kopię zapasową javscript, dodano kopię zapasową Grafana, dodano przywracanie niektórych typów bez ponownego uruchamiania, dodano sygnaturę czasową dla history-json, kod źródłowy przepisany, Przywróć poprawione, naprawiono wiele małych błędów"
       }
     },
     "title": "BackItUp",
@@ -241,6 +186,7 @@
         "pl": "Utworzyć kopię zapasową"
       },
       "ignoreConfigUpdate": true,
+      "singleton": false,
       "fa-icon": "</i><img style='width:24px;margin-bottom:-6px;' src='/adapter/backitup/backitup.svg'><i>"
     },
     "enabled": true,
