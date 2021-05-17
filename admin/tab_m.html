@@ -75,30 +75,11 @@
             color: #3399CC;
         }
         .m .collapsible-body.collection.head {
-            /*
-            display: none;
-            border-bottom: 1px solid #ddd;
-            box-sizing: border-box;
-            padding: 2rem;
-            overflow: overlay;
-            */
             height: calc(100% - 48px);
         }
         .m .collapsible-body.collection {
-            /*
-            display: none;
-            border-bottom: 1px solid #ddd;
-            box-sizing: border-box;
-            padding: 2rem;
-            */
             overflow: overlay;
-            /*height: auto !important;*/
         }
-        /*
-        li.active .collapsible-body.collection {
-            height: auto !important;
-        }
-        */
         .m .chip {
             display: inline-block;
             height: 32;
@@ -140,6 +121,7 @@
             box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
         }
         .m .btn, .m .btn-flat, .m .btn-large, .m .btn-small {
+            background-color:#3399CC;
             border-radius: 4px;
         }
         #dialog-backups-show .title {
@@ -173,7 +155,6 @@
             top: 10px !important;
             width: calc(100% - 100px);
             border-radius: 4px;
-            /*z-index: 1005 !important;*/
         }
 
         #dialog-restore-show .title {
@@ -207,13 +188,7 @@
             top: 10px !important;
             width: calc(100% - 100px);
             border-radius: 4px;
-            /*z-index: 1005 !important;*/
         }
-        /*
-        .modal-overlay {
-            z-index: 1004 !important;
-        }
-        */
         .tableFixHead { 
             overflow-y: auto;
         }
@@ -246,7 +221,6 @@
         }
         #dialog-confirm {
             border-radius: 4px;
-            /*z-index: 1006 !important;*/
         }
         #dialog-confirm .title {
             width: 100% !important;
@@ -348,13 +322,13 @@
         </div>
         <div class="row">
             <div class="input-field col s6 l3">
-                <a class="waves-effect waves-light btn btn-iobroker do-backup" style="background-color:#3399CC;" data-type="iobroker"><i class="material-icons right">backup</i><span class="translate">iobroker start backup</span></a>
+                <a class="waves-effect waves-light btn btn-iobroker do-backup" data-type="iobroker"><i class="material-icons right">backup</i><span class="translate">iobroker start backup</span></a>
             </div>
             <div class="input-field col s6 l3 ccuBackup">
-                <a class="waves-effect waves-light btn btn-ccu do-backup" style="background-color:#3399CC;" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">Homematic start backup</span></a>
+                <a class="waves-effect waves-light btn btn-ccu do-backup" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">Homematic start backup</span></a>
             </div>
             <div class="input-field col s6 l3">
-                <a class="waves-effect waves-light btn detect-backups" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">Backup history</span></a>
+                <a class="waves-effect waves-light btn detect-backups" ><i class="material-icons right">search</i><span class="translate">Backup history</span></a>
             </div>
         </div>
         <!-- Restore -->
@@ -374,7 +348,7 @@
                 <label for="restoreSource" class="translate">source type</label>
             </div>
             <div class="input-field col s6 m3">
-                <a class="waves-effect waves-light btn btn-iobroker do-list" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
+                <a class="waves-effect waves-light btn btn-iobroker do-list" ><i class="material-icons right">search</i><span class="translate">Get list</span></a>
             </div>
             <div class="col s6 l2 cloudRestore">
                 <div class="chip blink" style="background-color:#64b5f6;">
@@ -382,19 +356,6 @@
                 </div>
             </div>
         </div>
-        <!--
-        <div class="row">
-            <div class="col s12 progress-search" style="display: none;">
-                <div class="progress">
-                    <div class="indeterminate"></div>
-                </div>
-            </div>
-        </div>
-        <div class="row doRestore" style="padding: 2px; display: none">
-            <ul class="collapsible root">
-            </ul>
-        </div>
-        -->
         <div class="row footer" style="margin-bottom: -7px;">
             <h6 class="translate title" style="background-color:#3399CC; font-size: 0.8rem;text-align: center; border-radius: 4px;">All backup settings can be changed in the adapter configuration of Backitup.</h6>
         </div>
