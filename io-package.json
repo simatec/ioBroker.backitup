@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.10",
+    "version": "2.1.11",
     "news": {
+      "2.1.11": {
+        "en": "adminTab edited, translation changed",
+        "de": "adminTab bearbeitet, Übersetzung geändert",
+        "ru": "adminTab отредактирован, перевод изменен",
+        "pt": "adminTab editado, tradução alterada",
+        "nl": "adminTab bewerkt, vertaling gewijzigd",
+        "fr": "adminTab modifié, traduction modifiée",
+        "it": "adminTab modificato, traduzione modificata",
+        "es": "adminTab editado, traducción cambiada",
+        "pl": "Edytowano zakładkę admin, zmieniono tłumaczenie"
+      },
       "2.1.10": {
         "en": "Bugfix adminTab",
         "de": "Bugfix adminTab",
@@ -188,6 +199,10 @@
       "ignoreConfigUpdate": true,
       "singleton": false,
       "fa-icon": "</i><img style='width:24px;margin-bottom:-6px;' src='/adapter/backitup/backitup.svg'><i>"
+    },
+    "adminUI": {
+      "config":"materialize",
+      "tab":"materialize"
     },
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/simatec/ioBroker.backitup/master/admin/backitup.png",
