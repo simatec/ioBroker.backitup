@@ -57,7 +57,7 @@
     "Enable / Disable Notifications": "Benachrichtigungen aktivieren / deaktivieren",
     "Enable / disable debug": "Debug aktivieren / deaktivieren",
     "Enable / disable log": "Log aktivieren / deaktivieren",
-    "Enabled": "aktiviert",
+    "Enabled": "Aktiviert",
     "Extensions Enabled (Mysql / Redis)": "Erweiterungen mit sichern (z.B. MySQL / Redis)",
     "Extra path for backup types": "Extrapfade für alle Sicherungstypen",
     "FTP": "FTP",
