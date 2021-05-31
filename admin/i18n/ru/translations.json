@@ -1,9 +1,9 @@
 {
-    " *** Open InfluxDB Documentation ***": "   *** Откройте документацию InfluxDB ***",
-    " *** Open Readme ***": " *** Открыть файл Readme ***",
+    " *** Open InfluxDB Documentation ***": "*** Открыть документацию InfluxDB ***",
+    " *** Open Readme ***": " *** Открыть файл Readme ***",
     ", and copied / moved via FTP to %h%d": ", и скопировано/перемещено через FTP в %h%d",
     ", and stored in dropbox": ", и хранится в Dropbox",
-    ", and stored in google drive": " и хранится в Google Drive",
+    ", and stored in google drive": "и хранится в Google Drive",
     ", and stored in webdav": ", и хранится в WebDAV",
     ", and stored under %h%d": ", и хранится в %h%d",
     "<br/><br/>1. Confirm with \"OK\" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.": "<br/><br/>1. Подтвердите, нажав «ОК», и начнется загрузка. Подождите, пока загрузка закончится! <br/><br/>2. После загрузки ioBroker перезапустится во время восстановления.",
