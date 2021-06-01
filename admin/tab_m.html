@@ -88,9 +88,14 @@
             line-height: 32px;
             padding: 0 12px;
             border-radius: 4px;
-            background-color: #e4e4e4;
+            /*background-color: #e4e4e4;*/
+            background-color: #fff;
             margin-bottom: 5px;
             margin-right: 5px;
+        }
+        .m .chip:hover {
+            filter: brightness(115%);
+            box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
         }
         .chip {
             margin-top: 0.5rem;
@@ -278,29 +283,10 @@
         </div>
         <div class="row">
             <div class="col s6 l12">
-                <div class="chip" id="lastIobrokerBackup"></div>
-                <div class="chip" id="nextIobrokerBackup"></div>
-                <div class="chip ccuBackup" id="lastCCUBackup"></div>
-                <div class="chip ccuBackup" id="nextCCUBackup"></div>
-            </div>
-        </div>
-        <!-- Backup Options -->
-        <div class="row" style="padding: 2px;">
-            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;; border-radius: 4px;">activated backupoptions</h6>
-        </div>
-        <div class="row">
-            <div class="col s6 l12">
-                <div class="translate chip iobroker-mode" id="optionIobroker">ioBroker</div>
-                <div class="translate chip ccu-mode" id="optionCCU">Homematic CCU backup</div>
-                <div class="translate chip redis-mode" id="optionRedis">Save Redis state</div>
-                <div class="translate chip js-mode" id="optionJavascripts">Javascripts Backup</div>
-                <div class="translate chip zigbee-mode" id="optionZigbee">Save Zigbee database</div>
-                <div class="translate chip historydb-mode" id="optionHistory">Save History Data</div>
-                <div class="translate chip influxdb-mode" id="optionInfluxdb">InfluxDB Backup</div>
-                <div class="translate chip mysql-mode" id="optionMySQL">MySql Backup</div>
-                <div class="translate chip pgsql-mode" id="optionPgSQL">Postgresql Backup</div>
-                <div class="translate chip grafana-mode" id="optionGrafana">Grafana Backup</div>
-                <div class="translate chip jarvis-mode" id="optionJarvis">Jarvis Backup</div>
+                <div class="chip col s11 m3" id="lastIobrokerBackup" style="width: 24.6%;"></div>
+                <div class="chip col s11 m3" id="nextIobrokerBackup" style="width: 24.6%;"></div>
+                <div class="chip ccuBackup col s11 m3" id="lastCCUBackup" style="width: 24.6%;"></div>
+                <div class="chip ccuBackup col s11 m3" id="nextCCUBackup" style="width: 24.6%;"></div>
             </div>
         </div>
         <!-- Storage Options -->
@@ -309,11 +295,30 @@
         </div>
         <div class="row">
             <div class="col s6 l12">
-                <div class="translate chip nas-mode" id="optionNAS">NAS / Copy</div>
-                <div class="translate chip ftp-mode" id="optionFTP">FTP</div>
-                <div class="translate chip dropbox-mode" id="optionDropbox">Dropbox</div>
-                <div class="translate chip googledrive-mode" id="optionGoogleDrive">Google Drive</div>
-                <div class="translate chip webdav-mode" id="optionWebDAV">WebDAV</div>
+                <div class="translate chip nas-mode col s11 m3" style="width: 24.6%;" id="optionNAS">NAS / Copy</div>
+                <div class="translate chip ftp-mode col s11 m3" style="width: 24.6%;" id="optionFTP">FTP</div>
+                <div class="translate chip dropbox-mode col s11 m3" style="width: 24.6%;" id="optionDropbox">Dropbox</div>
+                <div class="translate chip googledrive-mode col s11 m3" style="width: 24.6%;" id="optionGoogleDrive">Google Drive</div>
+                <div class="translate chip webdav-mode col s11 m3" style="width: 24.6%;" id="optionWebDAV">WebDAV</div>
+            </div>
+        </div>
+        <!-- Backup Options -->
+        <div class="row" style="padding: 2px;">
+            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;; border-radius: 4px;">activated backupoptions</h6>
+        </div>
+        <div class="row">
+            <div class="col s6 l12">
+                <div class="translate chip iobroker-mode col s11 m3" id="optionIobroker" style="width: 12.2%;">ioBroker</div>
+                <div class="translate chip ccu-mode col s11 m3" id="optionCCU" style="width: 12.2%;">Homematic CCU backup</div>
+                <div class="translate chip redis-mode col s11 m3" id="optionRedis" style="width: 12.2%;">Save Redis state</div>
+                <div class="translate chip js-mode col s11 m3" id="optionJavascripts" style="width: 12.2%;">Javascripts Backup</div>
+                <div class="translate chip zigbee-mode col s11 m3" id="optionZigbee" style="width: 12.2%;">Save Zigbee database</div>
+                <div class="translate chip historydb-mode col s11 m3" id="optionHistory" style="width: 12.2%;">Save History Data</div>
+                <div class="translate chip influxdb-mode col s11 m3" id="optionInfluxdb" style="width: 12.2%;">InfluxDB Backup</div>
+                <div class="translate chip mysql-mode col s11 m3" id="optionMySQL" style="width: 12.2%;">MySql Backup</div>
+                <div class="translate chip pgsql-mode col s11 m3" id="optionPgSQL" style="width: 12.2%;">Postgresql Backup</div>
+                <div class="translate chip grafana-mode col s11 m3" id="optionGrafana" style="width: 12.2%;">Grafana Backup</div>
+                <div class="translate chip jarvis-mode col s11 m3" id="optionJarvis" style="width: 12.2%;">Jarvis Backup</div>
             </div>
         </div>
         <!-- Backups Now -->

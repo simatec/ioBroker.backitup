@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.11",
+    "version": "2.1.12",
     "news": {
+      "2.1.12": {
+        "en": "adminTab edited, translation changed, dependencies updated, more debug for mount added, Bugfix history json",
+        "de": "adminTab bearbeitet, Übersetzung geändert, Abhängigkeiten aktualisiert, mehr Debug-Ausgaben für Mount hinzugefügt, Bugfix history-json",
+        "ru": "adminTab отредактирован, перевод изменен, зависимости обновлены, добавлена дополнительная отладка для монтирования, история исправлений ошибок json",
+        "pt": "adminTab editado, tradução alterada, dependências atualizadas, mais depuração para montagem adicionada, histórico de correção de bugs json",
+        "nl": "adminTab bewerkt, vertaling gewijzigd, afhankelijkheden bijgewerkt, meer foutopsporing voor mount toegevoegd, Bugfix-geschiedenis json",
+        "fr": "adminTab édité, traduction modifiée, dépendances mises à jour, plus de débogage pour le montage ajouté, historique de bugfix json",
+        "it": "adminTab modificato, traduzione modificata, dipendenze aggiornate, più debug per mount aggiunto, cronologia bugfix json",
+        "es": "adminTab editado, traducción cambiada, dependencias actualizadas, más depuración para montaje agregado, historial de corrección de errores json",
+        "pl": "Edytowano zakładkę admin, zmieniono tłumaczenie, zaktualizowano zależności, dodano więcej funkcji debugowania dla montowania, plik JSON z historią poprawek błędów"
+      },
       "2.1.11": {
         "en": "adminTab edited, translation changed",
         "de": "adminTab bearbeitet, Übersetzung geändert",
@@ -112,28 +123,6 @@
         "it": "Creazione di cartelle temporanee modificata, Filtro per file redis rdb modificato, eliminazione automatica dei vecchi database di influsso aggiunta, opzione noserverino per montaggio CIFS aggiunta, dipendenze aggiornate",
         "es": "Se modificó la creación de carpetas temporales, se modificó el filtro para archivos redis rdb, se agregó la eliminación automática de las bases de datos de afluencia antiguas, se agregó la opción noserverino para el montaje CIFS, se actualizaron las dependencias",
         "pl": "Zmieniono tworzenie folderów tymczasowych, zmieniono filtrowanie plików redis rdb, dodano automatyczne usuwanie starych baz danych napływowych, dodano opcję noserverino dla montowania CIFS, zaktualizowano zależności"
-      },
-      "2.1.1": {
-        "en": "Bugfix redis, debug Log for Restore request added, Bugfix influxdb, ignore Filenames for javascript-Backup added",
-        "de": "Bugfix redis, Debug Log for Restore Abfrage hinzugefügt, Bugfix influxdb, ignorieren von Dateinamen für Javascript-Backup hinzugefügt",
-        "ru": "Исправление ошибок redis, добавлен журнал отладки для запроса на восстановление, исправление ошибок Infxdb, добавлено игнорирование имен файлов для javascript-Backup",
-        "pt": "Bugfix redis, log de depuração para solicitação de restauração adicionado, Bugfix influxdb, ignorar nomes de arquivo para javascript-Backup adicionado",
-        "nl": "Bugfix opnieuw gemaakt, foutopsporingslogboek voor herstelverzoek toegevoegd, Bugfix influxdb, negeer bestandsnamen voor javascript-back-up toegevoegd",
-        "fr": "Correction de bogue redis, journal de débogage pour la demande de restauration ajouté, correction de bogue influxdb, ignorer les noms de fichiers pour javascript-sauvegarde ajouté",
-        "it": "Bugfix redis, debug Log for Restore request added, Bugfix influxdb, ignore Filenames for javascript-Backup added",
-        "es": "Corrección de errores redis, registro de depuración para solicitud de restauración agregado, corrección de errores influxdb, ignorar nombres de archivo para javascript-Backup agregado",
-        "pl": "Naprawiono błąd, dodano dziennik debugowania dla żądania przywrócenia, poprawiono błąd influxdb, dodano ignorowanie nazw plików dla kopii zapasowej javascript"
-      },
-      "2.1.0": {
-        "en": "Admin-Tab added, dependencies targz removed, dependencies tar-fs added, dependencies updated, small Bugfixes",
-        "de": "Admin-Tab hinzugefügt, Abhängigkeiten targz entfernt, Abhängigkeiten tar-fs hinzugefügt, Abhängigkeiten aktualisiert, kleine Bugfixes",
-        "ru": "Добавлена вкладка администратора, удалены зависимости targz, добавлены зависимости tar-fs, зависимости обновлены, небольшие исправления",
-        "pt": "Admin-Tab adicionado, dependências targz removidas, dependências tar-fs adicionadas, dependências atualizadas, pequenas correções de bugs",
-        "nl": "Admin-Tab toegevoegd, afhankelijkheden targz verwijderd, afhankelijkheden tar-fs toegevoegd, afhankelijkheden bijgewerkt, kleine bugfixes",
-        "fr": "Admin-Tab ajouté, dépendances targz supprimées, dépendances tar-fs ajoutées, dépendances mises à jour, petites corrections de bugs",
-        "it": "Scheda di amministrazione aggiunta, dipendenze targz rimosse, dipendenze tar-fs aggiunte, dipendenze aggiornate, piccoli bug risolti",
-        "es": "Se agregó la pestaña Admin, se eliminaron las dependencias targz, se agregaron las dependencias tar-fs, se actualizaron las dependencias, pequeñas correcciones de errores",
-        "pl": "Dodano kartę administratora, usunięto zależności docelowez, dodano zależności tar-fs, zaktualizowano zależności, małe poprawki błędów"
       }
     },
     "title": "BackItUp",
