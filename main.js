@@ -343,6 +343,7 @@ function initConfig(secret) {
         User: adapter.config.telegramUser,
         onlyError: adapter.config.telegramOnlyError,
         telegramWaiting: adapter.config.telegramWaitToSend * 1000,
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
         systemLang
     };
 
@@ -354,6 +355,7 @@ function initConfig(secret) {
         NoticeType: adapter.config.whatsappNoticeType,
         onlyError: adapter.config.whatsappOnlyError,
         whatsappWaiting: adapter.config.whatsappWaitToSend * 1000,
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
         systemLang
     };
 
@@ -367,6 +369,7 @@ function initConfig(secret) {
         deviceID: adapter.config.pushoverDeviceID,
         onlyError: adapter.config.pushoverOnlyError,
         pushoverWaiting: adapter.config.pushoverWaitToSend * 1000,
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
         systemLang
     };
 
@@ -380,6 +383,7 @@ function initConfig(secret) {
         emailSender: adapter.config.emailSender,
         onlyError: adapter.config.emailOnlyError,
         emailWaiting: adapter.config.emailWaitToSend * 1000,
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
         systemLang
     };
 
