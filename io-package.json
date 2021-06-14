@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.12",
+    "version": "2.1.13",
     "news": {
+      "2.1.13": {
+        "en": "ready for Grafana 8.x, BugFix PostgreSQL, dependencies updated, Name sufix for Messages added",
+        "de": "bereit für Grafana 8.x, BugFix PostgreSQL, Abhängigkeiten aktualisiert, Namenszusatz für Nachrichten hinzugefügt",
+        "ru": "готов для Grafana 8.x, BugFix PostgreSQL, зависимости обновлены, добавлен суфикс имени для сообщений",
+        "pt": "pronto para Grafana 8.x, BugFix PostgreSQL, dependências atualizadas, sufix de nome para mensagens adicionado",
+        "nl": "klaar voor Grafana 8.x, BugFix PostgreSQL, afhankelijkheden bijgewerkt, naamsuffix voor berichten toegevoegd",
+        "fr": "prêt pour Grafana 8.x, BugFix PostgreSQL, dépendances mises à jour, suffixe de nom pour les messages ajouté",
+        "it": "pronto per Grafana 8.x, BugFix PostgreSQL, dipendenze aggiornate, sufisso nome per i messaggi aggiunto",
+        "es": "listo para Grafana 8.x, BugFix PostgreSQL, dependencias actualizadas, sufijo de nombre para mensajes agregado",
+        "pl": "gotowy na Grafana 8.x, BugFix PostgreSQL, zaktualizowano zależności, dodano sufiks nazwy dla wiadomości"
+      },
       "2.1.12": {
         "en": "adminTab edited, translation changed, dependencies updated, more debug for mount added, Bugfix history json",
         "de": "adminTab bearbeitet, Übersetzung geändert, Abhängigkeiten aktualisiert, mehr Debug-Ausgaben für Mount hinzugefügt, Bugfix history-json",
@@ -101,28 +112,6 @@
         "it": "Riprogettazione della GUI di ripristino, piccola correzione dei bug della GUI",
         "es": "Rediseño Restaurar GUI, pequeña corrección de errores de GUI",
         "pl": "Przeprojektowanie GUI przywracania, mały błąd GUI"
-      },
-      "2.1.3": {
-        "en": "Admin-Tab changed, Javascript Restore changed, Admin-Tab redesigned, Config redesigned, Preparation for admin 5",
-        "de": "Admin-Tab geändert, Javascript-Wiederherstellung geändert, Admin-Tab neu gestaltet, Konfiguration neu gestaltet, Vorbereitung für Admin 5",
-        "ru": "Вкладка администратора изменена, восстановление Javascript изменено, вкладка администратора изменена, конфигурация переработана, подготовка к работе с администратором 5",
-        "pt": "Admin-Tab alterado, Javascript Restore alterado, Admin-Tab redesenhado, Configuração redesenhada, Preparação para admin 5",
-        "nl": "Admin-Tab gewijzigd, Javascript Restore gewijzigd, Admin-Tab opnieuw ontworpen, Config opnieuw ontworpen, Voorbereiding voor admin 5",
-        "fr": "Admin-Tab changé, Javascript Restore changé, Admin-Tab repensé, Config repensé, Préparation pour admin 5",
-        "it": "Scheda di amministrazione modificata, Ripristino JavaScript modificato, Scheda di amministrazione riprogettata, Configurazione riprogettata, Preparazione per l'amministratore 5",
-        "es": "Admin-Tab cambió, Javascript Restore cambió, Admin-Tab rediseñado, Configuración rediseñada, Preparación para admin 5",
-        "pl": "Zmieniono kartę Admin, zmieniono przywracanie JavaScript, przeprojektowano kartę Admin, przeprojektowano konfigurację, przygotowanie dla administratora 5"
-      },
-      "2.1.2": {
-        "en": "Creation of temporary folders changed, Filter for redis rdb files changed, automatic deletion of old influx databases added, noserverino option for CIFS mount added, dependencies updated",
-        "de": "Erstellung temporärer Ordner geändert, Filter für Redis RDB-Dateien geändert, automatisches Löschen alter Influx-Datenbanken hinzugefügt, noserverino-Option für CIFS-Mount hinzugefügt, Abhängigkeiten aktualisiert",
-        "ru": "Изменено создание временных папок, изменен фильтр для файлов redis rdb, добавлено автоматическое удаление старых баз данных притока, добавлена опция noserverino для монтирования CIFS, обновлены зависимости",
-        "pt": "Criação de pastas temporárias alteradas, filtro para arquivos redis rdb alterados, exclusão automática de bancos de dados de influxo antigos adicionados, opção noserverino para montagem CIFS adicionada, dependências atualizadas",
-        "nl": "Aanmaak van tijdelijke mappen gewijzigd, Filter voor redis rdb-bestanden gewijzigd, automatische verwijdering van oude influx-databases toegevoegd, noserverino-optie voor CIFS-koppeling toegevoegd, afhankelijkheden bijgewerkt",
-        "fr": "Création de dossiers temporaires modifiés, filtre pour les fichiers redis rdb modifié, suppression automatique des anciennes bases de données influx ajoutées, option noserverino pour le montage CIFS ajoutée, dépendances mises à jour",
-        "it": "Creazione di cartelle temporanee modificata, Filtro per file redis rdb modificato, eliminazione automatica dei vecchi database di influsso aggiunta, opzione noserverino per montaggio CIFS aggiunta, dipendenze aggiornate",
-        "es": "Se modificó la creación de carpetas temporales, se modificó el filtro para archivos redis rdb, se agregó la eliminación automática de las bases de datos de afluencia antiguas, se agregó la opción noserverino para el montaje CIFS, se actualizaron las dependencias",
-        "pl": "Zmieniono tworzenie folderów tymczasowych, zmieniono filtrowanie plików redis rdb, dodano automatyczne usuwanie starych baz danych napływowych, dodano opcję noserverino dla montowania CIFS, zaktualizowano zależności"
       }
     },
     "title": "BackItUp",
