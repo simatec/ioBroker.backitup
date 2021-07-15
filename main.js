@@ -205,13 +205,14 @@ function startAdapter(options) {
                 case 'testWebDAV':
                     if (obj.message) {
                         const { createClient } = require("webdav");
-
+                        var agent = require("https").Agent({rejectUnauthorized: false})
                         const client = createClient(
                             obj.message.config.host,
                             {
                                 username: obj.message.config.username,
                                 password: obj.message.config.password,
-                                maxBodyLength: Infinity
+                                maxBodyLength: Infinity,
+                                httpsAgent: agent
                             });
 
                         client
