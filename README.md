@@ -40,6 +40,9 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 2.1.14 (15.07.2021)
+* (simatec) dependencies updated
+
 ### 2.1.13 (14.06.2021)
 * (simatec) ready for Grafana 8.x
 * (simatec) BugFix PostgreSQL

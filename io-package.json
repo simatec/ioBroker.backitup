@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.13",
+    "version": "2.1.14",
     "news": {
+      "2.1.14": {
+        "en": "dependencies updated",
+        "de": "Abhängigkeiten aktualisiert",
+        "ru": "зависимости обновлены",
+        "pt": "dependências atualizadas",
+        "nl": "afhankelijkheden bijgewerkt",
+        "fr": "dépendances mises à jour",
+        "it": "dipendenze aggiornate",
+        "es": "dependencias actualizadas",
+        "pl": "zaktualizowano zależności"
+      },
       "2.1.13": {
         "en": "ready for Grafana 8.x, BugFix PostgreSQL, dependencies updated, Name sufix for Messages added",
         "de": "bereit für Grafana 8.x, BugFix PostgreSQL, Abhängigkeiten aktualisiert, Namenszusatz für Nachrichten hinzugefügt",
@@ -101,17 +112,6 @@
         "it": "Bugfix AdminTab, piccolo Bugfix",
         "es": "Corrección de errores AdminTab, pequeña corrección de errores",
         "pl": "Bugfix AdminTab, mała Bugfix"
-      },
-      "2.1.4": {
-        "en": "Redesign Restore GUI, small GUI Bugfix",
-        "de": "Redesign Restore GUI, kleiner GUI Bugfix",
-        "ru": "Редизайн Восстановить графический интерфейс, небольшое исправление ошибки графического интерфейса",
-        "pt": "Redesign Restaurar GUI, pequena correção de bug de GUI",
-        "nl": "Herontwerp Herstel GUI, kleine GUI Bugfix",
-        "fr": "Redesign Restore GUI, petite correction de bogue GUI",
-        "it": "Riprogettazione della GUI di ripristino, piccola correzione dei bug della GUI",
-        "es": "Rediseño Restaurar GUI, pequeña corrección de errores de GUI",
-        "pl": "Przeprojektowanie GUI przywracania, mały błąd GUI"
       }
     },
     "title": "BackItUp",
