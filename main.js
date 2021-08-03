@@ -10,10 +10,10 @@ const path = require('path');
 const adapterName = require('./package.json').name.split('.').pop();
 
 const tools = require('./lib/tools');
-const executeScripts = require('./lib/execute');
-const list = require('./lib/list');
-const restore = require('./lib/restore');
-const GoogleDrive = require('./lib/googleDriveLib');
+//const executeScripts = require('./lib/execute');
+//const list = require('./lib/list');
+//const restore = require('./lib/restore');
+//const GoogleDrive = require('./lib/googleDriveLib');
 
 let adapter;
 
@@ -43,6 +43,8 @@ function decrypt(key, value) {
 }
 
 function startBackup(config, cb) {
+    const executeScripts = require('./lib/execute');
+
     if (taskRunning) {
         return setTimeout(startBackup, 10000, config, cb);
     } else {
@@ -154,8 +156,11 @@ function startAdapter(options) {
             switch (obj.command) {
                 case 'list':
                     try {
+                        let list = require('./lib/list');
+
                         list(obj.message, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                         adapter.log.debug('Backup list be read ...');
+                        list = null;
                     } catch (e) {
                         adapter.log.debug('Backup list cannot be read ...');
                     }
@@ -163,7 +168,9 @@ function startAdapter(options) {
 
                 case 'authGoogleDrive':
                     if (obj.message && obj.message.code) {
+                        const GoogleDrive = require('./lib/googleDriveLib');
                         const google = new GoogleDrive();
+
                         google.getToken(obj.message.code)
                             .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json: JSON.stringify(json) }, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
@@ -176,6 +183,7 @@ function startAdapter(options) {
 
                 case 'restore':
                     if (obj.message) {
+                        const restore = require('./lib/restore');
                         restore(adapter, backupConfig, obj.message.type, obj.message.fileName, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                     } else if (obj.callback) {
                         obj.callback({ error: 'Invalid parameters' });
@@ -674,10 +682,10 @@ function readLogFile() {
             fs.unlinkSync(logName);
 
             // make the messaging
-            config.afterBackup = true;
-            executeScripts(adapter, config, err => {
+            //config.afterBackup = true;
+            //executeScripts(adapter, config, err => {
 
-            });
+            //});
         }
     } catch (e) {
         adapter.log.warn(`Cannot read log file: ${e}`);
@@ -841,14 +849,15 @@ function getName(name, filenumbers, storage) {
 function detectLatestBackupFile(adapter) {
     // get all 'storage' types that enabled
     try {
-        const stores = Object.keys(backupConfig.iobroker)
+        let stores = Object.keys(backupConfig.iobroker)
             .filter(attr =>
                 typeof backupConfig.iobroker[attr] === 'object' &&
                 backupConfig.iobroker[attr].type === 'storage' &&
-                backupConfig.iobroker[attr].enabled);
+                backupConfig.iobroker[attr].enabled === true);
 
         // read one time all stores to detect if some backups detected
         let promises;
+        let list = require('./lib/list');
         try {
             promises = stores.map(storage => new Promise(resolve =>
 
@@ -858,7 +867,7 @@ function detectLatestBackupFile(adapter) {
 
                     if (result && result.data && result.data !== 'undefined') {
                         let filenumbers = 0;
-                        const data = result.data;
+                        let data = result.data;
                         Object.keys(data).forEach(type => {
                             data[type].iobroker && data[type].iobroker
                                 .filter(f => f.size)
@@ -872,8 +881,11 @@ function detectLatestBackupFile(adapter) {
                                     }
                                 });
                         });
+                        result = null;
+                        data = null;
                     }
                     resolve(file);
+                    //file = null;
                 })));
         } catch (e) {
             adapter.log.warn('No backup file was found');
@@ -909,7 +921,14 @@ function detectLatestBackupFile(adapter) {
                 // this information will be used by admin at the first start if some backup was detected and we can restore from it instead of new configuration
                 adapter.setState('info.latestBackup', file ? JSON.stringify(file) : '', true);
                 adapter.log.debug(file ? 'detect last backup file: ' + file.name : 'No backup file was found');
+
+                //file = null;
+                results = null;
             });
+            list = null;
+            promises = null;
+            stores = null;
+            
     } catch (e) {
         adapter.log.warn('No backup file was found');
     }
