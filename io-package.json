@@ -400,7 +400,7 @@
         "type": "string",
         "read": true,
         "write": false,
-        "def": "Noch kein Backup"
+        "def": "No backups yet"
       },
       "native": {}
     },

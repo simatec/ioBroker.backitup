@@ -125,8 +125,6 @@ function startAdapter(options) {
         }
     });
 
-    //adapter.on('ready', () => main(adapter));
-    //adapter.on('ready', () => {
     adapter.on('ready', async () => {
         try {
             if (await setSentryLogging(adapter.config.sentry_enable)) return;
@@ -218,7 +216,7 @@ function startAdapter(options) {
                             .getDirectoryContents('')
                             .then(contents => obj.callback && adapter.sendTo(obj.from, obj.command, contents, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: JSON.stringify(err.message) }, obj.callback));
-                        }
+                    }
                     break;
             }
         }
@@ -227,51 +225,48 @@ function startAdapter(options) {
     return adapter;
 }
 
-function checkStates() {
+async function checkStates() {
+
     // Fill empty data points with default values
-    adapter.getState('history.html', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('history.html', {
-                val: '<span class="backup-type-total">' + tools._('No backups yet', systemLang) + '</span>',
-                ack: true
-            });
-        }
-    });
-    adapter.getState('history.iobrokerLastTime', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('history.iobrokerLastTime', { val: tools._('No backups yet', systemLang), ack: true });
-        }
-    });
-    adapter.getState('history.ccuLastTime', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('history.ccuLastTime', { val: tools._('No backups yet', systemLang), ack: true });
-        }
-    });
-    adapter.getState('oneClick.iobroker', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('oneClick.iobroker', { val: false, ack: true });
-        }
-    });
-    adapter.getState('oneClick.ccu', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('oneClick.ccu', { val: false, ack: true });
-        }
-    });
-    adapter.getState('history.ccuSuccess', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('history.ccuSuccess', { val: false, ack: true });
-        }
-    });
-    adapter.getState('history.iobrokerSuccess', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('history.iobrokerSuccess', { val: false, ack: true });
-        }
-    });
-    adapter.getState('history.json', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('history.json', { val: '[]', ack: true });
-        }
-    });
+    const historyState = await adapter.getStateAsync('history.html');
+    if (!historyState || historyState.val === null) {
+        await adapter.setStateAsync('history.html', { val: '<span class="backup-type-total">' + tools._('No backups yet', systemLang) + '</span>', ack: true });
+    }
+
+    const iobrokerLastTime = await adapter.getStateAsync('history.iobrokerLastTime');
+    if (!iobrokerLastTime || iobrokerLastTime.val === null) {
+        await adapter.setStateAsync('history.iobrokerLastTime', { val: tools._('No backups yet', systemLang), ack: true });
+    }
+
+    const ccuLastTime = await adapter.getStateAsync('history.ccuLastTime');
+    if (!ccuLastTime || ccuLastTime.val === null) {
+        await adapter.setStateAsync('history.ccuLastTime', { val: tools._('No backups yet', systemLang), ack: true });
+    }
+
+    const iobrokerState = await adapter.getStateAsync('oneClick.iobroker');
+    if (!iobrokerState || iobrokerState.val === null) {
+        await adapter.setStateAsync('oneClick.iobroker', { val: false, ack: true });
+    }
+
+    const ccuState = await adapter.getStateAsync('oneClick.ccu');
+    if (!ccuState || ccuState.val === null) {
+        await adapter.setStateAsync('oneClick.ccu', { val: false, ack: true });
+    }
+
+    const ccuSuccess = await adapter.getStateAsync('history.ccuSuccess');
+    if (!ccuSuccess || ccuSuccess.val === null) {
+        await adapter.setStateAsync('history.ccuSuccess', { val: false, ack: true });
+    }
+
+    const iobrokerSuccess = await adapter.getStateAsync('history.iobrokerSuccess');
+    if (!iobrokerSuccess || iobrokerSuccess.val === null) {
+        await adapter.setStateAsync('history.iobrokerSuccess', { val: false, ack: true });
+    }
+
+    const jsonState = await adapter.getStateAsync('history.json');
+    if (!jsonState || jsonState.val === null) {
+        await adapter.setStateAsync('history.json', { val: '[]', ack: true });
+    }
 }
 
 // function to create Backup schedules (Backup time)
@@ -919,38 +914,7 @@ function detectLatestBackupFile(adapter) {
         adapter.log.warn('No backup file was found');
     }
 }
-function delOldObjects() {
-    adapter.getState('history.minimalSuccess', (err, state) => {
-        if (state) {
-            adapter.delObject('history.minimalSuccess');
-        }
-    });
-    adapter.getState('history.minimalLastTime', (err, state) => {
-        if (state) {
-            adapter.delObject('history.minimalLastTime');
-        }
-    });
-    adapter.getState('history.totalLastTime', (err, state) => {
-        if (state) {
-            adapter.delObject('history.totalLastTime');
-        }
-    });
-    adapter.getState('history.totalSuccess', (err, state) => {
-        if (state) {
-            adapter.delObject('history.totalSuccess');
-        }
-    });
-    adapter.getState('oneClick.minimal', (err, state) => {
-        if (state) {
-            adapter.delObject('oneClick.minimal');
-        }
-    });
-    adapter.getState('oneClick.total', (err, state) => {
-        if (state) {
-            adapter.delObject('oneClick.total');
-        }
-    });
-}
+
 function nextBackup(diffDays, setMain, type, date) {
     date = date || new Date();
 
@@ -979,17 +943,26 @@ function nextBackup(diffDays, setMain, type, date) {
     }
 }
 
-function main(adapter) {
+async function main(adapter) {
     createBashScripts();
     readLogFile();
-    createBackupDir();
-    deleteHideFiles();
-    delTmp();
-    delOldObjects();
+    if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) {
+        createBackupDir();
+    }
+    if (fs.existsSync(__dirname + '/lib/.redis.info')) {
+        deleteHideFiles();
+    }
+    if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) {
+        delTmp();
+    }
 
     timerMain = setTimeout(function () {
-        umount();
-        setStartAll();
+        if (fs.existsSync(__dirname + '/.mount')) {
+            umount();
+        }
+        if (adapter.config.startAllRestore == true && !fs.existsSync(__dirname + '/lib/.startAll')) {
+            setStartAll();
+        }
     }, 10000);
 
     adapter.getForeignObject('system.config', (err, obj) => {
