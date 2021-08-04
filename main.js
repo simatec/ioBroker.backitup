@@ -156,11 +156,10 @@ function startAdapter(options) {
             switch (obj.command) {
                 case 'list':
                     try {
-                        let list = require('./lib/list');
+                        const list = require('./lib/list');
 
                         list(obj.message, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                         adapter.log.debug('Backup list be read ...');
-                        list = null;
                     } catch (e) {
                         adapter.log.debug('Backup list cannot be read ...');
                     }
@@ -857,7 +856,7 @@ function detectLatestBackupFile(adapter) {
 
         // read one time all stores to detect if some backups detected
         let promises;
-        let list = require('./lib/list');
+        const list = require('./lib/list');
         try {
             promises = stores.map(storage => new Promise(resolve =>
 
@@ -885,7 +884,6 @@ function detectLatestBackupFile(adapter) {
                         data = null;
                     }
                     resolve(file);
-                    //file = null;
                 })));
         } catch (e) {
             adapter.log.warn('No backup file was found');
@@ -922,13 +920,11 @@ function detectLatestBackupFile(adapter) {
                 adapter.setState('info.latestBackup', file ? JSON.stringify(file) : '', true);
                 adapter.log.debug(file ? 'detect last backup file: ' + file.name : 'No backup file was found');
 
-                //file = null;
                 results = null;
             });
-            list = null;
-            promises = null;
-            stores = null;
-            
+        promises = null;
+        stores = null;
+
     } catch (e) {
         adapter.log.warn('No backup file was found');
     }
