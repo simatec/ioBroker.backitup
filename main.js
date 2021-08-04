@@ -10,10 +10,10 @@ const path = require('path');
 const adapterName = require('./package.json').name.split('.').pop();
 
 const tools = require('./lib/tools');
-const executeScripts = require('./lib/execute');
-const list = require('./lib/list');
-const restore = require('./lib/restore');
-const GoogleDrive = require('./lib/googleDriveLib');
+//const executeScripts = require('./lib/execute');
+//const list = require('./lib/list');
+//const restore = require('./lib/restore');
+//const GoogleDrive = require('./lib/googleDriveLib');
 
 let adapter;
 
@@ -43,6 +43,8 @@ function decrypt(key, value) {
 }
 
 function startBackup(config, cb) {
+    const executeScripts = require('./lib/execute');
+
     if (taskRunning) {
         return setTimeout(startBackup, 10000, config, cb);
     } else {
@@ -125,8 +127,6 @@ function startAdapter(options) {
         }
     });
 
-    //adapter.on('ready', () => main(adapter));
-    //adapter.on('ready', () => {
     adapter.on('ready', async () => {
         try {
             if (await setSentryLogging(adapter.config.sentry_enable)) return;
@@ -156,6 +156,8 @@ function startAdapter(options) {
             switch (obj.command) {
                 case 'list':
                     try {
+                        const list = require('./lib/list');
+
                         list(obj.message, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                         adapter.log.debug('Backup list be read ...');
                     } catch (e) {
@@ -165,7 +167,9 @@ function startAdapter(options) {
 
                 case 'authGoogleDrive':
                     if (obj.message && obj.message.code) {
+                        const GoogleDrive = require('./lib/googleDriveLib');
                         const google = new GoogleDrive();
+
                         google.getToken(obj.message.code)
                             .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json: JSON.stringify(json) }, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
@@ -178,6 +182,7 @@ function startAdapter(options) {
 
                 case 'restore':
                     if (obj.message) {
+                        const restore = require('./lib/restore');
                         restore(adapter, backupConfig, obj.message.type, obj.message.fileName, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                     } else if (obj.callback) {
                         obj.callback({ error: 'Invalid parameters' });
@@ -218,7 +223,7 @@ function startAdapter(options) {
                             .getDirectoryContents('')
                             .then(contents => obj.callback && adapter.sendTo(obj.from, obj.command, contents, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: JSON.stringify(err.message) }, obj.callback));
-                        }
+                    }
                     break;
             }
         }
@@ -227,51 +232,48 @@ function startAdapter(options) {
     return adapter;
 }
 
-function checkStates() {
+async function checkStates() {
+
     // Fill empty data points with default values
-    adapter.getState('history.html', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('history.html', {
-                val: '<span class="backup-type-total">' + tools._('No backups yet', systemLang) + '</span>',
-                ack: true
-            });
-        }
-    });
-    adapter.getState('history.iobrokerLastTime', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('history.iobrokerLastTime', { val: tools._('No backups yet', systemLang), ack: true });
-        }
-    });
-    adapter.getState('history.ccuLastTime', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('history.ccuLastTime', { val: tools._('No backups yet', systemLang), ack: true });
-        }
-    });
-    adapter.getState('oneClick.iobroker', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('oneClick.iobroker', { val: false, ack: true });
-        }
-    });
-    adapter.getState('oneClick.ccu', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('oneClick.ccu', { val: false, ack: true });
-        }
-    });
-    adapter.getState('history.ccuSuccess', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('history.ccuSuccess', { val: false, ack: true });
-        }
-    });
-    adapter.getState('history.iobrokerSuccess', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('history.iobrokerSuccess', { val: false, ack: true });
-        }
-    });
-    adapter.getState('history.json', (err, state) => {
-        if (!state || state.val === null) {
-            adapter.setState('history.json', { val: '[]', ack: true });
-        }
-    });
+    const historyState = await adapter.getStateAsync('history.html');
+    if (!historyState || historyState.val === null) {
+        await adapter.setStateAsync('history.html', { val: '<span class="backup-type-total">' + tools._('No backups yet', systemLang) + '</span>', ack: true });
+    }
+
+    const iobrokerLastTime = await adapter.getStateAsync('history.iobrokerLastTime');
+    if (!iobrokerLastTime || iobrokerLastTime.val === null) {
+        await adapter.setStateAsync('history.iobrokerLastTime', { val: tools._('No backups yet', systemLang), ack: true });
+    }
+
+    const ccuLastTime = await adapter.getStateAsync('history.ccuLastTime');
+    if (!ccuLastTime || ccuLastTime.val === null) {
+        await adapter.setStateAsync('history.ccuLastTime', { val: tools._('No backups yet', systemLang), ack: true });
+    }
+
+    const iobrokerState = await adapter.getStateAsync('oneClick.iobroker');
+    if (!iobrokerState || iobrokerState.val === null) {
+        await adapter.setStateAsync('oneClick.iobroker', { val: false, ack: true });
+    }
+
+    const ccuState = await adapter.getStateAsync('oneClick.ccu');
+    if (!ccuState || ccuState.val === null) {
+        await adapter.setStateAsync('oneClick.ccu', { val: false, ack: true });
+    }
+
+    const ccuSuccess = await adapter.getStateAsync('history.ccuSuccess');
+    if (!ccuSuccess || ccuSuccess.val === null) {
+        await adapter.setStateAsync('history.ccuSuccess', { val: false, ack: true });
+    }
+
+    const iobrokerSuccess = await adapter.getStateAsync('history.iobrokerSuccess');
+    if (!iobrokerSuccess || iobrokerSuccess.val === null) {
+        await adapter.setStateAsync('history.iobrokerSuccess', { val: false, ack: true });
+    }
+
+    const jsonState = await adapter.getStateAsync('history.json');
+    if (!jsonState || jsonState.val === null) {
+        await adapter.setStateAsync('history.json', { val: '[]', ack: true });
+    }
 }
 
 // function to create Backup schedules (Backup time)
@@ -679,10 +681,10 @@ function readLogFile() {
             fs.unlinkSync(logName);
 
             // make the messaging
-            config.afterBackup = true;
-            executeScripts(adapter, config, err => {
+            //config.afterBackup = true;
+            //executeScripts(adapter, config, err => {
 
-            });
+            //});
         }
     } catch (e) {
         adapter.log.warn(`Cannot read log file: ${e}`);
@@ -846,14 +848,15 @@ function getName(name, filenumbers, storage) {
 function detectLatestBackupFile(adapter) {
     // get all 'storage' types that enabled
     try {
-        const stores = Object.keys(backupConfig.iobroker)
+        let stores = Object.keys(backupConfig.iobroker)
             .filter(attr =>
                 typeof backupConfig.iobroker[attr] === 'object' &&
                 backupConfig.iobroker[attr].type === 'storage' &&
-                backupConfig.iobroker[attr].enabled);
+                backupConfig.iobroker[attr].enabled === true);
 
         // read one time all stores to detect if some backups detected
         let promises;
+        const list = require('./lib/list');
         try {
             promises = stores.map(storage => new Promise(resolve =>
 
@@ -863,7 +866,7 @@ function detectLatestBackupFile(adapter) {
 
                     if (result && result.data && result.data !== 'undefined') {
                         let filenumbers = 0;
-                        const data = result.data;
+                        let data = result.data;
                         Object.keys(data).forEach(type => {
                             data[type].iobroker && data[type].iobroker
                                 .filter(f => f.size)
@@ -877,6 +880,8 @@ function detectLatestBackupFile(adapter) {
                                     }
                                 });
                         });
+                        result = null;
+                        data = null;
                     }
                     resolve(file);
                 })));
@@ -914,43 +919,17 @@ function detectLatestBackupFile(adapter) {
                 // this information will be used by admin at the first start if some backup was detected and we can restore from it instead of new configuration
                 adapter.setState('info.latestBackup', file ? JSON.stringify(file) : '', true);
                 adapter.log.debug(file ? 'detect last backup file: ' + file.name : 'No backup file was found');
+
+                results = null;
             });
+        promises = null;
+        stores = null;
+
     } catch (e) {
         adapter.log.warn('No backup file was found');
     }
 }
-function delOldObjects() {
-    adapter.getState('history.minimalSuccess', (err, state) => {
-        if (state) {
-            adapter.delObject('history.minimalSuccess');
-        }
-    });
-    adapter.getState('history.minimalLastTime', (err, state) => {
-        if (state) {
-            adapter.delObject('history.minimalLastTime');
-        }
-    });
-    adapter.getState('history.totalLastTime', (err, state) => {
-        if (state) {
-            adapter.delObject('history.totalLastTime');
-        }
-    });
-    adapter.getState('history.totalSuccess', (err, state) => {
-        if (state) {
-            adapter.delObject('history.totalSuccess');
-        }
-    });
-    adapter.getState('oneClick.minimal', (err, state) => {
-        if (state) {
-            adapter.delObject('oneClick.minimal');
-        }
-    });
-    adapter.getState('oneClick.total', (err, state) => {
-        if (state) {
-            adapter.delObject('oneClick.total');
-        }
-    });
-}
+
 function nextBackup(diffDays, setMain, type, date) {
     date = date || new Date();
 
@@ -979,17 +958,26 @@ function nextBackup(diffDays, setMain, type, date) {
     }
 }
 
-function main(adapter) {
+async function main(adapter) {
     createBashScripts();
     readLogFile();
-    createBackupDir();
-    deleteHideFiles();
-    delTmp();
-    delOldObjects();
+    if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) {
+        createBackupDir();
+    }
+    if (fs.existsSync(__dirname + '/lib/.redis.info')) {
+        deleteHideFiles();
+    }
+    if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) {
+        delTmp();
+    }
 
     timerMain = setTimeout(function () {
-        umount();
-        setStartAll();
+        if (fs.existsSync(__dirname + '/.mount')) {
+            umount();
+        }
+        if (adapter.config.startAllRestore == true && !fs.existsSync(__dirname + '/lib/.startAll')) {
+            setStartAll();
+        }
     }, 10000);
 
     adapter.getForeignObject('system.config', (err, obj) => {

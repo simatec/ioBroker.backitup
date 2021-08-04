@@ -40,6 +40,12 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 2.1.14 (04.08.2021)
+* (simatec) dependencies updated
+* (simatec) RAM memory optimization
+* (simatec) googleapis deleted
+* (simatec) @googleapis/drive added
+
 ### 2.1.13 (14.06.2021)
 * (simatec) ready for Grafana 8.x
 * (simatec) BugFix PostgreSQL

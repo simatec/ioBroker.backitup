@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.13",
+    "version": "2.1.14",
     "news": {
+      "2.1.14": {
+        "en": "dependencies updated, RAM memory optimization,  googleapis deleted, @googleapis/drive added",
+        "de": "Abhängigkeiten aktualisiert, RAM-Speicheroptimierung, googleapis gelöscht, @googleapis/drive hinzugefügt",
+        "ru": "зависимости обновлены, оптимизация памяти RAM, googleapis удален, @ googleapis / drive добавлен",
+        "pt": "dependências atualizadas, otimização de memória RAM, googleapis excluído, @ googleapis / drive adicionado",
+        "nl": "afhankelijkheden bijgewerkt, RAM-geheugenoptimalisatie, googleapis verwijderd, @googleapis/drive toegevoegd",
+        "fr": "dépendances mises à jour, optimisation de la mémoire RAM, googleapis supprimé, @googleapis/drive ajouté",
+        "it": "dipendenze aggiornate, ottimizzazione della memoria RAM, googleapis eliminato, @googleapis/drive aggiunto",
+        "es": "dependencias actualizadas, optimización de la memoria RAM, googleapis eliminado, @ googleapis / drive agregado",
+        "pl": "zaktualizowano zależności, optymalizację pamięci RAM, usunięto googleapis, dodano @googleapis/drive"
+      },
       "2.1.13": {
         "en": "ready for Grafana 8.x, BugFix PostgreSQL, dependencies updated, Name sufix for Messages added",
         "de": "bereit für Grafana 8.x, BugFix PostgreSQL, Abhängigkeiten aktualisiert, Namenszusatz für Nachrichten hinzugefügt",
@@ -101,17 +112,6 @@
         "it": "Bugfix AdminTab, piccolo Bugfix",
         "es": "Corrección de errores AdminTab, pequeña corrección de errores",
         "pl": "Bugfix AdminTab, mała Bugfix"
-      },
-      "2.1.4": {
-        "en": "Redesign Restore GUI, small GUI Bugfix",
-        "de": "Redesign Restore GUI, kleiner GUI Bugfix",
-        "ru": "Редизайн Восстановить графический интерфейс, небольшое исправление ошибки графического интерфейса",
-        "pt": "Redesign Restaurar GUI, pequena correção de bug de GUI",
-        "nl": "Herontwerp Herstel GUI, kleine GUI Bugfix",
-        "fr": "Redesign Restore GUI, petite correction de bogue GUI",
-        "it": "Riprogettazione della GUI di ripristino, piccola correzione dei bug della GUI",
-        "es": "Rediseño Restaurar GUI, pequeña corrección de errores de GUI",
-        "pl": "Przeprojektowanie GUI przywracania, mały błąd GUI"
       }
     },
     "title": "BackItUp",
@@ -179,8 +179,8 @@
       "fa-icon": "</i><img style='width:24px;margin-bottom:-6px;' src='/adapter/backitup/backitup.svg'><i>"
     },
     "adminUI": {
-      "config":"materialize",
-      "tab":"materialize"
+      "config": "materialize",
+      "tab": "materialize"
     },
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/simatec/ioBroker.backitup/master/admin/backitup.png",
@@ -400,7 +400,7 @@
         "type": "string",
         "read": true,
         "write": false,
-        "def": "Noch kein Backup"
+        "def": "No backups yet"
       },
       "native": {}
     },
