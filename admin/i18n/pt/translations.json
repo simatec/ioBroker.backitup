@@ -141,6 +141,7 @@
   "Postgresql port": "Porta PostgreSQL",
   "Postgresql username": "Nome de usuário PostgreSQL",
   "Present": "Presente",
+  "Protocol": "Protocolo",
   "Pushover": "Pushover",
   "Pushover instance": "Instância de pushover",
   "Ready": "pronto",

@@ -141,6 +141,7 @@
   "Postgresql port": "PostgreSQL-poort",
   "Postgresql username": "PostgreSQL gebruikersnaam",
   "Present": "Aanwezig",
+  "Protocol": "Protocol",
   "Pushover": "Pushover",
   "Pushover instance": "Pushover-instantie",
   "Ready": "klaar",
