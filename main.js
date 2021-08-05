@@ -10,10 +10,6 @@ const path = require('path');
 const adapterName = require('./package.json').name.split('.').pop();
 
 const tools = require('./lib/tools');
-//const executeScripts = require('./lib/execute');
-//const list = require('./lib/list');
-//const restore = require('./lib/restore');
-//const GoogleDrive = require('./lib/googleDriveLib');
 
 let adapter;
 
@@ -166,10 +162,10 @@ function startAdapter(options) {
                     break;
 
                 case 'authGoogleDrive':
-                    if (obj.message && obj.message.code) {
-                        const GoogleDrive = require('./lib/googleDriveLib');
-                        const google = new GoogleDrive();
+                    const GoogleDrive = require('./lib/googleDriveLib');
 
+                    if (obj.message && obj.message.code) {
+                        const google = new GoogleDrive();
                         google.getToken(obj.message.code)
                             .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json: JSON.stringify(json) }, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
@@ -614,6 +610,7 @@ function initConfig(secret) {
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             host: adapter.config.grafanaHost,                      // database host
             port: adapter.config.grafanaPort,                      // database port
+            protocol: adapter.config.grafanaProtocol,              // database protocol
             username: adapter.config.grafanaUsername,
             pass: adapter.config.grafanaPassword ? decrypt(secret, adapter.config.grafanaPassword) : '',
             apiKey: adapter.config.grafanaApiKey,

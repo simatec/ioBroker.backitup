@@ -359,10 +359,17 @@
                         <label for="grafanaHost" class="translate">Host</label>
                         <span class="translate">Grafana Hostname</span>
                     </div>
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l2">
                         <input class="value" id="grafanaPort" type="text">
                         <label for="grafanaPort" class="translate">port</label>
                         <span class="translate">Grafana port</span>
+                    </div>
+                    <div class="input-field col s12 m6 l2">
+                        <select id="grafanaProtocol" class="value">
+                            <option value="http">http</option>
+                            <option value="https">https</option>
+                        </select>
+                        <label for="grafanaProtocol" class="translate">Protocol</label>
                     </div>
                 </div>
                 <div class="row grafana">

@@ -40,6 +40,12 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 2.1.15 (05.08.2021)
+* (simatec) Bugfix Google Drive
+* (simatec) memory optimization
+* (simatec) fix Zigbee Restore
+* (simatec) Grafana Protocol selection added
+
 ### 2.1.14 (04.08.2021)
 * (simatec) dependencies updated
 * (simatec) RAM memory optimization
