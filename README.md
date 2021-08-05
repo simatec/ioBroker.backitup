@@ -45,7 +45,7 @@ When the adapter crashes or an other Code error happens, this error message that
 * (simatec) memory optimization
 * (simatec) fix Zigbee Restore
 * (simatec) Grafana Protocol selection added
-* (simatec) translation updated
+* (simatec) translations updated
 
 ### 2.1.14 (04.08.2021)
 * (simatec) dependencies updated
