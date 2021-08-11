@@ -218,5 +218,6 @@
   "send analysis data": "envoyer des données d'analyse",
   "smb type": "Type de SMB",
   "source type": "Source de sauvegarde",
-  "start all adapter after restore": "Démarrer tous les adaptateurs après la restauration"
+  "start all adapter after restore": "Démarrer tous les adaptateurs après la restauration",
+  "use https": "utiliser https"
 }

@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.15",
+    "version": "2.1.16",
     "news": {
+      "2.1.16": {
+        "en": "dependencies updated, https support for ccu backup",
+        "de": "Abhängigkeiten aktualisiert, https-Unterstützung für CCU-Backup",
+        "ru": "обновлены зависимости, поддержка https для резервного копирования ccu",
+        "pt": "dependências atualizadas, suporte https para backup ccu",
+        "nl": "afhankelijkheden bijgewerkt, https-ondersteuning voor ccu-back-up",
+        "fr": "dépendances mises à jour, support https pour la sauvegarde ccu",
+        "it": "dipendenze aggiornate, supporto https per il backup di ccu",
+        "es": "dependencias actualizadas, soporte https para copia de seguridad ccu",
+        "pl": "zaktualizowane zależności, obsługa https dla kopii zapasowej ccu"
+      },
       "2.1.15": {
         "en": "Bugfix Google Drive, memory optimization, fix Zigbee Restore, Grafana Protocol selection added",
         "de": "Bugfix Google Drive, Speicheroptimierung, Fix Zigbee Restore, Grafana Protokoll Auswahl hinzugefügt",
@@ -101,28 +112,6 @@
         "it": "Bugfix mysql Restore, Bugfix pgsql Restore, piccolo bugfix, dipendenze aggiornate, supporto node-16 aggiunto",
         "es": "Bugfix MySql Restore, Bugfix pgsql Restore, pequeño Bugfix, dependencias actualizadas, soporte de nodo 16 agregado",
         "pl": "Bugfix mysql Restore, Bugfix pgsql Restore, mały błąd, zaktualizowano zależności, dodano obsługę Node-16"
-      },
-      "2.1.6": {
-        "en": "Bugfix for js-controller 3.3.x, small Bugfix Dropbox Log, small Bugfix for History Config reading",
-        "de": "Bugfix für js-controller 3.3.x, kleiner Bugfix Dropbox Log, kleiner Bugfix für das Lesen der History Config",
-        "ru": "Исправление ошибки для js-controller 3.3.x, небольшой журнал ошибок Dropbox Log, небольшое исправление ошибок для чтения конфигурации истории",
-        "pt": "Bugfix para js-controller 3.3.x, pequeno Bugfix Dropbox Log, pequeno Bugfix para leitura de configuração de histórico",
-        "nl": "Bugfix voor js-controller 3.3.x, kleine Bugfix Dropbox Log, kleine Bugfix voor History Config lezen",
-        "fr": "Correction de bug pour js-controller 3.3.x, petit Bugfix Dropbox Log, petit Bugfix pour la lecture de History Config",
-        "it": "Bugfix per js-controller 3.3.x, piccolo bugfix Dropbox Log, piccolo bugfix per la lettura della configurazione della cronologia",
-        "es": "Corrección de errores para js-controller 3.3.x, pequeño registro de Dropbox de corrección de errores, corrección de errores pequeños para la lectura de la configuración del historial",
-        "pl": "Poprawka błędu dla kontrolera js 3.3.x, mały Bugfix Dropbox Log, mały Bugfix dla odczytu konfiguracji historii"
-      },
-      "2.1.5": {
-        "en": "Bugfix AdminTab, small Bugfix",
-        "de": "Bugfix AdminTab, kleiner Bugfix",
-        "ru": "Исправление ошибок AdminTab, небольшое исправление ошибок",
-        "pt": "Bugfix AdminTab, pequeno Bugfix",
-        "nl": "Bugfix AdminTab, kleine Bugfix",
-        "fr": "Correctif AdminTab, petit Bugfix",
-        "it": "Bugfix AdminTab, piccolo Bugfix",
-        "es": "Corrección de errores AdminTab, pequeña corrección de errores",
-        "pl": "Bugfix AdminTab, mała Bugfix"
       }
     },
     "title": "BackItUp",
@@ -228,6 +217,7 @@
     "ccuHost": "",
     "ccuUser": "Admin",
     "ccuPassword": "",
+    "ccuUsehttps": false,
     "webdavEnabled": false,
     "webdavUsername": "username",
     "webdavPassword": "",
