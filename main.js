@@ -970,7 +970,9 @@ async function main(adapter) {
     }, 10000);
 
     adapter.getForeignObject('system.config', (err, obj) => {
-        systemLang = obj.common.language;
+        if (obj && obj.common && obj.common.language) {
+            systemLang = obj.common.language;
+        }
         initConfig((obj && obj.native && obj.native.secret) || 'Zgfr56gFe87jJOM');
 
         checkStates();

@@ -4,15 +4,15 @@
     "version": "2.1.16",
     "news": {
       "2.1.16": {
-        "en": "dependencies updated, https support for ccu backup",
-        "de": "Abhängigkeiten aktualisiert, https-Unterstützung für CCU-Backup",
-        "ru": "обновлены зависимости, поддержка https для резервного копирования ccu",
-        "pt": "dependências atualizadas, suporte https para backup ccu",
-        "nl": "afhankelijkheden bijgewerkt, https-ondersteuning voor ccu-back-up",
-        "fr": "dépendances mises à jour, support https pour la sauvegarde ccu",
-        "it": "dipendenze aggiornate, supporto https per il backup di ccu",
-        "es": "dependencias actualizadas, soporte https para copia de seguridad ccu",
-        "pl": "zaktualizowane zależności, obsługa https dla kopii zapasowej ccu"
+        "en": "dependencies updated, https support for ccu backup, sentry Bugfixes",
+        "de": "Abhängigkeiten aktualisiert, https-Unterstützung für CPU-Backup, Sentry Bugfixes",
+        "ru": "обновлены зависимости, поддержка https для резервного копирования ccu, исправления ошибок",
+        "pt": "dependências atualizadas, suporte https para backup ccu, correções de bugs sentry",
+        "nl": "afhankelijkheden bijgewerkt, https-ondersteuning voor ccu-back-up, sentry-bugfixes",
+        "fr": "dépendances mises à jour, prise en charge https pour la sauvegarde ccu, corrections de bugs sentinelles",
+        "it": "dipendenze aggiornate, supporto https per backup ccu, correzioni di bug di sentinella",
+        "es": "dependencias actualizadas, soporte https para copia de seguridad de ccu, corrección de errores de centinela",
+        "pl": "zaktualizowane zależności, wsparcie https dla kopii zapasowej ccu, poprawki błędów sentry"
       },
       "2.1.15": {
         "en": "Bugfix Google Drive, memory optimization, fix Zigbee Restore, Grafana Protocol selection added",

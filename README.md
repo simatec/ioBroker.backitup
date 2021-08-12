@@ -40,9 +40,10 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
-### 2.1.16 (11.08.2021)
+### 2.1.16 (12.08.2021)
 * (simatec) dependencies updated
 * (simatec) https support for ccu backup
+* (simatec) sentry Bugfixes
 
 ### 2.1.15 (05.08.2021)
 * (simatec) Bugfix Google Drive
