@@ -147,6 +147,7 @@ jobs:
           export SENTRY_PROJECT=iobroker-backitup
           export SENTRY_VERSION=iobroker.backitup@${{ env.VERSION }}
           sentry-cli releases new $SENTRY_VERSION
+          sentry-cli releases set-commits $SENTRY_VERSION --auto
           sentry-cli releases finalize $SENTRY_VERSION
 
         # Add the following line BEFORE finalize if repositories are connected in Sentry

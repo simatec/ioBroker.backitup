@@ -646,9 +646,10 @@ function initConfig(secret) {
         pushover,
         whatsapp,
 
-        host: adapter.config.ccuHost,                           // IP-address CCU
-        user: adapter.config.ccuUser,                           // username CCU
-        pass: adapter.config.ccuPassword ? decrypt(secret, adapter.config.ccuPassword) : '',                       // password der CCU
+        host: adapter.config.ccuHost,                                                           // IP-address CCU
+        user: adapter.config.ccuUser,                                                           // username CCU
+        usehttps: adapter.config.ccuUsehttps,                                                   // Use https for CCU Connect
+        pass: adapter.config.ccuPassword ? decrypt(secret, adapter.config.ccuPassword) : '',    // password der CCU
     };
 }
 
@@ -958,27 +959,20 @@ function nextBackup(diffDays, setMain, type, date) {
 async function main(adapter) {
     createBashScripts();
     readLogFile();
-    if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) {
-        createBackupDir();
-    }
-    if (fs.existsSync(__dirname + '/lib/.redis.info')) {
-        deleteHideFiles();
-    }
-    if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) {
-        delTmp();
-    }
+
+    if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) createBackupDir();
+    if (fs.existsSync(__dirname + '/lib/.redis.info')) deleteHideFiles();
+    if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) delTmp();
 
     timerMain = setTimeout(function () {
-        if (fs.existsSync(__dirname + '/.mount')) {
-            umount();
-        }
-        if (adapter.config.startAllRestore == true && !fs.existsSync(__dirname + '/lib/.startAll')) {
-            setStartAll();
-        }
+        if (fs.existsSync(__dirname + '/.mount')) umount();
+        if (adapter.config.startAllRestore == true && !fs.existsSync(__dirname + '/lib/.startAll')) setStartAll();
     }, 10000);
 
     adapter.getForeignObject('system.config', (err, obj) => {
-        systemLang = obj.common.language;
+        if (obj && obj.common && obj.common.language) {
+            systemLang = obj.common.language;
+        }
         initConfig((obj && obj.native && obj.native.secret) || 'Zgfr56gFe87jJOM');
 
         checkStates();

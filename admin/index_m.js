@@ -150,6 +150,7 @@ function fetchCcuConfig(isInitial) {
                 if (common.enabled) {
                     var native = res.rows[i].value.native;
                     $('#ccuHost').val(native.homematicAddress).trigger('change');
+                    $('#ccuUsehttps').prop('checked', native.useHttps);
                     found = res.rows[i].value._id;
                     break;
                 }
@@ -158,6 +159,7 @@ function fetchCcuConfig(isInitial) {
                 for (var j = 0; j < res.rows.length; j++) {
                     var _native = res.rows[j].value.native;
                     $('#ccuHost').val(_native.homematicAddress).trigger('change');
+                    $('#ccuUsehttps').prop('checked', _native.useHttps);
                     found = res.rows[j].value._id;
                 }
             }

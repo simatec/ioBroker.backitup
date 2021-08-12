@@ -218,5 +218,6 @@
   "send analysis data": "verzend analysegegevens",
   "smb type": "SMB-type",
   "source type": "Back-upbron",
-  "start all adapter after restore": "Start alle adapters na het herstel"
+  "start all adapter after restore": "Start alle adapters na het herstel",
+  "use https": "gebruik https"
 }
