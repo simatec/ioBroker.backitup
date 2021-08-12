@@ -3,21 +3,21 @@ var path = location.pathname;
 var parts = path.split('/');
 parts.splice(-3);
 
-const socket   = io.connect('/', {path: parts.join('/') + '/socket.io'});
+const socket = io.connect('/', { path: parts.join('/') + '/socket.io' });
 var query = (window.location.search || '').replace(/^\?/, '').replace(/#.*$/, '');
 var args = {};
 
 // parse parameters
-query.trim().split('&').filter(function (t) {return t.trim();}).forEach(function (b, i) {
+query.trim().split('&').filter(function (t) { return t.trim(); }).forEach(function (b, i) {
     const parts = b.split('=');
     if (!i && parts.length === 1 && !isNaN(parseInt(b, 10))) {
-        args.instance = parseInt(b,  10);
+        args.instance = parseInt(b, 10);
     }
     var name = parts[0];
     args[name] = parts.length === 2 ? parts[1] : true;
 
     if (name === 'instance') {
-        args.instance = parseInt( args.instance,  10) || 0;
+        args.instance = parseInt(args.instance, 10) || 0;
     }
 
     if (args[name] === 'true') {
@@ -29,12 +29,12 @@ query.trim().split('&').filter(function (t) {return t.trim();}).forEach(function
 
 var instance = args.instance;
 
-let common   = null; // common information of adapter
-const host     = null; // host object on which the adapter runs
-const changed  = false;
+let common = null; // common information of adapter
+const host = null; // host object on which the adapter runs
+const changed = false;
 let systemConfig;
-let certs    = [];
-let adapter  = '';
+let certs = [];
+let adapter = '';
 const onChangeSupported = false;
 var isMaterialize = true;
 
@@ -55,7 +55,7 @@ $(document).ready(function () {
 function loadSystemConfig(callback) {
     socket.emit('getObject', 'system.config', function (err, res) {
         if (!err && res && res.common) {
-            systemLang   = res.common.language || systemLang;
+            systemLang = res.common.language || systemLang;
             systemConfig = res;
         }
         socket.emit('getObject', 'system.certificates', function (err, res) {
@@ -110,6 +110,13 @@ function loadSettings(callback) {
                         supportedFeatures.splice(idx, 1);
                     }
                 }
+                // detect, that we are now in react container (themeNames = ['dark', 'blue', 'colored', 'light'])
+                for (var q = 0; q < query.length; q++) {
+                    if (query[q].indexOf('react=') !== -1) {
+                        $('.adapter-container').addClass('react-' + query[q].substring(6));
+                    }
+                }
+                
 
                 load(res.native, onChange);
                 // init selects
@@ -204,16 +211,16 @@ function confirmMessage(message, title, icon, buttons, callback) {
 }
 
 function showError(error) {
-    showMessage(_(error),  _('Error'), 'error_outline');
+    showMessage(_(error), _('Error'), 'error_outline');
 }
 
 function showToast(parent, message, icon, duration, isError, classes) {
     if (typeof parent === 'string') {
         classes = isError;
         isError = duration;
-        icon    = message;
+        icon = message;
         message = parent;
-        parent  = null;
+        parent = null;
     }
     if (parent && parent instanceof jQuery) {
         parent = parent[0];
@@ -227,9 +234,9 @@ function showToast(parent, message, icon, duration, isError, classes) {
 
     M.toast({
         parentSelector: parent || $('body')[0],
-        html:           message + (icon ? '<i class="material-icons">' + icon + '</i>' : ''),
-        displayLength:  duration || 3000,
-        classes:        classes
+        html: message + (icon ? '<i class="material-icons">' + icon + '</i>' : ''),
+        displayLength: duration || 3000,
+        classes: classes
     });
 }
 
@@ -248,7 +255,7 @@ function getAdapterInstances(_adapter, callback) {
         _adapter = null;
     }
 
-    socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.' + (_adapter || adapter), endkey: 'system.adapter.' + (_adapter || adapter) + '.\u9999'}, function (err, doc) {
+    socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.' + (_adapter || adapter), endkey: 'system.adapter.' + (_adapter || adapter) + '.\u9999' }, function (err, doc) {
         if (err) {
             callback && callback([]);
         } else {
