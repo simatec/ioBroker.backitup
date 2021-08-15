@@ -88,6 +88,7 @@
 }
 #dialog-confirm .modal-content {
     width: 100% !important;
+    height: 100% !important;
 }
 #dialog-confirm .dialog-text {
     font-size: 16px;
@@ -163,3 +164,14 @@
     filter: brightness(115%);
     box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
+/*
+.modal.react-dark {
+background-color: #3b3b3b;
+}
+.modal-footer.react-dark {
+    background-color: #3b3b3b !important;
+    }
+    .collapsible-header.react-dark {
+        background-color: #3b3b3b !important;
+        }
+        */

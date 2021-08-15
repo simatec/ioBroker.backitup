@@ -1,6 +1,6 @@
 {
   "name": "iobroker.backitup",
-  "version": "2.1.16",
+  "version": "2.1.17",
   "engines": {
     "node": ">=10.0.0"
   },
@@ -38,14 +38,14 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.5.1",
-    "dropbox-v2-api": "^2.4.44",
-    "webdav": "^4.6.0",
+    "dropbox-v2-api": "^2.4.45",
+    "webdav": "^4.6.1",
     "ftp": "^0.3.10",
     "@googleapis/drive": "^0.3.1",
     "node-schedule": "^2.0.0",
     "node-wol": "^0.1.1",
     "request": "^2.88.2",
-    "google-auth-library": "^7.5.0",
+    "google-auth-library": "^7.6.1",
     "express": "^4.17.1",
     "fs-extra": "^10.0.0",
     "axios": "^0.21.1",
