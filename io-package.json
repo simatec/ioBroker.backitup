@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.16",
+    "version": "2.1.17",
     "news": {
+      "2.1.17": {
+        "en": "dependencies updated, Preparation for dark design by Admin 5",
+        "de": "Abhängigkeiten aktualisiert, Vorbereitung für dunkles Design von Admin 5",
+        "ru": "зависимости обновлены, Подготовка к темному дизайну Админом 5",
+        "pt": "dependências atualizadas, Preparação para design escuro por Admin 5",
+        "nl": "afhankelijkheden bijgewerkt, voorbereiding voor donker ontwerp door Admin 5",
+        "fr": "dépendances mises à jour, préparation à la conception sombre par Admin 5",
+        "it": "dipendenze aggiornate, Preparazione per il design scuro di Admin 5",
+        "es": "dependencias actualizadas, preparación para el diseño oscuro por Admin 5",
+        "pl": "Zaktualizowano zależności, Przygotowanie do ciemnego projektu przez Admina 5"
+      },
       "2.1.16": {
         "en": "dependencies updated, https support for ccu backup, sentry Bugfixes",
         "de": "Abhängigkeiten aktualisiert, https-Unterstützung für CPU-Backup, Sentry Bugfixes",
@@ -101,17 +112,6 @@
         "it": "adminTab per admin 5 è cambiato",
         "es": "adminTab para admin 5 cambiado",
         "pl": "Zmieniono zakładkę admin dla admin 5"
-      },
-      "2.1.7": {
-        "en": "Bugfix mysql Restore, Bugfix pgsql Restore, small Bugfix, dependencies updated, node-16 support added",
-        "de": "Bugfix mysql Restore, Bugfix pgsql Restore, kleiner Bugfix, Abhängigkeiten aktualisiert, Node-16-Unterstützung hinzugefügt",
-        "ru": "Исправление ошибок mysql Restore, Bugfix pgsql Restore, small Bugfix, зависимости обновлены, добавлена поддержка node-16",
-        "pt": "Bugfix mysql Restore, Bugfix pgsql Restore, bugfix pequeno, dependências atualizadas, suporte a node-16 adicionado",
-        "nl": "Bugfix mysql Restore, Bugfix pgsql Restore, kleine Bugfix, afhankelijkheden bijgewerkt, node-16 ondersteuning toegevoegd",
-        "fr": "Bugfix mysql Restore, Bugfix pgsql Restore, petit bugfix, dépendances mises à jour, support node-16 ajouté",
-        "it": "Bugfix mysql Restore, Bugfix pgsql Restore, piccolo bugfix, dipendenze aggiornate, supporto node-16 aggiunto",
-        "es": "Bugfix MySql Restore, Bugfix pgsql Restore, pequeño Bugfix, dependencias actualizadas, soporte de nodo 16 agregado",
-        "pl": "Bugfix mysql Restore, Bugfix pgsql Restore, mały błąd, zaktualizowano zależności, dodano obsługę Node-16"
       }
     },
     "title": "BackItUp",
