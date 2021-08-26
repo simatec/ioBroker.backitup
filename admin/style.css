@@ -7,8 +7,13 @@
     overflow: initial;*/
     overflow: hidden;
 }
+.multiple-select-dropdown li span .combobox .combobox {
+	pointer-events: none;
+}
+.multiple-select-dropdown.dropdown-content li span, .multiple-select-dropdown.dropdown-content li span label { 
+    pointer-events: none;
+}
 
-/* Add your styles here */
 /* Header section*/
 #header-area {margin-top: 2px; margin-bottom: 1px; background-color:#174475;}
 #header-area #header-logo-title .logo {float:left; margin-right: 10px;}

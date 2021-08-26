@@ -18,6 +18,7 @@ let timerOutput2;
 let timerUmount1;
 let timerUmount2;
 let timerMain;
+let slaveTimeOut;
 
 let systemLang = 'de';                                  // system language
 const backupConfig = {};
@@ -118,6 +119,11 @@ function startAdapter(options) {
 
                         }), 500);
                     adapter.setState('oneClick.' + type, false, true);
+
+                    if (adapter.config.slaveInstance && adapter.config.hostType == 'Master') {
+                        adapter.log.debug('Slave backup from Backitup-Master is started ...');
+                        startSlaveBackup(adapter.config.slaveInstance[0], null);
+                    }
                 });
             }
         }
@@ -141,6 +147,7 @@ function startAdapter(options) {
             clearTimeout(timerUmount1);
             clearTimeout(timerUmount2);
             clearTimeout(timerMain);
+            clearTimeout(slaveTimeOut);
             callback();
         } catch (e) {
             callback();
@@ -219,6 +226,59 @@ function startAdapter(options) {
                             .getDirectoryContents('')
                             .then(contents => obj.callback && adapter.sendTo(obj.from, obj.command, contents, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: JSON.stringify(err.message) }, obj.callback));
+                    }
+                    break;
+                case 'slaveBackup':
+                    if (obj && obj.message) {
+                        if (adapter.config.hostType == 'Slave') {
+                            adapter.log.debug('Slave Backup started ...');
+                            const type = 'iobroker';
+                            let config;
+                            try {
+                                config = JSON.parse(JSON.stringify(backupConfig[type]));
+                                config.enabled = true;
+                                config.deleteBackupAfter = obj.message.config.deleteAfter; // do delete files with specification from Master
+                            } catch (e) {
+                                adapter.log.warn('backup error: ' + e + ' ... please check your config and try again!!');
+                            }
+                            startBackup(config, err => {
+                                if (err) {
+                                    adapter.log.error(`[${type}] ${err}`);
+
+                                } else {
+                                    adapter.log.debug(`[${type}] exec: done`);
+                                }
+                                timerOutput = setTimeout(() =>
+                                    adapter.getState('output.line', (err, state) => {
+                                        if (state && state.val === '[EXIT] 0') {
+                                            adapter.setState('history.' + type + 'Success', true, true);
+                                            adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang), true);
+                                            try {
+                                                adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
+                                            } catch (err) {
+                                                err && adapter.log.error(err);
+                                                adapter.log.error('slave Backup not finish!');
+                                            }
+                                        } else {
+                                            adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
+                                            adapter.setState('history.' + type + 'Success', false, true);
+                                            if (state && state.val) {
+                                                try {
+                                                    adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
+                                                } catch (err) {
+                                                    err && adapter.log.error(err);
+                                                    adapter.log.error('slave Backup not finish!');
+                                                }
+                                            }
+                                        }
+
+                                    }), 500);
+                                adapter.setState('oneClick.' + type, false, true);
+                            });
+                        } else {
+                            adapter.log.warn('Your Backitup Instance is not configured as a slave');
+                            adapter.sendTo(obj.from, obj.command, 'not configured as a slave', obj.callback);
+                        }
                     }
                     break;
             }
@@ -308,6 +368,11 @@ function createBackupSchedule() {
                         }), 500);
                     nextBackup(0, false, type);
                     adapter.setState('oneClick.' + type, false, true);
+
+                    if (adapter.config.slaveInstance && adapter.config.hostType == 'Master') {
+                        adapter.log.debug('Slave backup from Backitup-Master is started ...');
+                        startSlaveBackup(adapter.config.slaveInstance[0], null);
+                    }
                 });
             });
 
@@ -487,6 +552,7 @@ function initConfig(secret) {
         enabled: adapter.config.minimalEnabled,
         time: adapter.config.minimalTime,
         debugging: adapter.config.debugLevel,
+        slaveBackup: adapter.config.hostType,
         everyXDays: adapter.config.minimalEveryXDays,
         nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
         deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backupfiles after x days
@@ -953,6 +1019,53 @@ function nextBackup(diffDays, setMain, type, date) {
         adapter.setState(`info.iobrokerNextTime`, tools.getNextTimeString(systemLang, adapter.config.minimalTime, parseFloat(everyXDays)), true);
     } else if (adapter.config.minimalEnabled == false) {
         adapter.setState(`info.iobrokerNextTime`, 'none', true);
+    }
+}
+
+function startSlaveBackup(slaveInstance, num) {
+    if (num == null) {
+        num = 0;
+    }
+
+    try {
+        adapter.getForeignState(`system.adapter.${slaveInstance}.alive`, (err, state) => {
+            err && adapter.log.error(err);
+
+            if (state && state.val && state.val === true) {
+                try {
+                    adapter.sendTo(slaveInstance, 'slaveBackup', {
+                        config: {
+                            deleteAfter: adapter.config.minimalDeleteAfter
+                        }
+                    }, function (result, error) {
+                        if (result) {
+                            adapter.log.debug(`Slave Backup from ${slaveInstance} is finish with result: ${result}`);
+                        } else {
+                            adapter.log.debug(`Slave Backup error from ${slaveInstance}: ${error}`);
+                        }
+                        num++;
+                        if (adapter.config.slaveInstance.length > 1 && num != adapter.config.slaveInstance.length) {
+                            return slaveTimeOut = setTimeout(startSlaveBackup, 3000, adapter.config.slaveInstance[num], num);
+                        } else {
+                            adapter.log.debug('slave backups are completed');
+                        }
+                    });
+                } catch (err) {
+                    adapter.log.error(`error on slave Backup: ${err}`)
+                }
+            } else {
+                num++;
+                adapter.log.warn(`${slaveInstance} is not running. The slave backup for this instance is not possible`);
+
+                if (adapter.config.slaveInstance.length > 1 && num != adapter.config.slaveInstance.length) {
+                    return slaveTimeOut = setTimeout(startSlaveBackup, 3000, adapter.config.slaveInstance[num], num);
+                } else {
+                    adapter.log.debug('slave backups are completed');
+                }
+            }
+        });
+    } catch (err) {
+        adapter.log.error(`error on slave Backup: ${err}`)
     }
 }
 

@@ -378,6 +378,11 @@ function load(settings, onChange) {
             });
         }
     });
+
+    getAdapterInstances('backitup', function (instances) {
+        fillSlaveInstances('slaveInstance', instances, settings['slaveInstance'], 'backitup');
+    });
+
     getIsAdapterAlive(function (isAlive) {
         if (isAlive || common.enabled) {
             $('.do-backup')
@@ -699,18 +704,23 @@ function load(settings, onChange) {
     onChange(false);
     M.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
     getAdapterInstances('telegram', function (instances) {
-        fillInstances('telegramInstance', instances, settings['telegramInstance']);
+        fillInstances('telegramInstance', instances, settings['telegramInstance'], 'telegram');
     });
+    /*
+    getAdapterInstances('backitup', function (instances) {
+        fillSlaveInstances('slaveInstance', instances, settings['slaveInstance'], 'backitup');
+    });
+    */
     getAdapterInstances('whatsapp-cmb', function (instances) {
-        fillInstances('whatsappInstance', instances, settings['whatsappInstance']);
+        fillInstances('whatsappInstance', instances, settings['whatsappInstance'], 'whatsapp-cmb');
     });
 
     getAdapterInstances('email', function (instances) {
-        fillInstances('emailInstance', instances, settings['emailInstance']);
+        fillInstances('emailInstance', instances, settings['emailInstance'], 'email');
     });
 
     getAdapterInstances('pushover', function (instances) {
-        fillInstances('pushoverInstance', instances, settings['pushoverInstance']);
+        fillInstances('pushoverInstance', instances, settings['pushoverInstance'], 'pushover');
     });
 
     if ($('#ccuEnabled').prop('checked') && !settings.ccuHost) {
@@ -780,17 +790,32 @@ function fillTelegramUser(id, str, telegramInst) {
     }
 }
 
-function fillInstances(id, arr, val) {
+function fillInstances(id, arr, val, name) {
     var $sel = $('#' + id);
     $sel.html('<option value="">' + _('none') + '</option>');
     for (var i = 0; i < arr.length; i++) {
         var _id = arr[i]._id.replace('system.adapter.', '');
-        // Take first value
-        //            if (!val) val = _id;
         $sel.append('<option value="' + _id + '"' + (_id === val ? ' selected' : '') + '>' + _id + '</option>');
     }
     $sel.select();
 }
+
+function fillSlaveInstances(id, arr, val, name) {
+    var $sel = $('#' + id);
+    $sel.html('');
+    var instances = [];
+    for (var i = 0; i < arr.length; i++) {
+        var _id = arr[i]._id.replace('system.adapter.', '');
+        if (_id != ('backitup.' + instance)) {
+            instances.push(_id);
+        }
+    }
+    for (var j in instances) {
+        $sel.append('<option value="' + instances[j] + '"' + (val.indexOf(instances[j]) != -1 ? ' selected' : '') + '>' + instances[j] + '</option>');
+    }
+    $sel.select();
+}
+
 function save(callback) {
     var obj = {};
     $('.value').each(function () {
@@ -807,7 +832,7 @@ function save(callback) {
         }
     });
     callback(obj);
-    
+
 }
 function showHideSettings(settings) {
     if ($('#ftpEnabled').prop('checked')) {
@@ -942,8 +967,25 @@ function showHideSettings(settings) {
         }
     }).trigger('change');
 
+    $('#hostType').on('change', function () {
+        if ($(this).val() === 'Master') {
+            $('.slaveInst').show();
+        } else {
+            $('.slaveInst').hide();
+        }
+        if ($(this).val() === 'Slave') {
+            $('#minimalEnabled').prop('checked', false);
+            $('#minimalEnabled').addClass('disabled');
+            $('.tab-iobroker-backup').hide();
+        } else {
+            $('#minimalEnabled').removeClass('disabled');
+            $('#minimalEnabled').prop('checked', true);
+            $('.tab-iobroker-backup').show();
+        }
+    }).trigger('change');
+
     $('#restoreSource').on('change', function () {
-            $('.doRestore').hide();
+        $('.doRestore').hide();
     }).trigger('change');
 
     $('#notificationsType').on('change', function () {

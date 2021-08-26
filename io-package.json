@@ -336,7 +336,9 @@
     "sentry_enable": true,
     "historyEntriesNumber": 25,
     "restoreSource": "local",
-    "startAllRestore": false
+    "startAllRestore": false,
+    "hostType": "Single",
+    "slaveInstance": "backitup.1"
   },
   "instanceObjects": [
     {
