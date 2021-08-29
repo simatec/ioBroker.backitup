@@ -217,6 +217,8 @@
     "ccuHost": "",
     "ccuUser": "Admin",
     "ccuPassword": "",
+    "ccuMulti": false,
+    "ccuEvents": [],
     "ccuUsehttps": false,
     "webdavEnabled": false,
     "webdavUsername": "username",
@@ -338,7 +340,8 @@
     "restoreSource": "local",
     "startAllRestore": false,
     "hostType": "Single",
-    "slaveInstance": "backitup.1"
+    "slaveInstance": "backitup.1",
+    "slaveNameSuffix": ""
   },
   "instanceObjects": [
     {

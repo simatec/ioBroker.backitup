@@ -378,11 +378,20 @@ function load(settings, onChange) {
             });
         }
     });
+    ccuEvents = settings.ccuEvents || [];
 
+    for (var i = 0; i < ccuEvents.length; i++) {
+        var val = ccuEvents[i].ccuPassword;
+        ccuEvents[i].ccuPassword = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+        console.log(i + ': ' + ccuEvents[i].ccuPassword)
+    }
+
+    values2table('ccuEvents', ccuEvents, onChange/*, tableOnReady*/);
+    /*
     getAdapterInstances('backitup', function (instances) {
         fillSlaveInstances('slaveInstance', instances, settings['slaveInstance'], 'backitup');
     });
-
+    */
     getIsAdapterAlive(function (isAlive) {
         if (isAlive || common.enabled) {
             $('.do-backup')
@@ -706,11 +715,9 @@ function load(settings, onChange) {
     getAdapterInstances('telegram', function (instances) {
         fillInstances('telegramInstance', instances, settings['telegramInstance'], 'telegram');
     });
-    /*
     getAdapterInstances('backitup', function (instances) {
         fillSlaveInstances('slaveInstance', instances, settings['slaveInstance'], 'backitup');
     });
-    */
     getAdapterInstances('whatsapp-cmb', function (instances) {
         fillInstances('whatsappInstance', instances, settings['whatsappInstance'], 'whatsapp-cmb');
     });
@@ -831,6 +838,13 @@ function save(callback) {
             obj[id] = val;
         }
     });
+    // Get edited table
+    obj.ccuEvents = table2values('ccuEvents');
+    for (var i = 0; i < obj.ccuEvents.length; i++) {
+        var val = obj.ccuEvents[i].ccuPassword;
+        console.log(val)
+        obj.ccuEvents[i].ccuPassword = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+    }
     callback(obj);
 
 }
@@ -938,11 +952,13 @@ function showHideSettings(settings) {
     } else {
         $('.minimal').hide();
     }
-    var total = $('#totalEnabled').prop('checked');
-    if (total) {
-        $('.total').show();
+    var _multiCCU = $('#ccuMulti').prop('checked');
+    if (_multiCCU) {
+        $('.multiCCU').hide();
+        $('.singleCCU').show();
     } else {
-        $('.total').hide();
+        $('.multiCCU').show();
+        $('.singleCCU').hide();
     }
     $('#connectType').on('change', function () {
         if ($(this).val() === 'NFS') {
@@ -977,10 +993,16 @@ function showHideSettings(settings) {
             $('#minimalEnabled').prop('checked', false);
             $('#minimalEnabled').addClass('disabled');
             $('.tab-iobroker-backup').hide();
+            $('.slaveSuffix').show();
+            if (settings.slaveNameSuffix == '') {
+                $('#slaveNameSuffix').val('slave-' + instance).trigger('change');
+                M.updateTextFields();
+            }
         } else {
             $('#minimalEnabled').removeClass('disabled');
             $('#minimalEnabled').prop('checked', true);
             $('.tab-iobroker-backup').show();
+            $('.slaveSuffix').hide();
         }
     }).trigger('change');
 
