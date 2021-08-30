@@ -381,9 +381,8 @@ function load(settings, onChange) {
     ccuEvents = settings.ccuEvents || [];
 
     for (var i = 0; i < ccuEvents.length; i++) {
-        var val = ccuEvents[i].ccuPassword;
-        ccuEvents[i].ccuPassword = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
-        console.log(i + ': ' + ccuEvents[i].ccuPassword)
+        var val = ccuEvents[i].pass;
+        ccuEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
     }
 
     values2table('ccuEvents', ccuEvents, onChange/*, tableOnReady*/);
@@ -841,9 +840,8 @@ function save(callback) {
     // Get edited table
     obj.ccuEvents = table2values('ccuEvents');
     for (var i = 0; i < obj.ccuEvents.length; i++) {
-        var val = obj.ccuEvents[i].ccuPassword;
-        console.log(val)
-        obj.ccuEvents[i].ccuPassword = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+        var val = obj.ccuEvents[i].pass;
+        obj.ccuEvents[i].pass = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
     }
     callback(obj);
 

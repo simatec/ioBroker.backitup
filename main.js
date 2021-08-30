@@ -396,6 +396,8 @@ function initConfig(secret) {
         adapter.config.redisEnabled = adapter.config.backupRedis
     }
 
+    decryptEvents(secret);
+
     const telegram = {
         enabled: adapter.config.notificationEnabled,
         notificationsType: adapter.config.notificationsType,
@@ -741,6 +743,7 @@ function initConfig(secret) {
         usehttps: adapter.config.ccuUsehttps,                                                   // Use https for CCU Connect
         pass: adapter.config.ccuPassword ? decrypt(secret, adapter.config.ccuPassword) : '',    // password der CCU
         ccuEvents: adapter.config.ccuEvents,
+        ccuMulti: adapter.config.ccuMulti,
     };
 }
 
@@ -1093,6 +1096,16 @@ function startSlaveBackup(slaveInstance, num) {
         adapter.log.error(`error on slave Backup: ${err}`)
     }
 }
+function decryptEvents(secret) {
+    if (adapter.config.ccuEvents && adapter.config.ccuMulti) {
+        for (let i = 0; i < adapter.config.ccuEvents.length; i++) {
+            if (adapter.config.ccuEvents[i].pass) {
+                const val = adapter.config.ccuEvents[i].pass;
+                adapter.config.ccuEvents[i].pass = val ? decrypt(secret, val) : '';
+            }
+        }
+    }
+}
 
 async function main(adapter) {
     createBashScripts();
@@ -1123,7 +1136,6 @@ async function main(adapter) {
 
     // subscribe on all variables of this adapter instance with pattern "adapterName.X.memory*"
     adapter.subscribeStates('oneClick.*');
-    adapter.log.debug(JSON.stringify(adapter.config.ccuEvents))
 }
 // If started as allInOne/compact mode => return function to create instance
 if (module && module.parent) {
