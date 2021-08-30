@@ -724,7 +724,7 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         everyXDays: adapter.config.ccuEveryXDays,
         nameSuffix: adapter.config.ccuNameSuffix,               // names addition, appended to the file name
-        deleteBackupAfter: adapter.config.ccuDeleteAfter,       // delete old backupfiles after x days
+        deleteBackupAfter: adapter.config.ccuMulti === true ? adapter.config.ccuDeleteAfter * adapter.config.ccuEvents.length : adapter.config.ccuDeleteAfter,       // delete old backupfiles after x days
 
         ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpCcuDir } : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsCcuDir } : {}),
