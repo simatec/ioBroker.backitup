@@ -602,6 +602,8 @@ function initConfig(secret) {
             port: adapter.config.influxDBPort,                      // database port
             exe: adapter.config.influxDBDumpExe,                    // path to influxDBdump
             dbType: adapter.config.influxDBType,                    // type of influxdb Backup
+            influxDBEvents: adapter.config.influxDBEvents,
+            influxDBMulti: adapter.config.influxDBMulti,
             deleteDataBase: adapter.config.deleteOldDataBase             // delete old database for restore
         },
         pgsql: {

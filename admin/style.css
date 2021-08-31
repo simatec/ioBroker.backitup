@@ -173,11 +173,11 @@
     border-style: solid;
 }
 
-.table-values.influxDBTable.influxShowLocal td:nth-of-type(2), .table-values.influxDBTable.influxShowLocal td:nth-of-type(3), .table-values.influxDBTable.influxShowLocal td:nth-of-type(4), .table-values.influxDBTable.influxShowLocal td:nth-of-type(5) {
+.table-values.influxDBTable.influxShowLocal td:nth-of-type(2), .table-values.influxDBTable.influxShowLocal td:nth-of-type(3) {
     visibility: hidden;
     display: none;
 }
-.table-values.influxDBTable.influxShowLocal th:nth-of-type(2), .table-values.influxDBTable.influxShowLocal th:nth-of-type(3), .table-values.influxDBTable.influxShowLocal th:nth-of-type(4), .table-values.influxDBTable.influxShowLocal th:nth-of-type(5) {
+.table-values.influxDBTable.influxShowLocal th:nth-of-type(2), .table-values.influxDBTable.influxShowLocal th:nth-of-type(3) {
     visibility: hidden;
     display: none;
 }

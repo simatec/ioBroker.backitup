@@ -381,11 +381,6 @@ function load(settings, onChange) {
     mySqlEvents = settings.mySqlEvents || [];
     pgSqlEvents = settings.pgSqlEvents || [];
 
-    for (var i = 0; i < influxDBEvents.length; i++) {
-        var val = influxDBEvents[i].pass;
-        influxDBEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
-    }
-
     for (var i = 0; i < pgSqlEvents.length; i++) {
         var val = pgSqlEvents[i].pass;
         pgSqlEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
@@ -424,6 +419,7 @@ function load(settings, onChange) {
             id++;
         }
         setTimeout(function () {
+            $('#influxDBEvents .values-input[data-name="port"][data-index="' + id + '"]').val(8088).trigger('change');
             $('#influxDBEvents .values-input[data-name="nameSuffix"][data-index="' + id + '"]').val(`influxDB-${id + 1}`).trigger('change');
         }, 250);
     });
@@ -897,10 +893,6 @@ function save(callback) {
     }
 
     obj.influxDBEvents = table2values('influxDBEvents');
-    for (var i = 0; i < obj.influxDBEvents.length; i++) {
-        var val = obj.influxDBEvents[i].pass;
-        obj.influxDBEvents[i].pass = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
-    }
 
     obj.mySqlEvents = table2values('mySqlEvents');
     for (var i = 0; i < obj.mySqlEvents.length; i++) {
@@ -1043,15 +1035,6 @@ function showHideSettings(settings) {
         $('.singleCCU').hide();
     }
 
-    var _multiInfluxDB = $('#influxDBMulti').prop('checked');
-    if (_multiInfluxDB) {
-        $('.multiInfluxDB').hide();
-        $('.singleInfluxDB').show();
-    } else {
-        $('.multiInfluxDB').show();
-        $('.singleInfluxDB').hide();
-    }
-
     var _multiMySql = $('#mySqlMulti').prop('checked');
     if (_multiMySql) {
         $('.multiMySql').hide();
@@ -1083,14 +1066,33 @@ function showHideSettings(settings) {
         }
     }).trigger('change');
 
+    var _multiInfluxDB = $('#influxDBMulti').prop('checked');
+    if (_multiInfluxDB) {
+        $('.multiInfluxDB').hide();
+        $('.influxRemote').hide();
+        $('.singleInfluxDB').show();
+        $('.detect-influxDB').addClass('disabled');
+    } else {
+        $('.multiInfluxDB').show();
+        $('.influxRemote').show();
+        $('.singleInfluxDB').hide();
+        $('.detect-influxDB').removeClass('disabled');
+    }
+
     $('#influxDBType').on('change', function () {
-        if ($(this).val() === 'remote') {
+        if ($(this).val() === 'remote' && !_multiInfluxDB) {
             $('.influxRemote').show();
             $('.influxLocal').hide();
             $('.influxDBTable').removeClass('influxShowLocal');
-        } else if ($(this).val() === 'local') {
+        } else if ($(this).val() === 'local' && !_multiInfluxDB) {
             $('.influxRemote').hide();
             $('.influxLocal').show();
+            $('.influxDBTable').addClass('influxShowLocal');
+        } else if ($(this).val() === 'remote' && _multiInfluxDB) {
+            $('.influxRemote').hide();
+            $('.influxDBTable').removeClass('influxShowLocal');
+        } else if ($(this).val() === 'local' && _multiInfluxDB) {
+            $('.influxRemote').hide();
             $('.influxDBTable').addClass('influxShowLocal');
         }
     }).trigger('change');
