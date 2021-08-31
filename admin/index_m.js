@@ -114,7 +114,6 @@ function fetchInfluxDBConfig(isInitial) {
                 var native = res.rows[i].value.native;
                 if (common.enabled) {
                     $('#influxDBHost').val(native.host).trigger('change');
-                    //$('#influxDBPort').val(native.port === '8086' ? 8086 : 8088 || 8088).trigger('change');
                     $('#influxDBName').val(native.dbname).trigger('change');
                     var id = res.rows[i].value.
                         found = res.rows[i].value._id;
@@ -126,7 +125,6 @@ function fetchInfluxDBConfig(isInitial) {
                     var _native = res.rows[j].value.native;
                     $('#influxDBHost').val(_native.host).trigger('change');
                     $('#influxDBName').val(_native.dbname).trigger('change');
-                    //$('#influxDBPort').val(_native.port === '0' ? 8088 : native.port || 8088).trigger('change');
                     found = res.rows[j].value._id;
                     break;
                 }
@@ -379,18 +377,79 @@ function load(settings, onChange) {
         }
     });
     ccuEvents = settings.ccuEvents || [];
+    influxDBEvents = settings.influxDBEvents || [];
+    mySqlEvents = settings.mySqlEvents || [];
+    pgSqlEvents = settings.pgSqlEvents || [];
+
+    for (var i = 0; i < influxDBEvents.length; i++) {
+        var val = influxDBEvents[i].pass;
+        influxDBEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+    }
+
+    for (var i = 0; i < pgSqlEvents.length; i++) {
+        var val = pgSqlEvents[i].pass;
+        pgSqlEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+    }
+
+    for (var i = 0; i < mySqlEvents.length; i++) {
+        var val = mySqlEvents[i].pass;
+        mySqlEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+    }
 
     for (var i = 0; i < ccuEvents.length; i++) {
         var val = ccuEvents[i].pass;
         ccuEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
     }
 
-    values2table('ccuEvents', ccuEvents, onChange/*, tableOnReady*/);
-    /*
-    getAdapterInstances('backitup', function (instances) {
-        fillSlaveInstances('slaveInstance', instances, settings['slaveInstance'], 'backitup');
+    values2table('ccuEvents', ccuEvents, onChange);
+    values2table('influxDBEvents', influxDBEvents, onChange);
+    values2table('mySqlEvents', mySqlEvents, onChange);
+    values2table('pgSqlEvents', pgSqlEvents, onChange);
+
+    $('#ccuAdded').on('click', function () {
+        var devices = table2values('ccuEvents');
+        var id = 0;
+        for (var i = 0; i < devices.length; i++) {
+            id++;
+        }
+        setTimeout(function () {
+            $('#ccuEvents .values-input[data-name="nameSuffix"][data-index="' + id + '"]').val(`CCU-${id + 1}`).trigger('change');
+        }, 250);
     });
-    */
+
+    $('#influxDBAdded').on('click', function () {
+        var devices = table2values('influxDBEvents');
+        var id = 0;
+        for (var i = 0; i < devices.length; i++) {
+            id++;
+        }
+        setTimeout(function () {
+            $('#influxDBEvents .values-input[data-name="nameSuffix"][data-index="' + id + '"]').val(`influxDB-${id + 1}`).trigger('change');
+        }, 250);
+    });
+
+    $('#mySqlAdded').on('click', function () {
+        var devices = table2values('mySqlEvents');
+        var id = 0;
+        for (var i = 0; i < devices.length; i++) {
+            id++;
+        }
+        setTimeout(function () {
+            $('#mySqlEvents .values-input[data-name="nameSuffix"][data-index="' + id + '"]').val(`mySqlDB-${id + 1}`).trigger('change');
+        }, 250);
+    });
+
+    $('#pgSqlAdded').on('click', function () {
+        var devices = table2values('pgSqlEvents');
+        var id = 0;
+        for (var i = 0; i < devices.length; i++) {
+            id++;
+        }
+        setTimeout(function () {
+            $('#pgSqlEvents .values-input[data-name="nameSuffix"][data-index="' + id + '"]').val(`pgSqlDB-${id + 1}`).trigger('change');
+        }, 250);
+    });
+
     getIsAdapterAlive(function (isAlive) {
         if (isAlive || common.enabled) {
             $('.do-backup')
@@ -504,12 +563,6 @@ function load(settings, onChange) {
             });
 
             $('.do-list').removeClass('disabled').on('click', function () {
-                /*
-                if (changed) {
-                    showMessage(_('Save the configuration first'));
-                    return;
-                }
-                */
                 $('.do-list').addClass('disabled');
                 $('#tab-restore').find('.root').html('');
                 $('.doRestore').hide();
@@ -553,7 +606,6 @@ function load(settings, onChange) {
                                     break;
                             }
 
-                            //text += '<li><div class="collapsible-header top">' + _(storageTyp) + '</div>';
                             text += '<li><div class="collapsible-header top"><i class="material-icons">expand_more</i><h6>' + _(storageTyp) + '</h6></div>';
                             text += '<ul class="collapsible-body collection">';
                             for (var storage in data[type]) {
@@ -837,12 +889,31 @@ function save(callback) {
             obj[id] = val;
         }
     });
-    // Get edited table
+    // Get edited tables
     obj.ccuEvents = table2values('ccuEvents');
     for (var i = 0; i < obj.ccuEvents.length; i++) {
         var val = obj.ccuEvents[i].pass;
         obj.ccuEvents[i].pass = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
     }
+
+    obj.influxDBEvents = table2values('influxDBEvents');
+    for (var i = 0; i < obj.influxDBEvents.length; i++) {
+        var val = obj.influxDBEvents[i].pass;
+        obj.influxDBEvents[i].pass = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+    }
+
+    obj.mySqlEvents = table2values('mySqlEvents');
+    for (var i = 0; i < obj.mySqlEvents.length; i++) {
+        var val = obj.mySqlEvents[i].pass;
+        obj.mySqlEvents[i].pass = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+    }
+
+    obj.pgSqlEvents = table2values('pgSqlEvents');
+    for (var i = 0; i < obj.pgSqlEvents.length; i++) {
+        var val = obj.pgSqlEvents[i].pass;
+        obj.pgSqlEvents[i].pass = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+    }
+
     callback(obj);
 
 }
@@ -885,6 +956,7 @@ function showHideSettings(settings) {
         $('.dropbox-extra').hide();
         $('.dropbox-standard').show();
     }
+
     if ($('#webdavOwnDir').prop('checked')) {
         $('.webDAV-extra').show();
         $('.webDAV-standard').hide();
@@ -892,6 +964,7 @@ function showHideSettings(settings) {
         $('.webDAV-extra').hide();
         $('.webDAV-standard').show();
     }
+
     if ($('#googledriveOwnDir').prop('checked')) {
         $('.googledrive-extra').show();
         $('.googledrive-standard').hide();
@@ -899,57 +972,68 @@ function showHideSettings(settings) {
         $('.googledrive-extra').hide();
         $('.googledrive-standard').show();
     }
+
     if ($('#redisEnabled').prop('checked')) {
         $('.redis_path').show();
     } else {
         $('.redis_path').hide();
     }
+
     if ($('#historyEnabled').prop('checked')) {
         $('.history_path').show();
     } else {
         $('.history_path').hide();
     }
+
     if ($('#javascriptsEnabled').prop('checked')) {
         $('.javascripts_path').show();
     } else {
         $('.javascripts_path').hide();
     }
+
     if ($('#telegramEnabled').prop('checked')) {
         $('.telegram_inst').show();
     } else {
         $('.telegram_inst').hide();
     }
+
     if ($('#minimalEnabled').prop('checked')) {
         $('.tab-iobroker-backup').show();
     } else {
         $('.tab-iobroker-backup').hide();
     }
+
     if ($('#ccuEnabled').prop('checked')) {
         $('.tab-ccu-backup').show();
     } else {
         $('.tab-ccu-backup').hide();
     }
+
     if ($('#mySqlEnabled').prop('checked')) {
         $('.mysql').show();
     } else {
         $('.mysql').hide();
     }
+
     if ($('#pgSqlEnabled').prop('checked')) {
         $('.pgsql').show();
     } else {
         $('.pgsql').hide();
     }
+
     if ($('#influxDBEnabled').prop('checked')) {
         $('.influxDB').show();
     } else {
         $('.influxDB').hide();
     }
+
     var minimal = $('#minimalEnabled').prop('checked');
     if (minimal) {
         $('.minimal').show();
     } else {
         $('.minimal').hide();
     }
+
     var _multiCCU = $('#ccuMulti').prop('checked');
     if (_multiCCU) {
         $('.multiCCU').hide();
@@ -958,6 +1042,34 @@ function showHideSettings(settings) {
         $('.multiCCU').show();
         $('.singleCCU').hide();
     }
+
+    var _multiInfluxDB = $('#influxDBMulti').prop('checked');
+    if (_multiInfluxDB) {
+        $('.multiInfluxDB').hide();
+        $('.singleInfluxDB').show();
+    } else {
+        $('.multiInfluxDB').show();
+        $('.singleInfluxDB').hide();
+    }
+
+    var _multiMySql = $('#mySqlMulti').prop('checked');
+    if (_multiMySql) {
+        $('.multiMySql').hide();
+        $('.singleMySql').show();
+    } else {
+        $('.multiMySql').show();
+        $('.singleMySql').hide();
+    }
+
+    var _multiPGSql = $('#pgSqlMulti').prop('checked');
+    if (_multiPGSql) {
+        $('.multiPgSql').hide();
+        $('.singlePgSql').show();
+    } else {
+        $('.multiPgSql').show();
+        $('.singlePgSql').hide();
+    }
+
     $('#connectType').on('change', function () {
         if ($(this).val() === 'NFS') {
             $('.nfs').hide();
@@ -975,9 +1087,11 @@ function showHideSettings(settings) {
         if ($(this).val() === 'remote') {
             $('.influxRemote').show();
             $('.influxLocal').hide();
+            $('.influxDBTable').removeClass('influxShowLocal');
         } else if ($(this).val() === 'local') {
             $('.influxRemote').hide();
             $('.influxLocal').show();
+            $('.influxDBTable').addClass('influxShowLocal');
         }
     }).trigger('change');
 
