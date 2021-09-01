@@ -263,11 +263,13 @@
                         <span class="translate">Password of the CCU</span>
                     </div>
                 </div>
-                <div class="row ccu">
-                    <div class="input-field col s6 l4 multiCCU">
+                <div class="row ccu multiCCU">
+                    <div class="input-field col s6 l4">
                         <input class="value" id="ccuUsehttps" type="checkbox" />
                         <span for="ccuUsehttps" class="translate">use https</span>
                     </div>
+                </div>
+                <div class="row ccu">
                     <div class="input-field col s6 l4">
                         <input class="value" id="ccuMulti" type="checkbox" />
                         <span for="ccuMulti" class="translate">Backup of several Systems</span>
@@ -280,16 +282,16 @@
                                 <a id="ccuAdded" class="btn-floating btn-backitup waves-effect waves-light blue table-button-add"><i class="material-icons btn-backitup" style="background-color:#3399CC;">add</i></a>
                             </div>
                         </div>
-                        <div class="table-values-div">
+                        <div class="table-values-div table-values-fix">
                             <table class="table-values">
                                 <thead>
                                     <tr>
                                         <th data-name="_index" id="ccuEvents_col_0" style="width: 80px; background: #174475; text-align: center" data-style="text-align: center">Nr</th>
-                                        <th data-name="host" id="ccuEvents_col_1" data-type="text" style="width: 20%; background: #174475" class="translate">IP address</th>
-                                        <th data-name="user" id="ccuEvents_col_2" data-type="text" style="width: 20%; background: #174475" class="translate">Username</th>
-                                        <th data-name="pass" id="ccuEvents_col_3" data-type="password" style="width: 20%; background: #174475" class="translate">password</th>
-                                        <th data-name="nameSuffix" id="ccuEvents_col_4" data-type="text" style="width: 20%; background: #174475" class="translate">Name suffix</th>
-                                        <th data-name="usehttps" id="ccuEvents_col_5" style="width: 70px; background: #174475" data-style="width: 70px" data-type="checkbox" class="translate">use https</th>
+                                        <th data-name="host" id="ccuEvents_col_1" data-type="text" style="background: #174475" class="translate">IP address</th>
+                                        <th data-name="user" id="ccuEvents_col_2" data-type="text" style="background: #174475" class="translate">Username</th>
+                                        <th data-name="pass" id="ccuEvents_col_3" data-type="password" style="background: #174475" class="translate">password</th>
+                                        <th data-name="nameSuffix" id="ccuEvents_col_4" data-type="text" style="background: #174475" class="translate">Name suffix</th>
+                                        <th data-name="usehttps" id="ccuEvents_col_5" style="background: #174475" data-style="width: 70px" data-type="checkbox" class="translate">use https</th>
                                         <th data-buttons="copy up down delete" style="width: 90px; background: #174475"></th>
                                     </tr>
                                 </thead>
@@ -507,16 +509,16 @@
                                 <a id="influxDBAdded" class="btn-floating btn-backitup waves-effect waves-light blue table-button-add"><i class="material-icons btn-backitup" style="background-color:#3399CC;">add</i></a>
                             </div>
                         </div>
-                        <div class="table-values-div">
+                        <div class="table-values-div table-values-fix">
                             <table class="table-values influxDBTable">
                                 <thead>
                                     <tr>
                                         <th data-name="_index" id="influxDBEvents_col_0" style="width: 80px; background: #174475; text-align: center" data-style="text-align: center">Nr</th>
-                                        <th data-name="host" id="influxDBEvents_col_1" data-type="text" style="width: 20%; background: #174475" class="translate">Host</th>
-                                        <th data-name="port" id="influxDBEvents_col_2" data-type="number" style="width: 10%; background: #174475" class="translate">port</th>
-                                        <th data-name="dbName" id="influxDBEvents_col_3" data-type="text" style="width: 20%; background: #174475" class="translate">InfluxDB database name</th>
-                                        <th data-name="nameSuffix" id="influxDBEvents_col_4" data-type="text" style="width: 20%; background: #174475" class="translate">Name suffix</th>
-                                        <th data-name="exe" id="influxDBEvents_col_5" data-type="text" style="width: 20%; background: #174475" class="translate">Full path</th>
+                                        <th data-name="host" id="influxDBEvents_col_1" data-type="text" style="background: #174475" class="translate">Host</th>
+                                        <th data-name="port" id="influxDBEvents_col_2" data-type="number" style="background: #174475" class="translate">port</th>
+                                        <th data-name="dbName" id="influxDBEvents_col_3" data-type="text" style="background: #174475" class="translate">InfluxDB database name</th>
+                                        <th data-name="nameSuffix" id="influxDBEvents_col_4" data-type="text" style="background: #174475" class="translate">Name suffix</th>
+                                        <th data-name="exe" id="influxDBEvents_col_5" data-type="text" style="background: #174475" class="translate">Full path</th>
                                         <th data-buttons="copy up down delete" style="width: 90px; background: #174475"></th>
                                     </tr>
                                 </thead>
