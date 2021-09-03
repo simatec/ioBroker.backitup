@@ -40,6 +40,9 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 2.2.0 (xx.xx.2021)
+* (simatec) in work
+
 ### 2.1.17 (15.08.2021)
 * (simatec) dependencies updated
 * (simatec) Preparation for dark design by Admin 5

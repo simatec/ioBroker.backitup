@@ -431,6 +431,7 @@ function load(settings, onChange) {
             id++;
         }
         setTimeout(function () {
+            $('#mySqlEvents .values-input[data-name="port"][data-index="' + id + '"]').val(3306).trigger('change');
             $('#mySqlEvents .values-input[data-name="nameSuffix"][data-index="' + id + '"]').val(`mySqlDB-${id + 1}`).trigger('change');
         }, 250);
     });
@@ -442,6 +443,7 @@ function load(settings, onChange) {
             id++;
         }
         setTimeout(function () {
+            $('#pgSqlEvents .values-input[data-name="port"][data-index="' + id + '"]').val(5432).trigger('change');
             $('#pgSqlEvents .values-input[data-name="nameSuffix"][data-index="' + id + '"]').val(`pgSqlDB-${id + 1}`).trigger('change');
         }, 250);
     });

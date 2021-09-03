@@ -194,7 +194,7 @@
                 </div>
 				<div class="row iobroker">
                     <div class="input-field col s12 m6 l3">
-                        <input type="time" class="timepicker value" id="minimalTime" type="text">
+                        <input type="text" class="timepicker value" id="minimalTime" type="text">
                         <label for="minimalTime" class="translate">backup time</label>
                         <span class="translate">Backup start time in hh: mm</span>
                     </div>
@@ -231,7 +231,7 @@
                 </div>
                 <div class="row ccu">
                     <div class="input-field col s12 m6 l4">
-                        <input type="time" class="timepicker value" id="ccuTime" type="text">
+                        <input type="text" class="timepicker value" id="ccuTime" type="text">
                         <label for="ccuTime" class="translate">backup time</label>
                         <span class="translate">Backup start time in hh: mm</span>
                     </div>
@@ -286,7 +286,7 @@
                             <table class="table-values">
                                 <thead>
                                     <tr>
-                                        <th data-name="_index" id="ccuEvents_col_0" style="width: 80px; background: #174475; text-align: center" data-style="text-align: center">Nr</th>
+                                        <th data-name="_index" id="ccuEvents_col_0" style="width: 50px; background: #174475; text-align: center" data-style="text-align: center">Nr</th>
                                         <th data-name="host" id="ccuEvents_col_1" data-type="text" style="background: #174475" class="translate">IP address</th>
                                         <th data-name="user" id="ccuEvents_col_2" data-type="text" style="background: #174475" class="translate">Username</th>
                                         <th data-name="pass" id="ccuEvents_col_3" data-type="password" style="background: #174475" class="translate">password</th>
@@ -311,7 +311,7 @@
                         <a class="waves-effect waves-light btn btn-backitup detect-mysql"style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
                     </div>
                 </div>
-                <div class="row mysql">
+                <div class="row mysql multimySql">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="mySqlHost" type="text">
                         <label for="mySqlHost" class="translate">Host</label>
@@ -328,7 +328,7 @@
                         <span class="translate">MySQL database name</span>
                     </div>
                 </div>
-                <div class="row mysql">
+                <div class="row mysql multimySql">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="mySqlUser" type="text">
                         <label for="mySqlUser" class="translate">MySql username</label>
@@ -355,6 +355,38 @@
                         <label for="mysqlSingleTransaction" class="translate">BEGIN instruction before backup</label>
                     </div>
                 </div>
+                <div class="row mysql">
+                    <div class="input-field col s6 l4">
+                        <input class="value" id="mySqlMulti" type="checkbox" />
+                        <span for="mySqlMulti" class="translate">Backup of several Systems</span>
+                    </div>
+                </div>
+                <div class="row mysql singlemySql">
+                    <div class="col s12" id="mySqlEvents">
+                        <div class="row">
+                            <div class="col s2 m1 l1 left">
+                                <a id="mySqlAdded" class="btn-floating btn-backitup waves-effect waves-light blue table-button-add"><i class="material-icons btn-backitup" style="background-color:#3399CC;">add</i></a>
+                            </div>
+                        </div>
+                        <div class="table-values-div table-values-fix">
+                            <table class="table-values">
+                                <thead>
+                                    <tr>
+                                        <th data-name="_index" id="mySqlEvents_col_0" style="width: 50px; background: #174475; text-align: center" data-style="text-align: center">Nr</th>
+                                        <th data-name="host" id="mySqlEvents_col_1" data-type="text" style="background: #174475" class="translate">Host</th>
+                                        <th data-name="port" id="mySqlEvents_col_2" data-type="number" style="background: #174475" class="translate">port</th>
+                                        <th data-name="user" id="mySqlEvents_col_3" data-type="text" style="background: #174475" class="translate">Username</th>
+                                        <th data-name="pass" id="mySqlEvents_col_4" data-type="password" style="background: #174475" class="translate">password</th>
+                                        <th data-name="dbName" id="mySqlEvents_col_5" data-type="text" style="background: #174475" class="translate">MySQL database name</th>
+                                        <th data-name="nameSuffix" id="mySqlEvents_col_6" data-type="text" style="background: #174475" class="translate">Name suffix</th>
+                                        <th data-name="exe" id="mySqlEvents_col_7" data-type="text" style="background: #174475" class="translate">Full path</th>
+                                        <th data-buttons="copy up down delete" style="width: 90px; background: #174475"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- pgsql Backup -->
@@ -367,7 +399,7 @@
                         <a class="waves-effect waves-light btn btn-backitup detect-pgsql" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
                     </div>
                 </div>
-                <div class="row pgsql">
+                <div class="row pgsql multipgSql">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="pgSqlHost" type="text">
                         <label for="pgSqlHost" class="translate">Host</label>
@@ -384,7 +416,7 @@
                         <span class="translate">Postgresql database name</span>
                     </div>
                 </div>
-                <div class="row pgsql">
+                <div class="row pgsql multipgSql">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="pgSqlUser" type="text">
                         <label for="pgSqlUser" class="translate">Postgresql username</label>
@@ -399,6 +431,38 @@
                         <input type="text" class="value" id="pgSqlDumpExe">
                         <label for="pgSqlDumpExe" class="translate">Full path</label>
                         <span class="translate">Path with filename to postgresql executable (leave empty to use default)</span>
+                    </div>
+                </div>
+                <div class="row pgsql">
+                    <div class="input-field col s6 l4">
+                        <input class="value" id="pgSqlMulti" type="checkbox" />
+                        <span for="pgSqlMulti" class="translate">Backup of several Systems</span>
+                    </div>
+                </div>
+                <div class="row mysql singlepgSql">
+                    <div class="col s12" id="pgSqlEvents">
+                        <div class="row">
+                            <div class="col s2 m1 l1 left">
+                                <a id="pgSqlAdded" class="btn-floating btn-backitup waves-effect waves-light blue table-button-add"><i class="material-icons btn-backitup" style="background-color:#3399CC;">add</i></a>
+                            </div>
+                        </div>
+                        <div class="table-values-div table-values-fix">
+                            <table class="table-values">
+                                <thead>
+                                    <tr>
+                                        <th data-name="_index" id="pgSqlEvents_col_0" style="width: 50px; background: #174475; text-align: center" data-style="text-align: center">Nr</th>
+                                        <th data-name="host" id="pgSqlEvents_col_1" data-type="text" style="background: #174475" class="translate">Host</th>
+                                        <th data-name="port" id="pgSqlEvents_col_2" data-type="number" style="background: #174475" class="translate">port</th>
+                                        <th data-name="user" id="pgSqlEvents_col_3" data-type="text" style="background: #174475" class="translate">Username</th>
+                                        <th data-name="pass" id="pgSqlEvents_col_4" data-type="password" style="background: #174475" class="translate">password</th>
+                                        <th data-name="dbName" id="pgSqlEvents_col_5" data-type="text" style="background: #174475" class="translate">Postgresql database name</th>
+                                        <th data-name="nameSuffix" id="pgSqlEvents_col_6" data-type="text" style="background: #174475" class="translate">Name suffix</th>
+                                        <th data-name="exe" id="pgSqlEvents_col_7" data-type="text" style="background: #174475" class="translate">Full path</th>
+                                        <th data-buttons="copy up down delete" style="width: 90px; background: #174475"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -513,7 +577,7 @@
                             <table class="table-values influxDBTable">
                                 <thead>
                                     <tr>
-                                        <th data-name="_index" id="influxDBEvents_col_0" style="width: 80px; background: #174475; text-align: center" data-style="text-align: center">Nr</th>
+                                        <th data-name="_index" id="influxDBEvents_col_0" style="width: 50px; background: #174475; text-align: center" data-style="text-align: center">Nr</th>
                                         <th data-name="host" id="influxDBEvents_col_1" data-type="text" style="background: #174475" class="translate">Host</th>
                                         <th data-name="port" id="influxDBEvents_col_2" data-type="number" style="background: #174475" class="translate">port</th>
                                         <th data-name="dbName" id="influxDBEvents_col_3" data-type="text" style="background: #174475" class="translate">InfluxDB database name</th>

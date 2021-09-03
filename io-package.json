@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.17",
+    "version": "2.2.0",
     "news": {
       "2.1.17": {
         "en": "dependencies updated, Preparation for dark design by Admin 5",
