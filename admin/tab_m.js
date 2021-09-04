@@ -268,6 +268,7 @@ function load(settings, onChange) {
                                 file.search('influxDB') == -1 &&
                                 file.search('pgsql') == -1 &&
                                 file.search('zigbee') == -1 &&
+                                file.search('yahka') == -1 &&
                                 file.search('historyDB') == -1) {
                                 isStopped = true;
                             } else {
@@ -446,6 +447,9 @@ function showHideSettings(settings) {
     }
     if (!settings.zigbeeEnabled) {
         $('.zigbee-mode').hide();
+    }
+    if (!settings.yahkaEnabled) {
+        $('.yahka-mode').hide();
     }
     if (!settings.historyEnabled) {
         $('.historydb-mode').hide();

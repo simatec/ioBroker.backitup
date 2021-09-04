@@ -41,7 +41,13 @@ When the adapter crashes or an other Code error happens, this error message that
 ## Changelog
 
 ### 2.2.0 (xx.xx.2021)
-* (simatec) in work
+* (simatec) multihost function for master/slave systems added
+* (simatec) Multi CCU Backup added
+* (simatec) Multi InfluxDB Backup added
+* (simatec) Multi MySql Backup added
+* (simatec) Multi PGSql Backup added
+* (simatec) Yahka backup added
+* (simatec) Yahka Restore added
 
 ### 2.1.17 (15.08.2021)
 * (simatec) dependencies updated

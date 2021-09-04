@@ -267,7 +267,7 @@ function checkAdapterInstall(name, backitupHost) {
             if (res && res.rows && res.rows.length) {
                 for (var i = 0; i < res.rows.length; i++) {
                     var common = res.rows[i].value.common;
-                    if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'jarvis' || adapterName == 'history' || adapterName == 'javascript')) {
+                    if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history' || adapterName == 'javascript')) {
                         showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
                         ignoreMessage.push(name);
                         break;
@@ -645,6 +645,7 @@ function load(settings, onChange) {
                                 file.search('influxDB') == -1 &&
                                 file.search('pgsql') == -1 &&
                                 file.search('zigbee') == -1 &&
+                                file.search('yahka') == -1 &&
                                 file.search('historyDB') == -1) {
                                 isStopped = true;
                             } else {
@@ -1229,6 +1230,11 @@ function showHideSettings(settings) {
         checkAdapterInstall('zigbee', common.host);
     } else {
         cleanIgnoreMessage('zigbee');
+    }
+    if ($('#yahkaEnabled').prop('checked')) {
+        checkAdapterInstall('yahka', common.host);
+    } else {
+        cleanIgnoreMessage('yahka');
     }
     if ($('#jarvisEnabled').prop('checked')) {
         checkAdapterInstall('jarvis', common.host);

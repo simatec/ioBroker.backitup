@@ -3,6 +3,17 @@
     "name": "backitup",
     "version": "2.2.0",
     "news": {
+      "2.2.0": {
+        "en": "multihost function for master/slave systems added, Multi CCU Backup added, Multi InfluxDB Backup added, Multi MySql Backup added, Multi PGSql Backup added, Yahka backup added, Yahka Restore added",
+        "de": "Multihost-Funktion für Master/Slave-Systeme hinzugefügt, Multi CCU Backup hinzugefügt, Multi InfluxDB Backup hinzugefügt, Multi MySql Backup hinzugefügt, Multi PGSql Backup hinzugefügt, Yahka Backup hinzugefügt, Yahka Restore hinzugefügt",
+        "ru": "добавлена функция multihost для систем master / slave, добавлено резервное копирование Multi CCU, добавлено резервное копирование Multi InfluxDB, добавлено резервное копирование Multi MySql, добавлено резервное копирование Multi PGSql, добавлено резервное копирование Yahka, добавлено Yahka Restore",
+        "pt": "Adicionada função multihost para sistemas mestre / escravo, Backup Multi CCU adicionado, Backup Multi InfluxDB adicionado, Backup Multi MySql adicionado, Backup Multi PGSql adicionado, backup Yahka adicionado, Restauração Yahka adicionado",
+        "nl": "multihost-functie voor master/slave-systemen toegevoegd, Multi CCU Backup toegevoegd, Multi InfluxDB Backup toegevoegd, Multi MySql Backup toegevoegd, Multi PGSql Backup toegevoegd, Yahka-back-up toegevoegd, Yahka Restore toegevoegd",
+        "fr": "fonction multihôte ajoutée pour les systèmes maître/esclave, sauvegarde Multi CCU ajoutée, sauvegarde Multi InfluxDB ajoutée, sauvegarde Multi MySql ajoutée, sauvegarde Multi PGSql ajoutée, sauvegarde Yahka ajoutée, restauration Yahka ajoutée",
+        "it": "funzione multihost per sistemi master/slave aggiunta, Multi CCU Backup aggiunto, Multi InfluxDB Backup aggiunto, Multi MySql Backup aggiunto, Multi PGSql Backup aggiunto, Yahka backup aggiunto, Yahka Restore aggiunto",
+        "es": "Se agregó la función multihost para sistemas maestro / esclavo, se agregó la copia de seguridad de CCU múltiple, se agregó la copia de seguridad de Multi InfluxDB, se agregó la copia de seguridad de MySql múltiple, se agregó la copia de seguridad de PGSql múltiple, se agregó la copia de seguridad de Yahka, se agregó la restauración de Yahka",
+        "pl": "dodano funkcję multihost dla systemów master/slave, dodano Multi CCU Backup, dodano Multi InfluxDB Backup, dodano Multi MySql Backup, dodano Multi PGSql Backup, dodano backup Yahka, dodano Yahka Restore"
+      },
       "2.1.17": {
         "en": "dependencies updated, Preparation for dark design by Admin 5",
         "de": "Abhängigkeiten aktualisiert, Vorbereitung für dunkles Design von Admin 5",
@@ -90,28 +101,6 @@
         "it": "Bugfix adminTab",
         "es": "Corrección de errores adminTab",
         "pl": "Bugfix adminTab"
-      },
-      "2.1.9": {
-        "en": "adminTab for admin 5 changed",
-        "de": "adminTab für admin 5 geändert",
-        "ru": "adminTab для администратора 5 изменен",
-        "pt": "adminTab para admin 5 alterado",
-        "nl": "adminTabblad voor admin 5 gewijzigd",
-        "fr": "adminTab for admin 5 a changé",
-        "it": "adminTab per admin 5 è cambiato",
-        "es": "adminTab para admin 5 cambiado",
-        "pl": "Zmieniono zakładkę admin dla admin 5"
-      },
-      "2.1.8": {
-        "en": "adminTab for admin 5 changed",
-        "de": "adminTab für admin 5 geändert",
-        "ru": "adminTab для администратора 5 изменен",
-        "pt": "adminTab para admin 5 alterado",
-        "nl": "adminTabblad voor admin 5 gewijzigd",
-        "fr": "adminTab for admin 5 a changé",
-        "it": "adminTab per admin 5 è cambiato",
-        "es": "adminTab para admin 5 cambiado",
-        "pl": "Zmieniono zakładkę admin dla admin 5"
       }
     },
     "title": "BackItUp",
@@ -315,6 +304,7 @@
     "javascriptsPath": "/media/usb/scripts",
     "javascriptsEnabled": false,
     "zigbeeEnabled": false,
+    "yahkaEnabled": false,
     "jarvisEnabled": false,
     "notificationEnabled": false,
     "notificationsType": "Telegram",

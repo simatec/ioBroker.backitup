@@ -582,6 +582,8 @@ function initConfig(secret) {
             deleteBackupAfter: adapter.config.mySqlDeleteAfter, // delete old backupfiles after x days
             host: adapter.config.mySqlHost,                // database host
             port: adapter.config.mySqlPort,                // database port
+            mySqlEvents: adapter.config.mySqlEvents,
+            mySqlMulti: adapter.config.mySqlMulti,
             exe: adapter.config.mySqlDumpExe               // path to mysqldump
         },
         dir: tools.getIobDir(),
@@ -623,6 +625,8 @@ function initConfig(secret) {
             deleteBackupAfter: adapter.config.pgSqlDeleteAfter, // delete old backupfiles after x days
             host: adapter.config.pgSqlHost,                // database host
             port: adapter.config.pgSqlPort,                // database port
+            pgSqlEvents: adapter.config.pgSqlEvents,
+            pgSqlMulti: adapter.config.pgSqlMulti,
             exe: adapter.config.pgSqlDumpExe               // path to mysqldump
         },
         redis: {
@@ -661,6 +665,19 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: path.join(tools.getIobDir(), 'iobroker-data'), // specify zigbee path
+            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            hostType: adapter.config.hostType,
+        },
+        yahka: {
+            enabled: adapter.config.yahkaEnabled,
+            type: 'creator',
+            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+            path: path.join(tools.getIobDir(), 'iobroker-data'), // specify yahka path
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,

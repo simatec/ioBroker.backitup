@@ -215,10 +215,11 @@ input[type="time" i] {
     border-left: 2px solid transparent!important;
     background-color: transparent!important;
 }
-
+/*
 .m [type=checkbox]+span:not(.lever):before, .m [type=checkbox]:not(.filled-in)+span:not(.lever):after {
     z-index: 1;
 }
+*/
 /* only for temp dark test 
 .adapter-body {
     background-color: #1f1f1f;
