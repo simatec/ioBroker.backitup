@@ -37,6 +37,10 @@
 .m .row .col.m1 { width: 14%;}
 #tab-area { padding-left:0;padding-right:0; margin-top: 2px; margin-bottom: 2px; background-color:#174475; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2) }
 
+/* Tabs menu react-dark */
+.m.react-dark .tabs .tab a.active, .m .tabs .tab a:hover { color: #2196f3; }
+.m.react-dark .tabs { background-color: #272727 !important;}
+
 .m .card-panel {
     padding: 10px;
     border-radius: 4px;
@@ -193,6 +197,7 @@
 }
 
 /* Test for react */
+/*
 input[type="time" i] {
     color: #fff !important;
 }
@@ -205,6 +210,7 @@ input[type="time" i] {
 .m input[type="image" i] {
     color: #fff !important;
 }
+*/
 
 .m [type=checkbox]:checked+span:not(.lever):before {
     top: 3px;
@@ -220,8 +226,8 @@ input[type="time" i] {
     z-index: 1;
 }
 */
-/* only for temp dark test 
+/* only for temp dark test
 .adapter-body {
     background-color: #1f1f1f;
 }
-*/
+ */

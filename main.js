@@ -120,7 +120,7 @@ function startAdapter(options) {
                         }), 500);
                     adapter.setState('oneClick.' + type, false, true);
 
-                    if (adapter.config.slaveInstance && adapter.config.hostType == 'Master') {
+                    if (adapter.config.slaveInstance && type == 'iobroker' && adapter.config.hostType == 'Master') {
                         adapter.log.debug('Slave backup from Backitup-Master is started ...');
                         startSlaveBackup(adapter.config.slaveInstance[0], null);
                     }
@@ -369,7 +369,7 @@ function createBackupSchedule() {
                     nextBackup(0, false, type);
                     adapter.setState('oneClick.' + type, false, true);
 
-                    if (adapter.config.slaveInstance && adapter.config.hostType == 'Master') {
+                    if (adapter.config.slaveInstance && type == 'iobroker' && adapter.config.hostType == 'Master') {
                         adapter.log.debug('Slave backup from Backitup-Master is started ...');
                         startSlaveBackup(adapter.config.slaveInstance[0], null);
                     }
@@ -1122,6 +1122,22 @@ function decryptEvents(secret) {
             if (adapter.config.ccuEvents[i].pass) {
                 const val = adapter.config.ccuEvents[i].pass;
                 adapter.config.ccuEvents[i].pass = val ? decrypt(secret, val) : '';
+            }
+        }
+    }
+    if (adapter.config.mySqlEvents && adapter.config.mySqlMulti) {
+        for (let i = 0; i < adapter.config.mySqlEvents.length; i++) {
+            if (adapter.config.mySqlEvents[i].pass) {
+                const val = adapter.config.mySqlEvents[i].pass;
+                adapter.config.mySqlEvents[i].pass = val ? decrypt(secret, val) : '';
+            }
+        }
+    }
+    if (adapter.config.pgSqlEvents && adapter.config.pgSqlMulti) {
+        for (let i = 0; i < adapter.config.pgSqlEvents.length; i++) {
+            if (adapter.config.pgSqlEvents[i].pass) {
+                const val = adapter.config.pgSqlEvents[i].pass;
+                adapter.config.pgSqlEvents[i].pass = val ? decrypt(secret, val) : '';
             }
         }
     }

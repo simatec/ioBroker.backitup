@@ -381,19 +381,25 @@ function load(settings, onChange) {
     mySqlEvents = settings.mySqlEvents || [];
     pgSqlEvents = settings.pgSqlEvents || [];
 
-    for (var i = 0; i < pgSqlEvents.length; i++) {
-        var val = pgSqlEvents[i].pass;
-        pgSqlEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+    if (pgSqlEvents && pgSqlEvents.length) {
+        for (var i = 0; i < pgSqlEvents.length; i++) {
+            var val = pgSqlEvents[i].pass ? pgSqlEvents[i].pass : '';
+            pgSqlEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+        }
     }
 
-    for (var i = 0; i < mySqlEvents.length; i++) {
-        var val = mySqlEvents[i].pass;
-        mySqlEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+    if (mySqlEvents && mySqlEvents.length) {
+        for (var i = 0; i < mySqlEvents.length; i++) {
+            var val = mySqlEvents[i].pass ? mySqlEvents[i].pass : '';
+            mySqlEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+        }
     }
 
-    for (var i = 0; i < ccuEvents.length; i++) {
-        var val = ccuEvents[i].pass;
-        ccuEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+    if (ccuEvents && ccuEvents.length) {
+        for (var i = 0; i < ccuEvents.length; i++) {
+            var val = ccuEvents[i].pass ? ccuEvents[i].pass : '';
+            ccuEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+        }
     }
 
     values2table('ccuEvents', ccuEvents, onChange);
@@ -890,23 +896,29 @@ function save(callback) {
     });
     // Get edited tables
     obj.ccuEvents = table2values('ccuEvents');
-    for (var i = 0; i < obj.ccuEvents.length; i++) {
-        var val = obj.ccuEvents[i].pass;
-        obj.ccuEvents[i].pass = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+    if (obj.ccuEvents && obj.ccuEvents.length) {
+        for (var i = 0; i < obj.ccuEvents.length; i++) {
+            var val = obj.ccuEvents[i].pass ? obj.ccuEvents[i].pass : '';
+            obj.ccuEvents[i].pass = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+        }
     }
 
     obj.influxDBEvents = table2values('influxDBEvents');
 
     obj.mySqlEvents = table2values('mySqlEvents');
-    for (var i = 0; i < obj.mySqlEvents.length; i++) {
-        var val = obj.mySqlEvents[i].pass;
-        obj.mySqlEvents[i].pass = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+    if (obj.mySqlEvents && obj.mySqlEvents.length) {
+        for (var i = 0; i < obj.mySqlEvents.length; i++) {
+            var val = obj.mySqlEvents[i].pass ? obj.mySqlEvents[i].pass : '';
+            obj.mySqlEvents[i].pass = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+        }
     }
 
     obj.pgSqlEvents = table2values('pgSqlEvents');
-    for (var i = 0; i < obj.pgSqlEvents.length; i++) {
-        var val = obj.pgSqlEvents[i].pass;
-        obj.pgSqlEvents[i].pass = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+    if (obj.pgSqlEvents && obj.pgSqlEvents.length) {
+        for (var i = 0; i < obj.pgSqlEvents.length; i++) {
+            var val = obj.pgSqlEvents[i].pass ? obj.pgSqlEvents[i].pass : '';
+            obj.pgSqlEvents[i].pass = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+        }
     }
 
     callback(obj);
