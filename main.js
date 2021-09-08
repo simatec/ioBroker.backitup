@@ -210,6 +210,22 @@ function startAdapter(options) {
                     }
                     break;
 
+                case 'getSystemInfo':
+                    if (obj) {
+                        let systemInfo;
+                        if (fs.existsSync('/opt/scripts/.docker_config/.thisisdocker')) { // Docker Image Support >= 5.2.0
+                            systemInfo = 'docker';
+                        } else {
+                            systemInfo = process.platform;
+                        }
+                        try {
+                            adapter.sendTo(obj.from, obj.command, systemInfo, obj.callback);
+                        } catch (err) {
+                            err && adapter.log.error(err);
+                        }
+                    }
+                    break;
+
                 case 'testWebDAV':
                     if (obj.message) {
                         const { createClient } = require("webdav");
@@ -807,6 +823,7 @@ function createBashScripts() {
     const isWin = process.platform.startsWith('win');
 
     if (isWin) {
+        adapter.log.debug(`Backitup has recognized a ${process.platform} system`);
         if (!fs.existsSync(__dirname + '/lib/stopIOB.bat')) {
             try {
                 fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\nif exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-stop\n)\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
@@ -821,7 +838,34 @@ function createBashScripts() {
                 adapter.log.error('cannot create startIOB.bat: ' + e + 'Please run "iobroker fix"');
             }
         }
+    } else if (fs.existsSync('/opt/scripts/.docker_config/.thisisdocker')) { // Docker Image Support >= 5.2.0
+        adapter.log.debug(`Backitup has recognized a Docker system`);
+        if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
+            try {
+                fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `# iobroker stop for restore\nsudo systemd-run --uid=iobroker bash ${path.join(__dirname, 'lib')}/external.sh`);
+                fs.chmodSync(__dirname + '/lib/stopIOB.sh', 508);
+            } catch (e) {
+                adapter.log.error('cannot create stopIOB.sh: ' + e + 'Please run "iobroker fix"');
+            }
+        }
+        if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
+            try {
+                fs.writeFileSync(__dirname + '/lib/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\ncd "/opt/scripts"\nmaint off -y;`);
+                fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
+            } catch (e) {
+                adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
+            }
+        }
+        if (!fs.existsSync(__dirname + '/lib/external.sh')) {
+            try {
+                fs.writeFileSync(__dirname + '/lib/external.sh', `#!/bin/bash\n# restore\ncd "/opt/scripts"\nmaint on -y;\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
+                fs.chmodSync(__dirname + '/lib/external.sh', 508);
+            } catch (e) {
+                adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
+            }
+        }
     } else {
+        adapter.log.debug(`Backitup has recognized a ${process.platform} system`);
         if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
             try {
                 fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `# iobroker stop for restore\nsudo systemd-run --uid=iobroker bash ${path.join(__dirname, 'lib')}/external.sh`);

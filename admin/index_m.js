@@ -376,6 +376,31 @@ function load(settings, onChange) {
             });
         }
     });
+
+    sendTo(null, 'getSystemInfo', null, function (obj) {
+        if (obj == 'docker') {
+            var $influxDBEnabled = $('#influxDBEnabled');
+            var $mySqlEnabled = $('#mySqlEnabled');
+            var $pgSqlEnabled = $('#pgSqlEnabled');
+            var $redisEnabled = $('#redisEnabled');
+
+            $('#influxDBEnabled').prop('checked', false);
+            $('#mySqlEnabled').prop('checked', false);
+            $('#pgSqlEnabled').prop('checked', false);
+            $('#redisEnabled').prop('checked', false);
+
+            $('#influxDBEnabled').prop('disabled', true);
+            $('#mySqlEnabled').prop('disabled', true);
+            $('#pgSqlEnabled').prop('disabled', true);
+            $('#redisEnabled').prop('disabled', true);
+
+            $influxDBEnabled.addClass('disabled');
+            $mySqlEnabled.addClass('disabled');
+            $pgSqlEnabled.addClass('disabled');
+            $redisEnabled.addClass('disabled');
+        }
+    });
+
     ccuEvents = settings.ccuEvents || [];
     influxDBEvents = settings.influxDBEvents || [];
     mySqlEvents = settings.mySqlEvents || [];
