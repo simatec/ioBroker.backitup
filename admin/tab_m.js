@@ -372,19 +372,19 @@ function backupInfo(settings) {
     var text = '';
     socket.emit('getState', adapter + '.' + instance + '.history.iobrokerLastTime', function (err, state) {
         if (state && state.val && settings.minimalEnabled) {
-            text += `<li><b>${_('Last iobroker Backup: ')}</b><span class="system-info">${state.val}</span></li>`;
+            text += `<li class="next-last-backups"><b>${_('Last iobroker Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
         }
         socket.emit('getState', adapter + '.' + instance + '.history.ccuLastTime', function (err, state) {
             if (state && state.val && settings.ccuEnabled) {
-                text += `<li><b>${_('Last CCU Backup: ')}</b><span class="system-info">${state.val}</span></li>`;
+                text += `<li class="next-last-backups"><b>${_('Last CCU Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
             }
             socket.emit('getState', adapter + '.' + instance + '.info.iobrokerNextTime', function (err, state) {
                 if (state && state.val && settings.minimalEnabled) {
-                    text += `<li><b>${_('Next iobroker Backup: ')}</b><span class="system-info">${state.val}</span></li>`;
+                    text += `<li class="next-last-backups"><b>${_('Next iobroker Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
                 }
                 socket.emit('getState', adapter + '.' + instance + '.info.ccuNextTime', function (err, state) {
                     if (state && state.val && settings.ccuEnabled) {
-                        text += `<li><b>${_('Next CCU Backup: ')}</b><span class="system-info">${state.val}</span></li>`;
+                        text += `<li class="next-last-backups"><b>${_('Next CCU Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
                     }
                     var $backups = $('.card-content-text');
                     $backups
