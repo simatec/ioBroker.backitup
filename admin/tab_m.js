@@ -101,6 +101,7 @@ function load(settings, onChange) {
     fillBackupOptions(settings);
     fillStorageOptions(settings);
     backupInfo(settings);
+    fillStorageSelect(settings)
 
     getIsAdapterAlive(function (isAlive) {
         if (isAlive || common.enabled) {
@@ -464,9 +465,28 @@ function fillBackupOptions(settings) {
         .html(text);
 }
 
+function fillStorageSelect(settings) {
+    var selectName = [];
+    var selectsetting = [];
+    if (settings.cifsEnabled) selectName.push(_(`NAS (${_(settings.connectType)})`)), selectsetting.push('cifs');
+    if (settings.ftpEnabled) selectName.push(_('FTP')), selectsetting.push('ftp');
+    if (settings.dropboxEnabled) selectName.push(_('Dropbox')), selectsetting.push('dropbox');
+    if (settings.googledriveEnabled) selectName.push(_('Google Drive')), selectsetting.push('googledrive');
+    if (settings.webdavEnabled) selectName.push(_('WebDAV')), selectsetting.push('webdav');
+
+    var text = '<option value="local" class="translate">Local</option>';
+    for (var i = 0; i < selectName.length; i++) {
+        text += `<option value="${selectsetting[i]}" class="translate">${selectName[i]}</option>`;
+    }
+    var $storageSelect = $('.input-field');
+    $storageSelect
+        .find('#restoreSource')
+        .html(text);
+}
+
 function fillStorageOptions(settings) {
     var _options = [];
-    if (settings.cifsEnabled) _options.push(_('NAS / Copy'));
+    if (settings.cifsEnabled) _options.push(_(`NAS (${settings.connectType})`));
     if (settings.ftpEnabled) _options.push(_('FTP'));
     if (settings.dropboxEnabled) _options.push(_('Dropbox'));
     if (settings.googledriveEnabled) _options.push(_('Google Drive'));
