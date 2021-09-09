@@ -1146,6 +1146,7 @@ function showHideSettings(settings) {
         if ($(this).val() === 'Slave') {
             $('#minimalEnabled').prop('checked', false);
             $('#minimalEnabled').addClass('disabled');
+            $('#minimalEnabled').prop('disabled', true);
             $('.tab-iobroker-backup').hide();
             $('.slaveSuffix').show();
             if (settings.slaveNameSuffix == '') {
@@ -1155,6 +1156,7 @@ function showHideSettings(settings) {
         } else {
             $('#minimalEnabled').removeClass('disabled');
             $('#minimalEnabled').prop('checked', true);
+            $('#minimalEnabled').prop('disabled', false);
             $('.tab-iobroker-backup').show();
             $('.slaveSuffix').hide();
         }

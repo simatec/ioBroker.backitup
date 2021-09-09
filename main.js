@@ -842,7 +842,7 @@ function createBashScripts() {
         adapter.log.debug(`Backitup has recognized a Docker system`);
         if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
             try {
-                fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `# iobroker stop for restore\nsudo systemd-run --uid=iobroker bash ${path.join(__dirname, 'lib')}/external.sh`);
+                fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `#!/bin/bash\n# iobroker stop for restore\ngosu iobroker ${path.join(__dirname, 'lib')}/external.sh`);
                 fs.chmodSync(__dirname + '/lib/stopIOB.sh', 508);
             } catch (e) {
                 adapter.log.error('cannot create stopIOB.sh: ' + e + 'Please run "iobroker fix"');
@@ -850,7 +850,7 @@ function createBashScripts() {
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
             try {
-                fs.writeFileSync(__dirname + '/lib/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\ncd "/opt/scripts"\nmaint off -y;`);
+                fs.writeFileSync(__dirname + '/lib/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\ngosu iobroker /opt/scripts/maintenance.sh off -y`);
                 fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
             } catch (e) {
                 adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
@@ -858,7 +858,7 @@ function createBashScripts() {
         }
         if (!fs.existsSync(__dirname + '/lib/external.sh')) {
             try {
-                fs.writeFileSync(__dirname + '/lib/external.sh', `#!/bin/bash\n# restore\ncd "/opt/scripts"\nmaint on -y;\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
+                fs.writeFileSync(__dirname + '/lib/external.sh', `#!/bin/bash\n# restore\ngosu iobroker /opt/scripts/maintenance.sh on -y -kbn\nsleep 3\ncd "${path.join(__dirname, 'lib')}"\ngosu iobroker node restore.js`);
                 fs.chmodSync(__dirname + '/lib/external.sh', 508);
             } catch (e) {
                 adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');

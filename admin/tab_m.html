@@ -254,6 +254,34 @@
             border-radius: 4px;
             z-index: 1010 !important;
         }
+
+        .m .card.horizontal .card-image {
+            border-radius: 4px 0 0 4px;
+            max-width: 50%;
+            background: #e2e2e2;
+            max-width: 30%;
+        }
+        .m .card.horizontal .card-image i {
+            border-radius: 4px 0 0 4px;
+            max-width: 100%;
+            width: auto;
+            padding: 2rem .5rem;
+            height: auto;
+            color: #3399CC !important;
+            font-size: 60px;
+
+        }
+        .m .card {
+            box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+            border-radius: 4px;
+            height: 300px;
+        }
+        ul {
+            padding-inline-start: 20px;
+        }
+        li {
+            padding-bottom: 0.2rem;
+        }
     </style>
 </head>
 
@@ -283,44 +311,60 @@
             <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Backupinformations</h6>
         </div>
         <div class="row">
-            <div class="col s6 l12">
-                <div class="chip col s11 m3" id="lastIobrokerBackup" style="width: 24.6%;"></div>
-                <div class="chip col s11 m3" id="nextIobrokerBackup" style="width: 24.6%;"></div>
-                <div class="chip ccuBackup col s11 m3" id="lastCCUBackup" style="width: 24.6%;"></div>
-                <div class="chip ccuBackup col s11 m3" id="nextCCUBackup" style="width: 24.6%;"></div>
+            <div class="col s12 m6 l4 xl4 xxl2 xxxl1 tile card-system-info">
+                <div class="card horizontal hoverable" style="overflow: visible;">
+                    <div class="card-image activator">
+                        <i class="material-icons">info</i>
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p></p>
+                            <h5 class="translate card-titles">Backupinformations</h5>
+                            <div class="card-content-text">
+                                <ul class="browser-default fillBackups">
+                                    
+                                </ul>
+                            </div>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <!-- Storage Options -->
-        <div class="row" style="padding: 2px;">
-            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;; border-radius: 4px;">activated storageoptions</h6>
-        </div>
-        <div class="row">
-            <div class="col s6 l12">
-                <div class="translate chip nas-mode col s11 m3" style="width: 24.6%;" id="optionNAS">NAS / Copy</div>
-                <div class="translate chip ftp-mode col s11 m3" style="width: 24.6%;" id="optionFTP">FTP</div>
-                <div class="translate chip dropbox-mode col s11 m3" style="width: 24.6%;" id="optionDropbox">Dropbox</div>
-                <div class="translate chip googledrive-mode col s11 m3" style="width: 24.6%;" id="optionGoogleDrive">Google Drive</div>
-                <div class="translate chip webdav-mode col s11 m3" style="width: 24.6%;" id="optionWebDAV">WebDAV</div>
+            <div class="col s12 m6 l4 xl4 xxl2 xxxl1 tile card-system-info">
+                <div class="card horizontal hoverable" style="overflow: visible;">
+                    <div class="card-image activator">
+                        <i class="material-icons">storage</i>
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p></p>
+                            <h5 class="translate card-titles">activated storageoptions</h5>
+                            <div class="card-content-text">
+                                <ul class="browser-default fillStorageOptions">
+                                </ul>
+                            </div>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <!-- Backup Options -->
-        <div class="row" style="padding: 2px;">
-            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;; border-radius: 4px;">activated backupoptions</h6>
-        </div>
-        <div class="row">
-            <div class="col s6 l12">
-                <div class="translate chip iobroker-mode col s11 m3" id="optionIobroker" style="width: 12.2%;">ioBroker</div>
-                <div class="translate chip ccu-mode col s11 m3" id="optionCCU" style="width: 12.2%;">Homematic CCU backup</div>
-                <div class="translate chip redis-mode col s11 m3" id="optionRedis" style="width: 12.2%;">Save Redis state</div>
-                <div class="translate chip js-mode col s11 m3" id="optionJavascripts" style="width: 12.2%;">Javascripts Backup</div>
-                <div class="translate chip zigbee-mode col s11 m3" id="optionZigbee" style="width: 12.2%;">Save Zigbee database</div>
-                <div class="translate chip yahka-mode col s11 m3" id="optionYahka" style="width: 12.2%;">Yahka (Homekit) Backup</div>
-                <div class="translate chip historydb-mode col s11 m3" id="optionHistory" style="width: 12.2%;">Save History Data</div>
-                <div class="translate chip influxdb-mode col s11 m3" id="optionInfluxdb" style="width: 12.2%;">InfluxDB Backup</div>
-                <div class="translate chip mysql-mode col s11 m3" id="optionMySQL" style="width: 12.2%;">MySql Backup</div>
-                <div class="translate chip pgsql-mode col s11 m3" id="optionPgSQL" style="width: 12.2%;">Postgresql Backup</div>
-                <div class="translate chip grafana-mode col s11 m3" id="optionGrafana" style="width: 12.2%;">Grafana Backup</div>
-                <div class="translate chip jarvis-mode col s11 m3" id="optionJarvis" style="width: 12.2%;">Jarvis Backup</div>
+            <div class="col s12 m6 l4 xl4 xxl2 xxxl1 tile card-system-info">
+                <div class="card horizontal hoverable" style="overflow: visible;">
+                    <div class="card-image activator">
+                        <i class="material-icons">backup</i>
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p></p>
+                            <h5 class="translate card-titles">activated backupoptions</h5>
+                            <div class="card-content-text">
+                                <ul class="browser-default fillBackupOptions">
+                                </ul>
+                            </div>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Backups Now -->

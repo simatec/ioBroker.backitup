@@ -87,7 +87,7 @@ function load(settings, onChange) {
                 onChange(false);
             });
         } else {
-            
+
             var val = settings[id];
             // do not call onChange direct, because onChange could expect some arguments
             $key.val(val).on('change', function () {
@@ -97,7 +97,11 @@ function load(settings, onChange) {
             });
         }
     });
-    
+
+    fillBackupOptions(settings);
+    fillStorageOptions(settings);
+    backupInfo(settings);
+
     getIsAdapterAlive(function (isAlive) {
         if (isAlive || common.enabled) {
             $('.do-backup')
@@ -285,7 +289,7 @@ function load(settings, onChange) {
                                     } else {
                                         $('.cloudRestore').hide();
                                     }
-                                    
+
                                     $('#dialog-restore-show').modal('close');
                                     $('.do-list').addClass('disabled');
                                     $('.doRestore').find('.do-restore').addClass('disabled').hide();
@@ -327,26 +331,7 @@ function load(settings, onChange) {
             $('.do-list').addClass('disabled');
         }
     });
-    socket.emit('getState', adapter + '.' + instance + '.history.iobrokerLastTime', function (err, state) {
-        if (state && state.val) {
-            $('#lastIobrokerBackup').text(_('Last iobroker Backup: ') + state.val);
-        }
-    });
-    socket.emit('getState', adapter + '.' + instance + '.history.ccuLastTime', function (err, state) {
-        if (state && state.val) {
-            $('#lastCCUBackup').text(_('Last CCU Backup: ') + state.val);
-        }
-    });
-    socket.emit('getState', adapter + '.' + instance + '.info.iobrokerNextTime', function (err, state) {
-        if (state && state.val) {
-            $('#nextIobrokerBackup').text(_('Next iobroker Backup: ') + state.val);
-        }
-    });
-    socket.emit('getState', adapter + '.' + instance + '.info.ccuNextTime', function (err, state) {
-        if (state && state.val) {
-            $('#nextCCUBackup').text(_('Next CCU Backup: ') + state.val);
-        }
-    });
+
     socket.emit('getState', adapter + '.' + instance + '.history.json', function (err, state) {
         if (state && state.val) {
             fillBackupJSON(JSON.parse(state.val));
@@ -355,11 +340,11 @@ function load(settings, onChange) {
     socket.on('stateChange', function (id, state) {
         if (id === 'backitup.' + instance + '.history.iobrokerLastTime') {
             if (state && state.val) {
-                $('#lastIobrokerBackup').text(_('Last iobroker Backup: ') + state.val);
+                backupInfo(settings);
             }
         } else if (id === 'backitup.' + instance + '.history.ccuLastTime') {
             if (state && state.val) {
-                $('#lastCCUBackup').text(_('Last CCU Backup: ') + state.val);
+                backupInfo(settings);
             }
         } else if (id === 'backitup.' + instance + '.history.json') {
             if (state && state.val) {
@@ -369,18 +354,46 @@ function load(settings, onChange) {
     });
 
     $('.detect-backups').on('click', function () { initDialogBackups(); });
-    
+
     showHideSettings(settings);
     onChange(false);
 
-    setTimeout (() => {
+    setTimeout(() => {
         $('.load').hide();
         $('.loadFinish').fadeIn();
     }, 200);
 
     M.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
-    
+
     initDialog();
+}
+
+function backupInfo(settings) {
+    var text = '';
+    socket.emit('getState', adapter + '.' + instance + '.history.iobrokerLastTime', function (err, state) {
+        if (state && state.val && settings.minimalEnabled) {
+            text += `<li><b>${_('Last iobroker Backup: ')}</b><span class="system-info">${state.val}</span></li>`;
+        }
+        socket.emit('getState', adapter + '.' + instance + '.history.ccuLastTime', function (err, state) {
+            if (state && state.val && settings.ccuEnabled) {
+                text += `<li><b>${_('Last CCU Backup: ')}</b><span class="system-info">${state.val}</span></li>`;
+            }
+            socket.emit('getState', adapter + '.' + instance + '.info.iobrokerNextTime', function (err, state) {
+                if (state && state.val && settings.minimalEnabled) {
+                    text += `<li><b>${_('Next iobroker Backup: ')}</b><span class="system-info">${state.val}</span></li>`;
+                }
+                socket.emit('getState', adapter + '.' + instance + '.info.ccuNextTime', function (err, state) {
+                    if (state && state.val && settings.ccuEnabled) {
+                        text += `<li><b>${_('Next CCU Backup: ')}</b><span class="system-info">${state.val}</span></li>`;
+                    }
+                    var $backups = $('.card-content-text');
+                    $backups
+                        .find('.fillBackups')
+                        .html(text);
+                });
+            });
+        });
+    });
 }
 
 function fillBackupJSON(lastBackups) {
@@ -428,60 +441,48 @@ function initDialogRestore() {
     $dialogRestore.modal('open');
 }
 
+function fillBackupOptions(settings) {
+    let _options = [];
+    if (settings.jarvisEnabled) _options.push(_('Jarvis Backup'));
+    if (settings.minimalEnabled) _options.push(_('ioBroker'));
+    if (settings.ccuEnabled) _options.push(_('Homematic CCU backup'));
+    if (settings.redisEnabled) _options.push(_('Save Redis state'));
+    if (settings.javascriptsEnabled) _options.push(_('Javascripts Backup'));
+    if (settings.zigbeeEnabled) _options.push(_('Save Zigbee database'));
+    if (settings.yahkaEnabled) _options.push(_('Yahka (Homekit) Backup'));
+    if (settings.historyEnabled) _options.push(_('Save History Data'));
+    if (settings.influxDBEnabled) _options.push(_('InfluxDB Backup'));
+    if (settings.mySqlEnabled) _options.push(_('MySql Backup'));
+    if (settings.grafanaEnabled) _options.push(_('Grafana Backup'));
+    var text = '';
+    for (var i = 0; i < _options.length; i++) {
+        text += `<li>${_options[i]}</li>`;
+    }
+    var $backupOptions = $('.card-content-text');
+    $backupOptions
+        .find('.fillBackupOptions')
+        .html(text);
+}
+
+function fillStorageOptions(settings) {
+    let _options = [];
+    if (settings.cifsEnabled) _options.push(_('NAS / Copy'));
+    if (settings.ftpEnabled) _options.push(_('FTP'));
+    if (settings.dropboxEnabled) _options.push(_('Dropbox'));
+    if (settings.googledriveEnabled) _options.push(_('Google Drive'));
+    if (settings.webdavEnabled) _options.push(_('WebDAV'));
+
+    var text = '';
+    for (var i = 0; i < _options.length; i++) {
+        text += `<li>${_options[i]}</li>`;
+    }
+    var $storageOptions = $('.card-content-text');
+    $storageOptions
+        .find('.fillStorageOptions')
+        .html(text);
+}
+
 function showHideSettings(settings) {
-
-    if (!settings.jarvisEnabled) {
-        $('.jarvis-mode').hide();
-    }
-    if (!settings.minimalEnabled) {
-        $('.iobroker-mode').hide();
-    }
-    if (!settings.ccuEnabled) {
-        $('.ccu-mode').hide();
-    }
-    if (!settings.redisEnabled) {
-        $('.redis-mode').hide();
-    }
-    if (!settings.javascriptsEnabled) {
-        $('.js-mode').hide();
-    }
-    if (!settings.zigbeeEnabled) {
-        $('.zigbee-mode').hide();
-    }
-    if (!settings.yahkaEnabled) {
-        $('.yahka-mode').hide();
-    }
-    if (!settings.historyEnabled) {
-        $('.historydb-mode').hide();
-    }
-    if (!settings.influxDBEnabled) {
-        $('.influxdb-mode').hide();
-    }
-    if (!settings.mySqlEnabled) {
-        $('.mysql-mode').hide();
-    }
-    if (!settings.pgSqlEnabled) {
-        $('.pgsql-mode').hide();
-    }
-    if (!settings.grafanaEnabled) {
-        $('.grafana-mode').hide();
-    }
-    if (!settings.cifsEnabled) {
-        $('.nas-mode').hide();
-    }
-    if (!settings.ftpEnabled) {
-        $('.ftp-mode').hide();
-    }
-    if (!settings.dropboxEnabled) {
-        $('.dropbox-mode').hide();
-    }
-    if (!settings.googledriveEnabled) {
-        $('.googledrive-mode').hide();
-    }
-    if (!settings.webdavEnabled) {
-        $('.webdav-mode').hide();
-    }
-
     if (settings.ccuEnabled) {
         $('.ccuBackup').show();
     } else {
