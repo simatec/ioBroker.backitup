@@ -207,7 +207,7 @@ function fetchHistoryConfig(isInitial) {
 }
 function fetchJavascriptsConfig(isInitial) {
     socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.javascript.', endkey: 'system.adapter.javascript.\u9999', include_docs: true }, function (err, res) {
-        let javaScriptPth;
+        var javaScriptPth;
         if (res && res.rows && res.rows.length) {
             var found = false;
             for (var i = 0; i < res.rows.length; i++) {
@@ -238,7 +238,7 @@ function fetchJavascriptsConfig(isInitial) {
         }
     });
 }
-let ignoreMessage = [];
+var ignoreMessage = [];
 
 function cleanIgnoreMessage(name) {
     for (const i in ignoreMessage) {
@@ -250,8 +250,8 @@ function cleanIgnoreMessage(name) {
 }
 
 function checkAdapterInstall(name, backitupHost) {
-    let ignore = false;
-    let adapterName = name;
+    var ignore = false;
+    var adapterName = name;
 
     if (name == 'pgsql' || name == 'mysql') {
         adapterName = 'sql';
@@ -612,7 +612,7 @@ function load(settings, onChange) {
                         for (var type in data) {
                             if (!data.hasOwnProperty(type)) continue;
 
-                            let storageTyp;
+                            var storageTyp = '';
                             // Storage Translate
                             switch (type) {
                                 case 'webdav':
@@ -662,13 +662,13 @@ function load(settings, onChange) {
                             var file = $(this).data('file');
                             var name = file.split('/').pop().split('_')[0];
 
-                            let message = ('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
-                            let downloadPanel = false;
+                            var message = ('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
+                            var downloadPanel = false;
                             if (settings.restoreSource === 'dropbox' || settings.restoreSource === 'googledrive' || settings.restoreSource === 'webdav' || settings.restoreSource === 'ftp') {
                                 message = ('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
                                 downloadPanel = true;
                             }
-                            let isStopped = false;
+                            var isStopped = false;
                             if (file.search('grafana') == -1 &&
                                 file.search('jarvis') == -1 &&
                                 file.search('javascripts') == -1 &&
@@ -1281,7 +1281,7 @@ function showHideSettings(settings) {
         cleanIgnoreMessage('jarvis');
     }
     $('#telegramInstance').on('change', function () {
-        let telegramInst = $(this).val();
+        var telegramInst = $(this).val();
         if (telegramInst && telegramInst.length >= 10) {
             sendTo(null, 'getTelegramUser', { config: { instance: $(this).val() } }, function (obj) {
                 fillTelegramUser(settings['telegramUser'], obj, telegramInst);

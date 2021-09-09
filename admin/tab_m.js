@@ -205,7 +205,7 @@ function load(settings, onChange) {
                         for (var type in data) {
                             if (!data.hasOwnProperty(type)) continue;
 
-                            let storageTyp;
+                            var storageTyp = '';
                             // Storage Translate
                             switch (type) {
                                 case 'webdav':
@@ -258,13 +258,13 @@ function load(settings, onChange) {
                             var file = $(this).data('file');
                             var name = file.split('/').pop().split('_')[0];
 
-                            let message = ('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
-                            let downloadPanel = false;
+                            var message = ('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
+                            var downloadPanel = false;
                             if ($('#restoreSource').val() === 'dropbox' || $('#restoreSource').val() === 'googledrive' || $('#restoreSource').val() === 'webdav' || $('#restoreSource').val() === 'ftp') {
                                 message = ('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
                                 downloadPanel = true;
                             }
-                            let isStopped = false;
+                            var isStopped = false;
                             if (file.search('grafana') == -1 &&
                                 file.search('jarvis') == -1 &&
                                 file.search('javascripts') == -1 &&
@@ -442,7 +442,7 @@ function initDialogRestore() {
 }
 
 function fillBackupOptions(settings) {
-    let _options = [];
+    var _options = [];
     if (settings.jarvisEnabled) _options.push(_('Jarvis Backup'));
     if (settings.minimalEnabled) _options.push(_('ioBroker'));
     if (settings.ccuEnabled) _options.push(_('Homematic CCU backup'));
@@ -465,7 +465,7 @@ function fillBackupOptions(settings) {
 }
 
 function fillStorageOptions(settings) {
-    let _options = [];
+    var _options = [];
     if (settings.cifsEnabled) _options.push(_('NAS / Copy'));
     if (settings.ftpEnabled) _options.push(_('FTP'));
     if (settings.dropboxEnabled) _options.push(_('Dropbox'));
