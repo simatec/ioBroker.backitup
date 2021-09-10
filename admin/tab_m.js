@@ -474,14 +474,13 @@ function fillStorageSelect(settings) {
     if (settings.googledriveEnabled) selectName.push(_('Google Drive')), selectsetting.push('googledrive');
     if (settings.webdavEnabled) selectName.push(_('WebDAV')), selectsetting.push('webdav');
 
-    var text = '<option value="local" class="translate">Local</option>';
+    var id = settings.restoreSource
+    var $sel = $('#restoreSource');
+    $sel.html('<option value="local"' + (id === 'local' ? ' selected translate' : 'translate') + '>Local</option>');
     for (var i = 0; i < selectName.length; i++) {
-        text += `<option value="${selectsetting[i]}" class="translate">${selectName[i]}</option>`;
+        $('#restoreSource').append('<option value="' + selectsetting[i] + '"' + (id === selectsetting[i] ? ' selected translate' : 'translate') + '>' + selectName[i] + '</option>');
     }
-    var $storageSelect = $('.input-field');
-    $storageSelect
-        .find('#restoreSource')
-        .html(text);
+    $sel.select();
 }
 
 function fillStorageOptions(settings) {
