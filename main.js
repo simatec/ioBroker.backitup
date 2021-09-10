@@ -850,7 +850,7 @@ function createBashScripts() {
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
             try {
-                fs.writeFileSync(__dirname + '/lib/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\ngosu iobroker /opt/scripts/maintenance.sh off -y`);
+                fs.writeFileSync(__dirname + '/lib/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\ngosu root /opt/scripts/maintenance.sh off -y`);
                 fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
             } catch (e) {
                 adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
