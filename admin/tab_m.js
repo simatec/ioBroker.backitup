@@ -98,6 +98,16 @@ function load(settings, onChange) {
         }
     });
 
+    sendTo(null, 'getSystemInfo', null, function (obj) {
+        if (obj == 'docker') {
+            var $startAllRestore = $('#startAllRestore');
+            $startAllRestore.addClass('disabled');
+
+            $('#startAllRestore').prop('checked', false);
+            $('#startAllRestore').prop('disabled', true);
+        }
+    });
+
     fillBackupOptions(settings);
     fillStorageOptions(settings);
     backupInfo(settings);
@@ -259,10 +269,10 @@ function load(settings, onChange) {
                             var file = $(this).data('file');
                             var name = file.split('/').pop().split('_')[0];
 
-                            var message = ('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
+                            var message = _('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
                             var downloadPanel = false;
                             if ($('#restoreSource').val() === 'dropbox' || $('#restoreSource').val() === 'googledrive' || $('#restoreSource').val() === 'webdav' || $('#restoreSource').val() === 'ftp') {
-                                message = ('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
+                                message = _('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
                                 downloadPanel = true;
                             }
                             var isStopped = false;
@@ -278,12 +288,15 @@ function load(settings, onChange) {
                                 isStopped = true;
                             } else {
                                 if (downloadPanel) {
-                                    message = ('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After the download, the restore begins without restarting ioBroker.');
+                                    message = _('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After the download, the restore begins without restarting ioBroker.');
                                 } else {
-                                    message = ('<br/><br/>ioBroker will not be restarted for this restore.<br/><br/>Confirm with \"OK\".');
+                                    message = _('<br/><br/>ioBroker will not be restarted for this restore.<br/><br/>Confirm with \"OK\".');
                                 }
                             }
-                            confirmMessage(name !== '' ? _(message) : _('Ready'), _('Are you sure?'), null, [_('Cancel'), _('OK')], function (result) {
+                            if (isStopped) {
+                                message += _('<br/><br/><br/><b>After confirmation, a new tab opens with the Restore Log.</b><br/><b>If the tab does not open, please deactivate your popup blocker.</b>')
+                            }
+                            confirmMessage(name !== '' ? message : _('Ready'), _('Are you sure?'), null, [_('Cancel'), _('OK')], function (result) {
                                 if (result === 1) {
                                     if (downloadPanel) {
                                         $('.cloudRestore').show();
@@ -306,10 +319,11 @@ function load(settings, onChange) {
                                             console.log('Restore finish!')
                                             if (isStopped) {
                                                 //Create Link for Restore Interface
-                                                var link = "http://" + location.hostname + ":8091/backitup-restore";
+                                                var link = "http://" + location.hostname + ":8091/backitup-restore.html";
                                                 // Log Window for Restore Interface
                                                 setTimeout(function () {
-                                                    window.open(link, '_blank');
+                                                    $('<a href="' + link + '" target="_blank">&nbsp;</a>')[0].click();
+                                                    //window.open(link, '_blank');
                                                 }, 5000);
                                             }
                                             if (downloadPanel) {

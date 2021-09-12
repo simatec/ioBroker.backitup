@@ -48,6 +48,9 @@ When the adapter crashes or an other Code error happens, this error message that
 * (simatec) Multi PGSql Backup added
 * (simatec) Yahka backup added
 * (simatec) Yahka Restore added
+* (simatec) new Restore Interface added
+* (simatec) Docker Support added
+* (simatec) delete option for temp-directory added
 
 ### 2.1.17 (15.08.2021)
 * (simatec) dependencies updated

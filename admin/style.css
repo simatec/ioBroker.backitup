@@ -46,6 +46,7 @@
     border-radius: 4px;
 }
 .m .btn, .m .btn-flat, .m .btn-large, .m .btn-backitup {
+    color: #fff;
     border-radius: 4px;
 }
 /*.m .btn:hover {*/
