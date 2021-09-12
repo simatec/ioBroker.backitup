@@ -49,6 +49,7 @@ When the adapter crashes or an other Code error happens, this error message that
 * (simatec) Yahka backup added
 * (simatec) Yahka Restore added
 * (simatec) new Restore Interface added
+* (simatec) new Tab-Menu added
 * (simatec) Docker Support added
 * (simatec) delete option for temp-directory added
 
