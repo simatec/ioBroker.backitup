@@ -46,6 +46,9 @@
     border-radius: 4px;
 }
 .m .btn, .m .btn-flat, .m .btn-large, .m .btn-backitup {
+    border-radius: 4px;
+}
+.m.react-dark .btn, .m.react-dark .btn-flat, .m.react-dark .btn-large, .m.react-dark .btn-backitup {
     color: #fff;
     border-radius: 4px;
 }
