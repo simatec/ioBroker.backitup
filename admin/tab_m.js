@@ -97,7 +97,8 @@ function load(settings, onChange) {
             });
         }
     });
-
+    console.log('current theme: ' + currentTheme());
+    
     sendTo(null, 'getSystemInfo', null, function (obj) {
         if (obj == 'docker') {
             var $startAllRestore = $('#startAllRestore');
