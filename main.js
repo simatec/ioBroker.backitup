@@ -253,7 +253,7 @@ function startAdapter(options) {
                             try {
                                 config = JSON.parse(JSON.stringify(backupConfig[type]));
                                 config.enabled = true;
-                                config.deleteBackupAfter = obj.message.config.deleteAfter; // do delete files with specification from Master
+                                config.deleteBackupAfter = obj.message.config.deleteAfter ? obj.message.config.deleteAfter : 0; // do delete files with specification from Master
                             } catch (e) {
                                 adapter.log.warn('backup error: ' + e + ' ... please check your config and try again!!');
                             }
