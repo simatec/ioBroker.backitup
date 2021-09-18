@@ -336,7 +336,8 @@
     "startAllRestore": false,
     "hostType": "Single",
     "slaveInstance": "backitup.1",
-    "slaveNameSuffix": ""
+    "slaveNameSuffix": "",
+    "stopSlaveAfter": false
   },
   "instanceObjects": [
     {

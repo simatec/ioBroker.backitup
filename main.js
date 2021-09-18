@@ -722,7 +722,6 @@ function initConfig(secret) {
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-            filePath: adapter.config.javascriptsPath
         },
         grafana: {
             enabled: adapter.config.grafanaEnabled,
