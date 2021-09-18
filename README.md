@@ -52,7 +52,8 @@ When the adapter crashes or an other Code error happens, this error message that
 * (simatec) new Tab-Menu added
 * (simatec) Docker Support added
 * (simatec) delete option for temp-directory added
-* (simatec) Javascript Backup from Objects added
+* (simatec) breaking changes!! Javascript Backup from Objects added
+* (simatec) breaking changes!! Javascript Restore from Objects added
 
 ### 2.1.17 (15.08.2021)
 * (simatec) dependencies updated

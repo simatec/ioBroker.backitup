@@ -205,39 +205,7 @@ function fetchHistoryConfig(isInitial) {
         }
     });
 }
-function fetchJavascriptsConfig(isInitial) {
-    socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.javascript.', endkey: 'system.adapter.javascript.\u9999', include_docs: true }, function (err, res) {
-        var javaScriptPth;
-        if (res && res.rows && res.rows.length) {
-            var found = false;
-            for (var i = 0; i < res.rows.length; i++) {
-                var common = res.rows[i].value.common;
-                if (common.enabled) {
-                    var native = res.rows[i].value.native;
-                    $('#javascriptsPath').val(native.mirrorPath).trigger('change');
-                    javaScriptPth = native.mirrorPath;
-                    found = res.rows[i].value._id;
-                    break;
-                }
-            }
-            if (!found) {
-                for (var j = 0; j < res.rows.length; j++) {
-                    var _native = res.rows[j].value.native;
-                    $('#javascriptsPath').val(_native.mirrorPath).trigger('change');
-                    javaScriptPth = _native.mirrorPath;
-                    found = res.rows[j].value._id;
-                }
-            }
-        }
-        if (found && javaScriptPth !== '') {
-            M.updateTextFields();
-            found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
-        } else {
-            !isInitial && showMessage(_("No config found. Please check the settings in the Javascript adapter"), _('Backitup Warning!'), 'info');
-        }
-    });
-}
+
 var ignoreMessage = [];
 
 function cleanIgnoreMessage(name) {
@@ -825,9 +793,6 @@ function load(settings, onChange) {
     if ($('#historyEnabled').prop('checked') && !settings.historyPath) {
         fetchHistoryConfig(true);
     }
-    if ($('#javascriptsEnabled').prop('checked') && !settings.javascriptsPath) {
-        fetchJavascriptsConfig(true);
-    }
     if ($('#mySqlEnabled').prop('checked') && !settings.mySqlUser) {
         fetchMySqlConfig(true)
     }
@@ -843,7 +808,6 @@ function load(settings, onChange) {
     $('.detect-influxDB').on('click', function () { fetchInfluxDBConfig() });
     $('.detect-ccu').on('click', function () { fetchCcuConfig() });
     $('.detect-history').on('click', function () { fetchHistoryConfig() });
-    $('.detect-javascripts').on('click', function () { fetchJavascriptsConfig() });
 
     sendTo(null, 'getTelegramUser', { config: { instance: settings.telegramInstance } }, function (obj) {
         fillTelegramUser(settings['telegramUser'], obj, settings.telegramInstance)
@@ -1023,12 +987,6 @@ function showHideSettings(settings) {
         $('.history_path').show();
     } else {
         $('.history_path').hide();
-    }
-
-    if ($('#javascriptsEnabled').prop('checked')) {
-        $('.javascripts_path').show();
-    } else {
-        $('.javascripts_path').hide();
     }
 
     if ($('#telegramEnabled').prop('checked')) {
@@ -1268,9 +1226,7 @@ function showHideSettings(settings) {
     }
     if ($('#javascriptsEnabled').prop('checked')) {
         checkAdapterInstall('javascript', common.host);
-        $('.tab-javascripts').show();
     } else {
-        $('.tab-javascripts').hide();
         cleanIgnoreMessage('javascript');
     }
     if ($('#zigbeeEnabled').prop('checked')) {

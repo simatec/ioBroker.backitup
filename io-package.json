@@ -301,7 +301,6 @@
     "redisAOFactive": false,
     "historyEnabled": false,
     "historyPath": "media/usb/history",
-    "javascriptsPath": "/media/usb/scripts",
     "javascriptsEnabled": false,
     "zigbeeEnabled": false,
     "yahkaEnabled": false,
