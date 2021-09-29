@@ -115,7 +115,7 @@ function loadSettings(callback) {
                     }
                 }
                 // detect, that we are now in react container (themeNames = ['dark', 'blue', 'colored', 'light'])
-                query += '&react=dark'; // this is only for theme testing
+                //query += '&react=dark'; // this is only for theme testing
 
                 const _query = query.split('&');
 
