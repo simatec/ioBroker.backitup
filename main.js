@@ -19,6 +19,7 @@ let timerUmount1;
 let timerUmount2;
 let timerMain;
 let slaveTimeOut;
+let waitToSlaveBackup;
 
 let systemLang = 'de';                                  // system language
 const backupConfig = {};
@@ -148,6 +149,7 @@ function startAdapter(options) {
             clearTimeout(timerUmount2);
             clearTimeout(timerMain);
             clearTimeout(slaveTimeOut);
+            clearTimeout(waitToSlaveBackup);
             callback();
         } catch (e) {
             callback();
@@ -1124,39 +1126,56 @@ function startSlaveBackup(slaveInstance, num) {
     try {
         adapter.getForeignState(`system.adapter.${slaveInstance}.alive`, (err, state) => {
             err && adapter.log.error(err);
+            let waitForInstance = 1000;
 
-            if (state && state.val && state.val === true) {
-                try {
-                    adapter.sendTo(slaveInstance, 'slaveBackup', {
-                        config: {
-                            deleteAfter: adapter.config.minimalDeleteAfter
+            if (state && state.val === false) {
+                waitForInstance = 15000;
+                adapter.log.debug(`Try to start ${slaveInstance}`);
+                adapter.setForeignState(`system.adapter.${slaveInstance}.alive`, true);
+            }
+
+            waitToSlaveBackup = setTimeout(() =>
+                adapter.getForeignState(`system.adapter.${slaveInstance}.alive`, (err, state) => {
+                    err && adapter.log.error(err);
+
+                    if (state && state.val && state.val === true) {
+
+                        try {
+                            adapter.sendTo(slaveInstance, 'slaveBackup', {
+                                config: {
+                                    deleteAfter: adapter.config.minimalDeleteAfter
+                                }
+                            }, function (result, error) {
+                                if (result) {
+                                    adapter.log.debug(`Slave Backup from ${slaveInstance} is finish with result: ${result}`);
+                                } else {
+                                    adapter.log.debug(`Slave Backup error from ${slaveInstance}: ${error}`);
+                                }
+                                if (adapter.config.stopSlaveAfter) {
+                                    adapter.setForeignState(`system.adapter.${slaveInstance}.alive`, false);
+                                    adapter.log.debug(`${slaveInstance} is stopped after backup`);
+                                }
+                                num++;
+                                if (adapter.config.slaveInstance.length > 1 && num != adapter.config.slaveInstance.length) {
+                                    return slaveTimeOut = setTimeout(startSlaveBackup, 3000, adapter.config.slaveInstance[num], num);
+                                } else {
+                                    adapter.log.debug('slave backups are completed');
+                                }
+                            });
+                        } catch (err) {
+                            adapter.log.error(`error on slave Backup: ${err}`)
                         }
-                    }, function (result, error) {
-                        if (result) {
-                            adapter.log.debug(`Slave Backup from ${slaveInstance} is finish with result: ${result}`);
-                        } else {
-                            adapter.log.debug(`Slave Backup error from ${slaveInstance}: ${error}`);
-                        }
+                    } else {
                         num++;
+                        adapter.log.warn(`${slaveInstance} is not running. The slave backup for this instance is not possible`);
+
                         if (adapter.config.slaveInstance.length > 1 && num != adapter.config.slaveInstance.length) {
                             return slaveTimeOut = setTimeout(startSlaveBackup, 3000, adapter.config.slaveInstance[num], num);
                         } else {
                             adapter.log.debug('slave backups are completed');
                         }
-                    });
-                } catch (err) {
-                    adapter.log.error(`error on slave Backup: ${err}`)
-                }
-            } else {
-                num++;
-                adapter.log.warn(`${slaveInstance} is not running. The slave backup for this instance is not possible`);
-
-                if (adapter.config.slaveInstance.length > 1 && num != adapter.config.slaveInstance.length) {
-                    return slaveTimeOut = setTimeout(startSlaveBackup, 3000, adapter.config.slaveInstance[num], num);
-                } else {
-                    adapter.log.debug('slave backups are completed');
-                }
-            }
+                    }
+                }), waitForInstance);
         });
     } catch (err) {
         adapter.log.error(`error on slave Backup: ${err}`)
