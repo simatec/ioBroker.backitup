@@ -53,13 +53,6 @@
         <div class="row">
             <!-- main settings -->
             <div id="tab-settings" class="col s12 page">
-                <!--
-                <div class="row">
-                    <div class="input-field col s6">
-                        <img src="backitup.png" class="logo">
-                    </div>
-                </div>
-                -->
                 <!-- What to back up -->
                 <div class="row" style="padding: 2px;">
                     <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">What to back up</h6>
@@ -176,7 +169,7 @@
                     </div>
                     <div class="input-field col s12 m6 l3 slaveInst">
                         <input class="value" id="stopSlaveAfter" type="checkbox"/>
-                        <label for="stopSlaveAfter" class="translate">Stop Slave Instances after backup</label>
+                        <label for="stopSlaveAfter" class="translate">Slave Instances stopping after backup</label>
                     </div>
                 </div>
                 <div class="row">
@@ -978,11 +971,17 @@
                     </div>
                 </div>
                 <div class="row webDAV">
-                    <div class="input-field col s12">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="webdavSignedCertificates" type="checkbox"/>
+                        <label for="webdavSignedCertificates" class="translate">Allow only signed certificates</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
                         <input class="value" id="webdavDeleteOldBackup" type="checkbox"/>
                         <label for="webdavDeleteOldBackup" class="translate">Delete old WebDAV-Backups</label>
                     </div>
-                    <div class="input-field col s12">
+                </div>
+                    <div class="row webDAV">
+                    <div class="input-field col s12 m6 l4">
                         <input class="value" id="webdavOwnDir" type="checkbox"/>
                         <label for="webdavOwnDir" class="translate">Extra path for backup types</label>
                     </div>

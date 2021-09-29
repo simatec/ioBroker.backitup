@@ -54,6 +54,7 @@ When the adapter crashes or an other Code error happens, this error message that
 * (simatec) delete option for temp-directory added
 * (simatec) breaking changes!! Javascript Backup from Objects added
 * (simatec) breaking changes!! Javascript Restore from Objects added
+* (simatec) WebDav option to use self-signed certificates
 
 ### 2.1.17 (15.08.2021)
 * (simatec) dependencies updated

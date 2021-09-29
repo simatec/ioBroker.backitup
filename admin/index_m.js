@@ -549,7 +549,8 @@ function load(settings, onChange) {
                             config: {
                                 host: $('#webdavURL').val(),
                                 username: $('#webdavUsername').val(),
-                                password: $('#webdavPassword').val()
+                                password: $('#webdavPassword').val(),
+                                signedCertificates: $('#webdavSignedCertificates').prop('checked') ? true : false
                             }
                         }, function (response) {
                             $('#testWebDAV').removeClass('disabled');
@@ -1114,6 +1115,16 @@ function showHideSettings(settings) {
             $('#minimalEnabled').addClass('disabled');
             $('#minimalEnabled').prop('disabled', true);
             $('.tab-iobroker-backup').hide();
+
+            $('#ccuEnabled').prop('checked', false);
+            $('#ccuEnabled').addClass('disabled');
+            $('#ccuEnabled').prop('disabled', true);
+            $('.tab-ccu-backup').hide();
+
+            $('#javascriptsEnabled').prop('checked', false);
+            $('#javascriptsEnabled').addClass('disabled');
+            $('#javascriptsEnabled').prop('disabled', true);
+
             $('.slaveSuffix').show();
             if (settings.slaveNameSuffix == '') {
                 $('#slaveNameSuffix').val('slave-' + instance).trigger('change');
@@ -1123,6 +1134,13 @@ function showHideSettings(settings) {
             $('#minimalEnabled').removeClass('disabled');
             $('#minimalEnabled').prop('checked', true);
             $('#minimalEnabled').prop('disabled', false);
+
+            $('#ccuEnabled').removeClass('disabled');
+            $('#ccuEnabled').prop('disabled', false);
+
+            $('#javascriptsEnabled').removeClass('disabled');
+            $('#javascriptsEnabled').prop('disabled', false);
+
             $('.tab-iobroker-backup').show();
             $('.slaveSuffix').hide();
         }

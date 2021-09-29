@@ -218,6 +218,7 @@
     "webdavMinimalDir": "/backupDir/iobroker",
     "webdavCcuDir": "/backupDir/ccu",
     "webdavDir": "/backupDir",
+    "webdavSignedCertificates": true,
     "dropboxEnabled": false,
     "dropboxAccessToken": "",
     "dropboxDeleteOldBackup": false,

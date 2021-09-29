@@ -229,13 +229,15 @@ function startAdapter(options) {
                 case 'testWebDAV':
                     if (obj.message) {
                         const { createClient } = require("webdav");
+                        const agent = require("https").Agent({ rejectUnauthorized: obj.message.config.signedCertificates });
 
                         const client = createClient(
                             obj.message.config.host,
                             {
                                 username: obj.message.config.username,
                                 password: obj.message.config.password,
-                                maxBodyLength: Infinity
+                                maxBodyLength: Infinity,
+                                httpsAgent: agent
                             });
 
                         client
@@ -523,7 +525,8 @@ function initConfig(secret) {
         ownDir: adapter.config.webdavOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.webdavOwnDir === true) ? null : adapter.config.webdavDir,
-        dirMinimal: adapter.config.webdavMinimalDir
+        dirMinimal: adapter.config.webdavMinimalDir,
+        signedCertificates: adapter.config.webdavSignedCertificates
     };
 
     const googledrive = {
@@ -1207,10 +1210,12 @@ async function main(adapter) {
 
         checkStates();
 
-        createBackupSchedule();
-        nextBackup(1, true, null);
+        if (adapter.config.hostType !== 'Slave') {
+            createBackupSchedule();
+            nextBackup(1, true, null);
 
-        detectLatestBackupFile(adapter);
+            detectLatestBackupFile(adapter);
+        }
     });
 
     // subscribe on all variables of this adapter instance with pattern "adapterName.X.memory*"
