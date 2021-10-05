@@ -1118,69 +1118,66 @@ function nextBackup(diffDays, setMain, type, date) {
     }
 }
 
-function startSlaveBackup(slaveInstance, num) {
+async function startSlaveBackup(slaveInstance, num) {
+    let waitForInstance = 1000;
+
     if (num == null) {
         num = 0;
     }
 
     try {
-        adapter.getForeignState(`system.adapter.${slaveInstance}.alive`, (err, state) => {
-            err && adapter.log.error(err);
-            let waitForInstance = 1000;
+        const currentState = await adapter.getForeignStateAsync(`system.adapter.${slaveInstance}.alive`, 'state');
 
-            if (state && state.val === false) {
-                waitForInstance = 15000;
-                adapter.log.debug(`Try to start ${slaveInstance}`);
-                adapter.setForeignState(`system.adapter.${slaveInstance}.alive`, true);
-            }
-
-            waitToSlaveBackup = setTimeout(() =>
-                adapter.getForeignState(`system.adapter.${slaveInstance}.alive`, (err, state) => {
-                    err && adapter.log.error(err);
-
-                    if (state && state.val && state.val === true) {
-
-                        try {
-                            adapter.sendTo(slaveInstance, 'slaveBackup', {
-                                config: {
-                                    deleteAfter: adapter.config.minimalDeleteAfter
-                                }
-                            }, function (result, error) {
-                                if (result) {
-                                    adapter.log.debug(`Slave Backup from ${slaveInstance} is finish with result: ${result}`);
-                                } else {
-                                    adapter.log.debug(`Slave Backup error from ${slaveInstance}: ${error}`);
-                                }
-                                if (adapter.config.stopSlaveAfter) {
-                                    adapter.setForeignState(`system.adapter.${slaveInstance}.alive`, false);
-                                    adapter.log.debug(`${slaveInstance} is stopped after backup`);
-                                }
-                                num++;
-                                if (adapter.config.slaveInstance.length > 1 && num != adapter.config.slaveInstance.length) {
-                                    return slaveTimeOut = setTimeout(startSlaveBackup, 3000, adapter.config.slaveInstance[num], num);
-                                } else {
-                                    adapter.log.debug('slave backups are completed');
-                                }
-                            });
-                        } catch (err) {
-                            adapter.log.error(`error on slave Backup: ${err}`)
-                        }
-                    } else {
-                        num++;
-                        adapter.log.warn(`${slaveInstance} is not running. The slave backup for this instance is not possible`);
-
-                        if (adapter.config.slaveInstance.length > 1 && num != adapter.config.slaveInstance.length) {
-                            return slaveTimeOut = setTimeout(startSlaveBackup, 3000, adapter.config.slaveInstance[num], num);
-                        } else {
-                            adapter.log.debug('slave backups are completed');
-                        }
-                    }
-                }), waitForInstance);
-        });
+        if (currentState && currentState.val === false) {
+            waitForInstance = 10000;
+            adapter.log.debug(`Try to start ${slaveInstance}`);
+            await adapter.setForeignStateAsync(`system.adapter.${slaveInstance}.alive`, true);
+        }
     } catch (err) {
-        adapter.log.error(`error on slave Backup: ${err}`)
+        adapter.log.error(`error on slave State: ${err}`)
     }
+
+    waitToSlaveBackup = setTimeout(async () => {
+        try {
+            const currentStateAfter = await adapter.getForeignStateAsync(`system.adapter.${slaveInstance}.alive`, 'state');
+
+            if (currentStateAfter && currentStateAfter.val && currentStateAfter.val === true) {
+                const sendToSlave = await adapter.sendToAsync(slaveInstance, 'slaveBackup', { config: { deleteAfter: adapter.config.minimalDeleteAfter } });
+
+                if (sendToSlave) {
+                    adapter.log.debug(`Slave Backup from ${slaveInstance} is finish with result: ${sendToSlave}`);
+                } else {
+                    adapter.log.debug(`Slave Backup error from ${slaveInstance}: ${error}`);
+                }
+
+                if (adapter.config.stopSlaveAfter) {
+                    await adapter.setForeignStateAsync(`system.adapter.${slaveInstance}.alive`, false);
+                    adapter.log.debug(`${slaveInstance} is stopped after backup`);
+                }
+
+                num++;
+
+                if (adapter.config.slaveInstance.length > 1 && num != adapter.config.slaveInstance.length) {
+                    return slaveTimeOut = setTimeout(startSlaveBackup, 3000, adapter.config.slaveInstance[num], num);
+                } else {
+                    adapter.log.debug('slave backups are completed');
+                }
+            } else {
+                num++;
+                adapter.log.warn(`${slaveInstance} is not running. The slave backup for this instance is not possible`);
+
+                if (adapter.config.slaveInstance.length > 1 && num != adapter.config.slaveInstance.length) {
+                    return slaveTimeOut = setTimeout(startSlaveBackup, 3000, adapter.config.slaveInstance[num], num);
+                } else {
+                    adapter.log.debug('slave backups are completed');
+                }
+            }
+        } catch (err) {
+            adapter.log.error(`error on slave Backup: ${err}`)
+        }
+    }, waitForInstance);
 }
+
 function decryptEvents(secret) {
     if (adapter.config.ccuEvents && adapter.config.ccuMulti) {
         for (let i = 0; i < adapter.config.ccuEvents.length; i++) {
