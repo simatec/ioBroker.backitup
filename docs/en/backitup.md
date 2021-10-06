@@ -26,6 +26,7 @@
     * [Jarvis backup](#Jarvis-backup)
     * [Zigbee backup](#Zigbee-backup)
     * [Grafana backup](#Grafana-backup)
+    * [Grafana backup](#Yahka-backup)
 * [Storage options](#Storage-options)
      * [CIFS](#CIFS)
      * [NFS](#NFS)
@@ -34,6 +35,8 @@
      * [Dropbox](#Dropbox)
      * [Google Drive](#Google-Drive)
      * [WebDAV](#WebDAV)
+* [Multihost support](#Multihost-support)
+* [Docker support](#Docker-support)
 * [Usage](#usage)
 * [Notifications](#notifications)
 * [Restore](#Restore)
@@ -89,11 +92,13 @@ Backitup offers a lot of possibilities to carry out different backup types cycli
 This backup corresponds to the backup contained in IoBroker which can be started in the console by calling `iobroker backup`. Only here it is carried out through the specified settings in the adapter configuration or the OneClick Backup widget without having to use the console.
 
 ## CCU backup (Homematic)
-This backup offers the possibility to save 3 different variants of a Homematic installation (CCU-Original / pivCCU / Raspberrymatic). This backup can also be performed using the settings specified in the adapter configuration or the OneClick backup widget.
+This backup offers the possibility to save 3 different variants of a Homematic installation (CCU-Original / pivCCU / Raspberrymatic). This backup can also be performed using the settings specified in the adapter configuration or the OneClick backup widget.<br> <br>
+If you don't want to secure just one CCU, you can activate the "Securing multiple systems" option and then define your Homematic central units in the table.
 
 ## Mysql backup
 If activated, this separately adjustable backup is created with every ioBroker backup and is also deleted after the specified retention time has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set.<br><br>
-It is important that even if the mysql server is running on a remote system, the mysqldump must run on the ioBroker system. <br> For Linux systems, the installation command would be as follows: `sudo apt-get install mysql-client` or under Debian `sudo apt-get install default-mysql-client`
+It is important that even if the mysql server is running on a remote system, the mysqldump must run on the ioBroker system. <br> For Linux systems, the installation command would be as follows: `sudo apt-get install mysql-client` or under Debian `sudo apt-get install default-mysql-client`.<br> <br>
+If you don't want to back up just one database, you can activate the "Back up multiple systems" option and then define your databases in the table.
 
 ## Redis backup
 If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup provided the other IoBroker backup types are set. <br>
@@ -122,16 +127,19 @@ bind-address = "0.0.0.0:8088"
 
 **After changing the configuration, the InfluxDB service must be restarted.**
 
-Further information on the data backup of the InfluxDB can be found [here] (https://docs.influxdata.com/influxdb/v1.8/administration/backup_and_restore/#online-backup-and-restore-for-influxdb-oss).
+Further information on the data backup of the InfluxDB can be found [here] (https://docs.influxdata.com/influxdb/v1.8/administration/backup_and_restore/#online-backup-and-restore-for-influxdb-oss).<br> <br>
+If you don't want to back up just one database, you can activate the "Back up multiple systems" option and then define your databases in the table.
 
 ## PostgreSQL backup
 If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set.<br><br>
-What is important here is that even if the PostgreSQL server is running on a remote system, PostgreSQL must run on the ioBroker system / debian /) an installation guide
+What is important here is that even if the PostgreSQL server is running on a remote system, PostgreSQL must run on the ioBroker system / debian /) an installation guide.<br> <br>
+If you don't want to back up just one database, you can activate the "Back up multiple systems" option and then define your databases in the table.
 
 ## Javascript backup
-If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set.<br><br>
-In order to be able to create the Javascript backup, the menu items "Mirroring scripts in the file path" and "Instance that makes the mirroring" must be specified in advance in the Javascript adapter configuration. <br>
-Backitup can then take over the settings in the configuration menu
+If activated, this separately adjustable backup is created with every ioBroker backup and is also deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set.<br><br>
+As of Backitup version 2.2.0, scripts are saved directly from the objects. Javascript backups from older backup versions are not compatible for a restore !!<br><br>
+In order to be able to carry out JavaScript backups with Backitup versions <2.2.0, the menu items "Mirroring scripts in the file path" and "Instance that makes the mirroring" must be specified in advance in the Javascript adapter configuration.<br>
+Backitup can then take over the settings in the configuration menu.
 
 ## Jarvis backup
 If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set.<br><br>
@@ -145,6 +153,10 @@ If activated, this separately adjustable backup is created with every ioBroker b
 **In order to be able to create a Grafana backup, the Grafana username and password are required.**<br><br>
 **Furthermore, an API key must be generated in the Grafana web interface in order to get access to the dashboards.** <br>
 The API key can be created under ***"Configuration → API Keys"***.
+
+## Yahka backup
+If activated, this separately adjustable backup is created with every ioBroker backup and is also deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set. <br> <br>
+All system settings and device settings from Homkit are saved.
 
 ### [back](#Content)
 ---
@@ -196,7 +208,40 @@ To establish a WebDAV connection, the username and password of the cloud account
 The connection to the cloud is made via an encrypted connection.<br><br>
 In order to be able to establish a connection, the host name of the cloud must meet all security certificates.
 A connection with a local IP address is not possible because it does not contain any Lets Encrypt certificates.<br><br>
-> Example URL: "https://example.com/remote.php/dav/files/username/"
+> Example URL: "https://example.com/remote.php/dav/files/username/"<br><br>
+A connection with a local IP address is only possible if the option "Only allow signed certificates" is deactivated.
+
+### [back](#Content)
+---
+
+# Multihost support
+From Backitup version 2.2.0, multihost is supported for backing up remote systems (e.g. Zigbee or remote databases). Multihost for Backitup can work with multiple instances of Backitup on different hosts.<br>
+An instance of Backitup must be configured as a master to support it. All other instances on remote hosts are configured as slaves.<br><br>
+The master takes over the management of the automatic backups. All slave instances can be selected in the master via the menu.<br>
+The following backup options can be activated for the slave instances:<br>
+* Redis
+* Zigbee
+* Jarvis
+* History
+* InfluxDB
+* MySql
+* PostgreSql
+* Grafana
+* Yahka
+
+Since the automatic backups are controlled by the master in a slave instance, iobroker backups, Javascript backups and CCU backups cannot be selected.<br><br>
+The storage locations for the individual backups can be freely configured on each slave. So everyone can design their file storage system independently of the master.<br><br>
+
+In systems with limited RAM, the backup master can automatically start the slave instances for the backup process and then stop them again.<br>
+This option can be configured in the menu.
+
+### [back](#Content)
+---
+
+# Docker support
+As of version 2.2.0, backup and restore are supported in the official Docker container.<br><br>
+Since no database systems should be installed in Docker, backups of all databases are not supported and cannot be selected when a Docker container is detected.<br>
+The support for Backitup is supported in the official iobroker Docker Container from version v5.2.0-beta4.
 
 ### [back](#Content)
 ---

@@ -40,7 +40,7 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
-### 2.2.0 (xx.xx.2021)
+### 2.2.0 (06.10.2021)
 * (simatec) multihost function for master/slave systems added
 * (simatec) Multi CCU Backup added
 * (simatec) Multi InfluxDB Backup added
