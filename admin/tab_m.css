@@ -1,0 +1,275 @@
+/* Backitup - Copyright (c) by simatec */
+/* Please visit https://github.com/simatec/ioBroker.backitup for licence-agreement and further information */
+
+.m {
+    /* Don't cut off dropdowns! */
+    overflow: initial;
+}
+.m .col .select-wrapper+label {
+    top: -26px;
+}
+.m span {
+    font-size: 0.9em;
+}
+.m .page {
+    height: calc(100% - 220px);
+}
+#header-area {
+    margin-top: -5px;
+    margin-top: 0px;
+    margin-bottom: 1px; 
+    background-color:#3399CC;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+body {
+    height: auto;
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)!important;
+    border-radius: 4px!important;
+}
+.collapsible.root .collapsible-header { 
+    padding-top: 0.2rem; 
+    padding-bottom: 0.2rem; 
+}
+.collapsible.root .collapsible-header h6 {
+    font-size: 1.0em; 
+    font-weight: bold;
+}
+.collapsible.root .collapsible-header.top {
+    background-color:#3399CC; 
+    color:white; padding-top: 0.2rem; 
+    padding-bottom: 0.2rem;
+    border-radius: 4px;
+    position: sticky;
+    top: 0;
+    overflow: overlay;
+    z-index: 997;
+}
+.collapsible.root .collapsible-header.top h6 {
+    /*background-color:#3399CC;*/
+    color:white; 
+    font-size: 1.2em !important; 
+    font-weight: bold;
+}
+.m .collapsible {
+    border-radius: 4px;
+}
+.m .secondary-content {
+    float: right;
+    color: #3399CC;
+}
+.m .collapsible-body.collection.head {
+    height: calc(100% - 48px);
+}
+.m .collapsible-body.collection {
+    overflow: overlay;
+}
+.m .chip {
+    display: inline-table;
+    height: 32;
+    font-size: 85%;
+    color: #000;
+    white-space: nowrap;
+    line-height: 32px;
+    padding: 0 12px;
+    border-radius: 4px;
+    /*background-color: #e4e4e4;*/
+    background-color: #fff;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+.m .chip:hover {
+    filter: brightness(115%);
+    box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+.chip {
+    margin-top: 0.5rem;
+    margin-bottom: 0.2rem;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border-radius: 4px;
+}
+.title {
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+.btn-iobroker {
+    width: 100%;
+    margin-top: 0.3rem;
+    border-radius: 4px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+.btn-ccu {
+    width: 100%;
+    margin-top: 0.3rem;
+    border-radius: 4px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+.detect-backups {
+    width: 100%;
+    margin-top: 0.3rem;
+    border-radius: 4px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+.m .btn, .m .btn-flat, .m .btn-large, .m .btn-small {
+    background-color:#3399CC;
+    border-radius: 4px;
+}
+#dialog-backups-show .title {
+    width: 100%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+    background: #174475;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+#dialog-backups-show .modal-footer {
+    padding: 4px 20px;
+    margin-left: 0.4rem;
+}
+#dialog-backups-show .modal-content {
+    width: 100% !important;
+    height: calc(100% - 10px) !important;
+}
+#dialog-backups-show .page {
+    width: calc(100% - 10px) !important;
+    padding-left:20;
+    height: calc(100% - 115px);
+}
+#dialog-backups-show {
+    max-height: 95% !important;
+    max-width: 85% !important;
+    width: 80% !important;
+    height: 90% !important;
+    overflow: visible !important;
+    top: 10px !important;
+    width: calc(100% - 100px);
+    border-radius: 4px;
+}
+
+#dialog-restore-show .title {
+    width: 100%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+    background: #174475;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+#dialog-restore-show .modal-footer {
+    padding: 4px 20px;
+    margin-left: 0.4rem;
+}
+#dialog-restore-show .modal-content {
+    width: 100% !important;
+    height: calc(100% - 20px) !important;
+}
+#dialog-restore-show .root {
+    width: 100%;
+    height: calc(100% - 150px);
+    overflow: hidden;
+}
+#dialog-restore-show {
+    max-height: 95% !important;
+    max-width: 85% !important;
+    width: 80% !important;
+    height: 90% !important;
+    overflow: visible !important;
+    top: 10px !important;
+    width: calc(100% - 100px);
+    border-radius: 4px;
+}
+.tableFixHead { 
+    overflow-y: auto;
+}
+.tableFixHead thead th {
+    position: sticky; top: 0;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    padding: 8px 16px;
+}
+th {
+    background:#3399CC;
+}
+.footer {
+    position: fixed; 
+    bottom: 0 !important;
+    width: calc(100% - 0.1rem);
+    margin-bottom: -7px;
+    overflow: overlay;
+    z-index: 997;
+}
+.header-fix {
+    position: sticky;
+    top: 0;
+    overflow: overlay;
+    z-index: 997;
+}
+#dialog-confirm {
+    border-radius: 4px;
+}
+#dialog-confirm .title {
+    width: 100% !important;
+    background: #174475;
+    color: #FFF;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+#dialog-command .title {
+    width: 100% !important;
+    background: #174475;
+    color: #FFF;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+#dialog-command .btn {
+    margin-right: 0.5rem;
+    background-color: #3399CC;
+}
+#dialog-command .modal-footer {
+    padding: 4px 20px;
+    margin-left: 0.4rem;
+}
+#dialog-command {
+    border-radius: 4px;
+    z-index: 1010 !important;
+}
+
+.m .card.horizontal .card-image {
+    border-radius: 4px 0 0 4px;
+    max-width: 50%;
+    background: #e2e2e2;
+    max-width: 30%;
+}
+.m .card.horizontal .card-image i {
+    border-radius: 4px 0 0 4px;
+    max-width: 100%;
+    width: auto;
+    padding: 2rem .5rem;
+    height: auto;
+    color: #3399CC !important;
+    font-size: 80px;
+
+}
+.m .card {
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+    border-radius: 4px;
+    height: 300px;
+}
+ul {
+    padding-inline-start: 20px;
+}
+li {
+    padding-bottom: 0.2rem;
+}
+.next-last-backups {
+    padding-bottom: 0.4rem;
+}
+.card-content-text {
+    overflow-y: auto;
+    max-height: 185px;
+}

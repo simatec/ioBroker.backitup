@@ -48,19 +48,11 @@
                 <li class="tab col tab-googledrive"><a href="#tab-googledrive" class="translate">Google Drive</a></li>
                 <li class="tab col tab-webDAV"><a href="#tab-webDAV" class="translate">WebDAV</a></li>
                 <li class="tab col tab-grafana"><a href="#tab-grafana" class="translate">Grafana Backup</a></li>
-                <li class="tab col tab-javascripts"><a href="#tab-javascripts" class="translate">Javascripts Backup</a></li>
             </ul>
         </div>
         <div class="row">
             <!-- main settings -->
             <div id="tab-settings" class="col s12 page">
-                <!--
-                <div class="row">
-                    <div class="input-field col s6">
-                        <img src="backitup.png" class="logo">
-                    </div>
-                </div>
-                -->
                 <!-- What to back up -->
                 <div class="row" style="padding: 2px;">
                     <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">What to back up</h6>
@@ -110,6 +102,10 @@
                         <input class="value" id="grafanaEnabled" type="checkbox"/>
                         <label for="grafanaEnabled" class="translate">Grafana Backup</label>
                     </div>
+                    <div class="input-field col s6 l2">
+                        <input class="value" id="yahkaEnabled" type="checkbox"/>
+                        <label for="yahkaEnabled" class="translate">Yahka (Homekit) Backup</label>
+                    </div>
                 </div>
                 <div class="row" style="padding: 2px;">
                     <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Storage location</h6>
@@ -153,6 +149,29 @@
                         <label for="historyEntriesNumber" class="translate">Number of history entries</label>
                     </div>
                 </div>
+                <div class="row" style="padding: 2px;">
+                    <div class="input-field col s12 m6 l3">
+                        <select id="hostType" class="value">
+                            <option value="Single">Single</option>
+                            <option value="Master">Master</option>
+                            <option value="Slave">Slave</option>
+                        </select>
+                        <label for="hostType" class="translate">Host Type</label>
+                    </div>
+                    <div class="input-field col s12 m6 l3 slaveInst">
+                        <select id="slaveInstance" class="value" multiple></select>
+                        <label for="slaveInstance" class="translate">slave instances</label>
+                    </div>
+                    <div class="input-field col s12 m6 l3 slaveSuffix">
+                        <input class="value" id="slaveNameSuffix" type="text">
+                        <label for="slaveNameSuffix" class="translate">name</label>
+                        <span class="translate">Slave Name suffix</span>
+                    </div>
+                    <div class="input-field col s12 m6 l3 slaveInst">
+                        <input class="value" id="stopSlaveAfter" type="checkbox"/>
+                        <label for="stopSlaveAfter" class="translate">Slave Instances stopping after backup</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col s12">
                         <div class="card-panel" style="background-color:#174475;">
@@ -170,12 +189,12 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3">
-                        <a class="waves-effect waves-light btn btn-iobroker do-backup" style="background-color:#3399CC;" data-type="iobroker"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
+                        <a class="waves-effect waves-light btn btn-backitup btn-iobroker do-backup" style="background-color:#3399CC;" data-type="iobroker"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
                     </div>
                 </div>
 				<div class="row iobroker">
                     <div class="input-field col s12 m6 l3">
-                        <input type="time" class="timepicker value" id="minimalTime" type="text">
+                        <input type="text" class="timepicker value" id="minimalTime" type="text">
                         <label for="minimalTime" class="translate">backup time</label>
                         <span class="translate">Backup start time in hh: mm</span>
                     </div>
@@ -204,15 +223,15 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l4 ccu">
-                        <a class="waves-effect waves-light btn btn-ccu do-backup" style="background-color:#3399CC;" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
+                        <a class="waves-effect waves-light btn btn-backitup btn-ccu do-backup" style="background-color:#3399CC;" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">backup now</span></a>
                     </div>
                     <div class="input-field col s6 l4 ccu">
-                        <a class="waves-effect waves-light btn detect-ccu" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                        <a class="waves-effect waves-light btn btn-backitup detect-ccu" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
                     </div>
                 </div>
                 <div class="row ccu">
                     <div class="input-field col s12 m6 l4">
-                        <input type="time" class="timepicker value" id="ccuTime" type="text">
+                        <input type="text" class="timepicker value" id="ccuTime" type="text">
                         <label for="ccuTime" class="translate">backup time</label>
                         <span class="translate">Backup start time in hh: mm</span>
                     </div>
@@ -227,27 +246,57 @@
                         <span class="translate">Old CCU backups delete after X days</span>
                     </div>
                 </div>
-                <div class="row ccu">
-                    <div class="input-field col s12 m6 l4">
+                <div class="row ccu multiCCU">
+                    <div class="input-field col s12 m6 l4 multiCCU">
                         <input class="value" id="ccuHost" type="text">
                         <label for="ccuHost" class="translate">IP address</label>
                         <span class="translate">IP of the CCU</span>
                     </div>
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l4 multiCCU">
                         <input class="value" id="ccuUser" type="text">
                         <label for="ccuUser" class="translate">Username</label>
                         <span class="translate">Username of the CCU</span>
                     </div>
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l4 multiCCU">
                         <input class="value" id="ccuPassword" type="password">
                         <label for="ccuPassword" class="translate">password</label>
                         <span class="translate">Password of the CCU</span>
                     </div>
                 </div>
-                <div class="row ccu">
+                <div class="row ccu multiCCU">
                     <div class="input-field col s6 l4">
                         <input class="value" id="ccuUsehttps" type="checkbox" />
                         <span for="ccuUsehttps" class="translate">use https</span>
+                    </div>
+                </div>
+                <div class="row ccu">
+                    <div class="input-field col s6 l4">
+                        <input class="value" id="ccuMulti" type="checkbox" />
+                        <span for="ccuMulti" class="translate">Backup of several Systems</span>
+                    </div>
+                </div>
+                <div class="row ccu singleCCU">
+                    <div class="col s12" id="ccuEvents">
+                        <div class="row">
+                            <div class="col s2 m1 l1 left">
+                                <a id="ccuAdded" class="btn-floating btn-backitup waves-effect waves-light blue table-button-add"><i class="material-icons btn-backitup" style="background-color:#3399CC;">add</i></a>
+                            </div>
+                        </div>
+                        <div class="table-values-div table-values-fix">
+                            <table class="table-values">
+                                <thead>
+                                    <tr>
+                                        <th data-name="_index" id="ccuEvents_col_0" style="width: 50px; background: #174475; text-align: center" data-style="text-align: center">Nr</th>
+                                        <th data-name="host" id="ccuEvents_col_1" data-type="text" style="background: #174475" class="translate">IP address</th>
+                                        <th data-name="user" id="ccuEvents_col_2" data-type="text" style="background: #174475" class="translate">Username</th>
+                                        <th data-name="pass" id="ccuEvents_col_3" data-type="password" style="background: #174475" class="translate">password</th>
+                                        <th data-name="nameSuffix" id="ccuEvents_col_4" data-type="text" style="background: #174475" class="translate">Name suffix</th>
+                                        <th data-name="usehttps" id="ccuEvents_col_5" style="background: #174475" data-style="width: 70px" data-type="checkbox" class="translate">use https</th>
+                                        <th data-buttons="copy up down delete" style="width: 90px; background: #174475"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -259,10 +308,10 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3 mysql">
-                        <a class="waves-effect waves-light btn detect-mysql"style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                        <a class="waves-effect waves-light btn btn-backitup detect-mysql"style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
                     </div>
                 </div>
-                <div class="row mysql">
+                <div class="row mysql multimySql">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="mySqlHost" type="text">
                         <label for="mySqlHost" class="translate">Host</label>
@@ -279,7 +328,7 @@
                         <span class="translate">MySQL database name</span>
                     </div>
                 </div>
-                <div class="row mysql">
+                <div class="row mysql multimySql">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="mySqlUser" type="text">
                         <label for="mySqlUser" class="translate">MySql username</label>
@@ -306,6 +355,38 @@
                         <label for="mysqlSingleTransaction" class="translate">BEGIN instruction before backup</label>
                     </div>
                 </div>
+                <div class="row mysql">
+                    <div class="input-field col s6 l4">
+                        <input class="value" id="mySqlMulti" type="checkbox" />
+                        <span for="mySqlMulti" class="translate">Backup of several Systems</span>
+                    </div>
+                </div>
+                <div class="row mysql singlemySql">
+                    <div class="col s12" id="mySqlEvents">
+                        <div class="row">
+                            <div class="col s2 m1 l1 left">
+                                <a id="mySqlAdded" class="btn-floating btn-backitup waves-effect waves-light blue table-button-add"><i class="material-icons btn-backitup" style="background-color:#3399CC;">add</i></a>
+                            </div>
+                        </div>
+                        <div class="table-values-div table-values-fix">
+                            <table class="table-values">
+                                <thead>
+                                    <tr>
+                                        <th data-name="_index" id="mySqlEvents_col_0" style="width: 50px; background: #174475; text-align: center" data-style="text-align: center">Nr</th>
+                                        <th data-name="host" id="mySqlEvents_col_1" data-type="text" style="background: #174475" class="translate">Host</th>
+                                        <th data-name="port" id="mySqlEvents_col_2" data-type="number" style="background: #174475" class="translate">port</th>
+                                        <th data-name="user" id="mySqlEvents_col_3" data-type="text" style="background: #174475" class="translate">Username</th>
+                                        <th data-name="pass" id="mySqlEvents_col_4" data-type="password" style="background: #174475" class="translate">password</th>
+                                        <th data-name="dbName" id="mySqlEvents_col_5" data-type="text" style="background: #174475" class="translate">MySQL database name</th>
+                                        <th data-name="nameSuffix" id="mySqlEvents_col_6" data-type="text" style="background: #174475" class="translate">Name suffix</th>
+                                        <th data-name="exe" id="mySqlEvents_col_7" data-type="text" style="background: #174475" class="translate">Full path</th>
+                                        <th data-buttons="copy up down delete" style="width: 90px; background: #174475"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- pgsql Backup -->
@@ -315,10 +396,10 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3 pgsql">
-                        <a class="waves-effect waves-light btn detect-pgsql" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                        <a class="waves-effect waves-light btn btn-backitup detect-pgsql" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
                     </div>
                 </div>
-                <div class="row pgsql">
+                <div class="row pgsql multipgSql">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="pgSqlHost" type="text">
                         <label for="pgSqlHost" class="translate">Host</label>
@@ -335,7 +416,7 @@
                         <span class="translate">Postgresql database name</span>
                     </div>
                 </div>
-                <div class="row pgsql">
+                <div class="row pgsql multipgSql">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="pgSqlUser" type="text">
                         <label for="pgSqlUser" class="translate">Postgresql username</label>
@@ -350,6 +431,38 @@
                         <input type="text" class="value" id="pgSqlDumpExe">
                         <label for="pgSqlDumpExe" class="translate">Full path</label>
                         <span class="translate">Path with filename to postgresql executable (leave empty to use default)</span>
+                    </div>
+                </div>
+                <div class="row pgsql">
+                    <div class="input-field col s6 l4">
+                        <input class="value" id="pgSqlMulti" type="checkbox" />
+                        <span for="pgSqlMulti" class="translate">Backup of several Systems</span>
+                    </div>
+                </div>
+                <div class="row mysql singlepgSql">
+                    <div class="col s12" id="pgSqlEvents">
+                        <div class="row">
+                            <div class="col s2 m1 l1 left">
+                                <a id="pgSqlAdded" class="btn-floating btn-backitup waves-effect waves-light blue table-button-add"><i class="material-icons btn-backitup" style="background-color:#3399CC;">add</i></a>
+                            </div>
+                        </div>
+                        <div class="table-values-div table-values-fix">
+                            <table class="table-values">
+                                <thead>
+                                    <tr>
+                                        <th data-name="_index" id="pgSqlEvents_col_0" style="width: 50px; background: #174475; text-align: center" data-style="text-align: center">Nr</th>
+                                        <th data-name="host" id="pgSqlEvents_col_1" data-type="text" style="background: #174475" class="translate">Host</th>
+                                        <th data-name="port" id="pgSqlEvents_col_2" data-type="number" style="background: #174475" class="translate">port</th>
+                                        <th data-name="user" id="pgSqlEvents_col_3" data-type="text" style="background: #174475" class="translate">Username</th>
+                                        <th data-name="pass" id="pgSqlEvents_col_4" data-type="password" style="background: #174475" class="translate">password</th>
+                                        <th data-name="dbName" id="pgSqlEvents_col_5" data-type="text" style="background: #174475" class="translate">Postgresql database name</th>
+                                        <th data-name="nameSuffix" id="pgSqlEvents_col_6" data-type="text" style="background: #174475" class="translate">Name suffix</th>
+                                        <th data-name="exe" id="pgSqlEvents_col_7" data-type="text" style="background: #174475" class="translate">Full path</th>
+                                        <th data-buttons="copy up down delete" style="width: 90px; background: #174475"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -414,7 +527,7 @@
                         <label for="influxDBType" class="translate">source type</label>
                     </div>
                     <div class="input-field col s6 l3 influxDB">
-                        <a class="waves-effect waves-light btn detect-influxDB" style="background-color:#3399CC;"><i class="material-icons right">search</i><span
+                        <a class="waves-effect waves-light btn btn-backitup detect-influxDB" style="background-color:#3399CC;"><i class="material-icons right">search</i><span
                                 class="translate">detect config</span></a>
                     </div>
                 </div>
@@ -430,7 +543,7 @@
                         <span class="translate">InfluxDB port (default: 8088)</span>
                     </div>
                 </div>
-                <div class="row influxDB">
+                <div class="row influxDB multiInfluxDB">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="influxDBName" type="text">
                         <label for="influxDBName" class="translate">name</label>
@@ -442,12 +555,42 @@
                         <span class="translate">Path with filename to influxd executable (leave empty to use default)</span>
                     </div>
                 </div>
-                <div class="row influxDB influxLocal">
+                <div class="row influxDB">
                     <div class="input-field col s6 l4">
+                        <input class="value" id="influxDBMulti" type="checkbox" />
+                        <span for="influxDBMulti" class="translate">Backup of several Systems</span>
+                    </div>
+                    <div class="input-field col s6 l4 influxLocal">
                         <input class="value" id="deleteOldDataBase" type="checkbox" />
                         <label for="deleteOldDataBase" class="translate">automatically delete old Influx-database before restore</label>
                     </div>
                 </div>
+
+                <div class="row influxDB singleInfluxDB">
+                    <div class="col s12" id="influxDBEvents">
+                        <div class="row">
+                            <div class="col s2 m1 l1 left">
+                                <a id="influxDBAdded" class="btn-floating btn-backitup waves-effect waves-light blue table-button-add"><i class="material-icons btn-backitup" style="background-color:#3399CC;">add</i></a>
+                            </div>
+                        </div>
+                        <div class="table-values-div table-values-fix">
+                            <table class="table-values influxDBTable">
+                                <thead>
+                                    <tr>
+                                        <th data-name="_index" id="influxDBEvents_col_0" style="width: 50px; background: #174475; text-align: center" data-style="text-align: center">Nr</th>
+                                        <th data-name="host" id="influxDBEvents_col_1" data-type="text" style="background: #174475" class="translate">Host</th>
+                                        <th data-name="port" id="influxDBEvents_col_2" data-type="number" style="background: #174475" class="translate">port</th>
+                                        <th data-name="dbName" id="influxDBEvents_col_3" data-type="text" style="background: #174475" class="translate">InfluxDB database name</th>
+                                        <th data-name="nameSuffix" id="influxDBEvents_col_4" data-type="text" style="background: #174475" class="translate">Name suffix</th>
+                                        <th data-name="exe" id="influxDBEvents_col_5" data-type="text" style="background: #174475" class="translate">Full path</th>
+                                        <th data-buttons="copy up down delete" style="width: 90px; background: #174475"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row influxRemote">
                     <div class="col s12">
                         <div class="card-panel" style="background-color:#174475;">
@@ -484,7 +627,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6 l3">
-                        <a class="waves-effect waves-light btn detect-history" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                        <a class="waves-effect waves-light btn btn-backitup detect-history" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
                     </div>
                 </div>
                 <div class="row">
@@ -496,29 +639,6 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="translate">Backup of all stored data of the history adapter</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Javascripts Backup -->
-            <div id="tab-javascripts" class="col s12 page">
-                <div class="row" style="padding: 2px;">
-                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Javascripts Backup</h6>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6 l3">
-                        <a class="waves-effect waves-light btn detect-javascripts" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6 l6 javascripts_path">
-                        <input class="value" id="javascriptsPath" type="text"/>
-                        <label for="javascriptsPath" class="translate">Javascripts File path</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <div class="translate">Backup of all scripts from Javascript adapter</div>
                     </div>
                 </div>
             </div>
@@ -847,15 +967,21 @@
                 </div>
                 <div class="row webDAV">
                     <div class="col s12">
-                        <a id="testWebDAV" class="waves-effect waves-light btn" style="background-color:#3399CC;"><i class="material-icons left">wifi_tethering</i><span class="translate">Test connection</span></a>
+                        <a id="testWebDAV" class="waves-effect waves-light btn btn-backitup" style="background-color:#3399CC;"><i class="material-icons left">wifi_tethering</i><span class="translate">Test connection</span></a>
                     </div>
                 </div>
                 <div class="row webDAV">
-                    <div class="input-field col s12">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="webdavSignedCertificates" type="checkbox"/>
+                        <label for="webdavSignedCertificates" class="translate">Allow only signed certificates</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
                         <input class="value" id="webdavDeleteOldBackup" type="checkbox"/>
                         <label for="webdavDeleteOldBackup" class="translate">Delete old WebDAV-Backups</label>
                     </div>
-                    <div class="input-field col s12">
+                </div>
+                    <div class="row webDAV">
+                    <div class="input-field col s12 m6 l4">
                         <input class="value" id="webdavOwnDir" type="checkbox"/>
                         <label for="webdavOwnDir" class="translate">Extra path for backup types</label>
                     </div>
@@ -928,7 +1054,7 @@
                         <input class="value" id="googledriveAccessJson" type="hidden"/>
                         <span class="translate">Access token: </span>
                         <span class="translate" id="googledriveAccessJson_span" style="font-weight: bold">Not present</span>
-                        <a class="waves-effect waves-light btn btn-iobroker get-googledrive-json" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Get Google Drive Access</span></a>
+                        <a class="waves-effect waves-light btn btn-backitup btn-iobroker get-googledrive-json" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Get Google Drive Access</span></a>
                     </div>
                     <div class="input-field col s12 get-googledrive-url" style="display: none">
                         <span class="translate">Authorize this app by visiting this url: </span>
@@ -937,7 +1063,7 @@
                     <div class="input-field col s3 get-googledrive-code" style="display: none">
                         <input id="get-googledrive-code" type="text"/>
                         <label for="get-googledrive-code" class="translate">Enter the code from that page here</label>
-                        <a class="waves-effect waves-light btn btn-iobroker get-googledrive-submit" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Submit</span></a>
+                        <a class="waves-effect waves-light btn btn-backitup btn-iobroker get-googledrive-submit" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Submit</span></a>
                     </div>
                 </div>
                 <div class="row googledrive">
@@ -986,7 +1112,7 @@
 						<label for="restoreSource" class="translate">source type</label>
                     </div>
                     <div class="input-field col s6 m2">
-                        <a class="waves-effect waves-light btn btn-iobroker do-list" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
+                        <a class="waves-effect waves-light btn btn-backitup btn-iobroker do-list" style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">Get list</span></a>
                     </div>
                     <div class="input-field col s6 l6">
                         <input class="value" id="startAllRestore" type="checkbox"/>

@@ -18,6 +18,8 @@ let timerOutput2;
 let timerUmount1;
 let timerUmount2;
 let timerMain;
+let slaveTimeOut;
+let waitToSlaveBackup;
 
 let systemLang = 'de';                                  // system language
 const backupConfig = {};
@@ -118,6 +120,11 @@ function startAdapter(options) {
 
                         }), 500);
                     adapter.setState('oneClick.' + type, false, true);
+
+                    if (adapter.config.slaveInstance && type == 'iobroker' && adapter.config.hostType == 'Master') {
+                        adapter.log.debug('Slave backup from Backitup-Master is started ...');
+                        startSlaveBackup(adapter.config.slaveInstance[0], null);
+                    }
                 });
             }
         }
@@ -141,6 +148,8 @@ function startAdapter(options) {
             clearTimeout(timerUmount1);
             clearTimeout(timerUmount2);
             clearTimeout(timerMain);
+            clearTimeout(slaveTimeOut);
+            clearTimeout(waitToSlaveBackup);
             callback();
         } catch (e) {
             callback();
@@ -203,22 +212,93 @@ function startAdapter(options) {
                     }
                     break;
 
+                case 'getSystemInfo':
+                    if (obj) {
+                        let systemInfo;
+                        if (fs.existsSync('/opt/scripts/.docker_config/.thisisdocker')) { // Docker Image Support >= 5.2.0
+                            systemInfo = 'docker';
+                        } else {
+                            systemInfo = process.platform;
+                        }
+                        try {
+                            adapter.sendTo(obj.from, obj.command, systemInfo, obj.callback);
+                        } catch (err) {
+                            err && adapter.log.error(err);
+                        }
+                    }
+                    break;
+
                 case 'testWebDAV':
                     if (obj.message) {
                         const { createClient } = require("webdav");
+                        const agent = require("https").Agent({ rejectUnauthorized: obj.message.config.signedCertificates });
 
                         const client = createClient(
                             obj.message.config.host,
                             {
                                 username: obj.message.config.username,
                                 password: obj.message.config.password,
-                                maxBodyLength: Infinity
+                                maxBodyLength: Infinity,
+                                httpsAgent: agent
                             });
 
                         client
                             .getDirectoryContents('')
                             .then(contents => obj.callback && adapter.sendTo(obj.from, obj.command, contents, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: JSON.stringify(err.message) }, obj.callback));
+                    }
+                    break;
+                case 'slaveBackup':
+                    if (obj && obj.message) {
+                        if (adapter.config.hostType == 'Slave') {
+                            adapter.log.debug('Slave Backup started ...');
+                            const type = 'iobroker';
+                            let config;
+                            try {
+                                config = JSON.parse(JSON.stringify(backupConfig[type]));
+                                config.enabled = true;
+                                config.deleteBackupAfter = obj.message.config.deleteAfter ? obj.message.config.deleteAfter : 0; // do delete files with specification from Master
+                            } catch (e) {
+                                adapter.log.warn('backup error: ' + e + ' ... please check your config and try again!!');
+                            }
+                            startBackup(config, err => {
+                                if (err) {
+                                    adapter.log.error(`[${type}] ${err}`);
+
+                                } else {
+                                    adapter.log.debug(`[${type}] exec: done`);
+                                }
+                                timerOutput = setTimeout(() =>
+                                    adapter.getState('output.line', (err, state) => {
+                                        if (state && state.val === '[EXIT] 0') {
+                                            adapter.setState('history.' + type + 'Success', true, true);
+                                            adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang), true);
+                                            try {
+                                                adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
+                                            } catch (err) {
+                                                err && adapter.log.error(err);
+                                                adapter.log.error('slave Backup not finish!');
+                                            }
+                                        } else {
+                                            adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
+                                            adapter.setState('history.' + type + 'Success', false, true);
+                                            if (state && state.val) {
+                                                try {
+                                                    adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
+                                                } catch (err) {
+                                                    err && adapter.log.error(err);
+                                                    adapter.log.error('slave Backup not finish!');
+                                                }
+                                            }
+                                        }
+
+                                    }), 500);
+                                adapter.setState('oneClick.' + type, false, true);
+                            });
+                        } else {
+                            adapter.log.warn('Your Backitup Instance is not configured as a slave');
+                            adapter.sendTo(obj.from, obj.command, 'not configured as a slave', obj.callback);
+                        }
                     }
                     break;
             }
@@ -308,6 +388,11 @@ function createBackupSchedule() {
                         }), 500);
                     nextBackup(0, false, type);
                     adapter.setState('oneClick.' + type, false, true);
+
+                    if (adapter.config.slaveInstance && type == 'iobroker' && adapter.config.hostType == 'Master') {
+                        adapter.log.debug('Slave backup from Backitup-Master is started ...');
+                        startSlaveBackup(adapter.config.slaveInstance[0], null);
+                    }
                 });
             });
 
@@ -330,6 +415,8 @@ function initConfig(secret) {
     if (adapter.config.redisEnabled === undefined) {
         adapter.config.redisEnabled = adapter.config.backupRedis
     }
+
+    decryptEvents(secret);
 
     const telegram = {
         enabled: adapter.config.notificationEnabled,
@@ -440,7 +527,8 @@ function initConfig(secret) {
         ownDir: adapter.config.webdavOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.webdavOwnDir === true) ? null : adapter.config.webdavDir,
-        dirMinimal: adapter.config.webdavMinimalDir
+        dirMinimal: adapter.config.webdavMinimalDir,
+        signedCertificates: adapter.config.webdavSignedCertificates
     };
 
     const googledrive = {
@@ -487,6 +575,7 @@ function initConfig(secret) {
         enabled: adapter.config.minimalEnabled,
         time: adapter.config.minimalTime,
         debugging: adapter.config.debugLevel,
+        slaveBackup: adapter.config.hostType,
         everyXDays: adapter.config.minimalEveryXDays,
         nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
         deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backupfiles after x days
@@ -505,6 +594,8 @@ function initConfig(secret) {
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             mysqlQuick: adapter.config.mysqlQuick,
+            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            hostType: adapter.config.hostType,
             mysqlSingleTransaction: adapter.config.mysqlSingleTransaction,
             dbName: adapter.config.mySqlName,              // database name
             user: adapter.config.mySqlUser,                // database user
@@ -512,6 +603,8 @@ function initConfig(secret) {
             deleteBackupAfter: adapter.config.mySqlDeleteAfter, // delete old backupfiles after x days
             host: adapter.config.mySqlHost,                // database host
             port: adapter.config.mySqlPort,                // database port
+            mySqlEvents: adapter.config.mySqlEvents,
+            mySqlMulti: adapter.config.mySqlMulti,
             exe: adapter.config.mySqlDumpExe               // path to mysqldump
         },
         dir: tools.getIobDir(),
@@ -524,12 +617,16 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            hostType: adapter.config.hostType,
             deleteBackupAfter: adapter.config.influxDBDeleteAfter,  // delete old backupfiles after x days
             dbName: adapter.config.influxDBName,                    // database name
             host: adapter.config.influxDBHost,                      // database host
             port: adapter.config.influxDBPort,                      // database port
             exe: adapter.config.influxDBDumpExe,                    // path to influxDBdump
             dbType: adapter.config.influxDBType,                    // type of influxdb Backup
+            influxDBEvents: adapter.config.influxDBEvents,
+            influxDBMulti: adapter.config.influxDBMulti,
             deleteDataBase: adapter.config.deleteOldDataBase             // delete old database for restore
         },
         pgsql: {
@@ -541,12 +638,16 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            hostType: adapter.config.hostType,
             dbName: adapter.config.pgSqlName,              // database name
             user: adapter.config.pgSqlUser,                // database user
             pass: adapter.config.pgSqlPassword ? decrypt(secret, adapter.config.pgSqlPassword) : '',            // database password
             deleteBackupAfter: adapter.config.pgSqlDeleteAfter, // delete old backupfiles after x days
             host: adapter.config.pgSqlHost,                // database host
             port: adapter.config.pgSqlPort,                // database port
+            pgSqlEvents: adapter.config.pgSqlEvents,
+            pgSqlMulti: adapter.config.pgSqlMulti,
             exe: adapter.config.pgSqlDumpExe               // path to mysqldump
         },
         redis: {
@@ -558,6 +659,9 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             aof: adapter.config.redisAOFactive,
+            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            hostType: adapter.config.hostType,
             path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
         },
         historyDB: {
@@ -569,6 +673,9 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: adapter.config.historyPath,
+            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            hostType: adapter.config.hostType,
         },
         zigbee: {
             enabled: adapter.config.zigbeeEnabled,
@@ -579,6 +686,22 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: path.join(tools.getIobDir(), 'iobroker-data'), // specify zigbee path
+            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            hostType: adapter.config.hostType,
+        },
+        yahka: {
+            enabled: adapter.config.yahkaEnabled,
+            type: 'creator',
+            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+            path: path.join(tools.getIobDir(), 'iobroker-data'), // specify yahka path
+            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            hostType: adapter.config.hostType,
         },
         jarvis: {
             enabled: adapter.config.jarvisEnabled,
@@ -589,6 +712,9 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: path.join(tools.getIobDir(), 'iobroker-data'), // specify jarvis backup path
+            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            hostType: adapter.config.hostType,
         },
         javascripts: {
             enabled: adapter.config.javascriptsEnabled,
@@ -598,7 +724,9 @@ function initConfig(secret) {
             dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            filePath: adapter.config.javascriptsPath
+            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            hostType: adapter.config.hostType,
+            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
         },
         grafana: {
             enabled: adapter.config.grafanaEnabled,
@@ -614,6 +742,9 @@ function initConfig(secret) {
             username: adapter.config.grafanaUsername,
             pass: adapter.config.grafanaPassword ? decrypt(secret, adapter.config.grafanaPassword) : '',
             apiKey: adapter.config.grafanaApiKey,
+            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            hostType: adapter.config.hostType,
         },
         historyHTML,
         historyJSON,
@@ -632,6 +763,7 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         everyXDays: adapter.config.ccuEveryXDays,
         nameSuffix: adapter.config.ccuNameSuffix,               // names addition, appended to the file name
+        //deleteBackupAfter: adapter.config.ccuMulti === true ? adapter.config.ccuDeleteAfter * adapter.config.ccuEvents.length : adapter.config.ccuDeleteAfter,       // delete old backupfiles after x days
         deleteBackupAfter: adapter.config.ccuDeleteAfter,       // delete old backupfiles after x days
 
         ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpCcuDir } : {}),
@@ -650,6 +782,8 @@ function initConfig(secret) {
         user: adapter.config.ccuUser,                                                           // username CCU
         usehttps: adapter.config.ccuUsehttps,                                                   // Use https for CCU Connect
         pass: adapter.config.ccuPassword ? decrypt(secret, adapter.config.ccuPassword) : '',    // password der CCU
+        ccuEvents: adapter.config.ccuEvents,
+        ccuMulti: adapter.config.ccuMulti,
     };
 }
 
@@ -693,6 +827,7 @@ function createBashScripts() {
     const isWin = process.platform.startsWith('win');
 
     if (isWin) {
+        adapter.log.debug(`Backitup has recognized a ${process.platform} system`);
         if (!fs.existsSync(__dirname + '/lib/stopIOB.bat')) {
             try {
                 fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\nif exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-stop\n)\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
@@ -707,7 +842,34 @@ function createBashScripts() {
                 adapter.log.error('cannot create startIOB.bat: ' + e + 'Please run "iobroker fix"');
             }
         }
+    } else if (fs.existsSync('/opt/scripts/.docker_config/.thisisdocker')) { // Docker Image Support >= 5.2.0
+        adapter.log.debug(`Backitup has recognized a Docker system`);
+        if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
+            try {
+                fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `#!/bin/bash\n# iobroker stop for restore\ngosu iobroker ${path.join(__dirname, 'lib')}/external.sh`);
+                fs.chmodSync(__dirname + '/lib/stopIOB.sh', 508);
+            } catch (e) {
+                adapter.log.error('cannot create stopIOB.sh: ' + e + 'Please run "iobroker fix"');
+            }
+        }
+        if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
+            try {
+                fs.writeFileSync(__dirname + '/lib/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\ngosu root /opt/scripts/maintenance.sh off -y`);
+                fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
+            } catch (e) {
+                adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
+            }
+        }
+        if (!fs.existsSync(__dirname + '/lib/external.sh')) {
+            try {
+                fs.writeFileSync(__dirname + '/lib/external.sh', `#!/bin/bash\n# restore\ngosu iobroker /opt/scripts/maintenance.sh on -y -kbn\nsleep 3\ncd "${path.join(__dirname, 'lib')}"\ngosu iobroker node restore.js`);
+                fs.chmodSync(__dirname + '/lib/external.sh', 508);
+            } catch (e) {
+                adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
+            }
+        }
     } else {
+        adapter.log.debug(`Backitup has recognized a ${process.platform} system`);
         if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
             try {
                 fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `# iobroker stop for restore\nsudo systemd-run --uid=iobroker bash ${path.join(__dirname, 'lib')}/external.sh`);
@@ -956,6 +1118,93 @@ function nextBackup(diffDays, setMain, type, date) {
     }
 }
 
+async function startSlaveBackup(slaveInstance, num) {
+    let waitForInstance = 1000;
+
+    if (num == null) {
+        num = 0;
+    }
+
+    try {
+        const currentState = await adapter.getForeignStateAsync(`system.adapter.${slaveInstance}.alive`, 'state');
+
+        if (currentState && currentState.val === false) {
+            waitForInstance = 10000;
+            adapter.log.debug(`Try to start ${slaveInstance}`);
+            await adapter.setForeignStateAsync(`system.adapter.${slaveInstance}.alive`, true);
+        }
+    } catch (err) {
+        adapter.log.error(`error on slave State: ${err}`)
+    }
+
+    waitToSlaveBackup = setTimeout(async () => {
+        try {
+            const currentStateAfter = await adapter.getForeignStateAsync(`system.adapter.${slaveInstance}.alive`, 'state');
+
+            if (currentStateAfter && currentStateAfter.val && currentStateAfter.val === true) {
+                const sendToSlave = await adapter.sendToAsync(slaveInstance, 'slaveBackup', { config: { deleteAfter: adapter.config.minimalDeleteAfter } });
+
+                if (sendToSlave) {
+                    adapter.log.debug(`Slave Backup from ${slaveInstance} is finish with result: ${sendToSlave}`);
+                } else {
+                    adapter.log.debug(`Slave Backup error from ${slaveInstance}: ${error}`);
+                }
+
+                if (adapter.config.stopSlaveAfter) {
+                    await adapter.setForeignStateAsync(`system.adapter.${slaveInstance}.alive`, false);
+                    adapter.log.debug(`${slaveInstance} is stopped after backup`);
+                }
+
+                num++;
+
+                if (adapter.config.slaveInstance.length > 1 && num != adapter.config.slaveInstance.length) {
+                    return slaveTimeOut = setTimeout(startSlaveBackup, 3000, adapter.config.slaveInstance[num], num);
+                } else {
+                    adapter.log.debug('slave backups are completed');
+                }
+            } else {
+                num++;
+                adapter.log.warn(`${slaveInstance} is not running. The slave backup for this instance is not possible`);
+
+                if (adapter.config.slaveInstance.length > 1 && num != adapter.config.slaveInstance.length) {
+                    return slaveTimeOut = setTimeout(startSlaveBackup, 3000, adapter.config.slaveInstance[num], num);
+                } else {
+                    adapter.log.debug('slave backups are completed');
+                }
+            }
+        } catch (err) {
+            adapter.log.error(`error on slave Backup: ${err}`)
+        }
+    }, waitForInstance);
+}
+
+function decryptEvents(secret) {
+    if (adapter.config.ccuEvents && adapter.config.ccuMulti) {
+        for (let i = 0; i < adapter.config.ccuEvents.length; i++) {
+            if (adapter.config.ccuEvents[i].pass) {
+                const val = adapter.config.ccuEvents[i].pass;
+                adapter.config.ccuEvents[i].pass = val ? decrypt(secret, val) : '';
+            }
+        }
+    }
+    if (adapter.config.mySqlEvents && adapter.config.mySqlMulti) {
+        for (let i = 0; i < adapter.config.mySqlEvents.length; i++) {
+            if (adapter.config.mySqlEvents[i].pass) {
+                const val = adapter.config.mySqlEvents[i].pass;
+                adapter.config.mySqlEvents[i].pass = val ? decrypt(secret, val) : '';
+            }
+        }
+    }
+    if (adapter.config.pgSqlEvents && adapter.config.pgSqlMulti) {
+        for (let i = 0; i < adapter.config.pgSqlEvents.length; i++) {
+            if (adapter.config.pgSqlEvents[i].pass) {
+                const val = adapter.config.pgSqlEvents[i].pass;
+                adapter.config.pgSqlEvents[i].pass = val ? decrypt(secret, val) : '';
+            }
+        }
+    }
+}
+
 async function main(adapter) {
     createBashScripts();
     readLogFile();
@@ -977,10 +1226,12 @@ async function main(adapter) {
 
         checkStates();
 
-        createBackupSchedule();
-        nextBackup(1, true, null);
+        if (adapter.config.hostType !== 'Slave') {
+            createBackupSchedule();
+            nextBackup(1, true, null);
 
-        detectLatestBackupFile(adapter);
+            detectLatestBackupFile(adapter);
+        }
     });
 
     // subscribe on all variables of this adapter instance with pattern "adapterName.X.memory*"

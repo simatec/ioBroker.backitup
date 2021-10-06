@@ -7,10 +7,16 @@
 [![Downloads](https://img.shields.io/npm/dm/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
 [![Dependency Status](https://img.shields.io/david/simatec/iobroker.backitup.svg)](https://david-dm.org/simatec/iobroker.backitup)
 [![Known Vulnerabilities](https://snyk.io/test/github/simatec/ioBroker.backitup/badge.svg)](https://snyk.io/test/github/simatec/ioBroker.backitup)
+![Test and Release](https://github.com/simatec/ioBroker.backitup/workflows/Test%20and%20Release/badge.svg)
 [![Travis-CI](http://img.shields.io/travis/simatec/ioBroker.backitup/master.svg)](https://travis-ci.org/simatec/ioBroker.backitup)
 
 [![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
 
+**Wenn Ihnen Backitup gefällt, denken Sie bitte über eine Spende nach:**
+  
+[![paypal](https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4EEXQ6U96ZTQ&source=url)
+
+**************************************************************************************************************
 
 # Inhalt
 * [Grundlegendes](#grundlegendes)
@@ -27,6 +33,7 @@
     * [Jarvis-Backup](#Jarvis-Backup)
     * [Zigbee-Backup](#Zigbee-Backup)
     * [Grafana-Backup](#Grafana-Backup)
+    * [Yahka-Backup](#Yahka-Backup)
 * [Speicher-Optionen](#Speicher-Optionen)
     * [CIFS](#CIFS)
     * [NFS](#NFS)
@@ -35,6 +42,8 @@
     * [Dropbox](#Dropbox)
     * [Google Drive](#Google-Drive)
     * [WebDAV](#WebDAV)
+* [Multihost Unterstützung](#Multihost-Unterstützung)
+* [Docker Unterstützung](#Docker-Unterstützung)
 * [Verwendung](#Verwendung)
 * [Benachichtigungen](#Benachichtigungen)
 * [Restore](#Restore)
@@ -91,10 +100,13 @@ Dieses Backup entspricht dem in IoBroker enthaltenen Backup welches man in der K
 
 ## CCU Backup (Homematic)
 Dieses Backup bietet die Möglichkeit 3 verschiedene Varianten einer Homematic Installations (CCU-Original / pivCCU / Raspberrymatic) zu sichern. Auch die Ausführung dieses Backups kann durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt werden.
+<br><br>
+Wer nicht nur eine CCU sichern will, kann die Option "Sicherung mehrerer Systeme" aktivieren und im Anschluss seine Homematic Zentralen in der Tabelle definieren.
 
 ## Mysql-Backup
 Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
-Wichig hierbei ist, dass auch wenn der Mysql-Server auf einem entferten System läuft, die mysqldump auf dem ioBroker System laufen muss.<br>Für Linuxsysteme wäre der Installationsbefehl wie folgt: `sudo apt-get install mysql-client` oder unter Debian `sudo apt-get install default-mysql-client`
+Wichig hierbei ist, dass auch wenn der Mysql-Server auf einem entferten System läuft, die mysqldump auf dem ioBroker System laufen muss.<br>Für Linuxsysteme wäre der Installationsbefehl wie folgt: `sudo apt-get install mysql-client` oder unter Debian `sudo apt-get install default-mysql-client`.<br><br>
+Wer nicht nur eine Datenbank sichern will, kann die Option "Sicherung mehrerer Systeme" aktivieren und im Anschluss seine Datenbanken in der Tabelle definieren.
 
 ## Redis-Backup
 Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br>
@@ -123,16 +135,19 @@ bind-address = "0.0.0.0:8088"
 
 **Nach dem Änderungen in der Konfiguration muss der InfluxDB-Dienst neugestartet werden.**
 
-Weitere Informationen zur Datensicherung der InfluxDB sind [hier](https://docs.influxdata.com/influxdb/v1.8/administration/backup_and_restore/#online-backup-and-restore-for-influxdb-oss) zu finden.
+Weitere Informationen zur Datensicherung der InfluxDB sind [hier](https://docs.influxdata.com/influxdb/v1.8/administration/backup_and_restore/#online-backup-and-restore-for-influxdb-oss) zu finden.<br><br>
+Wer nicht nur eine Datenbank sichern will, kann die Option "Sicherung mehrerer Systeme" aktivieren und im Anschluss seine Datenbanken in der Tabelle definieren.
 
 ## PostgreSQL-Backup
 Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
-Wichig hierbei ist, dass auch wenn der PostgreSQL-Server auf einem entferten System läuft, die PostgreSQL auf dem ioBroker System laufen muss.<br>Für Linuxsysteme gibt es [hier](https://www.postgresql.org/download/linux/debian/) eine Installationsanleitung
+Wichig hierbei ist, dass auch wenn der PostgreSQL-Server auf einem entferten System läuft, die PostgreSQL auf dem ioBroker System laufen muss.<br>Für Linuxsysteme gibt es [hier](https://www.postgresql.org/download/linux/debian/) eine Installationsanleitung.<br><br>
+Wer nicht nur eine Datenbank sichern will, kann die Option "Sicherung mehrerer Systeme" aktivieren und im Anschluss seine Datenbanken in der Tabelle definieren.
 
 ## Javascript-Backup
 Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
-Um das Javascript Backup erstellen zu können, muss im Vorfeld in der Javascript-Adapter Konfiguration die Menüpunkte "Spiegeln von Skripten in den Dateipfad" und "Instanz, die Spiegelung macht" festgelegt werden.<br>
-Backitup kann dann im Konfiguartionsmenü die Einstellungen übernehmen
+Ab Backitup-Version 2.2.0 werden Skripte direkt aus den Objekten gesichert. Javascript-Backups aus älteren Backitup-Version sind für einen Restore nicht kompatibel!!<br><br>
+Um mit Backitup-Versionen < 2.2.0 Javascript Sicherungen durchführen zu können, muss im Vorfeld in der Javascript-Adapter Konfiguration die Menüpunkte "Spiegeln von Skripten in den Dateipfad" und "Instanz, die Spiegelung macht" festgelegt werden.<br>
+Backitup kann dann im Konfiguartionsmenü die Einstellungen übernehmen.
 
 ## Jarvis-Backup
 Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
@@ -146,6 +161,10 @@ Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backu
 **Um ein Grafana-Backup erstellen zu können, wird der Benutzername und das Passwort von Grafana benötigt.**<br><br>
 **Des Weiteren muss in der Grafana-Weboberfläche ein Api-Key erzeugt werden, um Zugriff auf die Dashboards zu bekommen.**<br>
 Der Api-Key kann unter ***"Configuration → API Keys"*** erstellt werden.
+
+## Yahka-Backup
+Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
+Es werden alle Systemeinstellungen und Geräteeinstellungen von Homkit gesichert.
 
 ### [zurück](#Inhalt)
 ---
@@ -195,9 +214,41 @@ Keine Tokens oder Anwenderdaten werden in der Cloud gespeichert.
 Mit WebDAV bietet Backitup die Möglichkeit mehrere Cloudsysteme anzusprechen.<br>Die bekannteste ist hier NextCloud.
 Um eine WebDAV-Verbindung herzustellen, weren der Username und das Passwort des Cloud Accounts benötigt.<br>
 Die Verbindung zur Cloud erfolgt über eine verschlüsselte Verbindung.<br><br>
-Um eine Verbindung aufbauen zu können, muss der Hostname der Cloud alle Sicherheitszertifikate erfüllen.
-Eine Verbindung mit lokaler IP-Adresse ist nicht möglich, da diese keine Lets Encrypt Zertifikate enthält.<br><br>
-> Beispiel URL: "https://example.com/remote.php/dav/files/username/"
+Um eine Verbindung aufbauen zu können, muss der Hostname der Cloud alle Sicherheitszertifikate erfüllen.<br><br>
+> Beispiel URL: "https://example.com/remote.php/dav/files/username/"<br><br>
+Eine Verbindung mit lokaler IP-Adresse ist nur möglich, wenn die Option "Nur signierte Zertifikate zulassen" deaktiviert ist.
+
+### [zurück](#Inhalt)
+---
+
+# Multihost Unterstützung
+Ab Backitup Version 2.2.0 wird Multihost für die Sicherung entfernter Systeme (z.B. Zigbee oder entfernte Datenbanken) unterstützt. Multihost für Backitup kann mit mehreren Instanzen von Backitup auf verschiedenen Hosts arbeiten.<br>
+Ein Instanz von Backitup muss zur Unterstützung als Master konfiguriert. Alle weiteren Instanzen, die sich auf entfernten Hosts befinden, werden als Slave konfiguriert.<br><br>
+Das Management der automatischen Backups übernimmt der Master. Alle Slave Instanzen können im Master über das Menü ausgewählt werden.<br>
+Für die Slave Instanzen können folgende Backup-Optionen aktiviert werden:<br>
+* Redis
+* Zigbee
+* Jarvis
+* History
+* InfluxDB
+* MySql
+* PostgreSql
+* Grafana
+* Yahka
+
+Da in einer Slave Instanz die automatischen Backups durch den Master geregelt werden, sind iobroker-Backups, Javascript-Backups und CCU-Backups nicht auswählbar.<br><br>
+Die Speicherorte für die einzelnen Backups können auf jedem Slave frei konfiguriert werden. So kann jeder sein Dateiablagesystem unabhängig vom Master gestallten.<br><br>
+
+Bei Systemen mit begrenzten RAM kann der Backitup Master die Slave Instanzen für den Backupprozess automatisch starten und im Anschluss wieder stoppen.<br>
+Diese Option ist im Menü konfigurierbar. 
+
+### [zurück](#Inhalt)
+---
+
+# Docker Unterstützung
+Ab Version 2.2.0 wird das Backup und der Restore im offizielen Docker-Container unterstützt.<br><br>
+Da im Docker keine Datenbanksysteme installiert werden sollten, werden Backups sämtlicher Datenbanken nicht unterstützt und sind bei einem erkannten Docker-Container nicht auswählbar.<br>
+Die Unterstützung für Backitup wird im offizielen iobroker Docker Container ab Version v5.2.0-beta4 unterstützt.
 
 ### [zurück](#Inhalt)
 ---
