@@ -1242,11 +1242,18 @@ function showHideSettings(settings) {
     } else {
         $('.tab-grafana').hide();
     }
+    if ($('#ccuUsehttps').prop('checked')) {
+        $('.ccuCert').show();
+    } else {
+        $('.ccuCert').hide();
+    }
+    /*
     if ($('#javascriptsEnabled').prop('checked')) {
         checkAdapterInstall('javascript', common.host);
     } else {
         cleanIgnoreMessage('javascript');
     }
+    */
     if ($('#zigbeeEnabled').prop('checked')) {
         checkAdapterInstall('zigbee', common.host);
     } else {

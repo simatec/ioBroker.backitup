@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.2.0",
+    "version": "2.2.1",
     "news": {
+      "2.2.1": {
+        "en": "CCU option to use self-signed certificates; small fix for Javascript Message",
+        "de": "CCU-Option zur Verwendung selbstsignierter Zertifikate; kleiner Fix für Javascript Message",
+        "ru": "Возможность CCU использовать самоподписанные сертификаты; небольшое исправление для сообщения Javascript",
+        "pt": "Opção CCU para usar certificados autoassinados; pequena correção para mensagem Javascript",
+        "nl": "CCU-optie om zelfondertekende certificaten te gebruiken; kleine oplossing voor Javascript-bericht",
+        "fr": "Option CCU pour utiliser des certificats auto-signés ; petit correctif pour Javascript Message",
+        "it": "opzione CCU per utilizzare certificati autofirmati; piccola correzione per il messaggio Javascript",
+        "es": "Opción CCU para utilizar certificados autofirmados; pequeña corrección para el mensaje de Javascript",
+        "pl": "Opcja CCU do korzystania z certyfikatów z podpisem własnym; mała poprawka dla wiadomości JavaScript"
+      },
       "2.2.0": {
         "en": "multihost function for master/slave systems added, Multi CCU Backup added, Multi InfluxDB Backup added, Multi MySql Backup added, Multi PGSql Backup added, Yahka backup added, Yahka Restore added, new Restore Interface added, new Tab-Menu added, Docker Support added, delete option for temp-directory added, breaking changes!! Javascript Backup from Objects added, breaking changes!! Javascript Restore from Objects added, WebDav option to use self-signed certificates",
         "de": "Multihost-Funktion für Master/Slave-Systeme hinzugefügt, Multi CCU Backup hinzugefügt, Multi InfluxDB Backup hinzugefügt, Multi MySql Backup hinzugefügt, Multi PGSql Backup hinzugefügt, Yahka Backup hinzugefügt, Yahka Restore hinzugefügt, neues Restore Interface hinzugefügt, neues Tab-Menü hinzugefügt, Docker Support hinzugefügt, Lösch Option für temp-Verzeichnis hinzugefügt, Breaking Changes!! Javascript-Backup von Objekten hinzugefügt, Breaking Changes!! Javascript-Wiederherstellung aus Objekten hinzugefügt, WebDav-Option zur Verwendung selbstsignierter Zertifikate",
@@ -90,17 +101,6 @@
         "it": "adminTab modificato, traduzione modificata",
         "es": "adminTab editado, traducción cambiada",
         "pl": "Edytowano zakładkę admin, zmieniono tłumaczenie"
-      },
-      "2.1.10": {
-        "en": "Bugfix adminTab",
-        "de": "Bugfix adminTab",
-        "ru": "Исправление ошибки adminTab",
-        "pt": "Bugfix adminTab",
-        "nl": "Bugfix adminTab",
-        "fr": "Correctif AdminTab",
-        "it": "Bugfix adminTab",
-        "es": "Corrección de errores adminTab",
-        "pl": "Bugfix adminTab"
       }
     },
     "title": "BackItUp",
@@ -209,6 +209,7 @@
     "ccuMulti": false,
     "ccuEvents": [],
     "ccuUsehttps": false,
+    "ccuSignedCertificates": true,
     "webdavEnabled": false,
     "webdavUsername": "username",
     "webdavPassword": "",
