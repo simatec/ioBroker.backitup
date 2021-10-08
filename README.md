@@ -40,6 +40,10 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 2.2.1 (08.10.2021)
+* (simatec) CCU option to use self-signed certificates
+* (simatec) small fix for Javascript Message
+
 ### 2.2.0 (06.10.2021)
 * (simatec) multihost function for master/slave systems added
 * (simatec) Multi CCU Backup added
