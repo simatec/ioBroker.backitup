@@ -1132,7 +1132,6 @@ function showHideSettings(settings) {
             }
         } else {
             $('#minimalEnabled').removeClass('disabled');
-            $('#minimalEnabled').prop('checked', true);
             $('#minimalEnabled').prop('disabled', false);
 
             $('#ccuEnabled').removeClass('disabled');
@@ -1141,7 +1140,6 @@ function showHideSettings(settings) {
             $('#javascriptsEnabled').removeClass('disabled');
             $('#javascriptsEnabled').prop('disabled', false);
 
-            $('.tab-iobroker-backup').show();
             $('.slaveSuffix').hide();
         }
     }).trigger('change');
