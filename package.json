@@ -38,17 +38,17 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.5.1",
-    "dropbox-v2-api": "^2.4.49",
+    "dropbox-v2-api": "^2.4.52",
     "webdav": "^4.7.0",
     "ftp": "^0.3.10",
     "@googleapis/drive": "^0.3.1",
     "node-schedule": "^2.0.0",
     "node-wol": "^0.1.1",
     "request": "^2.88.2",
-    "google-auth-library": "^7.10.0",
+    "google-auth-library": "^7.10.2",
     "express": "^4.17.1",
     "fs-extra": "^10.0.0",
-    "axios": "^0.22.0",
+    "axios": "^0.24.0",
     "tar-fs": "^2.1.1"
   },
   "devDependencies": {
