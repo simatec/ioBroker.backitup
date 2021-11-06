@@ -1,8 +1,19 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.2.1",
+    "version": "2.2.2",
     "news": {
+      "2.2.2": {
+        "en": "Fix CCU option to use self-signed certificates, Fix Config Menu, dependabot added, small Bugfixes",
+        "de": "Fix CCU-Option zur Verwendung selbstsignierter Zertifikate, Fix Config Menu, Dependabot hinzugefügt, kleine Bugfixes",
+        "ru": "Опция Fix CCU для использования самозаверяющих сертификатов, меню Fix Config, добавлен зависимый бот, небольшие исправления",
+        "pt": "Opção de correção de CCU para usar certificados autoassinados, menu de configuração de correção, dependabot adicionado, pequenas correções de bugs",
+        "nl": "Fix CCU-optie om zelfondertekende certificaten te gebruiken, Fix Config Menu, dependabot toegevoegd, kleine bugfixes",
+        "fr": "Correction de l'option CCU pour utiliser des certificats auto-signés, Fix Config Menu, dependabot ajouté, petites corrections de bugs",
+        "it": "Correzione dell'opzione CCU per utilizzare certificati autofirmati, menu di configurazione corretto, aggiunta di dependabot, piccole correzioni di bug",
+        "es": "Se corrigió la opción de CCU para usar certificados autofirmados, menú de configuración de reparación, se agregó un robot dependiente, pequeñas correcciones de errores",
+        "pl": "Napraw opcję CCU, aby używać certyfikatów z podpisem własnym, Fix Config Menu, dodany dependabot, małe poprawki błędów"
+      },
       "2.2.1": {
         "en": "CCU option to use self-signed certificates; small fix for Javascript Message",
         "de": "CCU-Option zur Verwendung selbstsignierter Zertifikate; kleiner Fix für Javascript Message",
@@ -90,17 +101,6 @@
         "it": "adminTab modificato, traduzione modificata, dipendenze aggiornate, più debug per mount aggiunto, cronologia bugfix json",
         "es": "adminTab editado, traducción cambiada, dependencias actualizadas, más depuración para montaje agregado, historial de corrección de errores json",
         "pl": "Edytowano zakładkę admin, zmieniono tłumaczenie, zaktualizowano zależności, dodano więcej funkcji debugowania dla montowania, plik JSON z historią poprawek błędów"
-      },
-      "2.1.11": {
-        "en": "adminTab edited, translation changed",
-        "de": "adminTab bearbeitet, Übersetzung geändert",
-        "ru": "adminTab отредактирован, перевод изменен",
-        "pt": "adminTab editado, tradução alterada",
-        "nl": "adminTab bewerkt, vertaling gewijzigd",
-        "fr": "adminTab modifié, traduction modifiée",
-        "it": "adminTab modificato, traduzione modificata",
-        "es": "adminTab editado, traducción cambiada",
-        "pl": "Edytowano zakładkę admin, zmieniono tłumaczenie"
       }
     },
     "title": "BackItUp",
