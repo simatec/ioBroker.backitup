@@ -25,9 +25,10 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [12.x]
+
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2.4.1
         with:
@@ -59,7 +60,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2.4.1
         with:
@@ -70,8 +71,8 @@ jobs:
 
 #      - name: Run local tests
 #        run: npm test
-#      - name: Run unit tests
-#        run: npm run test:unit
+      - name: Run unit tests
+        run: npm run test:unit
       - name: Run integration tests # (linux/osx)
         if: startsWith(runner.OS, 'windows') == false
         run: DEBUG=testing:* npm run test:integration
@@ -91,11 +92,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [12.x]
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v2
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2.4.1
@@ -103,17 +104,18 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Extract the version and commit body from the tag
+        id: extract_release
         # The body may be multiline, therefore we need to escape some characters
         run: |
           VERSION="${{ github.ref }}"
           VERSION=${VERSION##*/}
           VERSION=${VERSION##*v}
-          echo "::set-env name=VERSION::$VERSION"
+          echo "::set-output name=VERSION::$VERSION"
           BODY=$(git show -s --format=%b)
           BODY="${BODY//'%'/'%25'}"
           BODY="${BODY//$'\n'/'%0A'}"
           BODY="${BODY//$'\r'/'%0D'}"
-          echo "::set-env name=BODY::$BODY"
+          echo "::set-output name=BODY::$BODY"
 
       - name: Install Dependencies
         run: npm ci
@@ -132,11 +134,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release v${{ env.VERSION }}
+          release_name: Release v${{ steps.extract_release.outputs.VERSION }}
           draft: false
           # Prerelease versions create prereleases on Github
-          prerelease: ${{ contains(env.VERSION, '-') }}
-          body: ${{ env.BODY }}
+          prerelease: ${{ contains(steps.extract_release.outputs.VERSION, '-') }}
+          body: ${{ steps.extract_release.outputs.BODY }}
 
       - name: Notify Sentry.io about the release
         run: |
@@ -145,13 +147,10 @@ jobs:
           export SENTRY_URL=https://sentry.iobroker.net
           export SENTRY_ORG=iobroker
           export SENTRY_PROJECT=iobroker-backitup
-          export SENTRY_VERSION=iobroker.backitup@${{ env.VERSION }}
+          export SENTRY_VERSION=iobroker.backitup@${{ steps.extract_release.outputs.VERSION }}
           sentry-cli releases new $SENTRY_VERSION
           sentry-cli releases set-commits $SENTRY_VERSION --auto
           sentry-cli releases finalize $SENTRY_VERSION
-
-        # Add the following line BEFORE finalize if repositories are connected in Sentry
-        # sentry-cli releases set-commits $SENTRY_VERSION --auto
 
         # Add the following line BEFORE finalize if sourcemap uploads are needed
         # sentry-cli releases files $SENTRY_VERSION upload-sourcemaps build/
