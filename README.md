@@ -40,6 +40,32 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
+### 2.2.2 (06.11.2021)
+* (simatec) Fix CCU option to use self-signed certificates
+* (simatec) Fix Config Menu
+* (simatec) dependabot added
+* (simatec) small Bugfixes
+
+### 2.2.1 (08.10.2021)
+* (simatec) CCU option to use self-signed certificates
+* (simatec) small fix for Javascript Message
+
+### 2.2.0 (06.10.2021)
+* (simatec) multihost function for master/slave systems added
+* (simatec) Multi CCU Backup added
+* (simatec) Multi InfluxDB Backup added
+* (simatec) Multi MySql Backup added
+* (simatec) Multi PGSql Backup added
+* (simatec) Yahka backup added
+* (simatec) Yahka Restore added
+* (simatec) new Restore Interface added
+* (simatec) new Tab-Menu added
+* (simatec) Docker Support added
+* (simatec) delete option for temp-directory added
+* (simatec) breaking changes!! Javascript Backup from Objects added
+* (simatec) breaking changes!! Javascript Restore from Objects added
+* (simatec) WebDav option to use self-signed certificates
+
 ### 2.1.17 (15.08.2021)
 * (simatec) dependencies updated
 * (simatec) Preparation for dark design by Admin 5

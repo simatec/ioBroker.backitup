@@ -51,6 +51,9 @@ $(document).ready(function () {
     });
 });
 
+function currentTheme() {
+    return theme;
+}
 
 // Read language settings
 function loadSystemConfig(callback) {

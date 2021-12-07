@@ -114,7 +114,6 @@ function fetchInfluxDBConfig(isInitial) {
                 var native = res.rows[i].value.native;
                 if (common.enabled) {
                     $('#influxDBHost').val(native.host).trigger('change');
-                    //$('#influxDBPort').val(native.port === '8086' ? 8086 : 8088 || 8088).trigger('change');
                     $('#influxDBName').val(native.dbname).trigger('change');
                     var id = res.rows[i].value.
                         found = res.rows[i].value._id;
@@ -126,7 +125,6 @@ function fetchInfluxDBConfig(isInitial) {
                     var _native = res.rows[j].value.native;
                     $('#influxDBHost').val(_native.host).trigger('change');
                     $('#influxDBName').val(_native.dbname).trigger('change');
-                    //$('#influxDBPort').val(_native.port === '0' ? 8088 : native.port || 8088).trigger('change');
                     found = res.rows[j].value._id;
                     break;
                 }
@@ -207,40 +205,8 @@ function fetchHistoryConfig(isInitial) {
         }
     });
 }
-function fetchJavascriptsConfig(isInitial) {
-    socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.javascript.', endkey: 'system.adapter.javascript.\u9999', include_docs: true }, function (err, res) {
-        let javaScriptPth;
-        if (res && res.rows && res.rows.length) {
-            var found = false;
-            for (var i = 0; i < res.rows.length; i++) {
-                var common = res.rows[i].value.common;
-                if (common.enabled) {
-                    var native = res.rows[i].value.native;
-                    $('#javascriptsPath').val(native.mirrorPath).trigger('change');
-                    javaScriptPth = native.mirrorPath;
-                    found = res.rows[i].value._id;
-                    break;
-                }
-            }
-            if (!found) {
-                for (var j = 0; j < res.rows.length; j++) {
-                    var _native = res.rows[j].value.native;
-                    $('#javascriptsPath').val(_native.mirrorPath).trigger('change');
-                    javaScriptPth = _native.mirrorPath;
-                    found = res.rows[j].value._id;
-                }
-            }
-        }
-        if (found && javaScriptPth !== '') {
-            M.updateTextFields();
-            found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
-        } else {
-            !isInitial && showMessage(_("No config found. Please check the settings in the Javascript adapter"), _('Backitup Warning!'), 'info');
-        }
-    });
-}
-let ignoreMessage = [];
+
+var ignoreMessage = [];
 
 function cleanIgnoreMessage(name) {
     for (const i in ignoreMessage) {
@@ -252,8 +218,8 @@ function cleanIgnoreMessage(name) {
 }
 
 function checkAdapterInstall(name, backitupHost) {
-    let ignore = false;
-    let adapterName = name;
+    var ignore = false;
+    var adapterName = name;
 
     if (name == 'pgsql' || name == 'mysql') {
         adapterName = 'sql';
@@ -269,7 +235,7 @@ function checkAdapterInstall(name, backitupHost) {
             if (res && res.rows && res.rows.length) {
                 for (var i = 0; i < res.rows.length; i++) {
                     var common = res.rows[i].value.common;
-                    if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'jarvis' || adapterName == 'history' || adapterName == 'javascript')) {
+                    if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history' || adapterName == 'javascript')) {
                         showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
                         ignoreMessage.push(name);
                         break;
@@ -378,6 +344,113 @@ function load(settings, onChange) {
             });
         }
     });
+
+    sendTo(null, 'getSystemInfo', null, function (obj) {
+        if (obj == 'docker') {
+            var $influxDBEnabled = $('#influxDBEnabled');
+            var $mySqlEnabled = $('#mySqlEnabled');
+            var $pgSqlEnabled = $('#pgSqlEnabled');
+            var $redisEnabled = $('#redisEnabled');
+            var $startAllRestore = $('#startAllRestore');
+
+            $('#influxDBEnabled').prop('checked', false);
+            $('#mySqlEnabled').prop('checked', false);
+            $('#pgSqlEnabled').prop('checked', false);
+            $('#redisEnabled').prop('checked', false);
+            $('#startAllRestore').prop('checked', false);
+
+            $('#influxDBEnabled').prop('disabled', true);
+            $('#mySqlEnabled').prop('disabled', true);
+            $('#pgSqlEnabled').prop('disabled', true);
+            $('#redisEnabled').prop('disabled', true);
+            $('#startAllRestore').prop('disabled', true);
+
+            $influxDBEnabled.addClass('disabled');
+            $mySqlEnabled.addClass('disabled');
+            $pgSqlEnabled.addClass('disabled');
+            $redisEnabled.addClass('disabled');
+            $startAllRestore.addClass('disabled');
+        }
+    });
+
+    ccuEvents = settings.ccuEvents || [];
+    influxDBEvents = settings.influxDBEvents || [];
+    mySqlEvents = settings.mySqlEvents || [];
+    pgSqlEvents = settings.pgSqlEvents || [];
+
+    if (pgSqlEvents && pgSqlEvents.length) {
+        for (var i = 0; i < pgSqlEvents.length; i++) {
+            var val = pgSqlEvents[i].pass ? pgSqlEvents[i].pass : '';
+            pgSqlEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+        }
+    }
+
+    if (mySqlEvents && mySqlEvents.length) {
+        for (var i = 0; i < mySqlEvents.length; i++) {
+            var val = mySqlEvents[i].pass ? mySqlEvents[i].pass : '';
+            mySqlEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+        }
+    }
+
+    if (ccuEvents && ccuEvents.length) {
+        for (var i = 0; i < ccuEvents.length; i++) {
+            var val = ccuEvents[i].pass ? ccuEvents[i].pass : '';
+            ccuEvents[i].pass = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+        }
+    }
+
+    values2table('ccuEvents', ccuEvents, onChange);
+    values2table('influxDBEvents', influxDBEvents, onChange);
+    values2table('mySqlEvents', mySqlEvents, onChange);
+    values2table('pgSqlEvents', pgSqlEvents, onChange);
+
+    $('#ccuAdded').on('click', function () {
+        var devices = table2values('ccuEvents');
+        var id = 0;
+        for (var i = 0; i < devices.length; i++) {
+            id++;
+        }
+        setTimeout(function () {
+            $('#ccuEvents .values-input[data-name="nameSuffix"][data-index="' + id + '"]').val(`CCU-${id + 1}`).trigger('change');
+        }, 250);
+    });
+
+    $('#influxDBAdded').on('click', function () {
+        var devices = table2values('influxDBEvents');
+        var id = 0;
+        for (var i = 0; i < devices.length; i++) {
+            id++;
+        }
+        setTimeout(function () {
+            $('#influxDBEvents .values-input[data-name="port"][data-index="' + id + '"]').val(8088).trigger('change');
+            $('#influxDBEvents .values-input[data-name="nameSuffix"][data-index="' + id + '"]').val(`influxDB-${id + 1}`).trigger('change');
+        }, 250);
+    });
+
+    $('#mySqlAdded').on('click', function () {
+        var devices = table2values('mySqlEvents');
+        var id = 0;
+        for (var i = 0; i < devices.length; i++) {
+            id++;
+        }
+        setTimeout(function () {
+            $('#mySqlEvents .values-input[data-name="port"][data-index="' + id + '"]').val(3306).trigger('change');
+            $('#mySqlEvents .values-input[data-name="nameSuffix"][data-index="' + id + '"]').val(`mySqlDB-${id + 1}`).trigger('change');
+        }, 250);
+    });
+
+    $('#pgSqlAdded').on('click', function () {
+        var devices = table2values('pgSqlEvents');
+        var id = 0;
+        for (var i = 0; i < devices.length; i++) {
+            id++;
+        }
+        setTimeout(function () {
+            $('#pgSqlEvents .values-input[data-name="port"][data-index="' + id + '"]').val(5432).trigger('change');
+            $('#pgSqlEvents .values-input[data-name="nameSuffix"][data-index="' + id + '"]').val(`pgSqlDB-${id + 1}`).trigger('change');
+        }, 250);
+    });
+
     getIsAdapterAlive(function (isAlive) {
         if (isAlive || common.enabled) {
             $('.do-backup')
@@ -476,7 +549,8 @@ function load(settings, onChange) {
                             config: {
                                 host: $('#webdavURL').val(),
                                 username: $('#webdavUsername').val(),
-                                password: $('#webdavPassword').val()
+                                password: $('#webdavPassword').val(),
+                                signedCertificates: $('#webdavSignedCertificates').prop('checked') ? true : false
                             }
                         }, function (response) {
                             $('#testWebDAV').removeClass('disabled');
@@ -491,12 +565,6 @@ function load(settings, onChange) {
             });
 
             $('.do-list').removeClass('disabled').on('click', function () {
-                /*
-                if (changed) {
-                    showMessage(_('Save the configuration first'));
-                    return;
-                }
-                */
                 $('.do-list').addClass('disabled');
                 $('#tab-restore').find('.root').html('');
                 $('.doRestore').hide();
@@ -517,7 +585,7 @@ function load(settings, onChange) {
                         for (var type in data) {
                             if (!data.hasOwnProperty(type)) continue;
 
-                            let storageTyp;
+                            var storageTyp = '';
                             // Storage Translate
                             switch (type) {
                                 case 'webdav':
@@ -540,7 +608,6 @@ function load(settings, onChange) {
                                     break;
                             }
 
-                            //text += '<li><div class="collapsible-header top">' + _(storageTyp) + '</div>';
                             text += '<li><div class="collapsible-header top"><i class="material-icons">expand_more</i><h6>' + _(storageTyp) + '</h6></div>';
                             text += '<ul class="collapsible-body collection">';
                             for (var storage in data[type]) {
@@ -568,13 +635,13 @@ function load(settings, onChange) {
                             var file = $(this).data('file');
                             var name = file.split('/').pop().split('_')[0];
 
-                            let message = ('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
-                            let downloadPanel = false;
-                            if (settings.restoreSource === 'dropbox' || settings.restoreSource === 'googledrive' || settings.restoreSource === 'webdav' || settings.restoreSource === 'ftp') {
-                                message = ('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
+                            var message = _('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
+                            var downloadPanel = false;
+                            if ($('#restoreSource').val() === 'dropbox' || $('#restoreSource').val() === 'googledrive' || $('#restoreSource').val() === 'ftp' || $('#restoreSource').val() === 'webdav') {
+                                message = _('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
                                 downloadPanel = true;
                             }
-                            let isStopped = false;
+                            var isStopped = false;
                             if (file.search('grafana') == -1 &&
                                 file.search('jarvis') == -1 &&
                                 file.search('javascripts') == -1 &&
@@ -582,16 +649,20 @@ function load(settings, onChange) {
                                 file.search('influxDB') == -1 &&
                                 file.search('pgsql') == -1 &&
                                 file.search('zigbee') == -1 &&
+                                file.search('yahka') == -1 &&
                                 file.search('historyDB') == -1) {
                                 isStopped = true;
                             } else {
                                 if (downloadPanel) {
-                                    message = ('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After the download, the restore begins without restarting ioBroker.');
+                                    message = _('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After the download, the restore begins without restarting ioBroker.');
                                 } else {
-                                    message = ('<br/><br/>ioBroker will not be restarted for this restore.<br/><br/>Confirm with \"OK\".');
+                                    message = _('<br/><br/>ioBroker will not be restarted for this restore.<br/><br/>Confirm with \"OK\".');
                                 }
                             }
-                            confirmMessage(name !== '' ? _(message) : _('Ready'), _('Are you sure?'), null, [_('Cancel'), _('OK')], function (result) {
+                            if (isStopped) {
+                                message += _('<br/><br/><br/><b>After confirmation, a new tab opens with the Restore Log.</b><br/><b>If the tab does not open, please deactivate your popup blocker.</b>')
+                            }
+                            confirmMessage(name !== '' ? message : _('Ready'), _('Are you sure?'), null, [_('Cancel'), _('OK')], function (result) {
                                 if (result === 1) {
                                     if (downloadPanel) {
                                         $('.cloudRestore').show();
@@ -613,10 +684,11 @@ function load(settings, onChange) {
                                             console.log('Restore finish!')
                                             if (isStopped) {
                                                 //Create Link for Restore Interface
-                                                var link = "http://" + location.hostname + ":8091/backitup-restore";
+                                                var link = "http://" + location.hostname + ":8091/backitup-restore.html";
                                                 // Log Window for Restore Interface
                                                 setTimeout(function () {
-                                                    window.open(link, '_blank');
+                                                    $('<a href="' + link + '" target="_blank">&nbsp;</a>')[0].click();
+                                                    //window.open(link, '_blank');
                                                 }, 5000);
                                             }
                                             //var name = file.split('/').pop().split('_')[0];
@@ -699,18 +771,21 @@ function load(settings, onChange) {
     onChange(false);
     M.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
     getAdapterInstances('telegram', function (instances) {
-        fillInstances('telegramInstance', instances, settings['telegramInstance']);
+        fillInstances('telegramInstance', instances, settings['telegramInstance'], 'telegram');
+    });
+    getAdapterInstances('backitup', function (instances) {
+        fillSlaveInstances('slaveInstance', instances, settings['slaveInstance'], 'backitup');
     });
     getAdapterInstances('whatsapp-cmb', function (instances) {
-        fillInstances('whatsappInstance', instances, settings['whatsappInstance']);
+        fillInstances('whatsappInstance', instances, settings['whatsappInstance'], 'whatsapp-cmb');
     });
 
     getAdapterInstances('email', function (instances) {
-        fillInstances('emailInstance', instances, settings['emailInstance']);
+        fillInstances('emailInstance', instances, settings['emailInstance'], 'email');
     });
 
     getAdapterInstances('pushover', function (instances) {
-        fillInstances('pushoverInstance', instances, settings['pushoverInstance']);
+        fillInstances('pushoverInstance', instances, settings['pushoverInstance'], 'pushover');
     });
 
     if ($('#ccuEnabled').prop('checked') && !settings.ccuHost) {
@@ -718,9 +793,6 @@ function load(settings, onChange) {
     }
     if ($('#historyEnabled').prop('checked') && !settings.historyPath) {
         fetchHistoryConfig(true);
-    }
-    if ($('#javascriptsEnabled').prop('checked') && !settings.javascriptsPath) {
-        fetchJavascriptsConfig(true);
     }
     if ($('#mySqlEnabled').prop('checked') && !settings.mySqlUser) {
         fetchMySqlConfig(true)
@@ -737,7 +809,6 @@ function load(settings, onChange) {
     $('.detect-influxDB').on('click', function () { fetchInfluxDBConfig() });
     $('.detect-ccu').on('click', function () { fetchCcuConfig() });
     $('.detect-history').on('click', function () { fetchHistoryConfig() });
-    $('.detect-javascripts').on('click', function () { fetchJavascriptsConfig() });
 
     sendTo(null, 'getTelegramUser', { config: { instance: settings.telegramInstance } }, function (obj) {
         fillTelegramUser(settings['telegramUser'], obj, settings.telegramInstance)
@@ -780,17 +851,32 @@ function fillTelegramUser(id, str, telegramInst) {
     }
 }
 
-function fillInstances(id, arr, val) {
+function fillInstances(id, arr, val, name) {
     var $sel = $('#' + id);
     $sel.html('<option value="">' + _('none') + '</option>');
     for (var i = 0; i < arr.length; i++) {
         var _id = arr[i]._id.replace('system.adapter.', '');
-        // Take first value
-        //            if (!val) val = _id;
         $sel.append('<option value="' + _id + '"' + (_id === val ? ' selected' : '') + '>' + _id + '</option>');
     }
     $sel.select();
 }
+
+function fillSlaveInstances(id, arr, val, name) {
+    var $sel = $('#' + id);
+    $sel.html('');
+    var instances = [];
+    for (var i = 0; i < arr.length; i++) {
+        var _id = arr[i]._id.replace('system.adapter.', '');
+        if (_id != ('backitup.' + instance)) {
+            instances.push(_id);
+        }
+    }
+    for (var j in instances) {
+        $sel.append('<option value="' + instances[j] + '"' + (val.indexOf(instances[j]) != -1 ? ' selected' : '') + '>' + instances[j] + '</option>');
+    }
+    $sel.select();
+}
+
 function save(callback) {
     var obj = {};
     $('.value').each(function () {
@@ -806,8 +892,35 @@ function save(callback) {
             obj[id] = val;
         }
     });
+    // Get edited tables
+    obj.ccuEvents = table2values('ccuEvents');
+    if (obj.ccuEvents && obj.ccuEvents.length) {
+        for (var i = 0; i < obj.ccuEvents.length; i++) {
+            var val = obj.ccuEvents[i].pass ? obj.ccuEvents[i].pass : '';
+            obj.ccuEvents[i].pass = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+        }
+    }
+
+    obj.influxDBEvents = table2values('influxDBEvents');
+
+    obj.mySqlEvents = table2values('mySqlEvents');
+    if (obj.mySqlEvents && obj.mySqlEvents.length) {
+        for (var i = 0; i < obj.mySqlEvents.length; i++) {
+            var val = obj.mySqlEvents[i].pass ? obj.mySqlEvents[i].pass : '';
+            obj.mySqlEvents[i].pass = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+        }
+    }
+
+    obj.pgSqlEvents = table2values('pgSqlEvents');
+    if (obj.pgSqlEvents && obj.pgSqlEvents.length) {
+        for (var i = 0; i < obj.pgSqlEvents.length; i++) {
+            var val = obj.pgSqlEvents[i].pass ? obj.pgSqlEvents[i].pass : '';
+            obj.pgSqlEvents[i].pass = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
+        }
+    }
+
     callback(obj);
-    
+
 }
 function showHideSettings(settings) {
     if ($('#ftpEnabled').prop('checked')) {
@@ -848,6 +961,7 @@ function showHideSettings(settings) {
         $('.dropbox-extra').hide();
         $('.dropbox-standard').show();
     }
+
     if ($('#webdavOwnDir').prop('checked')) {
         $('.webDAV-extra').show();
         $('.webDAV-standard').hide();
@@ -855,6 +969,7 @@ function showHideSettings(settings) {
         $('.webDAV-extra').hide();
         $('.webDAV-standard').show();
     }
+
     if ($('#googledriveOwnDir').prop('checked')) {
         $('.googledrive-extra').show();
         $('.googledrive-standard').hide();
@@ -862,63 +977,89 @@ function showHideSettings(settings) {
         $('.googledrive-extra').hide();
         $('.googledrive-standard').show();
     }
+
     if ($('#redisEnabled').prop('checked')) {
         $('.redis_path').show();
     } else {
         $('.redis_path').hide();
     }
+
     if ($('#historyEnabled').prop('checked')) {
         $('.history_path').show();
     } else {
         $('.history_path').hide();
     }
-    if ($('#javascriptsEnabled').prop('checked')) {
-        $('.javascripts_path').show();
-    } else {
-        $('.javascripts_path').hide();
-    }
+
     if ($('#telegramEnabled').prop('checked')) {
         $('.telegram_inst').show();
     } else {
         $('.telegram_inst').hide();
     }
+
     if ($('#minimalEnabled').prop('checked')) {
         $('.tab-iobroker-backup').show();
     } else {
         $('.tab-iobroker-backup').hide();
     }
+
     if ($('#ccuEnabled').prop('checked')) {
         $('.tab-ccu-backup').show();
     } else {
         $('.tab-ccu-backup').hide();
     }
+
     if ($('#mySqlEnabled').prop('checked')) {
         $('.mysql').show();
     } else {
         $('.mysql').hide();
     }
+
     if ($('#pgSqlEnabled').prop('checked')) {
         $('.pgsql').show();
     } else {
         $('.pgsql').hide();
     }
+
     if ($('#influxDBEnabled').prop('checked')) {
         $('.influxDB').show();
     } else {
         $('.influxDB').hide();
     }
+
     var minimal = $('#minimalEnabled').prop('checked');
     if (minimal) {
         $('.minimal').show();
     } else {
         $('.minimal').hide();
     }
-    var total = $('#totalEnabled').prop('checked');
-    if (total) {
-        $('.total').show();
+
+    var _multiCCU = $('#ccuMulti').prop('checked');
+    if (_multiCCU) {
+        $('.multiCCU').hide();
+        $('.singleCCU').show();
     } else {
-        $('.total').hide();
+        $('.multiCCU').show();
+        $('.singleCCU').hide();
     }
+
+    var _multiMySql = $('#mySqlMulti').prop('checked');
+    if (_multiMySql) {
+        $('.multiMySql').hide();
+        $('.singleMySql').show();
+    } else {
+        $('.multiMySql').show();
+        $('.singleMySql').hide();
+    }
+
+    var _multiPGSql = $('#pgSqlMulti').prop('checked');
+    if (_multiPGSql) {
+        $('.multiPgSql').hide();
+        $('.singlePgSql').show();
+    } else {
+        $('.multiPgSql').show();
+        $('.singlePgSql').hide();
+    }
+
     $('#connectType').on('change', function () {
         if ($(this).val() === 'NFS') {
             $('.nfs').hide();
@@ -932,18 +1073,79 @@ function showHideSettings(settings) {
         }
     }).trigger('change');
 
+    var _multiInfluxDB = $('#influxDBMulti').prop('checked');
+    if (_multiInfluxDB) {
+        $('.multiInfluxDB').hide();
+        $('.influxRemote').hide();
+        $('.singleInfluxDB').show();
+        $('.detect-influxDB').addClass('disabled');
+    } else {
+        $('.multiInfluxDB').show();
+        $('.influxRemote').show();
+        $('.singleInfluxDB').hide();
+        $('.detect-influxDB').removeClass('disabled');
+    }
+
     $('#influxDBType').on('change', function () {
-        if ($(this).val() === 'remote') {
+        if ($(this).val() === 'remote' && !_multiInfluxDB) {
             $('.influxRemote').show();
             $('.influxLocal').hide();
-        } else if ($(this).val() === 'local') {
+            $('.influxDBTable').removeClass('influxShowLocal');
+        } else if ($(this).val() === 'local' && !_multiInfluxDB) {
             $('.influxRemote').hide();
             $('.influxLocal').show();
+            $('.influxDBTable').addClass('influxShowLocal');
+        } else if ($(this).val() === 'remote' && _multiInfluxDB) {
+            $('.influxRemote').hide();
+            $('.influxDBTable').removeClass('influxShowLocal');
+        } else if ($(this).val() === 'local' && _multiInfluxDB) {
+            $('.influxRemote').hide();
+            $('.influxDBTable').addClass('influxShowLocal');
+        }
+    }).trigger('change');
+
+    $('#hostType').on('change', function () {
+        if ($(this).val() === 'Master') {
+            $('.slaveInst').show();
+        } else {
+            $('.slaveInst').hide();
+        }
+        if ($(this).val() === 'Slave') {
+            $('#minimalEnabled').prop('checked', false);
+            $('#minimalEnabled').addClass('disabled');
+            $('#minimalEnabled').prop('disabled', true);
+            $('.tab-iobroker-backup').hide();
+
+            $('#ccuEnabled').prop('checked', false);
+            $('#ccuEnabled').addClass('disabled');
+            $('#ccuEnabled').prop('disabled', true);
+            $('.tab-ccu-backup').hide();
+
+            $('#javascriptsEnabled').prop('checked', false);
+            $('#javascriptsEnabled').addClass('disabled');
+            $('#javascriptsEnabled').prop('disabled', true);
+
+            $('.slaveSuffix').show();
+            if (settings.slaveNameSuffix == '') {
+                $('#slaveNameSuffix').val('slave-' + instance).trigger('change');
+                M.updateTextFields();
+            }
+        } else {
+            $('#minimalEnabled').removeClass('disabled');
+            $('#minimalEnabled').prop('disabled', false);
+
+            $('#ccuEnabled').removeClass('disabled');
+            $('#ccuEnabled').prop('disabled', false);
+
+            $('#javascriptsEnabled').removeClass('disabled');
+            $('#javascriptsEnabled').prop('disabled', false);
+
+            $('.slaveSuffix').hide();
         }
     }).trigger('change');
 
     $('#restoreSource').on('change', function () {
-            $('.doRestore').hide();
+        $('.doRestore').hide();
     }).trigger('change');
 
     $('#notificationsType').on('change', function () {
@@ -1038,17 +1240,27 @@ function showHideSettings(settings) {
     } else {
         $('.tab-grafana').hide();
     }
+    if ($('#ccuUsehttps').prop('checked')) {
+        $('.ccuCert').show();
+    } else {
+        $('.ccuCert').hide();
+    }
+    /*
     if ($('#javascriptsEnabled').prop('checked')) {
         checkAdapterInstall('javascript', common.host);
-        $('.tab-javascripts').show();
     } else {
-        $('.tab-javascripts').hide();
         cleanIgnoreMessage('javascript');
     }
+    */
     if ($('#zigbeeEnabled').prop('checked')) {
         checkAdapterInstall('zigbee', common.host);
     } else {
         cleanIgnoreMessage('zigbee');
+    }
+    if ($('#yahkaEnabled').prop('checked')) {
+        checkAdapterInstall('yahka', common.host);
+    } else {
+        cleanIgnoreMessage('yahka');
     }
     if ($('#jarvisEnabled').prop('checked')) {
         checkAdapterInstall('jarvis', common.host);
@@ -1056,7 +1268,7 @@ function showHideSettings(settings) {
         cleanIgnoreMessage('jarvis');
     }
     $('#telegramInstance').on('change', function () {
-        let telegramInst = $(this).val();
+        var telegramInst = $(this).val();
         if (telegramInst && telegramInst.length >= 10) {
             sendTo(null, 'getTelegramUser', { config: { instance: $(this).val() } }, function (obj) {
                 fillTelegramUser(settings['telegramUser'], obj, telegramInst);

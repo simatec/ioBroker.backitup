@@ -1,8 +1,41 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.1.17",
+    "version": "2.2.2",
     "news": {
+      "2.2.2": {
+        "en": "Fix CCU option to use self-signed certificates, Fix Config Menu, dependabot added, small Bugfixes",
+        "de": "Fix CCU-Option zur Verwendung selbstsignierter Zertifikate, Fix Config Menu, Dependabot hinzugefügt, kleine Bugfixes",
+        "ru": "Опция Fix CCU для использования самозаверяющих сертификатов, меню Fix Config, добавлен зависимый бот, небольшие исправления",
+        "pt": "Opção de correção de CCU para usar certificados autoassinados, menu de configuração de correção, dependabot adicionado, pequenas correções de bugs",
+        "nl": "Fix CCU-optie om zelfondertekende certificaten te gebruiken, Fix Config Menu, dependabot toegevoegd, kleine bugfixes",
+        "fr": "Correction de l'option CCU pour utiliser des certificats auto-signés, Fix Config Menu, dependabot ajouté, petites corrections de bugs",
+        "it": "Correzione dell'opzione CCU per utilizzare certificati autofirmati, menu di configurazione corretto, aggiunta di dependabot, piccole correzioni di bug",
+        "es": "Se corrigió la opción de CCU para usar certificados autofirmados, menú de configuración de reparación, se agregó un robot dependiente, pequeñas correcciones de errores",
+        "pl": "Napraw opcję CCU, aby używać certyfikatów z podpisem własnym, Fix Config Menu, dodany dependabot, małe poprawki błędów"
+      },
+      "2.2.1": {
+        "en": "CCU option to use self-signed certificates; small fix for Javascript Message",
+        "de": "CCU-Option zur Verwendung selbstsignierter Zertifikate; kleiner Fix für Javascript Message",
+        "ru": "Возможность CCU использовать самоподписанные сертификаты; небольшое исправление для сообщения Javascript",
+        "pt": "Opção CCU para usar certificados autoassinados; pequena correção para mensagem Javascript",
+        "nl": "CCU-optie om zelfondertekende certificaten te gebruiken; kleine oplossing voor Javascript-bericht",
+        "fr": "Option CCU pour utiliser des certificats auto-signés ; petit correctif pour Javascript Message",
+        "it": "opzione CCU per utilizzare certificati autofirmati; piccola correzione per il messaggio Javascript",
+        "es": "Opción CCU para utilizar certificados autofirmados; pequeña corrección para el mensaje de Javascript",
+        "pl": "Opcja CCU do korzystania z certyfikatów z podpisem własnym; mała poprawka dla wiadomości JavaScript"
+      },
+      "2.2.0": {
+        "en": "multihost function for master/slave systems added, Multi CCU Backup added, Multi InfluxDB Backup added, Multi MySql Backup added, Multi PGSql Backup added, Yahka backup added, Yahka Restore added, new Restore Interface added, new Tab-Menu added, Docker Support added, delete option for temp-directory added, breaking changes!! Javascript Backup from Objects added, breaking changes!! Javascript Restore from Objects added, WebDav option to use self-signed certificates",
+        "de": "Multihost-Funktion für Master/Slave-Systeme hinzugefügt, Multi CCU Backup hinzugefügt, Multi InfluxDB Backup hinzugefügt, Multi MySql Backup hinzugefügt, Multi PGSql Backup hinzugefügt, Yahka Backup hinzugefügt, Yahka Restore hinzugefügt, neues Restore Interface hinzugefügt, neues Tab-Menü hinzugefügt, Docker Support hinzugefügt, Lösch Option für temp-Verzeichnis hinzugefügt, Breaking Changes!! Javascript-Backup von Objekten hinzugefügt, Breaking Changes!! Javascript-Wiederherstellung aus Objekten hinzugefügt, WebDav-Option zur Verwendung selbstsignierter Zertifikate",
+        "ru": "добавлена функция multihost для систем master / slave, добавлено резервное копирование Multi CCU, добавлено резервное копирование Multi InfluxDB, добавлено резервное копирование Multi MySql, добавлено резервное копирование Multi PGSql, добавлено резервное копирование Yahka, добавлено Yahka Restore, добавлен новый интерфейс восстановления, добавлено новое меню вкладок, поддержка Docker добавлено, добавлена опция удаления для временного каталога, критические изменения !! Добавлено резервное копирование Javascript из объектов, критические изменения !! Добавлено восстановление Javascript из объектов, опция WebDav для использования самозаверяющих сертификатов",
+        "pt": "Função multihost para sistemas mestre / escravo adicionada, Backup Multi CCU adicionado, Backup Multi InfluxDB adicionado, Backup Multi MySql adicionado, Backup Multi PGSql adicionado, backup Yahka adicionado, Restauração Yahka adicionado, nova Interface de restauração adicionada, novo Tab-Menu adicionado, Suporte Docker adicionado, opção de exclusão para o diretório temporário adicionado, interrompendo as alterações !! Backup de Javascript de Objetos adicionado, mudanças significativas !! Javascript Restore from Objects adicionado, opção WebDav para usar certificados autoassinados",
+        "nl": "multihost-functie voor master/slave-systemen toegevoegd, Multi CCU Backup toegevoegd, Multi InfluxDB Backup toegevoegd, Multi MySql Backup toegevoegd, Multi PGSql Backup toegevoegd, Yahka-back-up toegevoegd, Yahka Restore toegevoegd, nieuwe Restore Interface toegevoegd, nieuw Tab-Menu toegevoegd, Docker-ondersteuning toegevoegd, verwijder optie voor tijdelijke directory toegevoegd, wijzigingen verbreken!! Javascript-back-up van objecten toegevoegd, wijzigingen doorbrekend!! Javascript herstellen van objecten toegevoegd, WebDav-optie om zelfondertekende certificaten te gebruiken",
+        "fr": "fonction multihôte pour les systèmes maître/esclave ajoutée, sauvegarde Multi CCU ajoutée, sauvegarde Multi InfluxDB ajoutée, sauvegarde Multi MySql ajoutée, sauvegarde Multi PGSql ajoutée, sauvegarde Yahka ajoutée, restauration Yahka ajoutée, nouvelle interface de restauration ajoutée, nouveau menu d'onglet ajouté, prise en charge de Docker ajouté, option de suppression pour le répertoire temporaire ajoutée, changements de rupture !! Sauvegarde Javascript à partir d'objets ajoutée, changements de rupture !! Restauration Javascript à partir d'objets ajoutée, option WebDav pour utiliser des certificats auto-signés",
+        "it": "funzione multihost per sistemi master/slave aggiunta, Multi CCU Backup aggiunto, Multi InfluxDB Backup aggiunto, Multi MySql Backup aggiunto, Multi PGSql Backup aggiunto, Yahka backup aggiunto, Yahka Restore aggiunto, nuova interfaccia di ripristino aggiunta, nuovo Tab-Menu aggiunto, supporto Docker aggiunta, opzione di eliminazione per la directory temporanea aggiunta, modifiche sostanziali!! Backup Javascript da oggetti aggiunti, modifiche sostanziali!! Ripristino Javascript da oggetti aggiunto, opzione WebDav per utilizzare certificati autofirmati",
+        "es": "función multihost para sistemas maestro / esclavo agregada, copia de seguridad de CCU múltiple agregada, copia de seguridad de Multi InfluxDB agregada, copia de seguridad de Multi MySql agregada, copia de seguridad de PGSql múltiple agregada, copia de seguridad de Yahka agregada, restauración de Yahka agregada, nueva interfaz de restauración agregada, nuevo menú de pestañas agregado, compatibilidad con Docker agregada, opción de eliminar para el directorio temporal agregada, cambios de ruptura !! Se agregó copia de seguridad de Javascript a partir de objetos, ¡cambios importantes! Restauración de Javascript a partir de objetos agregada, opción de WebDav para usar certificados autofirmados",
+        "pl": "dodano funkcję multihost dla systemów master/slave, dodano Multi CCU Backup, dodano Multi InfluxDB Backup, dodano Multi MySql Backup, dodano Multi PGSql Backup, dodano kopię zapasową Yahka, dodano Yahka Restore, dodano nowy interfejs przywracania, dodano nowe menu Tab, obsługa dockera dodano, dodano opcję usuwania dla katalogu tymczasowego, łamanie zmian!! Dodano kopię zapasową JavaScript z obiektów, łamiąc zmiany!! Dodano przywracanie JavaScript z obiektów, opcja WebDav do korzystania z certyfikatów z podpisem własnym"
+      },
       "2.1.17": {
         "en": "dependencies updated, Preparation for dark design by Admin 5",
         "de": "Abhängigkeiten aktualisiert, Vorbereitung für dunkles Design von Admin 5",
@@ -68,50 +101,6 @@
         "it": "adminTab modificato, traduzione modificata, dipendenze aggiornate, più debug per mount aggiunto, cronologia bugfix json",
         "es": "adminTab editado, traducción cambiada, dependencias actualizadas, más depuración para montaje agregado, historial de corrección de errores json",
         "pl": "Edytowano zakładkę admin, zmieniono tłumaczenie, zaktualizowano zależności, dodano więcej funkcji debugowania dla montowania, plik JSON z historią poprawek błędów"
-      },
-      "2.1.11": {
-        "en": "adminTab edited, translation changed",
-        "de": "adminTab bearbeitet, Übersetzung geändert",
-        "ru": "adminTab отредактирован, перевод изменен",
-        "pt": "adminTab editado, tradução alterada",
-        "nl": "adminTab bewerkt, vertaling gewijzigd",
-        "fr": "adminTab modifié, traduction modifiée",
-        "it": "adminTab modificato, traduzione modificata",
-        "es": "adminTab editado, traducción cambiada",
-        "pl": "Edytowano zakładkę admin, zmieniono tłumaczenie"
-      },
-      "2.1.10": {
-        "en": "Bugfix adminTab",
-        "de": "Bugfix adminTab",
-        "ru": "Исправление ошибки adminTab",
-        "pt": "Bugfix adminTab",
-        "nl": "Bugfix adminTab",
-        "fr": "Correctif AdminTab",
-        "it": "Bugfix adminTab",
-        "es": "Corrección de errores adminTab",
-        "pl": "Bugfix adminTab"
-      },
-      "2.1.9": {
-        "en": "adminTab for admin 5 changed",
-        "de": "adminTab für admin 5 geändert",
-        "ru": "adminTab для администратора 5 изменен",
-        "pt": "adminTab para admin 5 alterado",
-        "nl": "adminTabblad voor admin 5 gewijzigd",
-        "fr": "adminTab for admin 5 a changé",
-        "it": "adminTab per admin 5 è cambiato",
-        "es": "adminTab para admin 5 cambiado",
-        "pl": "Zmieniono zakładkę admin dla admin 5"
-      },
-      "2.1.8": {
-        "en": "adminTab for admin 5 changed",
-        "de": "adminTab für admin 5 geändert",
-        "ru": "adminTab для администратора 5 изменен",
-        "pt": "adminTab para admin 5 alterado",
-        "nl": "adminTabblad voor admin 5 gewijzigd",
-        "fr": "adminTab for admin 5 a changé",
-        "it": "adminTab per admin 5 è cambiato",
-        "es": "adminTab para admin 5 cambiado",
-        "pl": "Zmieniono zakładkę admin dla admin 5"
       }
     },
     "title": "BackItUp",
@@ -217,7 +206,10 @@
     "ccuHost": "",
     "ccuUser": "Admin",
     "ccuPassword": "",
+    "ccuMulti": false,
+    "ccuEvents": [],
     "ccuUsehttps": false,
+    "ccuSignedCertificates": true,
     "webdavEnabled": false,
     "webdavUsername": "username",
     "webdavPassword": "",
@@ -227,6 +219,7 @@
     "webdavMinimalDir": "/backupDir/iobroker",
     "webdavCcuDir": "/backupDir/ccu",
     "webdavDir": "/backupDir",
+    "webdavSignedCertificates": true,
     "dropboxEnabled": false,
     "dropboxAccessToken": "",
     "dropboxDeleteOldBackup": false,
@@ -249,6 +242,8 @@
     "mySqlPassword": "",
     "mySqlDeleteAfter": 5,
     "mySqlDumpExe": "",
+    "mySqlMulti": false,
+    "mySqlEvents": [],
     "influxDBEnabled": false,
     "influxDBHost": "localhost",
     "influxDBPort": "8088",
@@ -256,6 +251,8 @@
     "influxDBDumpExe": "",
     "influxDBDeleteAfter": 5,
     "influxDBType": "local",
+    "influxDBMulti": false,
+    "influxDBEvents": [],
     "deleteOldDataBase": false,
     "grafanaEnabled": false,
     "grafanaHost": "",
@@ -272,6 +269,8 @@
     "pgSqlDeleteAfter": 5,
     "pgSqlDumpExe": "",
     "pgSqlEnabled": false,
+    "pgSqlMulti": false,
+    "pgSqlEvents": [],
     "cifsEnabled": false,
     "cifsMount": "",
     "cifsUser": "",
@@ -304,9 +303,9 @@
     "redisAOFactive": false,
     "historyEnabled": false,
     "historyPath": "media/usb/history",
-    "javascriptsPath": "/media/usb/scripts",
     "javascriptsEnabled": false,
     "zigbeeEnabled": false,
+    "yahkaEnabled": false,
     "jarvisEnabled": false,
     "notificationEnabled": false,
     "notificationsType": "Telegram",
@@ -336,7 +335,11 @@
     "sentry_enable": true,
     "historyEntriesNumber": 25,
     "restoreSource": "local",
-    "startAllRestore": false
+    "startAllRestore": false,
+    "hostType": "Single",
+    "slaveInstance": "backitup.1",
+    "slaveNameSuffix": "",
+    "stopSlaveAfter": false
   },
   "instanceObjects": [
     {

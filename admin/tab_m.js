@@ -87,7 +87,7 @@ function load(settings, onChange) {
                 onChange(false);
             });
         } else {
-            
+
             var val = settings[id];
             // do not call onChange direct, because onChange could expect some arguments
             $key.val(val).on('change', function () {
@@ -97,7 +97,23 @@ function load(settings, onChange) {
             });
         }
     });
+    console.log('current theme: ' + currentTheme());
     
+    sendTo(null, 'getSystemInfo', null, function (obj) {
+        if (obj == 'docker') {
+            var $startAllRestore = $('#startAllRestore');
+            $startAllRestore.addClass('disabled');
+
+            $('#startAllRestore').prop('checked', false);
+            $('#startAllRestore').prop('disabled', true);
+        }
+    });
+
+    fillBackupOptions(settings);
+    fillStorageOptions(settings);
+    backupInfo(settings);
+    fillStorageSelect(settings)
+
     getIsAdapterAlive(function (isAlive) {
         if (isAlive || common.enabled) {
             $('.do-backup')
@@ -201,7 +217,7 @@ function load(settings, onChange) {
                         for (var type in data) {
                             if (!data.hasOwnProperty(type)) continue;
 
-                            let storageTyp;
+                            var storageTyp = '';
                             // Storage Translate
                             switch (type) {
                                 case 'webdav':
@@ -254,13 +270,13 @@ function load(settings, onChange) {
                             var file = $(this).data('file');
                             var name = file.split('/').pop().split('_')[0];
 
-                            let message = ('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
-                            let downloadPanel = false;
+                            var message = _('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
+                            var downloadPanel = false;
                             if ($('#restoreSource').val() === 'dropbox' || $('#restoreSource').val() === 'googledrive' || $('#restoreSource').val() === 'webdav' || $('#restoreSource').val() === 'ftp') {
-                                message = ('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
+                                message = _('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
                                 downloadPanel = true;
                             }
-                            let isStopped = false;
+                            var isStopped = false;
                             if (file.search('grafana') == -1 &&
                                 file.search('jarvis') == -1 &&
                                 file.search('javascripts') == -1 &&
@@ -268,23 +284,27 @@ function load(settings, onChange) {
                                 file.search('influxDB') == -1 &&
                                 file.search('pgsql') == -1 &&
                                 file.search('zigbee') == -1 &&
+                                file.search('yahka') == -1 &&
                                 file.search('historyDB') == -1) {
                                 isStopped = true;
                             } else {
                                 if (downloadPanel) {
-                                    message = ('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After the download, the restore begins without restarting ioBroker.');
+                                    message = _('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After the download, the restore begins without restarting ioBroker.');
                                 } else {
-                                    message = ('<br/><br/>ioBroker will not be restarted for this restore.<br/><br/>Confirm with \"OK\".');
+                                    message = _('<br/><br/>ioBroker will not be restarted for this restore.<br/><br/>Confirm with \"OK\".');
                                 }
                             }
-                            confirmMessage(name !== '' ? _(message) : _('Ready'), _('Are you sure?'), null, [_('Cancel'), _('OK')], function (result) {
+                            if (isStopped) {
+                                message += _('<br/><br/><br/><b>After confirmation, a new tab opens with the Restore Log.</b><br/><b>If the tab does not open, please deactivate your popup blocker.</b>')
+                            }
+                            confirmMessage(name !== '' ? message : _('Ready'), _('Are you sure?'), null, [_('Cancel'), _('OK')], function (result) {
                                 if (result === 1) {
                                     if (downloadPanel) {
                                         $('.cloudRestore').show();
                                     } else {
                                         $('.cloudRestore').hide();
                                     }
-                                    
+
                                     $('#dialog-restore-show').modal('close');
                                     $('.do-list').addClass('disabled');
                                     $('.doRestore').find('.do-restore').addClass('disabled').hide();
@@ -300,10 +320,11 @@ function load(settings, onChange) {
                                             console.log('Restore finish!')
                                             if (isStopped) {
                                                 //Create Link for Restore Interface
-                                                var link = "http://" + location.hostname + ":8091/backitup-restore";
+                                                var link = "http://" + location.hostname + ":8091/backitup-restore.html";
                                                 // Log Window for Restore Interface
                                                 setTimeout(function () {
-                                                    window.open(link, '_blank');
+                                                    $('<a href="' + link + '" target="_blank">&nbsp;</a>')[0].click();
+                                                    //window.open(link, '_blank');
                                                 }, 5000);
                                             }
                                             if (downloadPanel) {
@@ -326,26 +347,7 @@ function load(settings, onChange) {
             $('.do-list').addClass('disabled');
         }
     });
-    socket.emit('getState', adapter + '.' + instance + '.history.iobrokerLastTime', function (err, state) {
-        if (state && state.val) {
-            $('#lastIobrokerBackup').text(_('Last iobroker Backup: ') + state.val);
-        }
-    });
-    socket.emit('getState', adapter + '.' + instance + '.history.ccuLastTime', function (err, state) {
-        if (state && state.val) {
-            $('#lastCCUBackup').text(_('Last CCU Backup: ') + state.val);
-        }
-    });
-    socket.emit('getState', adapter + '.' + instance + '.info.iobrokerNextTime', function (err, state) {
-        if (state && state.val) {
-            $('#nextIobrokerBackup').text(_('Next iobroker Backup: ') + state.val);
-        }
-    });
-    socket.emit('getState', adapter + '.' + instance + '.info.ccuNextTime', function (err, state) {
-        if (state && state.val) {
-            $('#nextCCUBackup').text(_('Next CCU Backup: ') + state.val);
-        }
-    });
+
     socket.emit('getState', adapter + '.' + instance + '.history.json', function (err, state) {
         if (state && state.val) {
             fillBackupJSON(JSON.parse(state.val));
@@ -354,11 +356,11 @@ function load(settings, onChange) {
     socket.on('stateChange', function (id, state) {
         if (id === 'backitup.' + instance + '.history.iobrokerLastTime') {
             if (state && state.val) {
-                $('#lastIobrokerBackup').text(_('Last iobroker Backup: ') + state.val);
+                backupInfo(settings);
             }
         } else if (id === 'backitup.' + instance + '.history.ccuLastTime') {
             if (state && state.val) {
-                $('#lastCCUBackup').text(_('Last CCU Backup: ') + state.val);
+                backupInfo(settings);
             }
         } else if (id === 'backitup.' + instance + '.history.json') {
             if (state && state.val) {
@@ -368,18 +370,46 @@ function load(settings, onChange) {
     });
 
     $('.detect-backups').on('click', function () { initDialogBackups(); });
-    
+
     showHideSettings(settings);
     onChange(false);
 
-    setTimeout (() => {
+    setTimeout(() => {
         $('.load').hide();
         $('.loadFinish').fadeIn();
     }, 200);
 
     M.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
-    
+
     initDialog();
+}
+
+function backupInfo(settings) {
+    var text = '';
+    socket.emit('getState', adapter + '.' + instance + '.history.iobrokerLastTime', function (err, state) {
+        if (state && state.val && settings.minimalEnabled) {
+            text += `<li class="next-last-backups"><b>${_('Last iobroker Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
+        }
+        socket.emit('getState', adapter + '.' + instance + '.history.ccuLastTime', function (err, state) {
+            if (state && state.val && settings.ccuEnabled) {
+                text += `<li class="next-last-backups"><b>${_('Last CCU Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
+            }
+            socket.emit('getState', adapter + '.' + instance + '.info.iobrokerNextTime', function (err, state) {
+                if (state && state.val && settings.minimalEnabled) {
+                    text += `<li class="next-last-backups"><b>${_('Next iobroker Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
+                }
+                socket.emit('getState', adapter + '.' + instance + '.info.ccuNextTime', function (err, state) {
+                    if (state && state.val && settings.ccuEnabled) {
+                        text += `<li class="next-last-backups"><b>${_('Next CCU Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
+                    }
+                    var $backups = $('.card-content-text');
+                    $backups
+                        .find('.fillBackups')
+                        .html(text);
+                });
+            });
+        });
+    });
 }
 
 function fillBackupJSON(lastBackups) {
@@ -427,57 +457,66 @@ function initDialogRestore() {
     $dialogRestore.modal('open');
 }
 
+function fillBackupOptions(settings) {
+    var _options = [];
+    if (settings.jarvisEnabled) _options.push(_('Jarvis Backup'));
+    if (settings.minimalEnabled) _options.push(_('ioBroker'));
+    if (settings.ccuEnabled) _options.push(_('Homematic CCU backup'));
+    if (settings.redisEnabled) _options.push(_('Save Redis state'));
+    if (settings.javascriptsEnabled) _options.push(_('Javascripts Backup'));
+    if (settings.zigbeeEnabled) _options.push(_('Save Zigbee database'));
+    if (settings.yahkaEnabled) _options.push(_('Yahka (Homekit) Backup'));
+    if (settings.historyEnabled) _options.push(_('Save History Data'));
+    if (settings.influxDBEnabled) _options.push(_('InfluxDB Backup'));
+    if (settings.mySqlEnabled) _options.push(_('MySql Backup'));
+    if (settings.grafanaEnabled) _options.push(_('Grafana Backup'));
+    var text = '';
+    for (var i = 0; i < _options.length; i++) {
+        text += `<li>${_options[i]}</li>`;
+    }
+    var $backupOptions = $('.card-content-text');
+    $backupOptions
+        .find('.fillBackupOptions')
+        .html(text);
+}
+
+function fillStorageSelect(settings) {
+    var selectName = [];
+    var selectsetting = [];
+    if (settings.cifsEnabled) selectName.push(_(`NAS (${_(settings.connectType)})`)), selectsetting.push('cifs');
+    if (settings.ftpEnabled) selectName.push(_('FTP')), selectsetting.push('ftp');
+    if (settings.dropboxEnabled) selectName.push(_('Dropbox')), selectsetting.push('dropbox');
+    if (settings.googledriveEnabled) selectName.push(_('Google Drive')), selectsetting.push('googledrive');
+    if (settings.webdavEnabled) selectName.push(_('WebDAV')), selectsetting.push('webdav');
+
+    var id = settings.restoreSource
+    var $sel = $('#restoreSource');
+    $sel.html('<option value="local"' + (id === 'local' ? ' selected translate' : 'translate') + '>Local</option>');
+    for (var i = 0; i < selectName.length; i++) {
+        $('#restoreSource').append('<option value="' + selectsetting[i] + '"' + (id === selectsetting[i] ? ' selected translate' : 'translate') + '>' + selectName[i] + '</option>');
+    }
+    $sel.select();
+}
+
+function fillStorageOptions(settings) {
+    var _options = [];
+    if (settings.cifsEnabled) _options.push(_(`NAS (${settings.connectType})`));
+    if (settings.ftpEnabled) _options.push(_('FTP'));
+    if (settings.dropboxEnabled) _options.push(_('Dropbox'));
+    if (settings.googledriveEnabled) _options.push(_('Google Drive'));
+    if (settings.webdavEnabled) _options.push(_('WebDAV'));
+
+    var text = '';
+    for (var i = 0; i < _options.length; i++) {
+        text += `<li>${_options[i]}</li>`;
+    }
+    var $storageOptions = $('.card-content-text');
+    $storageOptions
+        .find('.fillStorageOptions')
+        .html(text);
+}
+
 function showHideSettings(settings) {
-
-    if (!settings.jarvisEnabled) {
-        $('.jarvis-mode').hide();
-    }
-    if (!settings.minimalEnabled) {
-        $('.iobroker-mode').hide();
-    }
-    if (!settings.ccuEnabled) {
-        $('.ccu-mode').hide();
-    }
-    if (!settings.redisEnabled) {
-        $('.redis-mode').hide();
-    }
-    if (!settings.javascriptsEnabled) {
-        $('.js-mode').hide();
-    }
-    if (!settings.zigbeeEnabled) {
-        $('.zigbee-mode').hide();
-    }
-    if (!settings.historyEnabled) {
-        $('.historydb-mode').hide();
-    }
-    if (!settings.influxDBEnabled) {
-        $('.influxdb-mode').hide();
-    }
-    if (!settings.mySqlEnabled) {
-        $('.mysql-mode').hide();
-    }
-    if (!settings.pgSqlEnabled) {
-        $('.pgsql-mode').hide();
-    }
-    if (!settings.grafanaEnabled) {
-        $('.grafana-mode').hide();
-    }
-    if (!settings.cifsEnabled) {
-        $('.nas-mode').hide();
-    }
-    if (!settings.ftpEnabled) {
-        $('.ftp-mode').hide();
-    }
-    if (!settings.dropboxEnabled) {
-        $('.dropbox-mode').hide();
-    }
-    if (!settings.googledriveEnabled) {
-        $('.googledrive-mode').hide();
-    }
-    if (!settings.webdavEnabled) {
-        $('.webdav-mode').hide();
-    }
-
     if (settings.ccuEnabled) {
         $('.ccuBackup').show();
     } else {

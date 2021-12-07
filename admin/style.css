@@ -7,8 +7,13 @@
     overflow: initial;*/
     overflow: hidden;
 }
+.multiple-select-dropdown li span .combobox .combobox {
+	pointer-events: none;
+}
+.multiple-select-dropdown.dropdown-content li span, .multiple-select-dropdown.dropdown-content li span label { 
+    pointer-events: none;
+}
 
-/* Add your styles here */
 /* Header section*/
 #header-area {margin-top: 2px; margin-bottom: 1px; background-color:#174475;}
 #header-area #header-logo-title .logo {float:left; margin-right: 10px;}
@@ -32,12 +37,28 @@
 .m .row .col.m1 { width: 14%;}
 #tab-area { padding-left:0;padding-right:0; margin-top: 2px; margin-bottom: 2px; background-color:#174475; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2) }
 
+/* Tabs menu react-dark */
+.m.react-dark .tabs .tab a.active, .m .tabs .tab a:hover { color: #2196f3; }
+.m.react-dark .tabs { background-color: #272727 !important;}
+
 .m .card-panel {
     padding: 10px;
     border-radius: 4px;
 }
-.m .btn, .m .btn-flat, .m .btn-large, .m .btn-small {
+.m .btn, .m .btn-flat, .m .btn-large, .m .btn-backitup {
     border-radius: 4px;
+}
+.m.react-dark .btn, .m.react-dark .btn-flat, .m.react-dark .btn-large, .m.react-dark .btn-backitup {
+    color: #fff;
+    border-radius: 4px;
+}
+/*.m .btn:hover {*/
+.m .btn-backitup:hover, .m .btn-small:hover, .m .btn-floating:hover {
+    /*background-color: #3399CC;*/
+    background-color: rgb(35, 107, 142)!important;
+    filter: brightness(105%);
+    /*transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;*/
+    box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 .m .col .select-wrapper + label {
     top: -26px;
@@ -159,19 +180,38 @@
     border-bottom: 1px;
     border-style: solid;
 }
-.m .btn:hover {
-    background-color: #3399CC;
-    filter: brightness(115%);
-    box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+
+.table-values.influxDBTable.influxShowLocal td:nth-of-type(2), .table-values.influxDBTable.influxShowLocal td:nth-of-type(3) {
+    visibility: hidden;
+    display: none;
 }
-/*
-.modal.react-dark {
-background-color: #3b3b3b;
+.table-values.influxDBTable.influxShowLocal th:nth-of-type(2), .table-values.influxDBTable.influxShowLocal th:nth-of-type(3) {
+    visibility: hidden;
+    display: none;
 }
-.modal-footer.react-dark {
-    background-color: #3b3b3b !important;
-    }
-    .collapsible-header.react-dark {
-        background-color: #3b3b3b !important;
-        }
-        */
+.table-values th {
+    padding: 0.6rem !important;
+}
+.m td input[type="checkbox"] {
+    position: initial !important;
+}
+.table-values-fix {
+    border-radius: 4px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)
+}
+
+.m [type=checkbox]:checked+span:not(.lever):before {
+    top: 3px;
+    left: 1px;
+    width: 8px;
+    height: 13px;
+    border-top: 2px solid transparent!important;
+    border-left: 2px solid transparent!important;
+    background-color: transparent!important;
+}
+
+/* only for temp dark test 
+.adapter-body {
+    background-color: #1f1f1f;
+}
+*/
