@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.2.2",
+    "version": "2.2.3",
     "news": {
+      "2.2.3": {
+        "en": "Bugfix Error Message\ndependencies updated",
+        "de": "Bugfix-Fehlermeldung\nAbhängigkeiten aktualisiert",
+        "ru": "Сообщение об ошибке исправления\nзависимости обновлены",
+        "pt": "Mensagem de erro de correção de bug\ndependências atualizadas",
+        "nl": "Bugfix-foutmelding\nafhankelijkheden bijgewerkt",
+        "fr": "Message d'erreur de correction de bogue\ndépendances mises à jour",
+        "it": "Messaggio di errore correttore di bug\ndipendenze aggiornate",
+        "es": "Mensaje de error de corrección de errores\ndependencias actualizadas",
+        "pl": "Komunikat o błędzie naprawy\nzaktualizowano zależności",
+        "zh-cn": "错误修正错误信息\n依赖项已更新"
+      },
       "2.2.2": {
         "en": "Fix CCU option to use self-signed certificates, Fix Config Menu, dependabot added, small Bugfixes",
         "de": "Fix CCU-Option zur Verwendung selbstsignierter Zertifikate, Fix Config Menu, Dependabot hinzugefügt, kleine Bugfixes",
@@ -68,39 +80,6 @@
         "it": "Bugfix Google Drive, ottimizzazione della memoria, correzione Zigbee Restore, aggiunta selezione protocollo Grafana",
         "es": "Corrección de errores en Google Drive, optimización de memoria, corrección de restauración de Zigbee, selección de protocolo Grafana agregada",
         "pl": "Naprawiono błąd Dysku Google, optymalizację pamięci, naprawiono Zigbee Restore, dodano wybór protokołu Grafana"
-      },
-      "2.1.14": {
-        "en": "dependencies updated, RAM memory optimization,  googleapis deleted, @googleapis/drive added",
-        "de": "Abhängigkeiten aktualisiert, RAM-Speicheroptimierung, googleapis gelöscht, @googleapis/drive hinzugefügt",
-        "ru": "зависимости обновлены, оптимизация памяти RAM, googleapis удален, @ googleapis / drive добавлен",
-        "pt": "dependências atualizadas, otimização de memória RAM, googleapis excluído, @ googleapis / drive adicionado",
-        "nl": "afhankelijkheden bijgewerkt, RAM-geheugenoptimalisatie, googleapis verwijderd, @googleapis/drive toegevoegd",
-        "fr": "dépendances mises à jour, optimisation de la mémoire RAM, googleapis supprimé, @googleapis/drive ajouté",
-        "it": "dipendenze aggiornate, ottimizzazione della memoria RAM, googleapis eliminato, @googleapis/drive aggiunto",
-        "es": "dependencias actualizadas, optimización de la memoria RAM, googleapis eliminado, @ googleapis / drive agregado",
-        "pl": "zaktualizowano zależności, optymalizację pamięci RAM, usunięto googleapis, dodano @googleapis/drive"
-      },
-      "2.1.13": {
-        "en": "ready for Grafana 8.x, BugFix PostgreSQL, dependencies updated, Name sufix for Messages added",
-        "de": "bereit für Grafana 8.x, BugFix PostgreSQL, Abhängigkeiten aktualisiert, Namenszusatz für Nachrichten hinzugefügt",
-        "ru": "готов для Grafana 8.x, BugFix PostgreSQL, зависимости обновлены, добавлен суфикс имени для сообщений",
-        "pt": "pronto para Grafana 8.x, BugFix PostgreSQL, dependências atualizadas, sufix de nome para mensagens adicionado",
-        "nl": "klaar voor Grafana 8.x, BugFix PostgreSQL, afhankelijkheden bijgewerkt, naamsuffix voor berichten toegevoegd",
-        "fr": "prêt pour Grafana 8.x, BugFix PostgreSQL, dépendances mises à jour, suffixe de nom pour les messages ajouté",
-        "it": "pronto per Grafana 8.x, BugFix PostgreSQL, dipendenze aggiornate, sufisso nome per i messaggi aggiunto",
-        "es": "listo para Grafana 8.x, BugFix PostgreSQL, dependencias actualizadas, sufijo de nombre para mensajes agregado",
-        "pl": "gotowy na Grafana 8.x, BugFix PostgreSQL, zaktualizowano zależności, dodano sufiks nazwy dla wiadomości"
-      },
-      "2.1.12": {
-        "en": "adminTab edited, translation changed, dependencies updated, more debug for mount added, Bugfix history json",
-        "de": "adminTab bearbeitet, Übersetzung geändert, Abhängigkeiten aktualisiert, mehr Debug-Ausgaben für Mount hinzugefügt, Bugfix history-json",
-        "ru": "adminTab отредактирован, перевод изменен, зависимости обновлены, добавлена дополнительная отладка для монтирования, история исправлений ошибок json",
-        "pt": "adminTab editado, tradução alterada, dependências atualizadas, mais depuração para montagem adicionada, histórico de correção de bugs json",
-        "nl": "adminTab bewerkt, vertaling gewijzigd, afhankelijkheden bijgewerkt, meer foutopsporing voor mount toegevoegd, Bugfix-geschiedenis json",
-        "fr": "adminTab édité, traduction modifiée, dépendances mises à jour, plus de débogage pour le montage ajouté, historique de bugfix json",
-        "it": "adminTab modificato, traduzione modificata, dipendenze aggiornate, più debug per mount aggiunto, cronologia bugfix json",
-        "es": "adminTab editado, traducción cambiada, dependencias actualizadas, más depuración para montaje agregado, historial de corrección de errores json",
-        "pl": "Edytowano zakładkę admin, zmieniono tłumaczenie, zaktualizowano zależności, dodano więcej funkcji debugowania dla montowania, plik JSON z historią poprawek błędów"
       }
     },
     "title": "BackItUp",
