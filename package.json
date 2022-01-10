@@ -45,14 +45,14 @@
     "@googleapis/drive": "^2.1.0",
     "node-wol": "^0.1.1",
     "request": "^2.88.2",
-    "google-auth-library": "^7.10.3",
-    "express": "^4.17.1",
+    "google-auth-library": "^7.11.0",
+    "express": "^4.17.2",
     "fs-extra": "^10.0.0",
     "axios": "^0.24.0",
     "tar-fs": "^2.1.1"
   },
   "devDependencies": {
-    "@alcalzone/release-script": "^3.4.0",
+    "@alcalzone/release-script": "^3.4.2",
     "@alcalzone/release-script-plugin-iobroker": "^3.3.0",
     "@alcalzone/release-script-plugin-license": "^3.3.0",
     "@iobroker/testing": "^2.5.2",

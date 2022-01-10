@@ -25,12 +25,12 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v2.4.0
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -62,7 +62,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2.4.0
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -92,14 +92,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2.4.0
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: ${{ matrix.node-version }}
 
