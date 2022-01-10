@@ -5,10 +5,13 @@
 ![Number of Installations](http://iobroker.live/badges/backitup-stable.svg)
 [![NPM version](http://img.shields.io/npm/v/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
-[![Dependency Status](https://img.shields.io/david/simatec/iobroker.backitup.svg)](https://david-dm.org/simatec/iobroker.backitup)
 [![Known Vulnerabilities](https://snyk.io/test/github/simatec/ioBroker.backitup/badge.svg)](https://snyk.io/test/github/simatec/ioBroker.backitup)
 ![Test and Release](https://github.com/simatec/ioBroker.backitup/workflows/Test%20and%20Release/badge.svg)
+
 [![Travis-CI](http://img.shields.io/travis/simatec/ioBroker.backitup/master.svg)](https://travis-ci.org/simatec/ioBroker.backitup)
+[![License](https://img.shields.io/github/license/simatec/ioBroker.backitup?style=flat)](https://github.com/simatec/ioBroker.backitup/blob/master/LICENSE)
+[![Donate](https://img.shields.io/badge/donate-paypal-blue?style=flat)](https://paypal.me/mk1676)
+
 
 [![NPM](https://nodei.co/npm/iobroker.backitup.png?downloads=true)](https://nodei.co/npm/iobroker.backitup/)
 
@@ -39,6 +42,11 @@ When the adapter crashes or an other Code error happens, this error message that
 
 
 ## Changelog
+<!-- ### __WORK IN PROGRESS__ -->
+
+### __WORK IN PROGRESS__
+* (simatec) Bugfix Error Message
+* (simatec) dependencies updated
 
 ### 2.2.2 (06.11.2021)
 * (simatec) Fix CCU option to use self-signed certificates
@@ -615,7 +623,7 @@ When the adapter crashes or an other Code error happens, this error message that
 
 The MIT License (MIT)
 
-Copyright (c) 2018 - 2021 simatec
+Copyright (c) 2018 - 2022 simatec
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
