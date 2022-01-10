@@ -43,8 +43,7 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 <!-- ### __WORK IN PROGRESS__ -->
-
-### __WORK IN PROGRESS__
+### 2.2.3 (2022-01-10)
 * (simatec) Bugfix Error Message
 * (simatec) dependencies updated
 
@@ -279,7 +278,6 @@ When the adapter crashes or an other Code error happens, this error message that
 * (simatec) small fixes for sentry.io
 * (simatec) small fixes on zigbee backup
 
-
 ### 1.6.3 (01.09.2020)
 * (simatec) dependencies for googleapis updated
 * (simatec) dependencies for dropbox-v2-api updated
@@ -318,7 +316,6 @@ When the adapter crashes or an other Code error happens, this error message that
 ### 1.5.4 (29.04.2020)
 * (simatec) added osDependencies for nfs and cifs
 * (simatec) Bugfixes for errorhandling telegram, pushover, e-mail, ftp list and create backup folder
-
 
 ### 1.5.3 (28.04.2020)
 * (simatec) many smal Bugfixes for errorhandling sentry.io
@@ -574,7 +571,6 @@ When the adapter crashes or an other Code error happens, this error message that
 ### 0.2.4 (23.07.2018)
  * (peoples) Some Bugfixes
  * (peoples) Added translations in words.js
-
 
 ### 0.2.3 (19.07.2018)
  * (bluefox) The backup buttons in configuration dialog were added
