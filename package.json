@@ -58,7 +58,7 @@
     "@iobroker/testing": "^2.5.2",
     "chai": "^4.3.4",
     "gulp": "^4.0.2",
-    "mocha": "^9.1.2"
+    "mocha": "^9.1.4"
   },
   "main": "main.js",
   "scripts": {
