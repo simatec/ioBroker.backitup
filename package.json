@@ -39,7 +39,7 @@
   "dependencies": {
     "@iobroker/adapter-core": "^2.5.1",
     "dropbox-v2-api": "^2.4.52",
-    "webdav": "^4.7.0",
+    "webdav": "^4.8.0",
     "ftp": "^0.3.10",
     "node-schedule": "^2.1.0",
     "@googleapis/drive": "^2.1.0",
@@ -48,17 +48,17 @@
     "google-auth-library": "^7.11.0",
     "express": "^4.17.2",
     "fs-extra": "^10.0.0",
-    "axios": "^0.24.0",
+    "axios": "^0.25.0",
     "tar-fs": "^2.1.1"
   },
   "devDependencies": {
-    "@alcalzone/release-script": "^3.4.2",
-    "@alcalzone/release-script-plugin-iobroker": "^3.3.0",
-    "@alcalzone/release-script-plugin-license": "^3.3.0",
+    "@alcalzone/release-script": "^3.5.0",
+    "@alcalzone/release-script-plugin-iobroker": "^3.5.0",
+    "@alcalzone/release-script-plugin-license": "^3.5.0",
     "@iobroker/testing": "^2.5.2",
     "chai": "^4.3.4",
     "gulp": "^4.0.2",
-    "mocha": "^9.1.2"
+    "mocha": "^9.1.4"
   },
   "main": "main.js",
   "scripts": {
