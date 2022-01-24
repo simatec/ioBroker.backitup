@@ -48,7 +48,7 @@
     "google-auth-library": "^7.11.0",
     "express": "^4.17.2",
     "fs-extra": "^10.0.0",
-    "axios": "^0.24.0",
+    "axios": "^0.25.0",
     "tar-fs": "^2.1.1"
   },
   "devDependencies": {
