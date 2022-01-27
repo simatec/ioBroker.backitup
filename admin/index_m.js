@@ -114,7 +114,12 @@ function fetchInfluxDBConfig(isInitial) {
                 var native = res.rows[i].value.native;
                 if (common.enabled) {
                     $('#influxDBHost').val(native.host).trigger('change');
+                    $('#influxDBVersion').val(native.dbversion).trigger('change');
+                    $('#influxDBProtocol').val(native.protocol).trigger('change');
                     $('#influxDBName').val(native.dbname).trigger('change');
+                    if(native.dbversion && native.dbversion == '2.x') {
+                        $('#influxDBToken').val(native.token).trigger('change');
+                    }
                     var id = res.rows[i].value.
                         found = res.rows[i].value._id;
                     break;
@@ -124,7 +129,12 @@ function fetchInfluxDBConfig(isInitial) {
                 for (var j = 0; j < res.rows.length; j++) {
                     var _native = res.rows[j].value.native;
                     $('#influxDBHost').val(_native.host).trigger('change');
+                    $('#influxDBVersion').val(_native.dbversion).trigger('change');
+                    $('#influxDBProtocol').val(_native.protocol).trigger('change');
                     $('#influxDBName').val(_native.dbname).trigger('change');
+                    if(_native.dbversion && _native.dbversion == '2.x') {
+                        $('#influxDBToken').val(_native.token).trigger('change');
+                    }
                     found = res.rows[j].value._id;
                     break;
                 }
@@ -424,6 +434,8 @@ function load(settings, onChange) {
         setTimeout(function () {
             $('#influxDBEvents .values-input[data-name="port"][data-index="' + id + '"]').val(8088).trigger('change');
             $('#influxDBEvents .values-input[data-name="nameSuffix"][data-index="' + id + '"]').val(`influxDB-${id + 1}`).trigger('change');
+            $('#influxDBEvents .values-input[data-name="protocol"][data-index="' + id + '"]').val('http').trigger('change');
+            $('#influxDBEvents .values-input[data-name="dbversion"][data-index="' + id + '"]').val('1.x').trigger('change');
         }, 250);
     });
 

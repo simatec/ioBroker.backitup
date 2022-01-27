@@ -1,20 +1,8 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.2.4",
+    "version": "2.2.3",
     "news": {
-      "2.2.4": {
-        "en": "Restore backup of different controller version added\nFix YAHKA Backup for more Instances",
-        "de": "Wiederherstellungssicherung verschiedener Controller-Versionen hinzugefügt\nFix YAHKA Backup für mehr Instanzen",
-        "ru": "Добавлено восстановление резервной копии другой версии контроллера\nИсправьте YAHKA Backup для большего количества экземпляров",
-        "pt": "Restaurar backup de versão de controlador diferente adicionada\nCorrija o YAHKA Backup para mais instâncias",
-        "nl": "Herstel back-up van verschillende controllerversies toegevoegd\nFix YAHKA-back-up voor meer instanties",
-        "fr": "Restaurer la sauvegarde de différentes versions de contrôleur ajoutées\nCorrection de la sauvegarde YAHKA pour plus d'instances",
-        "it": "Ripristina il backup di diverse versioni del controller aggiunto\nCorreggi il backup YAHKA per più istanze",
-        "es": "Restaurar copia de seguridad de diferentes versiones del controlador agregadas\nRepare la copia de seguridad de YAHKA para más instancias",
-        "pl": "Dodano kopię zapasową przywracania innej wersji kontrolera\nNapraw kopię zapasową YAHKA dla większej liczby instancji",
-        "zh-cn": "添加了不同控制器版本的恢复备份\n修复更多实例的 YAHKA 备份"
-      },
       "2.2.3": {
         "en": "Bugfix Error Message\ndependencies updated",
         "de": "Bugfix-Fehlermeldung\nAbhängigkeiten aktualisiert",
@@ -81,6 +69,17 @@
         "it": "dipendenze aggiornate, supporto https per backup ccu, correzioni di bug di sentinella",
         "es": "dependencias actualizadas, soporte https para copia de seguridad de ccu, corrección de errores de centinela",
         "pl": "zaktualizowane zależności, wsparcie https dla kopii zapasowej ccu, poprawki błędów sentry"
+      },
+      "2.1.15": {
+        "en": "Bugfix Google Drive, memory optimization, fix Zigbee Restore, Grafana Protocol selection added",
+        "de": "Bugfix Google Drive, Speicheroptimierung, Fix Zigbee Restore, Grafana Protokoll Auswahl hinzugefügt",
+        "ru": "Исправление ошибок Google Диска, оптимизация памяти, исправление восстановления Zigbee, добавлен выбор протокола Grafana",
+        "pt": "Correção de bug no Google Drive, otimização de memória, correção de Zigbee Restore, seleção de protocolo Grafana adicionada",
+        "nl": "Bugfix Google Drive, geheugenoptimalisatie, fix Zigbee Restore, Grafana Protocol-selectie toegevoegd",
+        "fr": "Correction de bugs Google Drive, optimisation de la mémoire, correction de la restauration Zigbee, sélection du protocole Grafana ajoutée",
+        "it": "Bugfix Google Drive, ottimizzazione della memoria, correzione Zigbee Restore, aggiunta selezione protocollo Grafana",
+        "es": "Corrección de errores en Google Drive, optimización de memoria, corrección de restauración de Zigbee, selección de protocolo Grafana agregada",
+        "pl": "Naprawiono błąd Dysku Google, optymalizację pamięci, naprawiono Zigbee Restore, dodano wybór protokołu Grafana"
       }
     },
     "title": "BackItUp",
@@ -231,6 +230,9 @@
     "influxDBDumpExe": "",
     "influxDBDeleteAfter": 5,
     "influxDBType": "local",
+    "influxDBToken": "",
+    "influxDBVersion": "1.x",
+    "influxDBProtocol": "http",
     "influxDBMulti": false,
     "influxDBEvents": [],
     "deleteOldDataBase": false,

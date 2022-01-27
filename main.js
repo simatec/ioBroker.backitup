@@ -623,6 +623,9 @@ function initConfig(secret) {
             dbName: adapter.config.influxDBName,                    // database name
             host: adapter.config.influxDBHost,                      // database host
             port: adapter.config.influxDBPort,                      // database port
+            dbversion: adapter.config.influxDBVersion,              // dbversion from Influxdb
+            token: adapter.config.influxDBToken,                    // Token from Influxdb
+            protocol: adapter.config.influxDBProtocol,              // Protocol Type from Influxdb
             exe: adapter.config.influxDBDumpExe,                    // path to influxDBdump
             dbType: adapter.config.influxDBType,                    // type of influxdb Backup
             influxDBEvents: adapter.config.influxDBEvents,
