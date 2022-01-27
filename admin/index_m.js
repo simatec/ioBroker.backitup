@@ -119,6 +119,11 @@ function fetchInfluxDBConfig(isInitial) {
                     $('#influxDBProtocol').val(native.protocol).trigger('change');
                     $('#influxDBProtocol').select();
                     $('#influxDBName').val(native.dbname).trigger('change');
+
+                    if(native.port && native.dbversion && native.dbversion == '2.x') {
+                        $('#influxDBPort').val(native.port).trigger('change');
+                    }
+                    
                     var id = res.rows[i].value.
                         found = res.rows[i].value._id;
                     break;
@@ -133,6 +138,11 @@ function fetchInfluxDBConfig(isInitial) {
                     $('#influxDBProtocol').val(_native.protocol).trigger('change');
                     $('#influxDBProtocol').select();
                     $('#influxDBName').val(_native.dbname).trigger('change');
+
+                    if(_native.port && _native.dbversion && _native.dbversion == '2.x') {
+                        $('#influxDBPort').val(_native.port).trigger('change');
+                    }
+
                     found = res.rows[j].value._id;
                     break;
                 }
