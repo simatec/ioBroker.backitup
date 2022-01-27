@@ -115,11 +115,10 @@ function fetchInfluxDBConfig(isInitial) {
                 if (common.enabled) {
                     $('#influxDBHost').val(native.host).trigger('change');
                     $('#influxDBVersion').val(native.dbversion).trigger('change');
+                    $('#influxDBVersion').select();
                     $('#influxDBProtocol').val(native.protocol).trigger('change');
+                    $('#influxDBProtocol').select();
                     $('#influxDBName').val(native.dbname).trigger('change');
-                    if(native.dbversion && native.dbversion == '2.x') {
-                        $('#influxDBToken').val(native.token).trigger('change');
-                    }
                     var id = res.rows[i].value.
                         found = res.rows[i].value._id;
                     break;
@@ -130,11 +129,10 @@ function fetchInfluxDBConfig(isInitial) {
                     var _native = res.rows[j].value.native;
                     $('#influxDBHost').val(_native.host).trigger('change');
                     $('#influxDBVersion').val(_native.dbversion).trigger('change');
+                    $('#influxDBVersion').select();
                     $('#influxDBProtocol').val(_native.protocol).trigger('change');
+                    $('#influxDBProtocol').select();
                     $('#influxDBName').val(_native.dbname).trigger('change');
-                    if(_native.dbversion && _native.dbversion == '2.x') {
-                        $('#influxDBToken').val(_native.token).trigger('change');
-                    }
                     found = res.rows[j].value._id;
                     break;
                 }
