@@ -40,6 +40,13 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 <!-- ### __WORK IN PROGRESS__ -->
+
+### __WORK IN PROGRESS__
+* (simatec) Influxdb2 Backup added
+* (simatec) Influxdb2 Restore added
+* (simatec) Bugfix Grafana Backup
+* (simatec) Bugfix GUI
+
 ### 2.2.4 (2022-01-27)
 * (simatec) Restore backup of different controller version added
 * (simatec) Fix YAHKA Backup for more Instances
