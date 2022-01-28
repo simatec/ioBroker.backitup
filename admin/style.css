@@ -41,6 +41,10 @@
 .m.react-dark .tabs .tab a.active, .m .tabs .tab a:hover { color: #2196f3; }
 .m.react-dark .tabs { background-color: #272727 !important;}
 
+/* Tabs menu react-dark */
+.m.react-blue .tabs .tab a.active, .m .tabs .tab a:hover { color: #2196f3; }
+.m.react-blue .tabs { background-color: #272727 !important;}
+
 .m .card-panel {
     padding: 10px;
     border-radius: 4px;
@@ -49,6 +53,10 @@
     border-radius: 4px;
 }
 .m.react-dark .btn, .m.react-dark .btn-flat, .m.react-dark .btn-large, .m.react-dark .btn-backitup {
+    color: #fff;
+    border-radius: 4px;
+}
+.m.react-blue .btn, .m.react-blue .btn-flat, .m.react-blue .btn-large, .m.react-blue .btn-backitup {
     color: #fff;
     border-radius: 4px;
 }
@@ -208,6 +216,9 @@
     border-top: 2px solid transparent!important;
     border-left: 2px solid transparent!important;
     background-color: transparent!important;
+}
+.hiddenToken {
+    filter: brightness(60%);
 }
 
 /* only for temp dark test 

@@ -418,7 +418,7 @@ function load(settings, onChange) {
     }
 
     values2table('ccuEvents', ccuEvents, onChange);
-    values2table('influxDBEvents', influxDBEvents, onChange);
+    values2table('influxDBEvents', influxDBEvents, onChange, tableOnReady);
     values2table('mySqlEvents', mySqlEvents, onChange);
     values2table('pgSqlEvents', pgSqlEvents, onChange);
 
@@ -446,6 +446,39 @@ function load(settings, onChange) {
             $('#influxDBEvents .values-input[data-name="dbversion"][data-index="' + id + '"]').val('1.x').trigger('change');
         }, 250);
     });
+
+    function tableOnReady() {
+        $('#influxDBEvents .table-values-div .table-values .values-input[data-name="dbversion"]').on('change', function () {
+            let id = $(this).data('index');
+            var dbversion = $('#influxDBEvents .values-input[data-name="dbversion"][data-index="' + id + '"]').val();
+
+            if (dbversion == '1.x') {
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').prop('disabled', true).trigger('change');
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').addClass('hiddenToken').trigger('change');
+                $('#influxDBEvents .values-input[data-name="port"][data-index="' + id + '"]').val(8088).trigger('change');
+            } else {
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').prop('disabled', false).trigger('change');
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').removeClass('hiddenToken').trigger('change');
+                $('#influxDBEvents .values-input[data-name="port"][data-index="' + id + '"]').val(8086).trigger('change');
+            }
+        });
+
+        var devices = table2values('influxDBEvents');
+        id = 0;
+
+        for (var i = 0; i < devices.length; i++) {
+            var dbversion = $('#influxDBEvents .values-input[data-name="dbversion"][data-index="' + id + '"]').val();
+
+            if (dbversion == '1.x') {
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').prop('disabled', true).trigger('change');
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').addClass('hiddenToken').trigger('change');
+            } else {
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').prop('disabled', false).trigger('change');
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').removeClass('hiddenToken').trigger('change');
+            }
+            id++;
+        }
+    }
 
     $('#mySqlAdded').on('click', function () {
         var devices = table2values('mySqlEvents');
