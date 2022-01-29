@@ -46,6 +46,7 @@ When the adapter crashes or an other Code error happens, this error message that
 * (simatec) Influxdb2 Restore added
 * (simatec) Bugfix Grafana Backup
 * (simatec) Bugfix GUI
+* (simatec) Bugfix Redis Restore
 
 ### 2.2.4 (2022-01-27)
 * (simatec) Restore backup of different controller version added
