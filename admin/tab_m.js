@@ -313,7 +313,7 @@ function load(settings, onChange) {
                                     showDialog(name !== '' ? 'restore' : '', isStopped);
                                     showToast(null, _('Restore started'));
                                     //console.log(location.origin);
-                                    sendTo(null, 'restore', { type: type, fileName: file }, function (result) {
+                                    sendTo(null, 'restore', { type: type, fileName: file, host: location.origin }, function (result) {
                                         if (!result || result.error) {
                                             showError('Error: ' + JSON.stringify(result.error));
                                         } else {
@@ -323,9 +323,10 @@ function load(settings, onChange) {
                                                 var link = "http://" + location.hostname + ":8091/backitup-restore.html";
                                                 // Log Window for Restore Interface
                                                 setTimeout(function () {
-                                                    $('<a href="' + link + '" target="_blank">&nbsp;</a>')[0].click();
+                                                    //$('<a href="' + link + '" target="_blank">&nbsp;</a>')[0].click();
+                                                    $('<a href="' + link + '">&nbsp;</a>')[0].click();
                                                     //window.open(link, '_blank');
-                                                }, 5000);
+                                                }, 2000);
                                             }
                                             if (downloadPanel) {
                                                 $('.cloudRestore').hide();
