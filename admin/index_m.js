@@ -740,9 +740,10 @@ function load(settings, onChange) {
                                                 var link = "http://" + location.hostname + ":8091/backitup-restore.html";
                                                 // Log Window for Restore Interface
                                                 setTimeout(function () {
-                                                    $('<a href="' + link + '" target="_blank">&nbsp;</a>')[0].click();
+                                                    //$('<a href="' + link + '" target="_blank">&nbsp;</a>')[0].click();
                                                     //window.open(link, '_blank');
-                                                }, 5000);
+                                                    $('<a href="' + link + '">&nbsp;</a>')[0].click();
+                                                }, 1000);
                                             }
                                             //var name = file.split('/').pop().split('_')[0];
                                             //showDialog(name !== '' ? 'restore' : '', isStopped);

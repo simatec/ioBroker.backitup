@@ -326,7 +326,7 @@ function load(settings, onChange) {
                                                     //$('<a href="' + link + '" target="_blank">&nbsp;</a>')[0].click();
                                                     $('<a href="' + link + '">&nbsp;</a>')[0].click();
                                                     //window.open(link, '_blank');
-                                                }, 2000);
+                                                }, 1000);
                                             }
                                             if (downloadPanel) {
                                                 $('.cloudRestore').hide();
