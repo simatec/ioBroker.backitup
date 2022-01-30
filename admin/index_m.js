@@ -743,7 +743,7 @@ function load(settings, onChange) {
                                                     //$('<a href="' + link + '" target="_blank">&nbsp;</a>')[0].click();
                                                     //window.open(link, '_blank');
                                                     $('<a href="' + link + '">&nbsp;</a>')[0].click();
-                                                }, 1000);
+                                                }, 2000);
                                             }
                                             //var name = file.split('/').pop().split('_')[0];
                                             //showDialog(name !== '' ? 'restore' : '', isStopped);
