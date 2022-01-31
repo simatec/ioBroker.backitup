@@ -313,7 +313,8 @@ function load(settings, onChange) {
                                     showDialog(name !== '' ? 'restore' : '', isStopped);
                                     showToast(null, _('Restore started'));
                                     //console.log(location.origin);
-                                    sendTo(null, 'restore', { type: type, fileName: file }, function (result) {
+                                    var theme = currentTheme();
+                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme }, function (result) {
                                         if (!result || result.error) {
                                             showError('Error: ' + JSON.stringify(result.error));
                                         } else {
