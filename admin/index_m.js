@@ -729,8 +729,9 @@ function load(settings, onChange) {
                                     var name = file.split('/').pop().split('_')[0];
                                     showDialog(name !== '' ? 'restore' : '', isStopped);
                                     showToast(null, _('Restore started'));
+                                    var theme = currentTheme();
 
-                                    sendTo(null, 'restore', { type: type, fileName: file }, function (result) {
+                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none' }, function (result) {
                                         if (!result || result.error) {
                                             showError('Error: ' + JSON.stringify(result.error));
                                         } else {
@@ -740,14 +741,9 @@ function load(settings, onChange) {
                                                 var link = "http://" + location.hostname + ":8091/backitup-restore.html";
                                                 // Log Window for Restore Interface
                                                 setTimeout(function () {
-                                                    //$('<a href="' + link + '" target="_blank">&nbsp;</a>')[0].click();
-                                                    //window.open(link, '_blank');
                                                     $('<a href="' + link + '">&nbsp;</a>')[0].click();
-                                                }, 2000);
+                                                }, 3000);
                                             }
-                                            //var name = file.split('/').pop().split('_')[0];
-                                            //showDialog(name !== '' ? 'restore' : '', isStopped);
-                                            //showToast(null, _('Restore started'));
 
                                             if (downloadPanel) {
                                                 $('.cloudRestore').hide();

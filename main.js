@@ -884,7 +884,7 @@ function createBashScripts() {
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
             try {
-                fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ]; then\nredis-cli shutdown nosave\necho "[DEBUG] [redis] Redis restart successfully"\nfi\nbash iobroker host this\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start all\necho "[DEBUG] [iobroker] iobroker start all successfully"\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start\necho "[DEBUG] [iobroker] iobroker restart successfully"`);
+                fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ]; then\nredis-cli shutdown nosave && echo success "[DEBUG] [redis] Redis restart successfully"\nfi\nbash iobroker host this\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start all && echo success "[DEBUG] [iobroker] iobroker start all successfully"\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start && echo success "[DEBUG] [iobroker] iobroker restart successfully"`);
                 fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
             } catch (e) {
                 adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
@@ -892,7 +892,7 @@ function createBashScripts() {
         }
         if (!fs.existsSync(__dirname + '/lib/external.sh')) {
             try {
-                fs.writeFileSync(__dirname + '/lib/external.sh', `# restore\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop;\necho "[DEBUG] [iobroker] iobroker stop successfully"\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
+                fs.writeFileSync(__dirname + '/lib/external.sh', `# restore\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop && echo success "[DEBUG] [iobroker] iobroker stop successfully"\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
                 fs.chmodSync(__dirname + '/lib/external.sh', 508);
             } catch (e) {
                 adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
