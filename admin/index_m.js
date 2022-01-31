@@ -729,7 +729,12 @@ function load(settings, onChange) {
                                     var name = file.split('/').pop().split('_')[0];
                                     showDialog(name !== '' ? 'restore' : '', isStopped);
                                     showToast(null, _('Restore started'));
-                                    var theme = currentTheme();
+                                    let theme;
+                                    try {
+                                        theme = currentTheme();
+                                    } catch (e) {
+                                        // Ignore
+                                    }
 
                                     sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none' }, function (result) {
                                         if (!result || result.error) {
