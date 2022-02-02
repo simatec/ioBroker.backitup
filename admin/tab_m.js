@@ -491,9 +491,9 @@ function fillStorageSelect(settings) {
 
     var id = settings.restoreSource
     var $sel = $('#restoreSource');
-    $sel.html('<option value="local"' + (id === 'local' ? ' selected translate' : 'translate') + '>Local</option>');
+    $sel.html('<option value="local"' + (id === 'local' ? ' selected translate' : ' translate') + '>' + _('Local') + '</option>');
     for (var i = 0; i < selectName.length; i++) {
-        $('#restoreSource').append('<option value="' + selectsetting[i] + '"' + (id === selectsetting[i] ? ' selected translate' : 'translate') + '>' + selectName[i] + '</option>');
+        $('#restoreSource').append('<option value="' + selectsetting[i] + '"' + (id === selectsetting[i] ? ' selected translate' : ' translate') + '>' + selectName[i] + '</option>');
     }
     $sel.select();
 }
