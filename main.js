@@ -884,7 +884,7 @@ function createBashScripts() {
         }
         if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
             try {
-                fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ]; then\nredis-cli shutdown nosave && echo "[DEBUG] [redis] Redis restart successfully"\nfi\nbash iobroker host this && echo "[DEBUG] [iobroker] Host this successfully"\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start all && echo "[DEBUG] [iobroker] iobroker start all successfully"\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start && echo "[DEBUG] [iobroker] iobroker restart successfully"`);
+                fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ]; then\nredis-cli shutdown nosave && echo "[DEBUG] [redis] Redis restart successfully"\nfi\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start all && echo "[DEBUG] [iobroker] iobroker start all successfully"\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker host this && echo "[DEBUG] [iobroker] Host this successfully"\nbash iobroker start && echo "[DEBUG] [iobroker] iobroker restart successfully"`);
                 fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
             } catch (e) {
                 adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
