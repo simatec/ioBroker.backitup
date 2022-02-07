@@ -635,15 +635,48 @@
                     <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Save Redis state</h6>
                 </div>
                 <div class="row">
+                    <div class="input-field col s11 m2">
+                        <select class="value" id="redisType">
+                            <option value="remote" class="translate">Remote</option>
+                            <option value="local" class="translate">Local</option>
+                        </select>
+                        <label for="redisType" class="translate">source type</label>
+                    </div>
+                </div>
+                <div class="row redisLocal">
                     <div class="input-field col s6 l6 redis_path">
                         <input class="value" id="redisPath" type="text" />
                         <label for="redisPath" class="translate">Redis file path</label>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row redisLocal">
                     <div class="input-field col s6 l4">
                         <input class="value" id="redisAOFactive" type="checkbox" />
                         <label for="redisAOFactive" class="translate">AOF activated</label>
+                    </div>
+                </div>
+                <div class="row redisRemote">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="redisHost" type="text">
+                        <label for="redisHost" class="translate">Host</label>
+                        <span class="translate">Hostname</span>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="redisPort" type="text">
+                        <label for="redisPort" class="translate">port</label>
+                        <span class="translate">port</span>
+                    </div>
+                </div>
+                <div class="row redisRemote">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="redisUser" type="text">
+                        <label for="redisUser" class="translate">Redis username</label>
+                        <span class="translate">Redis username</span>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="redisPassword" type="password">
+                        <label for="redisPassword" class="translate">password</label>
+                        <span class="translate">Redis password</span>
                     </div>
                 </div>
             </div>

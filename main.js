@@ -666,6 +666,11 @@ function initConfig(secret) {
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
+            redisType: adapter.config.redisType, // local or Remote Backup
+            host: adapter.config.redisHost, // Host for Remote Backup
+            port: adapter.config.redisPort, // Port for Remote Backup
+            user: adapter.config.redisUser, // User for Remote Backup
+            pass: adapter.config.redisPassword ? decrypt(secret, adapter.config.redisPassword) : '', // Password for Remote Backup
         },
         historyDB: {
             enabled: adapter.config.historyEnabled,

@@ -351,7 +351,7 @@ function load(settings, onChange) {
             });
         } else {
             var val = settings[id];
-            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword') {
+            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword' || id === 'redisPassword') {
                 val = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
             }
             // do not call onChange direct, because onChange could expect some arguments
@@ -941,7 +941,7 @@ function save(callback) {
             obj[id] = $this.prop('checked');
         } else {
             var val = $this.val();
-            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword') {
+            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword' || id === 'redisPassword') {
                 val = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
             }
             obj[id] = val;
@@ -1156,6 +1156,16 @@ function showHideSettings(settings) {
         } else if ($(this).val() === 'local' && _multiInfluxDB) {
             $('.influxRemote').hide();
             $('.influxDBTable').addClass('influxShowLocal');
+        }
+    }).trigger('change');
+
+    $('#redisType').on('change', function () {
+        if ($(this).val() === 'remote') {
+            $('.redisRemote').show();
+            $('.redisLocal').hide();
+        } else if ($(this).val() === 'local') {
+            $('.redisRemote').hide();
+            $('.redisLocal').show();
         }
     }).trigger('change');
 
