@@ -429,6 +429,7 @@ function initConfig(secret) {
         onlyError: adapter.config.telegramOnlyError,
         telegramWaiting: adapter.config.telegramWaitToSend * 1000,
         hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
 
@@ -441,6 +442,7 @@ function initConfig(secret) {
         onlyError: adapter.config.whatsappOnlyError,
         whatsappWaiting: adapter.config.whatsappWaitToSend * 1000,
         hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
 
@@ -455,6 +457,7 @@ function initConfig(secret) {
         onlyError: adapter.config.pushoverOnlyError,
         pushoverWaiting: adapter.config.pushoverWaitToSend * 1000,
         hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
 
@@ -469,6 +472,7 @@ function initConfig(secret) {
         onlyError: adapter.config.emailOnlyError,
         emailWaiting: adapter.config.emailWaitToSend * 1000,
         hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
 
@@ -476,6 +480,7 @@ function initConfig(secret) {
         enabled: true,
         type: 'message',
         entriesNumber: adapter.config.historyEntriesNumber,
+        ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
 
@@ -483,6 +488,7 @@ function initConfig(secret) {
         enabled: true,
         type: 'message',
         entriesNumber: adapter.config.historyEntriesNumber,
+        ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
 
@@ -499,7 +505,8 @@ function initConfig(secret) {
         dirMinimal: adapter.config.ftpMinimalDir,
         user: adapter.config.ftpUser,                       // username for FTP Server
         pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '',  // password for FTP Server
-        port: adapter.config.ftpPort || 21                  // FTP port
+        port: adapter.config.ftpPort || 21,                  // FTP port
+        ignoreErrors: adapter.config.ignoreErrors
     };
 
     const dropbox = {
@@ -512,7 +519,8 @@ function initConfig(secret) {
         ownDir: adapter.config.dropboxOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.dropboxOwnDir === true) ? null : adapter.config.dropboxDir,
-        dirMinimal: adapter.config.dropboxMinimalDir
+        dirMinimal: adapter.config.dropboxMinimalDir,
+        ignoreErrors: adapter.config.ignoreErrors
     };
 
     const webdav = {
@@ -528,7 +536,8 @@ function initConfig(secret) {
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.webdavOwnDir === true) ? null : adapter.config.webdavDir,
         dirMinimal: adapter.config.webdavMinimalDir,
-        signedCertificates: adapter.config.webdavSignedCertificates
+        signedCertificates: adapter.config.webdavSignedCertificates,
+        ignoreErrors: adapter.config.ignoreErrors
     };
 
     const googledrive = {
@@ -541,7 +550,8 @@ function initConfig(secret) {
         ownDir: adapter.config.googledriveOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.googledriveOwnDir === true) ? null : adapter.config.googledriveDir,
-        dirMinimal: adapter.config.googledriveMinimalDir
+        dirMinimal: adapter.config.googledriveMinimalDir,
+        ignoreErrors: adapter.config.ignoreErrors
     };
 
     const cifs = {
@@ -565,7 +575,8 @@ function initConfig(secret) {
         dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                       // specify if CIFS mount should be used
         dirMinimal: adapter.config.cifsMinimalDir,
         user: adapter.config.cifsUser,                     // specify if CIFS mount should be used
-        pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for NAS Server
+        pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : '',  // password for NAS Server
+        ignoreErrors: adapter.config.ignoreErrors
     };
 
     // Configurations for standard-IoBroker backup
@@ -584,6 +595,7 @@ function initConfig(secret) {
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
         webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
         googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+        ignoreErrors: adapter.config.ignoreErrors,
         mysql: {
             enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
             type: 'creator',
@@ -605,6 +617,7 @@ function initConfig(secret) {
             port: adapter.config.mySqlPort,                // database port
             mySqlEvents: adapter.config.mySqlEvents,
             mySqlMulti: adapter.config.mySqlMulti,
+            ignoreErrors: adapter.config.ignoreErrors,
             exe: adapter.config.mySqlDumpExe               // path to mysqldump
         },
         dir: tools.getIobDir(),
@@ -630,6 +643,7 @@ function initConfig(secret) {
             dbType: adapter.config.influxDBType,                    // type of influxdb Backup
             influxDBEvents: adapter.config.influxDBEvents,
             influxDBMulti: adapter.config.influxDBMulti,
+            ignoreErrors: adapter.config.ignoreErrors,
             deleteDataBase: adapter.config.deleteOldDataBase             // delete old database for restore
         },
         pgsql: {
@@ -651,6 +665,7 @@ function initConfig(secret) {
             port: adapter.config.pgSqlPort,                // database port
             pgSqlEvents: adapter.config.pgSqlEvents,
             pgSqlMulti: adapter.config.pgSqlMulti,
+            ignoreErrors: adapter.config.ignoreErrors,
             exe: adapter.config.pgSqlDumpExe               // path to mysqldump
         },
         redis: {
@@ -671,6 +686,7 @@ function initConfig(secret) {
             port: adapter.config.redisPort, // Port for Remote Backup
             user: adapter.config.redisUser, // User for Remote Backup
             pass: adapter.config.redisPassword ? decrypt(secret, adapter.config.redisPassword) : '', // Password for Remote Backup
+            ignoreErrors: adapter.config.ignoreErrors
         },
         historyDB: {
             enabled: adapter.config.historyEnabled,
@@ -684,6 +700,7 @@ function initConfig(secret) {
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
+            ignoreErrors: adapter.config.ignoreErrors
         },
         zigbee: {
             enabled: adapter.config.zigbeeEnabled,
@@ -697,6 +714,7 @@ function initConfig(secret) {
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
+            ignoreErrors: adapter.config.ignoreErrors
         },
         yahka: {
             enabled: adapter.config.yahkaEnabled,
@@ -710,6 +728,7 @@ function initConfig(secret) {
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
+            ignoreErrors: adapter.config.ignoreErrors
         },
         jarvis: {
             enabled: adapter.config.jarvisEnabled,
@@ -723,6 +742,7 @@ function initConfig(secret) {
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
+            ignoreErrors: adapter.config.ignoreErrors
         },
         javascripts: {
             enabled: adapter.config.javascriptsEnabled,
@@ -735,6 +755,7 @@ function initConfig(secret) {
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            ignoreErrors: adapter.config.ignoreErrors
         },
         grafana: {
             enabled: adapter.config.grafanaEnabled,
@@ -753,6 +774,7 @@ function initConfig(secret) {
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
+            ignoreErrors: adapter.config.ignoreErrors
         },
         historyHTML,
         historyJSON,
@@ -774,6 +796,7 @@ function initConfig(secret) {
         //deleteBackupAfter: adapter.config.ccuMulti === true ? adapter.config.ccuDeleteAfter * adapter.config.ccuEvents.length : adapter.config.ccuDeleteAfter,       // delete old backupfiles after x days
         deleteBackupAfter: adapter.config.ccuDeleteAfter,       // delete old backupfiles after x days
         signedCertificates: adapter.config.ccuSignedCertificates,
+        ignoreErrors: adapter.config.ignoreErrors,
 
         ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpCcuDir } : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsCcuDir } : {}),

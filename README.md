@@ -50,13 +50,13 @@ When the adapter crashes or an other Code error happens, this error message that
 * (simatec) New Restore WebIf added
 * (simatec) dependencies updated
 * (simatec) Bugfix start after Restore
+* (simatec) redis remote Backup added
+* (simatec) Error messages configurable
 
 <!-- ####### Todo: ########
-* (simatec) redis remote Backup added
-* (simatec) Grafana Alerts Backup added
-* (simatec) Grafana Alerts Restore added
 * (simatec) Translations added
-* (simatec) Error messages configurable
+* (simatec) next Day Backup after error
+
 -->
 ### 2.2.4 (2022-01-27)
 * (simatec) Restore backup of different controller version added

@@ -147,6 +147,16 @@
       "singleton": false,
       "fa-icon": "</i><img style='width:24px;margin-bottom:-6px;' src='/adapter/backitup/backitup.svg'><i>"
     },
+    "dependencies": [
+      {
+        "js-controller": ">=3.3.0"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.0"
+      }
+    ],
     "adminUI": {
       "config": "materialize",
       "tab": "materialize"
@@ -327,7 +337,8 @@
     "hostType": "Single",
     "slaveInstance": "backitup.1",
     "slaveNameSuffix": "",
-    "stopSlaveAfter": false
+    "stopSlaveAfter": false,
+    "ignoreErrors": false
   },
   "instanceObjects": [
     {
