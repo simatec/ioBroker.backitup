@@ -746,7 +746,8 @@ function load(settings, onChange) {
                                                 var link = "http://" + location.hostname + ":8091/backitup-restore.html";
                                                 // Log Window for Restore Interface
                                                 setTimeout(function () {
-                                                    $('<a href="' + link + '">&nbsp;</a>')[0].click();
+                                                    //$('<a href="' + link + '">&nbsp;</a>')[0].click();
+                                                    window.open(link, '_self');
                                                 }, 5000);
                                             }
 
