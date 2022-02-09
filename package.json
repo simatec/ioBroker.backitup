@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.5.1",
-    "dropbox-v2-api": "^2.4.52",
+    "dropbox-v2-api": "^2.4.53",
     "webdav": "^4.8.0",
     "ftp": "^0.3.10",
     "node-schedule": "^2.1.0",
