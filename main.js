@@ -188,7 +188,7 @@ function startAdapter(options) {
                 case 'restore':
                     if (obj.message) {
                         const restore = require('./lib/restore');
-                        restore(adapter, backupConfig, obj.message.type, obj.message.fileName, obj.message.currentTheme, obj.message.restoreIf, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                        restore(adapter, backupConfig, obj.message.type, obj.message.fileName, obj.message.currentTheme, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                     } else if (obj.callback) {
                         obj.callback({ error: 'Invalid parameters' });
                     }
