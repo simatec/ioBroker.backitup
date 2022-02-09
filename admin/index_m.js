@@ -735,20 +735,23 @@ function load(settings, onChange) {
                                     } catch (e) {
                                         // Ignore
                                     }
-
-                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none' }, function (result) {
+                                    var link = "http://" + location.hostname + ":8091/backitup-restore.html";
+                                    
+                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none', restoreIf: link }, function (result) {
                                         if (!result || result.error) {
                                             showError('Error: ' + JSON.stringify(result.error));
                                         } else {
                                             console.log('Restore finish!')
                                             if (isStopped) {
                                                 //Create Link for Restore Interface
+                                                /*
                                                 var link = "http://" + location.hostname + ":8091/backitup-restore.html";
                                                 // Log Window for Restore Interface
                                                 setTimeout(function () {
                                                     //$('<a href="' + link + '">&nbsp;</a>')[0].click();
                                                     window.open(link, '_self');
                                                 }, 5000);
+                                                */
                                             }
 
                                             if (downloadPanel) {
