@@ -325,7 +325,7 @@ function load(settings, onChange) {
                                                 // Log Window for Restore Interface
                                                 setTimeout(function () {
                                                     $('<a href="' + link + '">&nbsp;</a>')[0].click();
-                                                }, 3000);
+                                                }, 5000);
                                             }
                                             if (downloadPanel) {
                                                 $('.cloudRestore').hide();
