@@ -221,8 +221,11 @@
     filter: brightness(60%);
 }
 
-/* only for temp dark test 
-.adapter-body {
-    background-color: #1f1f1f;
+.m.react-dark .btn-flat.disabled, .m.react-dark .btn-flat:disabled, .m.react-dark .btn-flat[disabled], .m.react-dark .btn-floating.disabled, .m.react-dark .btn-floating:disabled, .m.react-dark .btn-floating[disabled], .m.react-dark .btn-large.disabled, .m.react-dark .btn-large:disabled, .m.react-dark .btn-large[disabled], .m.react-dark .btn-small.disabled, .m.react-dark .btn-small:disabled, .m.react-dark .btn-small[disabled], .m.react-dark .btn.disabled, .m.react-dark .btn:disabled, .m.react-dark .btn[disabled], .m.react-dark .disabled.btn-large, .m.react-dark .disabled.btn-small {
+    background-color: rgba(255, 255, 255, 0.5)!important;
+    filter: brightness(40%);
 }
-*/
+.m.react-blue .btn-flat.disabled, .m.react-blue .btn-flat:disabled, .m.react-blue .btn-flat[disabled], .m.react-blue .btn-floating.disabled, .m.react-blue .btn-floating:disabled, .m.react-blue .btn-floating[disabled], .m.react-blue .btn-large.disabled, .m.react-blue .btn-large:disabled, .m.react-blue .btn-large[disabled], .m.react-blue .btn-small.disabled, .m.react-blue .btn-small:disabled, .m.react-blue .btn-small[disabled], .m.react-blue .btn.disabled, .m.react-blue .btn:disabled, .m.react-blue .btn[disabled], .m.react-blue .disabled.btn-large, .m.react-blue .disabled.btn-small {
+    background-color: rgba(255, 255, 255, 0.5)!important;
+    filter: brightness(40%);
+}
