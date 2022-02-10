@@ -265,7 +265,6 @@ function checkAdapterInstall(name, backitupHost) {
                 showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
                 ignoreMessage.push(name);
             }
-            console.log('res: ' + res.rows.length)
         });
     }
 }

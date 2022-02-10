@@ -2,7 +2,7 @@
   "name": "iobroker.backitup",
   "version": "2.2.4",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   },
   "description": "Backitup enables the cyclic creation of backups of an IoBroker / Homematic installation",
   "author": {
@@ -49,14 +49,13 @@
     "express": "^4.17.2",
     "fs-extra": "^10.0.0",
     "axios": "^0.25.0",
-    "tar-fs": "^2.1.1",
-    "open": "^8.4.0"
+    "tar-fs": "^2.1.1"
   },
   "devDependencies": {
-    "@alcalzone/release-script": "^3.5.0",
+    "@alcalzone/release-script": "^3.5.2",
     "@alcalzone/release-script-plugin-iobroker": "^3.5.1",
     "@alcalzone/release-script-plugin-license": "^3.5.0",
-    "@iobroker/testing": "^2.5.3",
+    "@iobroker/testing": "^2.5.4",
     "chai": "^4.3.6",
     "gulp": "^4.0.2",
     "mocha": "^9.2.0"
