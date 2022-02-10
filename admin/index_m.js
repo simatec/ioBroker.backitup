@@ -114,7 +114,16 @@ function fetchInfluxDBConfig(isInitial) {
                 var native = res.rows[i].value.native;
                 if (common.enabled) {
                     $('#influxDBHost').val(native.host).trigger('change');
+                    $('#influxDBVersion').val(native.dbversion).trigger('change');
+                    $('#influxDBVersion').select();
+                    $('#influxDBProtocol').val(native.protocol).trigger('change');
+                    $('#influxDBProtocol').select();
                     $('#influxDBName').val(native.dbname).trigger('change');
+
+                    if (native.port && native.dbversion && native.dbversion == '2.x') {
+                        $('#influxDBPort').val(native.port).trigger('change');
+                    }
+
                     var id = res.rows[i].value.
                         found = res.rows[i].value._id;
                     break;
@@ -124,7 +133,16 @@ function fetchInfluxDBConfig(isInitial) {
                 for (var j = 0; j < res.rows.length; j++) {
                     var _native = res.rows[j].value.native;
                     $('#influxDBHost').val(_native.host).trigger('change');
+                    $('#influxDBVersion').val(_native.dbversion).trigger('change');
+                    $('#influxDBVersion').select();
+                    $('#influxDBProtocol').val(_native.protocol).trigger('change');
+                    $('#influxDBProtocol').select();
                     $('#influxDBName').val(_native.dbname).trigger('change');
+
+                    if (_native.port && _native.dbversion && _native.dbversion == '2.x') {
+                        $('#influxDBPort').val(_native.port).trigger('change');
+                    }
+
                     found = res.rows[j].value._id;
                     break;
                 }
@@ -230,19 +248,21 @@ function checkAdapterInstall(name, backitupHost) {
             break;
         }
     }
+
     if (!ignore) {
         socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.' + adapterName + '.', endkey: 'system.adapter.' + adapterName + '.\u9999', include_docs: true }, function (err, res) {
             if (res && res.rows && res.rows.length) {
                 for (var i = 0; i < res.rows.length; i++) {
                     var common = res.rows[i].value.common;
-                    if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history' || adapterName == 'javascript')) {
+
+                    if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
                         showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
                         ignoreMessage.push(name);
                         break;
                     }
                 }
-            } else {
-                showMessage(_("No %s Instance found. Please check your System", adapterName), _('Backitup Warning!'), 'info');
+            } else if(res.rows.length == 0 && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
+                showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
                 ignoreMessage.push(name);
             }
         });
@@ -333,7 +353,7 @@ function load(settings, onChange) {
             });
         } else {
             var val = settings[id];
-            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword') {
+            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword' || id === 'redisPassword') {
                 val = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
             }
             // do not call onChange direct, because onChange could expect some arguments
@@ -400,7 +420,7 @@ function load(settings, onChange) {
     }
 
     values2table('ccuEvents', ccuEvents, onChange);
-    values2table('influxDBEvents', influxDBEvents, onChange);
+    values2table('influxDBEvents', influxDBEvents, onChange, tableOnReady);
     values2table('mySqlEvents', mySqlEvents, onChange);
     values2table('pgSqlEvents', pgSqlEvents, onChange);
 
@@ -424,8 +444,43 @@ function load(settings, onChange) {
         setTimeout(function () {
             $('#influxDBEvents .values-input[data-name="port"][data-index="' + id + '"]').val(8088).trigger('change');
             $('#influxDBEvents .values-input[data-name="nameSuffix"][data-index="' + id + '"]').val(`influxDB-${id + 1}`).trigger('change');
+            $('#influxDBEvents .values-input[data-name="protocol"][data-index="' + id + '"]').val('http').trigger('change');
+            $('#influxDBEvents .values-input[data-name="dbversion"][data-index="' + id + '"]').val('1.x').trigger('change');
         }, 250);
     });
+
+    function tableOnReady() {
+        $('#influxDBEvents .table-values-div .table-values .values-input[data-name="dbversion"]').on('change', function () {
+            let id = $(this).data('index');
+            var dbversion = $('#influxDBEvents .values-input[data-name="dbversion"][data-index="' + id + '"]').val();
+
+            if (dbversion == '1.x') {
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').prop('disabled', true).trigger('change');
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').addClass('hiddenToken').trigger('change');
+                $('#influxDBEvents .values-input[data-name="port"][data-index="' + id + '"]').val(8088).trigger('change');
+            } else {
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').prop('disabled', false).trigger('change');
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').removeClass('hiddenToken').trigger('change');
+                $('#influxDBEvents .values-input[data-name="port"][data-index="' + id + '"]').val(8086).trigger('change');
+            }
+        });
+
+        var devices = table2values('influxDBEvents');
+        id = 0;
+
+        for (var i = 0; i < devices.length; i++) {
+            var dbversion = $('#influxDBEvents .values-input[data-name="dbversion"][data-index="' + id + '"]').val();
+
+            if (dbversion == '1.x') {
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').prop('disabled', true).trigger('change');
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').addClass('hiddenToken').trigger('change');
+            } else {
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').prop('disabled', false).trigger('change');
+                $('#influxDBEvents .values-input[data-name="token"][data-index="' + id + '"]').removeClass('hiddenToken').trigger('change');
+            }
+            id++;
+        }
+    }
 
     $('#mySqlAdded').on('click', function () {
         var devices = table2values('mySqlEvents');
@@ -676,24 +731,25 @@ function load(settings, onChange) {
                                     var name = file.split('/').pop().split('_')[0];
                                     showDialog(name !== '' ? 'restore' : '', isStopped);
                                     showToast(null, _('Restore started'));
+                                    let theme;
+                                    try {
+                                        theme = currentTheme();
+                                    } catch (e) {
+                                        // Ignore
+                                    }
 
-                                    sendTo(null, 'restore', { type: type, fileName: file }, function (result) {
+                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none' }, function (result) {
                                         if (!result || result.error) {
                                             showError('Error: ' + JSON.stringify(result.error));
                                         } else {
                                             console.log('Restore finish!')
                                             if (isStopped) {
-                                                //Create Link for Restore Interface
                                                 var link = "http://" + location.hostname + ":8091/backitup-restore.html";
-                                                // Log Window for Restore Interface
                                                 setTimeout(function () {
-                                                    $('<a href="' + link + '" target="_blank">&nbsp;</a>')[0].click();
-                                                    //window.open(link, '_blank');
+                                                    //$('<a href="' + link + '">&nbsp;</a>')[0].click();
+                                                    window.open(link, '_self');
                                                 }, 5000);
                                             }
-                                            //var name = file.split('/').pop().split('_')[0];
-                                            //showDialog(name !== '' ? 'restore' : '', isStopped);
-                                            //showToast(null, _('Restore started'));
 
                                             if (downloadPanel) {
                                                 $('.cloudRestore').hide();
@@ -886,7 +942,7 @@ function save(callback) {
             obj[id] = $this.prop('checked');
         } else {
             var val = $this.val();
-            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword') {
+            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword' || id === 'redisPassword') {
                 val = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
             }
             obj[id] = val;
@@ -1101,6 +1157,26 @@ function showHideSettings(settings) {
         } else if ($(this).val() === 'local' && _multiInfluxDB) {
             $('.influxRemote').hide();
             $('.influxDBTable').addClass('influxShowLocal');
+        }
+    }).trigger('change');
+
+    $('#influxDBVersion').on('change', function () {
+        if ($(this).val() === '1.x' && !_multiInfluxDB) {
+            $('.db2x').hide();
+        } else if ($(this).val() === '2.x' && !_multiInfluxDB) {
+            $('.db2x').show();
+        } else if (_multiInfluxDB) {
+            $('.db2x').hide();
+        }
+    }).trigger('change');
+
+    $('#redisType').on('change', function () {
+        if ($(this).val() === 'remote') {
+            $('.redisRemote').show();
+            $('.redisLocal').hide();
+        } else if ($(this).val() === 'local') {
+            $('.redisRemote').hide();
+            $('.redisLocal').show();
         }
     }).trigger('change');
 

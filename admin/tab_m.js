@@ -98,7 +98,7 @@ function load(settings, onChange) {
         }
     });
     console.log('current theme: ' + currentTheme());
-    
+
     sendTo(null, 'getSystemInfo', null, function (obj) {
         if (obj == 'docker') {
             var $startAllRestore = $('#startAllRestore');
@@ -312,19 +312,18 @@ function load(settings, onChange) {
                                     var name = file.split('/').pop().split('_')[0];
                                     showDialog(name !== '' ? 'restore' : '', isStopped);
                                     showToast(null, _('Restore started'));
+                                    var theme = currentTheme();
 
-                                    sendTo(null, 'restore', { type: type, fileName: file }, function (result) {
+                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none' }, function (result) {
                                         if (!result || result.error) {
                                             showError('Error: ' + JSON.stringify(result.error));
                                         } else {
                                             console.log('Restore finish!')
                                             if (isStopped) {
-                                                //Create Link for Restore Interface
                                                 var link = "http://" + location.hostname + ":8091/backitup-restore.html";
-                                                // Log Window for Restore Interface
                                                 setTimeout(function () {
-                                                    $('<a href="' + link + '" target="_blank">&nbsp;</a>')[0].click();
-                                                    //window.open(link, '_blank');
+                                                    //$('<a href="' + link + '">&nbsp;</a>')[0].click();
+                                                    window.open(link, '_self');
                                                 }, 5000);
                                             }
                                             if (downloadPanel) {
@@ -491,9 +490,9 @@ function fillStorageSelect(settings) {
 
     var id = settings.restoreSource
     var $sel = $('#restoreSource');
-    $sel.html('<option value="local"' + (id === 'local' ? ' selected translate' : 'translate') + '>Local</option>');
+    $sel.html('<option value="local"' + (id === 'local' ? ' selected translate' : ' translate') + '>' + _('Local') + '</option>');
     for (var i = 0; i < selectName.length; i++) {
-        $('#restoreSource').append('<option value="' + selectsetting[i] + '"' + (id === selectsetting[i] ? ' selected translate' : 'translate') + '>' + selectName[i] + '</option>');
+        $('#restoreSource').append('<option value="' + selectsetting[i] + '"' + (id === selectsetting[i] ? ' selected translate' : ' translate') + '>' + selectName[i] + '</option>');
     }
     $sel.select();
 }

@@ -44,7 +44,7 @@
         "ru": "Возможность CCU использовать самоподписанные сертификаты; небольшое исправление для сообщения Javascript",
         "pt": "Opção CCU para usar certificados autoassinados; pequena correção para mensagem Javascript",
         "nl": "CCU-optie om zelfondertekende certificaten te gebruiken; kleine oplossing voor Javascript-bericht",
-        "fr": "Option CCU pour utiliser des certificats auto-signés ; petit correctif pour Javascript Message",
+        "fr": "Option CCU pour utiliser des certificats auto-signés ; petit correctif pour Javascript Message",
         "it": "opzione CCU per utilizzare certificati autofirmati; piccola correzione per il messaggio Javascript",
         "es": "Opción CCU para utilizar certificados autofirmados; pequeña corrección para el mensaje de Javascript",
         "pl": "Opcja CCU do korzystania z certyfikatów z podpisem własnym; mała poprawka dla wiadomości JavaScript"
@@ -147,6 +147,16 @@
       "singleton": false,
       "fa-icon": "</i><img style='width:24px;margin-bottom:-6px;' src='/adapter/backitup/backitup.svg'><i>"
     },
+    "dependencies": [
+      {
+        "js-controller": ">=3.3.0"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.0"
+      }
+    ],
     "adminUI": {
       "config": "materialize",
       "tab": "materialize"
@@ -231,6 +241,9 @@
     "influxDBDumpExe": "",
     "influxDBDeleteAfter": 5,
     "influxDBType": "local",
+    "influxDBToken": "",
+    "influxDBVersion": "1.x",
+    "influxDBProtocol": "http",
     "influxDBMulti": false,
     "influxDBEvents": [],
     "deleteOldDataBase": false,
@@ -280,6 +293,11 @@
     "ftpDeleteOldBackup": false,
     "redisEnabled": false,
     "redisPath": "/var/lib/redis",
+    "redisType": "local",
+    "redisHost": "",
+    "redisPort": 6379,
+    "redisUser": "",
+    "redisPassword": "",
     "redisAOFactive": false,
     "historyEnabled": false,
     "historyPath": "media/usb/history",
@@ -319,7 +337,8 @@
     "hostType": "Single",
     "slaveInstance": "backitup.1",
     "slaveNameSuffix": "",
-    "stopSlaveAfter": false
+    "stopSlaveAfter": false,
+    "ignoreErrors": false
   },
   "instanceObjects": [
     {

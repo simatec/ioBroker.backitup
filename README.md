@@ -40,6 +40,21 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 <!-- ### __WORK IN PROGRESS__ -->
+
+### __WORK IN PROGRESS__
+* (simatec) Influxdb2 Backup added
+* (simatec) Influxdb2 Restore added
+* (simatec) Bugfix Grafana Backup
+* (simatec) Bugfix GUI
+* (simatec) Bugfix Redis Restore
+* (simatec) New Restore WebIf added
+* (simatec) dependencies updated
+* (simatec) Bugfix start after Restore
+* (simatec) redis remote Backup added
+* (simatec) Error messages configurable
+* (simatec) Translations added
+* (simatec) Adjustments to js-controller 4
+
 ### 2.2.4 (2022-01-27)
 * (simatec) Restore backup of different controller version added
 * (simatec) Fix YAHKA Backup for more Instances

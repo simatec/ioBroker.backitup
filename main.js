@@ -26,6 +26,8 @@ const backupConfig = {};
 const backupTimeSchedules = [];                         // Array für die Backup Zeiten
 let taskRunning = false;
 
+const bashDir = path.join(utils.getAbsoluteDefaultDataDir(), adapterName).replace(/\\/g, '/');
+
 /**
  * Decrypt the password/value with given key
  * @param {string} key - Secret key
@@ -188,7 +190,7 @@ function startAdapter(options) {
                 case 'restore':
                     if (obj.message) {
                         const restore = require('./lib/restore');
-                        restore(adapter, backupConfig, obj.message.type, obj.message.fileName, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                        restore(adapter, backupConfig, obj.message.type, obj.message.fileName, obj.message.currentTheme, bashDir, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                     } else if (obj.callback) {
                         obj.callback({ error: 'Invalid parameters' });
                     }
@@ -327,12 +329,12 @@ async function checkStates() {
     }
 
     const iobrokerState = await adapter.getStateAsync('oneClick.iobroker');
-    if (!iobrokerState || iobrokerState.val === null) {
+    if (!iobrokerState || iobrokerState.val === null || iobrokerState.val === true) {
         await adapter.setStateAsync('oneClick.iobroker', { val: false, ack: true });
     }
 
     const ccuState = await adapter.getStateAsync('oneClick.ccu');
-    if (!ccuState || ccuState.val === null) {
+    if (!ccuState || ccuState.val === null || ccuState.val === true) {
         await adapter.setStateAsync('oneClick.ccu', { val: false, ack: true });
     }
 
@@ -429,6 +431,7 @@ function initConfig(secret) {
         onlyError: adapter.config.telegramOnlyError,
         telegramWaiting: adapter.config.telegramWaitToSend * 1000,
         hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
 
@@ -441,6 +444,7 @@ function initConfig(secret) {
         onlyError: adapter.config.whatsappOnlyError,
         whatsappWaiting: adapter.config.whatsappWaitToSend * 1000,
         hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
 
@@ -455,6 +459,7 @@ function initConfig(secret) {
         onlyError: adapter.config.pushoverOnlyError,
         pushoverWaiting: adapter.config.pushoverWaitToSend * 1000,
         hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
 
@@ -469,6 +474,7 @@ function initConfig(secret) {
         onlyError: adapter.config.emailOnlyError,
         emailWaiting: adapter.config.emailWaitToSend * 1000,
         hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
 
@@ -476,6 +482,7 @@ function initConfig(secret) {
         enabled: true,
         type: 'message',
         entriesNumber: adapter.config.historyEntriesNumber,
+        ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
 
@@ -483,6 +490,7 @@ function initConfig(secret) {
         enabled: true,
         type: 'message',
         entriesNumber: adapter.config.historyEntriesNumber,
+        ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
 
@@ -499,7 +507,8 @@ function initConfig(secret) {
         dirMinimal: adapter.config.ftpMinimalDir,
         user: adapter.config.ftpUser,                       // username for FTP Server
         pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '',  // password for FTP Server
-        port: adapter.config.ftpPort || 21                  // FTP port
+        port: adapter.config.ftpPort || 21,                  // FTP port
+        ignoreErrors: adapter.config.ignoreErrors
     };
 
     const dropbox = {
@@ -512,7 +521,8 @@ function initConfig(secret) {
         ownDir: adapter.config.dropboxOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.dropboxOwnDir === true) ? null : adapter.config.dropboxDir,
-        dirMinimal: adapter.config.dropboxMinimalDir
+        dirMinimal: adapter.config.dropboxMinimalDir,
+        ignoreErrors: adapter.config.ignoreErrors
     };
 
     const webdav = {
@@ -528,7 +538,8 @@ function initConfig(secret) {
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.webdavOwnDir === true) ? null : adapter.config.webdavDir,
         dirMinimal: adapter.config.webdavMinimalDir,
-        signedCertificates: adapter.config.webdavSignedCertificates
+        signedCertificates: adapter.config.webdavSignedCertificates,
+        ignoreErrors: adapter.config.ignoreErrors
     };
 
     const googledrive = {
@@ -541,7 +552,8 @@ function initConfig(secret) {
         ownDir: adapter.config.googledriveOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.googledriveOwnDir === true) ? null : adapter.config.googledriveDir,
-        dirMinimal: adapter.config.googledriveMinimalDir
+        dirMinimal: adapter.config.googledriveMinimalDir,
+        ignoreErrors: adapter.config.ignoreErrors
     };
 
     const cifs = {
@@ -551,7 +563,7 @@ function initConfig(secret) {
         source: adapter.config.restoreSource,
         mount: adapter.config.cifsMount,
         debugging: adapter.config.debugLevel,
-        fileDir: __dirname,
+        fileDir: bashDir,
         wakeOnLAN: adapter.config.wakeOnLAN,
         macAd: adapter.config.macAd,
         wolTime: adapter.config.wolWait,
@@ -565,7 +577,8 @@ function initConfig(secret) {
         dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                       // specify if CIFS mount should be used
         dirMinimal: adapter.config.cifsMinimalDir,
         user: adapter.config.cifsUser,                     // specify if CIFS mount should be used
-        pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : ''  // password for NAS Server
+        pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : '',  // password for NAS Server
+        ignoreErrors: adapter.config.ignoreErrors
     };
 
     // Configurations for standard-IoBroker backup
@@ -584,6 +597,7 @@ function initConfig(secret) {
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
         webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
         googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+        ignoreErrors: adapter.config.ignoreErrors,
         mysql: {
             enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
             type: 'creator',
@@ -605,6 +619,7 @@ function initConfig(secret) {
             port: adapter.config.mySqlPort,                // database port
             mySqlEvents: adapter.config.mySqlEvents,
             mySqlMulti: adapter.config.mySqlMulti,
+            ignoreErrors: adapter.config.ignoreErrors,
             exe: adapter.config.mySqlDumpExe               // path to mysqldump
         },
         dir: tools.getIobDir(),
@@ -623,10 +638,14 @@ function initConfig(secret) {
             dbName: adapter.config.influxDBName,                    // database name
             host: adapter.config.influxDBHost,                      // database host
             port: adapter.config.influxDBPort,                      // database port
+            dbversion: adapter.config.influxDBVersion,              // dbversion from Influxdb
+            token: adapter.config.influxDBToken,                    // Token from Influxdb
+            protocol: adapter.config.influxDBProtocol,              // Protocol Type from Influxdb
             exe: adapter.config.influxDBDumpExe,                    // path to influxDBdump
             dbType: adapter.config.influxDBType,                    // type of influxdb Backup
             influxDBEvents: adapter.config.influxDBEvents,
             influxDBMulti: adapter.config.influxDBMulti,
+            ignoreErrors: adapter.config.ignoreErrors,
             deleteDataBase: adapter.config.deleteOldDataBase             // delete old database for restore
         },
         pgsql: {
@@ -648,6 +667,7 @@ function initConfig(secret) {
             port: adapter.config.pgSqlPort,                // database port
             pgSqlEvents: adapter.config.pgSqlEvents,
             pgSqlMulti: adapter.config.pgSqlMulti,
+            ignoreErrors: adapter.config.ignoreErrors,
             exe: adapter.config.pgSqlDumpExe               // path to mysqldump
         },
         redis: {
@@ -663,6 +683,12 @@ function initConfig(secret) {
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
+            redisType: adapter.config.redisType, // local or Remote Backup
+            host: adapter.config.redisHost, // Host for Remote Backup
+            port: adapter.config.redisPort, // Port for Remote Backup
+            user: adapter.config.redisUser, // User for Remote Backup
+            pass: adapter.config.redisPassword ? decrypt(secret, adapter.config.redisPassword) : '', // Password for Remote Backup
+            ignoreErrors: adapter.config.ignoreErrors
         },
         historyDB: {
             enabled: adapter.config.historyEnabled,
@@ -676,6 +702,7 @@ function initConfig(secret) {
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
+            ignoreErrors: adapter.config.ignoreErrors
         },
         zigbee: {
             enabled: adapter.config.zigbeeEnabled,
@@ -689,6 +716,7 @@ function initConfig(secret) {
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
+            ignoreErrors: adapter.config.ignoreErrors
         },
         yahka: {
             enabled: adapter.config.yahkaEnabled,
@@ -702,6 +730,7 @@ function initConfig(secret) {
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
+            ignoreErrors: adapter.config.ignoreErrors
         },
         jarvis: {
             enabled: adapter.config.jarvisEnabled,
@@ -715,6 +744,7 @@ function initConfig(secret) {
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
+            ignoreErrors: adapter.config.ignoreErrors
         },
         javascripts: {
             enabled: adapter.config.javascriptsEnabled,
@@ -727,6 +757,7 @@ function initConfig(secret) {
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            ignoreErrors: adapter.config.ignoreErrors
         },
         grafana: {
             enabled: adapter.config.grafanaEnabled,
@@ -745,6 +776,7 @@ function initConfig(secret) {
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
+            ignoreErrors: adapter.config.ignoreErrors
         },
         historyHTML,
         historyJSON,
@@ -766,6 +798,7 @@ function initConfig(secret) {
         //deleteBackupAfter: adapter.config.ccuMulti === true ? adapter.config.ccuDeleteAfter * adapter.config.ccuEvents.length : adapter.config.ccuDeleteAfter,       // delete old backupfiles after x days
         deleteBackupAfter: adapter.config.ccuDeleteAfter,       // delete old backupfiles after x days
         signedCertificates: adapter.config.ccuSignedCertificates,
+        ignoreErrors: adapter.config.ignoreErrors,
 
         ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpCcuDir } : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsCcuDir } : {}),
@@ -826,74 +859,69 @@ function readLogFile() {
 
 function createBashScripts() {
     const isWin = process.platform.startsWith('win');
-
+    if (!fs.existsSync(bashDir)) {
+        fs.mkdirSync(bashDir);
+        adapter.log.debug('Backitup data-directory created');
+    }
     if (isWin) {
         adapter.log.debug(`Backitup has recognized a ${process.platform} system`);
-        if (!fs.existsSync(__dirname + '/lib/stopIOB.bat')) {
-            try {
-                fs.writeFileSync(__dirname + '/lib/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\nif exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-stop\n)\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
-            } catch (e) {
-                adapter.log.error('cannot create stopIOB.bat: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\nif exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-stop\n)\nif exist "${bashDir}/.redis.info" (\ncd "${path.join(__dirname, 'lib')}"\n) else (\ncd "${bashDir}"\n)\nnode restore.js`);
+        } catch (e) {
+            adapter.log.error('cannot create stopIOB.bat: ' + e + 'Please run "iobroker fix"');
         }
-        if (!fs.existsSync(__dirname + '/lib/startIOB.bat')) {
-            try {
-                fs.writeFileSync(__dirname + '/lib/startIOB.bat', `if exist "${path.join(__dirname, 'lib/.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker host this\ncall iobroker start\nif exist "${path.join(__dirname, 'lib/.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
-            } catch (e) {
-                adapter.log.error('cannot create startIOB.bat: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/startIOB.bat', `if exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker host this\ncall iobroker start\nif exist "${path.join(bashDir, '.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
+        } catch (e) {
+            adapter.log.error('cannot create startIOB.bat: ' + e + 'Please run "iobroker fix"');
         }
     } else if (fs.existsSync('/opt/scripts/.docker_config/.thisisdocker')) { // Docker Image Support >= 5.2.0
         adapter.log.debug(`Backitup has recognized a Docker system`);
-        if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
-            try {
-                fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `#!/bin/bash\n# iobroker stop for restore\ngosu iobroker ${path.join(__dirname, 'lib')}/external.sh`);
-                fs.chmodSync(__dirname + '/lib/stopIOB.sh', 508);
-            } catch (e) {
-                adapter.log.error('cannot create stopIOB.sh: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/stopIOB.sh', `#!/bin/bash\n# iobroker stop for restore\ngosu iobroker ${bashDir}/external.sh`);
+            fs.chmodSync(bashDir + '/stopIOB.sh', 508);
+        } catch (e) {
+            adapter.log.error('cannot create stopIOB.sh: ' + e + 'Please run "iobroker fix"');
         }
-        if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
-            try {
-                fs.writeFileSync(__dirname + '/lib/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\ngosu root /opt/scripts/maintenance.sh off -y`);
-                fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
-            } catch (e) {
-                adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\ngosu root /opt/scripts/maintenance.sh off -y`);
+            fs.chmodSync(bashDir + '/startIOB.sh', 508);
+        } catch (e) {
+            adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
         }
-        if (!fs.existsSync(__dirname + '/lib/external.sh')) {
-            try {
-                fs.writeFileSync(__dirname + '/lib/external.sh', `#!/bin/bash\n# restore\ngosu iobroker /opt/scripts/maintenance.sh on -y -kbn\nsleep 3\ncd "${path.join(__dirname, 'lib')}"\ngosu iobroker node restore.js`);
-                fs.chmodSync(__dirname + '/lib/external.sh', 508);
-            } catch (e) {
-                adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/external.sh', `#!/bin/bash\n# restore\ngosu iobroker /opt/scripts/maintenance.sh on -y -kbn\nsleep 3\nif [ -f ${bashDir}/.redis.info ]; then\ncd "${path.join(__dirname, 'lib')}"\nelse\ncd "${bashDir}"\nfi\ngosu iobroker node restore.js`);
+            fs.chmodSync(bashDir + '/external.sh', 508);
+        } catch (e) {
+            adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
         }
     } else {
         adapter.log.debug(`Backitup has recognized a ${process.platform} system`);
-        if (!fs.existsSync(__dirname + '/lib/stopIOB.sh')) {
-            try {
-                fs.writeFileSync(__dirname + '/lib/stopIOB.sh', `# iobroker stop for restore\nsudo systemd-run --uid=iobroker bash ${path.join(__dirname, 'lib')}/external.sh`);
-                fs.chmodSync(__dirname + '/lib/stopIOB.sh', 508);
-            } catch (e) {
-                adapter.log.error('cannot create stopIOB.sh: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/stopIOB.sh', `# iobroker stop for restore\nsudo systemd-run --uid=iobroker bash ${bashDir}/external.sh`);
+            fs.chmodSync(bashDir + '/stopIOB.sh', 508);
+        } catch (e) {
+            adapter.log.error('cannot create stopIOB.sh: ' + e + 'Please run "iobroker fix"');
         }
-        if (!fs.existsSync(__dirname + '/lib/startIOB.sh')) {
-            try {
-                fs.writeFileSync(__dirname + '/lib/startIOB.sh', `# iobroker start after restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo service redis-server start\nfi\nbash iobroker host this\nif [ -f ${path.join(__dirname, 'lib')}\.startAll ] ; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start all\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start`);
-                fs.chmodSync(__dirname + '/lib/startIOB.sh', 508);
-            } catch (e) {
-                adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/startIOB.sh', `# iobroker start after restore\nif [ -f ${bashDir}/.redis.info ]; then\nredis-cli shutdown nosave && echo "[DEBUG] [redis] Redis restart successfully"\nfi\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start all && echo "[DEBUG] [iobroker] iobroker start all successfully"\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker host this && echo "[DEBUG] [iobroker] Host this successfully"\nbash iobroker start && echo "[DEBUG] [iobroker] iobroker restart successfully"`);
+            fs.chmodSync(bashDir + '/startIOB.sh', 508);
+        } catch (e) {
+            adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
         }
-        if (!fs.existsSync(__dirname + '/lib/external.sh')) {
-            try {
-                fs.writeFileSync(__dirname + '/lib/external.sh', `# restore\nif [ -f ${path.join(__dirname, 'lib')}/.redis.info ] ; then\nsudo service redis-server stop\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop;\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
-                fs.chmodSync(__dirname + '/lib/external.sh', 508);
-            } catch (e) {
-                adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/external.sh', `# restore\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop && echo "[DEBUG] [iobroker] iobroker stop successfully"\nif [ -f ${bashDir}/.redis.info ]; then\ncd "${path.join(__dirname, 'lib')}"\nelse\ncd "${bashDir}"\nfi\nnode restore.js`);
+            fs.chmodSync(bashDir + '/external.sh', 508);
+        } catch (e) {
+            adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
         }
     }
 }
@@ -904,7 +932,7 @@ function umount() {
     const backupDir = path.join(tools.getIobDir(), 'backups');
     const child_process = require('child_process');
 
-    if (fs.existsSync(__dirname + '/.mount')) {
+    if (fs.existsSync(bashDir + '/.mount')) {
         child_process.exec(`mount | grep -o "${backupDir}"`, (error, stdout, stderr) => {
             if (stdout.indexOf(backupDir) !== -1) {
                 adapter.log.debug('mount activ... umount in 2 Seconds!!');
@@ -919,7 +947,7 @@ function umount() {
                                     } else {
                                         adapter.log.debug('umount successfully completed');
                                         try {
-                                            fs.existsSync(__dirname + '/.mount') && fs.unlinkSync(__dirname + '/.mount');
+                                            fs.existsSync(bashDir + '/.mount') && fs.unlinkSync(bashDir + '/.mount');
                                         } catch (e) {
                                             adapter.log.debug('file ".mount" not deleted ...');
                                         }
@@ -928,7 +956,7 @@ function umount() {
                         } else {
                             adapter.log.debug('umount successfully completed');
                             try {
-                                fs.existsSync(__dirname + '/.mount') && fs.unlinkSync(__dirname + '/.mount');
+                                fs.existsSync(bashDir + '/.mount') && fs.unlinkSync(bashDir + '/.mount');
                             } catch (e) {
                                 adapter.log.debug('file ".mount" not deleted ...');
                             }
@@ -954,7 +982,7 @@ function createBackupDir() {
 }
 // delete Hide Files after restore
 function deleteHideFiles() {
-    fs.existsSync(__dirname + '/lib/.redis.info') && fs.unlinkSync(__dirname + '/lib/.redis.info');
+    fs.existsSync(bashDir + '/.redis.info') && fs.unlinkSync(bashDir + '/.redis.info');
 }
 // delete temp dir after restore
 function delTmp() {
@@ -969,16 +997,16 @@ function delTmp() {
 }
 // set start Options after restore
 function setStartAll() {
-    if (adapter.config.startAllRestore == true && !fs.existsSync(__dirname + '/lib/.startAll')) {
+    if (adapter.config.startAllRestore == true && !fs.existsSync(bashDir + '/.startAll')) {
         try {
-            fs.writeFileSync(__dirname + '/lib/.startAll', 'Start all Adapter after Restore');
+            fs.writeFileSync(bashDir + '/.startAll', 'Start all Adapter after Restore');
             adapter.log.debug('Start all Adapter after Restore enabled');
         } catch (e) {
             adapter.log.warn('can not create startAll files: ' + e + 'Please run "iobroker fix" and try again');
         }
-    } else if (adapter.config.startAllRestore == false && fs.existsSync(__dirname + '/lib/.startAll')) {
+    } else if (adapter.config.startAllRestore == false && fs.existsSync(bashDir + '/.startAll')) {
         try {
-            fs.unlinkSync(__dirname + '/lib/.startAll');
+            fs.unlinkSync(bashDir + '/.startAll');
             adapter.log.debug('Start all Adapter after Restore disabled');
         } catch (e) {
             adapter.log.warn('can not delete startAll file: ' + e + 'Please run "iobroker fix" and try again');
@@ -1206,17 +1234,34 @@ function decryptEvents(secret) {
     }
 }
 
+function clearbashDir() {
+    // delete restore files
+    if (fs.existsSync(bashDir)) {
+        const fse = require('fs-extra');
+        const restoreDir = path.join(bashDir, 'restore');
+
+        try {
+            fs.existsSync(path.join(bashDir, 'restore.js')) && fs.unlinkSync(path.join(bashDir, 'restore.js'));
+            fs.existsSync(path.join(bashDir, 'restore.json')) && fs.unlinkSync(path.join(bashDir, 'restore.json'));
+            fs.existsSync(restoreDir) && fse.removeSync(restoreDir);
+        } catch (e) {
+            adapter.log.debug(`old restore files could not be deleted: ${e}`);
+        }
+    }
+}
+
 async function main(adapter) {
     createBashScripts();
     readLogFile();
 
     if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) createBackupDir();
-    if (fs.existsSync(__dirname + '/lib/.redis.info')) deleteHideFiles();
+    if (fs.existsSync(bashDir + '/.redis.info')) deleteHideFiles();
     if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) delTmp();
+    clearbashDir();
 
     timerMain = setTimeout(function () {
-        if (fs.existsSync(__dirname + '/.mount')) umount();
-        if (adapter.config.startAllRestore == true && !fs.existsSync(__dirname + '/lib/.startAll')) setStartAll();
+        if (fs.existsSync(bashDir + '/.mount')) umount();
+        if (adapter.config.startAllRestore == true && !fs.existsSync(bashDir + '/.startAll')) setStartAll();
     }, 10000);
 
     adapter.getForeignObject('system.config', (err, obj) => {
