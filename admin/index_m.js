@@ -120,10 +120,10 @@ function fetchInfluxDBConfig(isInitial) {
                     $('#influxDBProtocol').select();
                     $('#influxDBName').val(native.dbname).trigger('change');
 
-                    if(native.port && native.dbversion && native.dbversion == '2.x') {
+                    if (native.port && native.dbversion && native.dbversion == '2.x') {
                         $('#influxDBPort').val(native.port).trigger('change');
                     }
-                    
+
                     var id = res.rows[i].value.
                         found = res.rows[i].value._id;
                     break;
@@ -139,7 +139,7 @@ function fetchInfluxDBConfig(isInitial) {
                     $('#influxDBProtocol').select();
                     $('#influxDBName').val(_native.dbname).trigger('change');
 
-                    if(_native.port && _native.dbversion && _native.dbversion == '2.x') {
+                    if (_native.port && _native.dbversion && _native.dbversion == '2.x') {
                         $('#influxDBPort').val(_native.port).trigger('change');
                     }
 
@@ -248,21 +248,24 @@ function checkAdapterInstall(name, backitupHost) {
             break;
         }
     }
+
     if (!ignore) {
         socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.' + adapterName + '.', endkey: 'system.adapter.' + adapterName + '.\u9999', include_docs: true }, function (err, res) {
             if (res && res.rows && res.rows.length) {
                 for (var i = 0; i < res.rows.length; i++) {
                     var common = res.rows[i].value.common;
-                    if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history' || adapterName == 'javascript')) {
+
+                    if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
                         showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
                         ignoreMessage.push(name);
                         break;
                     }
                 }
-            } else {
-                showMessage(_("No %s Instance found. Please check your System", adapterName), _('Backitup Warning!'), 'info');
+            } else if(res.rows.length == 0 && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
+                showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
                 ignoreMessage.push(name);
             }
+            console.log('res: ' + res.rows.length)
         });
     }
 }
@@ -1155,6 +1158,16 @@ function showHideSettings(settings) {
         } else if ($(this).val() === 'local' && _multiInfluxDB) {
             $('.influxRemote').hide();
             $('.influxDBTable').addClass('influxShowLocal');
+        }
+    }).trigger('change');
+
+    $('#influxDBVersion').on('change', function () {
+        if ($(this).val() === '1.x' && !_multiInfluxDB) {
+            $('.db2x').hide();
+        } else if ($(this).val() === '2.x' && !_multiInfluxDB) {
+            $('.db2x').show();
+        } else if (_multiInfluxDB) {
+            $('.db2x').hide();
         }
     }).trigger('change');
 

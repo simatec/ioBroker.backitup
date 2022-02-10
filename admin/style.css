@@ -229,3 +229,17 @@
     background-color: rgba(255, 255, 255, 0.5)!important;
     filter: brightness(40%);
 }
+
+.m .modal .modal-footer .btn, .m .modal .modal-footer .btn-flat, .m .modal .modal-footer .btn-large, .m .modal .modal-footer .btn-small {
+    margin: 6px 3px;
+    color: #fff;
+    background-color: #3399CC;
+    font-size: 0.875rem;
+    min-width: 64px;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    border-radius: 4px;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    text-align: center;
+}

@@ -52,12 +52,9 @@ When the adapter crashes or an other Code error happens, this error message that
 * (simatec) Bugfix start after Restore
 * (simatec) redis remote Backup added
 * (simatec) Error messages configurable
-
-<!-- ####### Todo: ########
 * (simatec) Translations added
-* (simatec) next Day Backup after error
+* (simatec) Adjustments to js-controller 4
 
--->
 ### 2.2.4 (2022-01-27)
 * (simatec) Restore backup of different controller version added
 * (simatec) Fix YAHKA Backup for more Instances

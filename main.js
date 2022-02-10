@@ -563,7 +563,7 @@ function initConfig(secret) {
         source: adapter.config.restoreSource,
         mount: adapter.config.cifsMount,
         debugging: adapter.config.debugLevel,
-        fileDir: __dirname,
+        fileDir: bashDir,
         wakeOnLAN: adapter.config.wakeOnLAN,
         macAd: adapter.config.macAd,
         wolTime: adapter.config.wolWait,
@@ -865,71 +865,63 @@ function createBashScripts() {
     }
     if (isWin) {
         adapter.log.debug(`Backitup has recognized a ${process.platform} system`);
-        if (!fs.existsSync(bashDir + '/stopIOB.bat')) {
-            try {
-                fs.writeFileSync(bashDir + '/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\nif exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-stop\n)\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
-            } catch (e) {
-                adapter.log.error('cannot create stopIOB.bat: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\nif exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-stop\n)\ncd "${bashDir}"\nnode restore.js`);
+        } catch (e) {
+            adapter.log.error('cannot create stopIOB.bat: ' + e + 'Please run "iobroker fix"');
         }
-        if (!fs.existsSync(bashDir + '/startIOB.bat')) {
-            try {
-                fs.writeFileSync(bashDir + '/startIOB.bat', `if exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker host this\ncall iobroker start\nif exist "${path.join(bashDir, '.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
-            } catch (e) {
-                adapter.log.error('cannot create startIOB.bat: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/startIOB.bat', `if exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker host this\ncall iobroker start\nif exist "${path.join(bashDir, '.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
+        } catch (e) {
+            adapter.log.error('cannot create startIOB.bat: ' + e + 'Please run "iobroker fix"');
         }
     } else if (fs.existsSync('/opt/scripts/.docker_config/.thisisdocker')) { // Docker Image Support >= 5.2.0
         adapter.log.debug(`Backitup has recognized a Docker system`);
-        if (!fs.existsSync(bashDir + '/stopIOB.sh')) {
-            try {
-                fs.writeFileSync(bashDir + '/stopIOB.sh', `#!/bin/bash\n# iobroker stop for restore\ngosu iobroker ${bashDir}/external.sh`);
-                fs.chmodSync(bashDir + '/stopIOB.sh', 508);
-            } catch (e) {
-                adapter.log.error('cannot create stopIOB.sh: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/stopIOB.sh', `#!/bin/bash\n# iobroker stop for restore\ngosu iobroker ${bashDir}/external.sh`);
+            fs.chmodSync(bashDir + '/stopIOB.sh', 508);
+        } catch (e) {
+            adapter.log.error('cannot create stopIOB.sh: ' + e + 'Please run "iobroker fix"');
         }
-        if (!fs.existsSync(bashDir + '/startIOB.sh')) {
-            try {
-                fs.writeFileSync(bashDir + '/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\ngosu root /opt/scripts/maintenance.sh off -y`);
-                fs.chmodSync(bashDir + '/startIOB.sh', 508);
-            } catch (e) {
-                adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\ngosu root /opt/scripts/maintenance.sh off -y`);
+            fs.chmodSync(bashDir + '/startIOB.sh', 508);
+        } catch (e) {
+            adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
         }
-        if (!fs.existsSync(bashDir + '/external.sh')) {
-            try {
-                fs.writeFileSync(bashDir + '/external.sh', `#!/bin/bash\n# restore\ngosu iobroker /opt/scripts/maintenance.sh on -y -kbn\nsleep 3\ncd "${path.join(__dirname, 'lib')}"\ngosu iobroker node restore.js`);
-                fs.chmodSync(bashDir + '/external.sh', 508);
-            } catch (e) {
-                adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/external.sh', `#!/bin/bash\n# restore\ngosu iobroker /opt/scripts/maintenance.sh on -y -kbn\nsleep 3\ncd "${bashDir}"\ngosu iobroker node restore.js`);
+            fs.chmodSync(bashDir + '/external.sh', 508);
+        } catch (e) {
+            adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
         }
     } else {
         adapter.log.debug(`Backitup has recognized a ${process.platform} system`);
-        if (!fs.existsSync(bashDir + '/stopIOB.sh')) {
-            try {
-                fs.writeFileSync(bashDir + '/stopIOB.sh', `# iobroker stop for restore\nsudo systemd-run --uid=iobroker bash ${bashDir}/external.sh`);
-                fs.chmodSync(bashDir + '/stopIOB.sh', 508);
-            } catch (e) {
-                adapter.log.error('cannot create stopIOB.sh: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/stopIOB.sh', `# iobroker stop for restore\nsudo systemd-run --uid=iobroker bash ${bashDir}/external.sh`);
+            fs.chmodSync(bashDir + '/stopIOB.sh', 508);
+        } catch (e) {
+            adapter.log.error('cannot create stopIOB.sh: ' + e + 'Please run "iobroker fix"');
         }
-        if (!fs.existsSync(bashDir + '/startIOB.sh')) {
-            try {
-                fs.writeFileSync(bashDir + '/startIOB.sh', `# iobroker start after restore\nif [ -f ${bashDir}/.redis.info ]; then\nredis-cli shutdown nosave && echo "[DEBUG] [redis] Redis restart successfully"\nfi\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start all && echo "[DEBUG] [iobroker] iobroker start all successfully"\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker host this && echo "[DEBUG] [iobroker] Host this successfully"\nbash iobroker start && echo "[DEBUG] [iobroker] iobroker restart successfully"`);
-                fs.chmodSync(bashDir + '/startIOB.sh', 508);
-            } catch (e) {
-                adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/startIOB.sh', `# iobroker start after restore\nif [ -f ${bashDir}/.redis.info ]; then\nredis-cli shutdown nosave && echo "[DEBUG] [redis] Redis restart successfully"\nfi\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start all && echo "[DEBUG] [iobroker] iobroker start all successfully"\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker host this && echo "[DEBUG] [iobroker] Host this successfully"\nbash iobroker start && echo "[DEBUG] [iobroker] iobroker restart successfully"`);
+            fs.chmodSync(bashDir + '/startIOB.sh', 508);
+        } catch (e) {
+            adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
         }
-        if (!fs.existsSync(bashDir + '/external.sh')) {
-            try {
-                fs.writeFileSync(bashDir + '/external.sh', `# restore\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop && echo "[DEBUG] [iobroker] iobroker stop successfully"\ncd "${path.join(__dirname, 'lib')}"\nnode restore.js`);
-                fs.chmodSync(bashDir + '/external.sh', 508);
-            } catch (e) {
-                adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
-            }
+
+        try {
+            fs.writeFileSync(bashDir + '/external.sh', `# restore\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop && echo "[DEBUG] [iobroker] iobroker stop successfully"\ncd "${bashDir}"\nnode restore.js`);
+            fs.chmodSync(bashDir + '/external.sh', 508);
+        } catch (e) {
+            adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
         }
     }
 }
@@ -940,7 +932,7 @@ function umount() {
     const backupDir = path.join(tools.getIobDir(), 'backups');
     const child_process = require('child_process');
 
-    if (fs.existsSync(__dirname + '/.mount')) {
+    if (fs.existsSync(bashDir + '/.mount')) {
         child_process.exec(`mount | grep -o "${backupDir}"`, (error, stdout, stderr) => {
             if (stdout.indexOf(backupDir) !== -1) {
                 adapter.log.debug('mount activ... umount in 2 Seconds!!');
@@ -955,7 +947,7 @@ function umount() {
                                     } else {
                                         adapter.log.debug('umount successfully completed');
                                         try {
-                                            fs.existsSync(__dirname + '/.mount') && fs.unlinkSync(__dirname + '/.mount');
+                                            fs.existsSync(bashDir + '/.mount') && fs.unlinkSync(bashDir + '/.mount');
                                         } catch (e) {
                                             adapter.log.debug('file ".mount" not deleted ...');
                                         }
@@ -964,7 +956,7 @@ function umount() {
                         } else {
                             adapter.log.debug('umount successfully completed');
                             try {
-                                fs.existsSync(__dirname + '/.mount') && fs.unlinkSync(__dirname + '/.mount');
+                                fs.existsSync(bashDir + '/.mount') && fs.unlinkSync(bashDir + '/.mount');
                             } catch (e) {
                                 adapter.log.debug('file ".mount" not deleted ...');
                             }
@@ -1242,6 +1234,21 @@ function decryptEvents(secret) {
     }
 }
 
+function clearbashDir() {
+    // delete restore files
+    if (fs.existsSync(bashDir)) {
+        const restoreDir = path.join(bashDir, 'restore');
+
+        try {
+            fs.existsSync(path.join(bashDir, 'restore.js')) && fs.unlinkSync(path.join(bashDir, 'restore.js'));
+            fs.existsSync(path.join(bashDir, 'restore.json')) && fs.unlinkSync(path.join(bashDir, 'restore.json'));
+            fs.existsSync(restoreDir) && fs.rmdirSync(restoreDir);
+        } catch (e) {
+            adapter.log.debug(`old restore files could not be deleted: ${e}`);
+        }
+    }
+}
+
 async function main(adapter) {
     createBashScripts();
     readLogFile();
@@ -1249,9 +1256,10 @@ async function main(adapter) {
     if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) createBackupDir();
     if (fs.existsSync(bashDir + '/.redis.info')) deleteHideFiles();
     if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) delTmp();
+    clearbashDir();
 
     timerMain = setTimeout(function () {
-        if (fs.existsSync(__dirname + '/.mount')) umount();
+        if (fs.existsSync(bashDir + '/.mount')) umount();
         if (adapter.config.startAllRestore == true && !fs.existsSync(bashDir + '/.startAll')) setStartAll();
     }, 10000);
 
