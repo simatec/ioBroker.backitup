@@ -867,7 +867,7 @@ function createBashScripts() {
         adapter.log.debug(`Backitup has recognized a ${process.platform} system`);
 
         try {
-            fs.writeFileSync(bashDir + '/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\nif exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-stop\n)\ncd "${bashDir}"\nnode restore.js`);
+            fs.writeFileSync(bashDir + '/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\nif exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-stop\n)\nif exist "${bashDir}/.redis.info" (\ncd "${path.join(__dirname, 'lib')}"\n) else (\n"cd "${bashDir}"\n)\nnode restore.js`);
         } catch (e) {
             adapter.log.error('cannot create stopIOB.bat: ' + e + 'Please run "iobroker fix"');
         }
@@ -895,7 +895,7 @@ function createBashScripts() {
         }
 
         try {
-            fs.writeFileSync(bashDir + '/external.sh', `#!/bin/bash\n# restore\ngosu iobroker /opt/scripts/maintenance.sh on -y -kbn\nsleep 3\ncd "${bashDir}"\ngosu iobroker node restore.js`);
+            fs.writeFileSync(bashDir + '/external.sh', `#!/bin/bash\n# restore\ngosu iobroker /opt/scripts/maintenance.sh on -y -kbn\nsleep 3\nif [ -f ${bashDir}/.redis.info ]; then\ncd "${path.join(__dirname, 'lib')}"\nelse\n"cd "${bashDir}"\nfi\ngosu iobroker node restore.js`);
             fs.chmodSync(bashDir + '/external.sh', 508);
         } catch (e) {
             adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
@@ -918,7 +918,7 @@ function createBashScripts() {
         }
 
         try {
-            fs.writeFileSync(bashDir + '/external.sh', `# restore\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop && echo "[DEBUG] [iobroker] iobroker stop successfully"\ncd "${bashDir}"\nnode restore.js`);
+            fs.writeFileSync(bashDir + '/external.sh', `# restore\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop && echo "[DEBUG] [iobroker] iobroker stop successfully"\nif [ -f ${bashDir}/.redis.info ]; then\ncd "${path.join(__dirname, 'lib')}"\nelse\n"cd "${bashDir}"\nfi\nnode restore.js`);
             fs.chmodSync(bashDir + '/external.sh', 508);
         } catch (e) {
             adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
