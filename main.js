@@ -1237,12 +1237,13 @@ function decryptEvents(secret) {
 function clearbashDir() {
     // delete restore files
     if (fs.existsSync(bashDir)) {
+        const fse = require('fs-extra');
         const restoreDir = path.join(bashDir, 'restore');
 
         try {
             fs.existsSync(path.join(bashDir, 'restore.js')) && fs.unlinkSync(path.join(bashDir, 'restore.js'));
             fs.existsSync(path.join(bashDir, 'restore.json')) && fs.unlinkSync(path.join(bashDir, 'restore.json'));
-            fs.existsSync(restoreDir) && fs.rmdirSync(restoreDir);
+            fs.existsSync(restoreDir) && fse.removeSync(restoreDir);
         } catch (e) {
             adapter.log.debug(`old restore files could not be deleted: ${e}`);
         }
