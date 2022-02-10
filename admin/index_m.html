@@ -132,17 +132,21 @@
                 </div>
                 <div class="row" style="padding: 2px;">
                     <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Additional setting</h6>
-                    <div class="input-field col s12 m6 l3">
+                    <div class="input-field col s12 m6 l2">
                         <input class="value" id="notificationEnabled" type="checkbox"/>
-                        <label for="notificationEnabled" class="translate">Enable / Disable Notifications</label>
+                        <label for="notificationEnabled" class="translate">Enable Notifications</label>
                     </div>
-                    <div class="input-field col s12 m6 l3">
+                    <div class="input-field col s12 m6 l2">
                         <input class="value" id="debugLevel" type="checkbox"/>
-                        <label for="debugLevel" class="translate">Enable / disable debug</label>
+                        <label for="debugLevel" class="translate">Enable debug</label>
                     </div>
-                    <div class="input-field col s12 m6 l3">
+                    <div class="input-field col s12 m6 l2">
                         <input class="value" id="sentry_enable" type="checkbox"/>
                         <label for="sentry_enable" class="translate">send analysis data</label>
+                    </div>
+                    <div class="input-field col s12 m6 l2">
+                        <input class="value" id="ignoreErrors" type="checkbox"/>
+                        <label for="ignoreErrors" class="translate">ignore Backup Errors</label>
                     </div>
                     <div class="input-field col s12 m6 l2">
                         <input type="number" class="value" id="historyEntriesNumber" min="1" max="50"/>
@@ -574,7 +578,7 @@
                         <span class="translate">Path with filename to influxd executable (leave empty to use default)</span>
                     </div>
                 </div>
-                <div class="row influxDB multiInfluxDB">
+                <div class="row influxDB multiInfluxDB db2x">
                     <div class="input-field col s12 m6 l8">
                         <input class="value" id="influxDBToken" type="password">
                         <label for="influxDBToken" class="translate">Token</label>
@@ -635,15 +639,48 @@
                     <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Save Redis state</h6>
                 </div>
                 <div class="row">
+                    <div class="input-field col s11 m2">
+                        <select class="value" id="redisType">
+                            <option value="remote" class="translate">Remote</option>
+                            <option value="local" class="translate">Local</option>
+                        </select>
+                        <label for="redisType" class="translate">source type</label>
+                    </div>
+                </div>
+                <div class="row redisLocal">
                     <div class="input-field col s6 l6 redis_path">
                         <input class="value" id="redisPath" type="text" />
                         <label for="redisPath" class="translate">Redis file path</label>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row redisLocal">
                     <div class="input-field col s6 l4">
                         <input class="value" id="redisAOFactive" type="checkbox" />
                         <label for="redisAOFactive" class="translate">AOF activated</label>
+                    </div>
+                </div>
+                <div class="row redisRemote">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="redisHost" type="text">
+                        <label for="redisHost" class="translate">Host</label>
+                        <span class="translate">Redis Hostname</span>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="redisPort" type="text">
+                        <label for="redisPort" class="translate">port</label>
+                        <span class="translate">port</span>
+                    </div>
+                </div>
+                <div class="row redisRemote">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="redisUser" type="text">
+                        <label for="redisUser" class="translate">Redis username</label>
+                        <span class="translate">Redis username</span>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="redisPassword" type="password">
+                        <label for="redisPassword" class="translate">password</label>
+                        <span class="translate">Redis password</span>
                     </div>
                 </div>
             </div>

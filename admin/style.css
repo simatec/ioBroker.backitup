@@ -221,8 +221,25 @@
     filter: brightness(60%);
 }
 
-/* only for temp dark test 
-.adapter-body {
-    background-color: #1f1f1f;
+.m.react-dark .btn-flat.disabled, .m.react-dark .btn-flat:disabled, .m.react-dark .btn-flat[disabled], .m.react-dark .btn-floating.disabled, .m.react-dark .btn-floating:disabled, .m.react-dark .btn-floating[disabled], .m.react-dark .btn-large.disabled, .m.react-dark .btn-large:disabled, .m.react-dark .btn-large[disabled], .m.react-dark .btn-small.disabled, .m.react-dark .btn-small:disabled, .m.react-dark .btn-small[disabled], .m.react-dark .btn.disabled, .m.react-dark .btn:disabled, .m.react-dark .btn[disabled], .m.react-dark .disabled.btn-large, .m.react-dark .disabled.btn-small {
+    background-color: rgba(255, 255, 255, 0.5)!important;
+    filter: brightness(40%);
 }
-*/
+.m.react-blue .btn-flat.disabled, .m.react-blue .btn-flat:disabled, .m.react-blue .btn-flat[disabled], .m.react-blue .btn-floating.disabled, .m.react-blue .btn-floating:disabled, .m.react-blue .btn-floating[disabled], .m.react-blue .btn-large.disabled, .m.react-blue .btn-large:disabled, .m.react-blue .btn-large[disabled], .m.react-blue .btn-small.disabled, .m.react-blue .btn-small:disabled, .m.react-blue .btn-small[disabled], .m.react-blue .btn.disabled, .m.react-blue .btn:disabled, .m.react-blue .btn[disabled], .m.react-blue .disabled.btn-large, .m.react-blue .disabled.btn-small {
+    background-color: rgba(255, 255, 255, 0.5)!important;
+    filter: brightness(40%);
+}
+
+.m .modal .modal-footer .btn, .m .modal .modal-footer .btn-flat, .m .modal .modal-footer .btn-large, .m .modal .modal-footer .btn-small {
+    margin: 6px 3px;
+    color: #fff;
+    background-color: #3399CC;
+    font-size: 0.875rem;
+    min-width: 64px;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    border-radius: 4px;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    text-align: center;
+}
