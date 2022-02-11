@@ -40,8 +40,7 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 <!-- ### __WORK IN PROGRESS__ -->
-
-### __WORK IN PROGRESS__
+### 2.3.0 (2022-02-11)
 * (simatec) Influxdb2 Backup added
 * (simatec) Influxdb2 Restore added
 * (simatec) Bugfix Grafana Backup
