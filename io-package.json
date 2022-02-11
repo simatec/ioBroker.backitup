@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.2.4",
+    "version": "2.3.0",
     "news": {
+      "2.3.0": {
+        "en": "Influxdb2 Backup added\nInfluxdb2 Restore added\nBugfix Grafana Backup\nBugfix GUI\nBugfix Redis Restore\nNew Restore WebIf added\ndependencies updated\nBugfix start after Restore\nredis remote Backup added\nError messages configurable\nTranslations added\nAdjustments to js-controller 4",
+        "de": "Influxdb2-Sicherung hinzugefügt\nInfluxdb2-Wiederherstellung hinzugefügt\nBugfix Grafana-Sicherung\nBugfix-GUI\nBugfix Redis-Wiederherstellung\nNeues Wiederherstellungs-WebIf hinzugefügt\nAbhängigkeiten aktualisiert\nBugfix Start nach Restore\nredis remote Backup hinzugefügt\nFehlermeldungen konfigurierbar\nÜbersetzungen hinzugefügt\nAnpassungen an js-controller 4",
+        "ru": "Добавлено резервное копирование Influxdb2\nДобавлено восстановление Influxdb2\nИсправлено резервное копирование Grafana\nИсправлен графический интерфейс\nИсправлено восстановление Redis\nДобавлен новый Restore WebIf\nзависимости обновлены\nИсправление запуска после восстановления\nдобавлено удаленное резервное копирование redis\nСообщения об ошибках настраиваются\nПереводы добавлены\nКорректировки js-контроллера 4",
+        "pt": "Backup do Influxdb2 adicionado\nRestauração do Influxdb2 adicionada\nBugfix Grafana Backup\nGUI de correção de bug\nRestauração do Redis de correção de bug\nNova Web de Restauração Se adicionada\ndependências atualizadas\nBugfix iniciar após a restauração\nRedis Backup remoto adicionado\nMensagens de erro configuráveis\nTraduções adicionadas\nAjustes no controlador js 4",
+        "nl": "Influxdb2 Back-up toegevoegd\nInfluxdb2 Herstellen toegevoegd\nBugfix Grafana-back-up\nBugfix GUI\nBugfix Redis Herstellen\nNieuw Herstel WebIndien toegevoegd\nafhankelijkheden bijgewerkt\nBugfix start na Herstellen\nredis externe back-up toegevoegd\nFoutmeldingen configureerbaar\nVertalingen toegevoegd\nAanpassingen aan js-controller 4",
+        "fr": "Sauvegarde Influxdb2 ajoutée\nRestauration Influxdb2 ajoutée\nCorrection de bogues Grafana Backup\nInterface graphique de correction de bogues\nCorrection de bogues Redis Restore\nNouveau Web de restaurationSi ajouté\ndépendances mises à jour\nDébut de la correction de bogue après la restauration\nRedis Remote Backup ajouté\nMessages d'erreur configurables\nTraductions ajoutées\nAjustements à js-controller 4",
+        "it": "Influxdb2 Backup aggiunto\nInfluxdb2 Ripristino aggiunto\nBugfix Backup di Grafana\nGUI di correzione di bug\nBugfix Redis Ripristino\nNuovo Ripristino WebSe aggiunto\ndipendenze aggiornate\nBugfix avviato dopo il ripristino\nRedis Remote Backup aggiunto\nMessaggi di errore configurabili\nTraduzioni aggiunte\nAdeguamenti a js-controller 4",
+        "es": "Copia de seguridad de Influxdb2 agregada\nRestauración de Influxdb2 agregada\nCorrección de errores Copia de seguridad de Grafana\nGUI de corrección de errores\nCorrección de errores Redis Restaurar\nNueva restauración webSi se agrega\ndependencias actualizadas\nCorrección de errores de inicio después de la restauración\nCopia de seguridad remota redis agregada\nMensajes de error configurables\nTraducciones añadidas\nAjustes a js-controller 4",
+        "pl": "Dodano kopię zapasową Influxdb2\nDodano przywracanie Influxdb2\nNaprawa błędów Grafana Backup\nGUI z poprawkami błędów\nNaprawa błędów Redis przywracanie\nNowa witryna przywracania, jeśli została dodana\nzaktualizowano zależności\nNaprawa błędów po przywróceniu\ndodano zdalną kopię zapasową redis\nKonfigurowalne komunikaty o błędach\nDodano tłumaczenia\nZmiany w kontrolerze js 4",
+        "zh-cn": "添加了 Influxdb2 备份\n添加了 Influxdb2 恢复\n错误修复 Grafana 备份\n错误修复图形用户界面\n错误修复 Redis 恢复\n新的还原网络如果添加\n已更新依赖项\n修复后开始修复\n添加了redis远程备份\n错误信息可配置\n添加了翻译\njs-controller 4 的调整"
+      },
       "2.2.4": {
         "en": "Restore backup of different controller version added\nFix YAHKA Backup for more Instances",
         "de": "Wiederherstellungssicherung verschiedener Controller-Versionen hinzugefügt\nFix YAHKA Backup für mehr Instanzen",
@@ -70,17 +82,6 @@
         "it": "dipendenze aggiornate, Preparazione per il design scuro di Admin 5",
         "es": "dependencias actualizadas, preparación para el diseño oscuro por Admin 5",
         "pl": "Zaktualizowano zależności, Przygotowanie do ciemnego projektu przez Admina 5"
-      },
-      "2.1.16": {
-        "en": "dependencies updated, https support for ccu backup, sentry Bugfixes",
-        "de": "Abhängigkeiten aktualisiert, https-Unterstützung für CPU-Backup, Sentry Bugfixes",
-        "ru": "обновлены зависимости, поддержка https для резервного копирования ccu, исправления ошибок",
-        "pt": "dependências atualizadas, suporte https para backup ccu, correções de bugs sentry",
-        "nl": "afhankelijkheden bijgewerkt, https-ondersteuning voor ccu-back-up, sentry-bugfixes",
-        "fr": "dépendances mises à jour, prise en charge https pour la sauvegarde ccu, corrections de bugs sentinelles",
-        "it": "dipendenze aggiornate, supporto https per backup ccu, correzioni di bug di sentinella",
-        "es": "dependencias actualizadas, soporte https para copia de seguridad de ccu, corrección de errores de centinela",
-        "pl": "zaktualizowane zależności, wsparcie https dla kopii zapasowej ccu, poprawki błędów sentry"
       }
     },
     "title": "BackItUp",
