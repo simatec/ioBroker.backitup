@@ -320,10 +320,10 @@ function load(settings, onChange) {
                                         } else {
                                             console.log('Restore finish!')
                                             if (isStopped) {
-                                                var link = "http://" + location.hostname + ":8091/backitup-restore.html";
+                                                var restoreURL = `${location.protocol}://${location.hostname}:${location.protocol == http ? '8091' : '8092'}/backitup-restore.html`;
                                                 setTimeout(function () {
-                                                    //$('<a href="' + link + '">&nbsp;</a>')[0].click();
-                                                    window.open(link, '_self');
+                                                    //$('<a href="' + restoreURL + '">&nbsp;</a>')[0].click();
+                                                    window.open(restoreURL, '_self');
                                                 }, 5000);
                                             }
                                             if (downloadPanel) {
