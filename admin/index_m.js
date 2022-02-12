@@ -738,7 +738,7 @@ function load(settings, onChange) {
                                         // Ignore
                                     }
 
-                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none' }, function (result) {
+                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none', stopIOB : isStopped }, function (result) {
                                         if (!result || result.error) {
                                             showError('Error: ' + JSON.stringify(result.error));
                                         } else {
