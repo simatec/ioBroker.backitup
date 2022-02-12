@@ -227,6 +227,7 @@ function startAdapter(options) {
                         } catch (err) {
                             err && adapter.log.error(err);
                         }
+                        getCert(obj.from);
                     }
                     break;
 
@@ -1250,14 +1251,19 @@ function clearbashDir() {
     }
 }
 
-async function getCert() {
-    const state = await adapter.getForeignObjectAsync('system.certificates', 'state');
-    if (state && state.native && state.native.certificates) {
-        try {
-            fs.writeFileSync(bashDir + '/iob.key', state.native.certificates.defaultPrivate);
-            fs.writeFileSync(bashDir + '/iob.crt', state.native.certificates.defaultPublic);
-        } catch (e) {
-            adapter.log.debug('no certificates found');
+async function getCert(instance) {
+    const _adminCert = await adapter.getForeignObjectAsync(instance, 'state');
+
+    if(_adminCert && _adminCert.native && _adminCert.native.certPrivate && _adminCert.native.certPublic) {
+        const _cert = await adapter.getForeignObjectAsync('system.certificates', 'state');
+        
+        if (_cert && _cert.native && _cert.native.certificates) {
+            try {
+                fs.writeFileSync(bashDir + '/iob.key', _cert.native.certificates[`${_adminCert.native.certPrivate}`]);
+                fs.writeFileSync(bashDir + '/iob.crt', _cert.native.certificates[`${_adminCert.native.certPublic}`]);
+            } catch (e) {
+                adapter.log.debug('no certificates found');
+            }
         }
     }
 }
@@ -1265,7 +1271,6 @@ async function getCert() {
 async function main(adapter) {
     createBashScripts();
     readLogFile();
-    getCert();
 
     if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) createBackupDir();
     if (fs.existsSync(bashDir + '/.redis.info')) deleteHideFiles();
