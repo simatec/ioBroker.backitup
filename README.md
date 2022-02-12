@@ -40,6 +40,12 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 <!-- ### __WORK IN PROGRESS__ -->
+### __WORK IN PROGRESS__
+* (simatec) Bugfix Grafana
+* (simatec) Bugfix Restore for Docker System
+* (simatec) Restore Interface with https Support
+* (simatec) use iobroker SSL Certificates for https
+
 ### 2.3.0 (2022-02-11)
 * (simatec) Influxdb2 Backup added
 * (simatec) Influxdb2 Restore added

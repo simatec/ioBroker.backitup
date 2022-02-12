@@ -6,6 +6,8 @@ var $dialogCommand = null;
 var $output = null;
 var $dialogCommandProgress;
 var lastMessage = '';
+var restoreIfWait = 5000;
+
 function encrypt(key, value) {
     var result = '';
     for (var i = 0; i < value.length; i++) {
@@ -390,6 +392,8 @@ function load(settings, onChange) {
             $pgSqlEnabled.addClass('disabled');
             $redisEnabled.addClass('disabled');
             $startAllRestore.addClass('disabled');
+
+            restoreIfWait = 8000;
         }
     });
 
@@ -738,17 +742,18 @@ function load(settings, onChange) {
                                         // Ignore
                                     }
 
-                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none' }, function (result) {
+                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none', stopIOB : isStopped }, function (result) {
                                         if (!result || result.error) {
                                             showError('Error: ' + JSON.stringify(result.error));
                                         } else {
                                             console.log('Restore finish!')
                                             if (isStopped) {
-                                                var link = "http://" + location.hostname + ":8091/backitup-restore.html";
+                                                var restoreURL = `${location.protocol}//${location.hostname}:${location.protocol == 'https:' ? '8092' : '8091'}/backitup-restore.html`;
+                                                console.log('Restore Url: ' + restoreURL);
                                                 setTimeout(function () {
-                                                    //$('<a href="' + link + '">&nbsp;</a>')[0].click();
-                                                    window.open(link, '_self');
-                                                }, 5000);
+                                                    //$('<a href="' + restoreURL + '">&nbsp;</a>')[0].click();
+                                                    window.open(restoreURL, '_self');
+                                                }, restoreIfWait);
                                             }
 
                                             if (downloadPanel) {

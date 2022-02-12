@@ -6,7 +6,7 @@ var $dialogCommand = null;
 var $output = null;
 var $dialogCommandProgress;
 var lastMessage = '';
-
+var restoreIfWait = 5000;
 
 function initDialog() {
     $dialogCommand = $('#dialog-command');
@@ -103,6 +103,7 @@ function load(settings, onChange) {
         if (obj == 'docker') {
             var $startAllRestore = $('#startAllRestore');
             $startAllRestore.addClass('disabled');
+            restoreIfWait = 8000;
 
             $('#startAllRestore').prop('checked', false);
             $('#startAllRestore').prop('disabled', true);
@@ -314,17 +315,18 @@ function load(settings, onChange) {
                                     showToast(null, _('Restore started'));
                                     var theme = currentTheme();
 
-                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none' }, function (result) {
+                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none', stopIOB : isStopped }, function (result) {
                                         if (!result || result.error) {
                                             showError('Error: ' + JSON.stringify(result.error));
                                         } else {
                                             console.log('Restore finish!')
                                             if (isStopped) {
-                                                var link = "http://" + location.hostname + ":8091/backitup-restore.html";
+                                                var restoreURL = `${location.protocol}//${location.hostname}:${location.protocol == 'https:' ? '8092' : '8091'}/backitup-restore.html`;
+                                                console.log('Restore Url: ' + restoreURL);
                                                 setTimeout(function () {
-                                                    //$('<a href="' + link + '">&nbsp;</a>')[0].click();
-                                                    window.open(link, '_self');
-                                                }, 5000);
+                                                    //$('<a href="' + restoreURL + '">&nbsp;</a>')[0].click();
+                                                    window.open(restoreURL, '_self');
+                                                }, restoreIfWait);
                                             }
                                             if (downloadPanel) {
                                                 $('.cloudRestore').hide();

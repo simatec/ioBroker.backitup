@@ -189,6 +189,9 @@ function startAdapter(options) {
 
                 case 'restore':
                     if (obj.message) {
+                        if (obj.message.stopIOB == true) {
+                            getCerts(obj.from);
+                        }
                         const restore = require('./lib/restore');
                         restore(adapter, backupConfig, obj.message.type, obj.message.fileName, obj.message.currentTheme, bashDir, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                     } else if (obj.callback) {
@@ -1244,8 +1247,28 @@ function clearbashDir() {
             fs.existsSync(path.join(bashDir, 'restore.js')) && fs.unlinkSync(path.join(bashDir, 'restore.js'));
             fs.existsSync(path.join(bashDir, 'restore.json')) && fs.unlinkSync(path.join(bashDir, 'restore.json'));
             fs.existsSync(restoreDir) && fse.removeSync(restoreDir);
+
+            fs.existsSync(path.join(bashDir, 'iob.key')) && fs.unlinkSync(path.join(bashDir, 'iob.key'));
+            fs.existsSync(path.join(bashDir, 'iob.crt')) && fs.unlinkSync(path.join(bashDir, 'iob.crt'));
         } catch (e) {
             adapter.log.debug(`old restore files could not be deleted: ${e}`);
+        }
+    }
+}
+
+async function getCerts(instance) {
+    const _adminCert = await adapter.getForeignObjectAsync(instance, 'state');
+
+    if (_adminCert && _adminCert.native && _adminCert.native.certPrivate && _adminCert.native.certPublic) {
+        const _cert = await adapter.getForeignObjectAsync('system.certificates', 'state');
+
+        if (_cert && _cert.native && _cert.native.certificates) {
+            try {
+                fs.writeFileSync(path.join(bashDir, 'iob.key'), _cert.native.certificates[`${_adminCert.native.certPrivate}`]);
+                fs.writeFileSync(path.join(bashDir, 'iob.crt'), _cert.native.certificates[`${_adminCert.native.certPublic}`]);
+            } catch (e) {
+                adapter.log.debug('no certificates found');
+            }
         }
     }
 }
