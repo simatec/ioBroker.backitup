@@ -1250,9 +1250,22 @@ function clearbashDir() {
     }
 }
 
+async function getCert() {
+    const state = await adapter.getForeignObjectAsync('system.certificates', 'state');
+    if (state && state.native && state.native.certificates) {
+        try {
+            fs.writeFileSync(bashDir + '/iob.key', state.native.certificates.defaultPrivate);
+            fs.writeFileSync(bashDir + '/iob.crt', state.native.certificates.defaultPublic);
+        } catch (e) {
+            adapter.log.debug('no certificates found');
+        }
+    }
+}
+
 async function main(adapter) {
     createBashScripts();
     readLogFile();
+    getCert();
 
     if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) createBackupDir();
     if (fs.existsSync(bashDir + '/.redis.info')) deleteHideFiles();

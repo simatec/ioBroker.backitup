@@ -98,6 +98,7 @@ function load(settings, onChange) {
         }
     });
     console.log('current theme: ' + currentTheme());
+    console.log(`${location.protocol}://${location.hostname}:${location.protocol == 'http' ? '8091' : '8092'}/backitup-restore.html`);
 
     sendTo(null, 'getSystemInfo', null, function (obj) {
         if (obj == 'docker') {
@@ -320,7 +321,8 @@ function load(settings, onChange) {
                                         } else {
                                             console.log('Restore finish!')
                                             if (isStopped) {
-                                                var restoreURL = `${location.protocol}://${location.hostname}:${location.protocol == http ? '8091' : '8092'}/backitup-restore.html`;
+                                                var restoreURL = `${location.protocol}://${location.hostname}:${location.protocol == 'http' ? '8091' : '8092'}/backitup-restore.html`;
+                                                console.log('Restore Url: ' + restoreURL);
                                                 setTimeout(function () {
                                                     //$('<a href="' + restoreURL + '">&nbsp;</a>')[0].click();
                                                     window.open(restoreURL, '_self');
