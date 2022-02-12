@@ -6,7 +6,7 @@ var $dialogCommand = null;
 var $output = null;
 var $dialogCommandProgress;
 var lastMessage = '';
-
+var restoreIfWait = 5000;
 
 function initDialog() {
     $dialogCommand = $('#dialog-command');
@@ -103,6 +103,7 @@ function load(settings, onChange) {
         if (obj == 'docker') {
             var $startAllRestore = $('#startAllRestore');
             $startAllRestore.addClass('disabled');
+            restoreIfWait = 8000;
 
             $('#startAllRestore').prop('checked', false);
             $('#startAllRestore').prop('disabled', true);
@@ -325,7 +326,7 @@ function load(settings, onChange) {
                                                 setTimeout(function () {
                                                     //$('<a href="' + restoreURL + '">&nbsp;</a>')[0].click();
                                                     window.open(restoreURL, '_self');
-                                                }, 5000);
+                                                }, restoreIfWait);
                                             }
                                             if (downloadPanel) {
                                                 $('.cloudRestore').hide();

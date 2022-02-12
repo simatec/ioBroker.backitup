@@ -6,6 +6,8 @@ var $dialogCommand = null;
 var $output = null;
 var $dialogCommandProgress;
 var lastMessage = '';
+var restoreIfWait = 5000;
+
 function encrypt(key, value) {
     var result = '';
     for (var i = 0; i < value.length; i++) {
@@ -390,6 +392,8 @@ function load(settings, onChange) {
             $pgSqlEnabled.addClass('disabled');
             $redisEnabled.addClass('disabled');
             $startAllRestore.addClass('disabled');
+
+            restoreIfWait = 8000;
         }
     });
 
@@ -749,7 +753,7 @@ function load(settings, onChange) {
                                                 setTimeout(function () {
                                                     //$('<a href="' + restoreURL + '">&nbsp;</a>')[0].click();
                                                     window.open(restoreURL, '_self');
-                                                }, 5000);
+                                                }, restoreIfWait);
                                             }
 
                                             if (downloadPanel) {
