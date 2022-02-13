@@ -40,7 +40,7 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 <!-- ### __WORK IN PROGRESS__ -->
-### __WORK IN PROGRESS__
+### 2.3.1 (2022-02-12)
 * (simatec) Bugfix Grafana
 * (simatec) Bugfix Restore for Docker System
 * (simatec) Restore Interface with https Support
