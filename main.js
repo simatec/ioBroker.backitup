@@ -891,7 +891,7 @@ function createBashScripts() {
         }
 
         try {
-            fs.writeFileSync(bashDir + '/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\ngosu root /opt/scripts/maintenance.sh off -y`);
+            fs.writeFileSync(bashDir + '/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\nsleep 6\ngosu root /opt/scripts/maintenance.sh off -y`);
             fs.chmodSync(bashDir + '/startIOB.sh', 508);
         } catch (e) {
             adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
@@ -914,7 +914,7 @@ function createBashScripts() {
         }
 
         try {
-            fs.writeFileSync(bashDir + '/startIOB.sh', `# iobroker start after restore\nif [ -f ${bashDir}/.redis.info ]; then\nredis-cli shutdown nosave && echo "[DEBUG] [redis] Redis restart successfully"\nfi\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start all && echo "[DEBUG] [iobroker] iobroker start all successfully"\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker host this && echo "[DEBUG] [iobroker] Host this successfully"\nbash iobroker start && echo "[DEBUG] [iobroker] iobroker restart successfully"`);
+            fs.writeFileSync(bashDir + '/startIOB.sh', `# iobroker start after restore\nif [ -f ${bashDir}/.redis.info ]; then\nredis-cli shutdown nosave && echo "[DEBUG] [redis] Redis restart successfully"\nfi\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start all && echo "[EXIT] **** iobroker start upload all now... ****"\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker host this && echo "[DEBUG] [iobroker] Host this successfully"\nbash iobroker start && echo "[EXIT] **** iobroker restart now... ****"`);
             fs.chmodSync(bashDir + '/startIOB.sh', 508);
         } catch (e) {
             adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');

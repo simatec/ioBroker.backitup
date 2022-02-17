@@ -166,7 +166,7 @@ body {
 }
 #dialog-restore-show .root {
     width: 100%;
-    height: calc(100% - 150px);
+    height: calc(100% - 165px);
     overflow: hidden;
 }
 #dialog-restore-show {
