@@ -891,7 +891,7 @@ function createBashScripts() {
         }
 
         try {
-            fs.writeFileSync(bashDir + '/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\nsleep 5\ngosu root /opt/scripts/maintenance.sh off -y`);
+            fs.writeFileSync(bashDir + '/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\nsleep 6\ngosu root /opt/scripts/maintenance.sh off -y`);
             fs.chmodSync(bashDir + '/startIOB.sh', 508);
         } catch (e) {
             adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
@@ -1276,8 +1276,6 @@ async function getCerts(instance) {
 async function main(adapter) {
     createBashScripts();
     readLogFile();
-    adapter.log.warn('Platform: ' + process.platform);
-    adapter.log.warn('startwith: ' + process.platform.startsWith('docker'));
 
     if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) createBackupDir();
     if (fs.existsSync(bashDir + '/.redis.info')) deleteHideFiles();
