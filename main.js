@@ -1276,6 +1276,8 @@ async function getCerts(instance) {
 async function main(adapter) {
     createBashScripts();
     readLogFile();
+    adapter.log.warn('Platform: ' + process.platform);
+    adapter.log.warn('startwith: ' + process.platform.startsWith('docker'));
 
     if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) createBackupDir();
     if (fs.existsSync(bashDir + '/.redis.info')) deleteHideFiles();

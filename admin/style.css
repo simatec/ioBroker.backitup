@@ -243,3 +243,10 @@
     text-transform: uppercase;
     text-align: center;
 }
+
+p.subtitle {
+    margin-bottom: 0px;
+    padding-left: 0.75rem;
+    font-size: 1.0rem;
+    text-transform: uppercase;
+}

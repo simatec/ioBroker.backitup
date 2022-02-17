@@ -627,6 +627,8 @@ function load(settings, onChange) {
                 $('.do-list').addClass('disabled');
                 $('#tab-restore').find('.root').html('');
                 $('.doRestore').hide();
+                $('.search-ready').hide();
+                $('.search-error').hide();
                 $('.progress-search').show();
                 console.log('Restore Type: ' + $('#restoreSource').val());
                 sendTo(null, 'list', $('#restoreSource').val(), function (result) {
@@ -634,10 +636,12 @@ function load(settings, onChange) {
                     console.log(result);
                     if (result && result.error) {
                         $('.progress-search').hide();
+                        $('.search-error').show();
                         showError(JSON.stringify(result.error));
                     }
                     if (result && result.data) {
                         $('.progress-search').hide();
+                        $('.search-ready').show();
                         var text = '';
                         var data = result.data;
                         console.log(data);

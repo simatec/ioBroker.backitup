@@ -199,6 +199,8 @@ function load(settings, onChange) {
             $('.do-list').removeClass('disabled').on('click', function () {
                 initDialogRestore();
                 $('.doRestore').hide();
+                $('.search-ready').hide();
+                $('.search-error').hide();
                 $('.progress-search').show();
                 $('.do-list').addClass('disabled');
                 $('.doRestore').find('.root').html('');
@@ -208,10 +210,12 @@ function load(settings, onChange) {
                     console.log(result);
                     if (result && result.error) {
                         $('.progress-search').hide();
+                        $('.search-error').show();
                         showError(JSON.stringify(result.error));
                     }
                     if (result && result.data) {
                         $('.progress-search').hide();
+                        $('.search-ready').show();
                         var text = '';
                         var data = result.data;
                         console.log(data);
