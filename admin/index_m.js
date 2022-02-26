@@ -397,6 +397,7 @@ function load(settings, onChange) {
             var $redisType = $('#redisType');
             $redisType.val('remote').trigger('change');
             $redisType.select();
+            $redisType.prop('disabled', true);
             $redisType.addClass('disabled');
 
             restoreIfWait = 8000;
