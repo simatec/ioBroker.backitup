@@ -396,7 +396,7 @@ function load(settings, onChange) {
             // enable only Redis Remote Backup
             $('#redisType').val('remote').trigger('change');
             $('#redisType').select();
-            $('#redisType').prop('disabled', 'disabled');
+            $('#redisType').attr('disabled', true);
 
             restoreIfWait = 8000;
         }
