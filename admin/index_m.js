@@ -263,7 +263,7 @@ function checkAdapterInstall(name, backitupHost) {
                         break;
                     }
                 }
-            } else if(res.rows.length == 0 && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
+            } else if (res.rows.length == 0 && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
                 showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
                 ignoreMessage.push(name);
             }
@@ -394,9 +394,13 @@ function load(settings, onChange) {
             $startAllRestore.addClass('disabled');
 
             // enable only Redis Remote Backup
-            $('#redisType').val('remote').trigger('change');
-            $('#redisType').select();
-            $('#redisType').attr('disabled', true);
+            $('#redisType').on('change', function () {
+                if ($(this).val() != 'remote' && $('#redisEnabled').prop('checked')) {
+                    $('#redisType').val('remote').trigger('change');
+                    $('#redisType').select();
+                    $('#redisType').attr('disabled', true);
+                }
+            });
 
             restoreIfWait = 8000;
         }
@@ -751,7 +755,7 @@ function load(settings, onChange) {
                                         // Ignore
                                     }
 
-                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none', stopIOB : isStopped }, function (result) {
+                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none', stopIOB: isStopped }, function (result) {
                                         if (!result || result.error) {
                                             showError('Error: ' + JSON.stringify(result.error));
                                         } else {
