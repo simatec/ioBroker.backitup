@@ -263,7 +263,7 @@ function checkAdapterInstall(name, backitupHost) {
                         break;
                     }
                 }
-            } else if(res.rows.length == 0 && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
+            } else if (res.rows.length == 0 && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
                 showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
                 ignoreMessage.push(name);
             }
@@ -372,26 +372,30 @@ function load(settings, onChange) {
             var $influxDBEnabled = $('#influxDBEnabled');
             var $mySqlEnabled = $('#mySqlEnabled');
             var $pgSqlEnabled = $('#pgSqlEnabled');
-            var $redisEnabled = $('#redisEnabled');
             var $startAllRestore = $('#startAllRestore');
 
             $('#influxDBEnabled').prop('checked', false);
             $('#mySqlEnabled').prop('checked', false);
             $('#pgSqlEnabled').prop('checked', false);
-            $('#redisEnabled').prop('checked', false);
             $('#startAllRestore').prop('checked', false);
 
             $('#influxDBEnabled').prop('disabled', true);
             $('#mySqlEnabled').prop('disabled', true);
             $('#pgSqlEnabled').prop('disabled', true);
-            $('#redisEnabled').prop('disabled', true);
             $('#startAllRestore').prop('disabled', true);
 
             $influxDBEnabled.addClass('disabled');
             $mySqlEnabled.addClass('disabled');
             $pgSqlEnabled.addClass('disabled');
-            $redisEnabled.addClass('disabled');
             $startAllRestore.addClass('disabled');
+
+            // enable only Redis Remote Backup
+            $('.redisDocker').hide();
+
+            if ($('#redisType').val() != 'remote' && $('#redisEnabled').prop('checked')) {
+                $('#redisType').val('remote').trigger('change');
+                $('#redisType').select();
+            }
 
             restoreIfWait = 8000;
         }
@@ -746,7 +750,7 @@ function load(settings, onChange) {
                                         // Ignore
                                     }
 
-                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none', stopIOB : isStopped }, function (result) {
+                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none', stopIOB: isStopped }, function (result) {
                                         if (!result || result.error) {
                                             showError('Error: ' + JSON.stringify(result.error));
                                         } else {
