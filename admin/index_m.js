@@ -391,6 +391,8 @@ function load(settings, onChange) {
 
             // enable only Redis Remote Backup
             $('.redisDocker').hide();
+            $('.redisRemote').show();
+            $('.redisLocal').hide();
 
             if ($('#redisType').val() != 'remote' && $('#redisEnabled').prop('checked')) {
                 $('#redisType').val('remote').trigger('change');

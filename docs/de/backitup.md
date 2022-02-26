@@ -132,6 +132,12 @@ sudo reboot
 ```
 
 Ab Backitup Version 2.3.x ist es möglich ein Remote Backup für Redis zu erstellen.
+
+Für ein Remote-Backup wird auf dem loaklen iobroker System redis-cli benötigt.
+
+`sudo apt install redis-tools`
+
+
 Hier müsst ihr euren Host und Port des entfernten Redis Servers angeben und die Login Daten eures Systems.
 
 Dies ist gerade für Docker User ein wichtiges Feature.

@@ -40,6 +40,10 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 <!-- ### __WORK IN PROGRESS__ -->
+
+### __WORK IN PROGRESS__
+* (simatec) fix Redis Config
+
 ### 2.3.4 (2022-02-26)
 * (simatec) Redis Remote Backup for Docker added
 * (simatec) Docu updated
