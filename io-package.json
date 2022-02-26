@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.3.3",
+    "version": "2.3.4",
     "news": {
+      "2.3.4": {
+        "en": "Redis Remote Backup for Docker added\nDocu updated",
+        "de": "Redis Remote Backup für Docker hinzugefügt\nDoku aktualisiert",
+        "ru": "Добавлено удаленное резервное копирование Redis для Docker\nДокумент обновлен",
+        "pt": "Backup remoto do Redis para Docker adicionado\nDocumento atualizado",
+        "nl": "Redis Remote Backup voor Docker toegevoegd\nDocu bijgewerkt",
+        "fr": "Sauvegarde à distance Redis pour Docker ajoutée\nDocument mis à jour",
+        "it": "Aggiunto Redis Remote Backup per Docker\nDocumento aggiornato",
+        "es": "Redis Remote Backup para Docker agregado\ndocumento actualizado",
+        "pl": "Dodano Redis Remote Backup for Docker\nZaktualizowano dokument",
+        "zh-cn": "添加了适用于 Docker 的 Redis 远程备份\n文档已更新"
+      },
       "2.3.3": {
         "en": "small GUI fixes\nDocker restore tunning",
         "de": "kleine GUI-Korrekturen\nDocker-Wiederherstellungsoptimierung",
@@ -74,17 +86,6 @@
         "es": "Mensaje de error de corrección de errores\ndependencias actualizadas",
         "pl": "Komunikat o błędzie naprawy\nzaktualizowano zależności",
         "zh-cn": "错误修正错误信息\n依赖项已更新"
-      },
-      "2.2.2": {
-        "en": "Fix CCU option to use self-signed certificates, Fix Config Menu, dependabot added, small Bugfixes",
-        "de": "Fix CCU-Option zur Verwendung selbstsignierter Zertifikate, Fix Config Menu, Dependabot hinzugefügt, kleine Bugfixes",
-        "ru": "Опция Fix CCU для использования самозаверяющих сертификатов, меню Fix Config, добавлен зависимый бот, небольшие исправления",
-        "pt": "Opção de correção de CCU para usar certificados autoassinados, menu de configuração de correção, dependabot adicionado, pequenas correções de bugs",
-        "nl": "Fix CCU-optie om zelfondertekende certificaten te gebruiken, Fix Config Menu, dependabot toegevoegd, kleine bugfixes",
-        "fr": "Correction de l'option CCU pour utiliser des certificats auto-signés, Fix Config Menu, dependabot ajouté, petites corrections de bugs",
-        "it": "Correzione dell'opzione CCU per utilizzare certificati autofirmati, menu di configurazione corretto, aggiunta di dependabot, piccole correzioni di bug",
-        "es": "Se corrigió la opción de CCU para usar certificados autofirmados, menú de configuración de reparación, se agregó un robot dependiente, pequeñas correcciones de errores",
-        "pl": "Napraw opcję CCU, aby używać certyfikatów z podpisem własnym, Fix Config Menu, dodany dependabot, małe poprawki błędów"
       }
     },
     "title": "BackItUp",
