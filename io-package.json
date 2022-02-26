@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.3.4",
+    "version": "2.3.5",
     "news": {
+      "2.3.5": {
+        "en": "fix Redis Config",
+        "de": "Korrigieren Sie die Redis-Konfiguration",
+        "ru": "исправить конфигурацию Redis",
+        "pt": "corrigir a configuração do Redis",
+        "nl": "Redis-configuratie repareren",
+        "fr": "corriger la configuration Redis",
+        "it": "correggere la configurazione di Redis",
+        "es": "arreglar la configuración de Redis",
+        "pl": "napraw konfigurację Redis",
+        "zh-cn": "修复 Redis 配置"
+      },
       "2.3.4": {
         "en": "Redis Remote Backup for Docker added\nDocu updated",
         "de": "Redis Remote Backup für Docker hinzugefügt\nDoku aktualisiert",
@@ -74,18 +86,6 @@
         "es": "Restaurar copia de seguridad de diferentes versiones del controlador agregadas\nRepare la copia de seguridad de YAHKA para más instancias",
         "pl": "Dodano kopię zapasową przywracania innej wersji kontrolera\nNapraw kopię zapasową YAHKA dla większej liczby instancji",
         "zh-cn": "添加了不同控制器版本的恢复备份\n修复更多实例的 YAHKA 备份"
-      },
-      "2.2.3": {
-        "en": "Bugfix Error Message\ndependencies updated",
-        "de": "Bugfix-Fehlermeldung\nAbhängigkeiten aktualisiert",
-        "ru": "Сообщение об ошибке исправления\nзависимости обновлены",
-        "pt": "Mensagem de erro de correção de bug\ndependências atualizadas",
-        "nl": "Bugfix-foutmelding\nafhankelijkheden bijgewerkt",
-        "fr": "Message d'erreur de correction de bogue\ndépendances mises à jour",
-        "it": "Messaggio di errore correttore di bug\ndipendenze aggiornate",
-        "es": "Mensaje de error de corrección de errores\ndependencias actualizadas",
-        "pl": "Komunikat o błędzie naprawy\nzaktualizowano zależności",
-        "zh-cn": "错误修正错误信息\n依赖项已更新"
       }
     },
     "title": "BackItUp",

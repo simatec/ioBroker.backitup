@@ -40,8 +40,7 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 <!-- ### __WORK IN PROGRESS__ -->
-
-### __WORK IN PROGRESS__
+### 2.3.5 (2022-02-26)
 * (simatec) fix Redis Config
 
 ### 2.3.4 (2022-02-26)
