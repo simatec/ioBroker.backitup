@@ -372,26 +372,32 @@ function load(settings, onChange) {
             var $influxDBEnabled = $('#influxDBEnabled');
             var $mySqlEnabled = $('#mySqlEnabled');
             var $pgSqlEnabled = $('#pgSqlEnabled');
-            var $redisEnabled = $('#redisEnabled');
+            //var $redisEnabled = $('#redisEnabled');
             var $startAllRestore = $('#startAllRestore');
 
             $('#influxDBEnabled').prop('checked', false);
             $('#mySqlEnabled').prop('checked', false);
             $('#pgSqlEnabled').prop('checked', false);
-            $('#redisEnabled').prop('checked', false);
+            //$('#redisEnabled').prop('checked', false);
             $('#startAllRestore').prop('checked', false);
 
             $('#influxDBEnabled').prop('disabled', true);
             $('#mySqlEnabled').prop('disabled', true);
             $('#pgSqlEnabled').prop('disabled', true);
-            $('#redisEnabled').prop('disabled', true);
+            //$('#redisEnabled').prop('disabled', true);
             $('#startAllRestore').prop('disabled', true);
 
             $influxDBEnabled.addClass('disabled');
             $mySqlEnabled.addClass('disabled');
             $pgSqlEnabled.addClass('disabled');
-            $redisEnabled.addClass('disabled');
+            //$redisEnabled.addClass('disabled');
             $startAllRestore.addClass('disabled');
+
+            // enable only Redis Remote Backup
+            var $redisType = $('#redisType');
+            $redisType.val('remote').trigger('change');
+            $redisType.select();
+            $redisType.addClass('disabled');
 
             restoreIfWait = 8000;
         }
