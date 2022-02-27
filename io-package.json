@@ -305,7 +305,7 @@
     "redisPassword": "",
     "redisAOFactive": false,
     "historyEnabled": false,
-    "historyPath": "media/usb/history",
+    "historyPath": "/opt/iobroker/iobroker-data/history",
     "javascriptsEnabled": false,
     "zigbeeEnabled": false,
     "yahkaEnabled": false,

@@ -199,7 +199,7 @@ function fetchHistoryConfig(isInitial) {
                 var common = res.rows[i].value.common;
                 if (common.enabled) {
                     var native = res.rows[i].value.native;
-                    $('#historyPath').val(native.storeDir).trigger('change');
+                    $('#historyPath').val(native.storeDir != '' ? native.storeDir : '/opt/iobroker/iobroker-data/history').trigger('change');
                     found = res.rows[i].value._id;
                     break;
                 }
@@ -207,7 +207,7 @@ function fetchHistoryConfig(isInitial) {
             if (!found) {
                 for (var j = 0; j < res.rows.length; j++) {
                     var _native = res.rows[j].value.native;
-                    $('#historyPath').val(_native.storeDir).trigger('change');
+                    $('#historyPath').val(_native.storeDir != '' ? _native.storeDir : '/opt/iobroker/iobroker-data/history').trigger('change');
                     found = res.rows[j].value._id;
                 }
             }
