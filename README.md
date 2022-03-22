@@ -42,6 +42,8 @@ When the adapter crashes or an other Code error happens, this error message that
 <!-- ### __WORK IN PROGRESS__ -->
 ### __WORK IN PROGRESS__
 * (simatec) Default History path added
+* (simatec) dependencies updated
+* (simatec) Dropbox refresh Token added
 
 ### 2.3.5 (2022-02-26)
 * (simatec) fix Redis Config
