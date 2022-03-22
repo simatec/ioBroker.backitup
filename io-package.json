@@ -181,7 +181,8 @@
       "sentry": {
         "dsn": "https://e8510540c3a343aa8ce5678a4b3c8107@sentry.iobroker.net/36"
       }
-    }
+    },
+    "installedFrom": "iobroker.backitup@2.3.5"
   },
   "native": {
     "minimalEnabled": true,
@@ -217,6 +218,10 @@
     "webdavSignedCertificates": true,
     "dropboxEnabled": false,
     "dropboxAccessToken": "",
+    "dropboxAccessJson": "",
+    "dropboxTokenType": "longLive",
+    "dropboxClient_id": "",
+    "dropboxClient_secret": "",
     "dropboxDeleteOldBackup": false,
     "dropboxOwnDir": false,
     "dropboxMinimalDir": "/backupDir/iobroker",
@@ -305,7 +310,7 @@
     "redisPassword": "",
     "redisAOFactive": false,
     "historyEnabled": false,
-    "historyPath": "/opt/iobroker/iobroker-data/history",
+    "historyPath": "media/usb/history",
     "javascriptsEnabled": false,
     "zigbeeEnabled": false,
     "yahkaEnabled": false,

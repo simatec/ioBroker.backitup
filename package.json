@@ -38,27 +38,27 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.6.0",
-    "dropbox-v2-api": "^2.4.53",
+    "dropbox-v2-api": "^2.5.0",
     "webdav": "^4.8.0",
     "ftp": "^0.3.10",
     "node-schedule": "^2.1.0",
-    "@googleapis/drive": "^2.2.0",
+    "@googleapis/drive": "^2.3.0",
     "node-wol": "^0.1.1",
     "request": "^2.88.2",
     "google-auth-library": "^7.14.0",
     "express": "^4.17.3",
     "fs-extra": "^10.0.1",
-    "axios": "^0.26.0",
+    "axios": "^0.26.1",
     "tar-fs": "^2.1.1"
   },
   "devDependencies": {
-    "@alcalzone/release-script": "^3.5.2",
-    "@alcalzone/release-script-plugin-iobroker": "^3.5.1",
-    "@alcalzone/release-script-plugin-license": "^3.5.0",
-    "@iobroker/testing": "^2.5.4",
+    "@alcalzone/release-script": "^3.5.6",
+    "@alcalzone/release-script-plugin-iobroker": "^3.5.7",
+    "@alcalzone/release-script-plugin-license": "^3.5.3",
+    "@iobroker/testing": "^2.5.6",
     "chai": "^4.3.6",
     "gulp": "^4.0.2",
-    "mocha": "^9.2.1"
+    "mocha": "^9.2.2"
   },
   "main": "main.js",
   "scripts": {

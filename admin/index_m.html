@@ -1075,6 +1075,42 @@
                     <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Dropbox</h6>
                 </div>
                 <div class="row dropbox">
+                    <div class="input-field col s12 m6 l4">
+                        <select class="value" id="dropboxTokenType">
+                            <option value="shortLive" class="translate">short live Token</option>
+                            <option value="longLive" class="translate">long live Token</option>
+                        </select>
+                        <label for="dropboxTokenType" class="translate">App Token Type</label>
+                    </div>
+                </div>
+                <div class="row dropbox dropbox-sl">
+                    <div class="input-field col s3">
+                        <input class="value" id="dropboxAccessJson" type="hidden"/>
+                        <span class="translate">Dropbox refresh token: </span>
+                        <span class="translate" id="dropboxAccessJson_span" style="font-weight: bold">Not present</span>
+                        <a class="waves-effect waves-light btn btn-backitup btn-iobroker get-dropbox-json" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Get Dropbox Access</span></a>
+                    </div>
+                    <div class="input-field col s12 get-dropbox-url" style="display: none">
+                        <span class="translate">Authorize this app by visiting this url: </span>
+                        <a id="get-dropbox-url" href="" target="_blank"></a>
+                    </div>
+                    <div class="input-field col s3 get-dropbox-code" style="display: none">
+                        <input id="get-dropbox-code" type="text"/>
+                        <label for="get-dropbox-code" class="translate">Enter the code from that page here</label>
+                        <a class="waves-effect waves-light btn btn-backitup btn-iobroker get-dropbox-submit" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Submit</span></a>
+                    </div>
+                </div>
+                <div class="row dropbox dropbox-sl">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="dropboxClient_id" type="text">
+                        <label for="dropboxClient_id" class="translate">Client ID</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="dropboxClient_secret" type="password">
+                        <label for="dropboxClient_secret" class="translate">Client Secret</label>
+                    </div>
+                </div>
+                <div class="row dropbox dropbox-ll">
                     <div class="input-field col s12">
                         <input class="value" id="dropboxAccessToken" type="password">
                         <label for="dropboxAccessToken" class="translate">Access token</label>

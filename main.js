@@ -187,6 +187,30 @@ function startAdapter(options) {
                     }
                     break;
 
+                case 'authDropbox':
+                    const dropboxV2Api = require('dropbox-v2-api');
+
+                    if (obj.message && obj.message.code && obj.message.client_id && obj.message.client_secret) {
+                        adapter.log.debug('request Dropbox refresh-token...');
+
+                        const dropbox = dropboxV2Api.authenticate({
+                            client_id: obj.message.client_id,
+                            client_secret: obj.message.client_secret,
+                            token_access_type: 'offline'
+                        });
+
+                        dropbox.getToken(obj.message.code, (err, result) => {
+                            if (err) {
+                                adapter.log.warn(`Dropbox getToken error: ${err}`);
+                                adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback)
+                            } else if (result && result.refresh_token) {
+                                adapter.log.debug(`Dropbox refresh-token: ${result.refresh_token}`);
+                                adapter.sendTo(obj.from, obj.command, { done: true, json: result.refresh_token }, obj.callback);
+                            }
+                        });
+                    }
+                    break;
+
                 case 'restore':
                     if (obj.message) {
                         if (obj.message.stopIOB == true) {
@@ -521,6 +545,10 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.dropboxDeleteOldBackup, // Delete old Backups from Dropbox
         accessToken: adapter.config.dropboxAccessToken,
+        dropboxAccessJson: adapter.config.dropboxAccessJson,
+        dropboxTokenType: adapter.config.dropboxTokenType,
+        dropboxClient_id: adapter.config.dropboxClient_id,
+        dropboxClient_secret: adapter.config.dropboxClient_secret ? decrypt(secret, adapter.config.dropboxClient_secret) : '',
         ownDir: adapter.config.dropboxOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.dropboxOwnDir === true) ? null : adapter.config.dropboxDir,
