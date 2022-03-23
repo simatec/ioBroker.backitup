@@ -188,27 +188,28 @@ function startAdapter(options) {
                     break;
 
                 case 'authDropbox':
-                    const dropboxV2Api = require('dropbox-v2-api');
+                        const dropboxV2Api = require('dropbox-v2-api');
 
-                    if (obj.message && obj.message.code && obj.message.client_id && obj.message.client_secret) {
-                        adapter.log.debug('request Dropbox refresh-token...');
+                        if (obj.message && obj.message.code && obj.message.client_id && obj.message.client_secret) {
+                            adapter.log.debug('request Dropbox refresh-token...');
 
-                        const dropbox = dropboxV2Api.authenticate({
-                            client_id: obj.message.client_id,
-                            client_secret: obj.message.client_secret,
-                            token_access_type: 'offline'
-                        });
+                            const dropbox = dropboxV2Api.authenticate({
+                                client_id: obj.message.client_id,
+                                client_secret: obj.message.client_secret,
+                                token_access_type: 'offline'
+                            });
 
-                        dropbox.getToken(obj.message.code, (err, result) => {
-                            if (err) {
-                                adapter.log.warn(`Dropbox getToken error: ${err}`);
-                                adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback)
-                            } else if (result && result.refresh_token) {
-                                adapter.log.debug(`Dropbox refresh-token: ${result.refresh_token}`);
-                                adapter.sendTo(obj.from, obj.command, { done: true, json: result.refresh_token }, obj.callback);
-                            }
-                        });
-                    }
+                            dropbox.getToken(obj.message.code, (err, result) => {
+                                if (err) {
+                                    adapter.log.warn(`Dropbox getToken error: ${err}`);
+                                    adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback)
+                                } else if (result && result.refresh_token) {
+                                    adapter.log.debug(`Dropbox refresh-token: ${JSON.stringify(result)}`);
+                                    adapter.log.debug(`Dropbox refresh-token: ${result.refresh_token}`);
+                                    adapter.sendTo(obj.from, obj.command, { done: true, json: result.refresh_token }, obj.callback);
+                                }
+                            });
+                        }
                     break;
 
                 case 'restore':
@@ -547,8 +548,8 @@ function initConfig(secret) {
         accessToken: adapter.config.dropboxAccessToken,
         dropboxAccessJson: adapter.config.dropboxAccessJson,
         dropboxTokenType: adapter.config.dropboxTokenType,
-        dropboxClient_id: adapter.config.dropboxClient_id,
-        dropboxClient_secret: adapter.config.dropboxClient_secret ? decrypt(secret, adapter.config.dropboxClient_secret) : '',
+        dropboxClient_id: decrypt(secret, '\tSQ\b\u001e\u0010A^\u0017I\u0005\u0012]AF'),
+        dropboxClient_secret: decrypt(secret, 'S\u0010\rZ\u0001\fV\n\u000eW]\u0000JH^'),
         ownDir: adapter.config.dropboxOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.dropboxOwnDir === true) ? null : adapter.config.dropboxDir,
