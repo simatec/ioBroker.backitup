@@ -24,7 +24,7 @@
         <div id="header-logo-title" class="col s6" >
             <img class="logo" src="backitup.png" >
             <p>
-                <span class="translate h-title">Backitup</span><br />
+                <span class="h-title">Backitup</span><br />
                 <span class="translate h-sub-title">Backup your System …</span>
             </p>
         </div>
@@ -553,8 +553,8 @@
                     </div>
                     <div class="input-field col s11 m4">
                         <select class="value" id="influxDBProtocol">
-                            <option value="http" class="translate">http</option>
-                            <option value="https" class="translate">https</option>
+                            <option value="http" >http</option>
+                            <option value="https" >https</option>
                         </select>
                         <label for="influxDBProtocol" class="translate">Protocol</label>
                     </div>
@@ -562,8 +562,8 @@
                 <div class="row influxDB">
                     <div class="input-field col s11 m4 multiInfluxDB">
                         <select class="value" id="influxDBVersion">
-                            <option value="1.x" class="translate">1.x</option>
-                            <option value="2.x" class="translate">2.x</option>
+                            <option value="1.x" >1.x</option>
+                            <option value="2.x" >2.x</option>
                         </select>
                         <label for="influxDBVersion" class="translate">Database Version</label>
                     </div>
@@ -1016,7 +1016,7 @@
                 <div class="row webDAV">
                     <div class="input-field col s12 m6 l4">
                         <input class="value" id="webdavURL" type="text">
-                        <label for="webdavURL" class="translate">URL</label>
+                        <label for="webdavURL" >URL</label>
                         <span class="translate">WebDAV URL</span>
                     </div>
                 </div>
@@ -1077,10 +1077,10 @@
                 <div class="row dropbox">
                     <div class="input-field col s12 m6 l4">
                         <select class="value" id="dropboxTokenType">
-                            <option value="shortLive" class="translate">short live Token</option>
-                            <option value="longLive" class="translate">long live Token</option>
+                            <option value="default" class="translate">Default Dropbox-API App for Backitup</option>
+                            <option value="custom" class="translate">custom app with long-lived tokens</option>
                         </select>
-                        <label for="dropboxTokenType" class="translate">App Token Type</label>
+                        <label for="dropboxTokenType" class="translate">Dropbox-API Type</label>
                     </div>
                 </div>
                 <div class="row dropbox dropbox-sl">
@@ -1100,18 +1100,12 @@
                         <a class="waves-effect waves-light btn btn-backitup btn-iobroker get-dropbox-submit" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Submit</span></a>
                     </div>
                 </div>
-                
                 <div class="row dropbox dropbox-sl">
                     <div class="input-field col s12 m6 l4" style="display: none">
-                        <input class="value" id="dropboxClient_id" type="text">
-                        <label for="dropboxClient_id" class="translate">Client ID</label>
-                    </div>
-                    <div class="input-field col s12 m6 l4" style="display: none">
-                        <input class="value" id="dropboxClient_secret" type="password">
-                        <label for="dropboxClient_secret" class="translate">Client Secret</label>
+                        <input class="value" id="dropboxCodeChallenge" type="hidden">
+                        <label for="dropboxCodeChallenge">dropbox CodeChallenge</label>
                     </div>
                 </div>
-                
                 <div class="row dropbox dropbox-ll">
                     <div class="input-field col s12">
                         <input class="value" id="dropboxAccessToken" type="password">

@@ -355,7 +355,7 @@ function load(settings, onChange) {
             });
         } else {
             var val = settings[id];
-            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword' || id === 'redisPassword' || id ==='dropboxClient_secret' || id === 'dropboxClient_id') {
+            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword' || id === 'redisPassword' || id === 'dropboxClient_secret' || id === 'dropboxClient_id') {
                 val = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
             }
             // do not call onChange direct, because onChange could expect some arguments
@@ -782,36 +782,51 @@ function load(settings, onChange) {
             });
 
             $('.get-dropbox-json').removeClass('disabled').on('click', function () {
-                var client_id = $('#dropboxClient_id').val();
-
-                if (!client_id) {
-                    return showError(_('No Userdata entered'));
-                }
-
-                var url = `https://www.dropbox.com/1/oauth2/authorize?client_id=${client_id}&response_type=code&token_access_type=offline`;
-
                 $('.get-dropbox-json').addClass('disabled');
-                $('.get-dropbox-json').hide();
-                $('.get-dropbox-url').show();
-                $('.get-dropbox-code').show();
-                $('#get-dropbox-url').text(url).attr('href', url);
-                $('.get-dropbox-submit').show();
+                sendTo(null, 'authDropbox', null, function (obj) {
+                    if (obj && obj.client_id) {
+                        let codeChallenge = '';
+                        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                        for (var i = 0; i < 48; i++) {
+                            codeChallenge += characters.charAt(Math.floor(Math.random() * characters.length));
+                        }
+                        
+                        let url = `https://www.dropbox.com/1/oauth2/authorize?`;
+
+                        url += `client_id=${obj.client_id}&`;
+                        url += `token_access_type=offline&`;
+                        url += `response_type=code&`;
+                        url += `code_challenge=${codeChallenge}&`;
+                        url += `code_challenge_method=plain`;
+
+                        $('.get-dropbox-json').addClass('disabled');
+                        $('.get-dropbox-json').hide();
+                        $('.get-dropbox-url').show();
+                        $('.get-dropbox-code').show();
+                        $('#get-dropbox-url').text(url).attr('href', url);
+                        $('.get-dropbox-submit').show();
+
+                        if ($('#dropboxCodeChallenge').val() !== codeChallenge) {
+                            $('#dropboxCodeChallenge').val(codeChallenge);
+                            onChange();
+                        }
+                    } else {
+                        return showError(_('No Userdata entered'));
+                    }
+                });
             });
 
             $('.get-dropbox-submit').on('click', function () {
                 var code = $('#get-dropbox-code').val();
-                var client_id = $('#dropboxClient_id').val();
-                var client_secret = $('#dropboxClient_secret').val();
-                if (!code) {
+                var codeChallenge = $('#dropboxCodeChallenge').val();
+
+                if (!code || !codeChallenge) {
                     return showError(_('No code entered'));
-                }
-                if (!client_id || !client_secret) {
-                    return showError(_('No Userdata entered'));
                 }
 
                 $('.get-dropbox-submit').addClass('disabled');
 
-                sendTo(null, 'authDropbox', { code: code, client_id: client_id, client_secret: client_secret }, function (obj) {
+                sendTo(null, 'authDropbox', { code: code, codeChallenge: codeChallenge }, function (obj) {
                     $('.get-dropbox-json').removeClass('disabled');
                     if (obj && obj.done) {
                         if ($('#dropboxAccessJson').val() !== obj.json) {
@@ -824,8 +839,8 @@ function load(settings, onChange) {
                         $('.get-dropbox-json').show();
                         $('.get-dropbox-json span').text(_('Renew Dropbox Access'));
                         $('#dropboxAccessJson_span').text(_('Present'));
-                    } else if (obj && obj.error) {
-                        showError(obj.error);
+                    } else if (obj && obj.error && obj.error.message) {
+                        showError(obj.error.message);
                     } else {
                         showError(_('No answer'));
                     }
@@ -1324,10 +1339,10 @@ function showHideSettings(settings) {
     }).trigger('change');
 
     $('#dropboxTokenType').on('change', function () {
-        if ($(this).val() === 'shortLive') {
+        if ($(this).val() === 'default') {
             $('.dropbox-sl').show();
             $('.dropbox-ll').hide();
-        } else if ($(this).val() === 'longLive') {
+        } else if ($(this).val() === 'custom') {
             $('.dropbox-ll').show();
             $('.dropbox-sl').hide();
         }

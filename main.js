@@ -188,28 +188,31 @@ function startAdapter(options) {
                     break;
 
                 case 'authDropbox':
-                        const dropboxV2Api = require('dropbox-v2-api');
+                    if (obj.message && obj.message.code && obj.message.codeChallenge) {
+                        adapter.log.debug('request Dropbox refresh-token...');
 
-                        if (obj.message && obj.message.code && obj.message.client_id && obj.message.client_secret) {
-                            adapter.log.debug('request Dropbox refresh-token...');
+                        const axios = require('axios').default;
 
-                            const dropbox = dropboxV2Api.authenticate({
-                                client_id: obj.message.client_id,
-                                client_secret: obj.message.client_secret,
-                                token_access_type: 'offline'
-                            });
-
-                            dropbox.getToken(obj.message.code, (err, result) => {
-                                if (err) {
-                                    adapter.log.warn(`Dropbox getToken error: ${err}`);
-                                    adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback)
-                                } else if (result && result.refresh_token) {
-                                    adapter.log.debug(`Dropbox refresh-token: ${JSON.stringify(result)}`);
-                                    adapter.log.debug(`Dropbox refresh-token: ${result.refresh_token}`);
-                                    adapter.sendTo(obj.from, obj.command, { done: true, json: result.refresh_token }, obj.callback);
-                                }
-                            });
-                        }
+                        axios('https://api.dropbox.com/1/oauth2/token', {
+                            method: 'post',
+                            params: {
+                                code: obj.message.code,
+                                grant_type: 'authorization_code',
+                                code_verifier: obj.message.codeChallenge,
+                                client_id: decrypt('Zgfr56gFe87jJOM', '7QRKME*B.?>')
+                            }
+                        }).then((response) => {
+                            if (response && response.data && response.data.refresh_token) {
+                                adapter.log.debug('Dropbox refresh-token successfully');
+                                adapter.sendTo(obj.from, obj.command, { done: true, json: response.data.refresh_token }, obj.callback);
+                            }
+                        }).catch((err) => {
+                            adapter.log.warn(`Dropbox getToken error: ${err}`);
+                            adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback);
+                        });
+                    } else if (obj.callback) {
+                        adapter.sendTo(obj.from, obj.command, { client_id: decrypt('Zgfr56gFe87jJOM', '7QRKME*B.?>') }, obj.callback);
+                    }
                     break;
 
                 case 'restore':
@@ -548,8 +551,7 @@ function initConfig(secret) {
         accessToken: adapter.config.dropboxAccessToken,
         dropboxAccessJson: adapter.config.dropboxAccessJson,
         dropboxTokenType: adapter.config.dropboxTokenType,
-        dropboxClient_id: decrypt(secret, '\tSQ\b\u001e\u0010A^\u0017I\u0005\u0012]AF'),
-        dropboxClient_secret: decrypt(secret, 'S\u0010\rZ\u0001\fV\n\u000eW]\u0000JH^'),
+        dropboxClient_id: decrypt('Zgfr56gFe87jJOM', '7QRKME*B.?>'),
         ownDir: adapter.config.dropboxOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.dropboxOwnDir === true) ? null : adapter.config.dropboxDir,
