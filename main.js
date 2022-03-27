@@ -188,30 +188,24 @@ function startAdapter(options) {
                     break;
 
                 case 'authDropbox':
+                    const Dropbox = require('./lib/dropboxLib');
+
                     if (obj.message && obj.message.code && obj.message.codeChallenge) {
-                        adapter.log.debug('request Dropbox refresh-token...');
+                        const dropbox = new Dropbox();
 
-                        const axios = require('axios').default;
-
-                        axios('https://api.dropbox.com/1/oauth2/token', {
-                            method: 'post',
-                            params: {
-                                code: obj.message.code,
-                                grant_type: 'authorization_code',
-                                code_verifier: obj.message.codeChallenge,
-                                client_id: decrypt('Zgfr56gFe87jJOM', '7QRKME*B.?>')
-                            }
-                        }).then((response) => {
-                            if (response && response.data && response.data.refresh_token) {
-                                adapter.log.debug('Dropbox refresh-token successfully');
-                                adapter.sendTo(obj.from, obj.command, { done: true, json: response.data.refresh_token }, obj.callback);
-                            }
-                        }).catch((err) => {
-                            adapter.log.warn(`Dropbox getToken error: ${err}`);
-                            adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback);
-                        });
+                        dropbox.getRefreshToken(obj.message.code, obj.message.codeChallenge)
+                            .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json: json }, obj.callback))
+                            .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
                     } else if (obj.callback) {
-                        adapter.sendTo(obj.from, obj.command, { client_id: decrypt('Zgfr56gFe87jJOM', '7QRKME*B.?>') }, obj.callback);
+                        const dropbox = new Dropbox();
+                        let auth_url;
+
+                        dropbox.getAuthorizeUrl()
+                        .then(url => auth_url = url)
+                        .then(() => dropbox.getCodeChallage())
+                        .then(code_challenge =>adapter.sendTo(obj.from, obj.command, { url: auth_url, code_challenge: code_challenge }, obj.callback))
+                        .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
+
                     }
                     break;
 
@@ -551,7 +545,6 @@ function initConfig(secret) {
         accessToken: adapter.config.dropboxAccessToken,
         dropboxAccessJson: adapter.config.dropboxAccessJson,
         dropboxTokenType: adapter.config.dropboxTokenType,
-        dropboxClient_id: decrypt('Zgfr56gFe87jJOM', '7QRKME*B.?>'),
         ownDir: adapter.config.dropboxOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.dropboxOwnDir === true) ? null : adapter.config.dropboxDir,

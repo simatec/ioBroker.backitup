@@ -784,20 +784,8 @@ function load(settings, onChange) {
             $('.get-dropbox-json').removeClass('disabled').on('click', function () {
                 $('.get-dropbox-json').addClass('disabled');
                 sendTo(null, 'authDropbox', null, function (obj) {
-                    if (obj && obj.client_id) {
-                        let codeChallenge = '';
-                        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                        for (var i = 0; i < 48; i++) {
-                            codeChallenge += characters.charAt(Math.floor(Math.random() * characters.length));
-                        }
-                        
-                        let url = `https://www.dropbox.com/1/oauth2/authorize?`;
-
-                        url += `client_id=${obj.client_id}&`;
-                        url += `token_access_type=offline&`;
-                        url += `response_type=code&`;
-                        url += `code_challenge=${codeChallenge}&`;
-                        url += `code_challenge_method=plain`;
+                    if (obj && obj.url && obj.code_challenge) {
+                        const url = `${obj.url}&code_challenge=${obj.code_challenge}`;
 
                         $('.get-dropbox-json').addClass('disabled');
                         $('.get-dropbox-json').hide();
@@ -806,8 +794,8 @@ function load(settings, onChange) {
                         $('#get-dropbox-url').text(url).attr('href', url);
                         $('.get-dropbox-submit').show();
 
-                        if ($('#dropboxCodeChallenge').val() !== codeChallenge) {
-                            $('#dropboxCodeChallenge').val(codeChallenge);
+                        if ($('#dropboxCodeChallenge').val() !== obj.code_challenge) {
+                            $('#dropboxCodeChallenge').val(obj.code_challenge);
                             onChange();
                         }
                     } else {
@@ -846,7 +834,6 @@ function load(settings, onChange) {
                     }
                 });
             });
-
 
             $('.get-googledrive-json').removeClass('disabled').on('click', function () {
                 $('.get-googledrive-json').addClass('disabled');
