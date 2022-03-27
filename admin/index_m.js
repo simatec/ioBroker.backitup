@@ -8,6 +8,12 @@ var $dialogCommandProgress;
 var lastMessage = '';
 var restoreIfWait = 5000;
 
+var oldJavascriptsEnabled;
+var oldZigbeeEnabled;
+var oldJarvisEnabled;
+var oldHistoryEnabled;
+var oldYahkaEnabled;
+
 function encrypt(key, value) {
     var result = '';
     for (var i = 0; i < value.length; i++) {
@@ -344,6 +350,13 @@ function load(settings, onChange) {
     if (settings.cifsMount === 'CIFS') {
         settings.cifsMount = '';
     }
+
+    oldJavascriptsEnabled = settings.javascriptsEnabled;
+    oldZigbeeEnabled = settings.zigbeeEnabled;
+    oldJarvisEnabled = settings.jarvisEnabled;
+    oldHistoryEnabled = settings.historyEnabled;
+    oldYahkaEnabled = settings.yahkaEnabled;
+
     $('.value').each(function () {
         var $key = $(this);
         var id = $key.attr('id');
@@ -1367,7 +1380,9 @@ function showHideSettings(settings) {
         $('.tab-redis').hide();
     }
     if ($('#historyEnabled').prop('checked')) {
+        if (!oldHistoryEnabled) {
         checkAdapterInstall('history', common.host);
+        }
         $('.tab-history').show();
     } else {
         $('.tab-history').hide();
@@ -1408,25 +1423,28 @@ function showHideSettings(settings) {
     } else {
         $('.ccuCert').hide();
     }
-    /*
-    if ($('#javascriptsEnabled').prop('checked')) {
-        checkAdapterInstall('javascript', common.host);
-    } else {
-        cleanIgnoreMessage('javascript');
+    
+    if ($('#javascriptsEnabled').prop('checked') && !oldJavascriptsEnabled) {
+        showMessage(_("<br/><br/>The JavaScript Adapter scripts are already saved in the ioBroker backup.<br/><br/>This option is just an additional option to be able to restore the scripts individually if necessary."), _('Backitup Information!'), 'info');
     }
-    */
     if ($('#zigbeeEnabled').prop('checked')) {
+        if (!oldZigbeeEnabled) {
         checkAdapterInstall('zigbee', common.host);
+        }
     } else {
         cleanIgnoreMessage('zigbee');
     }
     if ($('#yahkaEnabled').prop('checked')) {
+        if (!oldYahkaEnabled) {
         checkAdapterInstall('yahka', common.host);
+        }
     } else {
         cleanIgnoreMessage('yahka');
     }
     if ($('#jarvisEnabled').prop('checked')) {
+        if (!oldJarvisEnabled) {
         checkAdapterInstall('jarvis', common.host);
+        }
     } else {
         cleanIgnoreMessage('jarvis');
     }
