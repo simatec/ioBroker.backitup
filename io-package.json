@@ -159,7 +159,7 @@
     ],
     "globalDependencies": [
       {
-        "admin": ">=5.1.0"
+        "admin": ">=5.2.0"
       }
     ],
     "adminUI": {
@@ -217,6 +217,9 @@
     "webdavSignedCertificates": true,
     "dropboxEnabled": false,
     "dropboxAccessToken": "",
+    "dropboxAccessJson": "",
+    "dropboxTokenType": "custom",
+    "dropboxCodeChallenge": "",
     "dropboxDeleteOldBackup": false,
     "dropboxOwnDir": false,
     "dropboxMinimalDir": "/backupDir/iobroker",
@@ -322,6 +325,10 @@
     "whatsappNoticeType": "longWhatsappNotice",
     "whatsappOnlyError": false,
     "whatsappWaitToSend": 0,
+    "signalInstance": "signal-cmb.0",
+    "signalNoticeType": "longSignalNotice",
+    "signalOnlyError": false,
+    "signalWaitToSend": 0,
     "pushoverInstance": "pushover.0",
     "pushoverNoticeType": "longPushoverNotice",
     "pushoverSilentNotice": false,

@@ -40,6 +40,16 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 <!-- ### __WORK IN PROGRESS__ -->
+### __WORK IN PROGRESS__
+* (simatec) Default History path added
+* (simatec) dependencies updated
+* (simatec) Dropbox default APP added
+* (simatec) Bugfix Info Messages
+* (simatec) Info Message for Script-Backup added
+* (simatec) Signal-cmb added
+* (simatec) many small Bugfixes
+* (simatec) Documentation updated
+
 ### 2.3.5 (2022-02-26)
 * (simatec) fix Redis Config
 

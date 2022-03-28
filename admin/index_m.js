@@ -8,6 +8,12 @@ var $dialogCommandProgress;
 var lastMessage = '';
 var restoreIfWait = 5000;
 
+var oldJavascriptsEnabled;
+var oldZigbeeEnabled;
+var oldJarvisEnabled;
+var oldHistoryEnabled;
+var oldYahkaEnabled;
+
 function encrypt(key, value) {
     var result = '';
     for (var i = 0; i < value.length; i++) {
@@ -344,6 +350,13 @@ function load(settings, onChange) {
     if (settings.cifsMount === 'CIFS') {
         settings.cifsMount = '';
     }
+
+    oldJavascriptsEnabled = settings.javascriptsEnabled;
+    oldZigbeeEnabled = settings.zigbeeEnabled;
+    oldJarvisEnabled = settings.jarvisEnabled;
+    oldHistoryEnabled = settings.historyEnabled;
+    oldYahkaEnabled = settings.yahkaEnabled;
+
     $('.value').each(function () {
         var $key = $(this);
         var id = $key.attr('id');
@@ -781,6 +794,60 @@ function load(settings, onChange) {
                 });
             });
 
+            $('.get-dropbox-json').removeClass('disabled').on('click', function () {
+                $('.get-dropbox-json').addClass('disabled');
+                sendTo(null, 'authDropbox', null, function (obj) {
+                    if (obj && obj.url && obj.code_challenge) {
+                        const url = `${obj.url}&code_challenge=${obj.code_challenge}`;
+
+                        $('.get-dropbox-json').addClass('disabled');
+                        $('.get-dropbox-json').hide();
+                        $('.get-dropbox-url').show();
+                        $('.get-dropbox-code').show();
+                        $('#get-dropbox-url').text(url).attr('href', url);
+                        $('.get-dropbox-submit').show();
+
+                        if ($('#dropboxCodeChallenge').val() !== obj.code_challenge) {
+                            $('#dropboxCodeChallenge').val(obj.code_challenge);
+                            onChange();
+                        }
+                    } else {
+                        return showError(_('No Userdata entered'));
+                    }
+                });
+            });
+
+            $('.get-dropbox-submit').on('click', function () {
+                var code = $('#get-dropbox-code').val();
+                var codeChallenge = $('#dropboxCodeChallenge').val();
+
+                if (!code || !codeChallenge) {
+                    return showError(_('No code entered'));
+                }
+
+                $('.get-dropbox-submit').addClass('disabled');
+
+                sendTo(null, 'authDropbox', { code: code, codeChallenge: codeChallenge }, function (obj) {
+                    $('.get-dropbox-json').removeClass('disabled');
+                    if (obj && obj.done) {
+                        if ($('#dropboxAccessJson').val() !== obj.json) {
+                            $('#dropboxAccessJson').val(obj.json);
+                            onChange();
+                        }
+
+                        $('.get-dropbox-code').hide();
+                        $('.get-dropbox-url').hide();
+                        $('.get-dropbox-json').show();
+                        $('.get-dropbox-json span').text(_('Renew Dropbox Access'));
+                        $('#dropboxAccessJson_span').text(_('Present'));
+                    } else if (obj && obj.error && obj.error.message) {
+                        showError(obj.error.message);
+                    } else {
+                        showError(_('No answer'));
+                    }
+                });
+            });
+
             $('.get-googledrive-json').removeClass('disabled').on('click', function () {
                 $('.get-googledrive-json').addClass('disabled');
                 sendTo(null, 'authGoogleDrive', null, function (obj) {
@@ -828,8 +895,16 @@ function load(settings, onChange) {
             $('.do-backup').addClass('disabled');
             $('.do-list').addClass('disabled');
             $('.get-googledrive-json').addClass('disabled');
+            $('.get-dropbox-json').addClass('disabled');
         }
     });
+
+    if (settings.dropboxAccessJson) {
+        $('#dropboxAccessJson_span').text(_('Present'));
+        $('.get-dropbox-json span').text(_('Renew Dropbox Access'));
+    } else {
+        $('#dropboxAccessJson_span').text(_('Not present'));
+    }
 
     if (settings.googledriveAccessJson) {
         $('#googledriveAccessJson_span').text(_('Present'));
@@ -849,6 +924,10 @@ function load(settings, onChange) {
     });
     getAdapterInstances('whatsapp-cmb', function (instances) {
         fillInstances('whatsappInstance', instances, settings['whatsappInstance'], 'whatsapp-cmb');
+    });
+
+    getAdapterInstances('signal-cmb', function (instances) {
+        fillInstances('signalInstance', instances, settings['signalInstance'], 'signal-cmb');
     });
 
     getAdapterInstances('email', function (instances) {
@@ -957,7 +1036,7 @@ function save(callback) {
             obj[id] = $this.prop('checked');
         } else {
             var val = $this.val();
-            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword' || id === 'redisPassword') {
+            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword' || id === 'redisPassword' || id === 'dropboxClient_secret' || id === 'dropboxClient_id') {
                 val = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
             }
             obj[id] = val;
@@ -1243,23 +1322,43 @@ function showHideSettings(settings) {
         if ($(this).val() === 'Telegram') {
             $('.email').hide();
             $('.pushover').hide();
+            $('.whatsapp').hide();
+            $('.signal').hide();
             $('.telegram').show();
-            $('.whatsapp').hide();
         } else if ($(this).val() === 'E-Mail') {
+            $('.telegram').hide();
+            $('.pushover').hide();
+            $('.whatsapp').hide();
+            $('.signal').hide();
             $('.email').show();
-            $('.telegram').hide();
-            $('.pushover').hide();
-            $('.whatsapp').hide();
         } else if ($(this).val() === 'Pushover') {
-            $('.pushover').show();
             $('.telegram').hide();
             $('.email').hide();
             $('.whatsapp').hide();
+            $('.signal').hide();
+            $('.pushover').show();
         } else if ($(this).val() === 'WhatsApp') {
-            $('.whatsapp').show();
             $('.telegram').hide();
             $('.email').hide();
             $('.pushover').hide();
+            $('.signal').hide();
+            $('.whatsapp').show();
+        } else if ($(this).val() === 'Signal') {
+            $('.telegram').hide();
+            $('.email').hide();
+            $('.pushover').hide();
+            $('.whatsapp').hide();
+            $('.signal').show();
+        }
+    }).trigger('change');
+
+    $('#dropboxTokenType').on('change', function () {
+        if ($(this).val() === 'default') {
+            $('.dropbox-sl').show();
+            $('.dropbox-ll').hide();
+        } else if ($(this).val() === 'custom') {
+            $('.dropbox-ll').show();
+            $('.dropbox-sl').hide();
         }
     }).trigger('change');
 
@@ -1295,7 +1394,9 @@ function showHideSettings(settings) {
         $('.tab-redis').hide();
     }
     if ($('#historyEnabled').prop('checked')) {
+        if (!oldHistoryEnabled) {
         checkAdapterInstall('history', common.host);
+        }
         $('.tab-history').show();
     } else {
         $('.tab-history').hide();
@@ -1336,25 +1437,28 @@ function showHideSettings(settings) {
     } else {
         $('.ccuCert').hide();
     }
-    /*
-    if ($('#javascriptsEnabled').prop('checked')) {
-        checkAdapterInstall('javascript', common.host);
-    } else {
-        cleanIgnoreMessage('javascript');
+    
+    if ($('#javascriptsEnabled').prop('checked') && !oldJavascriptsEnabled) {
+        showMessage(_("<br/><br/>The JavaScript Adapter scripts are already saved in the ioBroker backup.<br/><br/>This option is just an additional option to be able to restore the scripts individually if necessary."), _('Backitup Information!'), 'info');
     }
-    */
     if ($('#zigbeeEnabled').prop('checked')) {
+        if (!oldZigbeeEnabled) {
         checkAdapterInstall('zigbee', common.host);
+        }
     } else {
         cleanIgnoreMessage('zigbee');
     }
     if ($('#yahkaEnabled').prop('checked')) {
+        if (!oldYahkaEnabled) {
         checkAdapterInstall('yahka', common.host);
+        }
     } else {
         cleanIgnoreMessage('yahka');
     }
     if ($('#jarvisEnabled').prop('checked')) {
+        if (!oldJarvisEnabled) {
         checkAdapterInstall('jarvis', common.host);
+        }
     } else {
         cleanIgnoreMessage('jarvis');
     }

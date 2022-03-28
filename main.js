@@ -187,6 +187,28 @@ function startAdapter(options) {
                     }
                     break;
 
+                case 'authDropbox':
+                    const Dropbox = require('./lib/dropboxLib');
+
+                    if (obj.message && obj.message.code && obj.message.codeChallenge) {
+                        const dropbox = new Dropbox();
+
+                        dropbox.getRefreshToken(obj.message.code, obj.message.codeChallenge)
+                            .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json: json }, obj.callback))
+                            .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
+                    } else if (obj.callback) {
+                        const dropbox = new Dropbox();
+                        let auth_url;
+
+                        dropbox.getAuthorizeUrl()
+                        .then(url => auth_url = url)
+                        .then(() => dropbox.getCodeChallage())
+                        .then(code_challenge =>adapter.sendTo(obj.from, obj.command, { url: auth_url, code_challenge: code_challenge }, obj.callback))
+                        .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
+
+                    }
+                    break;
+
                 case 'restore':
                     if (obj.message) {
                         if (obj.message.stopIOB == true) {
@@ -451,6 +473,19 @@ function initConfig(secret) {
         systemLang
     };
 
+    const signal = {
+        enabled: adapter.config.notificationEnabled,
+        notificationsType: adapter.config.notificationsType,
+        type: 'message',
+        instance: adapter.config.signalInstance,
+        NoticeType: adapter.config.signalNoticeType,
+        onlyError: adapter.config.signalOnlyError,
+        signalWaiting: adapter.config.signalWaitToSend * 1000,
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        ignoreErrors: adapter.config.ignoreErrors,
+        systemLang
+    };
+
     const pushover = {
         enabled: adapter.config.notificationEnabled,
         notificationsType: adapter.config.notificationsType,
@@ -521,6 +556,8 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.dropboxDeleteOldBackup, // Delete old Backups from Dropbox
         accessToken: adapter.config.dropboxAccessToken,
+        dropboxAccessJson: adapter.config.dropboxAccessJson,
+        dropboxTokenType: adapter.config.dropboxTokenType,
         ownDir: adapter.config.dropboxOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.dropboxOwnDir === true) ? null : adapter.config.dropboxDir,
@@ -787,6 +824,7 @@ function initConfig(secret) {
         email,
         pushover,
         whatsapp,
+        signal,
     };
 
     // Configurations for CCU / pivCCU / RaspberryMatic backup
@@ -814,6 +852,7 @@ function initConfig(secret) {
         email,
         pushover,
         whatsapp,
+        signal,
 
         host: adapter.config.ccuHost,                                                           // IP-address CCU
         user: adapter.config.ccuUser,                                                           // username CCU
