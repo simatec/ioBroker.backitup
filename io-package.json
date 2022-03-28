@@ -159,7 +159,7 @@
     ],
     "globalDependencies": [
       {
-        "admin": ">=5.1.0"
+        "admin": ">=5.2.0"
       }
     ],
     "adminUI": {
@@ -181,8 +181,7 @@
       "sentry": {
         "dsn": "https://e8510540c3a343aa8ce5678a4b3c8107@sentry.iobroker.net/36"
       }
-    },
-    "installedFrom": "iobroker.backitup@2.3.5"
+    }
   },
   "native": {
     "minimalEnabled": true,
@@ -326,6 +325,10 @@
     "whatsappNoticeType": "longWhatsappNotice",
     "whatsappOnlyError": false,
     "whatsappWaitToSend": 0,
+    "signalInstance": "signal-cmb.0",
+    "signalNoticeType": "longSignalNotice",
+    "signalOnlyError": false,
+    "signalWaitToSend": 0,
     "pushoverInstance": "pushover.0",
     "pushoverNoticeType": "longPushoverNotice",
     "pushoverSilentNotice": false,

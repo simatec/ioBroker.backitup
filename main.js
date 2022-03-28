@@ -473,6 +473,19 @@ function initConfig(secret) {
         systemLang
     };
 
+    const signal = {
+        enabled: adapter.config.notificationEnabled,
+        notificationsType: adapter.config.notificationsType,
+        type: 'message',
+        instance: adapter.config.signalInstance,
+        NoticeType: adapter.config.signalNoticeType,
+        onlyError: adapter.config.signalOnlyError,
+        signalWaiting: adapter.config.signalWaitToSend * 1000,
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        ignoreErrors: adapter.config.ignoreErrors,
+        systemLang
+    };
+
     const pushover = {
         enabled: adapter.config.notificationEnabled,
         notificationsType: adapter.config.notificationsType,
@@ -811,6 +824,7 @@ function initConfig(secret) {
         email,
         pushover,
         whatsapp,
+        signal,
     };
 
     // Configurations for CCU / pivCCU / RaspberryMatic backup
@@ -838,6 +852,7 @@ function initConfig(secret) {
         email,
         pushover,
         whatsapp,
+        signal,
 
         host: adapter.config.ccuHost,                                                           // IP-address CCU
         user: adapter.config.ccuUser,                                                           // username CCU

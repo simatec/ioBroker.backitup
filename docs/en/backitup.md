@@ -250,19 +250,28 @@ Here in the CIFS settings the path must be entered where the copy is to be made.
 The specification of the IP address must remain empty for the copy function.
   
 ## Dropbox
-To use the backup in the Dropbox, an access token and an APP must be created at https://www.dropbox.com/developers/apps<br><br>
+In order to use the backup in Dropbox, you have to get an access token. This can be done on the Backitup configuration page.<br>
+ioBroker only accesses the defined areas.<br><br>
+No tokens or user data are stored in the cloud.
+
+
+If you want to create your own Dropbox API app, you can select this in the Backitup settings and then have to carry out the following steps.
+ 
+> Note: Own apps only have a "short_live" token, which is only valid for 4 hours. We recommend using the iobroker standard app.
+ 
+To use the backup in Dropbox, an access token and an APP must be created at https://www.dropbox.com/developers/apps<br><br>
 * Step 1: Use the "Create App" button
-* Step 2: Select "Scoped access"
-* Step 3: Select "App folder"
-* Step 4: Enter "Name your app" and select the "Create App" button
-* Step 5: In the "Permissions" tab, set all 4 ticks in the "Files and folders" area
-* Step 6: In the "Settings" tab, set the "Access token expiration" to "No expiration"
-* Step 7: Press the "Generated access token" button (This generated token is entered in the Backitup settings)<br><br>
+* Step 2: Select "Scoped access".
+* Step 3: Select "App folder".
+* Step 4: Enter "Name your app" and select "Create App" button
+* Step 5: In the "Permissions" tab, check all 4 boxes in the "Files and folders" area
+* Step 6: In the "Settings" tab, set the "Access token expiration" to "No expiration".
+* Step 7: Press "Generated access token" button (This generated token is entered in the settings of Backitup)<br><br>
 In your Dropbox there is now a new folder called "Apps"
   
-## Google Drive
-In order to use the backup in the Google Drive, an access token must be obtained. This can be done on the configuration page. <br>
-ioBroker only attacks the defined areas. The code for oAuth can be viewed [here] (https://github.com/simatec/ioBroker.backitup/blob/master/docs/oAuthService.js).<br><br>
+## GoogleDrive
+In order to use the backup in the Google Drive, you have to get an Access token. You can do that on the configuration page.<br>
+ioBroker only accesses the defined areas. The code for oAuth can be viewed [here](https://github.com/simatec/ioBroker.backitup/blob/master/docs/oAuthService.js).<br><br>
 No tokens or user data are stored in the cloud.
 
 ## WebDAV
@@ -373,6 +382,7 @@ Syntax: {value: <BackitupInstance>.oneClick.<trigger>; value ==="true" || value 
     * Pushover
     * Email
     * Whatsapp
+    * Signal
 
 ### [back](#Content)
 ---

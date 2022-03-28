@@ -720,6 +720,7 @@
                         <option value="E-Mail" class="translate">E-Mail</option>
                         <option value="Pushover" class="translate">Pushover</option>
                         <option value="WhatsApp" class="translate">WhatsApp</option>
+                        <option value="Signal" class="translate">Signal</option>
                         </select>
                         <label for="notificationsType" class="translate">notifications type</label>
                     </div>
@@ -783,6 +784,32 @@
                     <div class="input-field col s12 m6 l3 whatsapp">
                         <input class="value" id="whatsappOnlyError" type="checkbox"/>
                         <label for="whatsappOnlyError" class="translate">Notification only on errors</label>
+                    </div>
+                </div>
+                <!-- Signal -->
+                <div class="row signal">
+                    <div class="input-field col s12 m6 l3 signal">
+                        <select id="signalInstance" class="value"></select>
+                        <label for="signalInstance" class="translate">Signal instance</label>
+                    </div>
+                    <div class="input-field col s12 m6 l3 signal">
+                        <select class="value" id="signalNoticeType">
+                        <option value="longSignalNotice" class="translate">Long Notifications</option>
+                        <option value="shortSignalNotice" class="translate">Short Notifications</option>
+                        </select>
+                        <label class="translate" for="signalNoticeType">Notification Style</label>
+                    </div>
+                </div>
+                <div class="row signal">    
+                    <div class="input-field col s12 m6 l3 signal">
+                        <input type="number" class="value" id="signalWaitToSend" min="0" max="20"/>
+                        <label for="signalWaitToSend" class="translate">Waiting for the send (seconds)</label>
+                    </div>
+                </div>
+                <div class="row signal">
+                    <div class="input-field col s12 m6 l3 signal">
+                        <input class="value" id="signalOnlyError" type="checkbox"/>
+                        <label for="signalOnlyError" class="translate">Notification only on errors</label>
                     </div>
                 </div>
                 <!-- Pushover -->
@@ -1138,6 +1165,9 @@
                         <input class="value" id="dropboxDir" type="text">
                         <label for="dropboxDir" class="translate">Dropbox path</label>
                     </div>
+                </div>
+                <div class="row dropbox">
+                    <p class="notice translate">Note: It is not possible to save files larger than 150 MB in the current Dopbox-Api V2!</p>
                 </div>
             </div>
 

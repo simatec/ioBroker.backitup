@@ -1,6 +1,6 @@
 {
   " *** Open InfluxDB Documentation ***": "   *** Otwórz dokumentację InfluxDB ***",
-  " *** Open Readme ***": " *** Otwórz plik Readme ***",
+  " *** Open Readme ***": " *** Otwórz plik Readme ***",
   ", and copied / moved via FTP to %h%d": ", i skopiowane/przeniesione za pomocą FTP do %h%d",
   ", and stored in dropbox": " i przechowywane w Dropbox",
   ", and stored in google drive": " i przechowywane na dysku Google",
@@ -137,6 +137,7 @@
   "No config found": "Nie znaleziono konfiguracji",
   "No config found. Please check the settings in the Javascript adapter": "Nie znaleziono konfiguracji. Sprawdź ustawienia w adapterze Javascript",
   "Not present": "Nieobecny",
+  "Note: It is not possible to save files larger than 150 MB in the current Dopbox-Api V2!": "Uwaga: W aktualnym Dopbox-Api V2 nie można zapisywać plików większych niż 150 MB!",
   "Notification Style": "Styl powiadomienia",
   "Notification only on errors": "Powiadomienie tylko o błędach",
   "Notifications": "zgłoszenie",
@@ -182,6 +183,7 @@
   "Save Zigbee database": "Bezpieczna baza danych Zigbee",
   "Save the configuration first": "Najpierw zapisz konfigurację",
   "Short Notifications": "Krótkie powiadomienia",
+  "Signal instance": "Instancja sygnału",
   "Silent Notice": "Cicha informacja",
   "Slave Instances stopping after backup": "Instancje Slave zatrzymują się po utworzeniu kopii zapasowej",
   "Slave Name suffix": "Sufiks nazwy niewolnika",

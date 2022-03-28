@@ -368,7 +368,7 @@ function load(settings, onChange) {
             });
         } else {
             var val = settings[id];
-            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword' || id === 'redisPassword' || id === 'dropboxClient_secret' || id === 'dropboxClient_id') {
+            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword' || id === 'redisPassword') {
                 val = val ? decrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
             }
             // do not call onChange direct, because onChange could expect some arguments
@@ -926,6 +926,10 @@ function load(settings, onChange) {
         fillInstances('whatsappInstance', instances, settings['whatsappInstance'], 'whatsapp-cmb');
     });
 
+    getAdapterInstances('signal-cmb', function (instances) {
+        fillInstances('signalInstance', instances, settings['signalInstance'], 'signal-cmb');
+    });
+
     getAdapterInstances('email', function (instances) {
         fillInstances('emailInstance', instances, settings['emailInstance'], 'email');
     });
@@ -1318,23 +1322,33 @@ function showHideSettings(settings) {
         if ($(this).val() === 'Telegram') {
             $('.email').hide();
             $('.pushover').hide();
+            $('.whatsapp').hide();
+            $('.signal').hide();
             $('.telegram').show();
-            $('.whatsapp').hide();
         } else if ($(this).val() === 'E-Mail') {
+            $('.telegram').hide();
+            $('.pushover').hide();
+            $('.whatsapp').hide();
+            $('.signal').hide();
             $('.email').show();
-            $('.telegram').hide();
-            $('.pushover').hide();
-            $('.whatsapp').hide();
         } else if ($(this).val() === 'Pushover') {
-            $('.pushover').show();
             $('.telegram').hide();
             $('.email').hide();
             $('.whatsapp').hide();
+            $('.signal').hide();
+            $('.pushover').show();
         } else if ($(this).val() === 'WhatsApp') {
-            $('.whatsapp').show();
             $('.telegram').hide();
             $('.email').hide();
             $('.pushover').hide();
+            $('.signal').hide();
+            $('.whatsapp').show();
+        } else if ($(this).val() === 'Signal') {
+            $('.telegram').hide();
+            $('.email').hide();
+            $('.pushover').hide();
+            $('.whatsapp').hide();
+            $('.signal').show();
         }
     }).trigger('change');
 
