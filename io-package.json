@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.0",
+    "version": "2.4.1",
     "news": {
+      "2.4.1": {
+        "en": "small Bugfixes\ntry/catch Dropbox Api\nDebug Log Dropbox Api",
+        "de": "kleine Bugfixes\nversuchen/fangen Dropbox Api\nDebug-Protokoll Dropbox-API",
+        "ru": "мелкие исправления\nпопробовать/поймать Dropbox API\nЖурнал отладки Dropbox API",
+        "pt": "pequenas correções de bugs\ntente/pegue a API do Dropbox\nAPI do Dropbox de log de depuração",
+        "nl": "kleine bugfixes\nprobeer/vang Dropbox Api\nFoutopsporingslogboek Dropbox API",
+        "fr": "petites corrections de bogues\nessayer/attraper l'API Dropbox\nJournal de débogage de l'API Dropbox",
+        "it": "piccole correzioni di bug\nprova / cattura Dropbox API\nRegistro di debug dell'API Dropbox",
+        "es": "pequeñas correcciones de errores\nprobar/atrapar Dropbox Api\nAPI de Dropbox de registro de depuración",
+        "pl": "małe poprawki\nspróbuj/złap Dropbox API\nDziennik debugowania Dropbox API",
+        "zh-cn": "小错误修正\n尝试/捕获 Dropbox Api\n调试日志 Dropbox Api"
+      },
       "2.4.0": {
         "en": "Default History path added\ndependencies updated\nDropbox default APP added\nBugfix Info Messages\nInfo Message for Script-Backup added\nSignal-cmb added\nmany small Bugfixes\nDocumentation updated",
         "de": "Standardverlaufspfad hinzugefügt\nAbhängigkeiten aktualisiert\nDropbox-Standard-APP hinzugefügt\nBugfix-Infomeldungen\nInfomeldung für Script-Backup hinzugefügt\nSignal-cmb hinzugefügt\nviele kleine Bugfixes\nDokumentation aktualisiert",
@@ -74,18 +86,6 @@
         "es": "Corrección de errores Grafana\nRestauración de corrección de errores para el sistema Docker\nRestaurar interfaz con soporte https\nusar certificados SSL de iobroker para https",
         "pl": "Naprawa błędów Grafana\nPrzywracanie błędów w systemie Docker\nPrzywróć interfejs z obsługą https\nużywaj certyfikatów SSL iobroker dla https",
         "zh-cn": "修正 Grafana\nDocker 系统的错误修复恢复\n使用 https 支持恢复界面\n为 https 使用 iobroker SSL 证书"
-      },
-      "2.3.0": {
-        "en": "Influxdb2 Backup added\nInfluxdb2 Restore added\nBugfix Grafana Backup\nBugfix GUI\nBugfix Redis Restore\nNew Restore WebIf added\ndependencies updated\nBugfix start after Restore\nredis remote Backup added\nError messages configurable\nTranslations added\nAdjustments to js-controller 4",
-        "de": "Influxdb2-Sicherung hinzugefügt\nInfluxdb2-Wiederherstellung hinzugefügt\nBugfix Grafana-Sicherung\nBugfix-GUI\nBugfix Redis-Wiederherstellung\nNeues Wiederherstellungs-WebIf hinzugefügt\nAbhängigkeiten aktualisiert\nBugfix Start nach Restore\nredis remote Backup hinzugefügt\nFehlermeldungen konfigurierbar\nÜbersetzungen hinzugefügt\nAnpassungen an js-controller 4",
-        "ru": "Добавлено резервное копирование Influxdb2\nДобавлено восстановление Influxdb2\nИсправлено резервное копирование Grafana\nИсправлен графический интерфейс\nИсправлено восстановление Redis\nДобавлен новый Restore WebIf\nзависимости обновлены\nИсправление запуска после восстановления\nдобавлено удаленное резервное копирование redis\nСообщения об ошибках настраиваются\nПереводы добавлены\nКорректировки js-контроллера 4",
-        "pt": "Backup do Influxdb2 adicionado\nRestauração do Influxdb2 adicionada\nBugfix Grafana Backup\nGUI de correção de bug\nRestauração do Redis de correção de bug\nNova Web de Restauração Se adicionada\ndependências atualizadas\nBugfix iniciar após a restauração\nRedis Backup remoto adicionado\nMensagens de erro configuráveis\nTraduções adicionadas\nAjustes no controlador js 4",
-        "nl": "Influxdb2 Back-up toegevoegd\nInfluxdb2 Herstellen toegevoegd\nBugfix Grafana-back-up\nBugfix GUI\nBugfix Redis Herstellen\nNieuw Herstel WebIndien toegevoegd\nafhankelijkheden bijgewerkt\nBugfix start na Herstellen\nredis externe back-up toegevoegd\nFoutmeldingen configureerbaar\nVertalingen toegevoegd\nAanpassingen aan js-controller 4",
-        "fr": "Sauvegarde Influxdb2 ajoutée\nRestauration Influxdb2 ajoutée\nCorrection de bogues Grafana Backup\nInterface graphique de correction de bogues\nCorrection de bogues Redis Restore\nNouveau Web de restaurationSi ajouté\ndépendances mises à jour\nDébut de la correction de bogue après la restauration\nRedis Remote Backup ajouté\nMessages d'erreur configurables\nTraductions ajoutées\nAjustements à js-controller 4",
-        "it": "Influxdb2 Backup aggiunto\nInfluxdb2 Ripristino aggiunto\nBugfix Backup di Grafana\nGUI di correzione di bug\nBugfix Redis Ripristino\nNuovo Ripristino WebSe aggiunto\ndipendenze aggiornate\nBugfix avviato dopo il ripristino\nRedis Remote Backup aggiunto\nMessaggi di errore configurabili\nTraduzioni aggiunte\nAdeguamenti a js-controller 4",
-        "es": "Copia de seguridad de Influxdb2 agregada\nRestauración de Influxdb2 agregada\nCorrección de errores Copia de seguridad de Grafana\nGUI de corrección de errores\nCorrección de errores Redis Restaurar\nNueva restauración webSi se agrega\ndependencias actualizadas\nCorrección de errores de inicio después de la restauración\nCopia de seguridad remota redis agregada\nMensajes de error configurables\nTraducciones añadidas\nAjustes a js-controller 4",
-        "pl": "Dodano kopię zapasową Influxdb2\nDodano przywracanie Influxdb2\nNaprawa błędów Grafana Backup\nGUI z poprawkami błędów\nNaprawa błędów Redis przywracanie\nNowa witryna przywracania, jeśli została dodana\nzaktualizowano zależności\nNaprawa błędów po przywróceniu\ndodano zdalną kopię zapasową redis\nKonfigurowalne komunikaty o błędach\nDodano tłumaczenia\nZmiany w kontrolerze js 4",
-        "zh-cn": "添加了 Influxdb2 备份\n添加了 Influxdb2 恢复\n错误修复 Grafana 备份\n错误修复图形用户界面\n错误修复 Redis 恢复\n新的还原网络如果添加\n已更新依赖项\n修复后开始修复\n添加了redis远程备份\n错误信息可配置\n添加了翻译\njs-controller 4 的调整"
       }
     },
     "title": "BackItUp",
