@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.1",
+    "version": "2.4.2",
     "news": {
+      "2.4.2": {
+        "en": "Bugfixes Dropbox",
+        "de": "Fehlerbehebungen Dropbox",
+        "ru": "Исправления",
+        "pt": "Correções de bugs Dropbox",
+        "nl": "Bugfixes Dropbox",
+        "fr": "Dropbox",
+        "it": "Bug risolti Dropbox",
+        "es": "Corrección de errores Dropbox",
+        "pl": "Naprawianie błędów Dropbox",
+        "zh-cn": "错误修复"
+      },
       "2.4.1": {
         "en": "small Bugfixes\ntry/catch Dropbox Api\nDebug Log Dropbox Api",
         "de": "kleine Bugfixes\nversuchen/fangen Dropbox Api\nDebug-Protokoll Dropbox-API",
@@ -74,18 +86,6 @@
         "es": "Interfaz de restauración de corrección de errores para http\nArreglar el historial json",
         "pl": "Interfejs przywracania błędów dla http\nNapraw historię json",
         "zh-cn": "修复 http 的恢复界面\n修复 json 历史"
-      },
-      "2.3.1": {
-        "en": "Bugfix Grafana\nBugfix Restore for Docker System\nRestore Interface with https Support\nuse iobroker SSL Certificates for https",
-        "de": "Fehlerbehebung Grafana\nBugfix-Wiederherstellung für das Docker-System\nSchnittstelle mit https-Unterstützung wiederherstellen\nVerwenden Sie iobroker SSL-Zertifikate für https",
-        "ru": "Исправление Графана\nВосстановление исправления для системы Docker\nВосстановить интерфейс с поддержкой https\nиспользовать SSL-сертификаты iobroker для https",
-        "pt": "Bugfix Grafana\nRestauração de correções de bugs para o sistema Docker\nInterface de restauração com suporte https\nuse certificados SSL iobroker para https",
-        "nl": "Bugfix Grafana\nBugfix-herstel voor Docker-systeem\nInterface herstellen met https-ondersteuning\ngebruik iobroker SSL-certificaten voor https",
-        "fr": "Correction de bogues Grafana\nRestauration de correction de bugs pour le système Docker\nRestaurer l'interface avec le support https\nutiliser les certificats SSL iobroker pour https",
-        "it": "Bugfix Grafana\nRipristino bugfix per il sistema Docker\nRipristina interfaccia con supporto https\nusa i certificati SSL iobroker per https",
-        "es": "Corrección de errores Grafana\nRestauración de corrección de errores para el sistema Docker\nRestaurar interfaz con soporte https\nusar certificados SSL de iobroker para https",
-        "pl": "Naprawa błędów Grafana\nPrzywracanie błędów w systemie Docker\nPrzywróć interfejs z obsługą https\nużywaj certyfikatów SSL iobroker dla https",
-        "zh-cn": "修正 Grafana\nDocker 系统的错误修复恢复\n使用 https 支持恢复界面\n为 https 使用 iobroker SSL 证书"
       }
     },
     "title": "BackItUp",
