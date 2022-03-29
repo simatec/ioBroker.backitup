@@ -193,16 +193,16 @@ function startAdapter(options) {
                     if (obj.message && obj.message.code && obj.message.codeChallenge) {
                         const dropbox = new Dropbox();
 
-                        dropbox.getRefreshToken(obj.message.code, obj.message.codeChallenge)
+                        dropbox.getRefreshToken(obj.message.code, obj.message.codeChallenge, adapter.log)
                             .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json: json }, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
                     } else if (obj.callback) {
                         const dropbox = new Dropbox();
                         let auth_url;
 
-                        dropbox.getAuthorizeUrl()
+                        dropbox.getAuthorizeUrl(adapter.log)
                         .then(url => auth_url = url)
-                        .then(() => dropbox.getCodeChallage())
+                        .then(() => dropbox.getCodeChallage(adapter.log))
                         .then(code_challenge =>adapter.sendTo(obj.from, obj.command, { url: auth_url, code_challenge: code_challenge }, obj.callback))
                         .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
 
@@ -1062,7 +1062,8 @@ function getName(name, filenumbers, storage) {
         if (parseInt(parts[0], 10).toString() !== parts[0]) {
             parts.shift();
         }
-        adapter.log.debug(name ? 'detect backup file ' + filenumbers + ' from ' + storage + ': ' + name : 'No backup name was found');
+        const storageType = storage == 'cifs' ? 'NAS' : storage;
+        adapter.log.debug(name ? 'detect backup file ' + filenumbers + ' from ' + storageType + ': ' + name : 'No backup name was found');
         return new Date(
             parts[0],
             parseInt(parts[1], 10) - 1,
