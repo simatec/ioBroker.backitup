@@ -40,7 +40,7 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 <!-- ### __WORK IN PROGRESS__ -->
-### __WORK IN PROGRESS__
+### 2.4.0 (2022-03-28)
 * (simatec) Default History path added
 * (simatec) dependencies updated
 * (simatec) Dropbox default APP added

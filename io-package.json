@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.3.5",
+    "version": "2.4.0",
     "news": {
+      "2.4.0": {
+        "en": "Default History path added\ndependencies updated\nDropbox default APP added\nBugfix Info Messages\nInfo Message for Script-Backup added\nSignal-cmb added\nmany small Bugfixes\nDocumentation updated",
+        "de": "Standardverlaufspfad hinzugefügt\nAbhängigkeiten aktualisiert\nDropbox-Standard-APP hinzugefügt\nBugfix-Infomeldungen\nInfomeldung für Script-Backup hinzugefügt\nSignal-cmb hinzugefügt\nviele kleine Bugfixes\nDokumentation aktualisiert",
+        "ru": "Добавлен путь истории по умолчанию\nзависимости обновлены\nДобавлено приложение Dropbox по умолчанию\nИнформационные сообщения об исправлении ошибок\nДобавлено информационное сообщение для Script-Backup\nДобавлен сигнал-cmb\nмножество мелких исправлений\nДокументация обновлена",
+        "pt": "Caminho do histórico padrão adicionado\ndependências atualizadas\nAPLICATIVO padrão do Dropbox adicionado\nMensagens de informação de correção de bugs\nMensagem de informação para backup de script adicionada\nSignal-cmb adicionado\nmuitas pequenas correções de bugs\nDocumentação atualizada",
+        "nl": "Standaard geschiedenispad toegevoegd\nafhankelijkheden bijgewerkt\nDropbox standaard APP toegevoegd\nBugfix-infoberichten\nInfobericht voor Script-Backup toegevoegd\nSignaal-cmb toegevoegd\nveel kleine bugfixes\nDocumentatie bijgewerkt",
+        "fr": "Chemin d'historique par défaut ajouté\ndépendances mises à jour\nAPP par défaut de Dropbox ajoutée\nMessages d'information sur les corrections de bogues\nMessage d'information pour Script-Backup ajouté\nSignal-cmb ajouté\nde nombreuses petites corrections de bugs\nDocumentation mise à jour",
+        "it": "Percorso della cronologia predefinito aggiunto\ndipendenze aggiornate\nAggiunta l'APP predefinita di Dropbox\nMessaggi informativi sulla correzione di bug\nMessaggio informativo per Script-Backup aggiunto\nSegnale-cmb aggiunto\nmolti piccoli bugfix\nDocumentazione aggiornata",
+        "es": "Ruta de historial predeterminada agregada\ndependencias actualizadas\nAPLICACIÓN predeterminada de Dropbox agregada\nMensajes de información de corrección de errores\nMensaje de información para Script-Backup agregado\nSignal-cmb agregado\nmuchas pequeñas correcciones de errores\nDocumentación actualizada",
+        "pl": "Dodano domyślną ścieżkę historii\nzaktualizowano zależności\nDodano domyślną aplikację Dropbox\nKomunikaty o poprawkach błędów\nWiadomość informacyjna o dodaniu kopii zapasowej skryptu\nDodano sygnał-cmb\nwiele małych poprawek\nAktualizacja dokumentacji",
+        "zh-cn": "添加了默认历史记录路径\n已更新依赖项\nDropbox默认APP添加\n错误修正信息消息\n添加了脚本备份的信息消息\n已添加信号 cmb\n许多小错误修正\n文档已更新"
+      },
       "2.3.5": {
         "en": "fix Redis Config",
         "de": "Korrigieren Sie die Redis-Konfiguration",
@@ -74,18 +86,6 @@
         "es": "Copia de seguridad de Influxdb2 agregada\nRestauración de Influxdb2 agregada\nCorrección de errores Copia de seguridad de Grafana\nGUI de corrección de errores\nCorrección de errores Redis Restaurar\nNueva restauración webSi se agrega\ndependencias actualizadas\nCorrección de errores de inicio después de la restauración\nCopia de seguridad remota redis agregada\nMensajes de error configurables\nTraducciones añadidas\nAjustes a js-controller 4",
         "pl": "Dodano kopię zapasową Influxdb2\nDodano przywracanie Influxdb2\nNaprawa błędów Grafana Backup\nGUI z poprawkami błędów\nNaprawa błędów Redis przywracanie\nNowa witryna przywracania, jeśli została dodana\nzaktualizowano zależności\nNaprawa błędów po przywróceniu\ndodano zdalną kopię zapasową redis\nKonfigurowalne komunikaty o błędach\nDodano tłumaczenia\nZmiany w kontrolerze js 4",
         "zh-cn": "添加了 Influxdb2 备份\n添加了 Influxdb2 恢复\n错误修复 Grafana 备份\n错误修复图形用户界面\n错误修复 Redis 恢复\n新的还原网络如果添加\n已更新依赖项\n修复后开始修复\n添加了redis远程备份\n错误信息可配置\n添加了翻译\njs-controller 4 的调整"
-      },
-      "2.2.4": {
-        "en": "Restore backup of different controller version added\nFix YAHKA Backup for more Instances",
-        "de": "Wiederherstellungssicherung verschiedener Controller-Versionen hinzugefügt\nFix YAHKA Backup für mehr Instanzen",
-        "ru": "Добавлено восстановление резервной копии другой версии контроллера\nИсправьте YAHKA Backup для большего количества экземпляров",
-        "pt": "Restaurar backup de versão de controlador diferente adicionada\nCorrija o YAHKA Backup para mais instâncias",
-        "nl": "Herstel back-up van verschillende controllerversies toegevoegd\nFix YAHKA-back-up voor meer instanties",
-        "fr": "Restaurer la sauvegarde de différentes versions de contrôleur ajoutées\nCorrection de la sauvegarde YAHKA pour plus d'instances",
-        "it": "Ripristina il backup di diverse versioni del controller aggiunto\nCorreggi il backup YAHKA per più istanze",
-        "es": "Restaurar copia de seguridad de diferentes versiones del controlador agregadas\nRepare la copia de seguridad de YAHKA para más instancias",
-        "pl": "Dodano kopię zapasową przywracania innej wersji kontrolera\nNapraw kopię zapasową YAHKA dla większej liczby instancji",
-        "zh-cn": "添加了不同控制器版本的恢复备份\n修复更多实例的 YAHKA 备份"
       }
     },
     "title": "BackItUp",
