@@ -40,8 +40,7 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 <!-- ### __WORK IN PROGRESS__ -->
-
-### __WORK IN PROGRESS__
+### 2.4.2 (2022-03-29)
 * (simatec) Bugfixes Dropbox
 
 ### 2.4.1 (2022-03-29)
