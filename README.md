@@ -40,6 +40,10 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 <!-- ### __WORK IN PROGRESS__ -->
+
+### __WORK IN PROGRESS__
+* (simatec) Bugfixes Dropbox
+
 ### 2.4.1 (2022-03-29)
 * (simatec) small Bugfixes
 * (simatec) try/catch Dropbox Api
