@@ -202,7 +202,7 @@ function startAdapter(options) {
 
                         dropbox.getAuthorizeUrl(adapter.log)
                         .then(url => auth_url = url)
-                        .then(() => dropbox.getCodeChallage(adapter.log))
+                        .then(() => dropbox.getCodeChallage(adapter.log, adapter.config.dropboxCodeChallenge))
                         .then(code_challenge =>adapter.sendTo(obj.from, obj.command, { url: auth_url, code_challenge: code_challenge }, obj.callback))
                         .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
 
@@ -556,7 +556,7 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.dropboxDeleteOldBackup, // Delete old Backups from Dropbox
         accessToken: adapter.config.dropboxAccessToken ? adapter.config.dropboxAccessToken : '',
-        dropboxAccessJson: adapter.config.dropboxAccessJson ? adapter.config.dropboxAccessJson : '',
+        dropboxAccessJson: adapter.config.dropboxAccessJson,
         dropboxTokenType: adapter.config.dropboxTokenType,
         ownDir: adapter.config.dropboxOwnDir,
         bkpType: adapter.config.restoreType,
