@@ -555,8 +555,8 @@ function initConfig(secret) {
         source: adapter.config.restoreSource,
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.dropboxDeleteOldBackup, // Delete old Backups from Dropbox
-        accessToken: adapter.config.dropboxAccessToken,
-        dropboxAccessJson: adapter.config.dropboxAccessJson,
+        accessToken: adapter.config.dropboxAccessToken ? adapter.config.dropboxAccessToken : '',
+        dropboxAccessJson: adapter.config.dropboxAccessJson ? adapter.config.dropboxAccessJson : '',
         dropboxTokenType: adapter.config.dropboxTokenType,
         ownDir: adapter.config.dropboxOwnDir,
         bkpType: adapter.config.restoreType,
