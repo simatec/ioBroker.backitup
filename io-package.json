@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.2",
+    "version": "2.4.3",
     "news": {
+      "2.4.3": {
+        "en": "Bugfixes Dropbox\ntry/catch options added\ncode verifier check for Dropbox oAuth",
+        "de": "Fehlerbehebungen Dropbox\nTry/Catch-Optionen hinzugefügt\nCodeüberprüfung für Dropbox oAuth",
+        "ru": "Исправления\nдобавлены опции try/catch\nпроверка кода для Dropbox oAuth",
+        "pt": "Correções de bugs Dropbox\nopções try/catch adicionadas\nverificação do verificador de código para o Dropbox oAuth",
+        "nl": "Bugfixes Dropbox\nprobeer/vang opties toegevoegd\ncodeverificatiecontrole voor Dropbox oAuth",
+        "fr": "Dropbox\noptions try/catch ajoutées\nvérification du vérificateur de code pour Dropbox oAuth",
+        "it": "Bug risolti Dropbox\nopzioni di prova/cattura aggiunte\ncontrollo del verificatore di codice per Dropbox oAuth",
+        "es": "Corrección de errores Dropbox\nOpciones de prueba/captura añadidas\nComprobación del verificador de código para Dropbox oAuth",
+        "pl": "Naprawianie błędów Dropbox\ndodano opcje try/catch\nsprawdzenie weryfikatora kodu dla Dropbox oAuth",
+        "zh-cn": "错误修复\n添加了尝试/捕获选项\nDropbox oAuth 的代码验证程序检查"
+      },
       "2.4.2": {
         "en": "Bugfixes Dropbox",
         "de": "Fehlerbehebungen Dropbox",
@@ -74,18 +86,6 @@
         "es": "pequeñas correcciones de GUI\nAjuste de restauración de Docker",
         "pl": "małe poprawki GUI\nTuning przywracania Dockera",
         "zh-cn": "小 GUI 修复\nDocker 恢复调整"
-      },
-      "2.3.2": {
-        "en": "Bugfix Restore Interface for http\nFix json history",
-        "de": "Bugfix Wiederherstellungsschnittstelle für http\nJson-Verlauf korrigieren",
-        "ru": "Исправлен интерфейс восстановления для http\nИсправить историю json",
-        "pt": "Interface de restauração de bugfix para http\nCorrigir o histórico do json",
-        "nl": "Bugfix Herstel Interface voor http\nJson-geschiedenis repareren",
-        "fr": "Interface de restauration de correction de bogues pour http\nCorrection de l'historique json",
-        "it": "Interfaccia di ripristino bugfix per http\nCorreggi la cronologia di json",
-        "es": "Interfaz de restauración de corrección de errores para http\nArreglar el historial json",
-        "pl": "Interfejs przywracania błędów dla http\nNapraw historię json",
-        "zh-cn": "修复 http 的恢复界面\n修复 json 历史"
       }
     },
     "title": "BackItUp",
