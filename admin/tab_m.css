@@ -147,6 +147,42 @@ body {
     border-radius: 4px;
 }
 
+#dialog-download .title {
+    width: 100%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+    background: #174475;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+#dialog-download .modal-footer {
+    padding: 4px 20px;
+    margin-left: 0.4rem;
+}
+
+#dialog-download .modal-content {
+    width: 100% !important;
+    height: calc(100% - 10px) !important;
+}
+/*
+#dialog-download .page {
+    width: calc(100% - 10px) !important;
+    padding-left:20;
+    height: calc(100% - 115px);
+}
+*/
+#dialog-download {
+    max-height: 50% !important;
+    max-width: 80% !important;
+    width: 75% !important;
+    height: 45% !important;
+    overflow: visible !important;
+    top: 10px !important;
+    width: calc(100% - 100px);
+    border-radius: 4px;
+}
+
 #dialog-restore-show .title {
     width: 100%;
     margin-left: auto;

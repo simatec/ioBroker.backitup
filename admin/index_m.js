@@ -698,8 +698,8 @@ function load(settings, onChange) {
                                     text += '<ul class="collapsible-body collection">';
                                     for (var i = data[type][storage].length - 1; i >= 0; i--) {
                                         text += '<li class="collection-item"><div>' + getName(data[type][storage][i].name) + ' <b>>>> ' + data[type][storage][i].name + ' <<<</b> (' + getSize(data[type][storage][i].size) + ')' +
-                                            '<a class="secondary-content do-restore" data-file="' + data[type][storage][i].path + '" data-type="' + type + '"><i class="material-icons">restore</i></a>' +
-                                            '<a class="secondary-content do-download" data-file="' + data[type][storage][i].path + '" data-type="' + type + '">D<i class="material-icons">restore</i></a>' +
+                                            '<a class="secondary-content do-restore" title="Restore Backup File" data-file="' + data[type][storage][i].path + '" data-type="' + type + '">  <i class="material-icons">restore</i></a>' +
+                                            '<a class="secondary-content do-download" title="Download Backup File" data-file="' + data[type][storage][i].path + '" data-type="' + type + '">  <i class="material-icons">file_download</i></a>' +
                                             '</div></li>';
                                     }
                                     text += '</ul></li></ul>';
@@ -1457,7 +1457,7 @@ function showHideSettings(settings) {
     }
     if ($('#historyEnabled').prop('checked')) {
         if (!oldHistoryEnabled) {
-        checkAdapterInstall('history', common.host);
+            checkAdapterInstall('history', common.host);
         }
         $('.tab-history').show();
     } else {
@@ -1505,21 +1505,21 @@ function showHideSettings(settings) {
     }
     if ($('#zigbeeEnabled').prop('checked')) {
         if (!oldZigbeeEnabled) {
-        checkAdapterInstall('zigbee', common.host);
+            checkAdapterInstall('zigbee', common.host);
         }
     } else {
         cleanIgnoreMessage('zigbee');
     }
     if ($('#yahkaEnabled').prop('checked')) {
         if (!oldYahkaEnabled) {
-        checkAdapterInstall('yahka', common.host);
+            checkAdapterInstall('yahka', common.host);
         }
     } else {
         cleanIgnoreMessage('yahka');
     }
     if ($('#jarvisEnabled').prop('checked')) {
         if (!oldJarvisEnabled) {
-        checkAdapterInstall('jarvis', common.host);
+            checkAdapterInstall('jarvis', common.host);
         }
     } else {
         cleanIgnoreMessage('jarvis');

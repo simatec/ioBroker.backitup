@@ -271,26 +271,6 @@ function load(settings, onChange) {
                         var expandHeader = M.Collapsible.getInstance($('.collapsible'));
                         expandHeader.open();
 
-                        $tabAdmin.find('.do-download').on('click', function () {
-                            var type = $(this).data('type');
-                            var file = $(this).data('file');
-                            var name = file.split('/').pop();
-
-                            sendTo(null, 'getFile', { type: type, fileName: file }, function (result) {
-                                var el = document.createElement('a');
-
-                                el.setAttribute('href', 'data:application/x-gzip;charset=utf-8,' + result);
-                                el.setAttribute('download', name);
-
-                                el.style.display = 'none';
-                                document.body.appendChild(el);
-
-                                el.click();
-
-                                document.body.removeChild(el);
-                            });
-                        });
-
                         $tabAdmin.find('.do-restore').on('click', function () {
                             var type = $(this).data('type');
                             var file = $(this).data('file');
@@ -363,6 +343,66 @@ function load(settings, onChange) {
                                         //$('#dialog-restore-show').show();
                                     });
                                 }
+                            });
+                        });
+
+                        $tabAdmin.find('.do-download').on('click', function () {
+                            var type = $(this).data('type');
+                            var file = $(this).data('file');
+
+                            var downloadPanel = false;
+                            var source = $('#restoreSource').val();
+                            if (source === 'dropbox' || source === 'googledrive' || source === 'ftp' || source === 'webdav') {
+                                downloadPanel = true;
+                            }
+                            if (downloadPanel) {
+                                $('.cloudRestore').show();
+                            } else {
+                                $('.cloudRestore').hide();
+                            }
+
+                            $('.do-list').addClass('disabled');
+                            $('#tab-restore').find('.do-restore').addClass('disabled').hide();
+                            $('#tab-restore').find('.do-download').addClass('disabled').hide();
+
+                            var name = file.split('/').pop().split('_')[0];
+                            initDialogDownload();
+                            //showDialog(name !== '' ? 'Download' : '');
+                            //showToast(null, _('Restore started'));
+                            let theme;
+                            try {
+                                theme = currentTheme();
+                            } catch (e) {
+                                // Ignore
+                            }
+
+                            sendTo(null, 'getFile', { type: type, fileName: file, currentTheme: theme || 'none' }, function (result) {
+                                if (!result || result.error) {
+                                    showError('Error: ' + JSON.stringify(result.error));
+                                } else {
+                                    console.log('Download finish!')
+
+                                    if (downloadPanel) {
+                                        $('.cloudRestore').hide();
+                                        downloadPanel = false;
+                                    }
+                                    const downloadLink = document.createElement('a');
+                                    document.body.appendChild(downloadLink);
+
+                                    downloadLink.href = 'data:application/tar+gzip;base64,' + result.base64;
+                                    downloadLink.target = '_self';
+
+                                    try {
+                                        downloadLink.download = file.split(/[\\/]/).pop();
+                                        downloadLink.click();
+                                    } catch (e) {
+                                        console.error(`Cannot access download: ${e}`);
+                                        window.alert(_('Unfortunately your browser does not support this feature'));
+                                    }
+                                }
+                                $('.do-list').removeClass('disabled');
+                                $('#tab-restore').find('.do-restore').removeClass('disabled').show();
+                                $('#tab-restore').find('.do-download').removeClass('disabled').show();
                             });
                         });
                     }
@@ -466,6 +506,17 @@ function initDialogBackups() {
         });
     }
     $dialogBackups.modal('open');
+}
+
+function initDialogDownload() {
+    var $dialogDownload = $('#dialog-download');
+    if (!$dialogDownload.data('inited')) {
+        $dialogDownload.data('inited', true);
+        $dialogDownload.modal({
+            dismissible: false
+        });
+    }
+    $dialogDownload.modal('open');
 }
 
 function initDialogRestore() {
