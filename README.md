@@ -40,6 +40,10 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 <!-- ### __WORK IN PROGRESS__ -->
+
+### __WORK IN PROGRESS__
+* (simatec) try/catch GoogleDrive added
+
 ### 2.4.3 (2022-03-29)
 * (simatec) Bugfixes Dropbox
 * (simatec) try/catch options added
