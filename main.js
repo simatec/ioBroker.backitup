@@ -158,7 +158,7 @@ function startAdapter(options) {
         }
     });
 
-    adapter.on('message', obj => {
+    adapter.on('message', async obj => {
         if (obj) {
             switch (obj.command) {
                 case 'list':
@@ -211,8 +211,8 @@ function startAdapter(options) {
 
                 case 'restore':
                     if (obj.message) {
-                        if (obj.message.stopIOB == true) {
-                            getCerts(obj.from);
+                        if (obj.message.stopIOB) {
+                            await getCerts(obj.from);
                         }
                         const restore = require('./lib/restore');
                         restore(adapter, backupConfig, obj.message.type, obj.message.fileName, obj.message.currentTheme, bashDir, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
@@ -223,12 +223,12 @@ function startAdapter(options) {
 
                 case 'getFile':
                     if (obj.message && obj.message.type && obj.message.fileName) {
-                        const readStream = fs.createReadStream(obj.message.fileName);
-                        readStream.on('error', err => {
-                            err && adapter.log.error('readStream Get File: ' + err);
-
-                        });
-                        adapter.sendTo(obj.from, obj.command, readStream, obj.callback);
+                        try {
+                            const base64 = fs.readFileSync(obj.message.fileName).toString('base64');
+                            adapter.sendTo(obj.from, obj.command, { base64 }, obj.callback);
+                        } catch (error) {
+                            adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
+                        }
                     } else if (obj.callback) {
                         obj.callback({ error: 'Invalid parameters' });
                     }

@@ -699,6 +699,7 @@ function load(settings, onChange) {
                                     for (var i = data[type][storage].length - 1; i >= 0; i--) {
                                         text += '<li class="collection-item"><div>' + getName(data[type][storage][i].name) + ' <b>>>> ' + data[type][storage][i].name + ' <<<</b> (' + getSize(data[type][storage][i].size) + ')' +
                                             '<a class="secondary-content do-restore" data-file="' + data[type][storage][i].path + '" data-type="' + type + '"><i class="material-icons">restore</i></a>' +
+                                            '<a class="secondary-content do-download" data-file="' + data[type][storage][i].path + '" data-type="' + type + '">D<i class="material-icons">restore</i></a>' +
                                             '</div></li>';
                                     }
                                     text += '</ul></li></ul>';
@@ -754,6 +755,7 @@ function load(settings, onChange) {
 
                                     $('.do-list').addClass('disabled');
                                     $('#tab-restore').find('.do-restore').addClass('disabled').hide();
+                                    $('#tab-restore').find('.do-download').addClass('disabled').hide();
 
                                     var name = file.split('/').pop().split('_')[0];
                                     showDialog(name !== '' ? 'restore' : '', isStopped);
@@ -771,7 +773,7 @@ function load(settings, onChange) {
                                         } else {
                                             console.log('Restore finish!')
                                             if (isStopped) {
-                                                var restoreURL = `${location.protocol}//${location.hostname}:${location.protocol == 'https:' ? '8092' : '8091'}/backitup-restore.html`;
+                                                var restoreURL = `${location.protocol}//${location.hostname}:${location.protocol === 'https:' ? '8092' : '8091'}/backitup-restore.html`;
                                                 console.log('Restore Url: ' + restoreURL);
                                                 setTimeout(function () {
                                                     //$('<a href="' + restoreURL + '">&nbsp;</a>')[0].click();
@@ -786,8 +788,68 @@ function load(settings, onChange) {
                                         }
                                         $('.do-list').removeClass('disabled');
                                         $('#tab-restore').find('.do-restore').removeClass('disabled').show();
+                                        $('#tab-restore').find('.do-download').removeClass('disabled').show();
                                     });
                                 }
+                            });
+                        });
+
+                        $tabRestore.find('.do-download').on('click', function () {
+                            var type = $(this).data('type');
+                            var file = $(this).data('file');
+
+                            var downloadPanel = false;
+                            var source = $('#restoreSource').val();
+                            if (source === 'dropbox' || source === 'googledrive' || source === 'ftp' || source === 'webdav') {
+                                downloadPanel = true;
+                            }
+                            if (downloadPanel) {
+                                $('.cloudRestore').show();
+                            } else {
+                                $('.cloudRestore').hide();
+                            }
+
+                            $('.do-list').addClass('disabled');
+                            $('#tab-restore').find('.do-restore').addClass('disabled').hide();
+                            $('#tab-restore').find('.do-download').addClass('disabled').hide();
+
+                            var name = file.split('/').pop().split('_')[0];
+                            showDialog(name !== '' ? 'restore' : '');
+                            showToast(null, _('Restore started'));
+                            let theme;
+                            try {
+                                theme = currentTheme();
+                            } catch (e) {
+                                // Ignore
+                            }
+
+                            sendTo(null, 'getFile', { type: type, fileName: file, currentTheme: theme || 'none' }, function (result) {
+                                if (!result || result.error) {
+                                    showError('Error: ' + JSON.stringify(result.error));
+                                } else {
+                                    console.log('Download finish!')
+
+                                    if (downloadPanel) {
+                                        $('.cloudRestore').hide();
+                                        downloadPanel = false;
+                                    }
+                                    const downloadLink = document.createElement('a');
+                                    document.body.appendChild(downloadLink);
+
+                                    downloadLink.href = 'data:application/tar+gzip;base64,' + result.base64;
+                                    downloadLink.target = '_self';
+
+                                    try {
+                                        downloadLink.download = file.split(/[\\/]/).pop();
+                                        downloadLink.click();
+                                    } catch (e) {
+                                        console.error(`Cannot access download: ${e}`);
+                                        window.alert(_('Unfortunately your browser does not support this feature'));
+                                    }
+                                }
+                                $('.do-list').removeClass('disabled');
+                                $('#tab-restore').find('.do-restore').removeClass('disabled').show();
+                                $('#tab-restore').find('.do-download').removeClass('disabled').show();
                             });
                         });
                     }
@@ -1437,7 +1499,7 @@ function showHideSettings(settings) {
     } else {
         $('.ccuCert').hide();
     }
-    
+
     if ($('#javascriptsEnabled').prop('checked') && !oldJavascriptsEnabled) {
         showMessage(_("<br/><br/>The JavaScript Adapter scripts are already saved in the ioBroker backup.<br/><br/>This option is just an additional option to be able to restore the scripts individually if necessary."), _('Backitup Information!'), 'info');
     }
