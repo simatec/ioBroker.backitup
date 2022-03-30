@@ -177,6 +177,9 @@
 .do-restore {
     cursor: pointer;
 }
+.do-download {
+    cursor: pointer;
+}
 .collapsible-body {
     margin-left: 2rem !important;
     padding-top: 0 !important;

@@ -201,10 +201,10 @@ function startAdapter(options) {
                         let auth_url;
 
                         dropbox.getAuthorizeUrl(adapter.log)
-                        .then(url => auth_url = url)
-                        .then(() => dropbox.getCodeChallage(adapter.log, adapter.config.dropboxCodeChallenge))
-                        .then(code_challenge =>adapter.sendTo(obj.from, obj.command, { url: auth_url, code_challenge: code_challenge }, obj.callback))
-                        .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
+                            .then(url => auth_url = url)
+                            .then(() => dropbox.getCodeChallage(adapter.log, adapter.config.dropboxCodeChallenge))
+                            .then(code_challenge => adapter.sendTo(obj.from, obj.command, { url: auth_url, code_challenge: code_challenge }, obj.callback))
+                            .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
 
                     }
                     break;
@@ -216,6 +216,19 @@ function startAdapter(options) {
                         }
                         const restore = require('./lib/restore');
                         restore(adapter, backupConfig, obj.message.type, obj.message.fileName, obj.message.currentTheme, bashDir, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                    } else if (obj.callback) {
+                        obj.callback({ error: 'Invalid parameters' });
+                    }
+                    break;
+
+                case 'getFile':
+                    if (obj.message && obj.message.type && obj.message.fileName) {
+                        const readStream = fs.createReadStream(obj.message.fileName);
+                        readStream.on('error', err => {
+                            err && adapter.log.error('readStream Get File: ' + err);
+
+                        });
+                        adapter.sendTo(obj.from, obj.command, readStream, obj.callback);
                     } else if (obj.callback) {
                         obj.callback({ error: 'Invalid parameters' });
                     }

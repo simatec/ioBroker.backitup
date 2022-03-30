@@ -252,7 +252,8 @@ function load(settings, onChange) {
                                     text += '<ul class="collapsible-body collection">';
                                     for (var i = data[type][storage].length - 1; i >= 0; i--) {
                                         text += '<li class="collection-item"><div>' + getName(data[type][storage][i].name) + ' <b>>>> ' + data[type][storage][i].name + ' <<<</b> (' + getSize(data[type][storage][i].size) + ')' +
-                                            '<a class="secondary-content do-restore" data-file="' + data[type][storage][i].path + '" data-type="' + type + '"><i class="material-icons">restore</i></a>' +
+                                            '<a class="secondary-content do-restore" title="Restore Backup File" data-file="' + data[type][storage][i].path + '" data-type="' + type + '"><i class="material-icons">restore</i></a>' +
+                                            '<a class="secondary-content do-download" title="Download Backup File" data-file="' + data[type][storage][i].path + '" data-type="' + type + '"><i class="material-icons">file_download</i></a>' +
                                             '</div></li>';
                                     }
                                     text += '</ul></li></ul>';
@@ -269,6 +270,26 @@ function load(settings, onChange) {
 
                         var expandHeader = M.Collapsible.getInstance($('.collapsible'));
                         expandHeader.open();
+
+                        $tabAdmin.find('.do-download').on('click', function () {
+                            var type = $(this).data('type');
+                            var file = $(this).data('file');
+                            var name = file.split('/').pop();
+
+                            sendTo(null, 'getFile', { type: type, fileName: file }, function (result) {
+                                var el = document.createElement('a');
+
+                                el.setAttribute('href', 'data:application/x-gzip;charset=utf-8,' + result);
+                                el.setAttribute('download', name);
+
+                                el.style.display = 'none';
+                                document.body.appendChild(el);
+
+                                el.click();
+
+                                document.body.removeChild(el);
+                            });
+                        });
 
                         $tabAdmin.find('.do-restore').on('click', function () {
                             var type = $(this).data('type');
@@ -319,7 +340,7 @@ function load(settings, onChange) {
                                     showToast(null, _('Restore started'));
                                     var theme = currentTheme();
 
-                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none', stopIOB : isStopped }, function (result) {
+                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none', stopIOB: isStopped }, function (result) {
                                         if (!result || result.error) {
                                             showError('Error: ' + JSON.stringify(result.error));
                                         } else {
