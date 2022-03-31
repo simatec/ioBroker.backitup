@@ -3,6 +3,7 @@
 
 //Settings
 var $dialogCommand = null;
+var $dialogDownload = null;
 var $output = null;
 var $dialogCommandProgress;
 var lastMessage = '';
@@ -322,11 +323,11 @@ function load(settings, onChange) {
 
                                     sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none', stopIOB: isStopped }, function (result) {
                                         if (!result || result.error) {
-                                            showError('Error: ' + JSON.stringify(result.error));
+                                            showError('<br/><br/>Error:<br/><br/>' + JSON.stringify(result.error));
                                         } else {
                                             console.log('Restore finish!')
                                             if (isStopped) {
-                                                var restoreURL = `${location.protocol}//${location.hostname}:${location.protocol == 'https:' ? '8092' : '8091'}/backitup-restore.html`;
+                                                var restoreURL = `${location.protocol}//${location.hostname}:${location.protocol === 'https:' ? '8092' : '8091'}/backitup-restore.html`;
                                                 console.log('Restore Url: ' + restoreURL);
                                                 setTimeout(function () {
                                                     //$('<a href="' + restoreURL + '">&nbsp;</a>')[0].click();
@@ -350,42 +351,45 @@ function load(settings, onChange) {
                             var type = $(this).data('type');
                             var file = $(this).data('file');
 
-                            var downloadPanel = false;
-                            var source = $('#restoreSource').val();
-                            if (source === 'dropbox' || source === 'googledrive' || source === 'ftp' || source === 'webdav') {
-                                downloadPanel = true;
-                            }
-                            if (downloadPanel) {
-                                $('.cloudRestore').show();
-                            } else {
-                                $('.cloudRestore').hide();
+                            var storageTyp = '';
+                            // Storage Translate
+                            switch (type) {
+                                case 'webdav':
+                                    storageTyp = 'WebDAV';
+                                    break;
+                                case 'nas / copy':
+                                    storageTyp = 'NAS / Copy';
+                                    break;
+                                case 'local':
+                                    storageTyp = 'Local';
+                                    break;
+                                case 'dropbox':
+                                    storageTyp = 'Dropbox';
+                                    break;
+                                case 'ftp':
+                                    storageTyp = 'FTP';
+                                    break;
+                                case 'googledrive':
+                                    storageTyp = 'Google Drive';
+                                    break;
                             }
 
                             $('.do-list').addClass('disabled');
                             $('#tab-restore').find('.do-restore').addClass('disabled').hide();
                             $('#tab-restore').find('.do-download').addClass('disabled').hide();
+                            $('#backupDownload_name').text(` "${file.split(/[\\/]/).pop()}" `);
+                            $('#backupDownload_source').text(_(storageTyp));
 
-                            var name = file.split('/').pop().split('_')[0];
                             initDialogDownload();
-                            //showDialog(name !== '' ? 'Download' : '');
-                            //showToast(null, _('Restore started'));
-                            let theme;
-                            try {
-                                theme = currentTheme();
-                            } catch (e) {
-                                // Ignore
-                            }
 
-                            sendTo(null, 'getFile', { type: type, fileName: file, currentTheme: theme || 'none' }, function (result) {
+                            sendTo(null, 'getFile', { type: type, fileName: file }, function (result) {
                                 if (!result || result.error) {
-                                    showError('Error: ' + JSON.stringify(result.error));
+                                    $dialogDownload.modal('close');
+                                    showError('<br/><br/>Error:<br/><br/>' + JSON.stringify(result.error));
                                 } else {
                                     console.log('Download finish!')
+                                    setTimeout(() => $dialogDownload.modal('close'), 3000);
 
-                                    if (downloadPanel) {
-                                        $('.cloudRestore').hide();
-                                        downloadPanel = false;
-                                    }
                                     const downloadLink = document.createElement('a');
                                     document.body.appendChild(downloadLink);
 
@@ -509,7 +513,7 @@ function initDialogBackups() {
 }
 
 function initDialogDownload() {
-    var $dialogDownload = $('#dialog-download');
+    $dialogDownload = $('#dialog-download');
     if (!$dialogDownload.data('inited')) {
         $dialogDownload.data('inited', true);
         $dialogDownload.modal({

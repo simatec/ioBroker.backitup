@@ -3,6 +3,7 @@
 
 //Settings
 var $dialogCommand = null;
+var $dialogDownload = null;
 var $output = null;
 var $dialogCommandProgress;
 var lastMessage = '';
@@ -27,6 +28,17 @@ function decrypt(key, value) {
         result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
     }
     return result;
+}
+
+function initDialogDownload() {
+    $dialogDownload = $('#dialog-download');
+    if (!$dialogDownload.data('inited')) {
+        $dialogDownload.data('inited', true);
+        $dialogDownload.modal({
+            dismissible: false
+        });
+    }
+    $dialogDownload.modal('open');
 }
 
 function fetchMySqlConfig(isInitial) {
@@ -798,41 +810,45 @@ function load(settings, onChange) {
                             var type = $(this).data('type');
                             var file = $(this).data('file');
 
-                            var downloadPanel = false;
-                            var source = $('#restoreSource').val();
-                            if (source === 'dropbox' || source === 'googledrive' || source === 'ftp' || source === 'webdav') {
-                                downloadPanel = true;
-                            }
-                            if (downloadPanel) {
-                                $('.cloudRestore').show();
-                            } else {
-                                $('.cloudRestore').hide();
+                            var storageTyp = '';
+                            // Storage Translate
+                            switch (type) {
+                                case 'webdav':
+                                    storageTyp = 'WebDAV';
+                                    break;
+                                case 'nas / copy':
+                                    storageTyp = 'NAS / Copy';
+                                    break;
+                                case 'local':
+                                    storageTyp = 'Local';
+                                    break;
+                                case 'dropbox':
+                                    storageTyp = 'Dropbox';
+                                    break;
+                                case 'ftp':
+                                    storageTyp = 'FTP';
+                                    break;
+                                case 'googledrive':
+                                    storageTyp = 'Google Drive';
+                                    break;
                             }
 
                             $('.do-list').addClass('disabled');
                             $('#tab-restore').find('.do-restore').addClass('disabled').hide();
                             $('#tab-restore').find('.do-download').addClass('disabled').hide();
+                            $('#backupDownload_name').text(` "${file.split(/[\\/]/).pop()}" `);
+                            $('#backupDownload_source').text(_(storageTyp));
 
-                            var name = file.split('/').pop().split('_')[0];
-                            showDialog(name !== '' ? 'restore' : '');
-                            showToast(null, _('Restore started'));
-                            let theme;
-                            try {
-                                theme = currentTheme();
-                            } catch (e) {
-                                // Ignore
-                            }
+                            initDialogDownload();
 
-                            sendTo(null, 'getFile', { type: type, fileName: file, currentTheme: theme || 'none' }, function (result) {
+                            sendTo(null, 'getFile', { type: type, fileName: file }, function (result) {
                                 if (!result || result.error) {
-                                    showError('Error: ' + JSON.stringify(result.error));
+                                    $dialogDownload.modal('close');
+                                    showError('<br/><br/>Error:<br/><br/>' + JSON.stringify(result.error));
                                 } else {
                                     console.log('Download finish!')
+                                    setTimeout(() => $dialogDownload.modal('close'), 3000);
 
-                                    if (downloadPanel) {
-                                        $('.cloudRestore').hide();
-                                        downloadPanel = false;
-                                    }
                                     const downloadLink = document.createElement('a');
                                     document.body.appendChild(downloadLink);
 

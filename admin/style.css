@@ -180,6 +180,33 @@
 .do-download {
     cursor: pointer;
 }
+
+#dialog-download .title {
+    width: 100%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+    background: #174475;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+#dialog-download .modal-content {
+    width: 100% !important;
+    height: calc(100% - 10px) !important;
+}
+
+#dialog-download {
+    max-height: 35% !important;
+    max-width: 70% !important;
+    width: 65% !important;
+    height: 30% !important;
+    overflow: visible !important;
+    top: 10px !important;
+    width: calc(100% - 100px);
+    border-radius: 4px;
+}
+
 .collapsible-body {
     margin-left: 2rem !important;
     padding-top: 0 !important;
