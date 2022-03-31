@@ -214,8 +214,8 @@ function startAdapter(options) {
                         if (obj.message.stopIOB) {
                             await getCerts(obj.from);
                         }
-                        const restore = require('./lib/restore');
-                        restore(adapter, backupConfig, obj.message.type, obj.message.fileName, obj.message.currentTheme, bashDir, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                        const _restore = require('./lib/restore');
+                        _restore.restore(adapter, backupConfig, obj.message.type, obj.message.fileName, obj.message.currentTheme, bashDir, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                     } else if (obj.callback) {
                         obj.callback({ error: 'Invalid parameters' });
                     }
@@ -223,11 +223,32 @@ function startAdapter(options) {
 
                 case 'getFile':
                     if (obj.message && obj.message.type && obj.message.fileName) {
-                        try {
-                            const base64 = fs.readFileSync(obj.message.fileName).toString('base64');
-                            adapter.sendTo(obj.from, obj.command, { base64 }, obj.callback);
-                        } catch (error) {
-                            adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
+                        if (obj.message.type !== 'local') {
+                            const name = obj.message.fileName.split('/').pop();
+                            const backupDir = path.join(tools.getIobDir(), 'backups');
+                            const toSaveName = path.join(backupDir, name);
+                            
+                            const _getFile = require('./lib/restore');
+
+                            _getFile.getFile(backupConfig, obj.message.type, obj.message.fileName, toSaveName, adapter.log, err => {
+                                if (!err && fs.existsSync(toSaveName)) {
+                                    try {
+                                        const base64 = fs.readFileSync(toSaveName).toString('base64');
+                                        adapter.sendTo(obj.from, obj.command, { base64 }, obj.callback);
+                                    } catch (error) {
+                                        adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
+                                    }
+                                } else {
+                                    adapter.log.warn('File ' + toSaveName + ' not found');
+                                }
+                            });
+                        } else {
+                            try {
+                                const base64 = fs.readFileSync(obj.message.fileName).toString('base64');
+                                adapter.sendTo(obj.from, obj.command, { base64 }, obj.callback);
+                            } catch (error) {
+                                adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
+                            }
                         }
                     } else if (obj.callback) {
                         obj.callback({ error: 'Invalid parameters' });

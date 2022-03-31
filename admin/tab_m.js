@@ -374,6 +374,8 @@ function load(settings, onChange) {
                                     break;
                             }
 
+                            type = type == 'nas / copy' ? 'cifs' : type;
+
                             $('.do-list').addClass('disabled');
                             $('#tab-restore').find('.do-restore').addClass('disabled').hide();
                             $('#tab-restore').find('.do-download').addClass('disabled').hide();

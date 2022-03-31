@@ -43,6 +43,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ### **WORK IN PROGRESS**
 * (simatec) try/catch GoogleDrive added
+* (Bluefox/simatec) Backup Download added
 
 ### 2.4.3 (2022-03-29)
 * (simatec) Bugfixes Dropbox
