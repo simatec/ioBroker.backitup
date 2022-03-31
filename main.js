@@ -227,14 +227,15 @@ function startAdapter(options) {
                             const name = obj.message.fileName.split('/').pop();
                             const backupDir = path.join(tools.getIobDir(), 'backups');
                             const toSaveName = path.join(backupDir, name);
-                            
+
                             const _getFile = require('./lib/restore');
 
                             _getFile.getFile(backupConfig, obj.message.type, obj.message.fileName, toSaveName, adapter.log, err => {
                                 if (!err && fs.existsSync(toSaveName)) {
                                     try {
-                                        const base64 = fs.readFileSync(toSaveName).toString('base64');
+                                        let base64 = fs.readFileSync(toSaveName).toString('base64');
                                         adapter.sendTo(obj.from, obj.command, { base64 }, obj.callback);
+                                        base64 = null;
                                     } catch (error) {
                                         adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
                                     }
@@ -243,11 +244,14 @@ function startAdapter(options) {
                                 }
                             });
                         } else {
-                            try {
-                                const base64 = fs.readFileSync(obj.message.fileName).toString('base64');
-                                adapter.sendTo(obj.from, obj.command, { base64 }, obj.callback);
-                            } catch (error) {
-                                adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
+                            if (fs.existsSync(obj.message.fileName)) {
+                                try {
+                                    let base64 = fs.readFileSync(obj.message.fileName).toString('base64');
+                                    adapter.sendTo(obj.from, obj.command, { base64 }, obj.callback);
+                                    base64 = null;
+                                } catch (error) {
+                                    adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
+                                }
                             }
                         }
                     } else if (obj.callback) {

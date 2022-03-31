@@ -253,6 +253,7 @@
   "piece": "часть",
   "port": "порт",
   "restore type": "тип восстановления",
+  "save Configuration": "сохранить конфигурацию",
   "seconds": "секунд",
   "send analysis data": "отправлять данные для анализа",
   "slave instances": "ведомые экземпляры",

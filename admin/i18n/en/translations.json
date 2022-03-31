@@ -253,6 +253,7 @@
   "piece": "piece",
   "port": "port",
   "restore type": "restore type",
+  "save Configuration": "save Configuration",
   "seconds": "seconds",
   "send analysis data": "send analysis data",
   "slave instances": "slave instances",

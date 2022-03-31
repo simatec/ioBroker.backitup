@@ -8,6 +8,7 @@ var $output = null;
 var $dialogCommandProgress;
 var lastMessage = '';
 var restoreIfWait = 5000;
+var storageTyp = '';
 
 var oldJavascriptsEnabled;
 var oldZigbeeEnabled;
@@ -679,7 +680,6 @@ function load(settings, onChange) {
                         for (var type in data) {
                             if (!data.hasOwnProperty(type)) continue;
 
-                            var storageTyp = '';
                             // Storage Translate
                             switch (type) {
                                 case 'webdav':
@@ -710,8 +710,8 @@ function load(settings, onChange) {
                                     text += '<ul class="collapsible-body collection">';
                                     for (var i = data[type][storage].length - 1; i >= 0; i--) {
                                         text += '<li class="collection-item"><div>' + getName(data[type][storage][i].name) + ' <b>>>> ' + data[type][storage][i].name + ' <<<</b> (' + getSize(data[type][storage][i].size) + ')' +
-                                            '<a class="secondary-content do-restore" title="Restore Backup File" data-file="' + data[type][storage][i].path + '" data-type="' + type + '">  <i class="material-icons">restore</i></a>' +
-                                            '<a class="secondary-content do-download" title="Download Backup File" data-file="' + data[type][storage][i].path + '" data-type="' + type + '">  <i class="material-icons">file_download</i></a>' +
+                                            '<a class="secondary-content do-restore" title="' + _('Restore Backup File') + '" data-file="' + data[type][storage][i].path + '" data-type="' + type + '">  <i class="material-icons">restore</i></a>' +
+                                            '<a class="secondary-content do-download" title="' + _('Download Backup File') + '" data-file="' + data[type][storage][i].path + '" data-type="' + type + '">  <i class="material-icons">file_download</i></a>' +
                                             '</div></li>';
                                     }
                                     text += '</ul></li></ul>';
@@ -787,10 +787,8 @@ function load(settings, onChange) {
                                             if (isStopped) {
                                                 var restoreURL = `${location.protocol}//${location.hostname}:${location.protocol === 'https:' ? '8092' : '8091'}/backitup-restore.html`;
                                                 console.log('Restore Url: ' + restoreURL);
-                                                setTimeout(function () {
-                                                    //$('<a href="' + restoreURL + '">&nbsp;</a>')[0].click();
-                                                    window.open(restoreURL, '_self');
-                                                }, restoreIfWait);
+                                                setTimeout(() => window.open(restoreURL, '_self'), restoreIfWait);
+                                                //setTimeout(() => $('<a href="' + restoreURL + '">&nbsp;</a>')[0].click(), restoreIfWait);
                                             }
 
                                             if (downloadPanel) {
@@ -809,29 +807,6 @@ function load(settings, onChange) {
                         $tabRestore.find('.do-download').on('click', function () {
                             var type = $(this).data('type');
                             var file = $(this).data('file');
-
-                            var storageTyp = '';
-                            // Storage Translate
-                            switch (type) {
-                                case 'webdav':
-                                    storageTyp = 'WebDAV';
-                                    break;
-                                case 'nas / copy':
-                                    storageTyp = 'NAS / Copy';
-                                    break;
-                                case 'local':
-                                    storageTyp = 'Local';
-                                    break;
-                                case 'dropbox':
-                                    storageTyp = 'Dropbox';
-                                    break;
-                                case 'ftp':
-                                    storageTyp = 'FTP';
-                                    break;
-                                case 'googledrive':
-                                    storageTyp = 'Google Drive';
-                                    break;
-                            }
 
                             $('.do-list').addClass('disabled');
                             $('#tab-restore').find('.do-restore').addClass('disabled').hide();
@@ -858,10 +833,12 @@ function load(settings, onChange) {
                                     try {
                                         downloadLink.download = file.split(/[\\/]/).pop();
                                         downloadLink.click();
+                                        document.body.removeChild(downloadLink);
                                     } catch (e) {
                                         console.error(`Cannot access download: ${e}`);
                                         window.alert(_('Unfortunately your browser does not support this feature'));
                                     }
+                                    result = null;
                                 }
                                 $('.do-list').removeClass('disabled');
                                 $('#tab-restore').find('.do-restore').removeClass('disabled').show();

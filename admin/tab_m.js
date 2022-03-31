@@ -7,6 +7,7 @@ var $dialogDownload = null;
 var $output = null;
 var $dialogCommandProgress;
 var lastMessage = '';
+var storageTyp = '';
 var restoreIfWait = 5000;
 
 function initDialog() {
@@ -150,22 +151,29 @@ function load(settings, onChange) {
                 if (id === 'backitup.' + instance + '.oneClick.ccu') {
                     if (state && state.val) {
                         $('.btn-ccu').addClass('disabled');
-                    } else {
+                    } else if (settings.ccuEnabled) {
                         $('.btn-ccu').removeClass('disabled');
                     }
                 } else
                     if (id === 'backitup.' + instance + '.oneClick.iobroker') {
                         if (state && state.val) {
                             $('.btn-iobroker').addClass('disabled');
-                        } else {
+                        } else if (settings.minimalEnabled) {
                             $('.btn-iobroker').removeClass('disabled');
                         }
                     } else
                         if (id === 'system.adapter.backitup.' + instance + '.alive') {
-                            if (state && state.val) {
-                                $('.do-backup').removeClass('disabled');
+                            if (state && state.val && settings.ccuEnabled) {
+                                $('.btn-ccu').removeClass('disabled');
                             } else {
-                                $('.do-backup').addClass('disabled');
+                                $('.btn-ccu').addClass('disabled');
+                            }
+
+                            if (state && state.val && settings.minimalEnabled) {
+                                console.log('Test ....')
+                                $('.btn-iobroker').removeClass('disabled');
+                            } else {
+                                $('.btn-iobroker').addClass('disabled');
                             }
                         } else
                             if (id === 'backitup.' + instance + '.output.line') {
@@ -223,7 +231,6 @@ function load(settings, onChange) {
                         for (var type in data) {
                             if (!data.hasOwnProperty(type)) continue;
 
-                            var storageTyp = '';
                             // Storage Translate
                             switch (type) {
                                 case 'webdav':
@@ -253,8 +260,8 @@ function load(settings, onChange) {
                                     text += '<ul class="collapsible-body collection">';
                                     for (var i = data[type][storage].length - 1; i >= 0; i--) {
                                         text += '<li class="collection-item"><div>' + getName(data[type][storage][i].name) + ' <b>>>> ' + data[type][storage][i].name + ' <<<</b> (' + getSize(data[type][storage][i].size) + ')' +
-                                            '<a class="secondary-content do-restore" title="Restore Backup File" data-file="' + data[type][storage][i].path + '" data-type="' + type + '"><i class="material-icons">restore</i></a>' +
-                                            '<a class="secondary-content do-download" title="Download Backup File" data-file="' + data[type][storage][i].path + '" data-type="' + type + '"><i class="material-icons">file_download</i></a>' +
+                                            '<a class="secondary-content do-restore" title="' + _('Restore Backup File') + '" data-file="' + data[type][storage][i].path + '" data-type="' + type + '"><i class="material-icons">restore</i></a>' +
+                                            '<a class="secondary-content do-download" title="' + _('Download Backup File') + '" data-file="' + data[type][storage][i].path + '" data-type="' + type + '"><i class="material-icons">file_download</i></a>' +
                                             '</div></li>';
                                     }
                                     text += '</ul></li></ul>';
@@ -329,10 +336,8 @@ function load(settings, onChange) {
                                             if (isStopped) {
                                                 var restoreURL = `${location.protocol}//${location.hostname}:${location.protocol === 'https:' ? '8092' : '8091'}/backitup-restore.html`;
                                                 console.log('Restore Url: ' + restoreURL);
-                                                setTimeout(function () {
-                                                    //$('<a href="' + restoreURL + '">&nbsp;</a>')[0].click();
-                                                    window.open(restoreURL, '_self');
-                                                }, restoreIfWait);
+                                                setTimeout(() => window.open(restoreURL, '_self'), restoreIfWait);
+                                                //setTimeout(() => $('<a href="' + restoreURL + '">&nbsp;</a>')[0].click(), restoreIfWait);
                                             }
                                             if (downloadPanel) {
                                                 $('.cloudRestore').hide();
@@ -350,29 +355,6 @@ function load(settings, onChange) {
                         $tabAdmin.find('.do-download').on('click', function () {
                             var type = $(this).data('type');
                             var file = $(this).data('file');
-
-                            var storageTyp = '';
-                            // Storage Translate
-                            switch (type) {
-                                case 'webdav':
-                                    storageTyp = 'WebDAV';
-                                    break;
-                                case 'nas / copy':
-                                    storageTyp = 'NAS / Copy';
-                                    break;
-                                case 'local':
-                                    storageTyp = 'Local';
-                                    break;
-                                case 'dropbox':
-                                    storageTyp = 'Dropbox';
-                                    break;
-                                case 'ftp':
-                                    storageTyp = 'FTP';
-                                    break;
-                                case 'googledrive':
-                                    storageTyp = 'Google Drive';
-                                    break;
-                            }
 
                             type = type == 'nas / copy' ? 'cifs' : type;
 
@@ -401,10 +383,12 @@ function load(settings, onChange) {
                                     try {
                                         downloadLink.download = file.split(/[\\/]/).pop();
                                         downloadLink.click();
+                                        document.body.removeChild(downloadLink);
                                     } catch (e) {
                                         console.error(`Cannot access download: ${e}`);
                                         window.alert(_('Unfortunately your browser does not support this feature'));
                                     }
+                                    result = null;
                                 }
                                 $('.do-list').removeClass('disabled');
                                 $('#tab-restore').find('.do-restore').removeClass('disabled').show();
@@ -442,6 +426,7 @@ function load(settings, onChange) {
     });
 
     $('.detect-backups').on('click', function () { initDialogBackups(); });
+    $('.btn-himself').on('click', function () { backupHimSelf(); });
 
     showHideSettings(settings);
     onChange(false);
@@ -449,11 +434,39 @@ function load(settings, onChange) {
     setTimeout(() => {
         $('.load').hide();
         $('.loadFinish').fadeIn();
+        showHideSettings(settings);
     }, 200);
 
     M.updateTextFields();  // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
 
     initDialog();
+}
+
+function backupHimSelf() {
+    socket.emit('getObject', `system.adapter.${adapter}.${instance}`, function (err, obj) {
+        if (!err && obj) {
+            // remove unimportant information
+            if (obj.common.news) {
+                delete obj.common.news;
+            }
+            if (obj.common.titleLang) {
+                delete obj.common.titleLang;
+            }
+            if (obj.common.desc) {
+                delete obj.common.desc;
+            }
+
+            var el = document.createElement('a');
+
+            el.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(obj, null, 2)));
+            el.setAttribute('download', `${obj._id}.json`);
+
+            el.style.display = 'none';
+            document.body.appendChild(el);
+            el.click();
+            document.body.removeChild(el);
+        }
+    });
 }
 
 function backupInfo(settings) {
@@ -600,11 +613,18 @@ function fillStorageOptions(settings) {
 }
 
 function showHideSettings(settings) {
-    if (settings.ccuEnabled) {
-        $('.ccuBackup').show();
+    if (!settings.ccuEnabled) {
+        $('.btn-ccu').addClass('disabled');
     } else {
-        $('.ccuBackup').hide();
+        $('.btn-ccu').removeClass('disabled');
     }
+
+    if (!settings.minimalEnabled) {
+        $('.btn-iobroker').addClass('disabled');
+    } else {
+        $('.btn-iobroker').removeClass('disabled');
+    }
+
     $('#restoreSource').on('change', function () {
         $('.doRestore').hide();
     }).trigger('change');
