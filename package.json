@@ -45,7 +45,7 @@
     "@googleapis/drive": "^2.3.0",
     "node-wol": "^0.1.1",
     "request": "^2.88.2",
-    "google-auth-library": "^7.14.0",
+    "google-auth-library": "^7.14.1",
     "express": "^4.17.3",
     "fs-extra": "^10.0.1",
     "axios": "^0.26.1",
