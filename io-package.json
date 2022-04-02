@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.3",
+    "version": "2.4.4",
     "news": {
+      "2.4.4": {
+        "en": "try/catch GoogleDrive added\nBackup Download added",
+        "de": "try/catch GoogleDrive hinzugefügt\nBackup-Download hinzugefügt",
+        "ru": "добавлен попробовать/поймать GoogleDrive\nДобавлена загрузка резервной копии",
+        "pt": "tente/pegue o GoogleDrive adicionado\nDownload de backup adicionado",
+        "nl": "probeer/vang GoogleDrive toegevoegd\nBack-up downloaden toegevoegd",
+        "fr": "essayer/attraper GoogleDrive ajouté\nTéléchargement de sauvegarde ajouté",
+        "it": "prova/cattura GoogleDrive aggiunto\nDownload di backup aggiunto",
+        "es": "probar/atrapar GoogleDrive añadido\nDescarga de copia de seguridad agregada",
+        "pl": "spróbuj/złap Dysk Google dodany\nDodano pobieranie kopii zapasowej",
+        "zh-cn": "尝试/捕获添加的 GoogleDrive\n添加了备份下载"
+      },
       "2.4.3": {
         "en": "Bugfixes Dropbox\ntry/catch options added\ncode verifier check for Dropbox oAuth",
         "de": "Fehlerbehebungen Dropbox\nTry/Catch-Optionen hinzugefügt\nCodeüberprüfung für Dropbox oAuth",
@@ -74,18 +86,6 @@
         "es": "Redis Remote Backup para Docker agregado\ndocumento actualizado",
         "pl": "Dodano Redis Remote Backup for Docker\nZaktualizowano dokument",
         "zh-cn": "添加了适用于 Docker 的 Redis 远程备份\n文档已更新"
-      },
-      "2.3.3": {
-        "en": "small GUI fixes\nDocker restore tunning",
-        "de": "kleine GUI-Korrekturen\nDocker-Wiederherstellungsoptimierung",
-        "ru": "небольшие исправления графического интерфейса\nНастройка восстановления Docker",
-        "pt": "pequenas correções de GUI\nAjuste de restauração do Docker",
-        "nl": "kleine GUI-correcties\nDocker herstel tuning",
-        "fr": "petites corrections d'interface graphique\nRéglage de la restauration Docker",
-        "it": "piccole correzioni della GUI\nOttimizzazione ripristino Docker",
-        "es": "pequeñas correcciones de GUI\nAjuste de restauración de Docker",
-        "pl": "małe poprawki GUI\nTuning przywracania Dockera",
-        "zh-cn": "小 GUI 修复\nDocker 恢复调整"
       }
     },
     "title": "BackItUp",
