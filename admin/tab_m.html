@@ -108,11 +108,14 @@
             <div class="input-field col s6 l3">
                 <a class="waves-effect waves-light btn btn-backitup btn-iobroker do-backup" data-type="iobroker"><i class="material-icons right">backup</i><span class="translate">iobroker start backup</span></a>
             </div>
-            <div class="input-field col s6 l3 ccuBackup">
+            <div class="input-field col s6 l3">
                 <a class="waves-effect waves-light btn btn-backitup btn-ccu do-backup" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">Homematic start backup</span></a>
             </div>
             <div class="input-field col s6 l3">
                 <a class="waves-effect waves-light btn btn-backitup detect-backups" ><i class="material-icons right">search</i><span class="translate">Backup history</span></a>
+            </div>
+            <div class="input-field col s6 l3">
+                <a class="waves-effect waves-light btn btn-backitup btn-himself" ><i class="material-icons right">backup</i><span class="translate">save Configuration</span></a>
             </div>
         </div>
         <!-- Restore -->
@@ -215,6 +218,30 @@
                 <div class="progress-dont-close"><input type="checkbox" class="filled-in" /><span class="translate">close on ready</span></div>
                 <a class="modal-action modal-close waves-effect waves-green btn btn-backitup btn-close" style="background-color:#3399CC;border-radius: 4px;"><i
                     class="large material-icons left">close</i><span class="translate">Close</span></a>
+            </div>
+        </div>
+        <!-- Dialog Download -->
+        <div id="dialog-download" class="modal modal-fixed-footer" style="display: none">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col s12">
+                        <h6 class="title"><span class="translate">Backup Download</span><span class="command"></span></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 downloadProgress">
+                        <div class="progress">
+                            <div class="indeterminate"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-field col s8" style="margin-left: 0.8rem;">
+                    <span class="downloadProgress translate" style="font-size: 0.9rem;">Download Backup file</span>
+                    <span class="downloadProgress translate" id="backupDownload_name" style="font-size: 0.9rem;"></span>
+                    <span class="downloadProgress translate" id="backupDownload_span" style="font-size: 0.9rem;">from the Storage</span>
+                    <span class="downloadProgress translate" id="backupDownload_source" style="font-size: 0.9rem;"></span>
+                    <span class="downloadFinish translate" id="backupDownload_finish" style="font-size: 0.9rem;">Download completed successfully. The popup will close automatically</span>
+                </div>
             </div>
         </div>
     </div>

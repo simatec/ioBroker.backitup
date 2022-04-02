@@ -3,10 +3,12 @@
 
 //Settings
 var $dialogCommand = null;
+var $dialogDownload = null;
 var $output = null;
 var $dialogCommandProgress;
 var lastMessage = '';
 var restoreIfWait = 5000;
+var storageTyp = '';
 
 var oldJavascriptsEnabled;
 var oldZigbeeEnabled;
@@ -27,6 +29,17 @@ function decrypt(key, value) {
         result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
     }
     return result;
+}
+
+function initDialogDownload() {
+    $dialogDownload = $('#dialog-download');
+    if (!$dialogDownload.data('inited')) {
+        $dialogDownload.data('inited', true);
+        $dialogDownload.modal({
+            dismissible: false
+        });
+    }
+    $dialogDownload.modal('open');
 }
 
 function fetchMySqlConfig(isInitial) {
@@ -667,7 +680,6 @@ function load(settings, onChange) {
                         for (var type in data) {
                             if (!data.hasOwnProperty(type)) continue;
 
-                            var storageTyp = '';
                             // Storage Translate
                             switch (type) {
                                 case 'webdav':
@@ -698,7 +710,8 @@ function load(settings, onChange) {
                                     text += '<ul class="collapsible-body collection">';
                                     for (var i = data[type][storage].length - 1; i >= 0; i--) {
                                         text += '<li class="collection-item"><div>' + getName(data[type][storage][i].name) + ' <b>>>> ' + data[type][storage][i].name + ' <<<</b> (' + getSize(data[type][storage][i].size) + ')' +
-                                            '<a class="secondary-content do-restore" data-file="' + data[type][storage][i].path + '" data-type="' + type + '"><i class="material-icons">restore</i></a>' +
+                                            '<a class="secondary-content do-restore" title="' + _('Restore Backup File') + '" data-file="' + data[type][storage][i].path + '" data-type="' + type + '">  <i class="material-icons">restore</i></a>' +
+                                            '<a class="secondary-content do-download" title="' + _('Download Backup File') + '" data-file="' + data[type][storage][i].path + '" data-type="' + type + '">  <i class="material-icons">file_download</i></a>' +
                                             '</div></li>';
                                     }
                                     text += '</ul></li></ul>';
@@ -754,6 +767,7 @@ function load(settings, onChange) {
 
                                     $('.do-list').addClass('disabled');
                                     $('#tab-restore').find('.do-restore').addClass('disabled').hide();
+                                    $('#tab-restore').find('.do-download').addClass('disabled').hide();
 
                                     var name = file.split('/').pop().split('_')[0];
                                     showDialog(name !== '' ? 'restore' : '', isStopped);
@@ -771,12 +785,10 @@ function load(settings, onChange) {
                                         } else {
                                             console.log('Restore finish!')
                                             if (isStopped) {
-                                                var restoreURL = `${location.protocol}//${location.hostname}:${location.protocol == 'https:' ? '8092' : '8091'}/backitup-restore.html`;
+                                                var restoreURL = `${location.protocol}//${location.hostname}:${location.protocol === 'https:' ? '8092' : '8091'}/backitup-restore.html`;
                                                 console.log('Restore Url: ' + restoreURL);
-                                                setTimeout(function () {
-                                                    //$('<a href="' + restoreURL + '">&nbsp;</a>')[0].click();
-                                                    window.open(restoreURL, '_self');
-                                                }, restoreIfWait);
+                                                setTimeout(() => window.open(restoreURL, '_self'), restoreIfWait);
+                                                //setTimeout(() => $('<a href="' + restoreURL + '">&nbsp;</a>')[0].click(), restoreIfWait);
                                             }
 
                                             if (downloadPanel) {
@@ -786,8 +798,68 @@ function load(settings, onChange) {
                                         }
                                         $('.do-list').removeClass('disabled');
                                         $('#tab-restore').find('.do-restore').removeClass('disabled').show();
+                                        $('#tab-restore').find('.do-download').removeClass('disabled').show();
                                     });
                                 }
+                            });
+                        });
+
+                        $tabRestore.find('.do-download').on('click', function () {
+                            var type = $(this).data('type');
+                            var file = $(this).data('file');
+
+                            type = type == 'nas / copy' ? 'cifs' : type;
+
+                            $('.downloadFinish').hide();
+                            $('.downloadProgress').show();
+                            $('.do-list').addClass('disabled');
+                            $('#tab-restore').find('.do-restore').addClass('disabled').hide();
+                            $('#tab-restore').find('.do-download').addClass('disabled').hide();
+                            $('#backupDownload_name').text(` "${file.split(/[\\/]/).pop()}" `);
+                            $('#backupDownload_source').text(_(storageTyp));
+
+                            initDialogDownload();
+
+                            sendTo(null, 'getFile', { type: type, fileName: file }, function (result) {
+                                if (!result || result.error) {
+                                    $dialogDownload.modal('close');
+                                    showError('<br/><br/>Error:<br/><br/>' + JSON.stringify(result.error));
+                                } else {
+                                    console.log('Download finish!')
+                                    $('.downloadProgress').hide();
+                                    $('.downloadFinish').show();
+                                    setTimeout(() => $dialogDownload.modal('close'), 5000);
+                                    /*
+                                    const downloadLink = document.createElement('a');
+                                    document.body.appendChild(downloadLink);
+
+                                    downloadLink.href = 'data:application/tar+gzip;base64,' + result.base64;
+                                    downloadLink.target = '_self';
+                                    */
+                                    const downloadLink = document.createElement('a');
+                                    downloadLink.setAttribute('href', `http://${location.hostname}:55555/${result.fileName ? result.fileName : file.split(/[\\/]/).pop()}`);
+
+                                    downloadLink.style.display = 'none';
+                                    document.body.appendChild(downloadLink);
+
+                                    try {
+                                        downloadLink.download = file.split(/[\\/]/).pop();
+                                        downloadLink.click();
+                                        document.body.removeChild(downloadLink);
+                                        /*
+                                        downloadLink.download = file.split(/[\\/]/).pop();
+                                        downloadLink.click();
+                                        document.body.removeChild(downloadLink);
+                                        */
+                                    } catch (e) {
+                                        console.error(`Cannot access download: ${e}`);
+                                        window.alert(_('Unfortunately your browser does not support this feature'));
+                                    }
+                                    result = null;
+                                }
+                                $('.do-list').removeClass('disabled');
+                                $('#tab-restore').find('.do-restore').removeClass('disabled').show();
+                                $('#tab-restore').find('.do-download').removeClass('disabled').show();
                             });
                         });
                     }
@@ -1395,7 +1467,7 @@ function showHideSettings(settings) {
     }
     if ($('#historyEnabled').prop('checked')) {
         if (!oldHistoryEnabled) {
-        checkAdapterInstall('history', common.host);
+            checkAdapterInstall('history', common.host);
         }
         $('.tab-history').show();
     } else {
@@ -1437,27 +1509,27 @@ function showHideSettings(settings) {
     } else {
         $('.ccuCert').hide();
     }
-    
+
     if ($('#javascriptsEnabled').prop('checked') && !oldJavascriptsEnabled) {
         showMessage(_("<br/><br/>The JavaScript Adapter scripts are already saved in the ioBroker backup.<br/><br/>This option is just an additional option to be able to restore the scripts individually if necessary."), _('Backitup Information!'), 'info');
     }
     if ($('#zigbeeEnabled').prop('checked')) {
         if (!oldZigbeeEnabled) {
-        checkAdapterInstall('zigbee', common.host);
+            checkAdapterInstall('zigbee', common.host);
         }
     } else {
         cleanIgnoreMessage('zigbee');
     }
     if ($('#yahkaEnabled').prop('checked')) {
         if (!oldYahkaEnabled) {
-        checkAdapterInstall('yahka', common.host);
+            checkAdapterInstall('yahka', common.host);
         }
     } else {
         cleanIgnoreMessage('yahka');
     }
     if ($('#jarvisEnabled').prop('checked')) {
         if (!oldJarvisEnabled) {
-        checkAdapterInstall('jarvis', common.host);
+            checkAdapterInstall('jarvis', common.host);
         }
     } else {
         cleanIgnoreMessage('jarvis');
