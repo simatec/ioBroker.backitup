@@ -58,6 +58,7 @@
   "Domainname (optional)": "Nom de domaine (facultatif)",
   "Download Backup File": "Télécharger le fichier de sauvegarde",
   "Download Backup file": "Télécharger le fichier de sauvegarde",
+  "Download completed successfully. The popup will close automatically": "Téléchargement terminé avec succès. La popup se fermera automatiquement.",
   "Download is in progress ...": "Le téléchargement a commencé ...",
   "Dropbox": "Dropbox",
   "Dropbox Path for CCU backup": "Dropbox Path pour la sauvegarde CCU",

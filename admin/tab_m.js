@@ -170,7 +170,6 @@ function load(settings, onChange) {
                             }
 
                             if (state && state.val && settings.minimalEnabled) {
-                                console.log('Test ....')
                                 $('.btn-iobroker').removeClass('disabled');
                             } else {
                                 $('.btn-iobroker').addClass('disabled');
@@ -358,6 +357,8 @@ function load(settings, onChange) {
 
                             type = type == 'nas / copy' ? 'cifs' : type;
 
+                            $('.downloadFinish').hide();
+                            $('.downloadProgress').show();
                             $('.do-list').addClass('disabled');
                             $('#tab-restore').find('.do-restore').addClass('disabled').hide();
                             $('#tab-restore').find('.do-download').addClass('disabled').hide();
@@ -372,18 +373,31 @@ function load(settings, onChange) {
                                     showError('<br/><br/>Error:<br/><br/>' + JSON.stringify(result.error));
                                 } else {
                                     console.log('Download finish!')
-                                    setTimeout(() => $dialogDownload.modal('close'), 3000);
-
+                                    $('.downloadProgress').hide();
+                                    $('.downloadFinish').show();
+                                    setTimeout(() => $dialogDownload.modal('close'), 5000);
+                                    /*
                                     const downloadLink = document.createElement('a');
                                     document.body.appendChild(downloadLink);
 
                                     downloadLink.href = 'data:application/tar+gzip;base64,' + result.base64;
                                     downloadLink.target = '_self';
+                                    */
+                                    const downloadLink = document.createElement('a');
+                                    downloadLink.setAttribute('href', `http://${location.hostname}:55555/${result.fileName ? result.fileName : file.split(/[\\/]/).pop()}`);
+
+                                    downloadLink.style.display = 'none';
+                                    document.body.appendChild(downloadLink);
 
                                     try {
                                         downloadLink.download = file.split(/[\\/]/).pop();
                                         downloadLink.click();
                                         document.body.removeChild(downloadLink);
+                                        /*
+                                        downloadLink.download = file.split(/[\\/]/).pop();
+                                        downloadLink.click();
+                                        document.body.removeChild(downloadLink);
+                                        */
                                     } catch (e) {
                                         console.error(`Cannot access download: ${e}`);
                                         window.alert(_('Unfortunately your browser does not support this feature'));

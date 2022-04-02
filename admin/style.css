@@ -197,10 +197,10 @@
 }
 
 #dialog-download {
-    max-height: 35% !important;
+    max-height: 40% !important;
     max-width: 70% !important;
     width: 65% !important;
-    height: 30% !important;
+    height: 35% !important;
     overflow: visible !important;
     top: 10px !important;
     width: calc(100% - 100px);

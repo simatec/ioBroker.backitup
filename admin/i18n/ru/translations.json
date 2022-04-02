@@ -58,6 +58,7 @@
   "Domainname (optional)": "Доменное имя (необязательно)",
   "Download Backup File": "Скачать файл резервной копии",
   "Download Backup file": "Скачать файл резервной копии",
+  "Download completed successfully. The popup will close automatically": "Загрузка завершена успешно. Всплывающее окно закроется автоматически.",
   "Download is in progress ...": "Загрузка началась…",
   "Dropbox": "Dropbox",
   "Dropbox Path for CCU backup": "Путь для резервного копирования CCU",
