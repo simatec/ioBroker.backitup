@@ -18,6 +18,7 @@ let timerOutput2;
 let timerUmount1;
 let timerUmount2;
 let timerMain;
+let stopServer;
 let slaveTimeOut;
 let waitToSlaveBackup;
 let dlServer;
@@ -153,13 +154,7 @@ function startAdapter(options) {
             clearTimeout(timerMain);
             clearTimeout(slaveTimeOut);
             clearTimeout(waitToSlaveBackup);
-            if (dlServer) {
-                try {
-                    dlServer.close();
-                } catch (e) {
-                    // ignore
-                }
-            }
+            clearTimeout(stopServer);
             callback();
         } catch (e) {
             callback();
@@ -222,13 +217,7 @@ function startAdapter(options) {
                         if (obj.message.stopIOB) {
                             await getCerts(obj.from);
                         }
-                        if (dlServer) {
-                            try {
-                                dlServer.close();
-                            } catch (e) {
-                                // ignore
-                            }
-                        }
+                        
                         const _restore = require('./lib/restore');
                         _restore.restore(adapter, backupConfig, obj.message.type, obj.message.fileName, obj.message.currentTheme, bashDir, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                     } else if (obj.callback) {
@@ -238,10 +227,9 @@ function startAdapter(options) {
 
                 case 'getFile':
                     if (obj.message && obj.message.type && obj.message.fileName) {
-                        if (!dlServer) {
-                            fileServer();
-                            adapter.log.debug('Downloadserver started ...')
-                        }
+                        dlServer = null;
+                        fileServer();
+
                         const fileName = obj.message.fileName.split('/').pop();
                         if (obj.message.type !== 'local') {
                             const backupDir = path.join(tools.getIobDir(), 'backups');
@@ -262,6 +250,7 @@ function startAdapter(options) {
                                 } else {
                                     adapter.log.warn('File ' + toSaveName + ' not found');
                                 }
+                                stopServer = setTimeout(() => dlServer.close(), 2000);
                             });
                         } else {
                             if (fs.existsSync(obj.message.fileName)) {
@@ -273,6 +262,8 @@ function startAdapter(options) {
                                 } catch (error) {
                                     adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
                                 }
+                                stopServer = setTimeout(() => dlServer.close(), 2000);
+
                             }
                         }
                     } else if (obj.callback) {
@@ -454,13 +445,6 @@ function createBackupSchedule() {
             }
             const cron = '10 ' + time[1] + ' ' + time[0] + ' */' + config.everyXDays + ' * * ';
             backupTimeSchedules[type] = schedule.scheduleJob(cron, () => {
-                if (dlServer) {
-                    try {
-                        dlServer.close();
-                    } catch (e) {
-                        // ignore
-                    }
-                }
                 adapter.setState('oneClick.' + type, true, true);
 
                 startBackup(backupConfig[type], err => {
