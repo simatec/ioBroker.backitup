@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.4",
+    "version": "2.4.5",
     "news": {
+      "2.4.5": {
+        "en": "Download-Server close added",
+        "de": "Download-Server schließen hinzugefügt",
+        "ru": "Добавлено закрытие сервера загрузки",
+        "pt": "Fechamento do servidor de download adicionado",
+        "nl": "Download-Server sluiten toegevoegd",
+        "fr": "Download-Server fermer ajouté",
+        "it": "Aggiunta la chiusura del server di download",
+        "es": "Se agregó el cierre del servidor de descargas",
+        "pl": "Dodano zamknięcie serwera pobierania",
+        "zh-cn": "下载服务器关闭添加"
+      },
       "2.4.4": {
         "en": "try/catch GoogleDrive added\nBackup Download added",
         "de": "try/catch GoogleDrive hinzugefügt\nBackup-Download hinzugefügt",
@@ -74,18 +86,6 @@
         "es": "arreglar la configuración de Redis",
         "pl": "napraw konfigurację Redis",
         "zh-cn": "修复 Redis 配置"
-      },
-      "2.3.4": {
-        "en": "Redis Remote Backup for Docker added\nDocu updated",
-        "de": "Redis Remote Backup für Docker hinzugefügt\nDoku aktualisiert",
-        "ru": "Добавлено удаленное резервное копирование Redis для Docker\nДокумент обновлен",
-        "pt": "Backup remoto do Redis para Docker adicionado\nDocumento atualizado",
-        "nl": "Redis Remote Backup voor Docker toegevoegd\nDocu bijgewerkt",
-        "fr": "Sauvegarde à distance Redis pour Docker ajoutée\nDocument mis à jour",
-        "it": "Aggiunto Redis Remote Backup per Docker\nDocumento aggiornato",
-        "es": "Redis Remote Backup para Docker agregado\ndocumento actualizado",
-        "pl": "Dodano Redis Remote Backup for Docker\nZaktualizowano dokument",
-        "zh-cn": "添加了适用于 Docker 的 Redis 远程备份\n文档已更新"
       }
     },
     "title": "BackItUp",
