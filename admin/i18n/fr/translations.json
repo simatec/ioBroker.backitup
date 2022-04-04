@@ -203,6 +203,7 @@
   "Telegram instance": "Instance de télégramme",
   "Test connection": "Tester la connexion",
   "The connection to the WebDAV server was established successfully.": "La connexion au serveur WebDAV a été établie avec succès.",
+  "The download could not be started. The popup will close automatically": "Le téléchargement n'a pas pu démarrer. La popup se fermera automatiquement",
   "Token": "Jeton",
   "Token (only for v2.x)": "Jeton (uniquement pour v2.x)",
   "Type": "Type",

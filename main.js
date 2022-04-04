@@ -20,6 +20,7 @@ let timerUmount2;
 let timerMain;
 let slaveTimeOut;
 let waitToSlaveBackup;
+let stopServer;
 let dlServer;
 
 let systemLang = 'de';                                  // system language
@@ -153,13 +154,7 @@ function startAdapter(options) {
             clearTimeout(timerMain);
             clearTimeout(slaveTimeOut);
             clearTimeout(waitToSlaveBackup);
-            if (dlServer) {
-                try {
-                    dlServer.close();
-                } catch (e) {
-                    // ignore
-                }
-            }
+            clearTimeout(stopServer);
             callback();
         } catch (e) {
             callback();
@@ -222,13 +217,7 @@ function startAdapter(options) {
                         if (obj.message.stopIOB) {
                             await getCerts(obj.from);
                         }
-                        if (dlServer) {
-                            try {
-                                dlServer.close();
-                            } catch (e) {
-                                // ignore
-                            }
-                        }
+
                         const _restore = require('./lib/restore');
                         _restore.restore(adapter, backupConfig, obj.message.type, obj.message.fileName, obj.message.currentTheme, bashDir, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
                     } else if (obj.callback) {
@@ -238,10 +227,17 @@ function startAdapter(options) {
 
                 case 'getFile':
                     if (obj.message && obj.message.type && obj.message.fileName) {
-                        if (!dlServer) {
-                            fileServer();
-                            adapter.log.debug('Downloadserver started ...')
+                        if(dlServer !== null) {
+                            try {
+                                dlServer.close();
+                                dlServer = null;
+                            } catch (e) {
+                                adapter.log.warn('Download server could not be closed');
+                            }
                         }
+                        
+                        fileServer();
+
                         const fileName = obj.message.fileName.split('/').pop();
                         if (obj.message.type !== 'local') {
                             const backupDir = path.join(tools.getIobDir(), 'backups');
@@ -252,9 +248,6 @@ function startAdapter(options) {
                             _getFile.getFile(backupConfig, obj.message.type, obj.message.fileName, toSaveName, adapter.log, err => {
                                 if (!err && fs.existsSync(toSaveName)) {
                                     try {
-                                        //let base64 = fs.readFileSync(toSaveName).toString('base64');
-                                        //adapter.sendTo(obj.from, obj.command, { base64 }, obj.callback);
-                                        //base64 = null;
                                         adapter.sendTo(obj.from, obj.command, { fileName: fileName }, obj.callback);
                                     } catch (error) {
                                         adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
@@ -266,15 +259,25 @@ function startAdapter(options) {
                         } else {
                             if (fs.existsSync(obj.message.fileName)) {
                                 try {
-                                    //let base64 = fs.readFileSync(obj.message.fileName).toString('base64');
-                                    //adapter.sendTo(obj.from, obj.command, { base64 }, obj.callback);
-                                    //base64 = null;
                                     adapter.sendTo(obj.from, obj.command, { fileName: fileName }, obj.callback);
                                 } catch (error) {
                                     adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
                                 }
+
                             }
                         }
+                    } else if (obj.callback) {
+                        obj.callback({ error: 'Invalid parameters' });
+                    }
+                    break;
+
+                case 'serverClose':
+                    if (obj.message && obj.message.downloadFinish) {
+                        stopServer = setTimeout(() => {
+                            dlServer.close();
+                            adapter.log.debug('Downloadserver closed ...');
+                            adapter.sendTo(obj.from, obj.command, { serverClose: true }, obj.callback);
+                        }, 2000);
                     } else if (obj.callback) {
                         obj.callback({ error: 'Invalid parameters' });
                     }
@@ -454,13 +457,6 @@ function createBackupSchedule() {
             }
             const cron = '10 ' + time[1] + ' ' + time[0] + ' */' + config.everyXDays + ' * * ';
             backupTimeSchedules[type] = schedule.scheduleJob(cron, () => {
-                if (dlServer) {
-                    try {
-                        dlServer.close();
-                    } catch (e) {
-                        // ignore
-                    }
-                }
                 adapter.setState('oneClick.' + type, true, true);
 
                 startBackup(backupConfig[type], err => {
@@ -1386,7 +1382,7 @@ function fileServer() {
     downloadServer.use(express.static(path.join(tools.getIobDir(), 'backups')));
 
     dlServer = downloadServer.listen(55555);
-    adapter.log.debug('Downloadserver started on port 55555');
+    adapter.log.debug('Downloadserver started ...');
 }
 
 async function main(adapter) {
