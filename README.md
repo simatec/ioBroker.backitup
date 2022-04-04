@@ -40,6 +40,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Download-Server close added
+
 ### 2.4.4 (2022-04-02)
 * (simatec) try/catch GoogleDrive added
 * (Bluefox/simatec) Backup Download added

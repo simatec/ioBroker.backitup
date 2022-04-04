@@ -203,6 +203,7 @@
   "Telegram instance": "Экземпляр Telegram",
   "Test connection": "Проверить соединение",
   "The connection to the WebDAV server was established successfully.": "Подключение к серверу WebDAV установлено успешно.",
+  "The download could not be started. The popup will close automatically": "Загрузка не может быть запущена. Всплывающее окно закроется автоматически",
   "Token": "Токен",
   "Token (only for v2.x)": "Токен (только для v2.x)",
   "Type": "Тип",
