@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.5",
+    "version": "2.4.6",
     "news": {
+      "2.4.6": {
+        "en": "https support for Download added",
+        "de": "https-Unterstützung für Download hinzugefügt",
+        "ru": "добавлена поддержка https для скачивания",
+        "pt": "Suporte https para download adicionado",
+        "nl": "https-ondersteuning voor downloaden toegevoegd",
+        "fr": "Prise en charge https pour le téléchargement ajoutée",
+        "it": "Aggiunto il supporto https per il download",
+        "es": "Se agregó soporte https para descargar.",
+        "pl": "Dodano obsługę https dla pobierania",
+        "zh-cn": "添加了对下载的 https 支持"
+      },
       "2.4.5": {
         "en": "Download-Server close added",
         "de": "Download-Server schließen hinzugefügt",
@@ -74,18 +86,6 @@
         "es": "Ruta de historial predeterminada agregada\ndependencias actualizadas\nAPLICACIÓN predeterminada de Dropbox agregada\nMensajes de información de corrección de errores\nMensaje de información para Script-Backup agregado\nSignal-cmb agregado\nmuchas pequeñas correcciones de errores\nDocumentación actualizada",
         "pl": "Dodano domyślną ścieżkę historii\nzaktualizowano zależności\nDodano domyślną aplikację Dropbox\nKomunikaty o poprawkach błędów\nWiadomość informacyjna o dodaniu kopii zapasowej skryptu\nDodano sygnał-cmb\nwiele małych poprawek\nAktualizacja dokumentacji",
         "zh-cn": "添加了默认历史记录路径\n已更新依赖项\nDropbox默认APP添加\n错误修正信息消息\n添加了脚本备份的信息消息\n已添加信号 cmb\n许多小错误修正\n文档已更新"
-      },
-      "2.3.5": {
-        "en": "fix Redis Config",
-        "de": "Korrigieren Sie die Redis-Konfiguration",
-        "ru": "исправить конфигурацию Redis",
-        "pt": "corrigir a configuração do Redis",
-        "nl": "Redis-configuratie repareren",
-        "fr": "corriger la configuration Redis",
-        "it": "correggere la configurazione di Redis",
-        "es": "arreglar la configuración de Redis",
-        "pl": "napraw konfigurację Redis",
-        "zh-cn": "修复 Redis 配置"
       }
     },
     "title": "BackItUp",
