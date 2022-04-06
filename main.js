@@ -226,17 +226,21 @@ function startAdapter(options) {
                     break;
 
                 case 'getFile':
-                    if (obj.message && obj.message.type && obj.message.fileName) {
-                        if(dlServer !== null) {
+                    if (obj.message && obj.message.type && obj.message.fileName && obj.message.protocol) {
+                        if (obj.message.protocol == 'https:') {
+                            await getCerts(obj.from);
+                        }
+
+                        if (dlServer !== null) {
                             try {
                                 dlServer.close();
                                 dlServer = null;
                             } catch (e) {
-                                adapter.log.warn('Download server could not be closed');
+                                adapter.log.debug('Download server could not be closed');
                             }
                         }
                         
-                        fileServer();
+                        fileServer(obj.message.protocol);
 
                         const fileName = obj.message.fileName.split('/').pop();
                         if (obj.message.type !== 'local') {
@@ -1375,14 +1379,34 @@ async function getCerts(instance) {
     }
 }
 
-function fileServer() {
+function fileServer(protocol) {
     const express = require('express');
     const downloadServer = express();
+    const https = require('https');
 
     downloadServer.use(express.static(path.join(tools.getIobDir(), 'backups')));
 
-    dlServer = downloadServer.listen(55555);
-    adapter.log.debug('Downloadserver started ...');
+    if (protocol == 'https:') {
+        let privateKey = '';
+        let certificate = '';
+
+        if (fs.existsSync(path.join(bashDir, 'iob.key')) && fs.existsSync(path.join(bashDir, 'iob.crt'))) {
+            try {
+                privateKey = fs.readFileSync(path.join(bashDir, 'iob.key'), 'utf8');
+                certificate = fs.readFileSync(path.join(bashDir, 'iob.crt'), 'utf8');
+            } catch (e) {
+                console.log('no certificates found');
+            }
+        }
+        const credentials = { key: privateKey, cert: certificate };
+        const httpsServer = https.createServer(credentials, downloadServer);
+
+        dlServer = httpsServer.listen(55555);
+        adapter.log.debug('Downloadserver started ...');
+    } else {
+        dlServer = downloadServer.listen(55555);
+        adapter.log.debug('Downloadserver started ...');
+    }
 }
 
 async function main(adapter) {

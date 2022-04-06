@@ -368,7 +368,7 @@ function load(settings, onChange) {
 
                             initDialogDownload();
 
-                            sendTo(null, 'getFile', { type: type, fileName: file }, function (result) {
+                            sendTo(null, 'getFile', { type: type, fileName: file, protocol: location.protocol }, function (result) {
                                 if (!result || result.error) {
                                     $dialogDownload.modal('close');
                                     showError('<br/><br/>Error:<br/><br/>' + JSON.stringify(result.error));
@@ -376,7 +376,7 @@ function load(settings, onChange) {
                                     console.log('Download finish!')
 
                                     const downloadLink = document.createElement('a');
-                                    downloadLink.setAttribute('href', `http://${location.hostname}:55555/${result.fileName ? result.fileName : file.split(/[\\/]/).pop()}`);
+                                    downloadLink.setAttribute('href', `${location.protocol}//${location.hostname}:55555/${result.fileName ? result.fileName : file.split(/[\\/]/).pop()}`);
 
                                     downloadLink.style.display = 'none';
                                     document.body.appendChild(downloadLink);
