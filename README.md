@@ -40,7 +40,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.4.5 (2022-04-04)
 * (simatec) Download-Server close added
 
 ### 2.4.4 (2022-04-02)
