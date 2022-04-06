@@ -1379,7 +1379,7 @@ async function getCerts(instance) {
     }
 }
 
-async function fileServer(protocol) {
+function fileServer(protocol) {
     const express = require('express');
     const downloadServer = express();
     const https = require('https');
@@ -1387,7 +1387,6 @@ async function fileServer(protocol) {
     downloadServer.use(express.static(path.join(tools.getIobDir(), 'backups')));
 
     if (protocol == 'https:') {
-        /*
         let privateKey = '';
         let certificate = '';
 
@@ -1399,12 +1398,8 @@ async function fileServer(protocol) {
                 console.log('no certificates found');
             }
         }
-        const credentials = { key: privateKey, cert: certificate };
-        adapter.log.debug('cert1: '+ JSON.stringify(credentials));
-        */
-        const certObj = await adapter.getCertificatesAsync();
-        adapter.log.debug('cert2: '+ certObj[0]);
-        const httpsServer = https.createServer(certObj[0], downloadServer);
+        const credentials = { key: privateKey, cert: certificate };        
+        const httpsServer = https.createServer(credentials, downloadServer);
 
         dlServer = httpsServer.listen(55555);
         adapter.log.debug('Downloadserver started ...');
