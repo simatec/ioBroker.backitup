@@ -40,6 +40,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) https support for Download added
+
 ### 2.4.5 (2022-04-04)
 * (simatec) Download-Server close added
 
