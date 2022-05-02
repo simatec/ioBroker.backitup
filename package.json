@@ -47,7 +47,7 @@
     "request": "^2.88.2",
     "google-auth-library": "^7.14.1",
     "express": "^4.17.3",
-    "fs-extra": "^10.0.1",
+    "fs-extra": "^10.1.0",
     "axios": "^0.26.1",
     "tar-fs": "^2.1.1"
   },
