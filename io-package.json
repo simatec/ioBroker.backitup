@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.6",
+    "version": "2.4.7",
     "news": {
+      "2.4.7": {
+        "en": "dependencies updated\nmany small bugfixes\nFix Sentry Error Messages\nDefault SMB Version 3.1.1",
+        "de": "Abhängigkeiten aktualisiert\nviele kleine Bugfixes\nSentry-Fehlermeldungen beheben\nStandard-SMB-Version 3.1.1",
+        "ru": "зависимости обновлены\nмножество мелких исправлений\nИсправление сообщений об ошибках Sentry\nВерсия SMB по умолчанию 3.1.1",
+        "pt": "dependências atualizadas\nmuitas pequenas correções de bugs\nCorrigir mensagens de erro do Sentinela\nVersão SMB padrão 3.1.1",
+        "nl": "afhankelijkheden bijgewerkt\nveel kleine bugfixes\nFix Sentry-foutmeldingen\nStandaard SMB-versie 3.1.1",
+        "fr": "dépendances mises à jour\nde nombreuses petites corrections de bugs\nCorrection des messages d'erreur Sentry\nVersion SMB par défaut 3.1.1",
+        "it": "dipendenze aggiornate\nmolte piccole correzioni di bug\nCorreggi i messaggi di errore di sentinella\nVersione SMB predefinita 3.1.1",
+        "es": "dependencias actualizadas\nmuchas correcciones de errores pequeños\nCorregir mensajes de error de centinela\nVersión predeterminada de SMB 3.1.1",
+        "pl": "zaktualizowano zależności\nwiele drobnych poprawek\nNapraw komunikaty o błędach Sentry\nDomyślna wersja SMB 3.1.1",
+        "zh-cn": "已更新依赖项\n许多小错误修正\n修复哨兵错误消息\n默认 SMB 版本 3.1.1"
+      },
       "2.4.6": {
         "en": "https support for Download added",
         "de": "https-Unterstützung für Download hinzugefügt",
@@ -74,18 +86,6 @@
         "es": "pequeñas correcciones de errores\nprobar/atrapar Dropbox Api\nAPI de Dropbox de registro de depuración",
         "pl": "małe poprawki\nspróbuj/złap Dropbox API\nDziennik debugowania Dropbox API",
         "zh-cn": "小错误修正\n尝试/捕获 Dropbox Api\n调试日志 Dropbox Api"
-      },
-      "2.4.0": {
-        "en": "Default History path added\ndependencies updated\nDropbox default APP added\nBugfix Info Messages\nInfo Message for Script-Backup added\nSignal-cmb added\nmany small Bugfixes\nDocumentation updated",
-        "de": "Standardverlaufspfad hinzugefügt\nAbhängigkeiten aktualisiert\nDropbox-Standard-APP hinzugefügt\nBugfix-Infomeldungen\nInfomeldung für Script-Backup hinzugefügt\nSignal-cmb hinzugefügt\nviele kleine Bugfixes\nDokumentation aktualisiert",
-        "ru": "Добавлен путь истории по умолчанию\nзависимости обновлены\nДобавлено приложение Dropbox по умолчанию\nИнформационные сообщения об исправлении ошибок\nДобавлено информационное сообщение для Script-Backup\nДобавлен сигнал-cmb\nмножество мелких исправлений\nДокументация обновлена",
-        "pt": "Caminho do histórico padrão adicionado\ndependências atualizadas\nAPLICATIVO padrão do Dropbox adicionado\nMensagens de informação de correção de bugs\nMensagem de informação para backup de script adicionada\nSignal-cmb adicionado\nmuitas pequenas correções de bugs\nDocumentação atualizada",
-        "nl": "Standaard geschiedenispad toegevoegd\nafhankelijkheden bijgewerkt\nDropbox standaard APP toegevoegd\nBugfix-infoberichten\nInfobericht voor Script-Backup toegevoegd\nSignaal-cmb toegevoegd\nveel kleine bugfixes\nDocumentatie bijgewerkt",
-        "fr": "Chemin d'historique par défaut ajouté\ndépendances mises à jour\nAPP par défaut de Dropbox ajoutée\nMessages d'information sur les corrections de bogues\nMessage d'information pour Script-Backup ajouté\nSignal-cmb ajouté\nde nombreuses petites corrections de bugs\nDocumentation mise à jour",
-        "it": "Percorso della cronologia predefinito aggiunto\ndipendenze aggiornate\nAggiunta l'APP predefinita di Dropbox\nMessaggi informativi sulla correzione di bug\nMessaggio informativo per Script-Backup aggiunto\nSegnale-cmb aggiunto\nmolti piccoli bugfix\nDocumentazione aggiornata",
-        "es": "Ruta de historial predeterminada agregada\ndependencias actualizadas\nAPLICACIÓN predeterminada de Dropbox agregada\nMensajes de información de corrección de errores\nMensaje de información para Script-Backup agregado\nSignal-cmb agregado\nmuchas pequeñas correcciones de errores\nDocumentación actualizada",
-        "pl": "Dodano domyślną ścieżkę historii\nzaktualizowano zależności\nDodano domyślną aplikację Dropbox\nKomunikaty o poprawkach błędów\nWiadomość informacyjna o dodaniu kopii zapasowej skryptu\nDodano sygnał-cmb\nwiele małych poprawek\nAktualizacja dokumentacji",
-        "zh-cn": "添加了默认历史记录路径\n已更新依赖项\nDropbox默认APP添加\n错误修正信息消息\n添加了脚本备份的信息消息\n已添加信号 cmb\n许多小错误修正\n文档已更新"
       }
     },
     "title": "BackItUp",
