@@ -40,6 +40,12 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) dependencies updated
+* (simatec) many small bugfixes
+* (simatec) Fix Sentry Error Messages
+* (simatec) Default SMB Version 3.1.1
+
 ### 2.4.6 (2022-04-06)
 * (simatec) https support for Download added
 

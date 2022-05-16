@@ -283,7 +283,7 @@
     "cifsMinimalDir": "sharename/backupDir",
     "cifsDeleteOldBackup": false,
     "connectType": "NFS",
-    "smbType": "vers=1.0",
+    "smbType": "vers=3.1.1",
     "sudoMount": true,
     "noserverino": false,
     "wakeOnLAN": false,

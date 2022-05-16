@@ -239,7 +239,7 @@ function startAdapter(options) {
                                 adapter.log.debug('Download server could not be closed');
                             }
                         }
-                        
+
                         fileServer(obj.message.protocol);
 
                         const fileName = obj.message.fileName.split('/').pop();
@@ -1395,17 +1395,25 @@ function fileServer(protocol) {
                 privateKey = fs.readFileSync(path.join(bashDir, 'iob.key'), 'utf8');
                 certificate = fs.readFileSync(path.join(bashDir, 'iob.crt'), 'utf8');
             } catch (e) {
-                console.log('no certificates found');
+                adapter.log.debug('no certificates found');
             }
         }
-        const credentials = { key: privateKey, cert: certificate };        
+        const credentials = { key: privateKey, cert: certificate };
         const httpsServer = https.createServer(credentials, downloadServer);
 
-        dlServer = httpsServer.listen(55555);
-        adapter.log.debug('Downloadserver started ...');
+        try {
+            dlServer = httpsServer.listen(57556);
+            adapter.log.debug('Downloadserver started ...');
+        } catch (e) {
+            adapter.log.debug('Downloadserver cannot started');
+        }
     } else {
-        dlServer = downloadServer.listen(55555);
-        adapter.log.debug('Downloadserver started ...');
+        try {
+            dlServer = downloadServer.listen(57556);
+            adapter.log.debug('Downloadserver started ...');
+        } catch (e) {
+            adapter.log.debug('Downloadserver cannot started');
+        }
     }
 }
 
