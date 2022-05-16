@@ -376,7 +376,7 @@ function load(settings, onChange) {
                                     console.log('Download finish!')
 
                                     const downloadLink = document.createElement('a');
-                                    downloadLink.setAttribute('href', `${location.protocol}//${location.hostname}:55555/${result.fileName ? result.fileName : file.split(/[\\/]/).pop()}`);
+                                    downloadLink.setAttribute('href', `${location.protocol}//${location.hostname}:57556/${result.fileName ? result.fileName : file.split(/[\\/]/).pop()}`);
 
                                     downloadLink.style.display = 'none';
                                     document.body.appendChild(downloadLink);
