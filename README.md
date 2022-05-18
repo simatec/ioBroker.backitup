@@ -40,6 +40,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Fix restore from local Mount path
+
 ### 2.4.7 (2022-05-16)
 * (simatec) dependencies updated
 * (simatec) many small bugfixes
