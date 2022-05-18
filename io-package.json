@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.7",
+    "version": "2.4.8",
     "news": {
+      "2.4.8": {
+        "en": "Fix restore from local Mount path",
+        "de": "Wiederherstellung vom lokalen Mount-Pfad behoben",
+        "ru": "Исправить восстановление с локального пути монтирования",
+        "pt": "Corrigir a restauração do caminho de montagem local",
+        "nl": "Herstel herstellen vanaf lokaal Mount-pad",
+        "fr": "Correction de la restauration à partir du chemin de montage local",
+        "it": "Correzione del ripristino dal percorso di montaggio locale",
+        "es": "Arreglar la restauración desde la ruta de montaje local",
+        "pl": "Napraw przywracanie z lokalnej ścieżki montowania",
+        "zh-cn": "修复从本地挂载路径还原"
+      },
       "2.4.7": {
         "en": "dependencies updated\nmany small bugfixes\nFix Sentry Error Messages\nDefault SMB Version 3.1.1",
         "de": "Abhängigkeiten aktualisiert\nviele kleine Bugfixes\nSentry-Fehlermeldungen beheben\nStandard-SMB-Version 3.1.1",
@@ -74,18 +86,6 @@
         "es": "Corrección de errores Dropbox",
         "pl": "Naprawianie błędów Dropbox",
         "zh-cn": "错误修复"
-      },
-      "2.4.1": {
-        "en": "small Bugfixes\ntry/catch Dropbox Api\nDebug Log Dropbox Api",
-        "de": "kleine Bugfixes\nversuchen/fangen Dropbox Api\nDebug-Protokoll Dropbox-API",
-        "ru": "мелкие исправления\nпопробовать/поймать Dropbox API\nЖурнал отладки Dropbox API",
-        "pt": "pequenas correções de bugs\ntente/pegue a API do Dropbox\nAPI do Dropbox de log de depuração",
-        "nl": "kleine bugfixes\nprobeer/vang Dropbox Api\nFoutopsporingslogboek Dropbox API",
-        "fr": "petites corrections de bogues\nessayer/attraper l'API Dropbox\nJournal de débogage de l'API Dropbox",
-        "it": "piccole correzioni di bug\nprova / cattura Dropbox API\nRegistro di debug dell'API Dropbox",
-        "es": "pequeñas correcciones de errores\nprobar/atrapar Dropbox Api\nAPI de Dropbox de registro de depuración",
-        "pl": "małe poprawki\nspróbuj/złap Dropbox API\nDziennik debugowania Dropbox API",
-        "zh-cn": "小错误修正\n尝试/捕获 Dropbox Api\n调试日志 Dropbox Api"
       }
     },
     "title": "BackItUp",
