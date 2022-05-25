@@ -18,11 +18,11 @@ This adapter uses the service Sentry.io to automatically report exceptions and c
 
 ioBroker.backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
-[Deutsche Beschreibung hier](docs/de/backitup.md)
+[Deutsche Beschreibung](https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-Deutsch)
 
 ioBroker.backitup is a backup solution that allows cyclical backup of an IoBroker installation and a Homematic CCU.
 
-[English Description here](docs/en/backitup.md)
+[English Description](https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English)
 
 
 ### What is Sentry.io and what is reported to the servers of that company?
@@ -40,6 +40,12 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+
+### **WORK IN PROGRESS**
+* (simatec) German Wiki added
+* (simatec) English Wiki added
+* (simatec) ignore .tar.gz files for zigbee Backups
+
 ### 2.4.8 (2022-05-18)
 * (simatec) Fix restore from local Mount path
 
