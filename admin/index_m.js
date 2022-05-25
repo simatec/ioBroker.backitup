@@ -1,4 +1,4 @@
-// Backitup - Copyright (c) by simatec
+// ioBroker.backitup - Copyright (c) by simatec
 // Please visit https://github.com/simatec/ioBroker.backitup for licence-agreement and further information
 
 //Settings

@@ -16,11 +16,11 @@
 This adapter uses the service Sentry.io to automatically report exceptions and code errors and new device schemas to me as the developer. More details see below!
 
 
-Backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
+ioBroker.backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
 [Deutsche Beschreibung hier](docs/de/backitup.md)
 
-Backitup is a backup solution that allows cyclical backup of an IoBroker installation and a Homematic CCU.
+ioBroker.backitup is a backup solution that allows cyclical backup of an IoBroker installation and a Homematic CCU.
 
 [English Description here](docs/en/backitup.md)
 
@@ -619,7 +619,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ### 0.3.0 (24.09.2018)
 * (bluefox/simatec) Add Multiplatform (Windows/Linux/Mac)
-* (bluefox/simatec) Backitup switched to Javascript
+* (bluefox/simatec) ioBroker.backitup switched to Javascript
 * (bluefox/simatec) shell support removed
 * (bluefox/simatec) Deleting old backups up to the last X backups added
 * (bluefox/simatec) restore feature added (beta)
