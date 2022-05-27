@@ -40,6 +40,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+
 ### 2.4.9 (2022-05-25)
 * (simatec) German Wiki added
 * (simatec) English Wiki added
