@@ -23,9 +23,9 @@ let waitToSlaveBackup;
 let stopServer;
 let dlServer;
 
-let systemLang = 'de';                                  // system language
+let systemLang = 'de';              // system language
 const backupConfig = {};
-const backupTimeSchedules = [];                         // Array für die Backup Zeiten
+const backupTimeSchedules = [];     // Array for Backup Times
 let taskRunning = false;
 
 const bashDir = path.join(utils.getAbsoluteDefaultDataDir(), adapterName).replace(/\\/g, '/');
@@ -902,7 +902,6 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         everyXDays: adapter.config.ccuEveryXDays,
         nameSuffix: adapter.config.ccuNameSuffix,               // names addition, appended to the file name
-        //deleteBackupAfter: adapter.config.ccuMulti === true ? adapter.config.ccuDeleteAfter * adapter.config.ccuEvents.length : adapter.config.ccuDeleteAfter,       // delete old backupfiles after x days
         deleteBackupAfter: adapter.config.ccuDeleteAfter,       // delete old backupfiles after x days
         signedCertificates: adapter.config.ccuSignedCertificates,
         ignoreErrors: adapter.config.ignoreErrors,
@@ -941,8 +940,6 @@ function readLogFile() {
                 line = line.trim();
 
                 if (line) {
-                    //if (line.startsWith('[DEBUG] [total/total] Packed ')) return;
-
                     if (line.startsWith('[ERROR]')) {
                         adapter.log.error(line);
                     } else {
@@ -953,12 +950,6 @@ function readLogFile() {
             });
             adapter.setState('output.line', '[EXIT] 0', true);
             fs.unlinkSync(logName);
-
-            // make the messaging
-            //config.afterBackup = true;
-            //executeScripts(adapter, config, err => {
-
-            //});
         }
     } catch (e) {
         adapter.log.warn(`Cannot read log file: ${e}`);
