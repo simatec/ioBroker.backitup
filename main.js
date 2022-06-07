@@ -1407,19 +1407,24 @@ function fileServer(protocol) {
         }
     }
 }
-/*
+
 async function adapterChange() {
     const fse = require('fs-extra');
     const fs_async = require('fs').promises;
-    const child_process = require('child_process');
 
     const backupDir = path.join(tools.getIobDir(), 'backups');
+    const desiredMode = '0o2775';
 
-    if (!fs.existsSync(backupDir)) createBackupDir();
+    if (!fs.existsSync(backupDir)) {
+        try {
+            fse.ensureDirSync(backupDir, desiredMode);
+            adapter.log.debug('Created BackupDir');
+        } catch (e) {
+            adapter.log.warn('Backup folder not created: ' + e + 'Please run "iobroker fix" and try again or create the backup folder manually!!');
+        }
+    }
 
     const backitupConfig = path.join(backupDir, 'backitupConfig').replace(/\\/g, '/');
-
-    const desiredMode = '0o2775';
 
     if (!fs.existsSync(backitupConfig)) {
         try {
@@ -1432,18 +1437,15 @@ async function adapterChange() {
 
     adapter.getObjectView('system', 'instance', { startkey: 'system.adapter.backitup.', endkey: 'system.adapter.backitup.\u9999' }, async (err, instances) => {
         let resultInstances = [];
-        let running = true;
 
         if (!err && instances && instances.rows) {
             instances.rows.forEach(row => {
                 resultInstances.push({ id: row.id.replace('system.adapter.', ''), config: row.value.native.type })
             });
-            for (let i = 0; i < resultInstances.length; i++) {
-                let _id = resultInstances[i].id;
 
-                adapter.getForeignObject(`system.adapter.${_id}`, async function (err, obj) {
+            for (let i = 0; i < resultInstances.length; i++) {
+                adapter.getForeignObject(`system.adapter.${resultInstances[i].id}`, async function (err, obj) {
                     if (!err && obj) {
-                        // remove unimportant information
                         if (obj.common && obj.common.news) {
                             delete obj.common.news;
                         }
@@ -1453,13 +1455,13 @@ async function adapterChange() {
                         if (obj.common && obj.common.desc) {
                             delete obj.common.desc;
                         }
-                        await fs_async.writeFile(`${backitupConfig}/${obj._id}.json`, JSON.stringify(obj, null, 2));
-
-                        if (obj && obj.common && obj.common.enabled == false) {
-                            running = false;
+                        try {
+                            await fs_async.writeFile(`${backitupConfig}/${obj._id}.json`, JSON.stringify(obj, null, 2));
+                        } catch (err) {
+                            adapter.log.warn(`cannot write config file for ${obj._id}`)
                         }
-                        
-                        const instance = obj.native._id[i].split('.');
+
+                        const instance = obj._id.split('.');
 
                         obj._id = `system.adapter.backup.${instance[3]}`;
                         obj.common.name = 'backup';
@@ -1469,7 +1471,7 @@ async function adapterChange() {
                         obj.common.icon = 'backup.png';
                         obj.common.extIcon = 'https://raw.githubusercontent.com/simatec/ioBroker.backup/master/admin/backup.png';
                         obj.common.readme = 'https://github.com/simatec/ioBroker.backup/blob/master/README.md';
-                        obj.common.plugins.sentry.dsn = 'https://e8510540c3a343aa8ce5678a4b3c8107@sentry.iobroker.net/36';
+                        obj.common.plugins.sentry.dsn = 'https://e8510540c3a343aa8ce5678a4b3c8107@sentry.iobroker.net/36'; //!!! New Sentry dsn needed
                         obj.common.adminTab['fa-icon'] = `</i><img style='width:24px;margin-bottom:-6px;' src='/adapter/backup/backup.svg'><i>`;
 
                         let resSlave = [];
@@ -1481,29 +1483,21 @@ async function adapterChange() {
 
                         obj.native.slaveInstance = resSlave;
 
-                        await fs_async.writeFile(`${backitupConfig}/${obj._id}.json`, JSON.stringify(obj, null, 2));
+                        try {
+                            await fs_async.writeFile(`${backitupConfig}/${obj._id}.json`, JSON.stringify(obj, null, 2));
+                        } catch (err) {
+                            adapter.log.warn(`cannot write config file for ${obj._id}`)
+                        }
 
-                        child_process.exec(`iobroker add backup.${instance[3]}`, async (error) => {
-                            if (!error) {
-                                const object = await fs_async.readFile(path.join(backitupConfig, `system.adapter.backup.${instance[3]}.json`));
-
-                                if (object) {
-                                    const jsObjects = JSON.parse(object);
-                                    await adapter.setForeignObjectAsync(jsObjects._id, jsObjects);
-                                }
-                                await adapter.setForeignStateAsync(`${jsObjects._id}.alive`, running);
-
-                                // ??? main.js --install stop ???
-                                await adapter.setForeignStateAsync(`system.adapter.${_id}.alive`, false);
-                            }
-                        });
+                        await adapter.setForeignObjectAsync(obj._id, obj);
+                        await adapter.setForeignStateAsync(`system.adapter.${resultInstances[i].id}.alive`, false);
                     }
                 });
             }
         }
     });
 }
-*/
+
 async function main(adapter) {
     //adapterChange();
     createBashScripts();
