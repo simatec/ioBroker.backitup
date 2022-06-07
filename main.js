@@ -1458,8 +1458,10 @@ async function adapterChange() {
                         if (obj && obj.common && obj.common.enabled == false) {
                             running = false;
                         }
+                        
+                        const instance = obj.native._id[i].split('.');
 
-                        obj._id = `system.adapter.backup.${i}`;
+                        obj._id = `system.adapter.backup.${instance[3]}`;
                         obj.common.name = 'backup';
                         obj.common.title = 'Backup';
                         obj.common.docs.en = 'docs/en/backup.md';
@@ -1480,8 +1482,6 @@ async function adapterChange() {
                         obj.native.slaveInstance = resSlave;
 
                         await fs_async.writeFile(`${backitupConfig}/${obj._id}.json`, JSON.stringify(obj, null, 2));
-
-                        const instance = obj.native._id[i].split('.');
 
                         child_process.exec(`iobroker add backup.${instance[3]}`, async (error) => {
                             if (!error) {
