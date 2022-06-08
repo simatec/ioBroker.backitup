@@ -1409,32 +1409,6 @@ function fileServer(protocol) {
 }
 
 async function adapterChange() {
-    const fse = require('fs-extra');
-    const fs_async = require('fs').promises;
-
-    const backupDir = path.join(tools.getIobDir(), 'backups');
-    const desiredMode = '0o2775';
-
-    if (!fs.existsSync(backupDir)) {
-        try {
-            fse.ensureDirSync(backupDir, desiredMode);
-            adapter.log.debug('Created BackupDir');
-        } catch (e) {
-            adapter.log.warn('Backup folder not created: ' + e + 'Please run "iobroker fix" and try again or create the backup folder manually!!');
-        }
-    }
-
-    const backitupConfig = path.join(backupDir, 'backitupConfig').replace(/\\/g, '/');
-
-    if (!fs.existsSync(backitupConfig)) {
-        try {
-            fse.ensureDirSync(backitupConfig, desiredMode);
-            adapter.log.debug('Created backitupConfig directory');
-        } catch (err) {
-            adapter.log.debug(`directory "${backitupConfig}" cannot created`);
-        }
-    }
-
     adapter.getObjectView('system', 'instance', { startkey: 'system.adapter.backitup.', endkey: 'system.adapter.backitup.\u9999' }, async (err, instances) => {
         let resultInstances = [];
 
@@ -1444,55 +1418,77 @@ async function adapterChange() {
             });
 
             for (let i = 0; i < resultInstances.length; i++) {
-                adapter.getForeignObject(`system.adapter.${resultInstances[i].id}`, async function (err, obj) {
-                    if (!err && obj) {
-                        if (obj.common && obj.common.news) {
-                            delete obj.common.news;
-                        }
-                        if (obj.common && obj.common.titleLang) {
-                            delete obj.common.titleLang;
-                        }
-                        if (obj.common && obj.common.desc) {
-                            delete obj.common.desc;
-                        }
-                        try {
-                            await fs_async.writeFile(`${backitupConfig}/${obj._id}.json`, JSON.stringify(obj, null, 2));
-                        } catch (err) {
-                            adapter.log.warn(`cannot write config file for ${obj._id}`)
-                        }
+                const newObj = await adapter.getForeignObjectAsync(`system.adapter.${resultInstances[i].id}`);
 
-                        const instance = obj._id.split('.');
+                if (newObj && newObj.native && !newObj.native.migrationtoV2Done) {
 
-                        obj._id = `system.adapter.backup.${instance[3]}`;
-                        obj.common.name = 'backup';
-                        obj.common.title = 'Backup';
-                        obj.common.docs.en = 'docs/en/backup.md';
-                        obj.common.docs.de = 'docs/de/backup.md';
-                        obj.common.icon = 'backup.png';
-                        obj.common.extIcon = 'https://raw.githubusercontent.com/simatec/ioBroker.backup/master/admin/backup.png';
-                        obj.common.readme = 'https://github.com/simatec/ioBroker.backup/blob/master/README.md';
-                        obj.common.plugins.sentry.dsn = 'https://e8510540c3a343aa8ce5678a4b3c8107@sentry.iobroker.net/36'; //!!! New Sentry dsn needed
-                        obj.common.adminTab['fa-icon'] = `</i><img style='width:24px;margin-bottom:-6px;' src='/adapter/backup/backup.svg'><i>`;
-
-                        let resSlave = [];
-
-                        for (let j = 0; j < obj.native.slaveInstance.length; j++) {
-                            const slave = obj.native.slaveInstance[j].split('.');
-                            resSlave.push(`backup.${slave[1]}`);
-                        }
-
-                        obj.native.slaveInstance = resSlave;
-
-                        try {
-                            await fs_async.writeFile(`${backitupConfig}/${obj._id}.json`, JSON.stringify(obj, null, 2));
-                        } catch (err) {
-                            adapter.log.warn(`cannot write config file for ${obj._id}`)
-                        }
-
-                        await adapter.setForeignObjectAsync(obj._id, obj);
-                        await adapter.setForeignStateAsync(`system.adapter.${resultInstances[i].id}.alive`, false);
+                    if (newObj.common && newObj.common.news) {
+                        delete newObj.common.news;
                     }
-                });
+                    if (newObj.common && newObj.common.titleLang) {
+                        delete newObj.common.titleLang;
+                    }
+                    if (newObj.common && newObj.common.desc) {
+                        delete newObj.common.desc;
+                    }
+                    // Test for the newest Version
+                    if (newObj.common && newObj.common.version) {
+                        delete newObj.common.version;
+                    }
+
+                    const instance = newObj._id.split('.');
+
+                    newObj._id = `system.adapter.backup.${instance[3]}`;
+                    newObj.common.name = 'backup';
+                    newObj.common.title = 'Backup';
+                    newObj.common.docs.en = 'docs/en/backup.md';
+                    newObj.common.docs.de = 'docs/de/backup.md';
+                    newObj.common.icon = 'backup.png';
+                    newObj.common.extIcon = 'https://raw.githubusercontent.com/simatec/ioBroker.backup/master/admin/backup.png';
+                    newObj.common.readme = 'https://github.com/simatec/ioBroker.backup/blob/master/README.md';
+                    newObj.common.plugins.sentry.dsn = 'https://e8510540c3a343aa8ce5678a4b3c8107@sentry.iobroker.net/36'; //!!! New Sentry dsn needed
+                    newObj.common.adminTab['fa-icon'] = `</i><img style='width:24px;margin-bottom:-6px;' src='/adapter/backup/backup.svg'><i>`;
+
+                    let resSlave = [];
+
+                    for (let j = 0; j < newObj.native.slaveInstance.length; j++) {
+                        const slave = newObj.native.slaveInstance[j].split('.');
+                        resSlave.push(`backup.${slave[1]}`);
+                    }
+
+                    newObj.native.slaveInstance = resSlave;
+
+                    await adapter.setForeignObjectAsync(newObj._id, newObj);
+                    adapter.log.info(`The migration for iobroker.backup.${instance[3]} is successfully completed.`);
+                }
+            }
+
+            for (let s = 0; s < resultInstances.length; s++) {
+                if (resultInstances[s].id != adapter.namespace) {
+                    const obj = await adapter.getForeignObjectAsync(`system.adapter.${resultInstances[s].id}`);
+
+                    if (obj && obj.native && !obj.native.migrationtoV2Done) {
+                        obj.native['migrationtoV2Done'] = true;
+                        await adapter.setForeignObjectAsync(obj._id, obj);
+                        await adapter.setForeignStateAsync(`system.adapter.${resultInstances[s].id}.alive`, false);
+                    }
+                }
+            }
+
+            const obj = await adapter.getForeignObjectAsync(`system.adapter.${adapter.namespace}`);
+
+            if (obj && obj.native && !obj.native.migrationtoV2Done) {
+                obj.native['migrationtoV2Done'] = true;
+                await adapter.setForeignObjectAsync(obj._id, obj);
+                
+                adapter.log.warn('The migration for new iobroker.backup is successfully completed.');
+                adapter.log.warn('The adapter iobroker.backitup is no longer supported and replaced by the adapter iobroker.backup.');
+                adapter.log.warn('iobroker.backitup is stopped and can be uninstalled.');
+                await adapter.setForeignStateAsync(`${obj._id}.alive`, false);
+            } else if (obj && obj.native && obj.native.migrationtoV2Done) {
+                adapter.log.warn('The adapter iobroker.backitup is no longer supported and replaced by the adapter iobroker.backup.');
+                adapter.log.warn('iobroker.backitup is stopped and can be uninstalled.');
+                await adapter.setForeignStateAsync(`${obj._id}.alive`, false);
             }
         }
     });
