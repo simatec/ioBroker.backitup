@@ -18,6 +18,14 @@
 
 **************************************************************************************************************
 
+## Haftungsausschluss
+**ioBroker.backitup ist ein Backup-Plugin nur für die Smart Home Software ioBroker.**<br>
+**Es steht in keiner Verbindung zu [Nero BackItUp](https://www.nero.com/deu/products/nero-backitup/?vlang=de) (ein Tool zur Datensicherung unter Windows-Systemen) und wird auch nicht von diesem unterstützt.**
+
+**Dieses persönliche Projekt ioBroker.backitup wird in der Freizeit betrieben und hat keine geschäftlichen Ziele.**
+
+**************************************************************************************************************
+
 # Inhalt
 * [Grundlegendes](#grundlegendes)
 * [Abhängigkeiten](#Abhängigkeiten)

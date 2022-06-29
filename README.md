@@ -18,6 +18,24 @@ This adapter uses the service Sentry.io to automatically report exceptions and c
 
 ioBroker.backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
+**************************************************************************************************************
+
+## Haftungsausschluss
+**ioBroker.backitup ist ein Backup-Plugin nur für die Smart Home Software ioBroker.**<br>
+**Es steht in keiner Verbindung zu [Nero BackItUp](https://www.nero.com/deu/products/nero-backitup/?vlang=de) (ein Tool zur Datensicherung unter Windows-Systemen) und wird auch nicht von diesem unterstützt.**
+
+**Dieses persönliche Projekt ioBroker.backitup wird in der Freizeit betrieben und hat keine geschäftlichen Ziele.**
+
+
+## Disclaimer
+**ioBroker.backitup is backup plugin only for the smart home software ioBroker.**<br>
+**Is it not affiliated with or endorsed by [Nero BackItUp](https://www.nero.com/deu/products/nero-backitup/?vlang=en) (a Tool backup under Windows-Systems).**
+
+**This personal project ioBroker.backitup is maintained in spare time and has no business goal.**
+
+**************************************************************************************************************
+
+
 [Deutsche Beschreibung](https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-Deutsch)
 
 ioBroker.backitup is a backup solution that allows cyclical backup of an IoBroker installation and a Homematic CCU.
@@ -40,6 +58,12 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Code cleaning
+* (simatec) dependencies updated
+* (simatec) Disclaimer added
+* (simatec) Travis Support removed
+
 ### 2.4.9 (2022-05-25)
 * (simatec) German Wiki added
 * (simatec) English Wiki added
