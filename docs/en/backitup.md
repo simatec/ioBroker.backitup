@@ -18,6 +18,14 @@
 
 **************************************************************************************************************
 
+## Disclaimer
+**ioBroker.backitup is backup plugin only for the smart home software ioBroker.**<br>
+**Is it not affiliated with or endorsed by [Nero BackItUp](https://www.nero.com/deu/products/nero-backitup/?vlang=en) (a Tool backup under Windows-Systems).**
+
+**This personal project ioBroker.backitup is maintained in spare time and has no business goal.**
+
+**************************************************************************************************************
+
 # Content
 * [Basic](#basic)
 * [Dependencies](#Dependencies)
