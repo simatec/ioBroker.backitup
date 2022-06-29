@@ -18,6 +18,24 @@ This adapter uses the service Sentry.io to automatically report exceptions and c
 
 ioBroker.backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
+**************************************************************************************************************
+
+## Haftungsausschluss
+**ioBroker.backitup ist ein Backup-Plugin nur für die Smart Home Software ioBroker.
+Es steht in keiner Verbindung zu Nero BackItUp (ein Tool zur Datensicherung unter Windows-Systemen) und wird auch nicht von diesem unterstützt.
+
+Dieses persönliche Projekt ioBroker.backitup wird in der Freizeit betrieben und hat keine geschäftlichen Ziele.**
+
+
+## Disclaimer
+**ioBroker.backitup is backup plugin only for the smart home software ioBroker.
+Is it not affiliated with or endorsed by Nero BackItUp (a Tool backup under Windows-Systems).
+
+This personal project ioBroker.backitup is maintained in spare time and has no business goal.**
+
+**************************************************************************************************************
+
+
 [Deutsche Beschreibung](https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-Deutsch)
 
 ioBroker.backitup is a backup solution that allows cyclical backup of an IoBroker installation and a Homematic CCU.
@@ -42,6 +60,8 @@ When the adapter crashes or another Code error happens, this error message that 
 <!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
 * (simatec) Code cleaning
+* (simatec) dependencies updated
+* (simatec) Disclaimer added
 
 ### 2.4.9 (2022-05-25)
 * (simatec) German Wiki added
