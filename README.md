@@ -22,6 +22,7 @@ ioBroker.backitup ist eine Backuplösung, mit der das zyklische Sichern einer Io
 
 ## Haftungsausschluss
 **ioBroker.backitup ist ein Backup-Plugin nur für die Smart Home Software ioBroker.**
+
 **Es steht in keiner Verbindung zu [Nero BackItUp](https://www.nero.com/deu/products/nero-backitup/?vlang=de) (ein Tool zur Datensicherung unter Windows-Systemen) und wird auch nicht von diesem unterstützt.**
 
 **Dieses persönliche Projekt ioBroker.backitup wird in der Freizeit betrieben und hat keine geschäftlichen Ziele.**
@@ -29,6 +30,7 @@ ioBroker.backitup ist eine Backuplösung, mit der das zyklische Sichern einer Io
 
 ## Disclaimer
 **ioBroker.backitup is backup plugin only for the smart home software ioBroker.**
+
 **Is it not affiliated with or endorsed by [Nero BackItUp](https://www.nero.com/deu/products/nero-backitup/?vlang=en) (a Tool backup under Windows-Systems).**
 
 **This personal project ioBroker.backitup is maintained in spare time and has no business goal.**
