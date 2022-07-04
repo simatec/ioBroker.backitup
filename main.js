@@ -1383,8 +1383,8 @@ function fileServer(protocol) {
 
         if (fs.existsSync(path.join(bashDir, 'iob.key')) && fs.existsSync(path.join(bashDir, 'iob.crt'))) {
             try {
-                privateKey = fs.readFileSync(path.join(bashDir, 'iob.key'), 'utf8');
-                certificate = fs.readFileSync(path.join(bashDir, 'iob.crt'), 'utf8');
+                privateKey = fs.readFileSync(path.join(bashDir, 'iob.key'), 'iso-8859-1');
+                certificate = fs.readFileSync(path.join(bashDir, 'iob.crt'), 'iso-8859-1');
             } catch (e) {
                 adapter.log.debug('no certificates found');
             }
