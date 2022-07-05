@@ -1361,8 +1361,16 @@ async function getCerts(instance) {
 
         if (_cert && _cert.native && _cert.native.certificates) {
             try {
-                fs.writeFileSync(path.join(bashDir, 'iob.key'), _cert.native.certificates[`${_adminCert.native.certPrivate}`]);
-                fs.writeFileSync(path.join(bashDir, 'iob.crt'), _cert.native.certificates[`${_adminCert.native.certPublic}`]);
+                if (_cert.native.certificates[`${_adminCert.native.certPrivate}`].startsWith('/') && fs.existsSync(path.join(_cert.native.certificates[`${_adminCert.native.certPrivate}`]))) {
+                    fs.writeFileSync(path.join(bashDir, 'iob.key'), fs.readFileSync(path.join(_cert.native.certificates[`${_adminCert.native.certPrivate}`]), 'utf8'));
+                } else {
+                    fs.writeFileSync(path.join(bashDir, 'iob.key'), _cert.native.certificates[`${_adminCert.native.certPrivate}`]);
+                }
+                if (_cert.native.certificates[`${_adminCert.native.certPublic}`].startsWith('/') && fs.existsSync(path.join(_cert.native.certificates[`${_adminCert.native.certPublic}`]))) {
+                    fs.writeFileSync(path.join(bashDir, 'iob.crt'), fs.readFileSync(path.join(_cert.native.certificates[`${_adminCert.native.certPublic}`]), 'utf8'));
+                } else {
+                    fs.writeFileSync(path.join(bashDir, 'iob.crt'), _cert.native.certificates[`${_adminCert.native.certPublic}`]);
+                }
             } catch (e) {
                 adapter.log.debug('no certificates found');
             }
@@ -1374,6 +1382,8 @@ function fileServer(protocol) {
     const express = require('express');
     const downloadServer = express();
     const https = require('https');
+
+    let httpsServer;
 
     downloadServer.use(express.static(path.join(tools.getIobDir(), 'backups')));
 
@@ -1390,7 +1400,12 @@ function fileServer(protocol) {
             }
         }
         const credentials = { key: privateKey, cert: certificate };
-        const httpsServer = https.createServer(credentials, downloadServer);
+
+        try {
+            httpsServer = https.createServer(credentials, downloadServer);
+        } catch (e) {
+            adapter.log.debug(`The https server cannot be created: ${e}`);
+        }
 
         try {
             dlServer = httpsServer.listen(57556);

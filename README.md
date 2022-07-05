@@ -63,6 +63,7 @@ When the adapter crashes or another Code error happens, this error message that 
 * (simatec) dependencies updated
 * (simatec) Disclaimer added
 * (simatec) Travis Support removed
+* (simatec) Fix backup-download with ssl
 
 ### 2.4.9 (2022-05-25)
 * (simatec) German Wiki added
