@@ -1361,8 +1361,16 @@ async function getCerts(instance) {
 
         if (_cert && _cert.native && _cert.native.certificates) {
             try {
-                fs.writeFileSync(path.join(bashDir, 'iob.key'), _cert.native.certificates[`${_adminCert.native.certPrivate}`]);
-                fs.writeFileSync(path.join(bashDir, 'iob.crt'), _cert.native.certificates[`${_adminCert.native.certPublic}`]);
+                if (_cert.native.certificates[`${_adminCert.native.certPrivate}`].startsWith('/') && fs.existsSync(path.join(_cert.native.certificates[`${_adminCert.native.certPrivate}`]))) {
+                    fs.writeFileSync(path.join(bashDir, 'iob.key'), fs.readFileSync(path.join(_cert.native.certificates[`${_adminCert.native.certPrivate}`]), 'utf8'));
+                } else {
+                    fs.writeFileSync(path.join(bashDir, 'iob.key'), _cert.native.certificates[`${_adminCert.native.certPrivate}`]);
+                }
+                if (_cert.native.certificates[`${_adminCert.native.certPublic}`].startsWith('/') && fs.existsSync(path.join(_cert.native.certificates[`${_adminCert.native.certPublic}`]))) {
+                    fs.writeFileSync(path.join(bashDir, 'iob.crt'), fs.readFileSync(path.join(_cert.native.certificates[`${_adminCert.native.certPublic}`]), 'utf8'));
+                } else {
+                    fs.writeFileSync(path.join(bashDir, 'iob.crt'), _cert.native.certificates[`${_adminCert.native.certPublic}`]);
+                }
             } catch (e) {
                 adapter.log.debug('no certificates found');
             }
@@ -1383,14 +1391,15 @@ function fileServer(protocol) {
 
         if (fs.existsSync(path.join(bashDir, 'iob.key')) && fs.existsSync(path.join(bashDir, 'iob.crt'))) {
             try {
-                privateKey = fs.readFileSync(path.join(bashDir, 'iob.key'), 'iso-8859-1');
-                certificate = fs.readFileSync(path.join(bashDir, 'iob.crt'), 'iso-8859-1');
+                privateKey = fs.readFileSync(path.join(bashDir, 'iob.key'), 'utf8');
+                certificate = fs.readFileSync(path.join(bashDir, 'iob.crt'), 'utf8');
             } catch (e) {
                 adapter.log.debug('no certificates found');
             }
         }
         const credentials = { key: privateKey, cert: certificate };
-        const httpsServer = https.createServer(credentials, downloadServer);
+        const httpsServer = https.createServer(credentials, downloadServer)
+            .catch(err => log.warn('The https server cannot be created: ' + err));
 
         try {
             dlServer = httpsServer.listen(57556);
