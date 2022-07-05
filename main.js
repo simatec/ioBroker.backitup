@@ -1383,6 +1383,8 @@ function fileServer(protocol) {
     const downloadServer = express();
     const https = require('https');
 
+    let httpsServer;
+
     downloadServer.use(express.static(path.join(tools.getIobDir(), 'backups')));
 
     if (protocol == 'https:') {
@@ -1398,8 +1400,12 @@ function fileServer(protocol) {
             }
         }
         const credentials = { key: privateKey, cert: certificate };
-        const httpsServer = https.createServer(credentials, downloadServer)
-            .catch(err => log.warn('The https server cannot be created: ' + err));
+
+        try {
+            httpsServer = https.createServer(credentials, downloadServer);
+        } catch (e) {
+            adapter.log.debug(`The https server cannot be created: ${e}`);
+        }
 
         try {
             dlServer = httpsServer.listen(57556);
