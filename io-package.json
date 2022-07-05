@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.9",
+    "version": "2.4.10",
     "news": {
+      "2.4.10": {
+        "en": "Code cleaning\ndependencies updated\nDisclaimer added\nTravis Support removed\nFix backup-download with ssl",
+        "de": "Codereinigung\naktualisierte abhängigkeiten\nDisclaimer hinzugefügt\nTravis Support entfernt\nBackup-Download mit ssl",
+        "ru": "Чистка кода\nзависимости обновлены\nОтказ от ответственности добавлен\nTravis Поддержка удалена\nFix backup-download с ssl",
+        "pt": "Limpeza de código\ndependências atualizadas\nDisclaimer adicionado\nSuporte de Travis removido\nCorrigir download de backup com ssl",
+        "nl": "Code schoonmaken\nafhankelijkheid geüpdateerd\nVerklaring toegevoegd\nTravis Support verwijderd\nVersterking met SSI",
+        "fr": "Nettoyage du code\ndépendances mises à jour\nDisclaimer ajouté\nTravis Support enlevé\nRéparez la charge de sauvegarde avec ssl",
+        "it": "Pulizia del codice\ndipendenze aggiornate\nDisclaimer aggiunto\nTravis Support rimosso\nRisolvere il carico di backup con ssl",
+        "es": "Limpieza de códigos\ndependencias actualizadas\nDescargo añadido\nTravis Support removed\nFijar la descarga de respaldo con ssl",
+        "pl": "Czyszczenie\naktualizacja\nDysclaimer dodaje\nOficjalna strona Travis\nFix z powrotem z ssl",
+        "zh-cn": "清洁守则\nb. 更新的依赖\n评 注\n撤职支助\nA. 固定后端的卸货"
+      },
       "2.4.9": {
         "en": "German Wiki added\nEnglish Wiki added\nignore .tar.gz files for zigbee Backups",
         "de": "Deutsches Wiki hinzugefügt\nEnglisches Wiki hinzugefügt\nIgnorieren Sie .tar.gz-Dateien für Zigbee-Backups",
@@ -74,18 +86,6 @@
         "es": "probar/atrapar GoogleDrive añadido\nDescarga de copia de seguridad agregada",
         "pl": "spróbuj/złap Dysk Google dodany\nDodano pobieranie kopii zapasowej",
         "zh-cn": "尝试/捕获添加的 GoogleDrive\n添加了备份下载"
-      },
-      "2.4.3": {
-        "en": "Bugfixes Dropbox\ntry/catch options added\ncode verifier check for Dropbox oAuth",
-        "de": "Fehlerbehebungen Dropbox\nTry/Catch-Optionen hinzugefügt\nCodeüberprüfung für Dropbox oAuth",
-        "ru": "Исправления\nдобавлены опции try/catch\nпроверка кода для Dropbox oAuth",
-        "pt": "Correções de bugs Dropbox\nopções try/catch adicionadas\nverificação do verificador de código para o Dropbox oAuth",
-        "nl": "Bugfixes Dropbox\nprobeer/vang opties toegevoegd\ncodeverificatiecontrole voor Dropbox oAuth",
-        "fr": "Dropbox\noptions try/catch ajoutées\nvérification du vérificateur de code pour Dropbox oAuth",
-        "it": "Bug risolti Dropbox\nopzioni di prova/cattura aggiunte\ncontrollo del verificatore di codice per Dropbox oAuth",
-        "es": "Corrección de errores Dropbox\nOpciones de prueba/captura añadidas\nComprobación del verificador de código para Dropbox oAuth",
-        "pl": "Naprawianie błędów Dropbox\ndodano opcje try/catch\nsprawdzenie weryfikatora kodu dla Dropbox oAuth",
-        "zh-cn": "错误修复\n添加了尝试/捕获选项\nDropbox oAuth 的代码验证程序检查"
       }
     },
     "title": "BackItUp",
