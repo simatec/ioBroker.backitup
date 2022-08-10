@@ -58,6 +58,13 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+
+### **WORK IN PROGRESS**
+* (simatec) Filesize Check added
+* (simatec) dependencies updated
+* (simatec) Fix mySql Backup
+* (simatec) Fix pgSql Backup
+
 ### 2.4.10 (2022-07-05)
 * (simatec) Code cleaning
 * (simatec) dependencies updated
