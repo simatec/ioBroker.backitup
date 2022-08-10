@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.10",
+    "version": "2.4.11",
     "news": {
+      "2.4.11": {
+        "en": "Filesize Check added\ndependencies updated\nFix mySql Backup\nFix pgSql Backup",
+        "de": "Filesize Check hinzugefügt\naktualisierte abhängigkeiten\nMySql Backup\nPgSql Backup",
+        "ru": "Filesize Проверить добавлено\nзависимости обновлены\nИсправление mySql Backup\nИсправление pgSql Backup",
+        "pt": "Fileize Check adicionado\ndependências atualizadas\nCorrigir o backup do mySql\nCorrigir backup pgSql",
+        "nl": "Vertaling:\nafhankelijkheid geüpdateerd\nVertaling:\nVertaling:",
+        "fr": "Filesize Check added\ndépendances mises à jour\nRéparez mySql Backup\nFix pgSql Backup",
+        "it": "Fileize Check aggiunto\ndipendenze aggiornate\nRisolvi il backup mySql\nFissare pgSql Backup",
+        "es": "Filesize Check añadido\ndependencias actualizadas\nArregla mi respaldo cuadrado\nFijar el respaldo pgSql",
+        "pl": "Filesize Check dodała\naktualizacja\nFix mySql Backup (ang.)\nFSql Backup",
+        "zh-cn": "卡斯加\nb. 更新的依赖\nFix ISql Backup\nFix pgSql Backup"
+      },
       "2.4.10": {
         "en": "Code cleaning\ndependencies updated\nDisclaimer added\nTravis Support removed\nFix backup-download with ssl",
         "de": "Codereinigung\naktualisierte abhängigkeiten\nDisclaimer hinzugefügt\nTravis Support entfernt\nBackup-Download mit ssl",
@@ -74,18 +86,6 @@
         "es": "Se agregó el cierre del servidor de descargas",
         "pl": "Dodano zamknięcie serwera pobierania",
         "zh-cn": "下载服务器关闭添加"
-      },
-      "2.4.4": {
-        "en": "try/catch GoogleDrive added\nBackup Download added",
-        "de": "try/catch GoogleDrive hinzugefügt\nBackup-Download hinzugefügt",
-        "ru": "добавлен попробовать/поймать GoogleDrive\nДобавлена загрузка резервной копии",
-        "pt": "tente/pegue o GoogleDrive adicionado\nDownload de backup adicionado",
-        "nl": "probeer/vang GoogleDrive toegevoegd\nBack-up downloaden toegevoegd",
-        "fr": "essayer/attraper GoogleDrive ajouté\nTéléchargement de sauvegarde ajouté",
-        "it": "prova/cattura GoogleDrive aggiunto\nDownload di backup aggiunto",
-        "es": "probar/atrapar GoogleDrive añadido\nDescarga de copia de seguridad agregada",
-        "pl": "spróbuj/złap Dysk Google dodany\nDodano pobieranie kopii zapasowej",
-        "zh-cn": "尝试/捕获添加的 GoogleDrive\n添加了备份下载"
       }
     },
     "title": "BackItUp",
