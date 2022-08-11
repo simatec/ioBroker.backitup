@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.11",
+    "version": "2.4.12",
     "news": {
+      "2.4.12": {
+        "en": "Fix WebDav Error Handling",
+        "de": "WebDav Fehlerbehandlung beheben",
+        "ru": "Fix WebDav Ошибка Обработка",
+        "pt": "Corrigir Erro WebDav",
+        "nl": "Vertaling:",
+        "fr": "Correction d'une erreur WebDav",
+        "it": "Risolvere la gestione degli errori WebDav",
+        "es": "Corrección de errores WebDav",
+        "pl": "Strona internetowa Day Error Handling",
+        "zh-cn": "Fix网站Dav Error Haning"
+      },
       "2.4.11": {
         "en": "Filesize Check added\ndependencies updated\nFix mySql Backup\nFix pgSql Backup",
         "de": "Filesize Check hinzugefügt\naktualisierte abhängigkeiten\nMySql Backup\nPgSql Backup",
@@ -74,18 +86,6 @@
         "es": "Se agregó soporte https para descargar.",
         "pl": "Dodano obsługę https dla pobierania",
         "zh-cn": "添加了对下载的 https 支持"
-      },
-      "2.4.5": {
-        "en": "Download-Server close added",
-        "de": "Download-Server schließen hinzugefügt",
-        "ru": "Добавлено закрытие сервера загрузки",
-        "pt": "Fechamento do servidor de download adicionado",
-        "nl": "Download-Server sluiten toegevoegd",
-        "fr": "Download-Server fermer ajouté",
-        "it": "Aggiunta la chiusura del server di download",
-        "es": "Se agregó el cierre del servidor de descargas",
-        "pl": "Dodano zamknięcie serwera pobierania",
-        "zh-cn": "下载服务器关闭添加"
       }
     },
     "title": "BackItUp",
