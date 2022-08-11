@@ -58,7 +58,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.4.12 (2022-08-11)
 * (simatec) Fix WebDav Error Handling
 
 ### 2.4.11 (2022-08-10)
