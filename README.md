@@ -58,6 +58,12 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) dependencies updated
+* (simatec) Fix Grafana Backup
+* (simatec) Appveyor testing removed
+* (simatec) Fix Test & Release
+
 ### 2.4.12 (2022-08-11)
 * (simatec) Fix WebDav Error Handling
 
