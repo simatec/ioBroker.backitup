@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.12",
+    "version": "2.4.13",
     "news": {
+      "2.4.13": {
+        "en": "dependencies updated\nFix Grafana Backup\nAppveyor testing removed\nFix Test & Release",
+        "de": "aktualisierte abhängigkeiten\nGrafana Backup\nPrüfverfahren entfernt\nTest und Release",
+        "ru": "зависимости обновлены\nFix Графана Backup\nТестирование Appveyor удалено\nFix Тест и релиз",
+        "pt": "dependências atualizadas\nFix Grafana Backup\nTeste de Appveyor removido\nTeste de Fix & Release",
+        "nl": "afhankelijkheid geüpdateerd\nVertaling:\nAppveyor testen verwijderd\nVertaling:",
+        "fr": "dépendances mises à jour\nRéparez Grafana Backup\nEssais de l ' appareil enlevés\nTest fixe et sortie",
+        "it": "dipendenze aggiornate\nFix Grafana Backup\nAppveyor test rimosso\nProva di correzione e rilascio",
+        "es": "dependencias actualizadas\nCopia de seguridad Grafana\nSe eliminan las pruebas\nReparación de pruebas",
+        "pl": "aktualizacja\nFix Grafana Backup\nTesty Appveyor\nFix Test & Release (ang.)",
+        "zh-cn": "b. 更新的依赖\nFix Grafana Backup\n取消试验\nFix 试验和释放"
+      },
       "2.4.12": {
         "en": "Fix WebDav Error Handling",
         "de": "WebDav Fehlerbehandlung beheben",
@@ -74,18 +86,6 @@
         "es": "dependencias actualizadas\nmuchas correcciones de errores pequeños\nCorregir mensajes de error de centinela\nVersión predeterminada de SMB 3.1.1",
         "pl": "zaktualizowano zależności\nwiele drobnych poprawek\nNapraw komunikaty o błędach Sentry\nDomyślna wersja SMB 3.1.1",
         "zh-cn": "已更新依赖项\n许多小错误修正\n修复哨兵错误消息\n默认 SMB 版本 3.1.1"
-      },
-      "2.4.6": {
-        "en": "https support for Download added",
-        "de": "https-Unterstützung für Download hinzugefügt",
-        "ru": "добавлена поддержка https для скачивания",
-        "pt": "Suporte https para download adicionado",
-        "nl": "https-ondersteuning voor downloaden toegevoegd",
-        "fr": "Prise en charge https pour le téléchargement ajoutée",
-        "it": "Aggiunto il supporto https per il download",
-        "es": "Se agregó soporte https para descargar.",
-        "pl": "Dodano obsługę https dla pobierania",
-        "zh-cn": "添加了对下载的 https 支持"
       }
     },
     "title": "BackItUp",

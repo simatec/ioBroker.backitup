@@ -58,7 +58,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.4.13 (2022-09-28)
 * (simatec) dependencies updated
 * (simatec) Fix Grafana Backup
 * (simatec) Appveyor testing removed
