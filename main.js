@@ -230,8 +230,7 @@ function startAdapter(options) {
                         if (obj.message.protocol == 'https:') {
                             await getCerts(obj.from);
                         }
-
-                        if (dlServer !== null) {
+                        if (dlServer && dlServer._connectionKey) {
                             try {
                                 dlServer.close();
                                 dlServer = null;
