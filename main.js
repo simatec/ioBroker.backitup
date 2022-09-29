@@ -230,8 +230,7 @@ function startAdapter(options) {
                         if (obj.message.protocol == 'https:') {
                             await getCerts(obj.from);
                         }
-
-                        if (dlServer !== null) {
+                        if (dlServer && dlServer._connectionKey) {
                             try {
                                 dlServer.close();
                                 dlServer = null;
@@ -239,8 +238,11 @@ function startAdapter(options) {
                                 adapter.log.debug('Download server could not be closed');
                             }
                         }
-
-                        fileServer(obj.message.protocol);
+                        try {
+                            fileServer(obj.message.protocol);
+                        } catch (e) {
+                            adapter.log.debug('Downloadserver cannot started');
+                        }
 
                         const fileName = obj.message.fileName.split('/').pop();
                         if (obj.message.type !== 'local') {
