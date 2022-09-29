@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.13",
+    "version": "2.4.14",
     "news": {
+      "2.4.14": {
+        "en": "small Bugfix",
+        "de": "kleiner Bugfix",
+        "ru": "небольшой Bugfix",
+        "pt": "pequeno Bugfix",
+        "nl": "kleine Bugfix",
+        "fr": "petit Bugfix",
+        "it": "piccolo Bugfix",
+        "es": "pequeño Bugfix",
+        "pl": "mały Bug fix",
+        "zh-cn": "bugfix"
+      },
       "2.4.13": {
         "en": "dependencies updated\nFix Grafana Backup\nAppveyor testing removed\nFix Test & Release",
         "de": "aktualisierte abhängigkeiten\nGrafana Backup\nPrüfverfahren entfernt\nTest und Release",
@@ -74,18 +86,6 @@
         "es": "Arreglar la restauración desde la ruta de montaje local",
         "pl": "Napraw przywracanie z lokalnej ścieżki montowania",
         "zh-cn": "修复从本地挂载路径还原"
-      },
-      "2.4.7": {
-        "en": "dependencies updated\nmany small bugfixes\nFix Sentry Error Messages\nDefault SMB Version 3.1.1",
-        "de": "Abhängigkeiten aktualisiert\nviele kleine Bugfixes\nSentry-Fehlermeldungen beheben\nStandard-SMB-Version 3.1.1",
-        "ru": "зависимости обновлены\nмножество мелких исправлений\nИсправление сообщений об ошибках Sentry\nВерсия SMB по умолчанию 3.1.1",
-        "pt": "dependências atualizadas\nmuitas pequenas correções de bugs\nCorrigir mensagens de erro do Sentinela\nVersão SMB padrão 3.1.1",
-        "nl": "afhankelijkheden bijgewerkt\nveel kleine bugfixes\nFix Sentry-foutmeldingen\nStandaard SMB-versie 3.1.1",
-        "fr": "dépendances mises à jour\nde nombreuses petites corrections de bugs\nCorrection des messages d'erreur Sentry\nVersion SMB par défaut 3.1.1",
-        "it": "dipendenze aggiornate\nmolte piccole correzioni di bug\nCorreggi i messaggi di errore di sentinella\nVersione SMB predefinita 3.1.1",
-        "es": "dependencias actualizadas\nmuchas correcciones de errores pequeños\nCorregir mensajes de error de centinela\nVersión predeterminada de SMB 3.1.1",
-        "pl": "zaktualizowano zależności\nwiele drobnych poprawek\nNapraw komunikaty o błędach Sentry\nDomyślna wersja SMB 3.1.1",
-        "zh-cn": "已更新依赖项\n许多小错误修正\n修复哨兵错误消息\n默认 SMB 版本 3.1.1"
       }
     },
     "title": "BackItUp",
