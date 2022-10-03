@@ -58,6 +58,10 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) adapter-core updated
+* (simatec) path fix
+
 ### 2.4.14 (2022-09-29)
 * (simatec) small Bugfix
 
