@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.14",
+    "version": "2.4.15",
     "news": {
+      "2.4.15": {
+        "en": "adapter-core updated\npath fix",
+        "de": "adapter-kern aktualisiert\npfad fix",
+        "ru": "адаптер-коробка обновлена\nпуть исправить",
+        "pt": "adaptador-core atualizado\ncorreção do caminho",
+        "nl": "adapter-core update\nvertaling:",
+        "fr": "adaptateur-core mis à jour\nchemin fixe",
+        "it": "adattatore-core aggiornato\npercorso corretto",
+        "es": "adaptador-core actualizado\ncamino fijo",
+        "pl": "adapter-core updated\npróba",
+        "zh-cn": "b. 订正后的适应核心\n道路"
+      },
       "2.4.14": {
         "en": "small Bugfix",
         "de": "kleiner Bugfix",
@@ -74,18 +86,6 @@
         "es": "Wiki alemán añadido\nWiki en inglés agregado\nignore los archivos .tar.gz para copias de seguridad zigbee",
         "pl": "Dodano niemiecką Wiki\nDodano angielską Wiki\nzignoruj pliki .tar.gz dla kopii zapasowych zigbee",
         "zh-cn": "德语维基添加\n添加了英文维基\n忽略 zigbee 备份的 .tar.gz 文件"
-      },
-      "2.4.8": {
-        "en": "Fix restore from local Mount path",
-        "de": "Wiederherstellung vom lokalen Mount-Pfad behoben",
-        "ru": "Исправить восстановление с локального пути монтирования",
-        "pt": "Corrigir a restauração do caminho de montagem local",
-        "nl": "Herstel herstellen vanaf lokaal Mount-pad",
-        "fr": "Correction de la restauration à partir du chemin de montage local",
-        "it": "Correzione del ripristino dal percorso di montaggio locale",
-        "es": "Arreglar la restauración desde la ruta de montaje local",
-        "pl": "Napraw przywracanie z lokalnej ścieżki montowania",
-        "zh-cn": "修复从本地挂载路径还原"
       }
     },
     "title": "BackItUp",
