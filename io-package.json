@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.15",
+    "version": "2.4.16",
     "news": {
+      "2.4.16": {
+        "en": "small Bugfix",
+        "de": "kleiner Bugfix",
+        "ru": "небольшой Bugfix",
+        "pt": "pequeno Bugfix",
+        "nl": "kleine Bugfix",
+        "fr": "petit Bugfix",
+        "it": "piccolo Bugfix",
+        "es": "pequeño Bugfix",
+        "pl": "mały Bug fix",
+        "zh-cn": "bugfix"
+      },
       "2.4.15": {
         "en": "adapter-core updated\npath fix",
         "de": "adapter-kern aktualisiert\npfad fix",
@@ -74,18 +86,6 @@
         "es": "Limpieza de códigos\ndependencias actualizadas\nDescargo añadido\nTravis Support removed\nFijar la descarga de respaldo con ssl",
         "pl": "Czyszczenie\naktualizacja\nDysclaimer dodaje\nOficjalna strona Travis\nFix z powrotem z ssl",
         "zh-cn": "清洁守则\nb. 更新的依赖\n评 注\n撤职支助\nA. 固定后端的卸货"
-      },
-      "2.4.9": {
-        "en": "German Wiki added\nEnglish Wiki added\nignore .tar.gz files for zigbee Backups",
-        "de": "Deutsches Wiki hinzugefügt\nEnglisches Wiki hinzugefügt\nIgnorieren Sie .tar.gz-Dateien für Zigbee-Backups",
-        "ru": "Добавлена немецкая вики\nДобавлена английская вики\nигнорировать файлы .tar.gz для резервных копий zigbee",
-        "pt": "Wiki alemão adicionado\nWiki em inglês adicionado\nignore arquivos .tar.gz para backups zigbee",
-        "nl": "Duitse Wiki toegevoegd\nEngelse Wiki toegevoegd\nnegeer .tar.gz-bestanden voor zigbee-back-ups",
-        "fr": "Wiki allemand ajouté\nWiki anglais ajouté\nignorer les fichiers .tar.gz pour les sauvegardes zigbee",
-        "it": "Wiki tedesco aggiunto\nWiki inglese aggiunto\nignora i file .tar.gz per i backup zigbee",
-        "es": "Wiki alemán añadido\nWiki en inglés agregado\nignore los archivos .tar.gz para copias de seguridad zigbee",
-        "pl": "Dodano niemiecką Wiki\nDodano angielską Wiki\nzignoruj pliki .tar.gz dla kopii zapasowych zigbee",
-        "zh-cn": "德语维基添加\n添加了英文维基\n忽略 zigbee 备份的 .tar.gz 文件"
       }
     },
     "title": "BackItUp",

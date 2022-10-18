@@ -55,6 +55,9 @@ When the adapter crashes or another Code error happens, this error message that 
 * (bluefox) Google Drive authentication was fixed
 * (simatec) small Bugfix
 
+### 2.4.16 (2022-10-04)
+* (simatec) small Bugfix
+
 ### 2.4.15 (2022-10-03)
 * (simatec) adapter-core updated
 * (simatec) path fix
