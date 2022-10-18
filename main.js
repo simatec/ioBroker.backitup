@@ -660,6 +660,7 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.googledriveDeleteOldBackup, // Delete old Backups from google drive
         accessJson: adapter.config.googledriveAccessTokens || adapter.config.googledriveAccessJson,
+        newToken: !!adapter.config.googledriveAccessTokens,
         ownDir: adapter.config.googledriveOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.googledriveOwnDir === true) ? null : adapter.config.googledriveDir,
@@ -1153,9 +1154,8 @@ function detectLatestBackupFile(adapter) {
         const list = require('./lib/list');
         try {
             promises = stores.map(storage => new Promise(resolve =>
-
                 list(storage, backupConfig, adapter.log, result => {
-                    // find newest file
+                    // find the newest file
                     let file = null;
 
                     if (result && result.data && result.data !== 'undefined') {
