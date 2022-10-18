@@ -11,12 +11,9 @@
 [![License](https://img.shields.io/github/license/simatec/ioBroker.backitup?style=flat)](https://github.com/simatec/ioBroker.backitup/blob/master/LICENSE)
 [![Donate](https://img.shields.io/badge/paypal-donate%20|%20spenden-blue.svg)](https://paypal.me/mk1676)
 
+This adapter uses the service `Sentry.io` to automatically report exceptions and code errors and new device schemas to me as the developer. More details see below!
 
-
-This adapter uses the service Sentry.io to automatically report exceptions and code errors and new device schemas to me as the developer. More details see below!
-
-
-ioBroker.backitup ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
+`ioBroker.backitup` ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
 **************************************************************************************************************
 
@@ -35,19 +32,16 @@ ioBroker.backitup ist eine Backuplösung, mit der das zyklische Sichern einer Io
 
 **************************************************************************************************************
 
-
 [Deutsche Beschreibung](https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-Deutsch)
 
-ioBroker.backitup is a backup solution that allows cyclical backup of an IoBroker installation and a Homematic CCU.
+`ioBroker.backitup` is a backup solution that allows cyclical backup of an IoBroker installation and a Homematic CCU.
 
 [English Description](https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English)
 
-
 ### What is Sentry.io and what is reported to the servers of that company?
-Sentry.io is a service for developers to get an overview about errors from their applications. And exactly this is implemented in this adapter.
+`Sentry.io` is a service for developers to get an overview about errors from their applications. And exactly this is implemented in this adapter.
 
 When the adapter crashes or another Code error happens, this error message that also appears in the ioBroker log is submitted to Sentry. When you allowed iobroker GmbH to collect diagnostic data then also your installation ID (this is just a unique ID **without** any additional infos about you, email, name or such) is included. This allows Sentry to group errors and show how many unique users are affected by such an error. All of this helps me to provide error free adapters that basically never crashs.
-
 
 **If you like it, please consider a donation:**
   
@@ -55,9 +49,12 @@ When the adapter crashes or another Code error happens, this error message that 
 
 **************************************************************************************************************
 
-
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (bluefox) Google Drive authentication was fixed
+* (simatec) small Bugfix
+
 ### 2.4.16 (2022-10-04)
 * (simatec) small Bugfix
 

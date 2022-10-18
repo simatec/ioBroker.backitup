@@ -918,6 +918,7 @@ function load(settings, onChange) {
 
             $('.get-googledrive-json').removeClass('disabled').on('click', function () {
                 $('.get-googledrive-json').addClass('disabled');
+
                 sendTo(null, 'authGoogleDrive', null, function (obj) {
                     $('.get-googledrive-json').removeClass('disabled');
                     if (obj && obj.url) {
@@ -926,23 +927,27 @@ function load(settings, onChange) {
                         $('.get-googledrive-code').show();
                         $('#get-googledrive-url').text(obj.url).attr('href', obj.url);
                         $('.get-googledrive-submit').show();
+                        $('#googledriveAccessTokens').val('');
+                       $('#googledriveAccessTokens_label').text(_('Enter the code from that page here'));
                     } else if (obj.error) {
                         showError(obj.error);
                     } else {
                         showError(_('No answer'));
                     }
                 });
+                // BF(2022_10_18): following code is unused because of the new Google auth
+                /*
                 $('.get-googledrive-submit').on('click', function () {
-                    var code = $('#get-googledrive-code').val();
-                    if (!code) {
-                        return showError(_('No code entered'));
+                    var tokens = $('#googledriveAccessTokens').val();
+                    if (!tokens) {
+                        return showError(_('No token entered'));
                     }
                     $('.get-googledrive-submit').addClass('disabled');
-                    sendTo(null, 'authGoogleDrive', { code: code }, function (obj) {
+                    sendTo(null, 'authGoogleDrive', { token: token }, function (obj) {
                         $('.get-googledrive-submit').removeClass('disabled');
                         if (obj && obj.done) {
-                            if ($('#googledriveAccessJson').val() !== obj.json) {
-                                $('#googledriveAccessJson').val(obj.json);
+                            if ($('#googledriveAccessJson').val() !== obj.base64) {
+                                $('#googledriveAccessJson').val(obj.base64);
                                 onChange();
                             }
 
@@ -958,6 +963,7 @@ function load(settings, onChange) {
                         }
                     });
                 });
+                */
             });
         } else {
             $('.do-backup').addClass('disabled');
@@ -974,11 +980,20 @@ function load(settings, onChange) {
         $('#dropboxAccessJson_span').text(_('Not present'));
     }
 
-    if (settings.googledriveAccessJson) {
+    /*if (settings.googledriveAccessJson) {
         $('#googledriveAccessJson_span').text(_('Present'));
         $('.get-googledrive-json span').text(_('Renew Google Drive Access'));
     } else {
         $('#googledriveAccessJson_span').text(_('Not present'));
+    }*/
+    if (settings.googledriveAccessTokens) {
+        $('#googledriveAccessJson_span').text(_('Present'));
+        $('.get-googledrive-json span').text(_('Renew Google Drive Access'));
+        $('.get-googledrive-code').show();
+        $('#googledriveAccessTokens_label').text(_('Access token'));
+    } else {
+        $('#googledriveAccessJson_span').text(_('Not present'));
+        $('.get-googledrive-code').hide();
     }
 
     showHideSettings(settings);
