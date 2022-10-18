@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.5.0",
+    "version": "2.4.15",
     "news": {
       "2.4.15": {
         "en": "adapter-core updated\npath fix",

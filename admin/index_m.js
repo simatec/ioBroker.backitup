@@ -936,8 +936,9 @@ function load(settings, onChange) {
                     }
                 });
                 // BF(2022_10_18): following code is unused because of the new Google auth
+                /*
                 $('.get-googledrive-submit').on('click', function () {
-                    var tokens = $('#get-googledrive-tokens').val();
+                    var tokens = $('#googledriveAccessTokens').val();
                     if (!tokens) {
                         return showError(_('No token entered'));
                     }
@@ -962,6 +963,7 @@ function load(settings, onChange) {
                         }
                     });
                 });
+                */
             });
         } else {
             $('.do-backup').addClass('disabled');
