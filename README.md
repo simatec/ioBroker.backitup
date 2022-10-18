@@ -51,7 +51,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.5.0 (2022-10-18)
 * (bluefox) Google Drive authentication was fixed
 * (simatec) small Bugfix
 

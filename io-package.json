@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.16",
+    "version": "2.5.0",
     "news": {
+      "2.5.0": {
+        "en": "Google Drive authentication was fixed\nsmall Bugfix",
+        "de": "Google Drive Authentifizierung wurde behoben\nkleiner Bugfix",
+        "ru": "Google Drive аутентификация была исправлена\nнебольшой Bugfix",
+        "pt": "A autenticação do Google Drive foi corrigida\npequeno Bugfix",
+        "nl": "Google Drive authenticatie werd opgelost\nkleine Bugfix",
+        "fr": "L'authentification Google Drive a été corrigée\npetit Bugfix",
+        "it": "L'autenticazione di Google Drive è stata fissata\npiccolo Bugfix",
+        "es": "Autenticación de Google Drive fue fijo\npequeño Bugfix",
+        "pl": "Uwierzytelnianie Google Drive zostało ustalone\nmały Bug fix",
+        "uk": "Виправлено автентичність Google Диска\nмали",
+        "zh-cn": "谷歌博士核证是固定的。\nbugfix"
+      },
       "2.4.16": {
         "en": "small Bugfix",
         "de": "kleiner Bugfix",
@@ -74,18 +87,6 @@
         "es": "Filesize Check añadido\ndependencias actualizadas\nArregla mi respaldo cuadrado\nFijar el respaldo pgSql",
         "pl": "Filesize Check dodała\naktualizacja\nFix mySql Backup (ang.)\nFSql Backup",
         "zh-cn": "卡斯加\nb. 更新的依赖\nFix ISql Backup\nFix pgSql Backup"
-      },
-      "2.4.10": {
-        "en": "Code cleaning\ndependencies updated\nDisclaimer added\nTravis Support removed\nFix backup-download with ssl",
-        "de": "Codereinigung\naktualisierte abhängigkeiten\nDisclaimer hinzugefügt\nTravis Support entfernt\nBackup-Download mit ssl",
-        "ru": "Чистка кода\nзависимости обновлены\nОтказ от ответственности добавлен\nTravis Поддержка удалена\nFix backup-download с ssl",
-        "pt": "Limpeza de código\ndependências atualizadas\nDisclaimer adicionado\nSuporte de Travis removido\nCorrigir download de backup com ssl",
-        "nl": "Code schoonmaken\nafhankelijkheid geüpdateerd\nVerklaring toegevoegd\nTravis Support verwijderd\nVersterking met SSI",
-        "fr": "Nettoyage du code\ndépendances mises à jour\nDisclaimer ajouté\nTravis Support enlevé\nRéparez la charge de sauvegarde avec ssl",
-        "it": "Pulizia del codice\ndipendenze aggiornate\nDisclaimer aggiunto\nTravis Support rimosso\nRisolvere il carico di backup con ssl",
-        "es": "Limpieza de códigos\ndependencias actualizadas\nDescargo añadido\nTravis Support removed\nFijar la descarga de respaldo con ssl",
-        "pl": "Czyszczenie\naktualizacja\nDysclaimer dodaje\nOficjalna strona Travis\nFix z powrotem z ssl",
-        "zh-cn": "清洁守则\nb. 更新的依赖\n评 注\n撤职支助\nA. 固定后端的卸货"
       }
     },
     "title": "BackItUp",
