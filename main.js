@@ -1,6 +1,6 @@
 /* jshint -W097 */
 /* jshint strict: false */
-/*jslint node: true */
+/* jslint node: true */
 'use strict';
 
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
@@ -58,7 +58,7 @@ function startBackup(config, cb) {
             });
             adapter.log.debug('Backup has started ...');
         } catch (e) {
-            adapter.log.warn('Backup error: ' + e + ' ... please check your config and and try again!!');
+            adapter.log.warn(`Backup error: ${e} ... please check your config and and try again!!`);
         }
     }
 }
@@ -66,16 +66,16 @@ function startBackup(config, cb) {
 /**
  * Change the external Sentry Logging. After changing the Logging
  * the adapter restarts once
- * @param {*} id : adapter.config.sentry_enable for example
+ * @param {*} value : adapter.config.sentry_enable for example
  */
 async function setSentryLogging(value) {
     try {
         value = value === true;
-        let idSentry = 'system.adapter.' + adapter.namespace + '.plugins.sentry.enabled';
+        let idSentry = `system.adapter.${adapter.namespace}.plugins.sentry.enabled`;
         let stateSentry = await adapter.getForeignStateAsync(idSentry);
         if (stateSentry && stateSentry.val !== value) {
             await adapter.setForeignStateAsync(idSentry, value);
-            adapter.log.info('Restarting Adapter because of changeing Sentry settings');
+            adapter.log.info('Restarting Adapter because of changed Sentry settings');
             adapter.restart();
             return true;
         }
@@ -103,7 +103,7 @@ function startAdapter(options) {
                     config.enabled = true;
                     config.deleteBackupAfter = 0; // do not delete files by custom backup
                 } catch (e) {
-                    adapter.log.warn('backup error: ' + e + ' ... please check your config and try again!!');
+                    adapter.log.warn(`backup error: ${e} ... please check your config and try again!!`);
                 }
                 startBackup(config, err => {
                     if (err) {
@@ -112,20 +112,21 @@ function startAdapter(options) {
                     } else {
                         adapter.log.debug(`[${type}] exec: done`);
                     }
-                    timerOutput = setTimeout(() =>
-                        adapter.getState('output.line', (err, state) => {
+                    timerOutput = setTimeout(() => {
+                        return adapter.getState('output.line', (err, state) => {
                             if (state && state.val === '[EXIT] 0') {
-                                adapter.setState('history.' + type + 'Success', true, true);
+                                adapter.setState(`history.${type}Success`, true, true);
                                 adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang), true);
                             } else {
                                 adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
-                                adapter.setState('history.' + type + 'Success', false, true);
+                                adapter.setState(`history.${type}Success`, false, true);
                             }
 
-                        }), 500);
+                        });
+                    }, 500);
                     adapter.setState('oneClick.' + type, false, true);
 
-                    if (adapter.config.slaveInstance && type == 'iobroker' && adapter.config.hostType == 'Master') {
+                    if (adapter.config.slaveInstance && type === 'iobroker' && adapter.config.hostType === 'Master') {
                         adapter.log.debug('Slave backup from Backitup-Master is started ...');
                         startSlaveBackup(adapter.config.slaveInstance[0], null);
                     }
@@ -179,14 +180,16 @@ function startAdapter(options) {
                     const GoogleDrive = require('./lib/googleDriveLib');
 
                     if (obj.message && obj.message.code) {
+                        // BF(2022_10_18): following code is unused because of the new Google auth
                         const google = new GoogleDrive();
                         google.getToken(obj.message.code)
                             .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json: JSON.stringify(json) }, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
                     } else if (obj.callback) {
                         const google = new GoogleDrive();
-                        google.getAuthorizeUrl().then(url =>
-                            adapter.sendTo(obj.from, obj.command, { url }, obj.callback));
+                        google.getAuthorizeUrl()
+                            .then(url =>
+                                adapter.sendTo(obj.from, obj.command, { url }, obj.callback));
                     }
                     break;
 
@@ -227,7 +230,7 @@ function startAdapter(options) {
 
                 case 'getFile':
                     if (obj.message && obj.message.type && obj.message.fileName && obj.message.protocol) {
-                        if (obj.message.protocol == 'https:') {
+                        if (obj.message.protocol === 'https:') {
                             await getCerts(obj.from);
                         }
                         if (dlServer && dlServer._connectionKey) {
@@ -259,7 +262,7 @@ function startAdapter(options) {
                                         adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
                                     }
                                 } else {
-                                    adapter.log.warn('File ' + toSaveName + ' not found');
+                                    adapter.log.warn(`File ${toSaveName} not found`);
                                 }
                             });
                         } else {
@@ -325,8 +328,8 @@ function startAdapter(options) {
 
                 case 'testWebDAV':
                     if (obj.message) {
-                        const { createClient } = require("webdav");
-                        const agent = require("https").Agent({ rejectUnauthorized: obj.message.config.signedCertificates });
+                        const { createClient } = require('webdav');
+                        const agent = require('https').Agent({ rejectUnauthorized: obj.message.config.signedCertificates });
 
                         const client = createClient(
                             obj.message.config.host,
@@ -345,7 +348,7 @@ function startAdapter(options) {
                     break;
                 case 'slaveBackup':
                     if (obj && obj.message) {
-                        if (adapter.config.hostType == 'Slave') {
+                        if (adapter.config.hostType === 'Slave') {
                             adapter.log.debug('Slave Backup started ...');
                             const type = 'iobroker';
                             let config;
@@ -366,7 +369,7 @@ function startAdapter(options) {
                                 timerOutput = setTimeout(() =>
                                     adapter.getState('output.line', (err, state) => {
                                         if (state && state.val === '[EXIT] 0') {
-                                            adapter.setState('history.' + type + 'Success', true, true);
+                                            adapter.setState(`history.${type}Success`, true, true);
                                             adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang), true);
                                             try {
                                                 adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
@@ -376,7 +379,7 @@ function startAdapter(options) {
                                             }
                                         } else {
                                             adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
-                                            adapter.setState('history.' + type + 'Success', false, true);
+                                            adapter.setState(`history.${type}Success`, false, true);
                                             if (state && state.val) {
                                                 try {
                                                     adapter.sendTo(obj.from, obj.command, state.val, obj.callback);
@@ -408,7 +411,7 @@ async function checkStates() {
     // Fill empty data points with default values
     const historyState = await adapter.getStateAsync('history.html');
     if (!historyState || historyState.val === null) {
-        await adapter.setStateAsync('history.html', { val: '<span class="backup-type-total">' + tools._('No backups yet', systemLang) + '</span>', ack: true });
+        await adapter.setStateAsync('history.html', { val: `<span class="backup-type-total">${tools._('No backups yet', systemLang)}</span>`, ack: true });
     }
 
     const iobrokerLastTime = await adapter.getStateAsync('history.iobrokerLastTime');
@@ -461,7 +464,7 @@ function createBackupSchedule() {
             if (backupTimeSchedules[type]) {
                 backupTimeSchedules[type].cancel();
             }
-            const cron = '10 ' + time[1] + ' ' + time[0] + ' */' + config.everyXDays + ' * * ';
+            const cron = `10 ${time[1]} ${time[0]} */${config.everyXDays} * * `;
             backupTimeSchedules[type] = schedule.scheduleJob(cron, () => {
                 adapter.setState('oneClick.' + type, true, true);
 
@@ -474,17 +477,17 @@ function createBackupSchedule() {
                     timerOutput2 = setTimeout(() =>
                         adapter.getState('output.line', (err, state) => {
                             if (state && state.val === '[EXIT] 0') {
-                                adapter.setState('history.' + type + 'Success', true, true);
+                                adapter.setState(`history.${type}Success`, true, true);
                                 adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang), true);
                             } else {
                                 adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
-                                adapter.setState('history.' + type + 'Success', false, true);
+                                adapter.setState(`history.${type}Success`, false, true);
                             }
                         }), 500);
                     nextBackup(0, false, type);
                     adapter.setState('oneClick.' + type, false, true);
 
-                    if (adapter.config.slaveInstance && type == 'iobroker' && adapter.config.hostType == 'Master') {
+                    if (adapter.config.slaveInstance && type === 'iobroker' && adapter.config.hostType === 'Master') {
                         adapter.log.debug('Slave backup from Backitup-Master is started ...');
                         startSlaveBackup(adapter.config.slaveInstance[0], null);
                     }
@@ -656,7 +659,7 @@ function initConfig(secret) {
         source: adapter.config.restoreSource,
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.googledriveDeleteOldBackup, // Delete old Backups from google drive
-        accessJson: adapter.config.googledriveAccessJson,
+        accessJson: adapter.config.googledriveAccessTokens || adapter.config.googledriveAccessJson,
         ownDir: adapter.config.googledriveOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.googledriveOwnDir === true) ? null : adapter.config.googledriveDir,
@@ -699,7 +702,7 @@ function initConfig(secret) {
         slaveBackup: adapter.config.hostType,
         everyXDays: adapter.config.minimalEveryXDays,
         nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-        deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backupfiles after x days
+        deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backup files after x days
         ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
@@ -716,7 +719,7 @@ function initConfig(secret) {
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             mysqlQuick: adapter.config.mysqlQuick,
-            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             mysqlSingleTransaction: adapter.config.mysqlSingleTransaction,
             dbName: adapter.config.mySqlName,              // database name
@@ -740,7 +743,7 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             deleteBackupAfter: adapter.config.influxDBDeleteAfter,  // delete old backupfiles after x days
             dbName: adapter.config.influxDBName,                    // database name
@@ -765,7 +768,7 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             dbName: adapter.config.pgSqlName,              // database name
             user: adapter.config.pgSqlUser,                // database user
@@ -788,7 +791,7 @@ function initConfig(secret) {
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             aof: adapter.config.redisAOFactive,
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
             redisType: adapter.config.redisType, // local or Remote Backup
@@ -808,7 +811,7 @@ function initConfig(secret) {
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: adapter.config.historyPath,
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
         },
@@ -822,7 +825,7 @@ function initConfig(secret) {
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: path.join(tools.getIobDir(), 'iobroker-data'), // specify zigbee path
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
         },
@@ -836,7 +839,7 @@ function initConfig(secret) {
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: path.join(tools.getIobDir(), 'iobroker-data'), // specify yahka path
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
         },
@@ -850,7 +853,7 @@ function initConfig(secret) {
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: path.join(tools.getIobDir(), 'iobroker-data'), // specify jarvis backup path
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
         },
@@ -862,7 +865,7 @@ function initConfig(secret) {
             dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             ignoreErrors: adapter.config.ignoreErrors
@@ -882,7 +885,7 @@ function initConfig(secret) {
             pass: adapter.config.grafanaPassword ? decrypt(secret, adapter.config.grafanaPassword) : '',
             apiKey: adapter.config.grafanaApiKey,
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType == 'Slave' ? adapter.config.slaveNameSuffix : '',
+            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
         },
@@ -1092,25 +1095,25 @@ function delTmp() {
             fs.rmdirSync(path.join(tools.getIobDir(), 'backups/tmp'));
             adapter.log.debug('delete tmp files');
         } catch (e) {
-            adapter.log.warn('can not delete tmp files: ' + e + 'Please run "iobroker fix" and try again or delete the tmp folder manually!!');
+            adapter.log.warn(`can not delete tmp files: ${e}Please run "iobroker fix" and try again or delete the tmp folder manually!!`);
         }
     }
 }
 // set start Options after restore
 function setStartAll() {
-    if (adapter.config.startAllRestore == true && !fs.existsSync(bashDir + '/.startAll')) {
+    if (adapter.config.startAllRestore && !fs.existsSync(bashDir + '/.startAll')) {
         try {
             fs.writeFileSync(bashDir + '/.startAll', 'Start all Adapter after Restore');
             adapter.log.debug('Start all Adapter after Restore enabled');
         } catch (e) {
-            adapter.log.warn('can not create startAll files: ' + e + 'Please run "iobroker fix" and try again');
+            adapter.log.warn(`can not create startAll files: ${e}Please run "iobroker fix" and try again`);
         }
-    } else if (adapter.config.startAllRestore == false && fs.existsSync(bashDir + '/.startAll')) {
+    } else if (!adapter.config.startAllRestore && fs.existsSync(bashDir + '/.startAll')) {
         try {
             fs.unlinkSync(bashDir + '/.startAll');
             adapter.log.debug('Start all Adapter after Restore disabled');
         } catch (e) {
-            adapter.log.warn('can not delete startAll file: ' + e + 'Please run "iobroker fix" and try again');
+            adapter.log.warn(`can not delete startAll file: ${e}Please run "iobroker fix" and try again`);
         }
     }
 }
@@ -1121,8 +1124,8 @@ function getName(name, filenumbers, storage) {
         if (parseInt(parts[0], 10).toString() !== parts[0]) {
             parts.shift();
         }
-        const storageType = storage == 'cifs' ? 'NAS' : storage;
-        adapter.log.debug(name ? 'detect backup file ' + filenumbers + ' from ' + storageType + ': ' + name : 'No backup name was found');
+        const storageType = storage === 'cifs' ? 'NAS' : storage;
+        adapter.log.debug(name ? `detect backup file ${filenumbers} from ${storageType}: ${name}` : 'No backup name was found');
         return new Date(
             parts[0],
             parseInt(parts[1], 10) - 1,
@@ -1228,23 +1231,23 @@ function nextBackup(diffDays, setMain, type, date) {
     let minutes = date.getMinutes();
     let currentTime = (hours + ':' + minutes);
 
-    if (adapter.config.ccuEnabled == true && setMain == true || type == 'ccu') {
+    if (adapter.config.ccuEnabled && setMain || type === 'ccu') {
         if (adapter.config.ccuTime < currentTime) {
             diffDays = 0;
         }
         let everyXDays = (parseFloat(adapter.config.ccuEveryXDays) - diffDays);
         adapter.setState(`info.ccuNextTime`, tools.getNextTimeString(systemLang, adapter.config.ccuTime, parseFloat(everyXDays)), true);
         diffDays = 1;
-    } else if (adapter.config.ccuEnabled == false) {
+    } else if (!adapter.config.ccuEnabled) {
         adapter.setState(`info.ccuNextTime`, 'none', true);
     }
-    if (adapter.config.minimalEnabled == true && setMain == true || type == 'iobroker') {
+    if (adapter.config.minimalEnabled && setMain || type === 'iobroker') {
         if (adapter.config.minimalTime < currentTime) {
             diffDays = 0;
         }
         let everyXDays = (parseFloat(adapter.config.minimalEveryXDays) - diffDays);
         adapter.setState(`info.iobrokerNextTime`, tools.getNextTimeString(systemLang, adapter.config.minimalTime, parseFloat(everyXDays)), true);
-    } else if (adapter.config.minimalEnabled == false) {
+    } else if (!adapter.config.minimalEnabled) {
         adapter.setState(`info.iobrokerNextTime`, 'none', true);
     }
 }
@@ -1252,7 +1255,7 @@ function nextBackup(diffDays, setMain, type, date) {
 async function startSlaveBackup(slaveInstance, num) {
     let waitForInstance = 1000;
 
-    if (num == null) {
+    if (num === null || num === undefined) {
         num = 0;
     }
 
@@ -1389,7 +1392,7 @@ function fileServer(protocol) {
 
     downloadServer.use(express.static(path.join(tools.getIobDir(), 'backups')));
 
-    if (protocol == 'https:') {
+    if (protocol === 'https:') {
         let privateKey = '';
         let certificate = '';
 
@@ -1435,8 +1438,12 @@ async function main(adapter) {
     clearbashDir();
 
     timerMain = setTimeout(function () {
-        if (fs.existsSync(bashDir + '/.mount')) umount();
-        if (adapter.config.startAllRestore == true && !fs.existsSync(bashDir + '/.startAll')) setStartAll();
+        if (fs.existsSync(bashDir + '/.mount')) {
+            umount();
+        }
+        if (adapter.config.startAllRestore && !fs.existsSync(bashDir + '/.startAll')) {
+            setStartAll();
+        }
     }, 10000);
 
     adapter.getForeignObject('system.config', (err, obj) => {

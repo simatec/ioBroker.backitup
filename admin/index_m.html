@@ -774,7 +774,7 @@
                         <label class="translate" for="whatsappNoticeType">Notification Style</label>
                     </div>
                 </div>
-                <div class="row whatsapp">    
+                <div class="row whatsapp">
                     <div class="input-field col s12 m6 l3 whatsapp">
                         <input type="number" class="value" id="whatsappWaitToSend" min="0" max="20"/>
                         <label for="whatsappWaitToSend" class="translate">Waiting for the send (seconds)</label>
@@ -800,7 +800,7 @@
                         <label class="translate" for="signalNoticeType">Notification Style</label>
                     </div>
                 </div>
-                <div class="row signal">    
+                <div class="row signal">
                     <div class="input-field col s12 m6 l3 signal">
                         <input type="number" class="value" id="signalWaitToSend" min="0" max="20"/>
                         <label for="signalWaitToSend" class="translate">Waiting for the send (seconds)</label>
@@ -1178,7 +1178,7 @@
                 </div>
                 <div class="row googledrive">
                     <div class="input-field col s3">
-                        <input class="value" id="googledriveAccessJson" type="hidden"/>
+                        <!--input class="value" id="googledriveAccessJson" type="hidden"/-->
                         <span class="translate">Access token: </span>
                         <span class="translate" id="googledriveAccessJson_span" style="font-weight: bold">Not present</span>
                         <a class="waves-effect waves-light btn btn-backitup btn-iobroker get-googledrive-json" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Get Google Drive Access</span></a>
@@ -1187,10 +1187,15 @@
                         <span class="translate">Authorize this app by visiting this url: </span>
                         <a id="get-googledrive-url" href="" target="_blank"></a>
                     </div>
-                    <div class="input-field col s3 get-googledrive-code" style="display: none">
+                    <br/>
+                    <!--div class="input-field col s3 get-googledrive-code" style="display: none">
                         <input id="get-googledrive-code" type="text"/>
                         <label for="get-googledrive-code" class="translate">Enter the code from that page here</label>
                         <a class="waves-effect waves-light btn btn-backitup btn-iobroker get-googledrive-submit" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Submit</span></a>
+                    </div-->
+                    <div class="input-field col s12 get-googledrive-code">
+                        <input id="googledriveAccessTokens" type="text" class="value"/>
+                        <label id="googledriveAccessTokens_label" for="googledriveAccessTokens" class="translate">Enter the code from that page here</label>
                     </div>
                 </div>
                 <div class="row googledrive">

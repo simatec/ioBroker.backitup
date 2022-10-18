@@ -1,6 +1,6 @@
 {
   "name": "iobroker.backitup",
-  "version": "2.4.15",
+  "version": "2.5.0",
   "engines": {
     "node": ">=12.0.0"
   },
@@ -37,7 +37,7 @@
     "url": "https://github.com/simatec/ioBroker.backitup"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.6.6",
+    "@iobroker/adapter-core": "^2.6.7",
     "dropbox-v2-api": "^2.5.6",
     "webdav": "^4.11.0",
     "ftp": "^0.3.10",
@@ -46,7 +46,7 @@
     "node-wol": "^0.1.1",
     "request": "^2.88.2",
     "google-auth-library": "^8.5.2",
-    "express": "^4.18.1",
+    "express": "^4.18.2",
     "fs-extra": "^10.1.0",
     "axios": "^0.27.2",
     "tar-fs": "^2.1.1"
@@ -58,15 +58,26 @@
     "@iobroker/testing": "^4.1.0",
     "chai": "^4.3.6",
     "gulp": "^4.0.2",
-    "mocha": "^10.0.0"
+    "mocha": "^10.1.0"
   },
   "main": "main.js",
+  "files": [
+    "admin/",
+    "docs/",
+    "lib/",
+    "main.js",
+    "io-package.json",
+    "LICENSE"
+  ],
   "scripts": {
     "test": "npm run test:package && npm run test:unit",
     "test:package": "mocha test/package --exit",
     "test:unit": "mocha test/unit --exit",
     "test:integration": "mocha test/integration --exit",
-    "release": "release-script"
+    "release": "release-script",
+    "release-patch": "release-script patch --yes",
+    "release-minor": "release-script minor --yes",
+    "release-major": "release-script major --yes"
   },
   "bugs": {
     "url": "https://github.com/simatec/ioBroker.backitup/issues"

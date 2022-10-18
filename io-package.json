@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.4.15",
+    "version": "2.5.0",
     "news": {
       "2.4.15": {
         "en": "adapter-core updated\npath fix",
@@ -181,7 +181,49 @@
       "sentry": {
         "dsn": "https://e8510540c3a343aa8ce5678a4b3c8107@sentry.iobroker.net/36"
       }
-    }
+    },
+    "messages": [
+      {
+        "condition": {
+          "operand": "and",
+          "rules": [
+            "oldVersion<2.5.0",
+            "newVersion>=2.5.0"
+          ]
+        },
+        "title": {
+          "en": "Re-authenticate Google Drive after Update!",
+          "de": "Re-authenticate Google Drive nach Update!",
+          "ru": "Re-аутентификация Google Drive после обновления!",
+          "pt": "Re-autenticação Google Drive após atualização!",
+          "nl": "Re-authentic Google Drive na Update!",
+          "fr": "Re-authenticate Google Drive après mise à jour!",
+          "it": "Rinforzo Google Drive dopo Aggiornamento!",
+          "es": "Reauthenticate Google Drive after Update!",
+          "pl": "Ponowny autentyczny Google Drive (ang.)!",
+          "uk": "Реабілітація Google Диск після оновлення!",
+          "zh-cn": "逮捕 谷歌博士在最新情况之后!"
+        },
+        "text": {
+          "en": "After installing this update the google drive access token needs to be re-authenticated in the Instance-Settings! Of course, only if google drive is used.",
+          "de": "Nach der Installation dieses Updates muss der google drive access token in den Instanz-Settings neu authentifiziert werden! Natürlich nur, wenn Google-Drive verwendet wird.",
+          "ru": "После установки этого обновления токен доступа Google для доступа должен быть повторно авторизован в Instance-Settings! Конечно, только если Google Drive используется.",
+          "pt": "Depois de instalar esta atualização o token de acesso de unidade do google precisa ser re-autenticado nas configurações de instância! Claro, só se o Google Drive é usado.",
+          "nl": "Na het installeren van deze update moet de Google drive toegang tot token opnieuw geauthenticeerd worden in de Instance-Settings! Natuurlijk, alleen als Google Drive gebruikt wordt.",
+          "fr": "Après l'installation de cette mise à jour, le jeton d'accès au lecteur google doit être réauthentifié dans le cas-Settings! Bien sûr, seulement si le lecteur de google est utilisé.",
+          "it": "Dopo l'installazione di questo aggiornamento l'accesso a Google Drive token ha bisogno di essere ri-authenticated nelle Impostazioni di istanza! Naturalmente, solo se Google Drive viene utilizzato.",
+          "es": "Después de instalar esta actualización, el acceso de la unidad de Google token tiene que ser re-authenticated en la Instance-Settings! Por supuesto, sólo si se utiliza la unidad de Google.",
+          "pl": "Po zainstalowaniu tej aktualizacji znak dostępu do google musi zostać przywrócony w Instance-Settings! Z biegiem tylko wtedy, gdy używa się google.",
+          "uk": "Після встановлення цього оновлення токени доступу Google повинні бути переоцінені в Instance-Settings! Звичайно, тільки якщо використовується Google Drive.",
+          "zh-cn": "在安装这一最新消息之后,在Setting-Settings需要重新得到治疗。 当然,只使用了防污。."
+        },
+        "level": "warn",
+        "buttons": [
+          "agree",
+          "cancel"
+        ]
+      }
+    ]
   },
   "native": {
     "minimalEnabled": true,
@@ -226,7 +268,7 @@
     "dropboxCcuDir": "/backupDir/ccu",
     "dropboxDir": "/backupDir",
     "googledriveEnabled": false,
-    "googledriveAccessJson": "",
+    "googledriveAccessTokens": "",
     "googledriveDeleteOldBackup": false,
     "googledriveOwnDir": false,
     "googledriveMinimalDir": "/backupDir/iobroker",
