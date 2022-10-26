@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.5.0",
+    "version": "2.5.1",
     "news": {
+      "2.5.1": {
+        "en": "Bugfix Google Drive",
+        "de": "Bugfix Google Drive",
+        "ru": "Bugfix Google Drive",
+        "pt": "Bugfix Google Drive",
+        "nl": "Bugfix Google Drive",
+        "fr": "Bugfix Google Drive",
+        "it": "Bugfix Google Drive",
+        "es": "Bugfix Google Drive",
+        "pl": "Google Drive",
+        "uk": "English, Українська, Français..",
+        "zh-cn": "Bugfix 谷歌博士"
+      },
       "2.5.0": {
         "en": "Google Drive authentication was fixed\nsmall Bugfix",
         "de": "Google Drive Authentifizierung wurde behoben\nkleiner Bugfix",
@@ -75,18 +88,6 @@
         "es": "Corrección de errores WebDav",
         "pl": "Strona internetowa Day Error Handling",
         "zh-cn": "Fix网站Dav Error Haning"
-      },
-      "2.4.11": {
-        "en": "Filesize Check added\ndependencies updated\nFix mySql Backup\nFix pgSql Backup",
-        "de": "Filesize Check hinzugefügt\naktualisierte abhängigkeiten\nMySql Backup\nPgSql Backup",
-        "ru": "Filesize Проверить добавлено\nзависимости обновлены\nИсправление mySql Backup\nИсправление pgSql Backup",
-        "pt": "Fileize Check adicionado\ndependências atualizadas\nCorrigir o backup do mySql\nCorrigir backup pgSql",
-        "nl": "Vertaling:\nafhankelijkheid geüpdateerd\nVertaling:\nVertaling:",
-        "fr": "Filesize Check added\ndépendances mises à jour\nRéparez mySql Backup\nFix pgSql Backup",
-        "it": "Fileize Check aggiunto\ndipendenze aggiornate\nRisolvi il backup mySql\nFissare pgSql Backup",
-        "es": "Filesize Check añadido\ndependencias actualizadas\nArregla mi respaldo cuadrado\nFijar el respaldo pgSql",
-        "pl": "Filesize Check dodała\naktualizacja\nFix mySql Backup (ang.)\nFSql Backup",
-        "zh-cn": "卡斯加\nb. 更新的依赖\nFix ISql Backup\nFix pgSql Backup"
       }
     },
     "title": "BackItUp",
