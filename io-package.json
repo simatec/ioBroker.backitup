@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.5.1",
+    "version": "2.5.2",
     "news": {
+      "2.5.2": {
+        "en": "Bugfix Google Drive",
+        "de": "Bugfix Google Drive",
+        "ru": "Bugfix Google Drive",
+        "pt": "Bugfix Google Drive",
+        "nl": "Bugfix Google Drive",
+        "fr": "Bugfix Google Drive",
+        "it": "Bugfix Google Drive",
+        "es": "Bugfix Google Drive",
+        "pl": "Google Drive",
+        "uk": "English, Українська, Français..",
+        "zh-cn": "Bugfix 谷歌博士"
+      },
       "2.5.1": {
         "en": "Bugfix Google Drive",
         "de": "Bugfix Google Drive",
@@ -76,18 +89,6 @@
         "es": "dependencias actualizadas\nCopia de seguridad Grafana\nSe eliminan las pruebas\nReparación de pruebas",
         "pl": "aktualizacja\nFix Grafana Backup\nTesty Appveyor\nFix Test & Release (ang.)",
         "zh-cn": "b. 更新的依赖\nFix Grafana Backup\n取消试验\nFix 试验和释放"
-      },
-      "2.4.12": {
-        "en": "Fix WebDav Error Handling",
-        "de": "WebDav Fehlerbehandlung beheben",
-        "ru": "Fix WebDav Ошибка Обработка",
-        "pt": "Corrigir Erro WebDav",
-        "nl": "Vertaling:",
-        "fr": "Correction d'une erreur WebDav",
-        "it": "Risolvere la gestione degli errori WebDav",
-        "es": "Corrección de errores WebDav",
-        "pl": "Strona internetowa Day Error Handling",
-        "zh-cn": "Fix网站Dav Error Haning"
       }
     },
     "title": "BackItUp",
