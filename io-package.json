@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.5.2",
+    "version": "2.5.3",
     "news": {
+      "2.5.3": {
+        "en": "dependencies updated",
+        "de": "aktualisierte abhängigkeiten",
+        "ru": "зависимости обновлены",
+        "pt": "dependências atualizadas",
+        "nl": "afhankelijkheid geüpdateerd",
+        "fr": "dépendances mises à jour",
+        "it": "dipendenze aggiornate",
+        "es": "dependencias actualizadas",
+        "pl": "aktualizacja",
+        "uk": "оновлені залежності",
+        "zh-cn": "b. 更新的依赖"
+      },
       "2.5.2": {
         "en": "Bugfix Google Drive",
         "de": "Bugfix Google Drive",
@@ -77,18 +90,6 @@
         "es": "pequeño Bugfix",
         "pl": "mały Bug fix",
         "zh-cn": "bugfix"
-      },
-      "2.4.13": {
-        "en": "dependencies updated\nFix Grafana Backup\nAppveyor testing removed\nFix Test & Release",
-        "de": "aktualisierte abhängigkeiten\nGrafana Backup\nPrüfverfahren entfernt\nTest und Release",
-        "ru": "зависимости обновлены\nFix Графана Backup\nТестирование Appveyor удалено\nFix Тест и релиз",
-        "pt": "dependências atualizadas\nFix Grafana Backup\nTeste de Appveyor removido\nTeste de Fix & Release",
-        "nl": "afhankelijkheid geüpdateerd\nVertaling:\nAppveyor testen verwijderd\nVertaling:",
-        "fr": "dépendances mises à jour\nRéparez Grafana Backup\nEssais de l ' appareil enlevés\nTest fixe et sortie",
-        "it": "dipendenze aggiornate\nFix Grafana Backup\nAppveyor test rimosso\nProva di correzione e rilascio",
-        "es": "dependencias actualizadas\nCopia de seguridad Grafana\nSe eliminan las pruebas\nReparación de pruebas",
-        "pl": "aktualizacja\nFix Grafana Backup\nTesty Appveyor\nFix Test & Release (ang.)",
-        "zh-cn": "b. 更新的依赖\nFix Grafana Backup\n取消试验\nFix 试验和释放"
       }
     },
     "title": "BackItUp",
