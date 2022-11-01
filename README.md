@@ -51,6 +51,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) dependencies updated
+
 ### 2.5.2 (2022-10-26)
 * (simatec) Bugfix Google Drive
 
