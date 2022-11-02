@@ -83,13 +83,16 @@ ioBroker.backitup hat nach dem Start des iobrokers keinerlei Einfluss auf die Wi
 
 # Abhängigkeiten
 * Für den CIFS Mount muss zwingend cifs-utils installiert sein.
-    - `sudo apt-get install cifs-utils`
+    - `sudo apt install cifs-utils`
 
 * Für den NFS Mount muss zwingend nfs-common installiert sein.
-    - `sudo apt-get install nfs-common`
+    - `sudo apt install nfs-common`
 
-* Für die verwendung des MySql-Backups muss mysqldump auf dem System installiert sein
-    - `sudo apt-get install mysql-client` oder unter Debian `sudo apt-get install default-mysql-client`
+* Für die Verwendung des MySql-Backups von MySql Systemen muss mysqldump auf dem System installiert sein
+    - `sudo apt install mysql-client` oder unter Debian `sudo apt install default-mysql-client`
+
+* Für die Verwendung des MySql-Backups von MariaDB Systemen muss mysqldump auf dem System installiert sein
+    - `sudo apt install mariadb-client`
 
 * Für die verwendung des PostgreSQL-Backups muss mysqldump auf dem System installiert sein
     - [Installationsanleitung PostgreSQL](https://www.postgresql.org/download/linux/debian/)
@@ -128,7 +131,7 @@ Wer nicht nur eine CCU sichern will, kann die Option "Sicherung mehrerer Systeme
 
 ## Mysql-Backup
 Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
-Wichig hierbei ist, dass auch wenn der Mysql-Server auf einem entferten System läuft, die mysqldump auf dem ioBroker System laufen muss.<br>Für Linuxsysteme wäre der Installationsbefehl wie folgt: `sudo apt-get install mysql-client` oder unter Debian `sudo apt-get install default-mysql-client`.<br><br>
+Wichig hierbei ist, dass auch wenn der Mysql-Server auf einem entferten System läuft, die mysqldump auf dem ioBroker System laufen muss.<br>Für Linuxsysteme wäre der Installationsbefehl wie folgt: `sudo apt install mysql-client` oder unter Debian `sudo apt install default-mysql-client` bzw. für MariaDB Systeme `sudo apt install mariadb-client`.<br><br>
 Wer nicht nur eine Datenbank sichern will, kann die Option "Sicherung mehrerer Systeme" aktivieren und im Anschluss seine Datenbanken in der Tabelle definieren.
 
 ## Redis-Backup
@@ -455,7 +458,7 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen sofern vor
 1.	Olifall (aus dem Forum) hatte das Problem dass nach dem Restore das Webinterface des IoBrokers nicht mehr erreichbar war, durch folgende Schritte über die Konsole konnte er dies beheben:
     - sudo iobroker status
     - Meldung = "No connection to states 127.0.0.0:6379[redis]"
-    - sudo apt-get install redis-server
+    - sudo apt install redis-server
 
 2.	Sollte der CIFS-Mount mit IP-Adresse nicht möglich sein, sollte der Hostname des NAS verwendet werden
 3.  Wenn ihr beim cifs-mount ein Passwort mit Sonderzeichen verwendet, haben User festgestellt, dass dann das Passwort mit Anführungszeichen in der Config hinterlegt werden muss.
