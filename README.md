@@ -55,6 +55,7 @@ When the adapter crashes or another Code error happens, this error message that 
 * (simatec) Fix maxBuffer for DB-Backups
 * (simatec) Docu updated
 * (simatec) Fix Dropbox error messages
+* (simatec) Grafana self signed Certificates added
 
 ### 2.5.3 (2022-11-01)
 * (simatec) dependencies updated
