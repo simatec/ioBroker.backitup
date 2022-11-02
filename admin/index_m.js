@@ -1520,6 +1520,13 @@ function showHideSettings(settings) {
     } else {
         $('.ccuCert').hide();
     }
+    $('#grafanaProtocol').on('change', function () {
+        if ($(this).val() === 'https') {
+            $('.grafanaCert').show();
+        } else if ($(this).val() === 'http') {
+            $('.grafanaCert').hide();
+        }
+    }).trigger('change');
 
     if ($('#javascriptsEnabled').prop('checked') && !oldJavascriptsEnabled) {
         showMessage(_("<br/><br/>The JavaScript Adapter scripts are already saved in the ioBroker backup.<br/><br/>This option is just an additional option to be able to restore the scripts individually if necessary."), _('Backitup Information!'), 'info');

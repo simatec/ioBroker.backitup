@@ -514,12 +514,18 @@
                     </div>
                 </div>
                 <div class="row grafana">
-                <div class="input-field col s12 m6 l8">
-                    <input class="value" id="grafanaApiKey" type="password">
-                    <label for="grafanaApiKey" class="translate">Grafana API-Key</label>
-                    <span class="translate">Grafana API-Key</span>
+                    <div class="input-field col s12 m6 l8">
+                        <input class="value" id="grafanaApiKey" type="password">
+                        <label for="grafanaApiKey" class="translate">Grafana API-Key</label>
+                        <span class="translate">Grafana API-Key</span>
+                    </div>
                 </div>
-            </div>
+                <div class="row grafana">
+                    <div class="input-field col s12 m6 l4 grafanaCert">
+                        <input class="value" id="grafanaSignedCertificates" type="checkbox"/>
+                        <label for="grafanaSignedCertificates" class="translate">Allow only signed certificates</label>
+                    </div>
+                </div>
             </div>
 
             <!-- influxDB Backup -->

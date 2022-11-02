@@ -308,6 +308,7 @@
     "grafanaPassword": "",
     "grafanaApiKey": "",
     "grafanaProtocol": "http",
+    "grafanaSignedCertificates": true,
     "pgSqlHost": "",
     "pgSqlPort": "5432",
     "pgSqlName": "",

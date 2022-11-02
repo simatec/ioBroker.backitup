@@ -45,12 +45,18 @@ When the adapter crashes or another Code error happens, this error message that 
 
 **If you like it, please consider a donation:**
   
-[![paypal](https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4EEXQ6U96ZTQ&source=url)
+[![paypal](https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif)](https://paypal.me/mk1676)
 
 **************************************************************************************************************
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Fix maxBuffer for DB-Backups
+* (simatec) Docu updated
+* (simatec) Fix Dropbox error messages
+* (simatec) Grafana self signed Certificates added
+
 ### 2.5.3 (2022-11-01)
 * (simatec) dependencies updated
 

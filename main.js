@@ -888,7 +888,8 @@ function initConfig(secret) {
             nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
-            ignoreErrors: adapter.config.ignoreErrors
+            ignoreErrors: adapter.config.ignoreErrors,
+            signedCertificates: adapter.config.grafanaSignedCertificates
         },
         historyHTML,
         historyJSON,

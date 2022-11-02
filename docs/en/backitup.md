@@ -83,13 +83,16 @@ ioBroker.backitup has no effect whatsoever on the recovery after the iobroker ha
 
 # Dependencies
 * For the CIFS mount cifs-utils must be installed.
-     - `sudo apt-get install cifs-utils`
+     - `sudo apt install cifs-utils`
 
 * Nfs-common must be installed for the NFS mount.
-     - `sudo apt-get install nfs-common`
+     - `sudo apt install nfs-common`
 
-* To use the MySql backup, mysqldump must be installed on the system
-     - `sudo apt-get install mysql-client` or under Debian `sudo apt-get install default-mysql-client`
+* To use the mysql backup from mysql systems, mysqldump must be installed on the system.
+    - `sudo apt install mysql-client` or under Debian `sudo apt install default-mysql-client`.
+
+* For using the MySql backup of MariaDB systems mysqldump must be installed on the system
+    - `sudo apt install mariadb-client`
 
 * To use the PostgreSQL backup, mysqldump must be installed on the system
      - [Installation instructions PostgreSQL](https://www.postgresql.org/download/linux/debian/)
@@ -127,7 +130,7 @@ If you don't want to secure just one CCU, you can activate the "Securing multipl
 
 ## Mysql backup
 If activated, this separately adjustable backup is created with every ioBroker backup and is also deleted after the specified retention time has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set.<br><br>
-It is important that even if the mysql server is running on a remote system, the mysqldump must run on the ioBroker system. <br> For Linux systems, the installation command would be as follows: `sudo apt-get install mysql-client` or under Debian `sudo apt-get install default-mysql-client`.<br> <br>
+It is important that even if the mysql server is running on a remote system, the mysqldump must run on the ioBroker system. <br> For Linux systems, the installation command would be as follows: `sudo apt install mysql-client` or under Debian `sudo apt install default-mysql-client` or for MariaDB-Systems `sudo apt install mariadb-client`.<br> <br>
 If you don't want to back up just one database, you can activate the "Back up multiple systems" option and then define your databases in the table.
 
 ## Redis backup
@@ -457,7 +460,7 @@ Here is a list of the problems that have occurred so far and their solutions, if
 1.Olifall (from the forum) had the problem that the web interface of the IoBroker was no longer accessible after the restore, he was able to fix this by taking the following steps on the console:
     - sudo iobroker status
     - Message = "No connection to states 127.0.0.0:6379[redis]"
-    - sudo apt-get install redis-server
+    - sudo apt install redis-server
 
 2. If the CIFS mount with IP address is not possible, the host name of the NAS should be used
 3. If you use a password with special characters for the cifs-mount, users have found that the password must then be stored in the config with quotation marks.
