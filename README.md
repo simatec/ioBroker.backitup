@@ -51,7 +51,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.5.4 (2022-11-02)
 * (simatec) Fix maxBuffer for DB-Backups
 * (simatec) Docu updated
 * (simatec) Fix Dropbox error messages
