@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.5.3",
+    "version": "2.5.4",
     "news": {
+      "2.5.4": {
+        "en": "Fix maxBuffer for DB-Backups\nDocu updated\nFix Dropbox error messages\nGrafana self signed Certificates added",
+        "de": "MaxBuffer für DB-Backups\nDocu aktualisiert\nFehlermeldungen von Dropbox\nGrafana selbst signiert Zertifikate hinzugefügt",
+        "ru": "Fix maxBuffer для DB-Backups\nDocu обновление\nИсправление сообщений об ошибках Dropbox\nGrafana self подписал сертификаты добавлены",
+        "pt": "Fix maxBuffer para DB-Backups\nDocu atualizado\nCorrigir mensagens de erro do Dropbox\nCertificados auto assinados Grafana adicionados",
+        "nl": "Vertaling:\nDocu update\nVertaling:\nGrafana zelf ondertekende certificaten",
+        "fr": "Fix maxBuffer for DB-Backups\nDocu updated\nCorrection des messages d'erreur Dropbox\nGrafana auto signé Certificats ajoutés",
+        "it": "Fix maxBuffer per DB-Backup\nDocu aggiornato\nRisolvi i messaggi di errore di Dropbox\nGrafana auto firmato Certificati aggiunti",
+        "es": "Fijar maxBuffer para DB-Backups\nDocu actualizado\nCorregir mensajes de error de Dropbox\nGrafana autofirmado Certificados añadidos",
+        "pl": "Fix-maxBuffer for DB-Backups (ang.)\nDocu zaktualizował\nFix Dropbox error message\nStatystyki Grafana podpisywały certyfikaty",
+        "uk": "Кріплення maxBuffer для DB-Backups\nDocu оновлений\nВиправлення помилок Dropbox\nДодані сертифікати Grafana",
+        "zh-cn": "银-Backments\n附录\nFix Drop箱错误信息\n黑塞纳自签名的证书"
+      },
       "2.5.3": {
         "en": "dependencies updated",
         "de": "aktualisierte abhängigkeiten",
@@ -78,18 +91,6 @@
         "es": "adaptador-core actualizado\ncamino fijo",
         "pl": "adapter-core updated\npróba",
         "zh-cn": "b. 订正后的适应核心\n道路"
-      },
-      "2.4.14": {
-        "en": "small Bugfix",
-        "de": "kleiner Bugfix",
-        "ru": "небольшой Bugfix",
-        "pt": "pequeno Bugfix",
-        "nl": "kleine Bugfix",
-        "fr": "petit Bugfix",
-        "it": "piccolo Bugfix",
-        "es": "pequeño Bugfix",
-        "pl": "mały Bug fix",
-        "zh-cn": "bugfix"
       }
     },
     "title": "BackItUp",
