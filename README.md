@@ -51,6 +51,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Design Fix
+
 ### 2.5.4 (2022-11-02)
 * (simatec) Fix maxBuffer for DB-Backups
 * (simatec) Docu updated
