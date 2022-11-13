@@ -312,14 +312,19 @@ function startAdapter(options) {
 
                 case 'getSystemInfo':
                     if (obj) {
-                        let systemInfo;
+                        let systemInfo = process.platform;;
+                        let dbInfo = false;
+
                         if (fs.existsSync('/opt/scripts/.docker_config/.thisisdocker')) { // Docker Image Support >= 5.2.0
                             systemInfo = 'docker';
-                        } else {
-                            systemInfo = process.platform;
+
+                            if (fs.existsSync('/opt/scripts/.docker_config/.backitup')) {
+                                dbInfo = true;
+                            }
                         }
+
                         try {
-                            adapter.sendTo(obj.from, obj.command, systemInfo, obj.callback);
+                            adapter.sendTo(obj.from, obj.command, { systemOS: systemInfo, dockerDB: dbInfo }, obj.callback);
                         } catch (err) {
                             err && adapter.log.error(err);
                         }

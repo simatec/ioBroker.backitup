@@ -53,6 +53,7 @@ When the adapter crashes or another Code error happens, this error message that 
 <!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
 * (simatec) Design Fix
+* (simatec) Docker DB Support added
 
 ### 2.5.4 (2022-11-02)
 * (simatec) Fix maxBuffer for DB-Backups

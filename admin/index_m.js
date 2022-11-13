@@ -394,7 +394,7 @@ function load(settings, onChange) {
     });
 
     sendTo(null, 'getSystemInfo', null, function (obj) {
-        if (obj == 'docker') {
+        if (obj && obj.systemOS === 'docker' && obj.dockerDB === false) {
             var $influxDBEnabled = $('#influxDBEnabled');
             var $mySqlEnabled = $('#mySqlEnabled');
             var $pgSqlEnabled = $('#pgSqlEnabled');
