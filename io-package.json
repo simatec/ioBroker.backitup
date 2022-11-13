@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.5.4",
+    "version": "2.5.5",
     "news": {
+      "2.5.5": {
+        "en": "Design Fix\nDocker DB Support added",
+        "de": "Design Fix\nDocker DB Unterstützung hinzugefügt",
+        "ru": "Дизайн Fix\nДокер DB Добавлена поддержка",
+        "pt": "Design Fix\nDocker DB Suporte adicionado",
+        "nl": "Design Fix\nDok DB Versterking toegevoegd",
+        "fr": "Design Fix\nDocker DB Soutien ajouté",
+        "it": "Design Fix\nDocker DB Supporto aggiunto",
+        "es": "Diseño fijo\nDocker DB Apoyo añadido",
+        "pl": "Design\nDocker DB wsparcie",
+        "uk": "Налаштування дизайну\nДокер ДБ Додана підтримка",
+        "zh-cn": "设计\nDocker行 增 编"
+      },
       "2.5.4": {
         "en": "Fix maxBuffer for DB-Backups\nDocu updated\nFix Dropbox error messages\nGrafana self signed Certificates added",
         "de": "MaxBuffer für DB-Backups\nDocu aktualisiert\nFehlermeldungen von Dropbox\nGrafana selbst signiert Zertifikate hinzugefügt",
@@ -79,18 +92,6 @@
         "es": "pequeño Bugfix",
         "pl": "mały Bug fix",
         "zh-cn": "bugfix"
-      },
-      "2.4.15": {
-        "en": "adapter-core updated\npath fix",
-        "de": "adapter-kern aktualisiert\npfad fix",
-        "ru": "адаптер-коробка обновлена\nпуть исправить",
-        "pt": "adaptador-core atualizado\ncorreção do caminho",
-        "nl": "adapter-core update\nvertaling:",
-        "fr": "adaptateur-core mis à jour\nchemin fixe",
-        "it": "adattatore-core aggiornato\npercorso corretto",
-        "es": "adaptador-core actualizado\ncamino fijo",
-        "pl": "adapter-core updated\npróba",
-        "zh-cn": "b. 订正后的适应核心\n道路"
       }
     },
     "title": "BackItUp",
