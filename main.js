@@ -257,7 +257,7 @@ function startAdapter(options) {
                             _getFile.getFile(backupConfig, obj.message.type, obj.message.fileName, toSaveName, adapter.log, err => {
                                 if (!err && fs.existsSync(toSaveName)) {
                                     try {
-                                        adapter.sendTo(obj.from, obj.command, { fileName: fileName }, obj.callback);
+                                        adapter.sendTo(obj.from, obj.command, { fileName: fileName, listenPort: dlServer.address().port }, obj.callback);
                                     } catch (error) {
                                         adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
                                     }
@@ -268,7 +268,7 @@ function startAdapter(options) {
                         } else {
                             if (fs.existsSync(obj.message.fileName)) {
                                 try {
-                                    adapter.sendTo(obj.from, obj.command, { fileName: fileName }, obj.callback);
+                                    adapter.sendTo(obj.from, obj.command, { fileName: fileName, listenPort: dlServer.address().port }, obj.callback);
                                 } catch (error) {
                                     adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
                                 }
@@ -1419,15 +1419,15 @@ function fileServer(protocol) {
         }
 
         try {
-            dlServer = httpsServer.listen(57556);
-            adapter.log.debug('Downloadserver started ...');
+            dlServer = httpsServer.listen(0);
+            adapter.log.debug(`Downloadserver on port ${dlServer.address().port} started`);
         } catch (e) {
             adapter.log.debug('Downloadserver cannot started');
         }
     } else {
         try {
-            dlServer = downloadServer.listen(57556);
-            adapter.log.debug('Downloadserver started ...');
+            dlServer = downloadServer.listen(0);
+            adapter.log.debug(`Downloadserver on port ${dlServer.address().port} started`);
         } catch (e) {
             adapter.log.debug('Downloadserver cannot started');
         }

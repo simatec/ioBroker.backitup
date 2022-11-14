@@ -51,6 +51,11 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Fix Grafana Backup
+* (simatec) Fix Downloadserver
+* (simatec) Translation updated
+
 ### 2.5.5 (2022-11-13)
 * (simatec) Design Fix
 * (simatec) Docker DB Support added
