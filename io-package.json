@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.5.5",
+    "version": "2.5.6",
     "news": {
+      "2.5.6": {
+        "en": "Fix Grafana Backup\nFix Downloadserver\nTranslation updated",
+        "de": "Grafana Backup\nDownloadserver herunterladen\nÜbersetzung aktualisiert",
+        "ru": "Fix Графана Backup\nFix Downloadсервер\nПеревод обновлен",
+        "pt": "Fix Grafana Backup\nCorreção de download\nTradução atualizada",
+        "nl": "Vertaling:\nVertaling:\nVertaling:",
+        "fr": "Réparez Grafana Backup\nFix Downloadserver\nTraduction mise à jour",
+        "it": "Fix Grafana Backup\nFix Downloadserver\nTraduzione aggiornata",
+        "es": "Copia de seguridad Grafana\nFix Downloadserver\nTraducción actualizada",
+        "pl": "Fix Grafana Backup\nFix Downloadserver (ang.)\nUaktualniać",
+        "uk": "Виправлення Grafana Backup\nФіксація завантажувача\nПереклад оновлений",
+        "zh-cn": "Fix Grafana Backup\nFix Down servations\n笔译更新"
+      },
       "2.5.5": {
         "en": "Design Fix\nDocker DB Support added",
         "de": "Design Fix\nDocker DB Unterstützung hinzugefügt",
@@ -80,18 +93,6 @@
         "pl": "Uwierzytelnianie Google Drive zostało ustalone\nmały Bug fix",
         "uk": "Виправлено автентичність Google Диска\nмали",
         "zh-cn": "谷歌博士核证是固定的。\nbugfix"
-      },
-      "2.4.16": {
-        "en": "small Bugfix",
-        "de": "kleiner Bugfix",
-        "ru": "небольшой Bugfix",
-        "pt": "pequeno Bugfix",
-        "nl": "kleine Bugfix",
-        "fr": "petit Bugfix",
-        "it": "piccolo Bugfix",
-        "es": "pequeño Bugfix",
-        "pl": "mały Bug fix",
-        "zh-cn": "bugfix"
       }
     },
     "title": "BackItUp",
