@@ -89,7 +89,7 @@
   "Google Drive Path for iobroker backup": "Caminho do Google Drive para backup do iobroker",
   "Google Drive path": "Caminho do Google Drive",
   "Google Drive: Yes": "Google Drive: sim",
-  "Grafana API-Key": "Grafana API key",
+  "Grafana API-Key or Service Token": "Gráfico API-Key ou Token de Serviço",
   "Grafana Backup": "Grafana",
   "Grafana Hostname": "Nome / IP do host Grafana",
   "Grafana password": "Senha Grafana",
