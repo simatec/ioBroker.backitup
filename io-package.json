@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.5.6",
+    "version": "2.5.7",
     "news": {
+      "2.5.7": {
+        "en": "Axios 1.1.3 added\nAdded ukrainian language",
+        "de": "Axios 1.1.3 hinzugefügt\nUkrainische Sprache hinzugefügt",
+        "ru": "Axios 1.1.3 добавлено\nДобавлен украинский язык",
+        "pt": "Axios 1.1.3 adicionado\nAdicionado idioma ukrainian",
+        "nl": "Axios 1.1.3 toegevoegd\nToegevoegd Oekraïense taal",
+        "fr": "Axios 1.1.3 ajouté\nAjout de la langue ukrainienne",
+        "it": "Axios 1.1.3 aggiunto\nAggiunto lingua ucraino",
+        "es": "Axios 1.1.3 añadido\nAñadido el idioma ucraniano",
+        "pl": "Axios 1.3\nJęzyk ukrainowski",
+        "uk": "Axios 1.1.3 додано\nДодано українську мову",
+        "zh-cn": "Axios 1.1.3\n增 编"
+      },
       "2.5.6": {
         "en": "Fix Grafana Backup\nFix Downloadserver\nTranslation updated",
         "de": "Grafana Backup\nDownloadserver herunterladen\nÜbersetzung aktualisiert",
@@ -80,19 +93,6 @@
         "pl": "Google Drive",
         "uk": "English, Українська, Français..",
         "zh-cn": "Bugfix 谷歌博士"
-      },
-      "2.5.0": {
-        "en": "Google Drive authentication was fixed\nsmall Bugfix",
-        "de": "Google Drive Authentifizierung wurde behoben\nkleiner Bugfix",
-        "ru": "Google Drive аутентификация была исправлена\nнебольшой Bugfix",
-        "pt": "A autenticação do Google Drive foi corrigida\npequeno Bugfix",
-        "nl": "Google Drive authenticatie werd opgelost\nkleine Bugfix",
-        "fr": "L'authentification Google Drive a été corrigée\npetit Bugfix",
-        "it": "L'autenticazione di Google Drive è stata fissata\npiccolo Bugfix",
-        "es": "Autenticación de Google Drive fue fijo\npequeño Bugfix",
-        "pl": "Uwierzytelnianie Google Drive zostało ustalone\nmały Bug fix",
-        "uk": "Виправлено автентичність Google Диска\nмали",
-        "zh-cn": "谷歌博士核证是固定的。\nbugfix"
       }
     },
     "title": "BackItUp",

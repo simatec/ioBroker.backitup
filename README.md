@@ -51,7 +51,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.5.7 (2022-11-27)
 * (simatec) Axios 1.1.3 added
 * (bluefox) Added ukrainian language
 
