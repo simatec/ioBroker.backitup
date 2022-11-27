@@ -53,6 +53,7 @@ When the adapter crashes or another Code error happens, this error message that 
 <!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
 * (simatec) Axios 1.1.3 added
+* (bluefox) Added ukrainian language
 
 ### 2.5.6 (2022-11-14)
 * (simatec) Fix Grafana Backup
