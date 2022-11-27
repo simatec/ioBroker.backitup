@@ -22,7 +22,9 @@ const languages =  {
     fr: {},
     it: {},
     es: {},
-    pl: {}
+    pl: {},
+    uk: {},
+    'zh-cn': {},
 };
 
 function lang2data(lang, isFlat) {
@@ -436,7 +438,7 @@ gulp.task('rename', function ()  {
         }
         if (!fs.existsSync(__dirname + '/widgets/' + newname + '/js/')) {
             fs.mkdirSync(__dirname + '/widgets/' + newname + '/js/');
-        }        
+        }
         fs.renameSync(__dirname + '/widgets/backitup/js/backitup.js', __dirname + '/widgets/' + newname + '/js/' + newname + '.js');
     }
     if (fs.existsSync(__dirname + '/widgets/backitup')) {
