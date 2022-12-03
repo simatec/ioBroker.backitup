@@ -518,6 +518,13 @@ function initConfig(secret) {
     if (adapter.config.redisEnabled === undefined) {
         adapter.config.redisEnabled = adapter.config.backupRedis
     }
+    let ioPath;
+
+    try {
+        ioPath = require.resolve('iobroker.js-controller/iobroker.js');
+    } catch (e) {
+        adapter.log.error(`Unable to read iobroker path: +${e}`);
+    }
 
     decryptEvents(secret);
 
@@ -702,6 +709,7 @@ function initConfig(secret) {
     backupConfig.iobroker = {
         name: 'iobroker',
         type: 'creator',
+        workDir: ioPath,
         enabled: adapter.config.minimalEnabled,
         time: adapter.config.minimalTime,
         debugging: adapter.config.debugLevel,
