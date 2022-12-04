@@ -51,6 +51,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) dependencies dropbox-v2-api updated
+
 ### 2.5.8 (2022-12-03)
 * (simatec) Fix iobroker Backup
 * (simatec) dependencies updated
