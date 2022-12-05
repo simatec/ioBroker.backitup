@@ -51,7 +51,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.5.9 (2022-12-05)
 * (simatec) dependencies dropbox-v2-api updated
 * (simatec) Fix Zigbee Restore
 * (simatec) Fix Yahka Restore
