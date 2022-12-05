@@ -53,6 +53,10 @@ When the adapter crashes or another Code error happens, this error message that 
 <!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
 * (simatec) dependencies dropbox-v2-api updated
+* (simatec) Fix Zigbee Restore
+* (simatec) Fix Yahka Restore
+* (simatec) Fix Javascript Restore
+* (simatec) Fix Dropbox Error Messages
 
 ### 2.5.8 (2022-12-03)
 * (simatec) Fix iobroker Backup
