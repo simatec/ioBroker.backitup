@@ -42,7 +42,7 @@
     "webdav": "^4.11.2",
     "ftp": "^0.3.10",
     "node-schedule": "^2.1.0",
-    "@googleapis/drive": "^4.0.0",
+    "@googleapis/drive": "^4.0.1",
     "node-wol": "^0.1.1",
     "request": "^2.88.2",
     "google-auth-library": "^8.7.0",
