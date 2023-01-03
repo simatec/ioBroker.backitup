@@ -1530,6 +1530,7 @@ function showHideSettings(settings) {
 
     if ($('#javascriptsEnabled').prop('checked') && !oldJavascriptsEnabled) {
         showMessage(_("<br/><br/>The JavaScript Adapter scripts are already saved in the ioBroker backup.<br/><br/>This option is just an additional option to be able to restore the scripts individually if necessary."), _('Backitup Information!'), 'info');
+        oldJavascriptsEnabled = true;
     }
     if ($('#zigbeeEnabled').prop('checked')) {
         if (!oldZigbeeEnabled) {
