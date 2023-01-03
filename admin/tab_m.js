@@ -102,10 +102,10 @@ function load(settings, onChange) {
     console.log('current theme: ' + currentTheme());
 
     sendTo(null, 'getSystemInfo', null, function (obj) {
-        if (obj == 'docker') {
+        if (obj && obj.systemOS == 'docker') {
             var $startAllRestore = $('#startAllRestore');
             $startAllRestore.addClass('disabled');
-            restoreIfWait = 8000;
+            restoreIfWait = 10000;
 
             $('#startAllRestore').prop('checked', false);
             $('#startAllRestore').prop('disabled', true);
