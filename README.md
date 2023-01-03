@@ -794,7 +794,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 The MIT License (MIT)
 
-Copyright (c) 2018 - 2022 simatec
+Copyright (c) 2018 - 2023 simatec
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
