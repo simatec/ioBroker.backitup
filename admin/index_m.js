@@ -425,7 +425,7 @@ function load(settings, onChange) {
                 $('#redisType').select();
             }
 
-            restoreIfWait = 8000;
+            restoreIfWait = 10000;
         }
     });
 
