@@ -285,3 +285,9 @@ p.notice {
     padding-left: 0.8rem;
     font-size: 0.8rem;
 }
+
+.linkDesign a {
+    color: #1e88e5!important;
+    cursor: pointer!important;
+    text-decoration: underline!important;
+}

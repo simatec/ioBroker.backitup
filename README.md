@@ -53,6 +53,7 @@ When the adapter crashes or another Code error happens, this error message that 
 <!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
 * (simatec) Fix Docker Restore
+* (simatec) Fix Link Design
 * (simatec) dependencies updated
 * (Grothesk242) Fix CIFS Mount
 
