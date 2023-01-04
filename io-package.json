@@ -342,6 +342,7 @@
     "ftpEnabled": false,
     "ftpHost": "",
     "ftpPort": 21,
+    "ftpSecure": false,
     "ftpDir": "/backupDir",
     "ftpUser": "",
     "ftpPassword": "",
