@@ -51,7 +51,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.5.10 (2023-01-03)
 * (simatec) Fix Docker Restore
 * (simatec) Fix Link Design
 * (simatec) dependencies updated

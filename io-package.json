@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.5.9",
+    "version": "2.5.10",
     "news": {
+      "2.5.10": {
+        "en": "Fix Docker Restore\nFix Link Design\ndependencies updated\nFix CIFS Mount",
+        "de": "Wiederherstellen von Docker\nLink Design herunterladen\naktualisierte abhängigkeiten\nCIFS Mount",
+        "ru": "Fix Восстановить Docker\nFix Link Дизайн\nзависимости обновлены\nFix CIFS гора",
+        "pt": "Restauração de Docker\nDesign de ligação fixa\ndependências atualizadas\nFixar a montagem CIFS",
+        "nl": "Vertaling:\nVertaling:\nafhankelijkheid geüpdateerd\nVertaling:",
+        "fr": "Fixe Docker Restore\nFix Link Design\ndépendances mises à jour\nMontage CIFS fixe",
+        "it": "Ripristino Docker\nFix Link Design\ndipendenze aggiornate\nFissare il supporto CIFS",
+        "es": "Restaurar el Docker\nDiseño de enlace fijo\ndependencias actualizadas\nFijar el montaje CIFS",
+        "pl": "Fix Docker Restore\nFix Link Design\naktualizacja\nFix CIFS (ang.)",
+        "uk": "Фіксація Docker Restore\nРозробка сайту\nоновлені залежності\nФіксація CIFS Mount",
+        "zh-cn": "Fix Docker Restor\n固定联系设计\nb. 更新的依赖\nFix CIFS山脉"
+      },
       "2.5.9": {
         "en": "dependencies dropbox-v2-api updated\nFix Zigbee Restore\nFix Yahka Restore\nFix Javascript Restore\nFix Dropbox Error Messages",
         "de": "abhängigkeiten dropbox-v2-api aktualisiert\nZigbee Restore reparieren\nFix Yahka Restore\nJavascript Restore aktivieren\nFehlermeldungen von Dropbox behoben",
@@ -80,19 +93,6 @@
         "pl": "Fix-maxBuffer for DB-Backups (ang.)\nDocu zaktualizował\nFix Dropbox error message\nStatystyki Grafana podpisywały certyfikaty",
         "uk": "Кріплення maxBuffer для DB-Backups\nDocu оновлений\nВиправлення помилок Dropbox\nДодані сертифікати Grafana",
         "zh-cn": "银-Backments\n附录\nFix Drop箱错误信息\n黑塞纳自签名的证书"
-      },
-      "2.5.3": {
-        "en": "dependencies updated",
-        "de": "aktualisierte abhängigkeiten",
-        "ru": "зависимости обновлены",
-        "pt": "dependências atualizadas",
-        "nl": "afhankelijkheid geüpdateerd",
-        "fr": "dépendances mises à jour",
-        "it": "dipendenze aggiornate",
-        "es": "dependencias actualizadas",
-        "pl": "aktualizacja",
-        "uk": "оновлені залежності",
-        "zh-cn": "b. 更新的依赖"
       }
     },
     "title": "BackItUp",
