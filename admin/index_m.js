@@ -394,7 +394,7 @@ function load(settings, onChange) {
     });
 
     sendTo(null, 'getSystemInfo', null, function (obj) {
-        if (obj == 'docker') {
+        if (obj && obj.systemOS === 'docker' && obj.dockerDB === false) {
             var $influxDBEnabled = $('#influxDBEnabled');
             var $mySqlEnabled = $('#mySqlEnabled');
             var $pgSqlEnabled = $('#pgSqlEnabled');
@@ -425,7 +425,7 @@ function load(settings, onChange) {
                 $('#redisType').select();
             }
 
-            restoreIfWait = 8000;
+            restoreIfWait = 10000;
         }
     });
 
@@ -829,7 +829,7 @@ function load(settings, onChange) {
                                     console.log('Download finish!')
 
                                     const downloadLink = document.createElement('a');
-                                    downloadLink.setAttribute('href', `${location.protocol}//${location.hostname}:57556/${result.fileName ? result.fileName : file.split(/[\\/]/).pop()}`);
+                                    downloadLink.setAttribute('href', `${location.protocol}//${location.hostname}:${result.listenPort}/${result.fileName ? result.fileName : file.split(/[\\/]/).pop()}`);
 
                                     downloadLink.style.display = 'none';
                                     document.body.appendChild(downloadLink);
@@ -1530,6 +1530,7 @@ function showHideSettings(settings) {
 
     if ($('#javascriptsEnabled').prop('checked') && !oldJavascriptsEnabled) {
         showMessage(_("<br/><br/>The JavaScript Adapter scripts are already saved in the ioBroker backup.<br/><br/>This option is just an additional option to be able to restore the scripts individually if necessary."), _('Backitup Information!'), 'info');
+        oldJavascriptsEnabled = true;
     }
     if ($('#zigbeeEnabled').prop('checked')) {
         if (!oldZigbeeEnabled) {

@@ -51,6 +51,36 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### 2.5.10 (2023-01-03)
+* (simatec) Fix Docker Restore
+* (simatec) Fix Link Design
+* (simatec) dependencies updated
+* (Grothesk242) Fix CIFS Mount
+
+### 2.5.9 (2022-12-05)
+* (simatec) dependencies dropbox-v2-api updated
+* (simatec) Fix Zigbee Restore
+* (simatec) Fix Yahka Restore
+* (simatec) Fix Javascript Restore
+* (simatec) Fix Dropbox Error Messages
+
+### 2.5.8 (2022-12-03)
+* (simatec) Fix iobroker Backup
+* (simatec) dependencies updated
+
+### 2.5.7 (2022-11-27)
+* (simatec) Axios 1.1.3 added
+* (bluefox) Added ukrainian language
+
+### 2.5.6 (2022-11-14)
+* (simatec) Fix Grafana Backup
+* (simatec) Fix Downloadserver
+* (simatec) Translation updated
+
+### 2.5.5 (2022-11-13)
+* (simatec) Design Fix
+* (simatec) Docker DB Support added
+
 ### 2.5.4 (2022-11-02)
 * (simatec) Fix maxBuffer for DB-Backups
 * (simatec) Docu updated
@@ -764,7 +794,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 The MIT License (MIT)
 
-Copyright (c) 2018 - 2022 simatec
+Copyright (c) 2018 - 2023 simatec
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

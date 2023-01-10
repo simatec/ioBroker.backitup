@@ -102,10 +102,10 @@ function load(settings, onChange) {
     console.log('current theme: ' + currentTheme());
 
     sendTo(null, 'getSystemInfo', null, function (obj) {
-        if (obj == 'docker') {
+        if (obj && obj.systemOS == 'docker') {
             var $startAllRestore = $('#startAllRestore');
             $startAllRestore.addClass('disabled');
-            restoreIfWait = 8000;
+            restoreIfWait = 10000;
 
             $('#startAllRestore').prop('checked', false);
             $('#startAllRestore').prop('disabled', true);
@@ -373,10 +373,10 @@ function load(settings, onChange) {
                                     $dialogDownload.modal('close');
                                     showError('<br/><br/>Error:<br/><br/>' + JSON.stringify(result.error));
                                 } else {
-                                    console.log('Download finish!')
+                                    console.log('Download finish!');
 
                                     const downloadLink = document.createElement('a');
-                                    downloadLink.setAttribute('href', `${location.protocol}//${location.hostname}:57556/${result.fileName ? result.fileName : file.split(/[\\/]/).pop()}`);
+                                    downloadLink.setAttribute('href', `${location.protocol}//${location.hostname}:${result.listenPort}/${result.fileName ? result.fileName : file.split(/[\\/]/).pop()}`);
 
                                     downloadLink.style.display = 'none';
                                     document.body.appendChild(downloadLink);

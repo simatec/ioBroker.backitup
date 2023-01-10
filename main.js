@@ -257,7 +257,7 @@ function startAdapter(options) {
                             _getFile.getFile(backupConfig, obj.message.type, obj.message.fileName, toSaveName, adapter.log, err => {
                                 if (!err && fs.existsSync(toSaveName)) {
                                     try {
-                                        adapter.sendTo(obj.from, obj.command, { fileName: fileName }, obj.callback);
+                                        adapter.sendTo(obj.from, obj.command, { fileName: fileName, listenPort: dlServer.address().port }, obj.callback);
                                     } catch (error) {
                                         adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
                                     }
@@ -268,7 +268,7 @@ function startAdapter(options) {
                         } else {
                             if (fs.existsSync(obj.message.fileName)) {
                                 try {
-                                    adapter.sendTo(obj.from, obj.command, { fileName: fileName }, obj.callback);
+                                    adapter.sendTo(obj.from, obj.command, { fileName: fileName, listenPort: dlServer.address().port }, obj.callback);
                                 } catch (error) {
                                     adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
                                 }
@@ -312,14 +312,19 @@ function startAdapter(options) {
 
                 case 'getSystemInfo':
                     if (obj) {
-                        let systemInfo;
+                        let systemInfo = process.platform;;
+                        let dbInfo = false;
+
                         if (fs.existsSync('/opt/scripts/.docker_config/.thisisdocker')) { // Docker Image Support >= 5.2.0
                             systemInfo = 'docker';
-                        } else {
-                            systemInfo = process.platform;
+
+                            if (fs.existsSync('/opt/scripts/.docker_config/.backitup')) {
+                                dbInfo = true;
+                            }
                         }
+
                         try {
-                            adapter.sendTo(obj.from, obj.command, systemInfo, obj.callback);
+                            adapter.sendTo(obj.from, obj.command, { systemOS: systemInfo, dockerDB: dbInfo }, obj.callback);
                         } catch (err) {
                             err && adapter.log.error(err);
                         }
@@ -513,6 +518,13 @@ function initConfig(secret) {
     if (adapter.config.redisEnabled === undefined) {
         adapter.config.redisEnabled = adapter.config.backupRedis
     }
+    let ioPath;
+
+    try {
+        ioPath = require.resolve('iobroker.js-controller/iobroker.js');
+    } catch (e) {
+        adapter.log.error(`Unable to read iobroker path: +${e}`);
+    }
 
     decryptEvents(secret);
 
@@ -697,6 +709,7 @@ function initConfig(secret) {
     backupConfig.iobroker = {
         name: 'iobroker',
         type: 'creator',
+        workDir: ioPath,
         enabled: adapter.config.minimalEnabled,
         time: adapter.config.minimalTime,
         debugging: adapter.config.debugLevel,
@@ -1414,15 +1427,15 @@ function fileServer(protocol) {
         }
 
         try {
-            dlServer = httpsServer.listen(57556);
-            adapter.log.debug('Downloadserver started ...');
+            dlServer = httpsServer.listen(0);
+            adapter.log.debug(`Downloadserver on port ${dlServer.address().port} started`);
         } catch (e) {
             adapter.log.debug('Downloadserver cannot started');
         }
     } else {
         try {
-            dlServer = downloadServer.listen(57556);
-            adapter.log.debug('Downloadserver started ...');
+            dlServer = downloadServer.listen(0);
+            adapter.log.debug(`Downloadserver on port ${dlServer.address().port} started`);
         } catch (e) {
             adapter.log.debug('Downloadserver cannot started');
         }
