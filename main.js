@@ -986,9 +986,16 @@ function createBashScripts() {
         adapter.log.debug(`Backitup has recognized a ${process.platform} system`);
 
         try {
-            fs.writeFileSync(bashDir + '/stopIOB.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\nif exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-stop\n)\nif exist "${bashDir}/.redis.info" (\ncd "${path.join(__dirname, 'lib')}"\n) else (\ncd "${bashDir}"\n)\nnode restore.js`);
+            fs.writeFileSync(bashDir + '/stopIOB.bat', `start "" "${path.join(bashDir, 'external.bat')}"`);
         } catch (e) {
             adapter.log.error('cannot create stopIOB.bat: ' + e + 'Please run "iobroker fix"');
+        }
+        
+        try {
+            fs.writeFileSync(bashDir + '/external.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\nif exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-stop\n)\nif exist "${bashDir}/.redis.info" (\ncd "${path.join(__dirname, 'lib')}"\n) else (\ncd "${bashDir}"\n)\nnode restore.js`);
+            fs.chmodSync(bashDir + '/external.bat', 508);
+        } catch (e) {
+            adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
         }
 
         try {
