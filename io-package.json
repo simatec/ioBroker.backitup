@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.5.11",
+    "version": "2.5.12",
     "news": {
+      "2.5.12": {
+        "en": "Fix Windows ioBroker-Restore",
+        "de": "Windows ioBroker-Restore",
+        "ru": "Исправление Windows ioBroker-Restore",
+        "pt": "Fix Windows ioBroker-Restore",
+        "nl": "Vertaling:",
+        "fr": "Réparez Windows ioBroker-Restore",
+        "it": "Risolvere lo iBroker di Windows",
+        "es": "Arreglar Windows ioBroker-Restore",
+        "pl": "Fix Windows ioBroker-Restore",
+        "uk": "Виправлення Windows ioBroker-Restore",
+        "zh-cn": "Fixow io Broker-Restor"
+      },
       "2.5.11": {
         "en": "Fix Windows ioBroker-Restore",
         "de": "Windows ioBroker-Restore",
@@ -80,19 +93,6 @@
         "pl": "Fix Grafana Backup\nFix Downloadserver (ang.)\nUaktualniać",
         "uk": "Виправлення Grafana Backup\nФіксація завантажувача\nПереклад оновлений",
         "zh-cn": "Fix Grafana Backup\nFix Down servations\n笔译更新"
-      },
-      "2.5.5": {
-        "en": "Design Fix\nDocker DB Support added",
-        "de": "Design Fix\nDocker DB Unterstützung hinzugefügt",
-        "ru": "Дизайн Fix\nДокер DB Добавлена поддержка",
-        "pt": "Design Fix\nDocker DB Suporte adicionado",
-        "nl": "Design Fix\nDok DB Versterking toegevoegd",
-        "fr": "Design Fix\nDocker DB Soutien ajouté",
-        "it": "Design Fix\nDocker DB Supporto aggiunto",
-        "es": "Diseño fijo\nDocker DB Apoyo añadido",
-        "pl": "Design\nDocker DB wsparcie",
-        "uk": "Налаштування дизайну\nДокер ДБ Додана підтримка",
-        "zh-cn": "设计\nDocker行 增 编"
       }
     },
     "title": "BackItUp",
