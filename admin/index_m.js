@@ -424,8 +424,12 @@ function load(settings, onChange) {
                 $('#redisType').val('remote').trigger('change');
                 $('#redisType').select();
             }
+        }
 
+        if (obj && obj.systemOS === 'docker') {
             restoreIfWait = 10000;
+        } else if (obj && obj.systemOS == 'win') {
+            restoreIfWait = 18000;
         }
     });
 
@@ -928,7 +932,7 @@ function load(settings, onChange) {
                         $('#get-googledrive-url').text(obj.url).attr('href', obj.url);
                         $('.get-googledrive-submit').show();
                         $('#googledriveAccessTokens').val('');
-                       $('#googledriveAccessTokens_label').text(_('Enter the code from that page here'));
+                        $('#googledriveAccessTokens_label').text(_('Enter the code from that page here'));
                     } else if (obj.error) {
                         showError(obj.error);
                     } else {

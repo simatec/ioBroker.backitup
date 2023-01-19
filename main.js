@@ -321,6 +321,12 @@ function startAdapter(options) {
                             if (fs.existsSync('/opt/scripts/.docker_config/.backitup')) {
                                 dbInfo = true;
                             }
+                        } else {
+                            const isWin = process.platform.startsWith('win');
+
+                            if (isWin) {
+                                systemInfo = 'win';
+                            }
                         }
 
                         try {
@@ -990,9 +996,9 @@ function createBashScripts() {
         } catch (e) {
             adapter.log.error('cannot create stopIOB.bat: ' + e + 'Please run "iobroker fix"');
         }
-        
+
         try {
-            fs.writeFileSync(bashDir + '/external.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 10\nif exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-stop\n)\nif exist "${path.join(bashDir, '.redis.info')}" (\ncd "${path.join(__dirname, 'lib')}"\n) else (\ncd "${path.join(bashDir)}"\n)\nnode restore.js`);
+            fs.writeFileSync(bashDir + '/external.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 15\nif exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-stop\n)\nif exist "${path.join(bashDir, '.redis.info')}" (\ncd "${path.join(__dirname, 'lib')}"\n) else (\ncd "${path.join(bashDir)}"\n)\nnode restore.js`);
             fs.chmodSync(bashDir + '/external.bat', 508);
         } catch (e) {
             adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');

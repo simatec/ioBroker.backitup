@@ -109,6 +109,8 @@ function load(settings, onChange) {
 
             $('#startAllRestore').prop('checked', false);
             $('#startAllRestore').prop('disabled', true);
+        } else if (obj && obj.systemOS == 'win') {
+            restoreIfWait = 18000;
         }
     });
 

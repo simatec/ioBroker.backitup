@@ -51,6 +51,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Fix Windows ioBroker-Restore
+
 ### 2.5.11 (2023-01-18)
 * (simatec) Fix Windows ioBroker-Restore
 
