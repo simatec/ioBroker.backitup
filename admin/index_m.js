@@ -624,7 +624,7 @@ function load(settings, onChange) {
                                     }
                                 }
             });
-            if (settings.ftpEnabled === false && settings.dropboxEnabled === false && settings.cifsEnabled === false && settings.googledriveEnabled === false && settings.webdavEnabled === false) {
+            if (settings.ftpEnabled === false && settings.dropboxEnabled === false && settings.onedriveEnabled === false && settings.cifsEnabled === false && settings.googledriveEnabled === false && settings.webdavEnabled === false) {
                 showMessage(_("<br/><br/>According to the Backitup settings, backups are currently stored in the same local file system that is the source of the backup can be accessed more. <br/> <br/>It is recommended to use an external storage space as a backup target."), _('Backitup Information!'), 'info');
             }
             socket.emit('subscribeStates', 'backitup.' + instance + '.*');
@@ -698,6 +698,9 @@ function load(settings, onChange) {
                                 case 'dropbox':
                                     storageTyp = 'Dropbox';
                                     break;
+                                case 'onedrive':
+                                    storageTyp = 'Onedrive';
+                                    break;
                                 case 'ftp':
                                     storageTyp = 'FTP';
                                     break;
@@ -736,7 +739,7 @@ function load(settings, onChange) {
 
                             var message = _('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
                             var downloadPanel = false;
-                            if ($('#restoreSource').val() === 'dropbox' || $('#restoreSource').val() === 'googledrive' || $('#restoreSource').val() === 'ftp' || $('#restoreSource').val() === 'webdav') {
+                            if ($('#restoreSource').val() === 'dropbox' || $('#restoreSource').val() === 'onedrive' || $('#restoreSource').val() === 'googledrive' || $('#restoreSource').val() === 'ftp' || $('#restoreSource').val() === 'webdav') {
                                 message = _('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
                                 downloadPanel = true;
                             }
@@ -866,6 +869,7 @@ function load(settings, onChange) {
                 });
             });
 
+            // Dropbox Settings
             $('.get-dropbox-json').removeClass('disabled').on('click', function () {
                 $('.get-dropbox-json').addClass('disabled');
                 sendTo(null, 'authDropbox', null, function (obj) {
@@ -920,6 +924,57 @@ function load(settings, onChange) {
                 });
             });
 
+            // Onedrive Settings
+            $('.get-onedrive-json').removeClass('disabled').on('click', function () {
+                $('.get-onedrive-json').addClass('disabled');
+                sendTo(null, 'authOnedrive', null, function (obj) {
+                    if (obj && obj.url) {
+                        const url = `${obj.url}`;
+
+                        $('.get-onedrive-json').addClass('disabled');
+                        $('.get-onedrive-json').hide();
+                        $('.get-onedrive-url').show();
+                        $('.get-onedrive-code').show();
+                        $('#get-onedrive-url').text(url).attr('href', url);
+                        $('.get-onedrive-submit').show();
+                    } else {
+                        return showError(_('No Userdata entered'));
+                    }
+                });
+            });
+
+            $('.get-onedrive-submit').on('click', function () {
+                var code = $('#get-onedrive-code').val();
+                
+
+                if (!code) {
+                    return showError(_('No code entered'));
+                }
+
+                $('.get-onedrive-submit').addClass('disabled');
+
+                sendTo(null, 'authOnedrive', { code: code }, function (obj) {
+                    $('.get-onedrive-json').removeClass('disabled');
+                    if (obj && obj.done) {
+                        if ($('#onedriveAccessJson').val() !== obj.json) {
+                            $('#onedriveAccessJson').val(obj.json);
+                            onChange();
+                        }
+
+                        $('.get-onedrive-code').hide();
+                        $('.get-onedrive-url').hide();
+                        $('.get-onedrive-json').show();
+                        $('.get-onedrive-json span').text(_('Renew Onedrive Access'));
+                        $('#onedriveAccessJson_span').text(_('Present'));
+                    } else if (obj && obj.error && obj.error.message) {
+                        showError(obj.error.message);
+                    } else {
+                        showError(_('No answer'));
+                    }
+                });
+            });
+
+            // GoogleDrive Settings
             $('.get-googledrive-json').removeClass('disabled').on('click', function () {
                 $('.get-googledrive-json').addClass('disabled');
 
@@ -974,6 +1029,7 @@ function load(settings, onChange) {
             $('.do-list').addClass('disabled');
             $('.get-googledrive-json').addClass('disabled');
             $('.get-dropbox-json').addClass('disabled');
+            $('.get-onedrive-json').addClass('disabled');
         }
     });
 
@@ -982,6 +1038,13 @@ function load(settings, onChange) {
         $('.get-dropbox-json span').text(_('Renew Dropbox Access'));
     } else {
         $('#dropboxAccessJson_span').text(_('Not present'));
+    }
+
+    if (settings.onedriveAccessJson) {
+        $('#onedriveAccessJson_span').text(_('Present'));
+        $('.get-onedrive-json span').text(_('Renew Onedrive Access'));
+    } else {
+        $('#onedriveAccessJson_span').text(_('Not present'));
     }
 
     /*if (settings.googledriveAccessJson) {
@@ -1123,7 +1186,7 @@ function save(callback) {
             obj[id] = $this.prop('checked');
         } else {
             var val = $this.val();
-            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword' || id === 'redisPassword' || id === 'dropboxClient_secret' || id === 'dropboxClient_id') {
+            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword' || id === 'redisPassword') {
                 val = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
             }
             obj[id] = val;
@@ -1197,6 +1260,14 @@ function showHideSettings(settings) {
     } else {
         $('.dropbox-extra').hide();
         $('.dropbox-standard').show();
+    }
+
+    if ($('#onedriveOwnDir').prop('checked')) {
+        $('.onedrive-extra').show();
+        $('.onedrive-standard').hide();
+    } else {
+        $('.onedrive-extra').hide();
+        $('.onedrive-standard').show();
     }
 
     if ($('#webdavOwnDir').prop('checked')) {
@@ -1493,6 +1564,11 @@ function showHideSettings(settings) {
         $('.tab-dropbox').show();
     } else {
         $('.tab-dropbox').hide();
+    }
+    if ($('#onedriveEnabled').prop('checked')) {
+        $('.tab-onedrive').show();
+    } else {
+        $('.tab-onedrive').hide();
     }
     if ($('#googledriveEnabled').prop('checked')) {
         $('.tab-googledrive').show();

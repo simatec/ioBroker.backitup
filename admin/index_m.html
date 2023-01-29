@@ -45,6 +45,7 @@
                 <li class="tab col tab-cifs"><a href="#tab-cifs" class="translate">NAS / Copy</a></li>
                 <li class="tab col tab-ftp"><a href="#tab-ftp" class="translate">FTP</a></li>
                 <li class="tab col tab-dropbox"><a href="#tab-dropbox" class="translate">Dropbox</a></li>
+                <li class="tab col tab-onedrive"><a href="#tab-onedrive" class="translate">Onedrive</a></li>
                 <li class="tab col tab-googledrive"><a href="#tab-googledrive" class="translate">Google Drive</a></li>
                 <li class="tab col tab-webDAV"><a href="#tab-webDAV" class="translate">WebDAV</a></li>
                 <li class="tab col tab-grafana"><a href="#tab-grafana" class="translate">Grafana Backup</a></li>
@@ -128,6 +129,10 @@
                     <div class="input-field col s6 l2">
                         <input class="value" id="webdavEnabled" type="checkbox"/>
                         <span for="webdavEnabled" class="translate">WebDAV</span>
+                    </div>
+                    <div class="input-field col s6 l2">
+                        <input class="value" id="onedriveEnabled" type="checkbox"/>
+                        <span for="onedriveEnabled" class="translate">Onedrive</span>
                     </div>
                 </div>
                 <div class="row" style="padding: 2px;">
@@ -1177,6 +1182,56 @@
                 </div>
             </div>
 
+            <!-- Onedrive settings -->
+            <div id="tab-onedrive" class="col s12 page">
+                <div class="row onedrive" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Onedrive</h6>
+                </div>
+                <div class="row onedrive">
+                    <div class="input-field col s3">
+                        <input class="value" id="onedriveAccessJson" type="hidden"/>
+                        <span class="translate">Onedrive refresh token: </span>
+                        <span class="translate" id="onedriveAccessJson_span" style="font-weight: bold">Not present</span>
+                        <a class="waves-effect waves-light btn btn-backitup btn-iobroker get-onedrive-json" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Get Onedrive Access</span></a>
+                    </div>
+                    <div class="input-field col s12 get-onedrive-url linkDesign" style="display: none">
+                        <span class="translate">Authorize this app by visiting this url: </span>
+                        <a id="get-onedrive-url" style="color: #1e88e5!important;" href="" target="_blank"></a>
+                    </div>
+                    <div class="input-field col s3 get-onedrive-code" style="display: none">
+                        <input id="get-onedrive-code" type="text"/>
+                        <label for="get-onedrive-code" class="translate">Enter the code from that page here</label>
+                        <a class="waves-effect waves-light btn btn-backitup btn-iobroker get-onedrive-submit" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Submit</span></a>
+                    </div>
+                </div>
+                <div class="row onedrive">
+                    <div class="input-field col s12">
+                        <input class="value" id="onedriveDeleteOldBackup" type="checkbox"/>
+                        <label for="onedriveDeleteOldBackup" class="translate">Delete old Onedrive-Backups</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input class="value" id="onedriveOwnDir" type="checkbox"/>
+                        <label for="onedriveOwnDir" class="translate">Extra path for backup types</label>
+                    </div>
+                </div>
+                <div class="row onedrive onedrive-extra">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="onedriveMinimalDir" type="text">
+                        <label for="onedriveMinimalDir" class="translate">Onedrive Path for iobroker backup</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="onedriveCcuDir" type="text">
+                        <label for="onedriveCcuDir" class="translate">Onedrive Path for CCU backup</label>
+                    </div>
+                </div>
+                <div class="row onedrive onedrive-standard">
+                    <div class="input-field col s12">
+                        <input class="value" id="onedriveDir" type="text">
+                        <label for="onedriveDir" class="translate">Onedrive path</label>
+                    </div>
+                </div>
+            </div>
+
             <!-- googledrive settings -->
             <div id="tab-googledrive" class="col s12 page">
                 <div class="row googledrive" style="padding: 2px;">
@@ -1243,6 +1298,7 @@
                             <option value="local" class="translate">Local</option>
                             <option value="cifs" class="translate">NAS / Copy</option>
                             <option value="dropbox" class="translate">Dropbox</option>
+                            <option value="onedrive" class="translate">Onedrive</option>
                             <option value="googledrive" class="translate">Google Drive</option>
                             <option value="webdav" class="translate">WebDAV</option>
                             <option value="ftp" class="translate">FTP</option>

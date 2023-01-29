@@ -196,7 +196,7 @@ function load(settings, onChange) {
                                 }
                             }
             });
-            if (settings.ftpEnabled === false && settings.dropboxEnabled === false && settings.cifsEnabled === false && settings.googledriveEnabled === false && settings.webdavEnabled === false) {
+            if (settings.ftpEnabled === false && settings.dropboxEnabled === false && settings.onedriveEnabled === false && settings.cifsEnabled === false && settings.googledriveEnabled === false && settings.webdavEnabled === false) {
                 showMessage(_("<br/><br/>According to the Backitup settings, backups are currently stored in the same local file system that is the source of the backup can be accessed more. <br/> <br/>It is recommended to use an external storage space as a backup target."), _('Backitup Information!'), 'info');
             }
             socket.emit('subscribeStates', 'backitup.' + instance + '.*');
@@ -246,6 +246,9 @@ function load(settings, onChange) {
                                 case 'dropbox':
                                     storageTyp = 'Dropbox';
                                     break;
+                                case 'onedrive':
+                                    storageTyp = 'Onedrive';
+                                    break;
                                 case 'ftp':
                                     storageTyp = 'FTP';
                                     break;
@@ -287,7 +290,7 @@ function load(settings, onChange) {
 
                             var message = _('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
                             var downloadPanel = false;
-                            if ($('#restoreSource').val() === 'dropbox' || $('#restoreSource').val() === 'googledrive' || $('#restoreSource').val() === 'webdav' || $('#restoreSource').val() === 'ftp') {
+                            if ($('#restoreSource').val() === 'dropbox' || $('#restoreSource').val() === 'onedrive' ||$('#restoreSource').val() === 'googledrive' || $('#restoreSource').val() === 'webdav' || $('#restoreSource').val() === 'ftp') {
                                 message = _('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
                                 downloadPanel = true;
                             }
@@ -594,6 +597,7 @@ function fillStorageSelect(settings) {
     if (settings.cifsEnabled) selectName.push(_(`NAS (${_(settings.connectType)})`)), selectsetting.push('cifs');
     if (settings.ftpEnabled) selectName.push(_('FTP')), selectsetting.push('ftp');
     if (settings.dropboxEnabled) selectName.push(_('Dropbox')), selectsetting.push('dropbox');
+    if (settings.onedriveEnabled) selectName.push(_('Onedrive')), selectsetting.push('onedrive');
     if (settings.googledriveEnabled) selectName.push(_('Google Drive')), selectsetting.push('googledrive');
     if (settings.webdavEnabled) selectName.push(_('WebDAV')), selectsetting.push('webdav');
 
@@ -611,6 +615,7 @@ function fillStorageOptions(settings) {
     if (settings.cifsEnabled) _options.push(_(`NAS (${settings.connectType})`));
     if (settings.ftpEnabled) _options.push(_('FTP'));
     if (settings.dropboxEnabled) _options.push(_('Dropbox'));
+    if (settings.onedriveEnabled) _options.push(_('Onedrive'));
     if (settings.googledriveEnabled) _options.push(_('Google Drive'));
     if (settings.webdavEnabled) _options.push(_('WebDAV'));
 
