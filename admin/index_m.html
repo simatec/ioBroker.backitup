@@ -732,6 +732,7 @@
                         <option value="Pushover" class="translate">Pushover</option>
                         <option value="WhatsApp" class="translate">WhatsApp</option>
                         <option value="Signal" class="translate">Signal</option>
+                        <option value="Matrix" class="translate">Matrix</option>
                         </select>
                         <label for="notificationsType" class="translate">notifications type</label>
                     </div>
@@ -821,6 +822,32 @@
                     <div class="input-field col s12 m6 l3 signal">
                         <input class="value" id="signalOnlyError" type="checkbox"/>
                         <label for="signalOnlyError" class="translate">Notification only on errors</label>
+                    </div>
+                </div>
+                <!-- Matrix -->
+                <div class="row matrix">
+                    <div class="input-field col s12 m6 l3 matrix">
+                        <select id="matrixInstance" class="value"></select>
+                        <label for="matrixInstance" class="translate">Matrix instance</label>
+                    </div>
+                    <div class="input-field col s12 m6 l3 matrix">
+                        <select class="value" id="matrixNoticeType">
+                        <option value="longMatrixNotice" class="translate">Long Notifications</option>
+                        <option value="shortMatrixNotice" class="translate">Short Notifications</option>
+                        </select>
+                        <label class="translate" for="matrixNoticeType">Notification Style</label>
+                    </div>
+                </div>
+                <div class="row matrix">
+                    <div class="input-field col s12 m6 l3 matrix">
+                        <input type="number" class="value" id="matrixWaitToSend" min="0" max="20"/>
+                        <label for="matrixWaitToSend" class="translate">Waiting for the send (seconds)</label>
+                    </div>
+                </div>
+                <div class="row matrix">
+                    <div class="input-field col s12 m6 l3 matrix">
+                        <input class="value" id="matrixOnlyError" type="checkbox"/>
+                        <label for="matrixOnlyError" class="translate">Notification only on errors</label>
                     </div>
                 </div>
                 <!-- Pushover -->
@@ -1198,9 +1225,9 @@
                         <span class="translate">Authorize this app by visiting this url: </span>
                         <a id="get-onedrive-url" style="color: #1e88e5!important;" href="" target="_blank"></a>
                     </div>
-                    <div class="input-field col s3 get-onedrive-code" style="display: none">
+                    <div class="input-field col s4 get-onedrive-code" style="display: none">
                         <input id="get-onedrive-code" type="text"/>
-                        <label for="get-onedrive-code" class="translate">Enter the code from that page here</label>
+                        <label for="get-onedrive-code" class="translate">Please enter here the code from the address line of the opened page (code=)</label>
                         <a class="waves-effect waves-light btn btn-backitup btn-iobroker get-onedrive-submit" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Submit</span></a>
                     </div>
                 </div>

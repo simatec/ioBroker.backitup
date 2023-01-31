@@ -594,6 +594,19 @@ function initConfig(secret) {
         systemLang
     };
 
+    const matrix = {
+        enabled: adapter.config.notificationEnabled,
+        notificationsType: adapter.config.notificationsType,
+        type: 'message',
+        instance: adapter.config.matrixInstance,
+        NoticeType: adapter.config.matrixNoticeType,
+        onlyError: adapter.config.matrixOnlyError,
+        matrixWaiting: adapter.config.matrixWaitToSend * 1000,
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        ignoreErrors: adapter.config.ignoreErrors,
+        systemLang
+    };
+
     const pushover = {
         enabled: adapter.config.notificationEnabled,
         notificationsType: adapter.config.notificationsType,
@@ -961,6 +974,7 @@ function initConfig(secret) {
         pushover,
         whatsapp,
         signal,
+        matrix,
     };
 
     // Configurations for CCU / pivCCU / RaspberryMatic backup
@@ -989,6 +1003,7 @@ function initConfig(secret) {
         pushover,
         whatsapp,
         signal,
+        matrix,
 
         host: adapter.config.ccuHost,                                                           // IP-address CCU
         user: adapter.config.ccuUser,                                                           // username CCU

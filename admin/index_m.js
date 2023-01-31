@@ -1080,6 +1080,10 @@ function load(settings, onChange) {
         fillInstances('signalInstance', instances, settings['signalInstance'], 'signal-cmb');
     });
 
+    getAdapterInstances('matrix-org', function (instances) {
+        fillInstances('matrixInstance', instances, settings['matrixInstance'], 'matrix-org');
+    });
+
     getAdapterInstances('email', function (instances) {
         fillInstances('emailInstance', instances, settings['emailInstance'], 'email');
     });
@@ -1482,31 +1486,43 @@ function showHideSettings(settings) {
             $('.pushover').hide();
             $('.whatsapp').hide();
             $('.signal').hide();
+            $('.matrix').hide();
             $('.telegram').show();
         } else if ($(this).val() === 'E-Mail') {
             $('.telegram').hide();
             $('.pushover').hide();
             $('.whatsapp').hide();
             $('.signal').hide();
+            $('.matrix').hide();
             $('.email').show();
         } else if ($(this).val() === 'Pushover') {
             $('.telegram').hide();
             $('.email').hide();
             $('.whatsapp').hide();
             $('.signal').hide();
+            $('.matrix').hide();
             $('.pushover').show();
         } else if ($(this).val() === 'WhatsApp') {
             $('.telegram').hide();
             $('.email').hide();
             $('.pushover').hide();
             $('.signal').hide();
+            $('.matrix').hide();
             $('.whatsapp').show();
         } else if ($(this).val() === 'Signal') {
             $('.telegram').hide();
             $('.email').hide();
             $('.pushover').hide();
             $('.whatsapp').hide();
+            $('.matrix').hide();
             $('.signal').show();
+        } else if ($(this).val() === 'Matrix') {
+            $('.telegram').hide();
+            $('.email').hide();
+            $('.pushover').hide();
+            $('.whatsapp').hide();
+            $('.signal').hide();
+            $('.matrix').show();
         }
     }).trigger('change');
 
