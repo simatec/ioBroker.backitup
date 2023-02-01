@@ -199,6 +199,7 @@
   "Save Redis state": "Redis",
   "Save Zigbee database": "Base de données sécurisée Zigbee",
   "Save the configuration first": "Enregistrer la configuration en premier",
+  "Secure FTP connection (explicit TLS)": "Connexion FTP sécurisée (TLS explicite)",
   "Short Notifications": "Notifications courtes",
   "Signal instance": "Instance de signal",
   "Silent Notice": "Notice silencieuse",

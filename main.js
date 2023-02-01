@@ -657,16 +657,17 @@ function initConfig(secret) {
         enabled: adapter.config.ftpEnabled,
         type: 'storage',
         source: adapter.config.restoreSource,
-        host: adapter.config.ftpHost,                       // ftp-host
+        host: adapter.config.ftpHost,                                                               // ftp-host
         debugging: adapter.config.debugLevel,
-        deleteOldBackup: adapter.config.ftpDeleteOldBackup, // Delete old Backups from FTP
+        deleteOldBackup: adapter.config.ftpDeleteOldBackup,                                         // Delete old Backups from FTP
         ownDir: adapter.config.ftpOwnDir,
         bkpType: adapter.config.restoreType,
-        dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir, // directory on FTP server
+        dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir,                    // directory on FTP server
         dirMinimal: adapter.config.ftpMinimalDir,
-        user: adapter.config.ftpUser,                       // username for FTP Server
-        pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '',  // password for FTP Server
-        port: adapter.config.ftpPort || 21,                  // FTP port
+        user: adapter.config.ftpUser,                                                               // username for FTP Server
+        pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '',        // password for FTP Server
+        port: adapter.config.ftpPort || 21,                                                         // FTP port
+        secure: adapter.config.ftpSecure || false,                                                  // secure FTP connection
         ignoreErrors: adapter.config.ignoreErrors
     };
 
@@ -675,7 +676,7 @@ function initConfig(secret) {
         type: 'storage',
         source: adapter.config.restoreSource,
         debugging: adapter.config.debugLevel,
-        deleteOldBackup: adapter.config.dropboxDeleteOldBackup, // Delete old Backups from Dropbox
+        deleteOldBackup: adapter.config.dropboxDeleteOldBackup,                                     // Delete old Backups from Dropbox
         accessToken: adapter.config.dropboxAccessToken ? adapter.config.dropboxAccessToken : '',
         dropboxAccessJson: adapter.config.dropboxAccessJson,
         dropboxTokenType: adapter.config.dropboxTokenType,
@@ -691,7 +692,7 @@ function initConfig(secret) {
         type: 'storage',
         source: adapter.config.restoreSource,
         debugging: adapter.config.debugLevel,
-        deleteOldBackup: adapter.config.onedriveDeleteOldBackup, // Delete old Backups from Onedrive
+        deleteOldBackup: adapter.config.onedriveDeleteOldBackup,                                    // Delete old Backups from Onedrive
         onedriveAccessJson: adapter.config.onedriveAccessJson,
         ownDir: adapter.config.onedriveOwnDir,
         bkpType: adapter.config.restoreType,
@@ -705,9 +706,9 @@ function initConfig(secret) {
         type: 'storage',
         source: adapter.config.restoreSource,
         debugging: adapter.config.debugLevel,
-        deleteOldBackup: adapter.config.webdavDeleteOldBackup, // Delete old Backups from webdav
+        deleteOldBackup: adapter.config.webdavDeleteOldBackup,                                      // Delete old Backups from webdav
         username: adapter.config.webdavUsername,
-        pass: adapter.config.webdavPassword ? decrypt(secret, adapter.config.webdavPassword) : '',            // webdav password
+        pass: adapter.config.webdavPassword ? decrypt(secret, adapter.config.webdavPassword) : '',  // webdav password
         url: adapter.config.webdavURL,
         ownDir: adapter.config.webdavOwnDir,
         bkpType: adapter.config.restoreType,
@@ -722,7 +723,7 @@ function initConfig(secret) {
         type: 'storage',
         source: adapter.config.restoreSource,
         debugging: adapter.config.debugLevel,
-        deleteOldBackup: adapter.config.googledriveDeleteOldBackup, // Delete old Backups from google drive
+        deleteOldBackup: adapter.config.googledriveDeleteOldBackup,                                 // Delete old Backups from google drive
         accessJson: adapter.config.googledriveAccessTokens || adapter.config.googledriveAccessJson,
         newToken: !!adapter.config.googledriveAccessTokens,
         ownDir: adapter.config.googledriveOwnDir,
@@ -747,13 +748,13 @@ function initConfig(secret) {
         sudo: adapter.config.sudoMount,
         cifsDomain: adapter.config.cifsDomain,
         clientInodes: adapter.config.noserverino,
-        deleteOldBackup: adapter.config.cifsDeleteOldBackup, //Delete old Backups from Network Disk
+        deleteOldBackup: adapter.config.cifsDeleteOldBackup,                                        //Delete old Backups from Network Disk
         ownDir: adapter.config.cifsOwnDir,
         bkpType: adapter.config.restoreType,
-        dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                       // specify if CIFS mount should be used
+        dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                  // specify if CIFS mount should be used
         dirMinimal: adapter.config.cifsMinimalDir,
-        user: adapter.config.cifsUser,                     // specify if CIFS mount should be used
-        pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : '',  // password for NAS Server
+        user: adapter.config.cifsUser,                                                              // specify if CIFS mount should be used
+        pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : '',      // password for NAS Server
         ignoreErrors: adapter.config.ignoreErrors
     };
 
@@ -767,8 +768,8 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         slaveBackup: adapter.config.hostType,
         everyXDays: adapter.config.minimalEveryXDays,
-        nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
-        deleteBackupAfter: adapter.config.minimalDeleteAfter,   // delete old backup files after x days
+        nameSuffix: adapter.config.minimalNameSuffix,                                               // names addition, appended to the file name
+        deleteBackupAfter: adapter.config.minimalDeleteAfter,                                       // delete old backup files after x days
         ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
         dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
@@ -785,21 +786,21 @@ function initConfig(secret) {
             onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
             mysqlQuick: adapter.config.mysqlQuick,
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             mysqlSingleTransaction: adapter.config.mysqlSingleTransaction,
-            dbName: adapter.config.mySqlName,              // database name
-            user: adapter.config.mySqlUser,                // database user
-            pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',            // database password
-            deleteBackupAfter: adapter.config.mySqlDeleteAfter, // delete old backupfiles after x days
-            host: adapter.config.mySqlHost,                // database host
-            port: adapter.config.mySqlPort,                // database port
+            dbName: adapter.config.mySqlName,                                                       // database name
+            user: adapter.config.mySqlUser,                                                         // database user
+            pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',// database password
+            deleteBackupAfter: adapter.config.mySqlDeleteAfter,                                     // delete old backupfiles after x days
+            host: adapter.config.mySqlHost,                                                         // database host
+            port: adapter.config.mySqlPort,                                                         // database port
             mySqlEvents: adapter.config.mySqlEvents,
             mySqlMulti: adapter.config.mySqlMulti,
             ignoreErrors: adapter.config.ignoreErrors,
-            exe: adapter.config.mySqlDumpExe               // path to mysqldump
+            exe: adapter.config.mySqlDumpExe                                                        // path to mysqldump
         },
         dir: tools.getIobDir(),
         influxDB: {
@@ -811,22 +812,22 @@ function initConfig(secret) {
             onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
-            deleteBackupAfter: adapter.config.influxDBDeleteAfter,  // delete old backupfiles after x days
-            dbName: adapter.config.influxDBName,                    // database name
-            host: adapter.config.influxDBHost,                      // database host
-            port: adapter.config.influxDBPort,                      // database port
-            dbversion: adapter.config.influxDBVersion,              // dbversion from Influxdb
-            token: adapter.config.influxDBToken,                    // Token from Influxdb
-            protocol: adapter.config.influxDBProtocol,              // Protocol Type from Influxdb
-            exe: adapter.config.influxDBDumpExe,                    // path to influxDBdump
-            dbType: adapter.config.influxDBType,                    // type of influxdb Backup
+            deleteBackupAfter: adapter.config.influxDBDeleteAfter,                                  // delete old backupfiles after x days
+            dbName: adapter.config.influxDBName,                                                    // database name
+            host: adapter.config.influxDBHost,                                                      // database host
+            port: adapter.config.influxDBPort,                                                      // database port
+            dbversion: adapter.config.influxDBVersion,                                              // dbversion from Influxdb
+            token: adapter.config.influxDBToken,                                                    // Token from Influxdb
+            protocol: adapter.config.influxDBProtocol,                                              // Protocol Type from Influxdb
+            exe: adapter.config.influxDBDumpExe,                                                    // path to influxDBdump
+            dbType: adapter.config.influxDBType,                                                    // type of influxdb Backup
             influxDBEvents: adapter.config.influxDBEvents,
             influxDBMulti: adapter.config.influxDBMulti,
             ignoreErrors: adapter.config.ignoreErrors,
-            deleteDataBase: adapter.config.deleteOldDataBase             // delete old database for restore
+            deleteDataBase: adapter.config.deleteOldDataBase                                        // delete old database for restore
         },
         pgsql: {
             enabled: adapter.config.pgSqlEnabled === undefined ? true : adapter.config.pgSqlEnabled,
@@ -837,19 +838,19 @@ function initConfig(secret) {
             onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
-            dbName: adapter.config.pgSqlName,              // database name
-            user: adapter.config.pgSqlUser,                // database user
-            pass: adapter.config.pgSqlPassword ? decrypt(secret, adapter.config.pgSqlPassword) : '',            // database password
-            deleteBackupAfter: adapter.config.pgSqlDeleteAfter, // delete old backupfiles after x days
-            host: adapter.config.pgSqlHost,                // database host
-            port: adapter.config.pgSqlPort,                // database port
+            dbName: adapter.config.pgSqlName,                                                       // database name
+            user: adapter.config.pgSqlUser,                                                         // database user
+            pass: adapter.config.pgSqlPassword ? decrypt(secret, adapter.config.pgSqlPassword) : '',// database password
+            deleteBackupAfter: adapter.config.pgSqlDeleteAfter,                                     // delete old backupfiles after x days
+            host: adapter.config.pgSqlHost,                                                         // database host
+            port: adapter.config.pgSqlPort,                                                         // database port
             pgSqlEvents: adapter.config.pgSqlEvents,
             pgSqlMulti: adapter.config.pgSqlMulti,
             ignoreErrors: adapter.config.ignoreErrors,
-            exe: adapter.config.pgSqlDumpExe               // path to mysqldump
+            exe: adapter.config.pgSqlDumpExe                                                        // path to mysqldump
         },
         redis: {
             enabled: adapter.config.redisEnabled,
@@ -861,15 +862,15 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             aof: adapter.config.redisAOFactive,
-            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
-            path: adapter.config.redisPath || '/var/lib/redis', // specify Redis path
-            redisType: adapter.config.redisType, // local or Remote Backup
-            host: adapter.config.redisHost, // Host for Remote Backup
-            port: adapter.config.redisPort, // Port for Remote Backup
-            user: adapter.config.redisUser, // User for Remote Backup
-            pass: adapter.config.redisPassword ? decrypt(secret, adapter.config.redisPassword) : '', // Password for Remote Backup
+            path: adapter.config.redisPath || '/var/lib/redis',                                     // specify Redis path
+            redisType: adapter.config.redisType,                                                    // local or Remote Backup
+            host: adapter.config.redisHost,                                                         // Host for Remote Backup
+            port: adapter.config.redisPort,                                                         // Port for Remote Backup
+            user: adapter.config.redisUser,                                                         // User for Remote Backup
+            pass: adapter.config.redisPassword ? decrypt(secret, adapter.config.redisPassword) : '',// Password for Remote Backup
             ignoreErrors: adapter.config.ignoreErrors
         },
         historyDB: {
@@ -882,7 +883,7 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: adapter.config.historyPath,
-            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
@@ -896,8 +897,8 @@ function initConfig(secret) {
             onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            path: path.join(tools.getIobDir(), 'iobroker-data'), // specify zigbee path
-            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify zigbee path
+            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
@@ -911,8 +912,8 @@ function initConfig(secret) {
             onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            path: path.join(tools.getIobDir(), 'iobroker-data'), // specify yahka path
-            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify yahka path
+            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
@@ -926,8 +927,8 @@ function initConfig(secret) {
             onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            path: path.join(tools.getIobDir(), 'iobroker-data'), // specify jarvis backup path
-            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify jarvis backup path
+            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
@@ -943,7 +944,7 @@ function initConfig(secret) {
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
-            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
             ignoreErrors: adapter.config.ignoreErrors
         },
         grafana: {
@@ -955,13 +956,13 @@ function initConfig(secret) {
             onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            host: adapter.config.grafanaHost,                      // database host
-            port: adapter.config.grafanaPort,                      // database port
-            protocol: adapter.config.grafanaProtocol,              // database protocol
+            host: adapter.config.grafanaHost,                                                       // database host
+            port: adapter.config.grafanaPort,                                                       // database port
+            protocol: adapter.config.grafanaProtocol,                                               // database protocol
             username: adapter.config.grafanaUsername,
             pass: adapter.config.grafanaPassword ? decrypt(secret, adapter.config.grafanaPassword) : '',
             apiKey: adapter.config.grafanaApiKey,
-            nameSuffix: adapter.config.minimalNameSuffix,           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors,
@@ -985,8 +986,8 @@ function initConfig(secret) {
         time: adapter.config.ccuTime,
         debugging: adapter.config.debugLevel,
         everyXDays: adapter.config.ccuEveryXDays,
-        nameSuffix: adapter.config.ccuNameSuffix,               // names addition, appended to the file name
-        deleteBackupAfter: adapter.config.ccuDeleteAfter,       // delete old backupfiles after x days
+        nameSuffix: adapter.config.ccuNameSuffix,                                                   // names addition, appended to the file name
+        deleteBackupAfter: adapter.config.ccuDeleteAfter,                                           // delete old backupfiles after x days
         signedCertificates: adapter.config.ccuSignedCertificates,
         ignoreErrors: adapter.config.ignoreErrors,
 
@@ -1005,10 +1006,10 @@ function initConfig(secret) {
         signal,
         matrix,
 
-        host: adapter.config.ccuHost,                                                           // IP-address CCU
-        user: adapter.config.ccuUser,                                                           // username CCU
-        usehttps: adapter.config.ccuUsehttps,                                                   // Use https for CCU Connect
-        pass: adapter.config.ccuPassword ? decrypt(secret, adapter.config.ccuPassword) : '',    // password der CCU
+        host: adapter.config.ccuHost,                                                               // IP-address CCU
+        user: adapter.config.ccuUser,                                                               // username CCU
+        usehttps: adapter.config.ccuUsehttps,                                                       // Use https for CCU Connect
+        pass: adapter.config.ccuPassword ? decrypt(secret, adapter.config.ccuPassword) : '',        // password der CCU
         ccuEvents: adapter.config.ccuEvents,
         ccuMulti: adapter.config.ccuMulti,
     };
