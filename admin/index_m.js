@@ -1536,6 +1536,11 @@ function showHideSettings(settings) {
         }
     }).trigger('change');
 
+    if ($('#restoreTab').prop('checked')) {
+        $('.tab-restore').show();
+    } else {
+        $('.tab-restore').hide();
+    }
     if ($('#notificationEnabled').prop('checked')) {
         $('.tab-notification').show();
     } else {

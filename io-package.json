@@ -412,7 +412,8 @@
     "slaveInstance": "backitup.1",
     "slaveNameSuffix": "",
     "stopSlaveAfter": false,
-    "ignoreErrors": false
+    "ignoreErrors": false,
+    "restoreTab": false
   },
   "instanceObjects": [
     {
