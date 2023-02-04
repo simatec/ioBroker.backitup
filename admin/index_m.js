@@ -12,6 +12,7 @@ var storageTyp = '';
 
 var oldJavascriptsEnabled;
 var oldZigbeeEnabled;
+var oldNoderedEnabled;
 var oldJarvisEnabled;
 var oldHistoryEnabled;
 var oldYahkaEnabled;
@@ -276,13 +277,13 @@ function checkAdapterInstall(name, backitupHost) {
                 for (var i = 0; i < res.rows.length; i++) {
                     var common = res.rows[i].value.common;
 
-                    if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
+                    if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'node-red' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
                         showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
                         ignoreMessage.push(name);
                         break;
                     }
                 }
-            } else if (res.rows.length == 0 && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
+            } else if (res.rows.length == 0 && (adapterName == 'zigbee' || adapterName == 'node-red' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
                 showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
                 ignoreMessage.push(name);
             }
@@ -366,6 +367,7 @@ function load(settings, onChange) {
 
     oldJavascriptsEnabled = settings.javascriptsEnabled;
     oldZigbeeEnabled = settings.zigbeeEnabled;
+    oldNoderedEnabled = settings.noderedEnabled;
     oldJarvisEnabled = settings.jarvisEnabled;
     oldHistoryEnabled = settings.historyEnabled;
     oldYahkaEnabled = settings.yahkaEnabled;
@@ -751,6 +753,7 @@ function load(settings, onChange) {
                                 file.search('influxDB') == -1 &&
                                 file.search('pgsql') == -1 &&
                                 file.search('zigbee') == -1 &&
+                                file.search('nodered') == -1 &&
                                 file.search('yahka') == -1 &&
                                 file.search('historyDB') == -1) {
                                 isStopped = true;
@@ -1639,6 +1642,13 @@ function showHideSettings(settings) {
         }
     } else {
         cleanIgnoreMessage('zigbee');
+    }
+    if ($('#noderedEnabled').prop('checked')) {
+        if (!oldNoderedEnabled) {
+            checkAdapterInstall('node-red', common.host);
+        }
+    } else {
+        cleanIgnoreMessage('nodered');
     }
     if ($('#yahkaEnabled').prop('checked')) {
         if (!oldYahkaEnabled) {

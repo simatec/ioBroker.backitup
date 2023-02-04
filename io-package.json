@@ -413,7 +413,8 @@
     "slaveNameSuffix": "",
     "stopSlaveAfter": false,
     "ignoreErrors": false,
-    "restoreTab": false
+    "restoreTab": false,
+    "noderedEnabled": false
   },
   "instanceObjects": [
     {

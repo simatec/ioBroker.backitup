@@ -302,6 +302,7 @@ function load(settings, onChange) {
                                 file.search('influxDB') == -1 &&
                                 file.search('pgsql') == -1 &&
                                 file.search('zigbee') == -1 &&
+                                file.search('nodered') == -1 &&
                                 file.search('yahka') == -1 &&
                                 file.search('historyDB') == -1) {
                                 isStopped = true;
@@ -576,6 +577,7 @@ function fillBackupOptions(settings) {
     if (settings.redisEnabled) _options.push(_('Save Redis state'));
     if (settings.javascriptsEnabled) _options.push(_('Javascripts Backup'));
     if (settings.zigbeeEnabled) _options.push(_('Save Zigbee database'));
+    if (settings.noderedEnabled) _options.push(_('Node-Red Backup'));
     if (settings.yahkaEnabled) _options.push(_('Yahka (Homekit) Backup'));
     if (settings.historyEnabled) _options.push(_('Save History Data'));
     if (settings.influxDBEnabled) _options.push(_('InfluxDB Backup'));
