@@ -170,6 +170,7 @@
   "Path with filename to influxd executable (leave empty to use default)": "Path with filename to influxd executable (leave empty to use default)",
   "Path with filename to mysqldump executable (leave empty to use default)": "Path with filename to mysqldump executable (leave empty to use default)",
   "Path with filename to postgresql executable (leave empty to use default)": "Path with filename to the executable file postgresql (leave blank to use the default setting)",
+  "Path with filename to sqlite3 executable (leave empty to use default)": "Path with filename to sqlite3 executable (leave empty to use default)",
   "Please enter here the code from the address line of the opened page (code=)": "Please enter here the code from the address line of the opened page (code=)",
   "Please select a backup from the list!": "Please select a backup from the list!",
   "Port": "Port",
@@ -198,7 +199,6 @@
   "Restore Backup File": "Restore Backup File",
   "Restore started": "Recovery started",
   "Retrieve tables row by row": "Retrieve tables row by row",
-  "SQLLite Backup": "SQLLite",
   "Save History Data": "History data",
   "Save Redis state": "Redis",
   "Save Zigbee database": "Zigbee database",
@@ -279,6 +279,8 @@
   "slave instances": "slave instances",
   "smb type": "SMB type",
   "source type": "Backup source",
+  "sqlite3 Backup": "SQLite3",
+  "sqlite3 file path": "sqlite3 file path",
   "start all adapter after restore": "Start all adapters after restore",
   "use https": "use https"
 }

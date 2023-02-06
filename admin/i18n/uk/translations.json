@@ -170,6 +170,7 @@
   "Path with filename to influxd executable (leave empty to use default)": "Шлях із назвою файлу до виконуваного файлу influxd (залиште порожнім, щоб використовувати значення за умовчанням)",
   "Path with filename to mysqldump executable (leave empty to use default)": "Шлях із назвою файлу до виконуваного файлу mysqldump (залиште порожнім, щоб використовувати значення за умовчанням)",
   "Path with filename to postgresql executable (leave empty to use default)": "Шлях із назвою файлу до виконуваного файлу postgresql (залиште поле порожнім, щоб використовувати параметри за замовчуванням)",
+  "Path with filename to sqlite3 executable (leave empty to use default)": "Шлях з ім'ям файлів до sqlite3 виконуваний (завантажити порожній для використання за замовчуванням)",
   "Please enter here the code from the address line of the opened page (code=)": "Введіть код з адресного рядка відкритої сторінки (code=)",
   "Please select a backup from the list!": "Виберіть резервну копію зі списку!",
   "Port": "Порт",
@@ -198,7 +199,6 @@
   "Restore Backup File": "Відновити файл резервної копії",
   "Restore started": "Почалося відновлення",
   "Retrieve tables row by row": "Отримувати таблиці рядок за рядком",
-  "SQLLite Backup": "SQLLite",
   "Save History Data": "Дані історії",
   "Save Redis state": "Redis",
   "Save Zigbee database": "База даних Zigbee",
@@ -279,6 +279,8 @@
   "slave instances": "підлеглі екземпляри",
   "smb type": "Тип SMB",
   "source type": "Резервне джерело",
+  "sqlite3 Backup": "SQLite3",
+  "sqlite3 file path": "sqlite3 файл шлях",
   "start all adapter after restore": "Запустіть усі адаптери після відновлення",
   "use https": "використовувати https"
 }

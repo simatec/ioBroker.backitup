@@ -414,7 +414,10 @@
     "stopSlaveAfter": false,
     "ignoreErrors": false,
     "restoreTab": false,
-    "noderedEnabled": false
+    "noderedEnabled": false,
+    "sqliteEnabled": false,
+    "sqlitePath": "/opt/sqlite/data.db",
+    "sqliteDumpExe": ""
   },
   "instanceObjects": [
     {

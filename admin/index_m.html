@@ -40,6 +40,7 @@
                 <li class="tab col tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
                 <li class="tab col tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
                 <li class="tab col tab-pg-sql"><a href="#tab-pg-sql" class="translate">Postgresql Backup</a></li>
+                <li class="tab col tab-sqlite"><a href="#tab-sqlite" class="translate">sqlite3 Backup</a></li>
                 <li class="tab col tab-influxDB"><a href="#tab-influxDB" class="translate">InfluxDB Backup</a></li>
                 <li class="tab col tab-redis"><a href="#tab-redis" class="translate">Redis Backup</a></li>
                 <li class="tab col tab-history"><a href="#tab-history" class="translate">History Data Backup</a></li>
@@ -103,8 +104,8 @@
                         <label for="pgSqlEnabled" class="translate">Postgresql Backup</label>
                     </div>
                     <div class="input-field col s6 l2">
-                        <input class="value" id="SQLLiteEnabled" type="checkbox"/>
-                        <label for="SQLLiteEnabled" class="translate">SQLLite Backup</label>
+                        <input class="value" id="sqliteEnabled" type="checkbox"/>
+                        <label for="sqliteEnabled" class="translate">sqlite3 Backup</label>
                     </div>
                     <div class="input-field col s6 l2 ">
                         <input class="value" id="grafanaEnabled" type="checkbox"/>
@@ -674,6 +675,30 @@
                             <span class="white-text translate">Configuring remote connections. For detailed information please read the documentation of InfluxDB!</span>
                             <span><a style="color: #1e88e5!important;" href="https://docs.influxdata.com/influxdb/v1.8/administration/backup_and_restore/#configuring-remote-connections" target="_blank" class="translate"> *** Open InfluxDB Documentation ***</a></span>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- sqlite -->
+            <div id="tab-sqlite" class="col s12 page">
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">sqlite3 Backup</h6>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 l3">
+                        <a class="waves-effect waves-light btn btn-backitup detect-sqlite"style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="sqlitePath" type="text" />
+                        <label for="sqlitePath" class="translate">sqlite3 file path</label>
+                        <span class="translate">sqlite3 file path</span>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input type="text" class="value" id="sqliteDumpExe">
+                        <label for="sqliteDumpExe" class="translate">Full path</label>
+                        <span class="translate">Path with filename to sqlite3 executable (leave empty to use default)</span>
                     </div>
                 </div>
             </div>

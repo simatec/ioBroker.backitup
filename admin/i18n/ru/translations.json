@@ -170,6 +170,7 @@
   "Path with filename to influxd executable (leave empty to use default)": "Путь к исполняемому файлу influxd (оставьте поле пустым, чтобы использовать настройки по умолчанию)",
   "Path with filename to mysqldump executable (leave empty to use default)": "Путь к исполняемому файлу mysqldump (оставьте поле пустым, чтобы использовать настройки по умолчанию)",
   "Path with filename to postgresql executable (leave empty to use default)": "Путь к исполняемому файлу postgresql (оставьте поле пустым, чтобы использовать настройки по умолчанию)",
+  "Path with filename to sqlite3 executable (leave empty to use default)": "Путь с именем файла в sqlite3 исполняемым (оставьте пустым, чтобы использовать по умолчанию)",
   "Please enter here the code from the address line of the opened page (code=)": "Пожалуйста, введите здесь код с адресной строки открытой страницы (code=)",
   "Please select a backup from the list!": "Пожалуйста, выберите резервную копию из списка!",
   "Port": "Порт",
@@ -198,7 +199,6 @@
   "Restore Backup File": "Восстановить файл резервной копии",
   "Restore started": "Восстановление запущено",
   "Retrieve tables row by row": "Получить таблицы строка за строкой",
-  "SQLLite Backup": "SQLLite",
   "Save History Data": "History",
   "Save Redis state": "Redis",
   "Save Zigbee database": "База данных Zigbee",
@@ -279,6 +279,8 @@
   "slave instances": "ведомые экземпляры",
   "smb type": "Тип SMB",
   "source type": "Источник резервного копирования",
+  "sqlite3 Backup": "SQLite3",
+  "sqlite3 file path": "sqlite3 путь файла",
   "start all adapter after restore": "Запустить все драйверы после восстановления",
   "use https": "использовать https"
 }

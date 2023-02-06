@@ -170,6 +170,7 @@
   "Path with filename to influxd executable (leave empty to use default)": "Percorso con il nome del file dell'eseguibile influxd (lasciare vuoto per usare il default)",
   "Path with filename to mysqldump executable (leave empty to use default)": "Percorso con il nome del file dell'eseguibile mysqldump (lasciare vuoto per usare il default)",
   "Path with filename to postgresql executable (leave empty to use default)": "Percorso con nome file del file eseguibile postgresql (lasciare vuoto per utilizzare l'impostazione predefinita)",
+  "Path with filename to sqlite3 executable (leave empty to use default)": "Percorso con nome file a sqlite3 eseguibile (lasciare vuoto per utilizzare predefinito)",
   "Please enter here the code from the address line of the opened page (code=)": "Inserisci qui il codice dalla riga dell'indirizzo della pagina aperta (code=)",
   "Please select a backup from the list!": "Seleziona un backup dall'elenco!",
   "Port": "Porta",
@@ -198,7 +199,6 @@
   "Restore Backup File": "Ripristina file di backup",
   "Restore started": "Il recupero è iniziato",
   "Retrieve tables row by row": "Recupera le tabelle riga per riga",
-  "SQLLite Backup": "SQLLite",
   "Save History Data": "Salva i dati della cronologia",
   "Save Redis state": "Redis",
   "Save Zigbee database": "Database Zigbee sicuro",
@@ -279,6 +279,8 @@
   "slave instances": "istanze slave",
   "smb type": "Tipo SMB",
   "source type": "Fonte di backup",
+  "sqlite3 Backup": "SQLite3",
+  "sqlite3 file path": "percorso file sqlite3",
   "start all adapter after restore": "Avviare tutti gli adattatori dopo il ripristino",
   "use https": "usa https"
 }

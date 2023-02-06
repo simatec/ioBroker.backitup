@@ -85,6 +85,40 @@ function fetchMySqlConfig(isInitial) {
         }
     });
 }
+function fetchSqliteConfig(isInitial) {
+    socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.sql.', endkey: 'system.adapter.sql.\u9999', include_docs: true }, function (err, res) {
+        var found = false;
+        if (res && res.rows && res.rows.length) {
+            for (var i = 0; i < res.rows.length; i++) {
+                var common = res.rows[0].value.common;
+                var native = res.rows[i].value.native;
+                if (common.enabled && native.dbtype === 'sqlite') {
+                    $('#sqlitePath').val(native.fileName).trigger('change');
+                    var id = res.rows[i].value.
+                        found = res.rows[i].value._id;
+                    break;
+                }
+            }
+            if (!found) {
+                for (var j = 0; j < res.rows.length; j++) {
+                    var _native = res.rows[j].value.native;
+                    if (_native.dbtype === 'sqlite') {
+                        $('#sqlitePath').val(_native.fileName).trigger('change');
+                        found = res.rows[j].value._id;
+                        break;
+                    }
+                }
+            }
+        }
+        if (found) {
+            M.updateTextFields();
+            found = found.substring('system.adapter.'.length);
+            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
+        } else {
+            !isInitial && showMessage(_('No config found'), _('Backitup Warning!'), 'info');
+        }
+    });
+}
 function fetchPgSqlConfig(isInitial) {
     socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.sql.', endkey: 'system.adapter.sql.\u9999', include_docs: true }, function (err, res) {
         var found = false;
@@ -261,7 +295,7 @@ function checkAdapterInstall(name, backitupHost) {
     var ignore = false;
     var adapterName = name;
 
-    if (name == 'pgsql' || name == 'mysql') {
+    if (name == 'pgsql' || name == 'mysql' || name == 'sqlite') {
         adapterName = 'sql';
     }
     for (const i in ignoreMessage) {
@@ -399,21 +433,25 @@ function load(settings, onChange) {
         if (obj && obj.systemOS === 'docker' && obj.dockerDB === false) {
             var $influxDBEnabled = $('#influxDBEnabled');
             var $mySqlEnabled = $('#mySqlEnabled');
+            var $sqliteEnabled = $('#sqliteEnabled');
             var $pgSqlEnabled = $('#pgSqlEnabled');
             var $startAllRestore = $('#startAllRestore');
 
             $('#influxDBEnabled').prop('checked', false);
             $('#mySqlEnabled').prop('checked', false);
+            $('#sqliteEnabled').prop('checked', false);
             $('#pgSqlEnabled').prop('checked', false);
             $('#startAllRestore').prop('checked', false);
 
             $('#influxDBEnabled').prop('disabled', true);
             $('#mySqlEnabled').prop('disabled', true);
+            $('#sqliteEnabled').prop('disabled', true);
             $('#pgSqlEnabled').prop('disabled', true);
             $('#startAllRestore').prop('disabled', true);
 
             $influxDBEnabled.addClass('disabled');
             $mySqlEnabled.addClass('disabled');
+            $sqliteEnabled.addClass('disabled');
             $pgSqlEnabled.addClass('disabled');
             $startAllRestore.addClass('disabled');
 
@@ -750,6 +788,7 @@ function load(settings, onChange) {
                                 file.search('jarvis') == -1 &&
                                 file.search('javascripts') == -1 &&
                                 file.search('mysql') == -1 &&
+                                file.search('sqlite') == -1 &&
                                 file.search('influxDB') == -1 &&
                                 file.search('pgsql') == -1 &&
                                 file.search('zigbee') == -1 &&
@@ -1104,6 +1143,9 @@ function load(settings, onChange) {
     if ($('#mySqlEnabled').prop('checked') && !settings.mySqlUser) {
         fetchMySqlConfig(true)
     }
+    if ($('#sqliteEnabled').prop('checked') && !settings.sqlitePath) {
+        fetchSqliteConfig(true)
+    }
     if ($('#pgSqlEnabled').prop('checked') && !settings.pgSqlUser) {
         fetchPgSqlConfig(true)
     }
@@ -1112,6 +1154,7 @@ function load(settings, onChange) {
     }
 
     $('.detect-mysql').on('click', function () { fetchMySqlConfig() });
+    $('.detect-sqlite').on('click', function () { fetchSqliteConfig() });
     $('.detect-pgsql').on('click', function () { fetchPgSqlConfig() });
     $('.detect-influxDB').on('click', function () { fetchInfluxDBConfig() });
     $('.detect-ccu').on('click', function () { fetchCcuConfig() });
@@ -1329,6 +1372,11 @@ function showHideSettings(settings) {
         $('.mysql').hide();
     }
 
+    if ($('#sqliteEnabled').prop('checked')) {
+        $('.tab-sqlite').show();
+    } else {
+        $('.tab-sqlite').hide();
+    }
     if ($('#pgSqlEnabled').prop('checked')) {
         $('.pgsql').show();
     } else {
@@ -1556,6 +1604,14 @@ function showHideSettings(settings) {
         $('.tab-my-sql').hide();
         cleanIgnoreMessage('mysql');
     }
+    if ($('#sqliteEnabled').prop('checked')) {
+        checkAdapterInstall('sqlite', common.host);
+        $('.tab-sqlite').show();
+    } else {
+        $('.tab-sqlite').hide();
+        cleanIgnoreMessage('sqlite');
+    }
+
     if ($('#pgSqlEnabled').prop('checked')) {
         checkAdapterInstall('pgsql', common.host);
         $('.tab-pg-sql').show();

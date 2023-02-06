@@ -170,6 +170,7 @@
   "Path with filename to influxd executable (leave empty to use default)": "influxd 可执行文件的路径（留空以使用默认值）",
   "Path with filename to mysqldump executable (leave empty to use default)": "mysqldump 可执行文件的文件名路径（留空以使用默认值）",
   "Path with filename to postgresql executable (leave empty to use default)": "可执行文件 postgresql 的文件名路径（留空以使用默认设置）",
+  "Path with filename to sqlite3 executable (leave empty to use default)": "",
   "Please enter here the code from the address line of the opened page (code=)": "",
   "Please select a backup from the list!": "请从列表中选择备份！",
   "Port": "港口",
@@ -198,7 +199,6 @@
   "Restore Backup File": "恢复备份文件",
   "Restore started": "恢复开始",
   "Retrieve tables row by row": "逐行检索表",
-  "SQLLite Backup": "",
   "Save History Data": "历史数据",
   "Save Redis state": "雷迪斯",
   "Save Zigbee database": "Zigbee 数据库",
@@ -279,6 +279,8 @@
   "slave instances": "从实例",
   "smb type": "中小企业型",
   "source type": "备份源",
+  "sqlite3 Backup": "",
+  "sqlite3 file path": "",
   "start all adapter after restore": "恢复后启动所有适配器",
   "use https": "使用 https"
 }

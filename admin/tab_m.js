@@ -299,6 +299,7 @@ function load(settings, onChange) {
                                 file.search('jarvis') == -1 &&
                                 file.search('javascripts') == -1 &&
                                 file.search('mysql') == -1 &&
+                                file.search('sqlite') == -1 &&
                                 file.search('influxDB') == -1 &&
                                 file.search('pgsql') == -1 &&
                                 file.search('zigbee') == -1 &&
@@ -582,6 +583,7 @@ function fillBackupOptions(settings) {
     if (settings.historyEnabled) _options.push(_('Save History Data'));
     if (settings.influxDBEnabled) _options.push(_('InfluxDB Backup'));
     if (settings.mySqlEnabled) _options.push(_('MySql Backup'));
+    if (settings.sqliteEnabled) _options.push(_('sqlite3 Backup'));
     if (settings.grafanaEnabled) _options.push(_('Grafana Backup'));
     var text = '';
     for (var i = 0; i < _options.length; i++) {

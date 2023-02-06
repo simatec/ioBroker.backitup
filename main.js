@@ -802,6 +802,23 @@ function initConfig(secret) {
             ignoreErrors: adapter.config.ignoreErrors,
             exe: adapter.config.mySqlDumpExe                                                        // path to mysqldump
         },
+        sqlite: {
+            enabled: adapter.config.sqliteEnabled === undefined ? true : adapter.config.sqliteEnabled,
+            type: 'creator',
+            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
+            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+            hostType: adapter.config.hostType,
+            deleteBackupAfter: adapter.config.sqliteDeleteAfter,                                     // delete old backupfiles after x days
+            ignoreErrors: adapter.config.ignoreErrors,
+            filePth: adapter.config.sqlitePath,
+            exe: adapter.config.sqliteDumpExe                                                        // path to sqlitedump
+        },
         dir: tools.getIobDir(),
         influxDB: {
             enabled: adapter.config.influxDBEnabled === undefined ? true : adapter.config.influxDBEnabled,
