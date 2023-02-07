@@ -63,8 +63,8 @@ When the adapter crashes or another Code error happens, this error message that 
 * (simatec) Node-Red Backup added
 * (simatec) Node-Red Restore added
 * (simatec) SQLLite Backup added
-<!--
 * (simatec) SQLLite Restore added
+<!--
 * (simatec) Jarvis Backup updated
 -->
 
