@@ -44,6 +44,7 @@
                 <li class="tab col tab-influxDB"><a href="#tab-influxDB" class="translate">InfluxDB Backup</a></li>
                 <li class="tab col tab-redis"><a href="#tab-redis" class="translate">Redis Backup</a></li>
                 <li class="tab col tab-history"><a href="#tab-history" class="translate">History Data Backup</a></li>
+                <li class="tab col tab-zigbee2mqtt"><a href="#tab-zigbee2mqtt" class="translate">Zigbee2MQTT</a></li>
                 <li class="tab col tab-cifs"><a href="#tab-cifs" class="translate">NAS / Copy</a></li>
                 <li class="tab col tab-ftp"><a href="#tab-ftp" class="translate">FTP</a></li>
                 <li class="tab col tab-dropbox"><a href="#tab-dropbox" class="translate">Dropbox</a></li>
@@ -78,12 +79,12 @@
                         <label for="javascriptsEnabled" class="translate">Javascripts Backup</label>
                     </div>
                     <div class="input-field col s6 l2">
-                        <input class="value" id="zigbeeEnabled" type="checkbox"/>
-                        <label for="zigbeeEnabled" class="translate">Save Zigbee database</label>
+                        <input class="value" id="zigbee2mqttEnabled" type="checkbox"/>
+                        <label for="zigbee2mqttEnabled" class="translate">Zigbee2MQTT</label>
                     </div>
                     <div class="input-field col s6 l2">
-                        <input class="value" id="jarvisEnabled" type="checkbox"/>
-                        <label for="jarvisEnabled" class="translate">Jarvis Backup</label>
+                        <input class="value" id="zigbeeEnabled" type="checkbox"/>
+                        <label for="zigbeeEnabled" class="translate">Save Zigbee database</label>
                     </div>
                 </div>
                 <div class="row">
@@ -120,6 +121,10 @@
                     <div class="input-field col s6 l2">
                         <input class="value" id="yahkaEnabled" type="checkbox"/>
                         <label for="yahkaEnabled" class="translate">Yahka (Homekit) Backup</label>
+                    </div>
+                    <div class="input-field col s6 l2">
+                        <input class="value" id="jarvisEnabled" type="checkbox"/>
+                        <label for="jarvisEnabled" class="translate">Jarvis Backup</label>
                     </div>
                 </div>
                 <div class="row" style="padding: 2px;">
@@ -774,6 +779,20 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="translate">Backup of all stored data of the history adapter</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- zigbee2mqqtt -->
+            <div id="tab-zigbee2mqtt" class="col s12 page">
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Zigbee2MQTT</h6>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="zigbee2mqttPath" type="text" />
+                        <label for="zigbee2mqttPath" class="translate">Zigbee2MQTT file path</label>
+                        <span class="translate">Zigbee2MQTT file path</span>
                     </div>
                 </div>
             </div>

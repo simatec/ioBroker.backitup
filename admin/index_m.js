@@ -311,13 +311,13 @@ function checkAdapterInstall(name, backitupHost) {
                 for (var i = 0; i < res.rows.length; i++) {
                     var common = res.rows[i].value.common;
 
-                    if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'node-red' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
+                    if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'zigbee2mqtt' || adapterName == 'node-red' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
                         showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
                         ignoreMessage.push(name);
                         break;
                     }
                 }
-            } else if (res.rows.length == 0 && (adapterName == 'zigbee' || adapterName == 'node-red' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
+            } else if (res.rows.length == 0 && (adapterName == 'zigbee' || adapterName == 'zigbee2mqtt' || adapterName == 'node-red' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
                 showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
                 ignoreMessage.push(name);
             }
@@ -401,6 +401,7 @@ function load(settings, onChange) {
 
     oldJavascriptsEnabled = settings.javascriptsEnabled;
     oldZigbeeEnabled = settings.zigbeeEnabled;
+    oldZigbee2MQTTEnabled = settings.zigbee2mqttEnabled;
     oldNoderedEnabled = settings.noderedEnabled;
     oldJarvisEnabled = settings.jarvisEnabled;
     oldHistoryEnabled = settings.historyEnabled;
@@ -792,6 +793,7 @@ function load(settings, onChange) {
                                 file.search('influxDB') == -1 &&
                                 file.search('pgsql') == -1 &&
                                 file.search('zigbee') == -1 &&
+                                file.search('zigbee2mqtt') == -1 &&
                                 file.search('nodered') == -1 &&
                                 file.search('yahka') == -1 &&
                                 file.search('historyDB') == -1) {
@@ -1675,6 +1677,11 @@ function showHideSettings(settings) {
     } else {
         $('.tab-grafana').hide();
     }
+    if ($('#zigbee2mqttEnabled').prop('checked')) {
+        $('.tab-zigbee2mqtt').show();
+    } else {
+        $('.tab-zigbee2mqtt').hide();
+    }
     if ($('#ccuUsehttps').prop('checked')) {
         $('.ccuCert').show();
     } else {
@@ -1698,6 +1705,13 @@ function showHideSettings(settings) {
         }
     } else {
         cleanIgnoreMessage('zigbee');
+    }
+    if ($('#zigbee2mqttEnabled').prop('checked')) {
+        if (!oldZigbee2MQTTEnabled) {
+            checkAdapterInstall('zigbee2mqtt', common.host);
+        }
+    } else {
+        cleanIgnoreMessage('zigbee2mqtt');
     }
     if ($('#noderedEnabled').prop('checked')) {
         if (!oldNoderedEnabled) {

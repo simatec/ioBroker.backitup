@@ -239,6 +239,8 @@
   "WhatsApp instance": "Екземпляр WhatsApp",
   "Yahka (Homekit) Backup": "Яхка (Homekit)",
   "Your backup was not completely created. Please check the errors!": "Резервну копію створено не повністю. Будь ласка, перевірте помилки!",
+  "Zigbee2MQTT": "Зігбее2MQTT",
+  "Zigbee2MQTT file path": "Зігбее2MQTT шлях до файлу",
   "activated backupoptions": "активовані параметри резервного копіювання",
   "activated storageoptions": "активовані параметри зберігання",
   "automatically delete old Influx-database before restore": "автоматично видаляти стару базу даних Influx перед відновленням",

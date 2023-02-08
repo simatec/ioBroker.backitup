@@ -239,6 +239,8 @@
   "WhatsApp instance": "WhatsApp 实例",
   "Yahka (Homekit) Backup": "Yahka (Homekit)",
   "Your backup was not completely created. Please check the errors!": "您的备份未完全创建。请检查错误！",
+  "Zigbee2MQTT": "",
+  "Zigbee2MQTT file path": "",
   "activated backupoptions": "激活的备份选项",
   "activated storageoptions": "激活的存储选项",
   "automatically delete old Influx-database before restore": "恢复前自动删除旧的 Influx 数据库",

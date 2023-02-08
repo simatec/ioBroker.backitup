@@ -239,6 +239,8 @@
   "WhatsApp instance": "Istanza WhatsApp",
   "Yahka (Homekit) Backup": "Yahka (Homekit)",
   "Your backup was not completely created. Please check the errors!": "Il tuo backup non è stato completamente creato. Si prega di controllare gli errori !",
+  "Zigbee2MQTT": "Zigbee2MQTT",
+  "Zigbee2MQTT file path": "Zigbee2MQTT percorso file",
   "activated backupoptions": "opzioni di backup attivate",
   "activated storageoptions": "opzioni di archiviazione attivate",
   "automatically delete old Influx-database before restore": "elimina automaticamente il vecchio database Influx prima del ripristino",

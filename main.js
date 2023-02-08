@@ -920,6 +920,21 @@ function initConfig(secret) {
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
         },
+        zigbee2mqtt: {
+            enabled: adapter.config.zigbee2mqttEnabled,
+            type: 'creator',
+            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+            path: adapter.config.zigbee2mqttPath,                                                   // specify zigbee2mqtt path
+            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
+            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+            hostType: adapter.config.hostType,
+            ignoreErrors: adapter.config.ignoreErrors
+        },
         nodered: {
             enabled: adapter.config.noderedEnabled,
             type: 'creator',

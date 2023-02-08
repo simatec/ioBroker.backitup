@@ -417,7 +417,9 @@
     "noderedEnabled": false,
     "sqliteEnabled": false,
     "sqlitePath": "/opt/sqlite/data.db",
-    "sqliteDumpExe": ""
+    "sqliteDumpExe": "",
+    "zigbee2mqttPath": "/var/lib/docker/volumes/zigbee2mqtt/_data",
+    "zigbee2mqttEnabled": false
   },
   "instanceObjects": [
     {
