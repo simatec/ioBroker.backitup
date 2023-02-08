@@ -53,8 +53,8 @@ When the adapter crashes or another Code error happens, this error message that 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
-* (simatec) Onedrive Api for Backups added
-* (simatec) Onedrive Api for Restore added
+* (simatec) Onedrive-Api for Backups added
+* (simatec) Onedrive-Api for Restore added
 * (simatec) Matrix Messenger added
 * (simatec) TLS for FTP added
 * (simatec) Tab Extra-Settings added
@@ -64,9 +64,8 @@ When the adapter crashes or another Code error happens, this error message that 
 * (simatec) Node-Red Restore added
 * (simatec) SQLLite Backup added
 * (simatec) SQLLite Restore added
-<!--
 * (simatec) Jarvis Backup updated
--->
+* (simatec) Jarvis Restore updated
 
 ### 2.5.12 (2023-01-19)
 * (simatec) Fix Windows ioBroker-Restore
