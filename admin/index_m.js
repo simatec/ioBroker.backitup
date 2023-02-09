@@ -12,6 +12,7 @@ var storageTyp = '';
 
 var oldJavascriptsEnabled;
 var oldZigbeeEnabled;
+var oldNoderedEnabled;
 var oldJarvisEnabled;
 var oldHistoryEnabled;
 var oldYahkaEnabled;
@@ -69,6 +70,40 @@ function fetchMySqlConfig(isInitial) {
                         $('#mySqlHost').val(_native.host).trigger('change');
                         $('#mySqlName').val(_native.dbname).trigger('change');
                         $('#mySqlPort').val(_native.port === '0' ? 3306 : native.port || 3306).trigger('change');
+                        found = res.rows[j].value._id;
+                        break;
+                    }
+                }
+            }
+        }
+        if (found) {
+            M.updateTextFields();
+            found = found.substring('system.adapter.'.length);
+            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
+        } else {
+            !isInitial && showMessage(_('No config found'), _('Backitup Warning!'), 'info');
+        }
+    });
+}
+function fetchSqliteConfig(isInitial) {
+    socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.sql.', endkey: 'system.adapter.sql.\u9999', include_docs: true }, function (err, res) {
+        var found = false;
+        if (res && res.rows && res.rows.length) {
+            for (var i = 0; i < res.rows.length; i++) {
+                var common = res.rows[0].value.common;
+                var native = res.rows[i].value.native;
+                if (common.enabled && native.dbtype === 'sqlite') {
+                    $('#sqlitePath').val(native.fileName).trigger('change');
+                    var id = res.rows[i].value.
+                        found = res.rows[i].value._id;
+                    break;
+                }
+            }
+            if (!found) {
+                for (var j = 0; j < res.rows.length; j++) {
+                    var _native = res.rows[j].value.native;
+                    if (_native.dbtype === 'sqlite') {
+                        $('#sqlitePath').val(_native.fileName).trigger('change');
                         found = res.rows[j].value._id;
                         break;
                     }
@@ -260,7 +295,7 @@ function checkAdapterInstall(name, backitupHost) {
     var ignore = false;
     var adapterName = name;
 
-    if (name == 'pgsql' || name == 'mysql') {
+    if (name == 'pgsql' || name == 'mysql' || name == 'sqlite') {
         adapterName = 'sql';
     }
     for (const i in ignoreMessage) {
@@ -276,13 +311,13 @@ function checkAdapterInstall(name, backitupHost) {
                 for (var i = 0; i < res.rows.length; i++) {
                     var common = res.rows[i].value.common;
 
-                    if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
+                    if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'zigbee2mqtt' || adapterName == 'node-red' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
                         showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
                         ignoreMessage.push(name);
                         break;
                     }
                 }
-            } else if (res.rows.length == 0 && (adapterName == 'zigbee' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
+            } else if (res.rows.length == 0 && (adapterName == 'zigbee' || adapterName == 'zigbee2mqtt' || adapterName == 'node-red' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
                 showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
                 ignoreMessage.push(name);
             }
@@ -366,6 +401,8 @@ function load(settings, onChange) {
 
     oldJavascriptsEnabled = settings.javascriptsEnabled;
     oldZigbeeEnabled = settings.zigbeeEnabled;
+    oldZigbee2MQTTEnabled = settings.zigbee2mqttEnabled;
+    oldNoderedEnabled = settings.noderedEnabled;
     oldJarvisEnabled = settings.jarvisEnabled;
     oldHistoryEnabled = settings.historyEnabled;
     oldYahkaEnabled = settings.yahkaEnabled;
@@ -397,21 +434,25 @@ function load(settings, onChange) {
         if (obj && obj.systemOS === 'docker' && obj.dockerDB === false) {
             var $influxDBEnabled = $('#influxDBEnabled');
             var $mySqlEnabled = $('#mySqlEnabled');
+            var $sqliteEnabled = $('#sqliteEnabled');
             var $pgSqlEnabled = $('#pgSqlEnabled');
             var $startAllRestore = $('#startAllRestore');
 
             $('#influxDBEnabled').prop('checked', false);
             $('#mySqlEnabled').prop('checked', false);
+            $('#sqliteEnabled').prop('checked', false);
             $('#pgSqlEnabled').prop('checked', false);
             $('#startAllRestore').prop('checked', false);
 
             $('#influxDBEnabled').prop('disabled', true);
             $('#mySqlEnabled').prop('disabled', true);
+            $('#sqliteEnabled').prop('disabled', true);
             $('#pgSqlEnabled').prop('disabled', true);
             $('#startAllRestore').prop('disabled', true);
 
             $influxDBEnabled.addClass('disabled');
             $mySqlEnabled.addClass('disabled');
+            $sqliteEnabled.addClass('disabled');
             $pgSqlEnabled.addClass('disabled');
             $startAllRestore.addClass('disabled');
 
@@ -624,7 +665,7 @@ function load(settings, onChange) {
                                     }
                                 }
             });
-            if (settings.ftpEnabled === false && settings.dropboxEnabled === false && settings.cifsEnabled === false && settings.googledriveEnabled === false && settings.webdavEnabled === false) {
+            if (settings.ftpEnabled === false && settings.dropboxEnabled === false && settings.onedriveEnabled === false && settings.cifsEnabled === false && settings.googledriveEnabled === false && settings.webdavEnabled === false) {
                 showMessage(_("<br/><br/>According to the Backitup settings, backups are currently stored in the same local file system that is the source of the backup can be accessed more. <br/> <br/>It is recommended to use an external storage space as a backup target."), _('Backitup Information!'), 'info');
             }
             socket.emit('subscribeStates', 'backitup.' + instance + '.*');
@@ -698,6 +739,9 @@ function load(settings, onChange) {
                                 case 'dropbox':
                                     storageTyp = 'Dropbox';
                                     break;
+                                case 'onedrive':
+                                    storageTyp = 'Onedrive';
+                                    break;
                                 case 'ftp':
                                     storageTyp = 'FTP';
                                     break;
@@ -736,7 +780,7 @@ function load(settings, onChange) {
 
                             var message = _('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
                             var downloadPanel = false;
-                            if ($('#restoreSource').val() === 'dropbox' || $('#restoreSource').val() === 'googledrive' || $('#restoreSource').val() === 'ftp' || $('#restoreSource').val() === 'webdav') {
+                            if ($('#restoreSource').val() === 'dropbox' || $('#restoreSource').val() === 'onedrive' || $('#restoreSource').val() === 'googledrive' || $('#restoreSource').val() === 'ftp' || $('#restoreSource').val() === 'webdav') {
                                 message = _('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
                                 downloadPanel = true;
                             }
@@ -745,9 +789,12 @@ function load(settings, onChange) {
                                 file.search('jarvis') == -1 &&
                                 file.search('javascripts') == -1 &&
                                 file.search('mysql') == -1 &&
+                                file.search('sqlite') == -1 &&
                                 file.search('influxDB') == -1 &&
                                 file.search('pgsql') == -1 &&
                                 file.search('zigbee') == -1 &&
+                                file.search('zigbee2mqtt') == -1 &&
+                                file.search('nodered') == -1 &&
                                 file.search('yahka') == -1 &&
                                 file.search('historyDB') == -1) {
                                 isStopped = true;
@@ -866,6 +913,7 @@ function load(settings, onChange) {
                 });
             });
 
+            // Dropbox Settings
             $('.get-dropbox-json').removeClass('disabled').on('click', function () {
                 $('.get-dropbox-json').addClass('disabled');
                 sendTo(null, 'authDropbox', null, function (obj) {
@@ -920,6 +968,57 @@ function load(settings, onChange) {
                 });
             });
 
+            // Onedrive Settings
+            $('.get-onedrive-json').removeClass('disabled').on('click', function () {
+                $('.get-onedrive-json').addClass('disabled');
+                sendTo(null, 'authOnedrive', null, function (obj) {
+                    if (obj && obj.url) {
+                        const url = `${obj.url}`;
+
+                        $('.get-onedrive-json').addClass('disabled');
+                        $('.get-onedrive-json').hide();
+                        $('.get-onedrive-url').show();
+                        $('.get-onedrive-code').show();
+                        $('#get-onedrive-url').text(url).attr('href', url);
+                        $('.get-onedrive-submit').show();
+                    } else {
+                        return showError(_('No Userdata entered'));
+                    }
+                });
+            });
+
+            $('.get-onedrive-submit').on('click', function () {
+                var code = $('#get-onedrive-code').val();
+                
+
+                if (!code) {
+                    return showError(_('No code entered'));
+                }
+
+                $('.get-onedrive-submit').addClass('disabled');
+
+                sendTo(null, 'authOnedrive', { code: code }, function (obj) {
+                    $('.get-onedrive-json').removeClass('disabled');
+                    if (obj && obj.done) {
+                        if ($('#onedriveAccessJson').val() !== obj.json) {
+                            $('#onedriveAccessJson').val(obj.json);
+                            onChange();
+                        }
+
+                        $('.get-onedrive-code').hide();
+                        $('.get-onedrive-url').hide();
+                        $('.get-onedrive-json').show();
+                        $('.get-onedrive-json span').text(_('Renew Onedrive Access'));
+                        $('#onedriveAccessJson_span').text(_('Present'));
+                    } else if (obj && obj.error && obj.error.message) {
+                        showError(obj.error.message);
+                    } else {
+                        showError(_('No answer'));
+                    }
+                });
+            });
+
+            // GoogleDrive Settings
             $('.get-googledrive-json').removeClass('disabled').on('click', function () {
                 $('.get-googledrive-json').addClass('disabled');
 
@@ -974,6 +1073,7 @@ function load(settings, onChange) {
             $('.do-list').addClass('disabled');
             $('.get-googledrive-json').addClass('disabled');
             $('.get-dropbox-json').addClass('disabled');
+            $('.get-onedrive-json').addClass('disabled');
         }
     });
 
@@ -982,6 +1082,13 @@ function load(settings, onChange) {
         $('.get-dropbox-json span').text(_('Renew Dropbox Access'));
     } else {
         $('#dropboxAccessJson_span').text(_('Not present'));
+    }
+
+    if (settings.onedriveAccessJson) {
+        $('#onedriveAccessJson_span').text(_('Present'));
+        $('.get-onedrive-json span').text(_('Renew Onedrive Access'));
+    } else {
+        $('#onedriveAccessJson_span').text(_('Not present'));
     }
 
     /*if (settings.googledriveAccessJson) {
@@ -1017,6 +1124,10 @@ function load(settings, onChange) {
         fillInstances('signalInstance', instances, settings['signalInstance'], 'signal-cmb');
     });
 
+    getAdapterInstances('matrix-org', function (instances) {
+        fillInstances('matrixInstance', instances, settings['matrixInstance'], 'matrix-org');
+    });
+
     getAdapterInstances('email', function (instances) {
         fillInstances('emailInstance', instances, settings['emailInstance'], 'email');
     });
@@ -1034,6 +1145,9 @@ function load(settings, onChange) {
     if ($('#mySqlEnabled').prop('checked') && !settings.mySqlUser) {
         fetchMySqlConfig(true)
     }
+    if ($('#sqliteEnabled').prop('checked') && !settings.sqlitePath) {
+        fetchSqliteConfig(true)
+    }
     if ($('#pgSqlEnabled').prop('checked') && !settings.pgSqlUser) {
         fetchPgSqlConfig(true)
     }
@@ -1042,6 +1156,7 @@ function load(settings, onChange) {
     }
 
     $('.detect-mysql').on('click', function () { fetchMySqlConfig() });
+    $('.detect-sqlite').on('click', function () { fetchSqliteConfig() });
     $('.detect-pgsql').on('click', function () { fetchPgSqlConfig() });
     $('.detect-influxDB').on('click', function () { fetchInfluxDBConfig() });
     $('.detect-ccu').on('click', function () { fetchCcuConfig() });
@@ -1123,7 +1238,7 @@ function save(callback) {
             obj[id] = $this.prop('checked');
         } else {
             var val = $this.val();
-            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword' || id === 'redisPassword' || id === 'dropboxClient_secret' || id === 'dropboxClient_id') {
+            if (id === 'mySqlPassword' || id === 'pgSqlPassword' || id === 'webdavPassword' || id === 'ccuPassword' || id === 'ftpPassword' || id === 'cifsPassword' || id === 'grafanaPassword' || id === 'redisPassword') {
                 val = val ? encrypt((typeof systemConfig !== 'undefined' && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM', val) : '';
             }
             obj[id] = val;
@@ -1199,6 +1314,14 @@ function showHideSettings(settings) {
         $('.dropbox-standard').show();
     }
 
+    if ($('#onedriveOwnDir').prop('checked')) {
+        $('.onedrive-extra').show();
+        $('.onedrive-standard').hide();
+    } else {
+        $('.onedrive-extra').hide();
+        $('.onedrive-standard').show();
+    }
+
     if ($('#webdavOwnDir').prop('checked')) {
         $('.webDAV-extra').show();
         $('.webDAV-standard').hide();
@@ -1251,6 +1374,11 @@ function showHideSettings(settings) {
         $('.mysql').hide();
     }
 
+    if ($('#sqliteEnabled').prop('checked')) {
+        $('.tab-sqlite').show();
+    } else {
+        $('.tab-sqlite').hide();
+    }
     if ($('#pgSqlEnabled').prop('checked')) {
         $('.pgsql').show();
     } else {
@@ -1411,31 +1539,43 @@ function showHideSettings(settings) {
             $('.pushover').hide();
             $('.whatsapp').hide();
             $('.signal').hide();
+            $('.matrix').hide();
             $('.telegram').show();
         } else if ($(this).val() === 'E-Mail') {
             $('.telegram').hide();
             $('.pushover').hide();
             $('.whatsapp').hide();
             $('.signal').hide();
+            $('.matrix').hide();
             $('.email').show();
         } else if ($(this).val() === 'Pushover') {
             $('.telegram').hide();
             $('.email').hide();
             $('.whatsapp').hide();
             $('.signal').hide();
+            $('.matrix').hide();
             $('.pushover').show();
         } else if ($(this).val() === 'WhatsApp') {
             $('.telegram').hide();
             $('.email').hide();
             $('.pushover').hide();
             $('.signal').hide();
+            $('.matrix').hide();
             $('.whatsapp').show();
         } else if ($(this).val() === 'Signal') {
             $('.telegram').hide();
             $('.email').hide();
             $('.pushover').hide();
             $('.whatsapp').hide();
+            $('.matrix').hide();
             $('.signal').show();
+        } else if ($(this).val() === 'Matrix') {
+            $('.telegram').hide();
+            $('.email').hide();
+            $('.pushover').hide();
+            $('.whatsapp').hide();
+            $('.signal').hide();
+            $('.matrix').show();
         }
     }).trigger('change');
 
@@ -1449,6 +1589,11 @@ function showHideSettings(settings) {
         }
     }).trigger('change');
 
+    if ($('#restoreTab').prop('checked')) {
+        $('.tab-restore').show();
+    } else {
+        $('.tab-restore').hide();
+    }
     if ($('#notificationEnabled').prop('checked')) {
         $('.tab-notification').show();
     } else {
@@ -1461,6 +1606,14 @@ function showHideSettings(settings) {
         $('.tab-my-sql').hide();
         cleanIgnoreMessage('mysql');
     }
+    if ($('#sqliteEnabled').prop('checked')) {
+        checkAdapterInstall('sqlite', common.host);
+        $('.tab-sqlite').show();
+    } else {
+        $('.tab-sqlite').hide();
+        cleanIgnoreMessage('sqlite');
+    }
+
     if ($('#pgSqlEnabled').prop('checked')) {
         checkAdapterInstall('pgsql', common.host);
         $('.tab-pg-sql').show();
@@ -1494,6 +1647,11 @@ function showHideSettings(settings) {
     } else {
         $('.tab-dropbox').hide();
     }
+    if ($('#onedriveEnabled').prop('checked')) {
+        $('.tab-onedrive').show();
+    } else {
+        $('.tab-onedrive').hide();
+    }
     if ($('#googledriveEnabled').prop('checked')) {
         $('.tab-googledrive').show();
     } else {
@@ -1519,6 +1677,11 @@ function showHideSettings(settings) {
     } else {
         $('.tab-grafana').hide();
     }
+    if ($('#zigbee2mqttEnabled').prop('checked')) {
+        $('.tab-zigbee2mqtt').show();
+    } else {
+        $('.tab-zigbee2mqtt').hide();
+    }
     if ($('#ccuUsehttps').prop('checked')) {
         $('.ccuCert').show();
     } else {
@@ -1542,6 +1705,20 @@ function showHideSettings(settings) {
         }
     } else {
         cleanIgnoreMessage('zigbee');
+    }
+    if ($('#zigbee2mqttEnabled').prop('checked')) {
+        if (!oldZigbee2MQTTEnabled) {
+            checkAdapterInstall('zigbee2mqtt', common.host);
+        }
+    } else {
+        cleanIgnoreMessage('zigbee2mqtt');
+    }
+    if ($('#noderedEnabled').prop('checked')) {
+        if (!oldNoderedEnabled) {
+            checkAdapterInstall('node-red', common.host);
+        }
+    } else {
+        cleanIgnoreMessage('nodered');
     }
     if ($('#yahkaEnabled').prop('checked')) {
         if (!oldYahkaEnabled) {

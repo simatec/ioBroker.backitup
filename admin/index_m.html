@@ -33,18 +33,22 @@
         <div class="col s12" id="tab-area">
             <ul class="tabs blue lighten-4">
                 <li class="tab col"><a href="#tab-settings" class="translate active">main settings</a></li>
+                <li class="tab col tab-extras"><a href="#tab-extras" class="translate">Extra-Settings</a></li>
                 <li class="tab col tab-restore"><a href="#tab-restore" class="translate">Restore</a></li>
                 <li class="tab col tab-notification"><a href="#tab-notification" class="translate">Notifications</a></li>
                 <li class="tab col tab-iobroker-backup"><a href="#tab-iobroker-backup" class="translate">iobroker backup</a></li>
                 <li class="tab col tab-ccu-backup"><a href="#tab-ccu-backup" class="translate">CCU Backup</a></li>
                 <li class="tab col tab-my-sql"><a href="#tab-my-sql" class="translate">MySql Backup</a></li>
                 <li class="tab col tab-pg-sql"><a href="#tab-pg-sql" class="translate">Postgresql Backup</a></li>
+                <li class="tab col tab-sqlite"><a href="#tab-sqlite" class="translate">sqlite3 Backup</a></li>
                 <li class="tab col tab-influxDB"><a href="#tab-influxDB" class="translate">InfluxDB Backup</a></li>
                 <li class="tab col tab-redis"><a href="#tab-redis" class="translate">Redis Backup</a></li>
                 <li class="tab col tab-history"><a href="#tab-history" class="translate">History Data Backup</a></li>
+                <li class="tab col tab-zigbee2mqtt"><a href="#tab-zigbee2mqtt" class="translate">Zigbee2MQTT</a></li>
                 <li class="tab col tab-cifs"><a href="#tab-cifs" class="translate">NAS / Copy</a></li>
                 <li class="tab col tab-ftp"><a href="#tab-ftp" class="translate">FTP</a></li>
                 <li class="tab col tab-dropbox"><a href="#tab-dropbox" class="translate">Dropbox</a></li>
+                <li class="tab col tab-onedrive"><a href="#tab-onedrive" class="translate">Onedrive</a></li>
                 <li class="tab col tab-googledrive"><a href="#tab-googledrive" class="translate">Google Drive</a></li>
                 <li class="tab col tab-webDAV"><a href="#tab-webDAV" class="translate">WebDAV</a></li>
                 <li class="tab col tab-grafana"><a href="#tab-grafana" class="translate">Grafana Backup</a></li>
@@ -56,6 +60,8 @@
                 <!-- What to back up -->
                 <div class="row" style="padding: 2px;">
                     <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">What to back up</h6>
+                </div>
+                <div class="row" style="padding: 2px;">
                     <div class="input-field col s6 l2">
                         <input class="value" id="minimalEnabled" type="checkbox"/>
                         <label for="minimalEnabled" class="translate">iobroker backup</label>
@@ -73,12 +79,12 @@
                         <label for="javascriptsEnabled" class="translate">Javascripts Backup</label>
                     </div>
                     <div class="input-field col s6 l2">
-                        <input class="value" id="zigbeeEnabled" type="checkbox"/>
-                        <label for="zigbeeEnabled" class="translate">Save Zigbee database</label>
+                        <input class="value" id="zigbee2mqttEnabled" type="checkbox"/>
+                        <label for="zigbee2mqttEnabled" class="translate">Zigbee2MQTT</label>
                     </div>
                     <div class="input-field col s6 l2">
-                        <input class="value" id="jarvisEnabled" type="checkbox"/>
-                        <label for="jarvisEnabled" class="translate">Jarvis Backup</label>
+                        <input class="value" id="zigbeeEnabled" type="checkbox"/>
+                        <label for="zigbeeEnabled" class="translate">Save Zigbee database</label>
                     </div>
                 </div>
                 <div class="row">
@@ -98,17 +104,33 @@
                         <input class="value" id="pgSqlEnabled" type="checkbox"/>
                         <label for="pgSqlEnabled" class="translate">Postgresql Backup</label>
                     </div>
+                    <div class="input-field col s6 l2">
+                        <input class="value" id="sqliteEnabled" type="checkbox"/>
+                        <label for="sqliteEnabled" class="translate">sqlite3 Backup</label>
+                    </div>
                     <div class="input-field col s6 l2 ">
                         <input class="value" id="grafanaEnabled" type="checkbox"/>
                         <label for="grafanaEnabled" class="translate">Grafana Backup</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 l2">
+                        <input class="value" id="noderedEnabled" type="checkbox"/>
+                        <label for="noderedEnabled" class="translate">Node-Red Backup</label>
                     </div>
                     <div class="input-field col s6 l2">
                         <input class="value" id="yahkaEnabled" type="checkbox"/>
                         <label for="yahkaEnabled" class="translate">Yahka (Homekit) Backup</label>
                     </div>
+                    <div class="input-field col s6 l2">
+                        <input class="value" id="jarvisEnabled" type="checkbox"/>
+                        <label for="jarvisEnabled" class="translate">Jarvis Backup</label>
+                    </div>
                 </div>
                 <div class="row" style="padding: 2px;">
                     <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Storage location</h6>
+                </div>
+                <div class="row" style="padding: 2px;">
                     <div class="input-field col s6 l2">
                         <input class="value" id="cifsEnabled" type="checkbox"/>
                         <span for="cifsEnabled" class="translate">NAS / Copy</span>
@@ -129,29 +151,58 @@
                         <input class="value" id="webdavEnabled" type="checkbox"/>
                         <span for="webdavEnabled" class="translate">WebDAV</span>
                     </div>
+                    <div class="input-field col s6 l2">
+                        <input class="value" id="onedriveEnabled" type="checkbox"/>
+                        <span for="onedriveEnabled" class="translate">Onedrive</span>
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card-panel linkDesign" style="background-color:#174475;">
+                            <span class="white-text translate">Some features of Backitup require additional adapters and tools. For detailed information please read the documentation of Backitup!</span>
+                            <span><a style="color: #1e88e5!important;" href="https://github.com/simatec/ioBroker.backitup/blob/master/README.md#iobrokerbackitup" target="_blank" class="translate"> *** Open Readme ***</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- extra settings -->
+            <div id="tab-extras" class="col s12 page">
                 <div class="row" style="padding: 2px;">
                     <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Additional setting</h6>
-                    <div class="input-field col s12 m6 l2">
+                </div>
+                <div class="row" style="padding: 2px;">
+                    <div class="input-field col s12 m6 l3">
                         <input class="value" id="notificationEnabled" type="checkbox"/>
                         <label for="notificationEnabled" class="translate">Enable Notifications</label>
                     </div>
-                    <div class="input-field col s12 m6 l2">
+                    <div class="input-field col s12 m6 l3">
+                        <input class="value" id="restoreTab" type="checkbox"/>
+                        <label for="restoreTab" class="translate">Show restore tab</label>
+                    </div>
+                    <div class="input-field col s12 m6 l3">
                         <input class="value" id="debugLevel" type="checkbox"/>
                         <label for="debugLevel" class="translate">Enable debug</label>
                     </div>
-                    <div class="input-field col s12 m6 l2">
+                </div>
+                <div class="row" style="padding: 2px;">
+                    <div class="input-field col s12 m6 l3">
                         <input class="value" id="sentry_enable" type="checkbox"/>
                         <label for="sentry_enable" class="translate">send analysis data</label>
                     </div>
-                    <div class="input-field col s12 m6 l2">
+                    <div class="input-field col s12 m6 l3">
                         <input class="value" id="ignoreErrors" type="checkbox"/>
                         <label for="ignoreErrors" class="translate">ignore Backup Errors</label>
                     </div>
-                    <div class="input-field col s12 m6 l2">
+                </div>
+                <div class="row" style="padding: 2px;">
+                    <div class="input-field col s12 m6 l3">
                         <input type="number" class="value" id="historyEntriesNumber" min="1" max="50"/>
                         <label for="historyEntriesNumber" class="translate">Number of history entries</label>
                     </div>
+                </div>
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Multihost settings</h6>
                 </div>
                 <div class="row" style="padding: 2px;">
                     <div class="input-field col s12 m6 l3">
@@ -171,17 +222,11 @@
                         <label for="slaveNameSuffix" class="translate">name</label>
                         <span class="translate">Slave Name suffix</span>
                     </div>
+                </div>
+                <div class="row" style="padding: 2px;">
                     <div class="input-field col s12 m6 l3 slaveInst">
                         <input class="value" id="stopSlaveAfter" type="checkbox"/>
                         <label for="stopSlaveAfter" class="translate">Slave Instances stopping after backup</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <div class="card-panel linkDesign" style="background-color:#174475;">
-                            <span class="white-text translate">Some features of Backitup require additional adapters and tools. For detailed information please read the documentation of Backitup!</span>
-                            <span><a style="color: #1e88e5!important;" href="https://github.com/simatec/ioBroker.backitup/blob/master/README.md#iobrokerbackitup" target="_blank" class="translate"> *** Open Readme ***</a></span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -639,6 +684,30 @@
                 </div>
             </div>
 
+            <!-- sqlite -->
+            <div id="tab-sqlite" class="col s12 page">
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">sqlite3 Backup</h6>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 l3">
+                        <a class="waves-effect waves-light btn btn-backitup detect-sqlite"style="background-color:#3399CC;"><i class="material-icons right">search</i><span class="translate">detect config</span></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="sqlitePath" type="text" />
+                        <label for="sqlitePath" class="translate">sqlite3 file path</label>
+                        <span class="translate">sqlite3 file path</span>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input type="text" class="value" id="sqliteDumpExe">
+                        <label for="sqliteDumpExe" class="translate">Full path</label>
+                        <span class="translate">Path with filename to sqlite3 executable (leave empty to use default)</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- Redis -->
             <div id="tab-redis" class="col s12 page">
                 <div class="row" style="padding: 2px;">
@@ -714,6 +783,20 @@
                 </div>
             </div>
 
+            <!-- zigbee2mqqtt -->
+            <div id="tab-zigbee2mqtt" class="col s12 page">
+                <div class="row" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Zigbee2MQTT</h6>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="zigbee2mqttPath" type="text" />
+                        <label for="zigbee2mqttPath" class="translate">Zigbee2MQTT file path</label>
+                        <span class="translate">Zigbee2MQTT file path</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- notifications -->
             <div id="tab-notification" class="col s12 page">
                 <div class="row" style="padding: 2px;">
@@ -727,6 +810,7 @@
                         <option value="Pushover" class="translate">Pushover</option>
                         <option value="WhatsApp" class="translate">WhatsApp</option>
                         <option value="Signal" class="translate">Signal</option>
+                        <option value="Matrix" class="translate">Matrix</option>
                         </select>
                         <label for="notificationsType" class="translate">notifications type</label>
                     </div>
@@ -816,6 +900,32 @@
                     <div class="input-field col s12 m6 l3 signal">
                         <input class="value" id="signalOnlyError" type="checkbox"/>
                         <label for="signalOnlyError" class="translate">Notification only on errors</label>
+                    </div>
+                </div>
+                <!-- Matrix -->
+                <div class="row matrix">
+                    <div class="input-field col s12 m6 l3 matrix">
+                        <select id="matrixInstance" class="value"></select>
+                        <label for="matrixInstance" class="translate">Matrix instance</label>
+                    </div>
+                    <div class="input-field col s12 m6 l3 matrix">
+                        <select class="value" id="matrixNoticeType">
+                        <option value="longMatrixNotice" class="translate">Long Notifications</option>
+                        <option value="shortMatrixNotice" class="translate">Short Notifications</option>
+                        </select>
+                        <label class="translate" for="matrixNoticeType">Notification Style</label>
+                    </div>
+                </div>
+                <div class="row matrix">
+                    <div class="input-field col s12 m6 l3 matrix">
+                        <input type="number" class="value" id="matrixWaitToSend" min="0" max="20"/>
+                        <label for="matrixWaitToSend" class="translate">Waiting for the send (seconds)</label>
+                    </div>
+                </div>
+                <div class="row matrix">
+                    <div class="input-field col s12 m6 l3 matrix">
+                        <input class="value" id="matrixOnlyError" type="checkbox"/>
+                        <label for="matrixOnlyError" class="translate">Notification only on errors</label>
                     </div>
                 </div>
                 <!-- Pushover -->
@@ -1014,11 +1124,17 @@
                     </div>
                 </div>
                 <div class="row ftp">
-                    <div class="input-field col s12">
+                    <div class="input-field col s12 m6 l4">
                         <input class="value" id="ftpDeleteOldBackup" type="checkbox"/>
                         <label for="ftpDeleteOldBackup" class="translate">Delete old FTP-Backups</label>
                     </div>
-                    <div class="input-field col s12">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="ftpSecure" type="checkbox"/>
+                        <label for="ftpSecure" class="translate">Secure FTP connection (explicit TLS)</label>
+                    </div>
+                </div>
+                <div class="row ftp">
+                    <div class="input-field col s12 m6 l4">
                         <input class="value" id="ftpOwnDir" type="checkbox"/>
                         <label for="ftpOwnDir" class="translate">Extra path for backup types</label>
                     </div>
@@ -1177,6 +1293,56 @@
                 </div>
             </div>
 
+            <!-- Onedrive settings -->
+            <div id="tab-onedrive" class="col s12 page">
+                <div class="row onedrive" style="padding: 2px;">
+                    <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Onedrive</h6>
+                </div>
+                <div class="row onedrive">
+                    <div class="input-field col s3">
+                        <input class="value" id="onedriveAccessJson" type="hidden"/>
+                        <span class="translate">Onedrive refresh token: </span>
+                        <span class="translate" id="onedriveAccessJson_span" style="font-weight: bold">Not present</span>
+                        <a class="waves-effect waves-light btn btn-backitup btn-iobroker get-onedrive-json" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Get Onedrive Access</span></a>
+                    </div>
+                    <div class="input-field col s12 get-onedrive-url linkDesign" style="display: none">
+                        <span class="translate">Authorize this app by visiting this url: </span>
+                        <a id="get-onedrive-url" style="color: #1e88e5!important;" href="" target="_blank"></a>
+                    </div>
+                    <div class="input-field col s4 get-onedrive-code" style="display: none">
+                        <input id="get-onedrive-code" type="text"/>
+                        <label for="get-onedrive-code" class="translate">Please enter here the code from the address line of the opened page (code=)</label>
+                        <a class="waves-effect waves-light btn btn-backitup btn-iobroker get-onedrive-submit" style="background-color:#3399CC;"><i class="material-icons right">backup</i><span class="translate">Submit</span></a>
+                    </div>
+                </div>
+                <div class="row onedrive">
+                    <div class="input-field col s12">
+                        <input class="value" id="onedriveDeleteOldBackup" type="checkbox"/>
+                        <label for="onedriveDeleteOldBackup" class="translate">Delete old Onedrive-Backups</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input class="value" id="onedriveOwnDir" type="checkbox"/>
+                        <label for="onedriveOwnDir" class="translate">Extra path for backup types</label>
+                    </div>
+                </div>
+                <div class="row onedrive onedrive-extra">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="onedriveMinimalDir" type="text">
+                        <label for="onedriveMinimalDir" class="translate">Onedrive Path for iobroker backup</label>
+                    </div>
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="onedriveCcuDir" type="text">
+                        <label for="onedriveCcuDir" class="translate">Onedrive Path for CCU backup</label>
+                    </div>
+                </div>
+                <div class="row onedrive onedrive-standard">
+                    <div class="input-field col s12">
+                        <input class="value" id="onedriveDir" type="text">
+                        <label for="onedriveDir" class="translate">Onedrive path</label>
+                    </div>
+                </div>
+            </div>
+
             <!-- googledrive settings -->
             <div id="tab-googledrive" class="col s12 page">
                 <div class="row googledrive" style="padding: 2px;">
@@ -1243,6 +1409,7 @@
                             <option value="local" class="translate">Local</option>
                             <option value="cifs" class="translate">NAS / Copy</option>
                             <option value="dropbox" class="translate">Dropbox</option>
+                            <option value="onedrive" class="translate">Onedrive</option>
                             <option value="googledrive" class="translate">Google Drive</option>
                             <option value="webdav" class="translate">WebDAV</option>
                             <option value="ftp" class="translate">FTP</option>

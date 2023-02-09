@@ -10,6 +10,7 @@
 
 [![License](https://img.shields.io/github/license/simatec/ioBroker.backitup?style=flat)](https://github.com/simatec/ioBroker.backitup/blob/master/LICENSE)
 [![Donate](https://img.shields.io/badge/paypal-donate%20|%20spenden-blue.svg)](https://paypal.me/mk1676)
+[![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/simatec)
 
 This adapter uses the service `Sentry.io` to automatically report exceptions and code errors and new device schemas to me as the developer. More details see below!
 
@@ -51,6 +52,25 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Onedrive-Api for Backups added
+* (simatec) Onedrive-Api for Restore added
+* (simatec) Matrix Messenger added
+* (simatec) TLS for FTP added
+* (simatec) Tab Extra-Settings added
+* (simatec) dependencies updated
+* (simatec) Translation added
+* (simatec) Node-Red Backup added
+* (simatec) Node-Red Restore added
+* (simatec) SQLLite Backup added
+* (simatec) SQLLite Restore added
+* (simatec) Jarvis Backup updated
+* (simatec) Jarvis Restore updated
+* (simatec) Zigbee2MQTT Backup added
+* (simatec) Zigbee2MQTT Restore added
+* (simatec) Docu updated
+* (simatec) Wiki updated
+
 ### 2.5.12 (2023-01-19)
 * (simatec) Fix Windows ioBroker-Restore
 
