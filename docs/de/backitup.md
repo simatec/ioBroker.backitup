@@ -95,6 +95,9 @@ ioBroker.backitup hat nach dem Start des iobrokers keinerlei Einfluss auf die Wi
 * Für die Verwendung des MySql-Backups von MariaDB Systemen muss mysqldump auf dem System installiert sein
     - `sudo apt install mariadb-client`
 
+* Für die Verwendung des Sqlite3-Backups muss sqlite3 auf dem System installiert sein
+    - `sudo apt install sqlite3`
+
 * Für die verwendung des PostgreSQL-Backups muss mysqldump auf dem System installiert sein
     - [Installationsanleitung PostgreSQL](https://www.postgresql.org/download/linux/debian/)
 
@@ -135,6 +138,10 @@ Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backu
 Wichig hierbei ist, dass auch wenn der Mysql-Server auf einem entferten System läuft, die mysqldump auf dem ioBroker System laufen muss.<br>Für Linuxsysteme wäre der Installationsbefehl wie folgt: `sudo apt install mysql-client` oder unter Debian `sudo apt install default-mysql-client` bzw. für MariaDB Systeme `sudo apt install mariadb-client`.<br><br>
 Wer nicht nur eine Datenbank sichern will, kann die Option "Sicherung mehrerer Systeme" aktivieren und im Anschluss seine Datenbanken in der Tabelle definieren.
 
+## Sqlite3-Backup
+Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
+Auf dem Host-System muss Sqlite3 (`sudo apt install msqlite3`) installiert sein. 
+
 ## Redis-Backup
 Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br>
 Zur Verwendung von Redis mit ioBroker.backitup sollten die Rechte für den iobroker-User angepasst werden:<br>
@@ -142,8 +149,6 @@ Zur Verwendung von Redis mit ioBroker.backitup sollten die Rechte für den iobro
 sudo usermod -a -G redis iobroker
 sudo reboot
 ```
-
-Ab ioBroker.backitup Version 2.3.x ist es möglich ein Remote Backup für Redis zu erstellen.
 
 Für ein Remote-Backup wird auf dem loaklen iobroker System redis-cli benötigt.
 
@@ -219,9 +224,14 @@ ioBroker.backitup kann dann im Konfiguartionsmenü die Einstellungen übernehmen
 
 ## Jarvis-Backup
 Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.<br><br>
-***Ein Backup der Jarvis-Konfiguration ist ab eine Jarvis-Version 2.2.0-beta.7 möglich.***
 
 ## Zigbee-Backup
+Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
+
+## Zigbee2MQTT-Backup
+Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
+
+## Node-Red-Backup
 Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
 
 ## Grafana-Backup
@@ -287,6 +297,11 @@ Um die Sicherung in der Google Drive zu nutzen, muss man sich Access einen Token
 ioBroker greift nur auf die definierten Bereiche. Den Code für oAuth kann man [hier](https://github.com/simatec/ioBroker.backitup/blob/master/docs/oAuthService.js) ansehen.<br><br>
 Keine Tokens oder Anwenderdaten werden in der Cloud gespeichert.
 
+## Onedrive
+Um die Sicherung in der Onedrive zu nutzen, muss man einen Access Token holen. Das kann man auf der Konfigurationsseite von ioBroker.backitup machen.<br>
+ioBroker greift nur auf die definierte Bereiche.<br><br>
+Keine Tokens oder Anwenderdaten werden in der Cloud gespeichert.
+
 ## WebDAV
 Mit WebDAV bietet ioBroker.backitup die Möglichkeit mehrere Cloudsysteme anzusprechen.<br>Die bekannteste ist hier NextCloud.
 Um eine WebDAV-Verbindung herzustellen, weren der Username und das Passwort des Cloud Accounts benötigt.<br>
@@ -299,7 +314,7 @@ Eine Verbindung mit lokaler IP-Adresse ist nur möglich, wenn die Option "Nur si
 ---
 
 # Multihost Unterstützung
-Ab ioBroker.backitup Version 2.2.0 wird Multihost für die Sicherung entfernter Systeme (z.B. Zigbee oder entfernte Datenbanken) unterstützt. Multihost für ioBroker.backitup kann mit mehreren Instanzen von ioBroker.backitup auf verschiedenen Hosts arbeiten.<br>
+Multihost für ioBroker.backitup kann mit mehreren Instanzen von ioBroker.backitup auf verschiedenen Hosts arbeiten.<br>
 Ein Instanz von ioBroker.backitup muss zur Unterstützung als Master konfiguriert. Alle weiteren Instanzen, die sich auf entfernten Hosts befinden, werden als Slave konfiguriert.<br><br>
 Das Management der automatischen Backups übernimmt der Master. Alle Slave Instanzen können im Master über das Menü ausgewählt werden.<br>
 Für die Slave Instanzen können folgende Backup-Optionen aktiviert werden:<br>
@@ -309,9 +324,12 @@ Für die Slave Instanzen können folgende Backup-Optionen aktiviert werden:<br>
 * History
 * InfluxDB
 * MySql
+* Sqlite3
 * PostgreSql
 * Grafana
 * Yahka
+* Node-Red
+* Zigbee2MQTT
 
 Da in einer Slave Instanz die automatischen Backups durch den Master geregelt werden, sind iobroker-Backups, Javascript-Backups und CCU-Backups nicht auswählbar.<br><br>
 Die Speicherorte für die einzelnen Backups können auf jedem Slave frei konfiguriert werden. So kann jeder sein Dateiablagesystem unabhängig vom Master gestallten.<br><br>
@@ -396,6 +414,7 @@ Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || 
    * E-Mail 
    * Whatsapp
    * Signal
+   * Matrix
 
 ### [zurück](#Inhalt)
 ---

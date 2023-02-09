@@ -68,6 +68,8 @@ When the adapter crashes or another Code error happens, this error message that 
 * (simatec) Jarvis Restore updated
 * (simatec) Zigbee2MQTT Backup added
 * (simatec) Zigbee2MQTT Restore added
+* (simatec) Docu updated
+* (simatec) Wiki updated
 
 ### 2.5.12 (2023-01-19)
 * (simatec) Fix Windows ioBroker-Restore
