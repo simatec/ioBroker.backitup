@@ -430,6 +430,18 @@ function load(settings, onChange) {
         }
     });
 
+    sendTo(null, 'getFileSystemInfo', null, function (obj) {
+        if (obj && obj.diskState && obj.storage && obj.diskFree) {
+
+            if (obj.diskState == 'warn' && obj.storage == 'local') {
+                showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Please check your system!', obj.diskFree), _('Backitup Information!'), 'info');
+            } else if (obj.diskState == 'error' && obj.storage == 'local') {
+                showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Local backups are currently not possible. <br/><br/>Please check your system!', obj.diskFree), _('Backitup Information!'), 'warning');
+            }
+
+        }
+    });
+
     sendTo(null, 'getSystemInfo', null, function (obj) {
         if (obj && obj.systemOS === 'docker' && obj.dockerDB === false) {
             var $influxDBEnabled = $('#influxDBEnabled');
@@ -989,7 +1001,7 @@ function load(settings, onChange) {
 
             $('.get-onedrive-submit').on('click', function () {
                 var code = $('#get-onedrive-code').val();
-                
+
 
                 if (!code) {
                     return showError(_('No code entered'));

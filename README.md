@@ -70,6 +70,8 @@ When the adapter crashes or another Code error happens, this error message that 
 * (simatec) Zigbee2MQTT Restore added
 * (simatec) Docu updated
 * (simatec) Wiki updated
+* (simatec) many small Fixes
+* (simatec) File system check added
 
 ### 2.5.12 (2023-01-19)
 * (simatec) Fix Windows ioBroker-Restore
