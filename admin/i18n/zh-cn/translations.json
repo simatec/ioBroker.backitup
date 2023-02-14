@@ -9,6 +9,8 @@
   ", and stored under %h%d": ", 并存储在 %h%d",
   "<br/><br/>1. Confirm with \"OK\" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.": "<br/><br/>1.单击“确定”确认并开始下载。请等待下载完成！ <br/><br/>2.下载完成后，ioBroker 会在恢复过程中停止并重启。",
   "<br/><br/>1. Confirm with \"OK\" and the download begins. Please wait until the download is finished!<br/><br/>2. After the download, the restore begins without restarting ioBroker.": "<br/><br/>1.单击“确定”确认并开始下载。请等待下载完成！<br/><br/>2.下载后，无需重启 ioBroker 即可开始恢复",
+  "<br/><br/><br/> On the host only %s MB free space is available! Local backups are currently not possible. <br/><br/>Please check your system!": "",
+  "<br/><br/><br/> On the host only %s MB free space is available! Please check your system!": "",
   "<br/><br/><br/><b>After confirmation, a new tab opens with the Restore Log.</b><br/><b>If the tab does not open, please deactivate your popup blocker.</b>": "<br/><br/><br/><b>确认后，将打开一个包含还原日志的新选项卡。</b><br/><b>如果该选项卡未打开，请停用您的弹出窗口阻止程序.</b>",
   "<br/><br/>According to the Backitup settings, backups are currently stored in the same local file system that is the source of the backup can be accessed more. <br/> <br/>It is recommended to use an external storage space as a backup target.": "<br/><br/>根据备份设置，备份当前存储在与备份源相同的本地文件系统中。<br/><br/>如果文件系统错误或系统崩溃，无法再访问备份。 <br/> <br/>建议使用外部存储空间作为备份目标。",
   "<br/><br/>The JavaScript Adapter scripts are already saved in the ioBroker backup.<br/><br/>This option is just an additional option to be able to restore the scripts individually if necessary.": "<br/><br/>JavaScript 适配器脚本已保存在 ioBroker 备份中。<br/><br/>此选项只是一个附加选项，以便能够在必要时单独恢复脚本。",

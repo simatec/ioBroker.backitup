@@ -91,46 +91,52 @@ function startAdapter(options) {
 
     adapter = new utils.Adapter(options);
 
-    adapter.on('stateChange', (id, state) => {
+    adapter.on('stateChange', async (id, state) => {
         if (state && (state.val === true || state.val === 'true') && !state.ack) {
 
             if (id === adapter.namespace + '.oneClick.iobroker' ||
                 id === adapter.namespace + '.oneClick.ccu') {
-                const type = id.split('.').pop();
-                let config;
-                try {
-                    config = JSON.parse(JSON.stringify(backupConfig[type]));
-                    config.enabled = true;
-                    config.deleteBackupAfter = 0; // do not delete files by custom backup
-                } catch (e) {
-                    adapter.log.warn(`backup error: ${e} ... please check your config and try again!!`);
+                const sysCheck = await systemCheck();
+
+                if ((sysCheck && sysCheck.ready && sysCheck.ready === true) || adapter.config.cifsEnabled === true) {
+                    const type = id.split('.').pop();
+                    let config;
+                    try {
+                        config = JSON.parse(JSON.stringify(backupConfig[type]));
+                        config.enabled = true;
+                        config.deleteBackupAfter = 0; // do not delete files by custom backup
+                    } catch (e) {
+                        adapter.log.warn(`backup error: ${e} ... please check your config and try again!!`);
+                    }
+                    startBackup(config, err => {
+                        if (err) {
+                            adapter.log.error(`[${type}] ${err}`);
+
+                        } else {
+                            adapter.log.debug(`[${type}] exec: done`);
+                        }
+                        timerOutput = setTimeout(() => {
+                            return adapter.getState('output.line', (err, state) => {
+                                if (state && state.val === '[EXIT] 0') {
+                                    adapter.setState(`history.${type}Success`, true, true);
+                                    adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang), true);
+                                } else {
+                                    adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
+                                    adapter.setState(`history.${type}Success`, false, true);
+                                }
+
+                            });
+                        }, 500);
+                        adapter.setState('oneClick.' + type, false, true);
+
+                        if (adapter.config.slaveInstance && type === 'iobroker' && adapter.config.hostType === 'Master') {
+                            adapter.log.debug('Slave backup from Backitup-Master is started ...');
+                            startSlaveBackup(adapter.config.slaveInstance[0], null);
+                        }
+                    });
+                } else {
+                    adapter.log.error(`A local backup is currently not possible. The storage space is currently only ${sysCheck && sysCheck.diskFree ? sysCheck.diskFree : null} MB`)
                 }
-                startBackup(config, err => {
-                    if (err) {
-                        adapter.log.error(`[${type}] ${err}`);
-
-                    } else {
-                        adapter.log.debug(`[${type}] exec: done`);
-                    }
-                    timerOutput = setTimeout(() => {
-                        return adapter.getState('output.line', (err, state) => {
-                            if (state && state.val === '[EXIT] 0') {
-                                adapter.setState(`history.${type}Success`, true, true);
-                                adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang), true);
-                            } else {
-                                adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
-                                adapter.setState(`history.${type}Success`, false, true);
-                            }
-
-                        });
-                    }, 500);
-                    adapter.setState('oneClick.' + type, false, true);
-
-                    if (adapter.config.slaveInstance && type === 'iobroker' && adapter.config.hostType === 'Master') {
-                        adapter.log.debug('Slave backup from Backitup-Master is started ...');
-                        startSlaveBackup(adapter.config.slaveInstance[0], null);
-                    }
-                });
             }
         }
     });
@@ -314,7 +320,6 @@ function startAdapter(options) {
                 case 'getTelegramUser':
                     if (obj && obj.message) {
                         const inst = obj.message.config.instance ? obj.message.config.instance : adapter.config.telegramInstance;
-                        adapter.log.debug('telegram-instance: ' + inst)
                         adapter.getForeignState(inst + '.communicate.users', (err, state) => {
                             err && adapter.log.error(err);
                             if (state && state.val) {
@@ -352,6 +357,21 @@ function startAdapter(options) {
                             adapter.sendTo(obj.from, obj.command, { systemOS: systemInfo, dockerDB: dbInfo }, obj.callback);
                         } catch (err) {
                             err && adapter.log.error(err);
+                        }
+                    }
+                    break;
+
+                case 'getFileSystemInfo':
+                    if (obj) {
+                        const sysCheck = await systemCheck();
+
+                        if (sysCheck) {
+                            try {
+                                adapter.sendTo(obj.from, obj.command, sysCheck, obj.callback);
+                            } catch (err) {
+                                err && adapter.log.error(err);
+                            }
+
                         }
                     }
                     break;
@@ -495,33 +515,39 @@ function createBackupSchedule() {
                 backupTimeSchedules[type].cancel();
             }
             const cron = `10 ${time[1]} ${time[0]} */${config.everyXDays} * * `;
-            backupTimeSchedules[type] = schedule.scheduleJob(cron, () => {
-                adapter.setState('oneClick.' + type, true, true);
+            backupTimeSchedules[type] = schedule.scheduleJob(cron, async () => {
+                const sysCheck = await systemCheck();
 
-                startBackup(backupConfig[type], err => {
-                    if (err) {
-                        adapter.log.error(`[${type}] ${err}`);
-                    } else {
-                        adapter.log.debug(`[${type}] exec: done`);
-                    }
-                    timerOutput2 = setTimeout(() =>
-                        adapter.getState('output.line', (err, state) => {
-                            if (state && state.val === '[EXIT] 0') {
-                                adapter.setState(`history.${type}Success`, true, true);
-                                adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang), true);
-                            } else {
-                                adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
-                                adapter.setState(`history.${type}Success`, false, true);
-                            }
-                        }), 500);
-                    nextBackup(0, false, type);
-                    adapter.setState('oneClick.' + type, false, true);
+                if ((sysCheck && sysCheck.ready && sysCheck.ready === true) || adapter.config.cifsEnabled === true) {
+                    adapter.setState('oneClick.' + type, true, true);
 
-                    if (adapter.config.slaveInstance && type === 'iobroker' && adapter.config.hostType === 'Master') {
-                        adapter.log.debug('Slave backup from Backitup-Master is started ...');
-                        startSlaveBackup(adapter.config.slaveInstance[0], null);
-                    }
-                });
+                    startBackup(backupConfig[type], err => {
+                        if (err) {
+                            adapter.log.error(`[${type}] ${err}`);
+                        } else {
+                            adapter.log.debug(`[${type}] exec: done`);
+                        }
+                        timerOutput2 = setTimeout(() =>
+                            adapter.getState('output.line', (err, state) => {
+                                if (state && state.val === '[EXIT] 0') {
+                                    adapter.setState(`history.${type}Success`, true, true);
+                                    adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang), true);
+                                } else {
+                                    adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
+                                    adapter.setState(`history.${type}Success`, false, true);
+                                }
+                            }), 500);
+                        nextBackup(0, false, type);
+                        adapter.setState('oneClick.' + type, false, true);
+
+                        if (adapter.config.slaveInstance && type === 'iobroker' && adapter.config.hostType === 'Master') {
+                            adapter.log.debug('Slave backup from Backitup-Master is started ...');
+                            startSlaveBackup(adapter.config.slaveInstance[0], null);
+                        }
+                    });
+                } else {
+                    adapter.log.error(`A local backup is currently not possible. The storage space is currently only ${sysCheck && sysCheck.diskFree ? sysCheck.diskFree : null} MB`)
+                }
             });
 
             if (config.debugging) {
@@ -1563,9 +1589,44 @@ function fileServer(protocol) {
     }
 }
 
+async function systemCheck() {
+    return new Promise(async (resolve) => {
+
+        const adapterConf = await adapter.getForeignObjectAsync(`system.adapter.${adapterName}.${adapter.instance}`, 'state')
+            .catch(err => adapter.log.error(err));
+
+        if (adapterConf && adapterConf.common && adapterConf.common.host) {
+            const _diskFree = await adapter.getForeignStateAsync(`system.host.${adapterConf.common.host}.diskFree`, 'state')
+                .catch(err => adapter.log.error(err));
+
+            if (_diskFree && _diskFree.val) {
+
+                const sysCheck = {
+                    diskState: _diskFree.val > 1024 ? 'ok' : _diskFree.val > 512 ? 'warn' : 'error',
+                    diskFree: _diskFree.val,
+                    storage: adapter.config.cifsEnabled ? 'nas' : 'local',
+                    ready: adapter.config.cifsEnabled || _diskFree.val > 512 ? true : false
+                };
+
+                if (sysCheck.diskState === 'ok') {
+                    adapter.log.info(`On the host "${adapterConf.common.host}" are currently ${_diskFree.val} MB free space available!`);
+                    resolve(sysCheck);
+                } else if (sysCheck.diskState === 'warn') {
+                    adapter.log.warn(`On the host "${adapterConf.common.host}" only ${_diskFree.val} MB free space is available! Please check your system!`);
+                    resolve(sysCheck);
+                } else if (sysCheck.diskState === 'error') {
+                    adapter.log.error(`On the host "${adapterConf.common.host}" only ${_diskFree.val} MB free space is available! Local backups are currently not possible. Please check your system!`);
+                    resolve(sysCheck);
+                }
+            }
+        }
+    });
+}
+
 async function main(adapter) {
     createBashScripts();
     readLogFile();
+    await systemCheck();
 
     if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) createBackupDir();
     if (fs.existsSync(bashDir + '/.redis.info')) deleteHideFiles();
