@@ -60,6 +60,8 @@
   "Delete old NAS / Copy-Backups": "Verwijder oude NAS / Copy-back-ups",
   "Delete old Onedrive-Backups": "Verwijder oude Onedrive-Backups",
   "Delete old WebDAV-Backups": "Verwijder oude WebDAV-backups",
+  "Disk space limit for error message (MB)": "De ruimtelimiet voor foute boodschap (MB)",
+  "Disk space limit for warning message (MB)": "Disk ruimtelimiet voor waarschuwing",
   "Domainname (optional)": "Domeinnaam (optioneel)",
   "Download Backup File": "Back-upbestand downloaden",
   "Download Backup file": "Back-upbestand downloaden",

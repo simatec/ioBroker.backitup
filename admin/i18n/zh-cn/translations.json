@@ -60,6 +60,8 @@
   "Delete old NAS / Copy-Backups": "删除旧的 NAS / 复制备份",
   "Delete old Onedrive-Backups": "",
   "Delete old WebDAV-Backups": "删除旧的 WebDAV 备份",
+  "Disk space limit for error message (MB)": "错误信息空间限制",
+  "Disk space limit for warning message (MB)": "发出警告信息的空间限制",
   "Domainname (optional)": "域名（可选）",
   "Download Backup File": "下载备份文件",
   "Download Backup file": "下载备份文件",

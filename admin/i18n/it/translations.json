@@ -60,6 +60,8 @@
   "Delete old NAS / Copy-Backups": "Elimina vecchi NAS / Copy-Backup",
   "Delete old Onedrive-Backups": "Eliminare vecchi Onedrive-Backup",
   "Delete old WebDAV-Backups": "Elimina i vecchi backup di WebDAV",
+  "Disk space limit for error message (MB)": "Limite di spazio del disco per messaggio di errore (MB)",
+  "Disk space limit for warning message (MB)": "Limite di spazio su disco per messaggio di avviso (MB)",
   "Domainname (optional)": "Domainname (opzionale)",
   "Download Backup File": "Scarica file di backup",
   "Download Backup file": "Scarica il file di backup",

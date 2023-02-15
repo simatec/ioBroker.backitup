@@ -419,7 +419,9 @@
     "sqlitePath": "/opt/sqlite/data.db",
     "sqliteDumpExe": "",
     "zigbee2mqttPath": "/var/lib/docker/volumes/zigbee2mqtt/_data",
-    "zigbee2mqttEnabled": false
+    "zigbee2mqttEnabled": false,
+    "fileSizeError": 512,
+    "fileSizeWarning": 1024
   },
   "instanceObjects": [
     {
