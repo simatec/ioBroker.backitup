@@ -16,6 +16,7 @@
   "<br/><br/>The JavaScript Adapter scripts are already saved in the ioBroker backup.<br/><br/>This option is just an additional option to be able to restore the scripts individually if necessary.": "<br/><br/>Les scripts de l'adaptateur JavaScript sont déjà enregistrés dans la sauvegarde ioBroker.<br/><br/>Cette option est juste une option supplémentaire pour pouvoir restaurer les scripts individuellement si nécessaire.",
   "<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".": "<br/><br/>ioBroker sera redémarré pendant la restauration.<br/><br/>Confirmez avec \"OK\".",
   "<br/><br/>ioBroker will not be restarted for this restore.<br/><br/>Confirm with \"OK\".": "<br/><br/>ioBroker ne sera pas redémarré pour cette restauration.<br/><br/>Confirmez avec \"OK\".",
+  "A local backup is currently not possible. Please check your System!": "Une sauvegarde locale n'est actuellement pas possible. Veuillez vérifier votre système !",
   "AOF activated": "AOF activé",
   "Access token": "Jeton d'accès",
   "Access token:": "Jeton d'accès:",
