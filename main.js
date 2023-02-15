@@ -10,6 +10,7 @@ const path = require('path');
 const adapterName = require('./package.json').name.split('.').pop();
 
 const tools = require('./lib/tools');
+const systemCheck = require('./lib/systemCheck');
 
 let adapter;
 
@@ -96,10 +97,12 @@ function startAdapter(options) {
 
             if (id === adapter.namespace + '.oneClick.iobroker' ||
                 id === adapter.namespace + '.oneClick.ccu') {
-                const sysCheck = await systemCheck();
+
+                const sysCheck = await systemCheck.storageSizeCheck(adapter, adapterName, adapter.log);
+
+                const type = id.split('.').pop();
 
                 if ((sysCheck && sysCheck.ready && sysCheck.ready === true) || adapter.config.cifsEnabled === true) {
-                    const type = id.split('.').pop();
                     let config;
                     try {
                         config = JSON.parse(JSON.stringify(backupConfig[type]));
@@ -108,6 +111,7 @@ function startAdapter(options) {
                     } catch (e) {
                         adapter.log.warn(`backup error: ${e} ... please check your config and try again!!`);
                     }
+
                     startBackup(config, err => {
                         if (err) {
                             adapter.log.error(`[${type}] ${err}`);
@@ -135,7 +139,10 @@ function startAdapter(options) {
                         }
                     });
                 } else {
-                    adapter.log.error(`A local backup is currently not possible. The storage space is currently only ${sysCheck && sysCheck.diskFree ? sysCheck.diskFree : null} MB`)
+                    adapter.log.error(`A local backup is currently not possible. The storage space is currently only ${sysCheck && sysCheck.diskFree ? sysCheck.diskFree : null} MB`);
+                    systemCheck.systemMessage(adapter.config, adapter.sendTo, tools._('A local backup is currently not possible. Please check your System!', systemLang));
+                    adapter.setState('oneClick.' + type, false, true);
+                    adapter.setState('output.line', `[EXIT] ${tools._('A local backup is currently not possible. Please check your System!', systemLang)}`, true);
                 }
             }
         }
@@ -363,7 +370,7 @@ function startAdapter(options) {
 
                 case 'getFileSystemInfo':
                     if (obj) {
-                        const sysCheck = await systemCheck();
+                        const sysCheck = await systemCheck.storageSizeCheck(adapter, adapterName, adapter.log);
 
                         if (sysCheck) {
                             try {
@@ -516,7 +523,7 @@ function createBackupSchedule() {
             }
             const cron = `10 ${time[1]} ${time[0]} */${config.everyXDays} * * `;
             backupTimeSchedules[type] = schedule.scheduleJob(cron, async () => {
-                const sysCheck = await systemCheck();
+                const sysCheck = await systemCheck.storageSizeCheck(adapter, adapterName, adapter.log);
 
                 if ((sysCheck && sysCheck.ready && sysCheck.ready === true) || adapter.config.cifsEnabled === true) {
                     adapter.setState('oneClick.' + type, true, true);
@@ -546,7 +553,8 @@ function createBackupSchedule() {
                         }
                     });
                 } else {
-                    adapter.log.error(`A local backup is currently not possible. The storage space is currently only ${sysCheck && sysCheck.diskFree ? sysCheck.diskFree : null} MB`)
+                    adapter.log.error(`A local backup is currently not possible. The storage space is currently only ${sysCheck && sysCheck.diskFree ? sysCheck.diskFree : null} MB`);
+                    systemCheck.systemMessage(adapter.config, adapter.sendTo, tools._('A local backup is currently not possible. Please check your System!', systemLang));
                 }
             });
 
@@ -1589,44 +1597,9 @@ function fileServer(protocol) {
     }
 }
 
-async function systemCheck() {
-    return new Promise(async (resolve) => {
-
-        const adapterConf = await adapter.getForeignObjectAsync(`system.adapter.${adapterName}.${adapter.instance}`, 'state')
-            .catch(err => adapter.log.error(err));
-
-        if (adapterConf && adapterConf.common && adapterConf.common.host) {
-            const _diskFree = await adapter.getForeignStateAsync(`system.host.${adapterConf.common.host}.diskFree`, 'state')
-                .catch(err => adapter.log.error(err));
-
-            if (_diskFree && _diskFree.val) {
-
-                const sysCheck = {
-                    diskState: _diskFree.val > 1024 ? 'ok' : _diskFree.val > 512 ? 'warn' : 'error',
-                    diskFree: _diskFree.val,
-                    storage: adapter.config.cifsEnabled ? 'nas' : 'local',
-                    ready: adapter.config.cifsEnabled || _diskFree.val > 512 ? true : false
-                };
-
-                if (sysCheck.diskState === 'ok') {
-                    adapter.log.info(`On the host "${adapterConf.common.host}" are currently ${_diskFree.val} MB free space available!`);
-                    resolve(sysCheck);
-                } else if (sysCheck.diskState === 'warn') {
-                    adapter.log.warn(`On the host "${adapterConf.common.host}" only ${_diskFree.val} MB free space is available! Please check your system!`);
-                    resolve(sysCheck);
-                } else if (sysCheck.diskState === 'error') {
-                    adapter.log.error(`On the host "${adapterConf.common.host}" only ${_diskFree.val} MB free space is available! Local backups are currently not possible. Please check your system!`);
-                    resolve(sysCheck);
-                }
-            }
-        }
-    });
-}
-
 async function main(adapter) {
     createBashScripts();
     readLogFile();
-    await systemCheck();
 
     if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) createBackupDir();
     if (fs.existsSync(bashDir + '/.redis.info')) deleteHideFiles();

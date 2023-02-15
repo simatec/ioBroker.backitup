@@ -16,6 +16,7 @@
   "<br/><br/>The JavaScript Adapter scripts are already saved in the ioBroker backup.<br/><br/>This option is just an additional option to be able to restore the scripts individually if necessary.": "<br/><br/>JavaScript 适配器脚本已保存在 ioBroker 备份中。<br/><br/>此选项只是一个附加选项，以便能够在必要时单独恢复脚本。",
   "<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".": "<br/><br/>ioBroker 将在还原期间重新启动。<br/><br/>点击“确定”确认。",
   "<br/><br/>ioBroker will not be restarted for this restore.<br/><br/>Confirm with \"OK\".": "<br/><br/>此还原不会重新启动 ioBroker。<br/><br/>单击“确定”确认。",
+  "A local backup is currently not possible. Please check your System!": "目前不可能在当地返回。 请检查你的系统!",
   "AOF activated": "AOF激活",
   "Access token": "访问令牌",
   "Access token:": "访问令牌：",

@@ -58,20 +58,21 @@ When the adapter crashes or another Code error happens, this error message that 
 * (simatec) Matrix Messenger added
 * (simatec) TLS for FTP added
 * (simatec) Tab Extra-Settings added
-* (simatec) dependencies updated
-* (simatec) Translation added
 * (simatec) Node-Red Backup added
 * (simatec) Node-Red Restore added
 * (simatec) SQLLite Backup added
 * (simatec) SQLLite Restore added
-* (simatec) Jarvis Backup updated
-* (simatec) Jarvis Restore updated
 * (simatec) Zigbee2MQTT Backup added
 * (simatec) Zigbee2MQTT Restore added
+* (simatec) Local-Storage check added
+* (simatec) System-Message added
+* (simatec) Jarvis Backup updated
+* (simatec) Jarvis Restore updated
 * (simatec) Docu updated
 * (simatec) Wiki updated
 * (simatec) many small Fixes
-* (simatec) File system check added
+* (simatec) dependencies updated
+* (simatec) Translation added
 
 ### 2.5.12 (2023-01-19)
 * (simatec) Fix Windows ioBroker-Restore
