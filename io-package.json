@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.5.12",
+    "version": "2.6.0",
     "news": {
+      "2.6.0": {
+        "en": "Onedrive-Api added\nMatrix Messenger added\nTLS for FTP added\nTab Extra-Settings added\nNode-Red Backup added\nSQLLite Backup added\nZigbee2MQTT Backup added\nLocal-Storage check added\nSystem-Message added\nJarvis Backup updated\nmany small Fixes",
+        "de": "Onedrive-Api hinzugefügt\nMatrix Messenger hinzugefügt\nTLS für FTP hinzugefügt\nTab Extra-Einstellungen hinzugefügt\nNode-Red Backup hinzugefügt\nSQLLite Backup hinzugefügt\nZigbe2MQTT Backup hinzugefügt\nLocal-Storage Check hinzugefügt\nSystem-Message hinzugefügt\nJarvis Backup aktualisiert\nviele kleine Fixes",
+        "ru": "Onedrive-Api добавил\nMatrix Messenger добавлен\nTLS для FTP добавлено\nТаб Дополнительные настройки добавлены\nNode-Red Backup добавлен\nSQLLite Backup добавлен\nЗигбе2MQTT Backup добавлен\nLocal-Storage проверка добавлена\nSystem-Message добавлена\nJarvis Backup обновлен\nмного небольших исправлений",
+        "pt": "Onedrive-Api adicionado\nMatrix Messenger adicionado\nTLS para FTP adicionado\nTab Extra-Configurações adicionado\nNode-Red Backup adicionado\nSQLLite Backup adicionado\nImóveis de construção Backup adicionado\nVerificação local adicionada\nSistema de mensagem adicionado\nJarvis Backup atualizado\nmuitas pequenas correções",
+        "nl": "Onedrive-Api toegevoegd\nMatrix Messenger toegevoegd\nTLS voor FTP toegevoegd\nTab Extra-Setting toegevoegd\nNode-Red Backup toegevoegd\nVersterking toegevoegd\nZigbee2MQT Versterking toegevoegd\nLokale controle toegevoegd\nSystem-Message toegevoegd\nJarvis Backup update\nveel kleine Fixes",
+        "fr": "Onedrive-Api ajouté\nMatrix Messenger ajouté\nTLS pour FTP ajouté\nTab Extra-Settings ajouté\nNode-Red Backup ajouté\nSQLLite Backup ajouté\nZigbee2MQTT Sauvegarde ajoutée\nLocal-Storage check added\nSystem-Message added\nJarvis Backup mis à jour\nbeaucoup de petites Fixes",
+        "it": "Onedrive-Api aggiunto\nMatrix Messenger aggiunto\nTLS per FTP aggiunto\nTab Extra-Settings aggiunto\nNode-Red Backup aggiunto\nSQLLite Backup aggiunto\nZigbee2MQTT Backup aggiunto\nControllo locale-Storage aggiunto\nSistema-Messaggio aggiunto\nJarvis Backup aggiornato\nmolti piccoli Fissi",
+        "es": "Onedrive-Api añadido\nMatrix Messenger añadido\nTLS para FTP añadido\nTab Extra-Settings añadido\nNode-Red Backup añadido\nSQLLite Backup añadido\nZigbee2MQTT Respaldo añadido\nCheque de almacenamiento local añadido\nSystem-Message añadido\nJarvis Backup actualizado\nmuchas pequeñas correcciones",
+        "pl": "OnedriveApi dodała\nMatrix Messenger dodała\nTLS dodano do FTP\nTab Extra-Settings dodał\nNode-Red Backup (ang.)\nSQLLite Backup dodano dodatki\nZigbee2MQTT Backup\nKontrola lokalna\nSystem-Mesage dodaje\nJarvis Backup zaktualizowany\nwiele małych rozmiarów",
+        "uk": "Onedrive-Api додано\nMatrix Messenger додано\nTLS для FTP додано\nВкладка Додаткові налаштування додано\nДодаток Node-Red Backup\nJavaScript licenses API Веб-сайт\nЗігбее2MQTT Резервне копіювання\nДодана місцева перевірка\nДодана система-Message\nJarvis Backup оновлений\nбагато маленьких Фікс",
+        "zh-cn": "安娜·阿皮尔加\n马基·梅塞格\nB. 增加的优惠贷款\n塔布·哈特尔加\n未加入包装\nSQLite Back增加\nZigbe2MQTT 包装增加\n地方汽车检查增加\n系统添加\nB. 最新包装\n许多小型配件"
+      },
       "2.5.12": {
         "en": "Fix Windows ioBroker-Restore",
         "de": "Windows ioBroker-Restore",
@@ -80,19 +93,6 @@
         "pl": "Axios 1.3\nJęzyk ukrainowski",
         "uk": "Axios 1.1.3 додано\nДодано українську мову",
         "zh-cn": "Axios 1.1.3\n增 编"
-      },
-      "2.5.6": {
-        "en": "Fix Grafana Backup\nFix Downloadserver\nTranslation updated",
-        "de": "Grafana Backup\nDownloadserver herunterladen\nÜbersetzung aktualisiert",
-        "ru": "Fix Графана Backup\nFix Downloadсервер\nПеревод обновлен",
-        "pt": "Fix Grafana Backup\nCorreção de download\nTradução atualizada",
-        "nl": "Vertaling:\nVertaling:\nVertaling:",
-        "fr": "Réparez Grafana Backup\nFix Downloadserver\nTraduction mise à jour",
-        "it": "Fix Grafana Backup\nFix Downloadserver\nTraduzione aggiornata",
-        "es": "Copia de seguridad Grafana\nFix Downloadserver\nTraducción actualizada",
-        "pl": "Fix Grafana Backup\nFix Downloadserver (ang.)\nUaktualniać",
-        "uk": "Виправлення Grafana Backup\nФіксація завантажувача\nПереклад оновлений",
-        "zh-cn": "Fix Grafana Backup\nFix Down servations\n笔译更新"
       }
     },
     "title": "BackItUp",
