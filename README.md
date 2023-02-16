@@ -53,23 +53,17 @@ When the adapter crashes or another Code error happens, this error message that 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
-* (simatec) Onedrive-Api for Backups added
-* (simatec) Onedrive-Api for Restore added
+* (simatec) Onedrive-Api added
 * (simatec) Matrix Messenger added
 * (simatec) TLS for FTP added
 * (simatec) Tab Extra-Settings added
-* (simatec) Node-Red Backup added
-* (simatec) Node-Red Restore added
-* (simatec) SQLLite Backup added
-* (simatec) SQLLite Restore added
-* (simatec) Zigbee2MQTT Backup added
-* (simatec) Zigbee2MQTT Restore added
+* (simatec) Node-Red Backup/Restore added
+* (simatec) SQLLite Backup/Restore added
+* (simatec) Zigbee2MQTT Backup/Restore added
 * (simatec) Local-Storage check added
 * (simatec) System-Message added
-* (simatec) Jarvis Backup updated
-* (simatec) Jarvis Restore updated
-* (simatec) Docu updated
-* (simatec) Wiki updated
+* (simatec) Jarvis Backup/Restore updated
+* (simatec) Docu and Wiki updated
 * (simatec) many small Fixes
 * (simatec) dependencies updated
 * (simatec) Translation added
