@@ -122,6 +122,8 @@
   "Last CCU Backup: ": "上次 CCU 备份：",
   "Last iobroker Backup: ": "上次 ioBroker 备份：",
   "Local": "当地的",
+  "Local hard disk space Limit value for error message (MB)": "当地硬墙的错误信息空间价值",
+  "Local hard disk space Limit value for warning message (MB)": "B. 当地硬墙空间对预警信息的价值",
   "Long Notifications": "长通知",
   "MAC address": "MAC地址",
   "Matrix": "",

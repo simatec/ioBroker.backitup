@@ -122,6 +122,8 @@
   "Last CCU Backup: ": "Последняя резервная копия CCU: ",
   "Last iobroker Backup: ": "Последняя резервная копия ioBroker: ",
   "Local": "Локальный",
+  "Local hard disk space Limit value for error message (MB)": "Местное жесткое дисковое пространство Ограничение значения для сообщения об ошибке (MB)",
+  "Local hard disk space Limit value for warning message (MB)": "Местное пространство жесткого диска Значение лимита для предупреждающего сообщения (MB)",
   "Long Notifications": "Длинные уведомления",
   "MAC address": "MAC-адрес",
   "Matrix": "Матрица",

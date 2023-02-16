@@ -122,6 +122,8 @@
   "Last CCU Backup: ": "Ultimo backup CCU: ",
   "Last iobroker Backup: ": "Ultimo backup iobroker: ",
   "Local": "Locale",
+  "Local hard disk space Limit value for error message (MB)": "Spazio locale del disco rigido Valore limite per messaggio di errore (MB)",
+  "Local hard disk space Limit value for warning message (MB)": "Spazio locale del disco rigido Valore limite per messaggio di avviso (MB)",
   "Long Notifications": "Notifiche lunghe",
   "MAC address": "Indirizzo MAC",
   "Matrix": "Matrice",

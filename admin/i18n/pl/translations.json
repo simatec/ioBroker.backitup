@@ -122,6 +122,8 @@
   "Last CCU Backup: ": "Ostatnia kopia zapasowa CCU: ",
   "Last iobroker Backup: ": "Ostatnia kopia zapasowa iobroker: ",
   "Local": "Lokalny",
+  "Local hard disk space Limit value for error message (MB)": "Lokalna dysk twarda przestrzeń dyskowa Limit value for error message (MB) (ang.)",
+  "Local hard disk space Limit value for warning message (MB)": "Lokalna dysk twarda – Limit value for warning message (MB) (ang.)",
   "Long Notifications": "Długie powiadomienia",
   "MAC address": "Adres MAC",
   "Matrix": "Matrix",
