@@ -52,6 +52,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) igonore temp-files for redis added
+
 ### 2.6.0 (2023-02-16)
 * (simatec) Onedrive-Api added
 * (simatec) Matrix Messenger added
