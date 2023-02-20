@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.6.1 (2023-02-20)
 * (simatec) igonore temp-files for redis added
 
 ### 2.6.0 (2023-02-16)
