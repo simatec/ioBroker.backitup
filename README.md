@@ -52,6 +52,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Fix SQLite3 Backup
+
 ### 2.6.1 (2023-02-20)
 * (simatec) igonore temp-files for redis added
 
