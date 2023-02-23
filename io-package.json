@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.1",
+    "version": "2.6.2",
     "news": {
+      "2.6.2": {
+        "en": "Fix SQLite3 Backup",
+        "de": "SQLite3 Backup",
+        "ru": "Исправление SQLite3 Backup",
+        "pt": "Fix SQLite3 Backup",
+        "nl": "Vertaling:",
+        "fr": "Réparation SQLite3",
+        "it": "Fix SQLite3 Backup",
+        "es": "Corrección SQLite3 Backup",
+        "pl": "SQLite3 Backup",
+        "uk": "Виправлення SQLite3 Резервне копіювання",
+        "zh-cn": "Fix SQLite3 Backup"
+      },
       "2.6.1": {
         "en": "igonore temp-files for redis added",
         "de": "igonore temp-files für redis hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "zależność\nFix Zigbee Restore (ang.)\nFix Yahka Restore\nFix Javascript Restore (ang.)\nFix Dropbox Error Messages",
         "uk": "javascript licenses api веб-сайт go1.13.8\nФіксація Zigbee Restore\nФіксація Ягка Відновити\nВиправлення відтворення Javascript\nВиправлення помилок Dropbox",
         "zh-cn": "b. 依赖减少箱-v2-api更新\nFix Zigbe Restor\nFix Yahka 恢复\nFix Javastr Restor\nFix Drop箱Error Messages"
-      },
-      "2.5.8": {
-        "en": "Fix iobroker Backup\ndependencies updated",
-        "de": "Fix iobroker Backup\naktualisierte abhängigkeiten",
-        "ru": "Исправление iobroker Backup\nзависимости обновлены",
-        "pt": "Fix iobroker Backup\ndependências atualizadas",
-        "nl": "Vertaling:\nafhankelijkheid geüpdateerd",
-        "fr": "Fix iobroker Backup\ndépendances mises à jour",
-        "it": "Riparare il backup dello iobroker\ndipendenze aggiornate",
-        "es": "Respaldo de iobroker fijo\ndependencias actualizadas",
-        "pl": "Fix iobroker Backup (ang.)\naktualizacja",
-        "uk": "Виправлення iobroker Backup\nоновлені залежності",
-        "zh-cn": "Fixiobroker Backup\nb. 更新的依赖"
       }
     },
     "title": "BackItUp",

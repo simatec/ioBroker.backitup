@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.6.2 (2023-02-23)
 * (simatec) Fix SQLite3 Backup
 
 ### 2.6.1 (2023-02-20)
