@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.2",
+    "version": "2.6.3",
     "news": {
+      "2.6.3": {
+        "en": "Fix SQLite3 Backup\nFix Matrix Message",
+        "de": "SQLite3 Backup\nMatrix Nachricht löschen",
+        "ru": "Исправление SQLite3 Backup\nFix Матрица Сообщение",
+        "pt": "Fix SQLite3 Backup\nCorrigir mensagem de matriz",
+        "nl": "Vertaling:\nVertaling:",
+        "fr": "Réparation SQLite3\nMessage fixe Matrix",
+        "it": "Fix SQLite3 Backup\nFissare il messaggio di matrice",
+        "es": "Corrección SQLite3 Backup\nMensaje de matriz fijo",
+        "pl": "SQLite3 Backup\nZdjęcia Matrix",
+        "uk": "Виправлення SQLite3 Резервне копіювання\nВиправлення повідомлень матриці",
+        "zh-cn": "Fix SQLite3 Backup\nFix Matrix Mesage"
+      },
       "2.6.2": {
         "en": "Fix SQLite3 Backup",
         "de": "SQLite3 Backup",
@@ -80,19 +93,6 @@
         "pl": "Fix Docker Restore\nFix Link Design\naktualizacja\nFix CIFS (ang.)",
         "uk": "Фіксація Docker Restore\nРозробка сайту\nоновлені залежності\nФіксація CIFS Mount",
         "zh-cn": "Fix Docker Restor\n固定联系设计\nb. 更新的依赖\nFix CIFS山脉"
-      },
-      "2.5.9": {
-        "en": "dependencies dropbox-v2-api updated\nFix Zigbee Restore\nFix Yahka Restore\nFix Javascript Restore\nFix Dropbox Error Messages",
-        "de": "abhängigkeiten dropbox-v2-api aktualisiert\nZigbee Restore reparieren\nFix Yahka Restore\nJavascript Restore aktivieren\nFehlermeldungen von Dropbox behoben",
-        "ru": "зависимости dropbox-v2-api обновлены\nFix Zigbee Восстановить\nФиксация Yahka Восстановить\nИсправление восстановления Javascript\nFix Dropbox Ошибка Сообщения",
-        "pt": "dependências dropbox-v2-api atualizado\nFix Zigbee Restaurar\nCorrigir Yahka Restaurar\nRestauração de Javascript\nCorrigir Mensagens de Erros do Dropbox",
-        "nl": "afhankelijkheidsdokter-v2-api update\nVertaling:\nVertaling: Restore\nVertaling:\nVertaling:",
-        "fr": "dépendances dropbox-v2-api mise à jour\nFixer Zigbee Restore\nFix Yahka Restore\nFix Javascript Restore\nRéparez les messages d'erreur Dropbox",
-        "it": "dipendenze dropbox-v2-api aggiornato\nRipristino Zigbee\nFissare Yahka Ripristino\nRipristino Javascript\nRisolvere i messaggi di errore di Dropbox",
-        "es": "dependencia dropbox-v2-api actualizado\nRestauración de Zigbee\nArregla Yahka Restauración\nCorrección de Javascript\nCorregir mensajes de error de Dropbox",
-        "pl": "zależność\nFix Zigbee Restore (ang.)\nFix Yahka Restore\nFix Javascript Restore (ang.)\nFix Dropbox Error Messages",
-        "uk": "javascript licenses api веб-сайт go1.13.8\nФіксація Zigbee Restore\nФіксація Ягка Відновити\nВиправлення відтворення Javascript\nВиправлення помилок Dropbox",
-        "zh-cn": "b. 依赖减少箱-v2-api更新\nFix Zigbe Restor\nFix Yahka 恢复\nFix Javastr Restor\nFix Drop箱Error Messages"
       }
     },
     "title": "BackItUp",
