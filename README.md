@@ -52,6 +52,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Design optimized
+
 ### 2.6.3 (2023-02-24)
 * (simatec) Fix SQLite3 Backup
 * (simatec) Fix Matrix Message
