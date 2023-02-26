@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.6.4 (2023-02-26)
 * (simatec) Design optimized
 * (simatec) Onedrive Upload Session added
 
