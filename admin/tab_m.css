@@ -92,12 +92,12 @@ body {
 }
 .title {
     background-color: #174475;
-    background-image: linear-gradient(179deg, #3399CC 0%, #174475 60%);
+    background-image: linear-gradient(179deg, #3399CC 0%, #174475 60%)!important;
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 .m.react-dark .title, .m.react-blue .title {
     background-color: #272727!important;
-    background-image: linear-gradient(179deg, gray 0%, #272727 60%);
+    background-image: linear-gradient(179deg, gray 0%, #272727 60%)!important;
 }
 
 .btn-iobroker {
