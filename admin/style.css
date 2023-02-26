@@ -15,7 +15,7 @@
 }
 
 /* Header section*/
-#header-area {margin-top: 2px; margin-bottom: 1px; background-color:#174475;}
+#header-area {margin-top: 2px; margin-bottom: 1px; background-color:#174475; background-image: linear-gradient(135deg, #174475 0%, #3399CC 30%);}
 #header-area #header-logo-title .logo {float:left; margin-right: 10px;}
 #header-area #header-logo-title p {line-height: normal !important; margin: 0 !important; padding: 8px 0 0 8px;}
 #header-area #header-logo-title p>span.h-title {font-size: 2em !important; color:white; }
@@ -44,6 +44,16 @@
 /* Tabs menu react-dark */
 .m.react-blue .tabs .tab a.active, .m .tabs .tab a:hover { color: #2196f3; }
 .m.react-blue .tabs { background-color: #272727 !important;}
+
+.title {
+    background-color: #174475;
+    background-image: linear-gradient(179deg, #3399CC 0%, #174475 60%);
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+.m.react-dark .title, .m.react-blue .title {
+    background-color: #272727!important;
+    background-image: linear-gradient(179deg, gray 0%, #272727 60%);
+}
 
 .m .card-panel {
     padding: 10px;

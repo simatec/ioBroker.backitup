@@ -19,6 +19,7 @@
     margin-top: 0px;
     margin-bottom: 1px; 
     background-color:#3399CC;
+    background-image: linear-gradient(135deg, #174475 0%, #3399CC 30%);
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
 }
@@ -90,8 +91,15 @@ body {
     border-radius: 4px;
 }
 .title {
+    background-color: #174475;
+    background-image: linear-gradient(179deg, #3399CC 0%, #174475 60%)!important;
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
+.m.react-dark .title, .m.react-blue .title {
+    background-color: #272727!important;
+    background-image: linear-gradient(179deg, gray 0%, #272727 60%)!important;
+}
+
 .btn-iobroker {
     width: 100%;
     margin-top: 0.3rem;
@@ -249,6 +257,7 @@ th {
     border-radius: 4px 0 0 4px;
     max-width: 50%;
     background: #e2e2e2;
+    background-image: linear-gradient(179deg, #e2e2e2 40%, #474747 180%);
     max-width: 30%;
 }
 .m .card.horizontal .card-image i {
@@ -263,9 +272,16 @@ th {
 }
 .m .card {
     box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+    background-image: linear-gradient(179deg, #fff 50%, rgb(0 0 0 / 14%) 100%);
     border-radius: 4px;
     height: 300px;
 }
+
+.m.react-blue .card, .m.react-dark .card {
+    background-color: #222a2e;
+    background-image: linear-gradient(179deg, #222a2e 50%, #474747 100%);
+}
+
 ul {
     padding-inline-start: 20px;
     margin-bottom: auto;
