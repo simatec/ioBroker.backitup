@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.3",
+    "version": "2.6.4",
     "news": {
+      "2.6.4": {
+        "en": "Design optimized\nOnedrive Upload Session added",
+        "de": "Design optimiert\nOnedrive Upload Session hinzugefügt",
+        "ru": "Дизайн оптимизирован\nOnedrive Upload Session добавлено",
+        "pt": "Design otimizado\nOnedrive Upload Session adicionado",
+        "nl": "Design optimuleerde\nOnedrive Upload Session toegevoegd",
+        "fr": "Conception optimisée\nOnedrive Upload Session ajoutée",
+        "it": "Design ottimizzato\nOnedrive Upload Session aggiunto",
+        "es": "Diseño optimizado\nSesión de carga de un goteo",
+        "pl": "Projekt optymistyczny\nStrona internetowa Upload Session",
+        "uk": "Оптимізація дизайну\nOnedrive Дата завантаження",
+        "zh-cn": "设计优化\n一届会议后插入"
+      },
       "2.6.3": {
         "en": "Fix SQLite3 Backup\nFix Matrix Message",
         "de": "SQLite3 Backup\nMatrix Nachricht löschen",
@@ -80,19 +93,6 @@
         "pl": "Fix Windows ioBroker-Restore",
         "uk": "Виправлення Windows ioBroker-Restore",
         "zh-cn": "Fixow io Broker-Restor"
-      },
-      "2.5.10": {
-        "en": "Fix Docker Restore\nFix Link Design\ndependencies updated\nFix CIFS Mount",
-        "de": "Wiederherstellen von Docker\nLink Design herunterladen\naktualisierte abhängigkeiten\nCIFS Mount",
-        "ru": "Fix Восстановить Docker\nFix Link Дизайн\nзависимости обновлены\nFix CIFS гора",
-        "pt": "Restauração de Docker\nDesign de ligação fixa\ndependências atualizadas\nFixar a montagem CIFS",
-        "nl": "Vertaling:\nVertaling:\nafhankelijkheid geüpdateerd\nVertaling:",
-        "fr": "Fixe Docker Restore\nFix Link Design\ndépendances mises à jour\nMontage CIFS fixe",
-        "it": "Ripristino Docker\nFix Link Design\ndipendenze aggiornate\nFissare il supporto CIFS",
-        "es": "Restaurar el Docker\nDiseño de enlace fijo\ndependencias actualizadas\nFijar el montaje CIFS",
-        "pl": "Fix Docker Restore\nFix Link Design\naktualizacja\nFix CIFS (ang.)",
-        "uk": "Фіксація Docker Restore\nРозробка сайту\nоновлені залежності\nФіксація CIFS Mount",
-        "zh-cn": "Fix Docker Restor\n固定联系设计\nb. 更新的依赖\nFix CIFS山脉"
       }
     },
     "title": "BackItUp",
