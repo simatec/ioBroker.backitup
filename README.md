@@ -54,6 +54,7 @@ When the adapter crashes or another Code error happens, this error message that 
 <!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
 * (simatec) Fix cifs Password
+* (simatec) Fix InfluxDB-Backup
 
 ### 2.6.4 (2023-02-26)
 * (simatec) Design optimized
