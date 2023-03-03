@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.6.5 (2023-03-03)
 * (simatec) Fix cifs Password
 * (simatec) Fix InfluxDB-Backup
 

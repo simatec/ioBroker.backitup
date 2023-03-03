@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.4",
+    "version": "2.6.5",
     "news": {
+      "2.6.5": {
+        "en": "Fix cifs Password\nFix InfluxDB-Backup",
+        "de": "Cifs Passwort beheben\nReparieren InfluxDB-Backup",
+        "ru": "Fixs Пароль\nИсправление InfluxDB-Backup",
+        "pt": "Corrigir senha cifs\nFix InfluxDB-Backup",
+        "nl": "Vertaling:\nFix InfluxDBackup",
+        "fr": "Cifs fixes Mot de passe\nFix InfluxDB-Backup",
+        "it": "Fissare cifs Password\nFissare InfluxDB-Backup",
+        "es": "Corrección de cifs Contraseña\nInfluxDB-Backup",
+        "pl": "Fix cif Password (ang.)\nFix InfluxDB-Backupup",
+        "uk": "Виправлення cifs пароля\nФіксований InfluxDB-Backup",
+        "zh-cn": "Fixcif护照字\nFix 流向行"
+      },
       "2.6.4": {
         "en": "Design optimized\nOnedrive Upload Session added",
         "de": "Design optimiert\nOnedrive Upload Session hinzugefügt",
@@ -69,19 +82,6 @@
         "zh-cn": "安娜·阿皮尔加\n马基·梅塞格\nB. 增加的优惠贷款\n塔布·哈特尔加\n未加入包装\nSQLite Back增加\nZigbe2MQTT 包装增加\n地方汽车检查增加\n系统添加\nB. 最新包装\n许多小型配件"
       },
       "2.5.12": {
-        "en": "Fix Windows ioBroker-Restore",
-        "de": "Windows ioBroker-Restore",
-        "ru": "Исправление Windows ioBroker-Restore",
-        "pt": "Fix Windows ioBroker-Restore",
-        "nl": "Vertaling:",
-        "fr": "Réparez Windows ioBroker-Restore",
-        "it": "Risolvere lo iBroker di Windows",
-        "es": "Arreglar Windows ioBroker-Restore",
-        "pl": "Fix Windows ioBroker-Restore",
-        "uk": "Виправлення Windows ioBroker-Restore",
-        "zh-cn": "Fixow io Broker-Restor"
-      },
-      "2.5.11": {
         "en": "Fix Windows ioBroker-Restore",
         "de": "Windows ioBroker-Restore",
         "ru": "Исправление Windows ioBroker-Restore",
