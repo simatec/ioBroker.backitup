@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.5",
+    "version": "2.6.6",
     "news": {
+      "2.6.6": {
+        "en": "Dropbox file upload up to 350 GB added",
+        "de": "Dropbox Datei hochladen bis 350 GB hinzugefügt",
+        "ru": "Файл Dropbox загружен до 350 GB добавлен",
+        "pt": "O upload de arquivos do Dropbox para 350 GB adicionado",
+        "nl": "Vertaling:",
+        "fr": "Fichier Dropbox télécharger jusqu'à 350 GB ajouté",
+        "it": "Caricamento file Dropbox fino a 350 GB aggiunto",
+        "es": "Carga de archivos de Dropbox hasta 350 GB",
+        "pl": "W pliku Dropbox ładowano do 350 GB",
+        "uk": "Завантажити файл Dropbox до 350 ГБ",
+        "zh-cn": "Drop箱的载荷量达350千兆克"
+      },
       "2.6.5": {
         "en": "Fix cifs Password\nFix InfluxDB-Backup",
         "de": "Cifs Passwort beheben\nReparieren InfluxDB-Backup",
@@ -80,19 +93,6 @@
         "pl": "OnedriveApi dodała\nMatrix Messenger dodała\nTLS dodano do FTP\nTab Extra-Settings dodał\nNode-Red Backup (ang.)\nSQLLite Backup dodano dodatki\nZigbee2MQTT Backup\nKontrola lokalna\nSystem-Mesage dodaje\nJarvis Backup zaktualizowany\nwiele małych rozmiarów",
         "uk": "Onedrive-Api додано\nMatrix Messenger додано\nTLS для FTP додано\nВкладка Додаткові налаштування додано\nДодаток Node-Red Backup\nJavaScript licenses API Веб-сайт\nЗігбее2MQTT Резервне копіювання\nДодана місцева перевірка\nДодана система-Message\nJarvis Backup оновлений\nбагато маленьких Фікс",
         "zh-cn": "安娜·阿皮尔加\n马基·梅塞格\nB. 增加的优惠贷款\n塔布·哈特尔加\n未加入包装\nSQLite Back增加\nZigbe2MQTT 包装增加\n地方汽车检查增加\n系统添加\nB. 最新包装\n许多小型配件"
-      },
-      "2.5.12": {
-        "en": "Fix Windows ioBroker-Restore",
-        "de": "Windows ioBroker-Restore",
-        "ru": "Исправление Windows ioBroker-Restore",
-        "pt": "Fix Windows ioBroker-Restore",
-        "nl": "Vertaling:",
-        "fr": "Réparez Windows ioBroker-Restore",
-        "it": "Risolvere lo iBroker di Windows",
-        "es": "Arreglar Windows ioBroker-Restore",
-        "pl": "Fix Windows ioBroker-Restore",
-        "uk": "Виправлення Windows ioBroker-Restore",
-        "zh-cn": "Fixow io Broker-Restor"
       }
     },
     "title": "BackItUp",
