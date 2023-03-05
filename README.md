@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.6.6 (2023-03-05)
 * (simatec) Dropbox file upload up to 350 GB added
 
 ### 2.6.5 (2023-03-03)
