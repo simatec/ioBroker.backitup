@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.6.7 (2023-03-06)
 * (simatec) Dropbox session upload optimized
 
 ### 2.6.6 (2023-03-05)
