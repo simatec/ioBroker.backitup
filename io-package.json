@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.7",
+    "version": "2.6.8",
     "news": {
+      "2.6.8": {
+        "en": "Fix Dropbox session upload",
+        "de": "Dropbox-Sitzung hochladen",
+        "ru": "Fix Загрузить сеанс Dropbox",
+        "pt": "Corrigir upload de sessão do Dropbox",
+        "nl": "Vertaling:",
+        "fr": "Correction du téléchargement de la session Dropbox",
+        "it": "Risolvi l'upload di sessione Dropbox",
+        "es": "Arregla la sesión de Dropbox",
+        "pl": "Fix Dropbox session",
+        "uk": "Виправлення завантаження сеансу Dropbox",
+        "zh-cn": "Fix Drop箱会议"
+      },
       "2.6.7": {
         "en": "Dropbox session upload optimized",
         "de": "Dropbox Session Upload optimiert",
@@ -80,19 +93,6 @@
         "pl": "SQLite3 Backup",
         "uk": "Виправлення SQLite3 Резервне копіювання",
         "zh-cn": "Fix SQLite3 Backup"
-      },
-      "2.6.1": {
-        "en": "igonore temp-files for redis added",
-        "de": "igonore temp-files für redis hinzugefügt",
-        "ru": "igonore temp-files для redis добавил",
-        "pt": "igonore temp-files para redis adicionado",
-        "nl": "igonore temp-files voor rood",
-        "fr": "igonore temp-files pour redis ajouté",
-        "it": "igonore temp-files per redi aggiunto",
-        "es": "igonore temp-files para redis añadido",
-        "pl": "igonore temp-file dla redis dodaje dodać",
-        "uk": "igonore temp-files для redis додано",
-        "zh-cn": "igonore redis增派时间"
       }
     },
     "title": "BackItUp",
