@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.8",
+    "version": "2.6.9",
     "news": {
+      "2.6.9": {
+        "en": "Dropbox session upload optimized\nError handling optimized",
+        "de": "Dropbox Session Upload optimiert\nFehlerbehebung optimiert",
+        "ru": "Dropbox session загрузка оптимизирована\nОптимизация обработки ошибок",
+        "pt": "Upload de sessão do Dropbox otimizado\nManuseio de erros otimizado",
+        "nl": "Dropbox sessie upload Optim\nError omgaan met optimistisch",
+        "fr": "Téléchargement de la session Dropbox optimisé\nManipulation d'erreur optimisée",
+        "it": "Caricamento sessione Dropbox ottimizzato\nGestione degli errori ottimizzata",
+        "es": "Subir sesión de Dropbox optimizado\nManejo de errores optimizado",
+        "pl": "Sesja do pudełka optymalizowana\nObsługa sterowania optymalizowana",
+        "uk": "Оптимізоване завантаження сеансу Dropbox\nОптимізоване використання помилок",
+        "zh-cn": "Drop箱会议优化\n优化处理"
+      },
       "2.6.8": {
         "en": "Fix Dropbox session upload",
         "de": "Dropbox-Sitzung hochladen",
@@ -80,19 +93,6 @@
         "pl": "SQLite3 Backup\nZdjęcia Matrix",
         "uk": "Виправлення SQLite3 Резервне копіювання\nВиправлення повідомлень матриці",
         "zh-cn": "Fix SQLite3 Backup\nFix Matrix Mesage"
-      },
-      "2.6.2": {
-        "en": "Fix SQLite3 Backup",
-        "de": "SQLite3 Backup",
-        "ru": "Исправление SQLite3 Backup",
-        "pt": "Fix SQLite3 Backup",
-        "nl": "Vertaling:",
-        "fr": "Réparation SQLite3",
-        "it": "Fix SQLite3 Backup",
-        "es": "Corrección SQLite3 Backup",
-        "pl": "SQLite3 Backup",
-        "uk": "Виправлення SQLite3 Резервне копіювання",
-        "zh-cn": "Fix SQLite3 Backup"
       }
     },
     "title": "BackItUp",
