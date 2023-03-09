@@ -58,6 +58,7 @@ body {
 .m .secondary-content {
     float: right;
     color: #3399CC;
+    padding-right: 1em;
 }
 .m .collapsible-body.collection.head {
     height: calc(100% - 48px);

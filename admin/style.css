@@ -301,3 +301,9 @@ p.notice {
     cursor: pointer!important;
     text-decoration: underline!important;
 }
+
+.m .secondary-content {
+    float: right;
+    color: #3399CC;
+    padding-right: 1em;
+}
