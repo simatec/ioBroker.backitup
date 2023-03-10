@@ -56,6 +56,7 @@ When the adapter crashes or another Code error happens, this error message that 
 * (simatec) Design Fix
 * (simatec) node 14 set as minimum requirement
 * (simatec) cleaning status log added
+* (simatec) Fix Node-Red Backup & Restore
 
 ### 2.6.9 (2023-03-08)
 * (simatec) Dropbox session upload optimized
