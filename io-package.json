@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.9",
+    "version": "2.6.10",
     "news": {
+      "2.6.10": {
+        "en": "Design Fix\nnode 14 set as minimum requirement\ncleaning status log added\nFix Node-Red Backup & Restore",
+        "de": "Design Fix\nknoten 14 gesetzt als mindestanforderung\nreinigungsstatus log hinzugefügt\nFix Node-Red Backup & Wiederherstellen",
+        "ru": "Дизайн Fix\nnode 14 установлен как минимальное требование\nсостояние очистки log добавлен\nFix Node-Red Backup & Восстановление",
+        "pt": "Design Fix\nnó 14 definido como requisito mínimo\nregisto de estado de limpeza adicionado\nFix Node-Red Backup & Restauração",
+        "nl": "Design Fix\nnode 14 set as minimum vereising\nschoonmaakstatus toegevoegd\nVertaling:",
+        "fr": "Design Fix\nnode 14 défini comme condition minimale\nnettoyage du registre\nFix Node-Red Backup & Restore",
+        "it": "Design Fix\nnodo 14 impostato come requisito minimo\nstato di pulizia log aggiunto\nFix Node-Red Backup & Ripristino",
+        "es": "Diseño fijo\nnodo 14 fijado como requisito mínimo\nestado de limpieza agregado\nRestaurar el respaldo de Node-Red",
+        "pl": "Design\nwęzeł 14 ustalono minimalny\nstan czyszczania\nFix Node-Red Backup & Restore & Restore (ang.)",
+        "uk": "Налаштування дизайну\nвузол 14 встановлюється як мінімальна вимога\nдодано журнал стану очищення\nВиправлення Node-Red Backup & Restore",
+        "zh-cn": "设计\n第14条\n清洁状况标志\nFix Node-Red Backup & Restor"
+      },
       "2.6.9": {
         "en": "Dropbox session upload optimized\nError handling optimized",
         "de": "Dropbox Session Upload optimiert\nFehlerbehebung optimiert",
@@ -80,19 +93,6 @@
         "pl": "Projekt optymistyczny\nStrona internetowa Upload Session",
         "uk": "Оптимізація дизайну\nOnedrive Дата завантаження",
         "zh-cn": "设计优化\n一届会议后插入"
-      },
-      "2.6.3": {
-        "en": "Fix SQLite3 Backup\nFix Matrix Message",
-        "de": "SQLite3 Backup\nMatrix Nachricht löschen",
-        "ru": "Исправление SQLite3 Backup\nFix Матрица Сообщение",
-        "pt": "Fix SQLite3 Backup\nCorrigir mensagem de matriz",
-        "nl": "Vertaling:\nVertaling:",
-        "fr": "Réparation SQLite3\nMessage fixe Matrix",
-        "it": "Fix SQLite3 Backup\nFissare il messaggio di matrice",
-        "es": "Corrección SQLite3 Backup\nMensaje de matriz fijo",
-        "pl": "SQLite3 Backup\nZdjęcia Matrix",
-        "uk": "Виправлення SQLite3 Резервне копіювання\nВиправлення повідомлень матриці",
-        "zh-cn": "Fix SQLite3 Backup\nFix Matrix Mesage"
       }
     },
     "title": "BackItUp",
