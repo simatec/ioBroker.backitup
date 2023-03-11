@@ -52,6 +52,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Fix Zigbee2mqtt Backup & Restore
+
 ### 2.6.10 (2023-03-10)
 * (simatec) Design Fix
 * (simatec) node 14 set as minimum requirement
