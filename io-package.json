@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.10",
+    "version": "2.6.11",
     "news": {
+      "2.6.11": {
+        "en": "Fix Zigbee2mqtt Backup & Restore",
+        "de": "Zigbee2mqt Backup & Wiederherstellen",
+        "ru": "Fix Zigbee2mqtt Backup & Восстановление",
+        "pt": "Fix Zigbee2mqtt Backup & Restaurar",
+        "nl": "Vertaling:",
+        "fr": "Réparez Zigbee2mqtt Backup & Restore",
+        "it": "Fissare Zigbee2mqt Backup & Ripristino",
+        "es": "Arreglar Zigbee2mqtt Backup & Restore",
+        "pl": "Fix Zigbee2mqtt Backup & Restore (ang.)",
+        "uk": "Виправлення Zigbee2mqtt Резервне копіювання & відновлення",
+        "zh-cn": "Fix Zigbee2mqt Backup & Restor"
+      },
       "2.6.10": {
         "en": "Design Fix\nnode 14 set as minimum requirement\ncleaning status log added\nFix Node-Red Backup & Restore",
         "de": "Design Fix\nknoten 14 gesetzt als mindestanforderung\nreinigungsstatus log hinzugefügt\nFix Node-Red Backup & Wiederherstellen",
@@ -80,19 +93,6 @@
         "pl": "Fix cif Password (ang.)\nFix InfluxDB-Backupup",
         "uk": "Виправлення cifs пароля\nФіксований InfluxDB-Backup",
         "zh-cn": "Fixcif护照字\nFix 流向行"
-      },
-      "2.6.4": {
-        "en": "Design optimized\nOnedrive Upload Session added",
-        "de": "Design optimiert\nOnedrive Upload Session hinzugefügt",
-        "ru": "Дизайн оптимизирован\nOnedrive Upload Session добавлено",
-        "pt": "Design otimizado\nOnedrive Upload Session adicionado",
-        "nl": "Design optimuleerde\nOnedrive Upload Session toegevoegd",
-        "fr": "Conception optimisée\nOnedrive Upload Session ajoutée",
-        "it": "Design ottimizzato\nOnedrive Upload Session aggiunto",
-        "es": "Diseño optimizado\nSesión de carga de un goteo",
-        "pl": "Projekt optymistyczny\nStrona internetowa Upload Session",
-        "uk": "Оптимізація дизайну\nOnedrive Дата завантаження",
-        "zh-cn": "设计优化\n一届会议后插入"
       }
     },
     "title": "BackItUp",
