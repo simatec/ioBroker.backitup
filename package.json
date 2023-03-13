@@ -7,16 +7,12 @@
   "description": "ioBroker.backitup enables the cyclic creation of backups of an IoBroker / Homematic installation",
   "author": {
     "name": "simatec",
-    "email": "nais@gmx.net"
+    "email": "backitup@simateccloud.de"
   },
   "contributors": [
     {
       "name": "simatec",
-      "email": "nais@gmx.net"
-    },
-    {
-      "name": "peoples0815",
-      "email": "peoples0815github@gmail.com"
+      "email": "backitup@simateccloud.de"
     },
     {
       "name": "bluefox",

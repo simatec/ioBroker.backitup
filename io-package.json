@@ -119,8 +119,7 @@
       "pl": "Ten adapter umożliwia cykliczne tworzenie kopii zapasowych instalacji IoBroker / Homematic"
     },
     "authors": [
-      "simatec <nais@gmx.net>",
-      "peoples0815 <peoples0815github@gmail.com>",
+      "simatec <backitup@simateccloud.de>",
       "bluefox <dogafox@gmail.com>"
     ],
     "osDependencies": {

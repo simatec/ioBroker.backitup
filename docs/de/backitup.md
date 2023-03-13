@@ -231,6 +231,18 @@ Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backu
 ## Zigbee2MQTT-Backup
 Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
 
+Der Pfad im ioBroker.backitup Adapter sollte immer direkt auf den "data" Pfad von zigbee2mqtt angelegt werden.
+Beispiel: `/opt/zigbee2mqtt/data` oder direkt in das Volume bei einer Docker Installation von zigbee2mqtt
+
+Wichtig ist hier auch, dass der User "iobroker" Rechte für den data-Ordner bekommt, um die Dateien lesen und schreiben zu können.
+
+Gruppenrechte können wie folgt gesetzt werden:
+
+```
+sudo usermod -a -G <zigbe2mqtt User> iobroker
+sudo reboot
+```
+
 ## Node-Red-Backup
 Dieses separat einstellbare Backup wird sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig sofern bei den anderen IoBroker-Backup-Typen eingestellt.
 

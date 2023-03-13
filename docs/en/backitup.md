@@ -235,6 +235,18 @@ This backup, which can be set separately, is created with every backup ioBroker 
 ## Node-Red-Backup
 This backup, which can be set separately, is created with every backup ioBroker if it is activated and is also deleted after the specified retention time has expired. FTP or CIFS are also valid for this backup if set for the other IoBroker backup types.
 
+The path in the ioBroker.backitup adapter should always be created directly to the `data` path of zigbee2mqtt.
+Example: `/opt/zigbee2mqtt/data` or directly into the volume of a Docker installation of zigbee2mqtt.
+
+It is also important here that the user "iobroker" gets permissions to the data folder to be able to read and write the files.
+
+Group permissions can be set as follows:
+
+```
+sudo usermod -a -G <zigbe2mqtt User> iobroker
+sudo reboot
+```
+
 ## Grafana backup
 If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set.<br><br>
 **In order to be able to create a Grafana backup, the Grafana username and password are required.**<br><br>
