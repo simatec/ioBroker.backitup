@@ -10,6 +10,7 @@ const path = require('path');
 const adapterName = require('./package.json').name.split('.').pop();
 
 const tools = require('./lib/tools');
+const executeScripts = require('./lib/execute');
 const systemCheck = require('./lib/systemCheck');
 
 let adapter;
@@ -46,8 +47,6 @@ function decrypt(key, value) {
 }
 
 function startBackup(config, cb) {
-    const executeScripts = require('./lib/execute');
-
     if (taskRunning) {
         return setTimeout(startBackup, 10000, config, cb);
     } else {
