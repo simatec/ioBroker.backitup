@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.11",
+    "version": "2.6.12",
     "news": {
+      "2.6.12": {
+        "en": "Fix Zigbee2mqtt Backup & Restore\nNode-Red Backup optimized\nGrafana Backup optimized\nInfluxDB Backup optimized\nDocu & Wiki updated",
+        "de": "Zigbee2mqt Backup & Wiederherstellen\nNode-Red Backup optimiert\nGrafana Backup optimiert\nInfluxDB Backup optimiert\nDocu & Wiki aktualisiert",
+        "ru": "Fix Zigbee2mqtt Backup & Восстановление\nNode-Red Backup оптимизирован\nGrafana Backup оптимизирован\nInfluxDB Backup оптимизировано\nDocu & Wiki обновлены",
+        "pt": "Fix Zigbee2mqtt Backup & Restaurar\nBackup Node-Red otimizado\nBackup de Grafana otimizado\nInfluxDB Backup otimizado\nDocu & Wiki Atualizado",
+        "nl": "Vertaling:\nNode-Red back-up optim\nGrafana back-up optim\nVertaling:\nDocu Wiki update",
+        "fr": "Réparez Zigbee2mqtt Backup & Restore\nNode-Red Backup optimisé\nGrafana Backup optimisé\nSauvegarde InfluxDB optimisée\nDocu & Wiki mise à jour",
+        "it": "Fissare Zigbee2mqt Backup & Ripristino\nNode-Red Backup ottimizzato\nGrafana Backup ottimizzato\nInfluxDB Backup ottimizzato\nDocu & Wiki aggiornato",
+        "es": "Arreglar Zigbee2mqtt Backup & Restore\nNode-Red Backup optimizado\nGrafana Backup optimizado\nInfluxDB Backup optimizado\nDocu & Wiki actualizado",
+        "pl": "Fix Zigbee2mqtt Backup & Restore (ang.)\nNode-Red Backup (ang.)\nGrafana Backup zoptymalizowała\nInfluxDB Backup (ang.)\nDocu & Wiki uaktualnione",
+        "uk": "Виправлення Zigbee2mqtt Резервне копіювання & відновлення\nNode-Red Backup оптимізований\nОптимізований Grafana Backup\nІнфлюксДБ Backup оптимізований\nDocu & Wiki оновлений",
+        "zh-cn": "Fix Zigbee2mqt Backup & Restor\n没有最佳的包装\n格拉纳·布松优化\n流向行的包装优化\nDocu & Wiki更新"
+      },
       "2.6.11": {
         "en": "Fix Zigbee2mqtt Backup & Restore",
         "de": "Zigbee2mqt Backup & Wiederherstellen",
@@ -80,19 +93,6 @@
         "pl": "W pliku Dropbox ładowano do 350 GB",
         "uk": "Завантажити файл Dropbox до 350 ГБ",
         "zh-cn": "Drop箱的载荷量达350千兆克"
-      },
-      "2.6.5": {
-        "en": "Fix cifs Password\nFix InfluxDB-Backup",
-        "de": "Cifs Passwort beheben\nReparieren InfluxDB-Backup",
-        "ru": "Fixs Пароль\nИсправление InfluxDB-Backup",
-        "pt": "Corrigir senha cifs\nFix InfluxDB-Backup",
-        "nl": "Vertaling:\nFix InfluxDBackup",
-        "fr": "Cifs fixes Mot de passe\nFix InfluxDB-Backup",
-        "it": "Fissare cifs Password\nFissare InfluxDB-Backup",
-        "es": "Corrección de cifs Contraseña\nInfluxDB-Backup",
-        "pl": "Fix cif Password (ang.)\nFix InfluxDB-Backupup",
-        "uk": "Виправлення cifs пароля\nФіксований InfluxDB-Backup",
-        "zh-cn": "Fixcif护照字\nFix 流向行"
       }
     },
     "title": "BackItUp",
