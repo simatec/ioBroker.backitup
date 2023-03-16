@@ -54,6 +54,9 @@ When the adapter crashes or another Code error happens, this error message that 
 <!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
 * (simatec) Fix Zigbee2mqtt Backup & Restore
+* (simatec) Node-Red Backup optimized
+* (simatec) Grafana Backup optimized
+* (simatec) InfluxDB Backup optimized
 * (simatec) Docu & Wiki updated
 
 ### 2.6.11 (2023-03-11)
