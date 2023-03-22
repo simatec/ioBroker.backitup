@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.13",
+    "version": "2.6.14",
     "news": {
+      "2.6.14": {
+        "en": "Bug Fix History JSON",
+        "de": "Fehler beheben Geschichte JSON",
+        "ru": "Bug Fix История JSON",
+        "pt": "Bug Fix História JSON",
+        "nl": "Bug Fix History JSON",
+        "fr": "Bug Correction Historique JSON",
+        "it": "Bug Fix Storia JSON",
+        "es": "Corrección de errores Historia JSON",
+        "pl": "Bug Fix Historia JSON",
+        "uk": "Історія помилок JSON",
+        "zh-cn": "Bug Fix历史协会"
+      },
       "2.6.13": {
         "en": "Fix Zigbee2mqtt Restore\nFix Grafana Backup\nBackup notifications optimized\nError notifications optimized\nhistory data optimized\nsmall bug fixes",
         "de": "Zigbee2mqt Wiederherstellen\nGrafana Backup\nBackup-Benachrichtigungen optimiert\nFehlerbenachrichtigungen optimiert\ngeschichte daten optimiert\nkleine fehlerbehebungen",
@@ -80,19 +93,6 @@
         "pl": "Fix Dropbox session",
         "uk": "Виправлення завантаження сеансу Dropbox",
         "zh-cn": "Fix Drop箱会议"
-      },
-      "2.6.7": {
-        "en": "Dropbox session upload optimized",
-        "de": "Dropbox Session Upload optimiert",
-        "ru": "Dropbox session загрузка оптимизирована",
-        "pt": "Upload de sessão do Dropbox otimizado",
-        "nl": "Dropbox sessie upload Optim",
-        "fr": "Téléchargement de la session Dropbox optimisé",
-        "it": "Caricamento sessione Dropbox ottimizzato",
-        "es": "Subir sesión de Dropbox optimizado",
-        "pl": "Sesja do pudełka optymalizowana",
-        "uk": "Оптимізоване завантаження сеансу Dropbox",
-        "zh-cn": "Drop箱会议优化"
       }
     },
     "title": "BackItUp",
