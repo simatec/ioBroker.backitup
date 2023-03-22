@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.12",
+    "version": "2.6.13",
     "news": {
+      "2.6.13": {
+        "en": "Fix Zigbee2mqtt Restore\nFix Grafana Backup\nBackup notifications optimized\nError notifications optimized\nhistory data optimized\nsmall bug fixes",
+        "de": "Zigbee2mqt Wiederherstellen\nGrafana Backup\nBackup-Benachrichtigungen optimiert\nFehlerbenachrichtigungen optimiert\ngeschichte daten optimiert\nkleine fehlerbehebungen",
+        "ru": "Fix Zigbee2mqtt Восстановление\nFix Графана Backup\nОптимизация уведомлений Backup\nОптимизация уведомлений об ошибках\nоптимизированные данные истории\nнебольшие исправления ошибок",
+        "pt": "Fix Zigbee2mqt Restaurar\nFix Grafana Backup\nNotificações de backup otimizadas\nNotificações de erro otimizadas\ndados de histórico otimizados\npequenas correções de bugs",
+        "nl": "Vertaling:\nVertaling:\nVersterkingsinformatie optimulatie\nError-informatie is optimistisch\nvertaling:\nkleine insecten repareren",
+        "fr": "Fixer Zigbee2mqtt Restore\nRéparez Grafana Backup\nNotifications de sauvegarde optimisées\nNotifications d'erreur optimisées\ndonnées historiques optimisées\npetites corrections de bug",
+        "it": "Ripristino di Zigbee2mqtt\nFix Grafana Backup\nNotifiche di backup ottimizzate\nNotifiche di errore ottimizzate\ndati storici ottimizzati\npiccole correzioni di bug",
+        "es": "Restauración de Zigbee2mqtt\nCopia de seguridad Grafana\nNotificaciones de respaldo optimizadas\nNotificaciones de errores optimizadas\ndatos de historia optimizados\npequeños bugs",
+        "pl": "Fix Zigbee2mqtt Restore (ang.)\nFix Grafana Backup\nNotyfikacja Backupa zoptymalizowana\nError notification (ang.)\ndane historyczne zoptymalizowane\ndrobny trąb",
+        "uk": "Виправлення Zigbee2mqtt відновлення\nВиправлення Grafana Backup\nСповіщення про резервне копіювання\nОптимізовано повідомлення про помилку\nоптимізація даних історії\nмаленькі виправлення помилок",
+        "zh-cn": "Fix Zigbee2mqt Restor\nFix Grafana Backup\n包装通知优化\n通知优化\n历史数据优化\n小配件"
+      },
       "2.6.12": {
         "en": "Fix Zigbee2mqtt Backup & Restore\nNode-Red Backup optimized\nGrafana Backup optimized\nInfluxDB Backup optimized\nDocu & Wiki updated",
         "de": "Zigbee2mqt Backup & Wiederherstellen\nNode-Red Backup optimiert\nGrafana Backup optimiert\nInfluxDB Backup optimiert\nDocu & Wiki aktualisiert",
@@ -80,19 +93,6 @@
         "pl": "Sesja do pudełka optymalizowana",
         "uk": "Оптимізоване завантаження сеансу Dropbox",
         "zh-cn": "Drop箱会议优化"
-      },
-      "2.6.6": {
-        "en": "Dropbox file upload up to 350 GB added",
-        "de": "Dropbox Datei hochladen bis 350 GB hinzugefügt",
-        "ru": "Файл Dropbox загружен до 350 GB добавлен",
-        "pt": "O upload de arquivos do Dropbox para 350 GB adicionado",
-        "nl": "Vertaling:",
-        "fr": "Fichier Dropbox télécharger jusqu'à 350 GB ajouté",
-        "it": "Caricamento file Dropbox fino a 350 GB aggiunto",
-        "es": "Carga de archivos de Dropbox hasta 350 GB",
-        "pl": "W pliku Dropbox ładowano do 350 GB",
-        "uk": "Завантажити файл Dropbox до 350 ГБ",
-        "zh-cn": "Drop箱的载荷量达350千兆克"
       }
     },
     "title": "BackItUp",
