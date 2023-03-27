@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.14",
+    "version": "2.6.15",
     "news": {
+      "2.6.15": {
+        "en": "Node-Red Backup optimized\nGrafana Backup optimized\nZigbee2mqtt Backup optimized\nskip-verify for influxdb 2.x",
+        "de": "Node-Red Backup optimiert\nGrafana Backup optimiert\nZigbee2mqt Backup optimiert\nüberschreitung von influxdb 2.x",
+        "ru": "Node-Red Backup оптимизирован\nGrafana Backup оптимизирован\nЗигбе2mqtt Backup оптимизирован\nskip-verify для influxdb 2.x",
+        "pt": "Backup Node-Red otimizado\nBackup de Grafana otimizado\nO que é isso? Backup otimizado\nskip-verify para influxdb 2.x",
+        "nl": "Node-Red back-up optim\nGrafana back-up optim\nZigbee2mqt Quality over Quantity (QoQ) Releases Vertaling:\nskip-verandering voor influxdb 2",
+        "fr": "Node-Red Backup optimisé\nGrafana Backup optimisé\nZigbee2mqtt Sauvegarde optimisée\nskip-verify for influxdb 2.x",
+        "it": "Node-Red Backup ottimizzato\nGrafana Backup ottimizzato\nZigbee2mq Backup ottimizzato\nskip-verify per afflusso 2.x",
+        "es": "Node-Red Backup optimizado\nGrafana Backup optimizado\nZigbee2mqtt Copia de seguridad optimizada\nskip-verify para influxdb 2.x",
+        "pl": "Node-Red Backup (ang.)\nGrafana Backup zoptymalizowała\nZigbee2mqtt optymalizacja\ninformacje o napływie 2",
+        "uk": "Node-Red Backup оптимізований\nОптимізований Grafana Backup\nЗігбее2mqtt Оптимізація резервного копіювання\nпропустити-перевірити для інфлюкс 2.х",
+        "zh-cn": "没有最佳的包装\n格拉纳·布松优化\nZigbee2mqt A. 一揽子措施的优化\n流落空 2. x"
+      },
       "2.6.14": {
         "en": "Bug Fix History JSON",
         "de": "Fehler beheben Geschichte JSON",
@@ -80,19 +93,6 @@
         "pl": "Sesja do pudełka optymalizowana\nObsługa sterowania optymalizowana",
         "uk": "Оптимізоване завантаження сеансу Dropbox\nОптимізоване використання помилок",
         "zh-cn": "Drop箱会议优化\n优化处理"
-      },
-      "2.6.8": {
-        "en": "Fix Dropbox session upload",
-        "de": "Dropbox-Sitzung hochladen",
-        "ru": "Fix Загрузить сеанс Dropbox",
-        "pt": "Corrigir upload de sessão do Dropbox",
-        "nl": "Vertaling:",
-        "fr": "Correction du téléchargement de la session Dropbox",
-        "it": "Risolvi l'upload di sessione Dropbox",
-        "es": "Arregla la sesión de Dropbox",
-        "pl": "Fix Dropbox session",
-        "uk": "Виправлення завантаження сеансу Dropbox",
-        "zh-cn": "Fix Drop箱会议"
       }
     },
     "title": "BackItUp",
