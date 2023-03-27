@@ -52,6 +52,12 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Node-Red Backup optimized
+* (simatec) Grafana Backup optimized
+* (simatec) Zigbee2mqtt Backup optimized
+* (simatec) skip-verify for influxdb 2.x
+
 ### 2.6.14 (2023-03-22)
 * (simatec) Bug Fix History JSON
 
