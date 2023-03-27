@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.6.15 (2023-03-27)
 * (simatec) Node-Red Backup optimized
 * (simatec) Grafana Backup optimized
 * (simatec) Zigbee2mqtt Backup optimized
