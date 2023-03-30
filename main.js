@@ -1527,10 +1527,10 @@ function clearbashDir() {
 }
 
 async function getCerts(instance) {
-    const _adminCert = await adapter.getForeignObjectAsync(instance, 'state');
+    const _adminCert = await adapter.getForeignObjectAsync(instance);
 
     if (_adminCert && _adminCert.native && _adminCert.native.certPrivate && _adminCert.native.certPublic) {
-        const _cert = await adapter.getForeignObjectAsync('system.certificates', 'state');
+        const _cert = await adapter.getForeignObjectAsync('system.certificates');
 
         if (_cert && _cert.native && _cert.native.certificates) {
             try {
