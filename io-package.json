@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.15",
+    "version": "2.6.16",
     "news": {
+      "2.6.16": {
+        "en": "small fix for js-controller 5",
+        "de": "kleine befestigung für js-controller 5",
+        "ru": "небольшой фикс для js-контроллера 5",
+        "pt": "pequena correção para js-controller 5",
+        "nl": "_",
+        "fr": "petite fixation pour js-controller 5",
+        "it": "piccolo fissaggio per js-controller 5",
+        "es": "pequeña fijación para js-controller 5",
+        "pl": "niewielkie rozwiązanie dla sterownika 5",
+        "uk": "невелика фіксація для js-controller 5",
+        "zh-cn": "第5条 控制勒的小ix"
+      },
       "2.6.15": {
         "en": "Node-Red Backup optimized\nGrafana Backup optimized\nZigbee2mqtt Backup optimized\nskip-verify for influxdb 2.x",
         "de": "Node-Red Backup optimiert\nGrafana Backup optimiert\nZigbee2mqt Backup optimiert\nüberschreitung von influxdb 2.x",
@@ -80,19 +93,6 @@
         "pl": "Design\nwęzeł 14 ustalono minimalny\nstan czyszczania\nFix Node-Red Backup & Restore & Restore (ang.)",
         "uk": "Налаштування дизайну\nвузол 14 встановлюється як мінімальна вимога\nдодано журнал стану очищення\nВиправлення Node-Red Backup & Restore",
         "zh-cn": "设计\n第14条\n清洁状况标志\nFix Node-Red Backup & Restor"
-      },
-      "2.6.9": {
-        "en": "Dropbox session upload optimized\nError handling optimized",
-        "de": "Dropbox Session Upload optimiert\nFehlerbehebung optimiert",
-        "ru": "Dropbox session загрузка оптимизирована\nОптимизация обработки ошибок",
-        "pt": "Upload de sessão do Dropbox otimizado\nManuseio de erros otimizado",
-        "nl": "Dropbox sessie upload Optim\nError omgaan met optimistisch",
-        "fr": "Téléchargement de la session Dropbox optimisé\nManipulation d'erreur optimisée",
-        "it": "Caricamento sessione Dropbox ottimizzato\nGestione degli errori ottimizzata",
-        "es": "Subir sesión de Dropbox optimizado\nManejo de errores optimizado",
-        "pl": "Sesja do pudełka optymalizowana\nObsługa sterowania optymalizowana",
-        "uk": "Оптимізоване завантаження сеансу Dropbox\nОптимізоване використання помилок",
-        "zh-cn": "Drop箱会议优化\n优化处理"
       }
     },
     "title": "BackItUp",
