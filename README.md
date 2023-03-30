@@ -52,6 +52,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) small fix for js-controller 5
+
 ### 2.6.15 (2023-03-27)
 * (simatec) Node-Red Backup optimized
 * (simatec) Grafana Backup optimized
