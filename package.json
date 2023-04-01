@@ -33,7 +33,7 @@
     "url": "https://github.com/simatec/ioBroker.backitup"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.6.7",
+    "@iobroker/adapter-core": "^2.6.8",
     "dropbox-v2-api": "^2.5.10",
     "webdav": "^4.11.2",
     "ftp": "^0.3.10",
