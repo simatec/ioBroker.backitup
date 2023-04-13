@@ -515,7 +515,7 @@ function createBackupSchedule() {
         if (config.enabled === true || config.enabled === 'true') {
             let time = config.time.split(':');
 
-            adapter.log.info(`[${type}] backup was activated at ${config.time} every ${config.everyXDays} day(s)`);
+            adapter.log.info(`[${type}] backup will be activated at ${config.time} every ${config.everyXDays} day(s)`);
 
             if (backupTimeSchedules[type]) {
                 backupTimeSchedules[type].cancel();
