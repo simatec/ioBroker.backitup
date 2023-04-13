@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.16",
+    "version": "2.6.17",
     "news": {
+      "2.6.17": {
+        "en": "Fix delete InfluxDB tmp dir\nsmall Sentry fixes",
+        "de": "Löschen InfluxDB tmp dir\nkleine Sentry Fixes",
+        "ru": "Fix удалить InfluxDB tmp dir\nмелкие фиксы Sentry",
+        "pt": "Corrigir a exclusão InfluxDB tmp dir\npequenas correções de Sentry",
+        "nl": "Vertaling:\nkleine Sentry repareert",
+        "fr": "Correction supprimer InfluxDB tmp dir\npetites corrections de Sentry",
+        "it": "Fissare eliminare InfluxDB tmp dir\npiccoli apparecchi Sentry",
+        "es": "Borrador de eliminación InfluxDB tmp dir\npequeñas correcciones de Sentry",
+        "pl": "Informacje na stronie InfluxDB\nmała ustawa",
+        "uk": "Виправлення видалення InfluxDB mp dir\nмаленькі дамські кріплення",
+        "zh-cn": "Fix 删除流落街头流浪者\n小型Sentry fix"
+      },
       "2.6.16": {
         "en": "small fix for js-controller 5",
         "de": "kleine befestigung für js-controller 5",
@@ -80,19 +93,6 @@
         "pl": "Fix Zigbee2mqtt Backup & Restore (ang.)",
         "uk": "Виправлення Zigbee2mqtt Резервне копіювання & відновлення",
         "zh-cn": "Fix Zigbee2mqt Backup & Restor"
-      },
-      "2.6.10": {
-        "en": "Design Fix\nnode 14 set as minimum requirement\ncleaning status log added\nFix Node-Red Backup & Restore",
-        "de": "Design Fix\nknoten 14 gesetzt als mindestanforderung\nreinigungsstatus log hinzugefügt\nFix Node-Red Backup & Wiederherstellen",
-        "ru": "Дизайн Fix\nnode 14 установлен как минимальное требование\nсостояние очистки log добавлен\nFix Node-Red Backup & Восстановление",
-        "pt": "Design Fix\nnó 14 definido como requisito mínimo\nregisto de estado de limpeza adicionado\nFix Node-Red Backup & Restauração",
-        "nl": "Design Fix\nnode 14 set as minimum vereising\nschoonmaakstatus toegevoegd\nVertaling:",
-        "fr": "Design Fix\nnode 14 défini comme condition minimale\nnettoyage du registre\nFix Node-Red Backup & Restore",
-        "it": "Design Fix\nnodo 14 impostato come requisito minimo\nstato di pulizia log aggiunto\nFix Node-Red Backup & Ripristino",
-        "es": "Diseño fijo\nnodo 14 fijado como requisito mínimo\nestado de limpieza agregado\nRestaurar el respaldo de Node-Red",
-        "pl": "Design\nwęzeł 14 ustalono minimalny\nstan czyszczania\nFix Node-Red Backup & Restore & Restore (ang.)",
-        "uk": "Налаштування дизайну\nвузол 14 встановлюється як мінімальна вимога\nдодано журнал стану очищення\nВиправлення Node-Red Backup & Restore",
-        "zh-cn": "设计\n第14条\n清洁状况标志\nFix Node-Red Backup & Restor"
       }
     },
     "title": "BackItUp",
