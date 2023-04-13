@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.6.17 (2023-04-13)
 * (simatec) Fix delete InfluxDB tmp dir
 * (simatec) small Sentry fixes
 
