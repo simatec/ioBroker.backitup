@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.17",
+    "version": "2.6.18",
     "news": {
+      "2.6.18": {
+        "en": "dependencies updated\nsmall Sentry fixes\nError notifications optimized",
+        "de": "aktualisierte abhängigkeiten\nkleine Sentry Fixes\nFehlerbenachrichtigungen optimiert",
+        "ru": "зависимости обновлены\nмелкие фиксы Sentry\nОптимизация уведомлений об ошибках",
+        "pt": "dependências atualizadas\npequenas correções de Sentry\nNotificações de erro otimizadas",
+        "nl": "afhankelijkheid geüpdateerd\nkleine Sentry repareert\nError-informatie is optimistisch",
+        "fr": "dépendances mises à jour\npetites corrections de Sentry\nNotifications d'erreur optimisées",
+        "it": "dipendenze aggiornate\npiccoli apparecchi Sentry\nNotifiche di errore ottimizzate",
+        "es": "dependencias actualizadas\npequeñas correcciones de Sentry\nNotificaciones de errores optimizadas",
+        "pl": "aktualizacja\nmała ustawa\nError notification (ang.)",
+        "uk": "оновлені залежності\nмаленькі дамські кріплення\nОптимізовано повідомлення про помилку",
+        "zh-cn": "b. 更新的依赖\n小型Sentry fix\n通知优化"
+      },
       "2.6.17": {
         "en": "Fix delete InfluxDB tmp dir\nsmall Sentry fixes",
         "de": "Löschen InfluxDB tmp dir\nkleine Sentry Fixes",
@@ -80,19 +93,6 @@
         "pl": "Fix Zigbee2mqtt Backup & Restore (ang.)\nNode-Red Backup (ang.)\nGrafana Backup zoptymalizowała\nInfluxDB Backup (ang.)\nDocu & Wiki uaktualnione",
         "uk": "Виправлення Zigbee2mqtt Резервне копіювання & відновлення\nNode-Red Backup оптимізований\nОптимізований Grafana Backup\nІнфлюксДБ Backup оптимізований\nDocu & Wiki оновлений",
         "zh-cn": "Fix Zigbee2mqt Backup & Restor\n没有最佳的包装\n格拉纳·布松优化\n流向行的包装优化\nDocu & Wiki更新"
-      },
-      "2.6.11": {
-        "en": "Fix Zigbee2mqtt Backup & Restore",
-        "de": "Zigbee2mqt Backup & Wiederherstellen",
-        "ru": "Fix Zigbee2mqtt Backup & Восстановление",
-        "pt": "Fix Zigbee2mqtt Backup & Restaurar",
-        "nl": "Vertaling:",
-        "fr": "Réparez Zigbee2mqtt Backup & Restore",
-        "it": "Fissare Zigbee2mqt Backup & Ripristino",
-        "es": "Arreglar Zigbee2mqtt Backup & Restore",
-        "pl": "Fix Zigbee2mqtt Backup & Restore (ang.)",
-        "uk": "Виправлення Zigbee2mqtt Резервне копіювання & відновлення",
-        "zh-cn": "Fix Zigbee2mqt Backup & Restor"
       }
     },
     "title": "BackItUp",

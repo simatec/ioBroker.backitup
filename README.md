@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.6.18 (2023-04-19)
 * (simatec) dependencies updated
 * (simatec) small Sentry fixes
 * (simatec) Error notifications optimized
