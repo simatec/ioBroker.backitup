@@ -1428,7 +1428,7 @@ async function startSlaveBackup(slaveInstance, num) {
     }
 
     try {
-        const currentState = await adapter.getForeignStateAsync(`system.adapter.${slaveInstance}.alive`, 'state');
+        const currentState = await adapter.getForeignStateAsync(`system.adapter.${slaveInstance}.alive`);
 
         if (currentState && currentState.val === false) {
             waitForInstance = 10000;
@@ -1441,7 +1441,7 @@ async function startSlaveBackup(slaveInstance, num) {
 
     waitToSlaveBackup = setTimeout(async () => {
         try {
-            const currentStateAfter = await adapter.getForeignStateAsync(`system.adapter.${slaveInstance}.alive`, 'state');
+            const currentStateAfter = await adapter.getForeignStateAsync(`system.adapter.${slaveInstance}.alive`);
 
             if (currentStateAfter && currentStateAfter.val && currentStateAfter.val === true) {
                 const sendToSlave = await adapter.sendToAsync(slaveInstance, 'slaveBackup', { config: { deleteAfter: adapter.config.minimalDeleteAfter } });
