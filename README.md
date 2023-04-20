@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.6.19 (2023-04-20)
 * (simatec) small fix for js-controller 5
 
 ### 2.6.18 (2023-04-19)
