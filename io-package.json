@@ -349,6 +349,7 @@
     "ftpHost": "",
     "ftpPort": 21,
     "ftpSecure": false,
+    "ftpSignedCertificates": true,
     "ftpDir": "/backupDir",
     "ftpUser": "",
     "ftpPassword": "",
