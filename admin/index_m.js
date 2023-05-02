@@ -1699,6 +1699,11 @@ function showHideSettings(settings) {
     } else {
         $('.ccuCert').hide();
     }
+    if ($('#ftpSecure').prop('checked')) {
+        $('.ftpCert').show();
+    } else {
+        $('.ftpCert').hide();
+    }
     $('#grafanaProtocol').on('change', function () {
         if ($(this).val() === 'https') {
             $('.grafanaCert').show();

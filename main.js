@@ -701,6 +701,7 @@ function initConfig(secret) {
         pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '',        // password for FTP Server
         port: adapter.config.ftpPort || 21,                                                         // FTP port
         secure: adapter.config.ftpSecure || false,                                                  // secure FTP connection
+        signedCertificates: adapter.config.ftpSignedCertificates || true,
         ignoreErrors: adapter.config.ignoreErrors
     };
 

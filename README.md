@@ -52,6 +52,10 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) FTP self signed Certificates added
+* (simatec) dependencies updated
+
 ### 2.6.19 (2023-04-20)
 * (simatec) small fix for js-controller 5
 
