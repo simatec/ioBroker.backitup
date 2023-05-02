@@ -52,6 +52,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) small Sentry fixes
+
 ### 2.6.20 (2023-05-02)
 * (simatec) FTP self signed Certificates added
 * (simatec) dependencies updated
