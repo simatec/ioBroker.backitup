@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.21",
+    "version": "2.6.22",
     "news": {
+      "2.6.22": {
+        "en": "Fix Influx Restore for MultiDB\nDefault Ports for InfluxDB added",
+        "de": "Influx Restore für MultiDB reparieren\nDefault Ports für InfluxDB hinzugefügt",
+        "ru": "Fix Influx Восстановление для MultiDB\nПорты по умолчанию для InfluxDB добавлены",
+        "pt": "Fix Influx Restore para MultiDB\nPortas padrão para InfluxDB adicionado",
+        "nl": "Fix Influx Restore\nDefault Ports for InfluxDB toegevoegd",
+        "fr": "Réparez Influx Restore pour MultiDB\nPorts par défaut pour InfluxDB ajouté",
+        "it": "Ripristino dell'influenza fissa per MultiDB\nPorte predefinite per InfluxDB aggiunto",
+        "es": "Restauración de flujo fijo para MultiDB\nPuertos predeterminados para InfluxDB añadido",
+        "pl": "Strona internetowa MultiDB\nDo InfluxDB dodano porty Default",
+        "uk": "Фіксований інфлюкс для багатоDB\nПорти за замовчуванням для InfluxDB додано",
+        "zh-cn": "Fix 多方行流源的恢复\n流落街头的Default港增加了"
+      },
       "2.6.21": {
         "en": "small Sentry fixes\nFix Influx Restore\nFix Onedrive Download\ndependencies updated",
         "de": "kleine Sentry Fixes\nRestore für Influen\nOnedrive herunterladen\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "niewielkie rozwiązanie dla sterownika 5",
         "uk": "невелика фіксація для js-controller 5",
         "zh-cn": "第5条 控制勒的小ix"
-      },
-      "2.6.15": {
-        "en": "Node-Red Backup optimized\nGrafana Backup optimized\nZigbee2mqtt Backup optimized\nskip-verify for influxdb 2.x",
-        "de": "Node-Red Backup optimiert\nGrafana Backup optimiert\nZigbee2mqt Backup optimiert\nüberschreitung von influxdb 2.x",
-        "ru": "Node-Red Backup оптимизирован\nGrafana Backup оптимизирован\nЗигбе2mqtt Backup оптимизирован\nskip-verify для influxdb 2.x",
-        "pt": "Backup Node-Red otimizado\nBackup de Grafana otimizado\nO que é isso? Backup otimizado\nskip-verify para influxdb 2.x",
-        "nl": "Node-Red back-up optim\nGrafana back-up optim\nZigbee2mqt Quality over Quantity (QoQ) Releases Vertaling:\nskip-verandering voor influxdb 2",
-        "fr": "Node-Red Backup optimisé\nGrafana Backup optimisé\nZigbee2mqtt Sauvegarde optimisée\nskip-verify for influxdb 2.x",
-        "it": "Node-Red Backup ottimizzato\nGrafana Backup ottimizzato\nZigbee2mq Backup ottimizzato\nskip-verify per afflusso 2.x",
-        "es": "Node-Red Backup optimizado\nGrafana Backup optimizado\nZigbee2mqtt Copia de seguridad optimizada\nskip-verify para influxdb 2.x",
-        "pl": "Node-Red Backup (ang.)\nGrafana Backup zoptymalizowała\nZigbee2mqtt optymalizacja\ninformacje o napływie 2",
-        "uk": "Node-Red Backup оптимізований\nОптимізований Grafana Backup\nЗігбее2mqtt Оптимізація резервного копіювання\nпропустити-перевірити для інфлюкс 2.х",
-        "zh-cn": "没有最佳的包装\n格拉纳·布松优化\nZigbee2mqt A. 一揽子措施的优化\n流落空 2. x"
       }
     },
     "title": "BackItUp",
