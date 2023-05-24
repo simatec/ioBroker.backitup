@@ -869,7 +869,7 @@ function initConfig(secret) {
             deleteBackupAfter: adapter.config.influxDBDeleteAfter,                                  // delete old backupfiles after x days
             dbName: adapter.config.influxDBName,                                                    // database name
             host: adapter.config.influxDBHost,                                                      // database host
-            port: adapter.config.influxDBPort,                                                      // database port
+            port: adapter.config.influxDBPort ? adapter.config.influxDBPort : adapter.config.influxDBVersion == '1.x' ? 8088 : 8086,
             dbversion: adapter.config.influxDBVersion,                                              // dbversion from Influxdb
             token: adapter.config.influxDBToken,                                                    // Token from Influxdb
             protocol: adapter.config.influxDBProtocol,                                              // Protocol Type from Influxdb
