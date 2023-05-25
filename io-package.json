@@ -275,6 +275,7 @@
     "dropboxDir": "/backupDir",
     "onedriveEnabled": false,
     "onedriveAccessJson": "",
+    "onedriveLastTokenRenew": "",
     "onedriveDeleteOldBackup": false,
     "onedriveOwnDir": false,
     "onedriveMinimalDir": "backupDir/iobroker",

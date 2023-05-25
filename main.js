@@ -123,6 +123,10 @@ function startAdapter(options) {
                                 if (state && state.val === '[EXIT] 0') {
                                     adapter.setState(`history.${type}Success`, true, true);
                                     adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang), true);
+
+                                    if (adapter.config.onedriveEnabled && adapter.config.hostType === 'Single') {
+                                        renewOnedriveToken();
+                                    }
                                 } else {
                                     adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
                                     adapter.setState(`history.${type}Success`, false, true);
@@ -433,6 +437,10 @@ function startAdapter(options) {
                                                 err && adapter.log.error(err);
                                                 adapter.log.error('slave Backup not finish!');
                                             }
+
+                                            if (adapter.config.onedriveEnabled) {
+                                                renewOnedriveToken();
+                                            }
                                         } else {
                                             adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
                                             adapter.setState(`history.${type}Success`, false, true);
@@ -538,6 +546,10 @@ function createBackupSchedule() {
                                 if (state && state.val === '[EXIT] 0') {
                                     adapter.setState(`history.${type}Success`, true, true);
                                     adapter.setState(`history.${type}LastTime`, tools.getTimeString(systemLang), true);
+
+                                    if (adapter.config.onedriveEnabled && adapter.config.hostType === 'Single') {
+                                        renewOnedriveToken();
+                                    }
                                 } else {
                                     adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
                                     adapter.setState(`history.${type}Success`, false, true);
@@ -1464,6 +1476,10 @@ async function startSlaveBackup(slaveInstance, num) {
                     return slaveTimeOut = setTimeout(startSlaveBackup, 3000, adapter.config.slaveInstance[num], num);
                 } else {
                     adapter.log.debug('slave backups are completed');
+
+                    if (adapter.config.onedriveEnabled) {
+                        renewOnedriveToken();
+                    }
                 }
             } else {
                 num++;
@@ -1473,6 +1489,10 @@ async function startSlaveBackup(slaveInstance, num) {
                     return slaveTimeOut = setTimeout(startSlaveBackup, 3000, adapter.config.slaveInstance[num], num);
                 } else {
                     adapter.log.debug('slave backups are completed');
+
+                    if (adapter.config.onedriveEnabled) {
+                        renewOnedriveToken();
+                    }
                 }
             }
         } catch (err) {
@@ -1594,6 +1614,37 @@ function fileServer(protocol) {
         } catch (e) {
             adapter.log.debug('Downloadserver cannot started');
         }
+    }
+}
+
+async function renewOnedriveToken() {
+    const Onedrive = require('./lib/oneDriveLib');
+    const onedrive = new Onedrive();
+
+    let currentDay = new Date();
+    let diffDays;
+
+    if (adapter.config.onedriveLastTokenRenew != '') {
+        const lastRenew = new Date(adapter.config.onedriveLastTokenRenew);
+
+        diffDays = parseInt((currentDay - lastRenew) / (1000 * 60 * 60 * 24)); //day difference 
+    }
+
+    if (diffDays >= 30 || adapter.config.onedriveLastTokenRenew == '') {
+        adapter.log.debug('Renew Onedrive Refresh-Token');
+
+        onedrive.renewToken(adapter.config.onedriveAccessJson, adapter.log)
+            .then(refreshToken => {
+                adapter.extendForeignObject(`system.adapter.${adapter.namespace}`, {
+                    native: {
+                        onedriveAccessJson: refreshToken,
+                        onedriveLastTokenRenew: ('0' + (currentDay.getMonth() + 1)).slice(-2) + '/' + ('0' + currentDay.getDate()).slice(-2) + '/' + currentDay.getFullYear()
+                    }
+                });
+            })
+            .catch(err => adapter.log.error(err));
+    } else {
+        adapter.log.debug(`Renew Onedrive Refresh-Token in ${30 - diffDays} days`);
     }
 }
 
