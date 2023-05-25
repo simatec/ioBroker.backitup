@@ -52,6 +52,11 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Fix Influx Restore for MultiDB
+* (simatec) Token renew for Onedrive added
+* (simatec) Fix PSQL Restore
+
 ### 2.6.22 (2023-05-24)
 * (simatec) Fix Influx Restore for MultiDB
 * (simatec) Default Ports for InfluxDB added
