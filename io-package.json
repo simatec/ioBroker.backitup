@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.22",
+    "version": "2.6.23",
     "news": {
+      "2.6.23": {
+        "en": "Fix Influx Restore for MultiDB\nToken renew for Onedrive added\nFix PSQL Restore",
+        "de": "Influx Restore für MultiDB reparieren\nToken-Erneuerung für Onedrive hinzugefügt\nPSQL Wiederherstellen",
+        "ru": "Fix Influx Восстановление для MultiDB\nToken обновление для Onedrive добавлено\nFix PSQL Восстановить",
+        "pt": "Fix Influx Restore para MultiDB\nToken renovar para Onedrive adicionado\nRestauração de PSQL",
+        "nl": "Fix Influx Restore\nToken renew for Onedrive toegevoegd\nVertaling:",
+        "fr": "Réparez Influx Restore pour MultiDB\nRenouvellement de jeton pour Onedrive ajouté\nRéparez PSQL Restore",
+        "it": "Ripristino dell'influenza fissa per MultiDB\nToken rinnovo per Onedrive aggiunto\nRipristino PSQL",
+        "es": "Restauración de flujo fijo para MultiDB\nRenovación token para Onedrive añadido\nRestaurar PSQL",
+        "pl": "Strona internetowa MultiDB\nPonowna wersja Onedrive’a\nFix PSQL Restore",
+        "uk": "Фіксований інфлюкс для багатоDB\nToken renew для Onedrive додано\nВиправлення PSQL відновлення",
+        "zh-cn": "Fix 多方行流源的恢复\nB. 添加剂\nFix PSQL Restore"
+      },
       "2.6.22": {
         "en": "Fix Influx Restore for MultiDB\nDefault Ports for InfluxDB added",
         "de": "Influx Restore für MultiDB reparieren\nDefault Ports für InfluxDB hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "Informacje na stronie InfluxDB\nmała ustawa",
         "uk": "Виправлення видалення InfluxDB mp dir\nмаленькі дамські кріплення",
         "zh-cn": "Fix 删除流落街头流浪者\n小型Sentry fix"
-      },
-      "2.6.16": {
-        "en": "small fix for js-controller 5",
-        "de": "kleine befestigung für js-controller 5",
-        "ru": "небольшой фикс для js-контроллера 5",
-        "pt": "pequena correção para js-controller 5",
-        "nl": "_",
-        "fr": "petite fixation pour js-controller 5",
-        "it": "piccolo fissaggio per js-controller 5",
-        "es": "pequeña fijación para js-controller 5",
-        "pl": "niewielkie rozwiązanie dla sterownika 5",
-        "uk": "невелика фіксація для js-controller 5",
-        "zh-cn": "第5条 控制勒的小ix"
       }
     },
     "title": "BackItUp",
