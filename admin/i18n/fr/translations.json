@@ -60,6 +60,8 @@
   "Delete old NAS / Copy-Backups": "Supprimer les anciennes sauvegardes NAS / Copy",
   "Delete old Onedrive-Backups": "Supprimer les anciennes sauvegardes Onedrive",
   "Delete old WebDAV-Backups": "Supprimer les anciennes sauvegardes de WebDAV",
+  "Discord instance": "Discord instance",
+  "Discord receiver": "Discord receiver",
   "Domainname (optional)": "Nom de domaine (facultatif)",
   "Download Backup File": "Télécharger le fichier de sauvegarde",
   "Download Backup file": "Télécharger le fichier de sauvegarde",
