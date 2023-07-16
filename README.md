@@ -52,6 +52,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) dependencies updated
+
 ### 2.6.23 (2023-05-25)
 * (simatec) Fix Influx Restore for MultiDB
 * (simatec) Token renew for Onedrive added
