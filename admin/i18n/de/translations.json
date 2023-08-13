@@ -110,7 +110,7 @@
   "Homematic start backup": "Homematic Backup starten",
   "Host": "Server",
   "Host Type": "Hosttyp",
-  "IP address": "IP Adresse",
+  "IP address": "IP-Adresse",
   "IP adress or hostname": "IP-Adresse oder Hostname",
   "IP of the CCU": "IP-Adresse der CCU",
   "InfluxDB Backup": "InfluxDB",

@@ -1,5 +1,5 @@
 {
-  " *** Open InfluxDB Documentation ***": "   *** Otwórz dokumentację InfluxDB ***",
+  " *** Open InfluxDB Documentation ***": "*** Otwórz dokumentację InfluxDB ***",
   " *** Open Readme ***": " *** Otwórz plik Readme ***",
   ", and copied / moved via FTP to %h%d": ", i skopiowane/przeniesione za pomocą FTP do %h%d",
   ", and stored in dropbox": " i przechowywane w Dropbox",
@@ -48,8 +48,8 @@
   "CCU Backup": "CCU",
   "CIFS": "NAS / Copy",
   "CIFS-Mount: Yes": "NFS / CIFS-Mount: Tak",
-  "Cancel": "Anuluj",
-  "Close": "blisko",
+  "Cancel": "Pomiń",
+  "Close": "Zamknij",
   "Config taken from %s": "Config pobrany z %s",
   "Configuring remote connections. For detailed information please read the documentation of InfluxDB!": "Skonfiguruj połączenia zdalne. Aby uzyskać szczegółowe informacje, przeczytaj dokumentację InfluxDB !",
   "Database Version": "Wersja bazy danych",

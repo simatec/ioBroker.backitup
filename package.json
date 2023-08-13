@@ -33,20 +33,20 @@
     "url": "https://github.com/simatec/ioBroker.backitup"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.6.8",
+    "@googleapis/drive": "^8.1.0",
+    "@iobroker/adapter-core": "^3.0.3",
+    "axios": "^1.4.0",
     "dropbox-v2-api": "^2.5.10",
-    "webdav": "^4.11.2",
-    "ftp": "^0.3.10",
-    "node-schedule": "^2.1.1",
-    "@googleapis/drive": "^8.0.0",
-    "node-wol": "^0.1.1",
-    "request": "^2.88.2",
-    "google-auth-library": "^8.9.0",
     "express": "^4.18.2",
     "fs-extra": "^11.1.1",
-    "axios": "^1.4.0",
+    "ftp": "^0.3.10",
+    "google-auth-library": "^9.0.0",
+    "node-schedule": "^2.1.1",
+    "node-wol": "^0.1.1",
+    "onedrive-api": "^1.1.1",
+    "request": "^2.88.2",
     "tar-fs": "^3.0.4",
-    "onedrive-api": "^1.0.9"
+    "webdav": "^4.11.2"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^3.6.0",

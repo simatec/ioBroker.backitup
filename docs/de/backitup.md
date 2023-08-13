@@ -427,6 +427,7 @@ Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || 
    * Whatsapp
    * Signal
    * Matrix
+   * Discord
 
 ### [zurück](#Inhalt)
 ---

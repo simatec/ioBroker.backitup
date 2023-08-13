@@ -428,6 +428,7 @@ Syntax: {value: <BackitupInstance>.oneClick.<trigger>; value ==="true" || value 
     * Whatsapp
     * Signal
     * Matrix
+    * Discord
 
 ### [back](#Content)
 ---
