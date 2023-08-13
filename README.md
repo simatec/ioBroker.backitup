@@ -54,6 +54,7 @@ When the adapter crashes or another Code error happens, this error message that 
 <!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
 * (simatec) dependencies updated
+* (crycode-de) Add support for sending notifications via discord (requires ioBroker.discord >= 2.1)
 
 ### 2.6.23 (2023-05-25)
 * (simatec) Fix Influx Restore for MultiDB

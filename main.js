@@ -652,6 +652,20 @@ function initConfig(secret) {
         systemLang
     };
 
+    const discord = {
+        enabled: adapter.config.notificationEnabled,
+        notificationsType: adapter.config.notificationsType,
+        type: 'message',
+        instance: adapter.config.discordInstance,
+        NoticeType: adapter.config.discordNoticeType,
+        target: adapter.config.discordTarget,
+        onlyError: adapter.config.discordOnlyError,
+        discordWaiting: adapter.config.discordWaitToSend * 1000,
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        ignoreErrors: adapter.config.ignoreErrors,
+        systemLang
+    };
+
     const pushover = {
         enabled: adapter.config.notificationEnabled,
         notificationsType: adapter.config.notificationsType,
@@ -1069,6 +1083,7 @@ function initConfig(secret) {
         whatsapp,
         signal,
         matrix,
+        discord,
     };
 
     // Configurations for CCU / pivCCU / RaspberryMatic backup
@@ -1098,6 +1113,7 @@ function initConfig(secret) {
         whatsapp,
         signal,
         matrix,
+        discord,
 
         host: adapter.config.ccuHost,                                                               // IP-address CCU
         user: adapter.config.ccuUser,                                                               // username CCU
@@ -1627,7 +1643,7 @@ async function renewOnedriveToken() {
     if (adapter.config.onedriveLastTokenRenew != '') {
         const lastRenew = new Date(adapter.config.onedriveLastTokenRenew);
 
-        diffDays = parseInt((currentDay - lastRenew) / (1000 * 60 * 60 * 24)); //day difference 
+        diffDays = parseInt((currentDay - lastRenew) / (1000 * 60 * 60 * 24)); //day difference
     }
 
     if (diffDays >= 30 || adapter.config.onedriveLastTokenRenew == '') {

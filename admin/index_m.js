@@ -1148,6 +1148,10 @@ function load(settings, onChange) {
         fillInstances('pushoverInstance', instances, settings['pushoverInstance'], 'pushover');
     });
 
+    getAdapterInstances('discord', function (instances) {
+        fillInstances('discordInstance', instances, settings['discordInstance'], 'discord');
+    });
+
     if ($('#ccuEnabled').prop('checked') && !settings.ccuHost) {
         fetchCcuConfig(true);
     }
@@ -1177,6 +1181,8 @@ function load(settings, onChange) {
     sendTo(null, 'getTelegramUser', { config: { instance: settings.telegramInstance } }, function (obj) {
         fillTelegramUser(settings['telegramUser'], obj, settings.telegramInstance)
     });
+
+    fillDiscordTarget(settings['discordTarget'], settings.discordInstance);
 
     $('.timepicker').timepicker({
         "twelveHour": false
@@ -1211,6 +1217,25 @@ function fillTelegramUser(id, str, telegramInst) {
     } else {
         var $sel = $('#telegramUser');
         $sel.html('<option value="none">' + _('none') + '</option>');
+        $sel.select();
+    }
+}
+
+function fillDiscordTarget(id, discordInst) {
+    if (discordInst !== null) {
+        sendTo(discordInst, 'getNotificationTargets', {}, function(targetList) {
+            var $sel = $('#discordTarget');
+            $sel.html('');
+            if (Array.isArray(targetList)) {
+                for (const i in targetList) {
+                    $('#discordTarget').append('<option value="' + targetList[i].value + '"' + (id === targetList[i].value ? ' selected' : '') + '>' + targetList[i].label + '</option>');
+                }
+            }
+            $sel.select();
+        });
+    } else {
+        var $sel = $('#discordTarget');
+        $sel.html('<option value="">' + _('none') + '</option>');
         $sel.select();
     }
 }
@@ -1552,6 +1577,7 @@ function showHideSettings(settings) {
             $('.whatsapp').hide();
             $('.signal').hide();
             $('.matrix').hide();
+            $('.discord').hide();
             $('.telegram').show();
         } else if ($(this).val() === 'E-Mail') {
             $('.telegram').hide();
@@ -1559,6 +1585,7 @@ function showHideSettings(settings) {
             $('.whatsapp').hide();
             $('.signal').hide();
             $('.matrix').hide();
+            $('.discord').hide();
             $('.email').show();
         } else if ($(this).val() === 'Pushover') {
             $('.telegram').hide();
@@ -1566,6 +1593,7 @@ function showHideSettings(settings) {
             $('.whatsapp').hide();
             $('.signal').hide();
             $('.matrix').hide();
+            $('.discord').hide();
             $('.pushover').show();
         } else if ($(this).val() === 'WhatsApp') {
             $('.telegram').hide();
@@ -1573,6 +1601,7 @@ function showHideSettings(settings) {
             $('.pushover').hide();
             $('.signal').hide();
             $('.matrix').hide();
+            $('.discord').hide();
             $('.whatsapp').show();
         } else if ($(this).val() === 'Signal') {
             $('.telegram').hide();
@@ -1580,6 +1609,7 @@ function showHideSettings(settings) {
             $('.pushover').hide();
             $('.whatsapp').hide();
             $('.matrix').hide();
+            $('.discord').hide();
             $('.signal').show();
         } else if ($(this).val() === 'Matrix') {
             $('.telegram').hide();
@@ -1587,7 +1617,16 @@ function showHideSettings(settings) {
             $('.pushover').hide();
             $('.whatsapp').hide();
             $('.signal').hide();
+            $('.discord').hide();
             $('.matrix').show();
+        } else if ($(this).val() === 'Discord') {
+            $('.telegram').hide();
+            $('.email').hide();
+            $('.pushover').hide();
+            $('.whatsapp').hide();
+            $('.signal').hide();
+            $('.matrix').hide();
+            $('.discord').show();
         }
     }).trigger('change');
 
@@ -1759,6 +1798,14 @@ function showHideSettings(settings) {
             });
         } else {
             fillTelegramUser(settings['telegramUser'], null, null);
+        }
+    }).trigger('change');
+    $('#discordInstance').on('change', function () {
+        var discordInst = $(this).val();
+        if (discordInst && discordInst.length >= 9) {
+            fillDiscordTarget(settings['discordTarget'], discordInst);
+        } else {
+            fillDiscordTarget(settings['discordTarget'], null);
         }
     }).trigger('change');
 
