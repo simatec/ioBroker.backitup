@@ -249,9 +249,9 @@ sudo reboot
 
 ## Grafana backup
 If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set.<br><br>
-**In order to be able to create a Grafana backup, the Grafana username and password are required.**<br><br>
-**Furthermore, an API key must be generated in the Grafana web interface in order to get access to the dashboards.** <br>
-The API key can be created under ***"Configuration → API Keys"***.
+**In order to be able to create a Grafana backup, the Grafana username (Admin) and password are required.**<br><br>
+**Furthermore, an API key or service token must be created in the Grafana web interface to get access to the dashboards.** <br>
+The API key can be created under ***"Configuration → API Keys or Service Token"*** and must have full admin permissions.
 
 ## Yahka backup
 If activated, this separately adjustable backup is created with every ioBroker backup and is also deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set. <br> <br>
