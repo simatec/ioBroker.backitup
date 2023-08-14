@@ -1073,7 +1073,7 @@ function initConfig(secret) {
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors,
-            signedCertificates: adapter.config.grafanaSignedCertificates
+            signedCertificates: adapter.config.grafanaProtocol == 'https' ? adapter.config.grafanaSignedCertificates : true
         },
         historyHTML,
         historyJSON,
