@@ -608,7 +608,7 @@ function initConfig(secret) {
         User: adapter.config.telegramUser,
         onlyError: adapter.config.telegramOnlyError,
         telegramWaiting: adapter.config.telegramWaitToSend * 1000,
-        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
         ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
@@ -621,7 +621,7 @@ function initConfig(secret) {
         NoticeType: adapter.config.whatsappNoticeType,
         onlyError: adapter.config.whatsappOnlyError,
         whatsappWaiting: adapter.config.whatsappWaitToSend * 1000,
-        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
         ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
@@ -634,7 +634,7 @@ function initConfig(secret) {
         NoticeType: adapter.config.signalNoticeType,
         onlyError: adapter.config.signalOnlyError,
         signalWaiting: adapter.config.signalWaitToSend * 1000,
-        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
         ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
@@ -647,7 +647,21 @@ function initConfig(secret) {
         NoticeType: adapter.config.matrixNoticeType,
         onlyError: adapter.config.matrixOnlyError,
         matrixWaiting: adapter.config.matrixWaitToSend * 1000,
-        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
+        ignoreErrors: adapter.config.ignoreErrors,
+        systemLang
+    };
+
+    const discord = {
+        enabled: adapter.config.notificationEnabled,
+        notificationsType: adapter.config.notificationsType,
+        type: 'message',
+        instance: adapter.config.discordInstance,
+        NoticeType: adapter.config.discordNoticeType,
+        target: adapter.config.discordTarget,
+        onlyError: adapter.config.discordOnlyError,
+        discordWaiting: adapter.config.discordWaitToSend * 1000,
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
         ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
@@ -662,7 +676,7 @@ function initConfig(secret) {
         deviceID: adapter.config.pushoverDeviceID,
         onlyError: adapter.config.pushoverOnlyError,
         pushoverWaiting: adapter.config.pushoverWaitToSend * 1000,
-        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
         ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
@@ -677,7 +691,7 @@ function initConfig(secret) {
         emailSender: adapter.config.emailSender,
         onlyError: adapter.config.emailOnlyError,
         emailWaiting: adapter.config.emailWaitToSend * 1000,
-        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix : '',
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
         ignoreErrors: adapter.config.ignoreErrors,
         systemLang
     };
@@ -814,7 +828,7 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         slaveBackup: adapter.config.hostType,
         everyXDays: adapter.config.minimalEveryXDays,
-        nameSuffix: adapter.config.minimalNameSuffix,                                               // names addition, appended to the file name
+        nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                       // names addition, appended to the file name
         deleteBackupAfter: adapter.config.minimalDeleteAfter,                                       // delete old backup files after x days
         ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
         cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
@@ -832,7 +846,7 @@ function initConfig(secret) {
             onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
             mysqlQuick: adapter.config.mysqlQuick,
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
@@ -857,7 +871,7 @@ function initConfig(secret) {
             onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                    // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             deleteBackupAfter: adapter.config.sqliteDeleteAfter,                                     // delete old backupfiles after x days
@@ -875,7 +889,7 @@ function initConfig(secret) {
             onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             deleteBackupAfter: adapter.config.influxDBDeleteAfter,                                  // delete old backupfiles after x days
@@ -901,7 +915,7 @@ function initConfig(secret) {
             onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             dbName: adapter.config.pgSqlName,                                                       // database name
@@ -925,7 +939,7 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             aof: adapter.config.redisAOFactive,
-            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             path: adapter.config.redisPath || '/var/lib/redis',                                     // specify Redis path
@@ -946,7 +960,7 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: adapter.config.historyPath,
-            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                    // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
@@ -961,7 +975,7 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify zigbee path
-            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
@@ -976,7 +990,7 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: adapter.config.zigbee2mqttPath,                                                   // specify zigbee2mqtt path
-            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
@@ -991,7 +1005,7 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify Node-Red path
-            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
@@ -1006,7 +1020,7 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify yahka path
-            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
@@ -1021,7 +1035,7 @@ function initConfig(secret) {
             webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify jarvis backup path
-            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors
@@ -1037,7 +1051,7 @@ function initConfig(secret) {
             googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
-            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
             ignoreErrors: adapter.config.ignoreErrors
         },
         grafana: {
@@ -1055,7 +1069,7 @@ function initConfig(secret) {
             username: adapter.config.grafanaUsername,
             pass: adapter.config.grafanaPassword ? decrypt(secret, adapter.config.grafanaPassword) : '',
             apiKey: adapter.config.grafanaApiKey,
-            nameSuffix: adapter.config.minimalNameSuffix,                                           // names addition, appended to the file name
+            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                  // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors,
@@ -1069,6 +1083,7 @@ function initConfig(secret) {
         whatsapp,
         signal,
         matrix,
+        discord,
     };
 
     // Configurations for CCU / pivCCU / RaspberryMatic backup
@@ -1098,6 +1113,7 @@ function initConfig(secret) {
         whatsapp,
         signal,
         matrix,
+        discord,
 
         host: adapter.config.ccuHost,                                                               // IP-address CCU
         user: adapter.config.ccuUser,                                                               // username CCU
@@ -1627,7 +1643,7 @@ async function renewOnedriveToken() {
     if (adapter.config.onedriveLastTokenRenew != '') {
         const lastRenew = new Date(adapter.config.onedriveLastTokenRenew);
 
-        diffDays = parseInt((currentDay - lastRenew) / (1000 * 60 * 60 * 24)); //day difference 
+        diffDays = parseInt((currentDay - lastRenew) / (1000 * 60 * 60 * 24)); //day difference
     }
 
     if (diffDays >= 30 || adapter.config.onedriveLastTokenRenew == '') {

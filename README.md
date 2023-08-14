@@ -52,6 +52,15 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### 2.7.0 (2023-08-14)
+* (simatec) dependencies updated
+* (simatec) Fix error Messages
+* (simatec) edit automatic name addition added
+* (simatec) Docu & Wiki updated
+* (simatec) small bug fixes
+* (simatec) Translation updated
+* (crycode-de) Add support for sending notifications via discord (requires ioBroker.discord >= 2.1)
+
 ### 2.6.23 (2023-05-25)
 * (simatec) Fix Influx Restore for MultiDB
 * (simatec) Token renew for Onedrive added

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.6.23",
+    "version": "2.7.0",
     "news": {
+      "2.7.0": {
+        "en": "dependencies updated\nFix error Messages\nedit automatic name addition added\nDocu & Wiki updated\nsmall bug fixes\nTranslation updated\nAdd support for sending notifications via discord (requires ioBroker.discord >= 2.1)",
+        "de": "aktualisierte abhängigkeiten\nFehler beheben Nachrichten\nautomatischer name hinzugefügt\nDocu & Wiki aktualisiert\nkleine fehlerbehebungen\nÜbersetzung aktualisiert\nUnterstützung für das Senden von Benachrichtigungen über Discord (erfordert ioBroker.discord >= 2.1)",
+        "ru": "зависимости обновлены\nИсправление ошибки Сообщения\nредактировать автоматическое имя добавленное\nDocu & Wiki обновлены\nнебольшие исправления ошибок\nПеревод обновлен\nДобавьте поддержку для отправки уведомлений через Discord (требуется ioBroker.discord >= 2,1)",
+        "pt": "dependências atualizadas\nCorrigir mensagens de erro\neditar adição de nome automático adicionado\nDocu & Wiki Atualizado\npequenas correções de bugs\nTradução atualizada\nAdicionar suporte para enviar notificações via discórdia (requer ioBroker.discord >= 2.1)",
+        "nl": "afhankelijkheid geüpdateerd\nVergissing\nedit automatische naam toegevoegd\nDocu Wiki update\nkleine insecten repareren\nVertaling:\nSteun voor het versturen van berichten via korting. 2.1",
+        "fr": "dépendances mises à jour\nCorrection des messages d'erreur\nmodifier le nom automatique ajouté\nDocu & Wiki mise à jour\npetites corrections de bug\nTraduction mise à jour\nAjouter le support pour envoyer des notifications via discord (requis ioBroker.discord ACIA= 2.1)",
+        "it": "dipendenze aggiornate\nRisolvere i messaggi di errore\nmodifica automatica nome aggiunta aggiunto\nDocu & Wiki aggiornato\npiccole correzioni di bug\nTraduzione aggiornata\nAggiungi supporto per l'invio di notifiche tramite discord (richiede ioBroker.discord >= 2.1)",
+        "es": "dependencias actualizadas\nCorregir error Mensajes\nedición automática nombre añadido\nDocu & Wiki actualizado\npequeños bugs\nTraducción actualizada\nAñadir soporte para enviar notificaciones a través de la discordia (requiere ioBroker.discord 2.1)",
+        "pl": "aktualizacja\nPoszukiwania\ndodanie automatycznej nazwy dodano dodanie do wersji edit\nDocu & Wiki uaktualnione\ndrobny trąb\nUaktualniać\nWsparcie dla wysyłania notyfikacji poprzez rozporządzenie (wymaganie ioBroker.discord) 2.1)",
+        "uk": "оновлені залежності\nВиправлення повідомлень про помилки\nредагування автоматичного додавання назви\nDocu & Wiki оновлений\nмаленькі виправлення помилок\nПереклад оновлений\nДодати підтримку відправки повідомлень через discord (обов'язково ioBroker.discord >= 2.1 км",
+        "zh-cn": "b. 更新的依赖\nFix错误 Messages\n自动名称增加\nDocu & Wiki更新\n小配件\n笔译更新\n增加通过光盘发送通知(Requires ioBroker)的支助 2.1)"
+      },
       "2.6.23": {
         "en": "Fix Influx Restore for MultiDB\nToken renew for Onedrive added\nFix PSQL Restore",
         "de": "Influx Restore für MultiDB reparieren\nToken-Erneuerung für Onedrive hinzugefügt\nPSQL Wiederherstellen",
@@ -80,19 +93,6 @@
         "pl": "aktualizacja\nmała ustawa\nError notification (ang.)",
         "uk": "оновлені залежності\nмаленькі дамські кріплення\nОптимізовано повідомлення про помилку",
         "zh-cn": "b. 更新的依赖\n小型Sentry fix\n通知优化"
-      },
-      "2.6.17": {
-        "en": "Fix delete InfluxDB tmp dir\nsmall Sentry fixes",
-        "de": "Löschen InfluxDB tmp dir\nkleine Sentry Fixes",
-        "ru": "Fix удалить InfluxDB tmp dir\nмелкие фиксы Sentry",
-        "pt": "Corrigir a exclusão InfluxDB tmp dir\npequenas correções de Sentry",
-        "nl": "Vertaling:\nkleine Sentry repareert",
-        "fr": "Correction supprimer InfluxDB tmp dir\npetites corrections de Sentry",
-        "it": "Fissare eliminare InfluxDB tmp dir\npiccoli apparecchi Sentry",
-        "es": "Borrador de eliminación InfluxDB tmp dir\npequeñas correcciones de Sentry",
-        "pl": "Informacje na stronie InfluxDB\nmała ustawa",
-        "uk": "Виправлення видалення InfluxDB mp dir\nмаленькі дамські кріплення",
-        "zh-cn": "Fix 删除流落街头流浪者\n小型Sentry fix"
       }
     },
     "title": "BackItUp",
@@ -105,18 +105,22 @@
       "fr": "BackItUp",
       "it": "BackItUp",
       "es": "BackItUp",
-      "pl": "Kopia zapasowa"
+      "pl": "Kopia zapasowa",
+      "uk": "Посилання",
+      "zh-cn": "BackItUp"
     },
     "desc": {
       "en": "This adapter enables the cyclical creation of backups of an IoBroker / Homematic installation",
-      "de": "Dieser Adapter ermöglicht das zyklische Erstellen von Backups einer IoBroker / Homematic-Installation",
-      "ru": "Этот адаптер обеспечивает циклическое создание резервных копий установки IoBroker / Homematic",
-      "pt": "Este adaptador permite a criação cíclica de backups de uma instalação do IoBroker / Homematic",
-      "nl": "Deze adapter maakt het cyclisch maken van back-ups van een IoBroker / Homematic-installatie mogelijk",
-      "fr": "Cet adaptateur permet la création cyclique de sauvegardes d'une installation IoBroker / Homematic",
-      "it": "Questo adattatore consente la creazione ciclica di backup di un'installazione IoBroker / Homematic",
-      "es": "Este adaptador permite la creación cíclica de copias de seguridad de una instalación de IoBroker / Homematic",
-      "pl": "Ten adapter umożliwia cykliczne tworzenie kopii zapasowych instalacji IoBroker / Homematic"
+      "de": "Dieser Adapter ermöglicht die zyklische Erstellung von Backups einer ioBroker / Homematic-Installation",
+      "ru": "Этот адаптер позволяет циклическое создание резервных копий ioBroker / Homematic установки",
+      "pt": "Este adaptador permite a criação cíclica de backups de uma instalação ioBroker / Homematic",
+      "nl": "Deze adapter maakt de cyclische creatie van back-ups van een ioBroker/ Homematische installatie",
+      "fr": "Cet adaptateur permet la création cyclique de sauvegardes d'une installation ioBroker / Homematic",
+      "it": "Questo adattatore consente la creazione ciclica di backup di un'installazione ioBroker / Homematic",
+      "es": "Este adaptador permite la creación cíclica de copias de seguridad de una instalación ioBroker / Homemática",
+      "pl": "Ta adapter umożliwia cykliczne tworzenie kopii zapasów instalacji ioBroker / Homematic",
+      "uk": "Цей адаптер дозволяє циклічне створення резервних копій ioBroker / Homematic установки",
+      "zh-cn": "这种适应者能够使一所ioBroker /家事安装的周期性化。"
     },
     "authors": [
       "simatec <backitup@simateccloud.de>",
@@ -146,13 +150,15 @@
       "name": {
         "en": "Backup",
         "de": "Backup",
-        "ru": "Резервное копирование",
-        "pt": "Cópia de segurança",
-        "nl": "Back-up",
+        "ru": "Назад",
+        "pt": "Backup",
+        "nl": "Versterking",
         "fr": "Sauvegarde",
         "it": "Backup",
-        "es": "Respaldo",
-        "pl": "Utworzyć kopię zapasową"
+        "es": "Copia de seguridad",
+        "pl": "Backup",
+        "uk": "Зареєструватися",
+        "zh-cn": "包装"
       },
       "ignoreConfigUpdate": true,
       "singleton": false,
@@ -392,6 +398,11 @@
     "matrixNoticeType": "longMatrixNotice",
     "matrixOnlyError": false,
     "matrixWaitToSend": 0,
+    "discordInstance": "discord.0",
+    "discordNoticeType": "longWhatsappNotice",
+    "discordOnlyError": false,
+    "discordWaitToSend": 0,
+    "discordTarget": "",
     "pushoverInstance": "pushover.0",
     "pushoverNoticeType": "longPushoverNotice",
     "pushoverSilentNotice": false,

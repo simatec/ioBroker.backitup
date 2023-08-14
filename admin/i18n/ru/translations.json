@@ -60,6 +60,8 @@
   "Delete old NAS / Copy-Backups": "Удалять старые резервные копии на NAS / Copy",
   "Delete old Onedrive-Backups": "Удалить старые Onedrive-Backups",
   "Delete old WebDAV-Backups": "Удалять старые резервные копии на WebDAV",
+  "Discord instance": "Пример Discord",
+  "Discord receiver": "приемник Discord",
   "Domainname (optional)": "Доменное имя (необязательно)",
   "Download Backup File": "Скачать файл резервной копии",
   "Download Backup file": "Скачать файл резервной копии",
