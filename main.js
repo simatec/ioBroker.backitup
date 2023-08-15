@@ -143,7 +143,7 @@ function startAdapter(options) {
                     });
                 } else {
                     adapter.log.error(`A local backup is currently not possible. The storage space is currently only ${sysCheck && sysCheck.diskFree ? sysCheck.diskFree : null} MB`);
-                    systemCheck.systemMessage(adapter.config, adapter.sendTo, tools._('A local backup is currently not possible. Please check your System!', systemLang));
+                    systemCheck.systemMessage(adapter, tools._('A local backup is currently not possible. Please check your System!', systemLang));
                     adapter.setState('oneClick.' + type, false, true);
                     adapter.setState('output.line', `[EXIT] ${tools._('A local backup is currently not possible. Please check your System!', systemLang)}`, true);
                 }
@@ -565,7 +565,7 @@ function createBackupSchedule() {
                     });
                 } else {
                     adapter.log.error(`A local backup is currently not possible. The storage space is currently only ${sysCheck && sysCheck.diskFree ? sysCheck.diskFree : null} MB`);
-                    systemCheck.systemMessage(adapter.config, adapter.sendTo, tools._('A local backup is currently not possible. Please check your System!', systemLang));
+                    systemCheck.systemMessage(adapter, tools._('A local backup is currently not possible. Please check your System!', systemLang));
                 }
             });
 
