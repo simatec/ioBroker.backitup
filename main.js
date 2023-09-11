@@ -388,7 +388,8 @@ function startAdapter(options) {
 
                 case 'testWebDAV':
                     if (obj.message) {
-                        const { createClient } = require('webdav');
+                        //const { createClient } = require('webdav');
+                        const { createClient } = await import('webdav');
                         const agent = require('https').Agent({ rejectUnauthorized: obj.message.config.signedCertificates });
 
                         const client = createClient(
@@ -804,6 +805,7 @@ function initConfig(secret) {
         wakeOnLAN: adapter.config.wakeOnLAN,
         macAd: adapter.config.macAd,
         wolTime: adapter.config.wolWait,
+        wolPort: adapter.config.wolPort || 9,
         smb: adapter.config.smbType,
         sudo: adapter.config.sudoMount,
         cifsDomain: adapter.config.cifsDomain,

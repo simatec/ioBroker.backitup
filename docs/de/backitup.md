@@ -1,5 +1,4 @@
-![Logo](img/backitup.png)
-# ioBroker.backitup<!-- omit in toc -->
+![Logo](https://github.com/simatec/ioBroker.backitup/blob/master/docs/de/img/backitup.png)
 
 ![Number of Installations](http://iobroker.live/badges/backitup-installed.svg)
 ![Number of Installations](http://iobroker.live/badges/backitup-stable.svg)
@@ -12,59 +11,20 @@
 [![Donate](https://img.shields.io/badge/paypal-donate%20|%20spenden-blue.svg)](https://paypal.me/mk1676)
 [![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/simatec)
 
+**************************************************************************************************************
 
 **Wenn Ihnen ioBroker.backitup gefällt, denken Sie bitte über eine Spende nach:**
   
 [![paypal](https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif)](https://paypal.me/mk1676)
 
+
 **************************************************************************************************************
 
-## Haftungsausschluss<!-- omit in toc -->
+# Haftungsausschluss
 **ioBroker.backitup ist ein Backup-Plugin nur für die Smart Home Software ioBroker.**<br>
 **Es steht in keiner Verbindung zu [Nero BackItUp](https://www.nero.com/deu/products/nero-backitup/?vlang=de) (ein Tool zur Datensicherung unter Windows-Systemen) und wird auch nicht von diesem unterstützt.**
 
-**Dieses persönliche Projekt ioBroker.backitup wird in der Freizeit betrieben und hat keine geschäftlichen Ziele.**
-
 **************************************************************************************************************
-
-# Inhalt<!-- omit in toc -->
-- [Grundlegendes](#grundlegendes)
-- [Abhängigkeiten](#abhängigkeiten)
-- [Benutzung und Bedienung](#benutzung-und-bedienung)
-- [Backuptypen](#backuptypen)
-  - [ioBroker Backup](#iobroker-backup)
-  - [CCU Backup (Homematic)](#ccu-backup-homematic)
-  - [Mysql-Backup](#mysql-backup)
-  - [Sqlite3-Backup](#sqlite3-backup)
-  - [Redis-Backup](#redis-backup)
-  - [History Daten Backup](#history-daten-backup)
-  - [InfluxDB-Backup](#influxdb-backup)
-  - [PostgreSQL-Backup](#postgresql-backup)
-  - [Javascript-Backup](#javascript-backup)
-  - [Jarvis-Backup](#jarvis-backup)
-  - [Zigbee-Backup](#zigbee-backup)
-  - [Zigbee2MQTT-Backup](#zigbee2mqtt-backup)
-  - [Node-Red-Backup](#node-red-backup)
-  - [Grafana-Backup](#grafana-backup)
-  - [Yahka-Backup](#yahka-backup)
-- [Speicher-Optionen](#speicher-optionen)
-  - [CIFS](#cifs)
-  - [NFS](#nfs)
-  - [FTP](#ftp)
-  - [Copy](#copy)
-  - [Dropbox](#dropbox)
-  - [Google Drive](#google-drive)
-  - [Onedrive](#onedrive)
-  - [WebDAV](#webdav)
-- [Multihost Unterstützung](#multihost-unterstützung)
-- [Docker Unterstützung](#docker-unterstützung)
-- [Verwendung](#verwendung)
-- [Benachichtigungen](#benachichtigungen)
-- [Restore](#restore)
-- [Fehlersuche](#fehlersuche)
-- [Aufgetretene Fehler / Lösungen](#aufgetretene-fehler--lösungen)
-
----
 
 # Grundlegendes
 ioBroker.backitup ist eine Backuplösung, mit der das zyklische Sichern einer ioBroker-Installation sowie einer Homematic CCU möglich ist.
@@ -79,12 +39,17 @@ Es werden hier identisch dem Standard Backup des js-controllers alle States und 
 
 Auch der Restore ist komplett identisch dem CLI Befehl `iobroker restore <backupname>` des js-controllers.
 
+
 Bei einem Restore werden alle States, Objects und Nutzerdaten von ioBroker.backitup wiederhergestellt.
-Nach dem Restore startet euer ioBroker neu und ab da übernimmt die Installation fehlender Adapter dann wieder der js-controller.
+Nach dem Restore startet euer iobroker neu und ab da übernimmt die Installation fehlender Adapter dann wieder der js-controller.
 
-ioBroker.backitup hat nach dem Start des ioBroker keinerlei Einfluss auf die Wiederherstellung. Dies  übernimmt der js-controller anhand der wiederhergestellten Informationen in den States und Objects im Hintergrund.
+ioBroker.backitup hat nach dem Start des iobrokers keinerlei Einfluss auf die Wiederherstellung. Dies passiert alles im Hintergrund und übernimmt der js-controller anhand der wiederhergestellten Informationen in den States und Objects.
 
-### [zurück](#Inhalt)<!-- omit in toc -->
+Im Gegensatz zu dem CLI Befehl kann aber ioBroker.backitup auch noch einen Restore der verschiedenen optinalen Backups durchführen.
+Dies ist über die CLI nicht möglich.
+
+_[Zurück zum Anfang](#top)_
+
 ---
 
 # Abhängigkeiten
@@ -111,7 +76,8 @@ ioBroker.backitup hat nach dem Start des ioBroker keinerlei Einfluss auf die Wie
     - [Installationsanleitung InfluxDB 2.x](https://docs.influxdata.com/influxdb/v2.1/install/)
     - [Installationsanleitung Influx-CLI für 2.x](https://docs.influxdata.com/influxdb/v2.1/tools/influx-cli/?t=Linux)
 
-### [zurück](#Inhalt)<!-- omit in toc -->
+_[Zurück zum Anfang](#top)_
+
 ---
 
 # Benutzung und Bedienung
@@ -120,15 +86,16 @@ Für die tägliche Arbeit und Bedienung von ioBroker.backitup steht im Admin-Tab
 Ist dieser Reiter im Tab-Menü der Admin-Oberfläche aktiv, kann ioBroker.backitup direkt über den Reiter in der linken Tab-Leiste des ioBrokers bedient werden.<br><br>
 Dort stehen Informationen zu den erstellten Backups zur Verfügung, es können Backups erstellt werden und es besteht die Möglichkeit, einen Restore des Backups auszuführen.
 
-![adminTab](img/adminTab.png)
-![adminTabRestore](img/adminTabRestore.png)
-![adminTabInfo](img/adminTabInfo.png)
+![adminTab](https://github.com/simatec/ioBroker.backitup/blob/master/docs/de/img/adminTab.png)
+![adminTabRestore](https://github.com/simatec/ioBroker.backitup/blob/master/docs/de/img/adminTabRestore.png)
+![adminTabInfo](https://github.com/simatec/ioBroker.backitup/blob/master/docs/de/img/adminTabInfo.png)
 
-### [zurück](#Inhalt)<!-- omit in toc -->
+_[Zurück zum Anfang](#top)_
+
 ---
 
 # Backuptypen
-ioBroker.backitup bietet sehr viele Möglichkeiten, verschiedene Backuptypen zyklisch oder auf Knopfdruck durchzuführen. Jedes Backup wird standardmäßig im Verzeichnis /opt/iobroker/backups/ abgelegt. Optional kann ein FTP-Upload eingerichtet oder alternativ ein CIFS/NFS-Mount genutzt werden.
+ioBroker.backitup bietet sehr viele Möglichkeiten, verschiedene Backuptypen zyklisch oder auf Knopfdruck durchzuführen. Jedes Backup wird standardmäßig im Verzeichnis /opt/iobroker/backups abgelegt. Optional kann ein FTP-Upload eingerichtet oder alternativ ein CIFS/NFS-Mount genutzt werden.
 
 ## ioBroker Backup
 Dieses Backup entspricht dem in ioBroker enthaltenen Backup, welches man in der Konsole über den Aufruf `iobroker backup` starten kann. Nur wird es hier durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt, ohne die Konsole verwenden zu müssen.
@@ -257,10 +224,18 @@ Der Api-Key kann unter ***"Configuration → API Keys bzw. Service Token"*** ers
 Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.<br><br>
 Es werden alle Systemeinstellungen und Geräteeinstellungen von Homekit gesichert.
 
-### [zurück](#Inhalt)<!-- omit in toc -->
+_[Zurück zum Anfang](#top)_
+
 ---
 
 # Speicher-Optionen
+
+## Lokal
+Der Standard-Speicherort für Backups in ioBroker ist `/opt/iobroker/backups`.
+Dieser ist vom System vorgegeben und kann nicht geändert werden.
+Sind keine der unten aufgeführten CIFS oder NFS Mounts aktiv, landen alle Backups in dem Standardpfad und liegen Lokal auf dem Host-System.
+
+Zusätzliche Speicheroptionen wie eine Cloud oder FTP erstellen lediglich eine Kopie des Backups auf in dem gewählten Speicherort außerhalb des Host-Systems.
 
 ## CIFS
 CIFS-Mount ist unter Linux kein Problem.<br>
@@ -321,8 +296,24 @@ Um eine Verbindung aufbauen zu können, muss der Hostname der Cloud alle Sicherh
 > Beispiel URL: "https://example.com/remote.php/dav/files/username/"<br><br>
 Eine Verbindung mit lokaler IP-Adresse ist nur möglich, wenn die Option "Nur signierte Zertifikate zulassen" deaktiviert ist.
 
-### [zurück](#Inhalt)<!-- omit in toc -->
+_[Zurück zum Anfang](#top)_
+
 ---
+
+# Löschen alter Backups
+ioBroker.backitup kann ältere Backups automatisch löschen. Die Anzahl der vorzuhaltenden Backups kann in der Konfiguration von ioBroker.backitup festgelegt werden.
+Ein löschen älterer Backups erfolgt nur, wenn der Adapter ein automatisches zeitgesteuertes Backup durchführt.
+
+Bei manuellen Backups werden ältere Backupdateien nicht gelöscht.
+
+Sollte während des Backupprozesses ein Fehler auftreten, wird aus Sicherheitsgründen ebenfalls kein löschen älterer Backups erfolgen. 
+
+Welche Backups gelöscht wurden und mögliche Fehler beim Löschen werden in Debuglog ausgegeben.
+
+_[Zurück zum Anfang](#top)_
+
+---
+
 
 # Multihost Unterstützung
 Multihost für ioBroker.backitup kann mit mehreren Instanzen von ioBroker.backitup auf verschiedenen Hosts arbeiten.<br>
@@ -348,7 +339,8 @@ Die Speicherorte für die einzelnen Backups können auf jedem Slave frei konfigu
 Bei Systemen mit begrenztem RAM kann der ioBroker.backitup Master die Slave Instanzen für den Backupprozess automatisch starten und im Anschluss wieder stoppen.<br>
 Diese Option ist im Menü konfigurierbar. 
 
-### [zurück](#Inhalt)<!-- omit in toc -->
+_[Zurück zum Anfang](#top)_
+
 ---
 
 # Docker Unterstützung
@@ -360,7 +352,8 @@ Da im Docker-Container keine Datenbanksysteme installiert werden sollten, werden
 
 Der Inhalt der Umgebungsvariable "PACKAGES" orientiert sich dabei an den zu installierenden Paketen, die für den Zugriff auf die jeweilige Datenbank notwendig sind. Beispiele wären "mysql-client" oder "redis-tools". Weitere Einzelheiten dazu sind [hier](https://docs.buanet.de/iobroker-docker-image/docs_backitup/) zu finden.
 
-### [zurück](#Inhalt)<!-- omit in toc -->
+_[Zurück zum Anfang](#top)_
+
 ---
 
 # Verwendung
@@ -414,7 +407,8 @@ Syntax: {BackitupInstanz.history.html}
 
 Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || wert === true ? "Text während der Backuperstellung" : "Standard-Text"}
 
-### [zurück](#Inhalt)<!-- omit in toc -->
+_[Zurück zum Anfang](#top)_
+
 ---
 
 # Benachichtigungen
@@ -429,7 +423,8 @@ Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || 
    * Matrix
    * Discord
 
-### [zurück](#Inhalt)<!-- omit in toc -->
+_[Zurück zum Anfang](#top)_
+
 ---
 
 # Restore
@@ -475,15 +470,17 @@ Eine detailierte Anleitung zum Restore mit ioBroker.backitup und auch zum manuel
     - Den Befehl: “reboot“ auf der Raspberrymatic ausführen um den PI neu zu starten
     - Alternativ kann das Backup natürlich auch wie gewohnt über das Webinterface wieder hergestellt werden.
 
-### [zurück](#Inhalt)<!-- omit in toc -->
+_[Zurück zum Anfang](#top)_
+
 ---
 
 # Fehlersuche
 
     Um Fehler zu loggen, muss ioBroker.backitup in unter dem ioBroker Reiter "Instanzen" auf Log-Stufe "debug" gestellt werden.
 
-### [zurück](#Inhalt)<!-- omit in toc -->
---- 
+_[Zurück zum Anfang](#top)_
+
+---
 
 # Aufgetretene Fehler / Lösungen
 
@@ -518,5 +515,6 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen (sofern vo
 
 8.  Wenn eine Fritzbox als NAS mit einer Firmware >= 7.21 verwendet wird, sollten in ioBroker.backitup die SMB-Einstellungen auf "3.1.1" eingestellt und die Option "noserverino" aktiviert werden.
 
-### [zurück](#Inhalt)<!-- omit in toc -->
+_[Zurück zum Anfang](#top)_
+
 ---
