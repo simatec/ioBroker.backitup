@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.7.0",
+    "version": "2.8.0",
     "news": {
+      "2.8.0": {
+        "en": "small Sentry fixes\nBugfix System-Message\nDocu & Wiki updated\nTranslation updated\ndependencies updated\nFix Webdav\nWOL Address & Port added\nRestore for Backitup Config added",
+        "de": "kleine Sentry Fixes\nBugfix System-Message\nDocu & Wiki aktualisiert\nÜbersetzung aktualisiert\naktualisierte abhängigkeiten\nWebdav\nWOL Adresse & Port hinzugefügt\nRestore für Backitup Config hinzugefügt",
+        "ru": "мелкие фиксы Sentry\nСистема Bugfix-Message\nDocu & Wiki обновлены\nПеревод обновлен\nзависимости обновлены\nFix Вебдав\nWOL Address & Порт добавлен\nВосстановление за Backitup Config добавлено",
+        "pt": "pequenas correções de Sentry\nBugfix System-Message\nDocu & Wiki Atualizado\nTradução atualizada\ndependências atualizadas\nCorrigir Webdav\nWOL Morada & Port adicionado\nRestaurar para Backitup Config adicionado",
+        "nl": "kleine Sentry repareert\nBugfix System-Message\nDocu Wiki update\nVertaling:\nafhankelijkheid geüpdateerd\nFix Webdav\n_\nVertaling:",
+        "fr": "petites corrections de Sentry\nBugfix System-Message\nDocu & Wiki mise à jour\nTraduction mise à jour\ndépendances mises à jour\nFix Webdav\nWOL Adresse & Port ajouté\nRestore pour Backitup Config ajouté",
+        "it": "piccoli apparecchi Sentry\nBugfix System-Message\nDocu & Wiki aggiornato\nTraduzione aggiornata\ndipendenze aggiornate\nFissare Webdav\nWOL Indirizzo & Port aggiunto\nRipristino per Backitup Config aggiunto",
+        "es": "pequeñas correcciones de Sentry\nBugfix System-Message\nDocu & Wiki actualizado\nTraducción actualizada\ndependencias actualizadas\nFix Webdav\nWOL Address & Port añadido\nRestore for Backitup Config añadido",
+        "pl": "mała ustawa\nBugfix System-Mesage (ang.)\nDocu & Wiki uaktualnione\nUaktualniać\naktualizacja\nStrona internetowa\nAddress & Port (ang.)\nRestore the Backitup Config (ang.)",
+        "uk": "маленькі дамські кріплення\nСистема усунення несправностей\nDocu & Wiki оновлений\nПереклад оновлений\nоновлені залежності\nВиправлення Webdav\nWOL Адреса та порт додано\nВідновлення конфігурації резервного копіювання",
+        "zh-cn": "小型Sentry fix\nBugfix系统-Message\nDocu & Wiki更新\n笔译更新\nb. 更新的依赖\nFix万维网\nWOL 地址\nBackitup Config的恢复"
+      },
       "2.7.0": {
         "en": "dependencies updated\nFix error Messages\nedit automatic name addition added\nDocu & Wiki updated\nsmall bug fixes\nTranslation updated\nAdd support for sending notifications via discord (requires ioBroker.discord >= 2.1)",
         "de": "aktualisierte abhängigkeiten\nFehler beheben Nachrichten\nautomatischer name hinzugefügt\nDocu & Wiki aktualisiert\nkleine fehlerbehebungen\nÜbersetzung aktualisiert\nUnterstützung für das Senden von Benachrichtigungen über Discord (erfordert ioBroker.discord >= 2.1)",
@@ -80,19 +93,6 @@
         "pl": "niewielkie rozwiązanie dla sterownika 5",
         "uk": "невелика фіксація для js-controller 5",
         "zh-cn": "第5条 控制勒的小ix"
-      },
-      "2.6.18": {
-        "en": "dependencies updated\nsmall Sentry fixes\nError notifications optimized",
-        "de": "aktualisierte abhängigkeiten\nkleine Sentry Fixes\nFehlerbenachrichtigungen optimiert",
-        "ru": "зависимости обновлены\nмелкие фиксы Sentry\nОптимизация уведомлений об ошибках",
-        "pt": "dependências atualizadas\npequenas correções de Sentry\nNotificações de erro otimizadas",
-        "nl": "afhankelijkheid geüpdateerd\nkleine Sentry repareert\nError-informatie is optimistisch",
-        "fr": "dépendances mises à jour\npetites corrections de Sentry\nNotifications d'erreur optimisées",
-        "it": "dipendenze aggiornate\npiccoli apparecchi Sentry\nNotifiche di errore ottimizzate",
-        "es": "dependencias actualizadas\npequeñas correcciones de Sentry\nNotificaciones de errores optimizadas",
-        "pl": "aktualizacja\nmała ustawa\nError notification (ang.)",
-        "uk": "оновлені залежності\nмаленькі дамські кріплення\nОптимізовано повідомлення про помилку",
-        "zh-cn": "b. 更新的依赖\n小型Sentry fix\n通知优化"
       }
     },
     "title": "BackItUp",
