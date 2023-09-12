@@ -125,10 +125,15 @@ body {
     border-radius: 4px;
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
-.m .btn, .m .btn-flat, .m .btn-large, .m .btn-small {
+.m .btn, .m .btn-flat, .m .btn-large {
     background-color:#3399CC;
     border-radius: 4px;
 }
+
+.m .btn-small {
+    background-color:#3399CC;
+}
+
 #dialog-backups-show .title {
     width: 100%;
     margin-left: auto;

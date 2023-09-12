@@ -461,7 +461,7 @@
       "_id": "info.ccuNextTime",
       "type": "state",
       "common": {
-        "role": "indicator",
+        "role": "state",
         "name": "Next CCU backup",
         "type": "string",
         "read": true,
@@ -474,7 +474,7 @@
       "_id": "info.iobrokerNextTime",
       "type": "state",
       "common": {
-        "role": "indicator",
+        "role": "state",
         "name": "Next iobroker backup",
         "type": "string",
         "read": true,
@@ -521,7 +521,7 @@
       "_id": "history.ccuLastTime",
       "type": "state",
       "common": {
-        "role": "indicator",
+        "role": "state",
         "name": "Last CCU backup",
         "type": "string",
         "read": true,
@@ -534,7 +534,7 @@
       "_id": "history.iobrokerLastTime",
       "type": "state",
       "common": {
-        "role": "indicator",
+        "role": "state",
         "name": "Last iobroker backup",
         "type": "string",
         "read": true,
