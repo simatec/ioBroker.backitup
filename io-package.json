@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.8.0",
+    "version": "2.8.1",
     "news": {
+      "2.8.1": {
+        "en": "Fix roles\nhelp-links added",
+        "de": "Aufgaben festlegen\nhilfe-links hinzugefügt",
+        "ru": "Исправление ролей\nhelp-links добавлены",
+        "pt": "Funções fixas\najuda-links adicionados",
+        "nl": "Vertaling:\nhelp-links toegevoegd",
+        "fr": "Rôles fixes\nhelp-links ajouté",
+        "it": "Risolvere i ruoli\nlink aggiuntivi",
+        "es": "Funciones fijas\nenlaces de ayuda añadidos",
+        "pl": "Role Fix\nlinki pomocowe dodano",
+        "uk": "Виправлення ролі\nдодано посилання",
+        "zh-cn": "B. 固定作用\n辅助联系"
+      },
       "2.8.0": {
         "en": "small Sentry fixes\nBugfix System-Message\nDocu & Wiki updated\nTranslation updated\ndependencies updated\nFix Webdav\nWOL Address & Port added\nRestore for Backitup Config added",
         "de": "kleine Sentry Fixes\nBugfix System-Message\nDocu & Wiki aktualisiert\nÜbersetzung aktualisiert\naktualisierte abhängigkeiten\nWebdav\nWOL Adresse & Port hinzugefügt\nRestore für Backitup Config hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "FTP podpisało certyfikaty\naktualizacja",
         "uk": "Додано сертифікати FTP\nоновлені залежності",
         "zh-cn": "FTP自签名证书\nb. 更新的依赖"
-      },
-      "2.6.19": {
-        "en": "small fix for js-controller 5",
-        "de": "kleine befestigung für js-controller 5",
-        "ru": "небольшой фикс для js-контроллера 5",
-        "pt": "pequena correção para js-controller 5",
-        "nl": "_",
-        "fr": "petite fixation pour js-controller 5",
-        "it": "piccolo fissaggio per js-controller 5",
-        "es": "pequeña fijación para js-controller 5",
-        "pl": "niewielkie rozwiązanie dla sterownika 5",
-        "uk": "невелика фіксація для js-controller 5",
-        "zh-cn": "第5条 控制勒的小ix"
       }
     },
     "title": "BackItUp",
