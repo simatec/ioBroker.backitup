@@ -52,6 +52,20 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### 2.8.1 (2023-09-12)
+* (simatec) Fix roles
+* (simatec) help-links added
+
+### 2.8.0 (2023-09-11)
+* (simatec) small Sentry fixes
+* (simatec) Bugfix System-Message
+* (simatec) Docu & Wiki updated
+* (simatec) Translation updated
+* (simatec) dependencies updated
+* (simatec) Fix Webdav
+* (simatec) WOL Address & Port added
+* (simatec) Restore for Backitup Config added
+
 ### 2.7.0 (2023-08-14)
 * (simatec) dependencies updated
 * (simatec) Fix error Messages

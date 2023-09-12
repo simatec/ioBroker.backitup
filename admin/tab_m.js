@@ -302,7 +302,7 @@ function load(settings, onChange) {
 
                             var message = _('<br/><br/>ioBroker will be restarted during restore.<br/><br/>Confirm with \"OK\".');
                             var downloadPanel = false;
-                            if ($('#restoreSource').val() === 'dropbox' || $('#restoreSource').val() === 'onedrive' ||$('#restoreSource').val() === 'googledrive' || $('#restoreSource').val() === 'webdav' || $('#restoreSource').val() === 'ftp') {
+                            if ($('#restoreSource').val() === 'dropbox' || $('#restoreSource').val() === 'onedrive' || $('#restoreSource').val() === 'googledrive' || $('#restoreSource').val() === 'webdav' || $('#restoreSource').val() === 'ftp') {
                                 message = _('<br/><br/>1. Confirm with "OK" and the download begins. Please wait until the download is finished!<br/><br/>2. After download ioBroker will be restarted during restore.');
                                 downloadPanel = true;
                             }
@@ -457,6 +457,7 @@ function load(settings, onChange) {
 
     $('.detect-backups').on('click', function () { initDialogBackups(); });
     $('.btn-himself').on('click', function () { backupHimSelf(); });
+    $('.btn-restore-himself').on('click', function () { restoreHimSelf(); });
 
     showHideSettings(settings);
     onChange(false);
@@ -497,6 +498,62 @@ function backupHimSelf() {
             document.body.removeChild(el);
         }
     });
+}
+
+function restoreHimSelf() {
+    var input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('id', 'files');
+    input.setAttribute('opacity', 0);
+    input.addEventListener('change', function (e) {
+        handleFileSelect(e, function () { });
+    }, false);
+    (input.click)();
+}
+
+function handleFileSelect(evt) {
+    var f = evt.target.files[0];
+    if (f) {
+        var r = new FileReader();
+        r.onload = function (e) {
+            var contents = e.target.result;
+            try {
+                var json = JSON.parse(contents);
+
+                if (json && json._id && json.native && json.common && json.common.name) {
+                    if (json.common.name !== adapter) {
+                        showError(_('otherConfig', json.common.name));
+                    } else {
+                        const id = json._id;
+                        socket.emit('setObject', id, json, function (err) {
+                            if (err) {
+                                showMessage(err, _('Error'), 'alert');
+                                return;
+                            } else {
+                                socket.emit('getObject', id, function (err, res) {
+                                    if (!err && res && res.native) {
+                                        load(json.native, onChange);
+                                        if (isMaterialize) {
+                                            $('select').select();
+                                            M.updateTextFields();
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                        showToast(null, _('Configuration was successfully loaded'));
+                    }
+                } else {
+                    showError(_('Invalid JSON file'));
+                }
+            } catch (e) {
+                showError(e.toString());
+            }
+        };
+        r.readAsText(f);
+    } else {
+        alert('Failed to open JSON File');
+    }
 }
 
 function backupInfo(settings) {

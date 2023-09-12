@@ -1112,7 +1112,12 @@
                         <input class="value" id="macAd" type="text">
                         <label for="macAd" class="translate">MAC address</label>
                     </div>
-                    <div class="input-field col s12 m4 l4 wol">
+                    <div class="input-field col s12 m4 l2 wol">
+                        <input type="number" class="value" id="wolPort" min="1" max="65535"/>
+                        <label for="wolPort" class="translate">port</label>
+                        <span class="translate">port</span>
+                    </div>
+                    <div class="input-field col s12 m4 l2 wol">
                         <input type="number" class="value" id="wolWait" min="25" max="180"/>
                         <label for="wolWait" class="translate">seconds</label>
                         <span class="translate">WOL wait time</span>

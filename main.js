@@ -143,7 +143,7 @@ function startAdapter(options) {
                     });
                 } else {
                     adapter.log.error(`A local backup is currently not possible. The storage space is currently only ${sysCheck && sysCheck.diskFree ? sysCheck.diskFree : null} MB`);
-                    systemCheck.systemMessage(adapter.config, adapter.sendTo, tools._('A local backup is currently not possible. Please check your System!', systemLang));
+                    systemCheck.systemMessage(adapter, tools._('A local backup is currently not possible. Please check your System!', systemLang));
                     adapter.setState('oneClick.' + type, false, true);
                     adapter.setState('output.line', `[EXIT] ${tools._('A local backup is currently not possible. Please check your System!', systemLang)}`, true);
                 }
@@ -388,7 +388,8 @@ function startAdapter(options) {
 
                 case 'testWebDAV':
                     if (obj.message) {
-                        const { createClient } = require('webdav');
+                        //const { createClient } = require('webdav');
+                        const { createClient } = await import('webdav');
                         const agent = require('https').Agent({ rejectUnauthorized: obj.message.config.signedCertificates });
 
                         const client = createClient(
@@ -565,7 +566,7 @@ function createBackupSchedule() {
                     });
                 } else {
                     adapter.log.error(`A local backup is currently not possible. The storage space is currently only ${sysCheck && sysCheck.diskFree ? sysCheck.diskFree : null} MB`);
-                    systemCheck.systemMessage(adapter.config, adapter.sendTo, tools._('A local backup is currently not possible. Please check your System!', systemLang));
+                    systemCheck.systemMessage(adapter, tools._('A local backup is currently not possible. Please check your System!', systemLang));
                 }
             });
 
@@ -804,6 +805,7 @@ function initConfig(secret) {
         wakeOnLAN: adapter.config.wakeOnLAN,
         macAd: adapter.config.macAd,
         wolTime: adapter.config.wolWait,
+        wolPort: adapter.config.wolPort || 9,
         smb: adapter.config.smbType,
         sudo: adapter.config.sudoMount,
         cifsDomain: adapter.config.cifsDomain,
@@ -1073,7 +1075,7 @@ function initConfig(secret) {
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
             hostType: adapter.config.hostType,
             ignoreErrors: adapter.config.ignoreErrors,
-            signedCertificates: adapter.config.grafanaSignedCertificates
+            signedCertificates: adapter.config.grafanaProtocol == 'https' ? adapter.config.grafanaSignedCertificates : true
         },
         historyHTML,
         historyJSON,
