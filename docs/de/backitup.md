@@ -459,7 +459,7 @@ Wer seine Backups lieber manuell wiederherstellen möchte, sollte folgende Punkt
     - Es kann über die Konsole mit Hilfe des Befehls: `iobroker restore <Backupdateiname>` wieder hergestellt werden.
     - Nach dem Restore ist ein `iobroker upload all` nötig
 
-Eine detailierte Anleitung zum Restore mit ioBroker.backitup und auch zum manuellen Restore ist [hier](https://forum.iobroker.net/topic/27271/howto-iobroker-restore-unter-linux-durchf%C3%BChren) zu finden.
+Eine detailierte Anleitung zum Restore mit ioBroker.backitup und auch zum manuellen Restore ist [hier](https://github.com/simatec/ioBroker.backitup/wiki/%5BHowTo%5D-Restore-auf-Linux-Distributionen) zu finden.
 
 **Das CCU-Backup muss weiterhin über das Webinterface der CCU wiederhergestellt werden.**
 

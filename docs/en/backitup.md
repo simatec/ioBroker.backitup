@@ -460,7 +460,7 @@ If you prefer to restore your backups manually, you should do the following:
     - It can be restored via the console using the command: `iobroker restore <Backupfilename>`.
     - After the restore an `iobroker upload all` is necessary
 
-Detailed instructions for restoring with Backup and also for manual restoring can be found [here] (https://forum.iobroker.net/topic/27271/howto-iobroker-restore-unter-linux-durchf%C3%BChren).
+Detailed instructions for restoring with Backup and also for manual restoring can be found [here] (https://github.com/simatec/ioBroker.backitup/wiki/%5BHowTo%5D-Restore-auf-Linux-Distributionen).
 
 **The CCU backup must still be restored via the CCU's web interface.**
 
