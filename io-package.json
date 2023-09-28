@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.8.1",
+    "version": "2.8.2",
     "news": {
+      "2.8.2": {
+        "en": "Fix redis backup",
+        "de": "Redis Backup",
+        "ru": "Fix redis резервное копирование",
+        "pt": "Fix redis backup",
+        "nl": "Vertaling:",
+        "fr": "Correction de sauvegarde redis",
+        "it": "Risolvi il backup redis",
+        "es": "Reparación de redis",
+        "pl": "Fix redis",
+        "uk": "Виправлення резервної копії",
+        "zh-cn": "Fix 退款"
+      },
       "2.8.1": {
         "en": "Fix roles\nhelp-links added",
         "de": "Aufgaben festlegen\nhilfe-links hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "mała ustawa\nFix Influx Resort (ang.)\nFix Onedrive Download (ang.)\naktualizacja",
         "uk": "маленькі дамські кріплення\nФіксований інфлюкс Restore\nВиправлення одного диска Завантажити\nоновлені залежності",
         "zh-cn": "小型Sentry fix\nFix 甲氟甲烷\nFix 1个药房\nb. 更新的依赖"
-      },
-      "2.6.20": {
-        "en": "FTP self signed Certificates added\ndependencies updated",
-        "de": "FTP selbst signiert Zertifikate hinzugefügt\naktualisierte abhängigkeiten",
-        "ru": "FTP самоподписанные сертификаты добавлены\nзависимости обновлены",
-        "pt": "Certificados auto assinados FTP adicionados\ndependências atualizadas",
-        "nl": "FTP zelf ondertekende certificaten\nafhankelijkheid geüpdateerd",
-        "fr": "Certificats auto signés FTP ajoutés\ndépendances mises à jour",
-        "it": "FTP auto firmato Certificati aggiunti\ndipendenze aggiornate",
-        "es": "Certificados firmados por FTP añadidos\ndependencias actualizadas",
-        "pl": "FTP podpisało certyfikaty\naktualizacja",
-        "uk": "Додано сертифікати FTP\nоновлені залежності",
-        "zh-cn": "FTP自签名证书\nb. 更新的依赖"
       }
     },
     "title": "BackItUp",
