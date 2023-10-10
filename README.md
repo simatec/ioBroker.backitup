@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.8.3 (2023-10-10)
 * (simatec) Wake on LAN Advanced Settings added
 * (simatec) dependencies updated
 

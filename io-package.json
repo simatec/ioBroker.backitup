@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.8.2",
+    "version": "2.8.3",
     "news": {
+      "2.8.3": {
+        "en": "Wake on LAN Advanced Settings added\ndependencies updated",
+        "de": "Wake on LAN Erweiterte Einstellungen hinzugefügt\naktualisierte abhängigkeiten",
+        "ru": "Просмотреть на LAN Advanced Settings добавлено\nзависимости обновлены",
+        "pt": "Wake on LAN Configurações avançadas adicionadas\ndependências atualizadas",
+        "nl": "Wakker worden op LAN Advanced Settings\nafhankelijkheid geüpdateerd",
+        "fr": "Wake on LAN Advanced Settings ajouté\ndépendances mises à jour",
+        "it": "Wake on LAN Impostazioni avanzate aggiunte\ndipendenze aggiornate",
+        "es": "Despierta en Ajustes Avanzados LAN añadidos\ndependencias actualizadas",
+        "pl": "Wake on the LAN Advanced Settings (ang.)\naktualizacja",
+        "uk": "Вейк на локальних розширених налаштуваннях додано\nоновлені залежності",
+        "zh-cn": "在LAN先进配件上添加\nb. 更新的依赖"
+      },
       "2.8.2": {
         "en": "Fix redis backup",
         "de": "Redis Backup",
@@ -80,19 +93,6 @@
         "pl": "Strona internetowa MultiDB\nDo InfluxDB dodano porty Default",
         "uk": "Фіксований інфлюкс для багатоDB\nПорти за замовчуванням для InfluxDB додано",
         "zh-cn": "Fix 多方行流源的恢复\n流落街头的Default港增加了"
-      },
-      "2.6.21": {
-        "en": "small Sentry fixes\nFix Influx Restore\nFix Onedrive Download\ndependencies updated",
-        "de": "kleine Sentry Fixes\nRestore für Influen\nOnedrive herunterladen\naktualisierte abhängigkeiten",
-        "ru": "мелкие фиксы Sentry\nFix Восстановить Influx\nFix Onedrive Скачать\nзависимости обновлены",
-        "pt": "pequenas correções de Sentry\nRestauração de impulso\nFix Onedrive Baixar\ndependências atualizadas",
-        "nl": "kleine Sentry repareert\nFix Influx Restore\nVertaling:\nafhankelijkheid geüpdateerd",
-        "fr": "petites corrections de Sentry\nRéparez Influx Restore\nFix Onedrive Télécharger\ndépendances mises à jour",
-        "it": "piccoli apparecchi Sentry\nRipristino dell'influenza fissa\nFix Onedrive Download\ndipendenze aggiornate",
-        "es": "pequeñas correcciones de Sentry\nRestauración de flujo fijo\nDescargar Fix Onedrive\ndependencias actualizadas",
-        "pl": "mała ustawa\nFix Influx Resort (ang.)\nFix Onedrive Download (ang.)\naktualizacja",
-        "uk": "маленькі дамські кріплення\nФіксований інфлюкс Restore\nВиправлення одного диска Завантажити\nоновлені залежності",
-        "zh-cn": "小型Sentry fix\nFix 甲氟甲烷\nFix 1个药房\nb. 更新的依赖"
       }
     },
     "title": "BackItUp",
