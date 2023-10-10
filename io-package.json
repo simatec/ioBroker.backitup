@@ -353,6 +353,7 @@
     "macAd": "20:DE:20:DE:20:DE",
     "wolWait": 25,
     "wolPort": 9,
+    "wolExtra": false,
     "ftpEnabled": false,
     "ftpHost": "",
     "ftpPort": 21,

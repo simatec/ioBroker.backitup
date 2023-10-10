@@ -52,6 +52,10 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Wake on LAN Advanced Settings added
+* (simatec) dependencies updated
+
 ### 2.8.2 (2023-09-28)
 * (simatec) Fix redis backup
 

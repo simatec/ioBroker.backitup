@@ -806,6 +806,7 @@ function initConfig(secret) {
         macAd: adapter.config.macAd,
         wolTime: adapter.config.wolWait,
         wolPort: adapter.config.wolPort || 9,
+        wolExtra: adapter.config.wolExtra,
         smb: adapter.config.smbType,
         sudo: adapter.config.sudoMount,
         cifsDomain: adapter.config.cifsDomain,
