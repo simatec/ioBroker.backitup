@@ -55,6 +55,7 @@ When the adapter crashes or another Code error happens, this error message that 
 ### **WORK IN PROGRESS**
 * (simatec) Fix mysql Backup
 * (simatec) Fix pgsql Backup
+* (simatec) Fix InfluxDB Backup
 
 ### 2.8.3 (2023-10-10)
 * (simatec) Wake on LAN Advanced Settings added
