@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.8.3",
+    "version": "2.8.4",
     "news": {
+      "2.8.4": {
+        "en": "Fix mysql Backup\nFix pgsql Backup\nFix InfluxDB Backup",
+        "de": "Mysql Backup reparieren\nReparieren pgsql Backup\nInfluxDB Backup",
+        "ru": "Исправление mysql Backup\nИсправление pgsql Backup\nИсправление InfluxDB Backup",
+        "pt": "Corrigir backup mysql\nCorrigir backup pgsql\nFix InfluxDB Backup",
+        "nl": "Vertaling:\nVertaling:\nVertaling:",
+        "fr": "Réparez mysql Backup\nFix pgsql Backup\nFix InfluxDB Backup",
+        "it": "Risolvere mysql Backup\nRisolvere il backup pgsql\nFissare il backup di InfluxDB",
+        "es": "Arregla mi respaldo ql\nFijar el respaldo pgsql\nRetroceso de InfluxDB fijo",
+        "pl": "Fix myql Backup (ang.)\nFgsql Backup\nFix Influx Backup",
+        "uk": "Виправлення резервного копіювання mysql\nФіксація pgsql Резервне копіювання\nФіксація InfluxDB Backup",
+        "zh-cn": "Fix 我的Kql Backup\nFix pgql Backup\nFix 甲烷"
+      },
       "2.8.3": {
         "en": "Wake on LAN Advanced Settings added\ndependencies updated",
         "de": "Wake on LAN Erweiterte Einstellungen hinzugefügt\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "Strona internetowa MultiDB\nPonowna wersja Onedrive’a\nFix PSQL Restore",
         "uk": "Фіксований інфлюкс для багатоDB\nToken renew для Onedrive додано\nВиправлення PSQL відновлення",
         "zh-cn": "Fix 多方行流源的恢复\nB. 添加剂\nFix PSQL Restore"
-      },
-      "2.6.22": {
-        "en": "Fix Influx Restore for MultiDB\nDefault Ports for InfluxDB added",
-        "de": "Influx Restore für MultiDB reparieren\nDefault Ports für InfluxDB hinzugefügt",
-        "ru": "Fix Influx Восстановление для MultiDB\nПорты по умолчанию для InfluxDB добавлены",
-        "pt": "Fix Influx Restore para MultiDB\nPortas padrão para InfluxDB adicionado",
-        "nl": "Fix Influx Restore\nDefault Ports for InfluxDB toegevoegd",
-        "fr": "Réparez Influx Restore pour MultiDB\nPorts par défaut pour InfluxDB ajouté",
-        "it": "Ripristino dell'influenza fissa per MultiDB\nPorte predefinite per InfluxDB aggiunto",
-        "es": "Restauración de flujo fijo para MultiDB\nPuertos predeterminados para InfluxDB añadido",
-        "pl": "Strona internetowa MultiDB\nDo InfluxDB dodano porty Default",
-        "uk": "Фіксований інфлюкс для багатоDB\nПорти за замовчуванням для InfluxDB додано",
-        "zh-cn": "Fix 多方行流源的恢复\n流落街头的Default港增加了"
       }
     },
     "title": "BackItUp",
