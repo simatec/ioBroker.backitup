@@ -1671,6 +1671,9 @@ async function main(adapter) {
     createBashScripts();
     readLogFile();
 
+    // only for node 20 bug testing
+    process.env['UV_USE_IO_URING'] = 0;
+
     if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) createBackupDir();
     if (fs.existsSync(bashDir + '/.redis.info')) deleteHideFiles();
     if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) delTmp();
