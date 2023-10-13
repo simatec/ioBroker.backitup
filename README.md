@@ -52,6 +52,10 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Fix node-red restore
+* (simatec) dependencies updated
+
 ### 2.8.5 (2023-10-13)
 * (simatec) Fix mount errors
 
