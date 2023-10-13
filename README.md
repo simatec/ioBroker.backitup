@@ -52,8 +52,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.8.5 (2023-10-13)
 * (simatec) Fix mount errors
+
 ### 2.8.4 (2023-10-11)
 * (simatec) Fix mysql Backup
 * (simatec) Fix pgsql Backup
