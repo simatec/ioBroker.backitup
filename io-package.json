@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.8.5",
+    "version": "2.8.6",
     "news": {
+      "2.8.6": {
+        "en": "Fix node-red restore\ndependencies updated",
+        "de": "Fix node-red wiederherstellen\naktualisierte abhängigkeiten",
+        "ru": "Исправление node-red восстановления\nзависимости обновлены",
+        "pt": "Corrigir restauração de nó-vermelho\ndependências atualizadas",
+        "nl": "Vertaling:\nafhankelijkheid geüpdateerd",
+        "fr": "Restauration fixe du nœud-rouge\ndépendances mises à jour",
+        "it": "Ristabilimento nodo-rosso\ndipendenze aggiornate",
+        "es": "Reparación de nodos rojos\ndependencias actualizadas",
+        "pl": "Odnowa węzła Fix\naktualizacja",
+        "uk": "Виправлення відновлення вузла\nоновлені залежності",
+        "zh-cn": "无端恢复\nb. 更新的依赖"
+      },
       "2.8.5": {
         "en": "Fix mount errors",
         "de": "Fehler bei der Montage behoben",
@@ -80,19 +93,6 @@
         "pl": "mała ustawa\nBugfix System-Mesage (ang.)\nDocu & Wiki uaktualnione\nUaktualniać\naktualizacja\nStrona internetowa\nAddress & Port (ang.)\nRestore the Backitup Config (ang.)",
         "uk": "маленькі дамські кріплення\nСистема усунення несправностей\nDocu & Wiki оновлений\nПереклад оновлений\nоновлені залежності\nВиправлення Webdav\nWOL Адреса та порт додано\nВідновлення конфігурації резервного копіювання",
         "zh-cn": "小型Sentry fix\nBugfix系统-Message\nDocu & Wiki更新\n笔译更新\nb. 更新的依赖\nFix万维网\nWOL 地址\nBackitup Config的恢复"
-      },
-      "2.7.0": {
-        "en": "dependencies updated\nFix error Messages\nedit automatic name addition added\nDocu & Wiki updated\nsmall bug fixes\nTranslation updated\nAdd support for sending notifications via discord (requires ioBroker.discord >= 2.1)",
-        "de": "aktualisierte abhängigkeiten\nFehler beheben Nachrichten\nautomatischer name hinzugefügt\nDocu & Wiki aktualisiert\nkleine fehlerbehebungen\nÜbersetzung aktualisiert\nUnterstützung für das Senden von Benachrichtigungen über Discord (erfordert ioBroker.discord >= 2.1)",
-        "ru": "зависимости обновлены\nИсправление ошибки Сообщения\nредактировать автоматическое имя добавленное\nDocu & Wiki обновлены\nнебольшие исправления ошибок\nПеревод обновлен\nДобавьте поддержку для отправки уведомлений через Discord (требуется ioBroker.discord >= 2,1)",
-        "pt": "dependências atualizadas\nCorrigir mensagens de erro\neditar adição de nome automático adicionado\nDocu & Wiki Atualizado\npequenas correções de bugs\nTradução atualizada\nAdicionar suporte para enviar notificações via discórdia (requer ioBroker.discord >= 2.1)",
-        "nl": "afhankelijkheid geüpdateerd\nVergissing\nedit automatische naam toegevoegd\nDocu Wiki update\nkleine insecten repareren\nVertaling:\nSteun voor het versturen van berichten via korting. 2.1",
-        "fr": "dépendances mises à jour\nCorrection des messages d'erreur\nmodifier le nom automatique ajouté\nDocu & Wiki mise à jour\npetites corrections de bug\nTraduction mise à jour\nAjouter le support pour envoyer des notifications via discord (requis ioBroker.discord ACIA= 2.1)",
-        "it": "dipendenze aggiornate\nRisolvere i messaggi di errore\nmodifica automatica nome aggiunta aggiunto\nDocu & Wiki aggiornato\npiccole correzioni di bug\nTraduzione aggiornata\nAggiungi supporto per l'invio di notifiche tramite discord (richiede ioBroker.discord >= 2.1)",
-        "es": "dependencias actualizadas\nCorregir error Mensajes\nedición automática nombre añadido\nDocu & Wiki actualizado\npequeños bugs\nTraducción actualizada\nAñadir soporte para enviar notificaciones a través de la discordia (requiere ioBroker.discord 2.1)",
-        "pl": "aktualizacja\nPoszukiwania\ndodanie automatycznej nazwy dodano dodanie do wersji edit\nDocu & Wiki uaktualnione\ndrobny trąb\nUaktualniać\nWsparcie dla wysyłania notyfikacji poprzez rozporządzenie (wymaganie ioBroker.discord) 2.1)",
-        "uk": "оновлені залежності\nВиправлення повідомлень про помилки\nредагування автоматичного додавання назви\nDocu & Wiki оновлений\nмаленькі виправлення помилок\nПереклад оновлений\nДодати підтримку відправки повідомлень через discord (обов'язково ioBroker.discord >= 2.1 км",
-        "zh-cn": "b. 更新的依赖\nFix错误 Messages\n自动名称增加\nDocu & Wiki更新\n小配件\n笔译更新\n增加通过光盘发送通知(Requires ioBroker)的支助 2.1)"
       }
     },
     "title": "BackItUp",
