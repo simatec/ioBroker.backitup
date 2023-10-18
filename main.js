@@ -1186,21 +1186,21 @@ function createBashScripts() {
         adapter.log.debug(`Backitup has recognized a Docker system`);
 
         try {
-            fs.writeFileSync(bashDir + '/stopIOB.sh', `#!/bin/bash\n# iobroker stop for restore\ngosu iobroker ${bashDir}/external.sh`);
+            fs.writeFileSync(bashDir + '/stopIOB.sh', `#!/bin/bash\n# iobroker stop for restore\nbash ${bashDir}/external.sh`);
             fs.chmodSync(bashDir + '/stopIOB.sh', 508);
         } catch (e) {
             adapter.log.error('cannot create stopIOB.sh: ' + e + 'Please run "iobroker fix"');
         }
 
         try {
-            fs.writeFileSync(bashDir + '/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\nsleep 6\ngosu root /opt/scripts/maintenance.sh off -y`);
+            fs.writeFileSync(bashDir + '/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\nsleep 6\nbash /opt/scripts/maintenance.sh off -y`);
             fs.chmodSync(bashDir + '/startIOB.sh', 508);
         } catch (e) {
             adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
         }
 
         try {
-            fs.writeFileSync(bashDir + '/external.sh', `#!/bin/bash\n# restore\ngosu iobroker /opt/scripts/maintenance.sh on -y -kbn\nsleep 3\nif [ -f ${bashDir}/.redis.info ]; then\ncd "${path.join(__dirname, 'lib')}"\nelse\ncd "${bashDir}"\nfi\ngosu iobroker node restore.js`);
+            fs.writeFileSync(bashDir + '/external.sh', `#!/bin/bash\n# restore\nbash /opt/scripts/maintenance.sh on -y -kbn\nsleep 3\nif [ -f ${bashDir}/.redis.info ]; then\ncd "${path.join(__dirname, 'lib')}"\nelse\ncd "${bashDir}"\nfi\nnode restore.js`);
             fs.chmodSync(bashDir + '/external.sh', 508);
         } catch (e) {
             adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
