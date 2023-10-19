@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.8.7 (2023-10-19)
 * (buanet) fix restore in docker v9
 
 ### 2.8.6 (2023-10-13)

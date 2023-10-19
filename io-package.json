@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.8.6",
+    "version": "2.8.7",
     "news": {
+      "2.8.7": {
+        "en": "fix restore in docker v9",
+        "de": "wiederherstellen in docker v9",
+        "ru": "исправить восстановление в docker v9",
+        "pt": "corrigir restauração no docker v9",
+        "nl": "herstellen in docker v9",
+        "fr": "restaurer dans docker v9",
+        "it": "fix ripristino in docker v9",
+        "es": "reparación de reparación en docker v9",
+        "pl": "odzyskanie odszkodowania v9",
+        "uk": "виправити відновлення в docker v9",
+        "zh-cn": "fix 复印机 v 9"
+      },
       "2.8.6": {
         "en": "Fix node-red restore\ndependencies updated",
         "de": "Fix node-red wiederherstellen\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "Role Fix\nlinki pomocowe dodano",
         "uk": "Виправлення ролі\nдодано посилання",
         "zh-cn": "B. 固定作用\n辅助联系"
-      },
-      "2.8.0": {
-        "en": "small Sentry fixes\nBugfix System-Message\nDocu & Wiki updated\nTranslation updated\ndependencies updated\nFix Webdav\nWOL Address & Port added\nRestore for Backitup Config added",
-        "de": "kleine Sentry Fixes\nBugfix System-Message\nDocu & Wiki aktualisiert\nÜbersetzung aktualisiert\naktualisierte abhängigkeiten\nWebdav\nWOL Adresse & Port hinzugefügt\nRestore für Backitup Config hinzugefügt",
-        "ru": "мелкие фиксы Sentry\nСистема Bugfix-Message\nDocu & Wiki обновлены\nПеревод обновлен\nзависимости обновлены\nFix Вебдав\nWOL Address & Порт добавлен\nВосстановление за Backitup Config добавлено",
-        "pt": "pequenas correções de Sentry\nBugfix System-Message\nDocu & Wiki Atualizado\nTradução atualizada\ndependências atualizadas\nCorrigir Webdav\nWOL Morada & Port adicionado\nRestaurar para Backitup Config adicionado",
-        "nl": "kleine Sentry repareert\nBugfix System-Message\nDocu Wiki update\nVertaling:\nafhankelijkheid geüpdateerd\nFix Webdav\n_\nVertaling:",
-        "fr": "petites corrections de Sentry\nBugfix System-Message\nDocu & Wiki mise à jour\nTraduction mise à jour\ndépendances mises à jour\nFix Webdav\nWOL Adresse & Port ajouté\nRestore pour Backitup Config ajouté",
-        "it": "piccoli apparecchi Sentry\nBugfix System-Message\nDocu & Wiki aggiornato\nTraduzione aggiornata\ndipendenze aggiornate\nFissare Webdav\nWOL Indirizzo & Port aggiunto\nRipristino per Backitup Config aggiunto",
-        "es": "pequeñas correcciones de Sentry\nBugfix System-Message\nDocu & Wiki actualizado\nTraducción actualizada\ndependencias actualizadas\nFix Webdav\nWOL Address & Port añadido\nRestore for Backitup Config añadido",
-        "pl": "mała ustawa\nBugfix System-Mesage (ang.)\nDocu & Wiki uaktualnione\nUaktualniać\naktualizacja\nStrona internetowa\nAddress & Port (ang.)\nRestore the Backitup Config (ang.)",
-        "uk": "маленькі дамські кріплення\nСистема усунення несправностей\nDocu & Wiki оновлений\nПереклад оновлений\nоновлені залежності\nВиправлення Webdav\nWOL Адреса та порт додано\nВідновлення конфігурації резервного копіювання",
-        "zh-cn": "小型Sentry fix\nBugfix系统-Message\nDocu & Wiki更新\n笔译更新\nb. 更新的依赖\nFix万维网\nWOL 地址\nBackitup Config的恢复"
       }
     },
     "title": "BackItUp",
