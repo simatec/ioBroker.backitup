@@ -52,6 +52,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (buanet) fix restore in docker v9
+
 ### 2.8.6 (2023-10-13)
 * (simatec) Fix node-red restore
 * (simatec) dependencies updated
