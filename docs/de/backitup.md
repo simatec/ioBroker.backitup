@@ -372,7 +372,9 @@ _[Zurück zum Anfang](#top)_
     * info.iobrokerNextTime -> zeigt die nächste Ausführungszeit des ioBroker-Backups
     * info.latestBackup -> zeigt als json das letzte beim Start ermittelte Backup
 
-2. History-Log in Vis anzeigen
+2. Backup History-Log in Vis anzeigen
+   - Der Backup History-Log zeigt die letzten x Backups an
+   - Die Anzahl der anzuzeigenen History-Einträge kann in den Extra-Einstellungen festgelegt werden.
    - Es ist möglich, den History-Log bspw. in einem Html-Widget durch eintragen folgender Zeile in HTML darzustellen:
 ```
 {backitup.0.history.html}
@@ -459,7 +461,7 @@ Wer seine Backups lieber manuell wiederherstellen möchte, sollte folgende Punkt
     - Es kann über die Konsole mit Hilfe des Befehls: `iobroker restore <Backupdateiname>` wieder hergestellt werden.
     - Nach dem Restore ist ein `iobroker upload all` nötig
 
-Eine detailierte Anleitung zum Restore mit ioBroker.backitup und auch zum manuellen Restore ist [hier](https://forum.iobroker.net/topic/27271/howto-iobroker-restore-unter-linux-durchf%C3%BChren) zu finden.
+Eine detailierte Anleitung zum Restore mit ioBroker.backitup und auch zum manuellen Restore ist [hier](https://github.com/simatec/ioBroker.backitup/wiki/%5BHowTo%5D-Restore-auf-Linux-Distributionen) zu finden.
 
 **Das CCU-Backup muss weiterhin über das Webinterface der CCU wiederhergestellt werden.**
 

@@ -52,6 +52,28 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### 2.8.7 (2023-10-19)
+* (buanet) fix restore in docker v9
+
+### 2.8.6 (2023-10-13)
+* (simatec) Fix node-red restore
+* (simatec) dependencies updated
+
+### 2.8.5 (2023-10-13)
+* (simatec) Fix mount errors
+
+### 2.8.4 (2023-10-11)
+* (simatec) Fix mysql Backup
+* (simatec) Fix pgsql Backup
+* (simatec) Fix InfluxDB Backup
+
+### 2.8.3 (2023-10-10)
+* (simatec) Wake on LAN Advanced Settings added
+* (simatec) dependencies updated
+
+### 2.8.2 (2023-09-28)
+* (simatec) Fix redis backup
+
 ### 2.8.1 (2023-09-12)
 * (simatec) Fix roles
 * (simatec) help-links added

@@ -1342,6 +1342,11 @@ function showHideSettings(settings) {
     } else {
         $('.wol').hide();
     }
+    if ($('#wakeOnLAN').prop('checked') && $('#wolExtra').prop('checked')) {
+        $('.wolExtended').show();
+    } else {
+        $('.wolExtended').hide();
+    }
 
     if ($('#dropboxOwnDir').prop('checked')) {
         $('.dropbox-extra').show();
