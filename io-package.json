@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.8.7",
+    "version": "2.9.0",
     "news": {
+      "2.9.0": {
+        "en": "mount option \"Cache Loose\" added\nESPHome Backup added\ndependencies updated",
+        "de": "mount Option \"Cache Loose\" hinzugefügt\nESPHome Backup hinzugefügt\naktualisierte abhängigkeiten",
+        "ru": "mount option \"Cache Loose\" добавлен\nESPHome Backup добавлен\nзависимости обновлены",
+        "pt": "opção de montagem \"Cache Loose\" adicionado\nESPHome Backup adicionado\ndependências atualizadas",
+        "nl": "mount optie \"Cache Loose\" toegevoegd\nVersterking toegevoegd\nafhankelijkheid geüpdateerd",
+        "fr": "option de montage \"Cache Loose\" ajouté\nESPHome Backup ajouté\ndépendances mises à jour",
+        "it": "opzione di montaggio \"Cache Loose\" aggiunto\nESPHome Backup aggiunto\ndipendenze aggiornate",
+        "es": "opción de montaje \"Cache Loose\" añadido\nESPHome Backup añadido\ndependencias actualizadas",
+        "pl": "\"Cache Loose\" dodał opcję \"Cache Loose\"\nESPHome Backup\naktualizacja",
+        "uk": "додано варіант кріплення \"Cache Loose\"\nESPHome Backup додано\nоновлені залежності",
+        "zh-cn": "增加的“每一”选择\nESPHome Back增加\nb. 更新的依赖"
+      },
       "2.8.7": {
         "en": "fix restore in docker v9",
         "de": "wiederherstellen in docker v9",
@@ -80,19 +93,6 @@
         "pl": "Fix redis",
         "uk": "Виправлення резервної копії",
         "zh-cn": "Fix 退款"
-      },
-      "2.8.1": {
-        "en": "Fix roles\nhelp-links added",
-        "de": "Aufgaben festlegen\nhilfe-links hinzugefügt",
-        "ru": "Исправление ролей\nhelp-links добавлены",
-        "pt": "Funções fixas\najuda-links adicionados",
-        "nl": "Vertaling:\nhelp-links toegevoegd",
-        "fr": "Rôles fixes\nhelp-links ajouté",
-        "it": "Risolvere i ruoli\nlink aggiuntivi",
-        "es": "Funciones fijas\nenlaces de ayuda añadidos",
-        "pl": "Role Fix\nlinki pomocowe dodano",
-        "uk": "Виправлення ролі\nдодано посилання",
-        "zh-cn": "B. 固定作用\n辅助联系"
       }
     },
     "title": "BackItUp",

@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.9.0 (2023-11-01)
 * (simatec) mount option "Cache Loose" added
 * (simatec) ESPHome Backup added
 * (simatec) dependencies updated
