@@ -379,6 +379,7 @@
     "historyPath": "media/usb/history",
     "javascriptsEnabled": false,
     "zigbeeEnabled": false,
+    "esphomeEnabled": false,
     "yahkaEnabled": false,
     "jarvisEnabled": false,
     "notificationEnabled": false,
