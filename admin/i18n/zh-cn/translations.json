@@ -273,6 +273,7 @@
   "iobroker backup": "io经纪人",
   "iobroker start backup": "iobroker 开始备份",
   "main settings": "主要设置",
+  "mount with option \"Cache Loose\"": "与选择的\"Cache Loose\"",
   "mount with option \"noserverino\"": "使用选项“noserverino”挂载",
   "mysql Backup by iobroker": "使用标准备份的 MySQL 备份",
   "name": "姓名",

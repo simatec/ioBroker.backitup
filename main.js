@@ -811,6 +811,7 @@ function initConfig(secret) {
         sudo: adapter.config.sudoMount,
         cifsDomain: adapter.config.cifsDomain,
         clientInodes: adapter.config.noserverino,
+        cacheLoose: adapter.config.cacheLoose,
         deleteOldBackup: adapter.config.cifsDeleteOldBackup,                                        //Delete old Backups from Network Disk
         ownDir: adapter.config.cifsOwnDir,
         bkpType: adapter.config.restoreType,

@@ -273,6 +273,7 @@
   "iobroker backup": "ioBroker",
   "iobroker start backup": "iobroker start back-up",
   "main settings": "belangrijkste instellingen",
+  "mount with option \"Cache Loose\"": "mount met optie \"Cache Loose\"",
   "mount with option \"noserverino\"": "mount met optie \"noserverino\"",
   "mysql Backup by iobroker": "MySQL-back-up met standaardback-up",
   "name": "naam",

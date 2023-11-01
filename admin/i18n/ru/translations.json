@@ -273,6 +273,7 @@
   "iobroker backup": "ioBroker",
   "iobroker start backup": "iobroker начать резервное копирование",
   "main settings": "Основные настройки",
+  "mount with option \"Cache Loose\"": "mount с опцией \"Cache Loose\"",
   "mount with option \"noserverino\"": "крепление с опцией \"noserverino\"",
   "mysql Backup by iobroker": "Резервное копирование MySQL со стандартным резервным копированием",
   "name": "имя",
