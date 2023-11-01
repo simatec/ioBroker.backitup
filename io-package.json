@@ -199,35 +199,35 @@
         "condition": {
           "operand": "and",
           "rules": [
-            "oldVersion<2.5.0",
-            "newVersion>=2.5.0"
+            "oldVersion<2.9.0",
+            "newVersion>=2.9.0"
           ]
         },
         "title": {
-          "en": "Re-authenticate Google Drive after Update!",
-          "de": "Re-authenticate Google Drive nach Update!",
-          "ru": "Re-аутентификация Google Drive после обновления!",
-          "pt": "Re-autenticação Google Drive após atualização!",
-          "nl": "Re-authentic Google Drive na Update!",
-          "fr": "Re-authenticate Google Drive après mise à jour!",
-          "it": "Rinforzo Google Drive dopo Aggiornamento!",
-          "es": "Reauthenticate Google Drive after Update!",
-          "pl": "Ponowny autentyczny Google Drive (ang.)!",
-          "uk": "Реабілітація Google Диск після оновлення!",
-          "zh-cn": "逮捕 谷歌博士在最新情况之后!"
+          "en": "Changes for CIFS under Node 20.x.x",
+          "de": "Änderungen für CIFS unter Node 20.x.x",
+          "ru": "Изменения для CIFS под Node 20.x.x",
+          "pt": "Alterações para CIFS em Node 20.x.x",
+          "nl": "Veranderingen voor CIFS onder Node 20.x",
+          "fr": "Changements pour le CIFS sous le no 20.x.x",
+          "it": "Modifiche per CIFS sotto Node 20.x.x",
+          "es": "Cambios para CIFS bajo Nodo 20.x.x",
+          "pl": "Zmiany dla CIFS pod numerem 20.x",
+          "uk": "Зміни для CIFS під Node 20.x.x",
+          "zh-cn": "第20.x号CIFS的变动"
         },
         "text": {
-          "en": "After installing this update the google drive access token needs to be re-authenticated in the Instance-Settings! Of course, only if google drive is used.",
-          "de": "Nach der Installation dieses Updates muss der google drive access token in den Instanz-Settings neu authentifiziert werden! Natürlich nur, wenn Google-Drive verwendet wird.",
-          "ru": "После установки этого обновления токен доступа Google для доступа должен быть повторно авторизован в Instance-Settings! Конечно, только если Google Drive используется.",
-          "pt": "Depois de instalar esta atualização o token de acesso de unidade do google precisa ser re-autenticado nas configurações de instância! Claro, só se o Google Drive é usado.",
-          "nl": "Na het installeren van deze update moet de Google drive toegang tot token opnieuw geauthenticeerd worden in de Instance-Settings! Natuurlijk, alleen als Google Drive gebruikt wordt.",
-          "fr": "Après l'installation de cette mise à jour, le jeton d'accès au lecteur google doit être réauthentifié dans le cas-Settings! Bien sûr, seulement si le lecteur de google est utilisé.",
-          "it": "Dopo l'installazione di questo aggiornamento l'accesso a Google Drive token ha bisogno di essere ri-authenticated nelle Impostazioni di istanza! Naturalmente, solo se Google Drive viene utilizzato.",
-          "es": "Después de instalar esta actualización, el acceso de la unidad de Google token tiene que ser re-authenticated en la Instance-Settings! Por supuesto, sólo si se utiliza la unidad de Google.",
-          "pl": "Po zainstalowaniu tej aktualizacji znak dostępu do google musi zostać przywrócony w Instance-Settings! Z biegiem tylko wtedy, gdy używa się google.",
-          "uk": "Після встановлення цього оновлення токени доступу Google повинні бути переоцінені в Instance-Settings! Звичайно, тільки якщо використовується Google Drive.",
-          "zh-cn": "在安装这一最新消息之后,在Setting-Settings需要重新得到治疗。 当然,只使用了防污。."
+          "en": "FritzNAS users must enable the \"Cache Loose\" option in the Backitup settings for proper CIFS function under Node 20. Without this option, no backup can be written to the FritzNAS.",
+          "de": "FritzNAS-Benutzer müssen die Option \"Cache Loose\" in den Backitup-Einstellungen für die richtige CIFS-Funktion unter Node 20 aktivieren. Ohne diese Option kann kein Backup auf das FritzNAS geschrieben werden.",
+          "ru": "Пользователи FritzNAS должны включить опцию \"Cache Loose\" в настройках Backitup для правильной функции CIFS под Node 20. Без этого варианта резервное копирование не может быть написано на FritzNAS.",
+          "pt": "Os usuários do FritzNAS devem ativar a opção \"Cache Loose\" nas configurações do Backitup para a função CIFS apropriada sob o Node 20. Sem esta opção, nenhum backup pode ser escrito para o FritzNAS.",
+          "nl": "FritzNAS gebruikers moeten de \"Cache Loose\" optie in de Backitup settings voor goede CIFS-functies onder de 20. Zonder deze optie kan er geen back-up geschreven worden aan de FritzNAS.",
+          "fr": "Les utilisateurs de FritzNAS doivent activer l'option \"Cache Loose\" dans les paramètres de sauvegarde de la fonction CIFS appropriée sous le numéro 20. Sans cette option, aucune sauvegarde ne peut être écrite au FritzNAS.",
+          "it": "Gli utenti di FritzNAS devono abilitare l'opzione \"Cache Loose\" nelle impostazioni di Backitup per una corretta funzione CIFS sotto Node 20. Senza questa opzione, nessun backup può essere scritto al FritzNAS.",
+          "es": "Los usuarios de FritzNAS deben habilitar la opción \"Cache Loose\" en la configuración de Backitup para la función apropiada de CIFS bajo Nodo 20. Sin esta opción, no se puede escribir copia de seguridad al FritzNAS.",
+          "pl": "Użytkownicy FritzNAS muszą umożliwić opcję „Cache Loose” w ustawieniach Backitup dla funkcji CIFS. Bez tej opcji nie można pisać FritzNAS.",
+          "uk": "Користувачі FritzNAS повинні увімкнути параметр \"Cache Loose\" у налаштуваннях Backitup для коректної функції CIFS під Node 20. Без цього варіанту не можна писати на ФрицНАС.",
+          "zh-cn": "FritzNAS用户必须能够使Backitup环境中的“Cache Loose”方案能够正常的CIFS功能。 没有这种选择,就不能向弗朗西斯·弗朗索瓦斯写回来。."
         },
         "level": "warn",
         "buttons": [
@@ -239,7 +239,7 @@
   },
   "native": {
     "minimalEnabled": true,
-    "minimalTime": "02:40",
+    "minimalTime": "02:48",
     "minimalEveryXDays": 1,
     "minimalDeleteAfter": 10,
     "minimalNameSuffix": "",
@@ -248,7 +248,7 @@
     "mysqlQuick": false,
     "mysqlSingleTransaction": false,
     "ccuEnabled": false,
-    "ccuTime": "01:30",
+    "ccuTime": "01:36",
     "ccuEveryXDays": 3,
     "ccuDeleteAfter": 10,
     "ccuNameSuffix": "",
