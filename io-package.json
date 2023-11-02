@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.9.0",
+    "version": "2.9.1",
     "news": {
+      "2.9.1": {
+        "en": "ignore Build directory for ESPHome added",
+        "de": "! Verzeichnis für ESPHome erstellen",
+        "ru": "игнорировать Создать каталог для ESPHome добавлен",
+        "pt": "ignorar Construir diretório para ESPHome adicionado",
+        "nl": "negeer. Build directory for ESPHome toegevoegd",
+        "fr": "ignorer Build directory for ESPHome added",
+        "it": "ignorare Creazione di directory per ESPHome aggiunto",
+        "es": "ignorar Directorio de compilación para ESPHome",
+        "pl": "ignorowanie Directory Build dla ESPHome dodały",
+        "uk": "про нас Створіть каталог для ESPHome",
+        "zh-cn": "忽视 ESPHome的布兰德名主任补充说"
+      },
       "2.9.0": {
         "en": "mount option \"Cache Loose\" added\nESPHome Backup added\ndependencies updated",
         "de": "mount Option \"Cache Loose\" hinzugefügt\nESPHome Backup hinzugefügt\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "Wake on the LAN Advanced Settings (ang.)\naktualizacja",
         "uk": "Вейк на локальних розширених налаштуваннях додано\nоновлені залежності",
         "zh-cn": "在LAN先进配件上添加\nb. 更新的依赖"
-      },
-      "2.8.2": {
-        "en": "Fix redis backup",
-        "de": "Redis Backup",
-        "ru": "Fix redis резервное копирование",
-        "pt": "Fix redis backup",
-        "nl": "Vertaling:",
-        "fr": "Correction de sauvegarde redis",
-        "it": "Risolvi il backup redis",
-        "es": "Reparación de redis",
-        "pl": "Fix redis",
-        "uk": "Виправлення резервної копії",
-        "zh-cn": "Fix 退款"
       }
     },
     "title": "BackItUp",
