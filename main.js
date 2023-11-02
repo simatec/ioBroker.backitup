@@ -364,7 +364,7 @@ function startAdapter(options) {
                         }
 
                         try {
-                            adapter.sendTo(obj.from, obj.command, { systemOS: systemInfo, dockerDB: dbInfo }, obj.callback);
+                            adapter.sendTo(obj.from, obj.command, { systemOS: systemInfo, dockerDB: dbInfo, backupDir: path.join(tools.getIobDir(), 'backups') }, obj.callback);
                         } catch (err) {
                             err && adapter.log.error(err);
                         }

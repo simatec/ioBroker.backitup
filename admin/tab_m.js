@@ -9,6 +9,7 @@ var $dialogCommandProgress;
 var lastMessage = '';
 var storageTyp = '';
 var restoreIfWait = 5000;
+var backupDir = null;
 
 function initDialog() {
     $dialogCommand = $('#dialog-command');
@@ -99,7 +100,7 @@ function load(settings, onChange) {
             });
         }
     });
-    console.log('current theme: ' + currentTheme());
+    //console.log('current theme: ' + currentTheme());
 
     sendTo(null, 'getFileSystemInfo', null, function (obj) {
         if (obj && obj.diskState && obj.storage && obj.diskFree) {
@@ -123,6 +124,10 @@ function load(settings, onChange) {
             $('#startAllRestore').prop('disabled', true);
         } else if (obj && obj.systemOS == 'win') {
             restoreIfWait = 18000;
+        }
+
+        if (obj && obj.backupDir) {
+            backupDir = obj.backupDir;
         }
     });
 
