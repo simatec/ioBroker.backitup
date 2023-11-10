@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.9.2 (2023-11-10)
 * (simatec) dependencies updated
 * (simatec) Design fix
 * (simatec) Backup File upload added

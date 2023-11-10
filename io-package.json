@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.9.1",
+    "version": "2.9.2",
     "news": {
+      "2.9.2": {
+        "en": "dependencies updated\nDesign fix\nBackup File upload added\nUploadserver added\nTranslation updated",
+        "de": "aktualisierte abhängigkeiten\nDesign fix\nBackup File Upload hinzugefügt\nUploadserver hinzugefügt\nÜbersetzung aktualisiert",
+        "ru": "зависимости обновлены\nДизайн исправить\nBackup Загрузка файла добавлена\nЗагрузитьсервер добавлен\nПеревод обновлен",
+        "pt": "dependências atualizadas\nCorreção de projeto\nBackup File upload adicionado\nCarregador adicionado\nTradução atualizada",
+        "nl": "afhankelijkheid geüpdateerd\nDesign\nQuality over Quantity (QoQ) Releases Vertaling:\nUploadserver toegevoegd\nVertaling:",
+        "fr": "dépendances mises à jour\nDesign fix\nTéléchargement de fichier ajouté\nUploadserver ajouté\nTraduction mise à jour",
+        "it": "dipendenze aggiornate\nDesign fix\nCaricamento file di backup aggiunto\nCaricabatterie aggiunto\nTraduzione aggiornata",
+        "es": "dependencias actualizadas\nDiseño fijo\nCarga de archivo de respaldo añadido\nSubir servidor añadido\nTraducción actualizada",
+        "pl": "aktualizacja\nProjekt\nFile upload (ang.)\nDodać\nUaktualniać",
+        "uk": "оновлені залежності\nФіксація дизайну\nЗавантажити файл резервного копіювання\nДодано\nПереклад оновлений",
+        "zh-cn": "b. 更新的依赖\n设计装置\n包装量增加\n海报\n笔译更新"
+      },
       "2.9.1": {
         "en": "ignore Build directory for ESPHome added",
         "de": "! Verzeichnis für ESPHome erstellen",
@@ -80,19 +93,6 @@
         "pl": "Fix myql Backup (ang.)\nFgsql Backup\nFix Influx Backup",
         "uk": "Виправлення резервного копіювання mysql\nФіксація pgsql Резервне копіювання\nФіксація InfluxDB Backup",
         "zh-cn": "Fix 我的Kql Backup\nFix pgql Backup\nFix 甲烷"
-      },
-      "2.8.3": {
-        "en": "Wake on LAN Advanced Settings added\ndependencies updated",
-        "de": "Wake on LAN Erweiterte Einstellungen hinzugefügt\naktualisierte abhängigkeiten",
-        "ru": "Просмотреть на LAN Advanced Settings добавлено\nзависимости обновлены",
-        "pt": "Wake on LAN Configurações avançadas adicionadas\ndependências atualizadas",
-        "nl": "Wakker worden op LAN Advanced Settings\nafhankelijkheid geüpdateerd",
-        "fr": "Wake on LAN Advanced Settings ajouté\ndépendances mises à jour",
-        "it": "Wake on LAN Impostazioni avanzate aggiunte\ndipendenze aggiornate",
-        "es": "Despierta en Ajustes Avanzados LAN añadidos\ndependencias actualizadas",
-        "pl": "Wake on the LAN Advanced Settings (ang.)\naktualizacja",
-        "uk": "Вейк на локальних розширених налаштуваннях додано\nоновлені залежності",
-        "zh-cn": "在LAN先进配件上添加\nb. 更新的依赖"
       }
     },
     "title": "BackItUp",
