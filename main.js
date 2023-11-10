@@ -24,6 +24,7 @@ let slaveTimeOut;
 let waitToSlaveBackup;
 let stopServer;
 let dlServer;
+let ulServer;
 
 let systemLang = 'de';              // system language
 const backupConfig = {};
@@ -263,6 +264,36 @@ function startAdapter(options) {
                     }
                     break;
 
+                case 'uploadFile':
+                    if (obj.message && obj.message.protocol) {
+                        if (obj.message.protocol === 'https:') {
+                            await getCerts(obj.from);
+                        }
+
+                        if (ulServer && ulServer._connectionKey) {
+                            try {
+                                ulServer.close();
+                                ulServer = null;
+                            } catch (e) {
+                                adapter.log.debug('Upload server could not be closed');
+                            }
+                        }
+
+                        try {
+                            ulFileServer(obj.message.protocol);
+                        } catch (e) {
+                            adapter.log.debug('Uploadserver cannot started');
+                        }
+
+                        try {
+                            adapter.sendTo(obj.from, obj.command, { listenPort: ulServer.address().port }, obj.callback);
+                        } catch (e) {
+                            adapter.sendTo(obj.from, obj.command, { e }, obj.callback);
+                        }
+                    } else if (obj.callback) {
+                        obj.callback({ error: 'Invalid parameters' });
+                    }
+                    break;
                 case 'getFile':
                     if (obj.message && obj.message.type && obj.message.fileName && obj.message.protocol) {
                         if (obj.message.protocol === 'https:') {
@@ -277,7 +308,7 @@ function startAdapter(options) {
                             }
                         }
                         try {
-                            fileServer(obj.message.protocol);
+                            dlFileServer(obj.message.protocol);
                         } catch (e) {
                             adapter.log.debug('Downloadserver cannot started');
                         }
@@ -316,10 +347,18 @@ function startAdapter(options) {
                     break;
 
                 case 'serverClose':
-                    if (obj.message && obj.message.downloadFinish) {
+                    if (obj.message && obj.message.downloadFinish && !obj.message.uploadFinish) {
                         stopServer = setTimeout(() => {
                             dlServer.close();
+                            dlServer = null;
                             adapter.log.debug('Downloadserver closed ...');
+                            adapter.sendTo(obj.from, obj.command, { serverClose: true }, obj.callback);
+                        }, 2000);
+                    } else if (obj.message && obj.message.uploadFinish && !obj.message.downloadFinish) {
+                        stopServer = setTimeout(() => {
+                            ulServer.close();
+                            ulServer = null;
+                            adapter.log.debug('Uploadserver closed ...');
                             adapter.sendTo(obj.from, obj.command, { serverClose: true }, obj.callback);
                         }, 2000);
                     } else if (obj.callback) {
@@ -1607,7 +1646,7 @@ async function getCerts(instance) {
     }
 }
 
-function fileServer(protocol) {
+function dlFileServer(protocol) {
     const express = require('express');
     const downloadServer = express();
     const https = require('https');
@@ -1648,6 +1687,74 @@ function fileServer(protocol) {
             adapter.log.debug(`Downloadserver on port ${dlServer.address().port} started`);
         } catch (e) {
             adapter.log.debug('Downloadserver cannot started');
+        }
+    }
+}
+
+function ulFileServer(protocol) {
+    const express = require('express');
+    const multer = require('multer');
+    const cors = require('cors');
+    const https = require('https');
+
+    let httpsServer;
+
+    const backupDir = path.join(tools.getIobDir(), 'backups');
+
+    const uploadServer = express();
+    uploadServer.use(cors());
+
+    const storage = multer.diskStorage({
+        destination: function (req, file, callback) {
+            callback(null, backupDir);
+        },
+        filename: function (req, file, callback) {
+            callback(null, file.originalname);
+            adapter.log.debug(`Upload from ${file.originalname} started...`);
+        }
+    })
+
+    const upload = multer({ storage: storage })
+
+    uploadServer.post('/', upload.single('files'), (req, res) => {
+        adapter.log.debug(req.body);
+        adapter.log.debug(req.files);
+        res.json({ message: "File(s) uploaded successfully" });
+
+    });
+
+    if (protocol === 'https:') {
+        let privateKey = '';
+        let certificate = '';
+
+        if (fs.existsSync(path.join(bashDir, 'iob.key')) && fs.existsSync(path.join(bashDir, 'iob.crt'))) {
+            try {
+                privateKey = fs.readFileSync(path.join(bashDir, 'iob.key'), 'utf8');
+                certificate = fs.readFileSync(path.join(bashDir, 'iob.crt'), 'utf8');
+            } catch (e) {
+                adapter.log.debug('no certificates found');
+            }
+        }
+        const credentials = { key: privateKey, cert: certificate };
+
+        try {
+            httpsServer = https.createServer(credentials, uploadServer);
+        } catch (e) {
+            adapter.log.debug(`The https Uploadserver cannot be created: ${e}`);
+        }
+
+        try {
+            ulServer = httpsServer.listen(0);
+            adapter.log.debug(`Uploadserver on port ${ulServer.address().port} started`);
+        } catch (e) {
+            adapter.log.debug('Uploadserver cannot started');
+        }
+    } else {
+        try {
+            ulServer = uploadServer.listen(0);
+            adapter.log.debug(`Uploadserver on port ${ulServer.address().port} started`);
+        } catch (e) {
+            adapter.log.debug('Uploadserver cannot started');
         }
     }
 }

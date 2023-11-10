@@ -50,7 +50,7 @@
         </div>
         <!-- Backup Informations -->
         <div class="row" style="padding: 2px;">
-            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem; border-radius: 4px;">Backupinformations</h6>
+            <h6 class="title" style="background-color:#174475; border-radius: 4px;"><i class="material-icons left">info</i><span class="translate" style="font-size: 0.9rem;">Backupinformations</span></h6>
         </div>
         <div class="row">
             <div class="col s12 m6 l4 xl4 xxl2 xxxl1 tile card-system-info">
@@ -110,7 +110,7 @@
         </div>
         <!-- Backups Now -->
         <div class="row" style="padding: 2px;">
-            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;; border-radius: 4px;">System backup</h6>
+            <h6 class="title" style="background-color:#174475; border-radius: 4px;"><i class="material-icons left">backup</i><span class="translate" style="font-size: 0.9rem;">System backup</span></h6>
         </div>
         <div class="row">
             <div class="input-field col s6 l3">
@@ -123,12 +123,12 @@
                 <a class="waves-effect waves-light btn btn-backitup detect-backups" ><i class="material-icons right">search</i><span class="translate">Backup history</span></a>
             </div>
             <div class="input-field col s6 l3">
-                <a class="waves-effect waves-light btn btn-backitup btn-himself" ><i class="material-icons right">backup</i><span class="translate">save Configuration</span></a>
+                <a class="waves-effect waves-light btn btn-backitup btn-himself" ><i class="material-icons right">backup</i><span class="translate">save Backitup settings</span></a>
             </div>
         </div>
         <!-- Restore -->
         <div class="row" style="padding: 2px;">
-            <h6 class="translate title" style="background-color:#174475; font-size: 0.9rem;; border-radius: 4px;">Restore</h6>
+            <h6 class="title" style="background-color:#174475; border-radius: 4px;"><i class="material-icons left">settings_backup_restore</i><span class="translate" style="font-size: 0.9rem;">Restore</span></h6>
         </div>
         <div class="row" style="margin-bottom: 0">
             <div class="input-field col s11 m3">
@@ -149,7 +149,10 @@
                 <a class="waves-effect waves-light btn btn-backitup btn-iobroker do-list" ><i class="material-icons right">search</i><span class="translate">Get list</span></a>
             </div>
             <div class="input-field col s6 m3">
-                <a class="waves-effect waves-light btn btn-backitup btn-restore-himself" ><i class="material-icons right">settings_backup_restore</i><span class="translate">restore Configuration</span></a>
+                <a class="waves-effect waves-light btn btn-backitup btn-backup-upload" ><i class="material-icons right">file_upload</i><span class="translate">Upload Backup File</span></a>
+            </div>
+            <div class="input-field col s6 m3">
+                <a class="waves-effect waves-light btn btn-backitup btn-restore-himself" ><i class="material-icons right">settings_backup_restore</i><span class="translate">restore Backitup settings</span></a>
             </div>
             <div class="col s6 l2 cloudRestore">
                 <div class="chip blink" style="background-color:#64b5f6;">
@@ -255,6 +258,30 @@
                     <span class="downloadProgress translate" id="backupDownload_source" style="font-size: 0.9rem;"></span>
                     <span class="downloadFinish translate" id="backupDownload_finish" style="font-size: 0.9rem;">Download completed successfully. The popup will close automatically</span>
                     <span class="downloadError translate" id="backupDownload_error" style="font-size: 0.9rem;">The download could not be started. The popup will close automatically</span>
+                </div>
+            </div>
+        </div>
+        <!-- Dialog Upload -->
+        <div id="dialog-upload" class="modal modal-fixed-footer" style="display: none">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col s12">
+                        <h6 class="title"><span class="translate">Backup Upload</span><span class="command"></span></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 uploadProgress">
+                        <div class="progress">
+                            <div class="indeterminate"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-field col s8" style="margin-left: 0.8rem;">
+                    <i class="material-icons">file_upload</i>
+                    <span class="uploadProgress translate" style="font-size: 0.9rem;">Upload from Backup File</span>
+                    <span class="uploadProgress translate" id="backupUpload_name" style="font-size: 0.9rem;"></span>
+                    <span class="uploadFinish translate" id="backupUpload_finish" style="font-size: 0.9rem;">Upload completed successfully. The popup will close automatically</span>
+                    <span class="uploadError translate" id="backupUpload_error" style="font-size: 0.9rem;">The Upload could not be started. The popup will close automatically</span>
                 </div>
             </div>
         </div>

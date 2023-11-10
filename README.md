@@ -52,6 +52,13 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) dependencies updated
+* (simatec) Design fix
+* (simatec) Backup File upload added
+* (simatec) Uploadserver added
+* (simatec) Translation updated
+
 ### 2.9.1 (2023-11-02)
 * (simatec) ignore Build directory for ESPHome added
 

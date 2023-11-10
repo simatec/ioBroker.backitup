@@ -119,7 +119,7 @@ body {
     border-radius: 4px;
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
-.btn-himself, .btn-restore-himself {
+.btn-himself, .btn-restore-himself, .btn-backup-upload {
     width: 100%;
     margin-top: 0.3rem;
     border-radius: 4px;
@@ -301,4 +301,44 @@ li {
 .card-content-text {
     overflow-y: auto;
     max-height: 187px;
+}
+#toast-container {
+    bottom: 94%;
+    left: 30%;
+    top: initial;
+    right: initial;
+    position: absolute;
+    background-color: #174475;
+    box-shadow: rgba(0, 0, 0, 0.14) 0px 3px 3px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px, rgba(0, 0, 0, 0.2) 0px 3px 1px -2px;
+    background-image: linear-gradient(179deg, rgb(51, 153, 204) 0%, rgb(23, 68, 117) 60%) !important;
+    color: white;
+    padding: 1rem;
+    font-size: larger;
+    z-index: 999;
+}
+
+#dialog-upload .title {
+    width: 100%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+    background: #174475;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+#dialog-upload .modal-content {
+    width: 100% !important;
+    height: calc(100% - 10px) !important;
+}
+
+#dialog-upload {
+    max-height: 40% !important;
+    max-width: 70% !important;
+    width: 65% !important;
+    height: 35% !important;
+    overflow: visible !important;
+    top: 10px !important;
+    width: calc(100% - 100px);
+    border-radius: 4px;
 }

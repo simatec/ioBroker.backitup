@@ -4,6 +4,7 @@
 //Settings
 var $dialogCommand = null;
 var $dialogDownload = null;
+var $dialogUpload = null;
 var $output = null;
 var $dialogCommandProgress;
 var lastMessage = '';
@@ -418,7 +419,7 @@ function load(settings, onChange) {
                                         $('.downloadError').show();
                                     }
 
-                                    sendTo(null, 'serverClose', { downloadFinish: true }, function (result) {
+                                    sendTo(null, 'serverClose', { downloadFinish: true, uploadFinish: false }, function (result) {
                                         if (result && result.serverClose) {
                                             $('.downloadProgress').hide();
                                             $('.downloadFinish').show();
@@ -464,6 +465,7 @@ function load(settings, onChange) {
     $('.detect-backups').on('click', function () { initDialogBackups(); });
     $('.btn-himself').on('click', function () { backupHimSelf(); });
     $('.btn-restore-himself').on('click', function () { restoreHimSelf(); });
+    $('.btn-backup-upload').on('click', function () { backupUpload(); });
 
     showHideSettings(settings);
     onChange(false);
@@ -504,6 +506,59 @@ function backupHimSelf() {
             document.body.removeChild(el);
         }
     });
+}
+
+function backupUpload() {
+    var input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('id', 'files');
+    input.setAttribute('opacity', 0);
+    input.addEventListener('change', function (e) {
+        handleUploadSelect(e, function () { });
+    }, false);
+    (input.click)();
+}
+
+async function handleUploadSelect(evt) {
+    const uploadFile = evt.target.files[0];
+    if (uploadFile) {
+        sendTo(null, 'uploadFile', { protocol: location.protocol }, async function (result) {
+            if (!result || result.error) {
+                showError('<br/><br/>Error:<br/><br/>' + JSON.stringify(result.error));
+            } else {
+                initDialogUpload();
+
+                $('#backupUpload_name').text(` "${uploadFile.name}" `);
+                $('.uploadFinish').hide();
+                $('.uploadError').hide();
+                $('.uploadProgress').show();
+
+                let formData = new FormData();
+
+                formData.append('files', uploadFile);
+
+                await fetch(`${location.protocol}//${location.hostname}:${result.listenPort}`, {
+                    method: 'POST',
+                    body: formData
+                }).then(() => {
+                    console.log('Upload finish!');
+                    $('.uploadProgress').hide();
+                    $('.uploadFinish').show();
+                    setTimeout(() => $dialogUpload.modal('close'), 5000);
+
+                    sendTo(null, 'serverClose', { downloadFinish: false, uploadFinish: true }, function (result) {
+                        if (result && result.serverClose) {
+                            console.log('Upload-Server closed');
+                        }
+                    });
+                }).catch((e) => {
+                    $('.uploadProgress').hide();
+                    $('.uploadError').show();
+                    setTimeout(() => $dialogUpload.modal('close'), 5000);
+                });
+            }
+        });
+    }
 }
 
 function restoreHimSelf() {
@@ -629,6 +684,17 @@ function initDialogDownload() {
         });
     }
     $dialogDownload.modal('open');
+}
+
+function initDialogUpload() {
+    $dialogUpload = $('#dialog-upload');
+    if (!$dialogUpload.data('inited')) {
+        $dialogUpload.data('inited', true);
+        $dialogUpload.modal({
+            dismissible: false
+        });
+    }
+    $dialogUpload.modal('open');
 }
 
 function initDialogRestore() {
