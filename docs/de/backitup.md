@@ -352,6 +352,12 @@ Da im Docker-Container keine Datenbanksysteme installiert werden sollten, werden
 
 Der Inhalt der Umgebungsvariable "PACKAGES" orientiert sich dabei an den zu installierenden Paketen, die für den Zugriff auf die jeweilige Datenbank notwendig sind. Beispiele wären "mysql-client" oder "redis-tools". Weitere Einzelheiten dazu sind [hier](https://docs.buanet.de/iobroker-docker-image/docs_backitup/) zu finden.
 
+Um ioBroker.backitup im Docker vollumfäglich nutzen zu können müssen noch einige Ports gemappt werden.
+
+* Port 8091 - Restore Webinterface (Bei Nutzung des Admin mit http)
+* Port 8092 - Restore Webinterface (Bei Nutzung des Admin mit https)
+* Port 9081 - Fileserver für Uloads und Download von Backups über das Webinterinface von ioBroker.backitup
+
 _[Zurück zum Anfang](#top)_
 
 ---

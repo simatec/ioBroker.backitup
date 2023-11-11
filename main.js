@@ -1653,6 +1653,8 @@ function dlFileServer(protocol) {
 
     let httpsServer;
 
+    const port = fs.existsSync('/opt/scripts/.docker_config/.thisisdocker') ? 9081 : 0;
+
     downloadServer.use(express.static(path.join(tools.getIobDir(), 'backups')));
 
     if (protocol === 'https:') {
@@ -1676,14 +1678,14 @@ function dlFileServer(protocol) {
         }
 
         try {
-            dlServer = httpsServer.listen(0);
+            dlServer = httpsServer.listen(port);
             adapter.log.debug(`Downloadserver on port ${dlServer.address().port} started`);
         } catch (e) {
             adapter.log.debug('Downloadserver cannot started');
         }
     } else {
         try {
-            dlServer = downloadServer.listen(0);
+            dlServer = downloadServer.listen(port);
             adapter.log.debug(`Downloadserver on port ${dlServer.address().port} started`);
         } catch (e) {
             adapter.log.debug('Downloadserver cannot started');
@@ -1698,6 +1700,8 @@ function ulFileServer(protocol) {
     const https = require('https');
 
     let httpsServer;
+
+    const port = fs.existsSync('/opt/scripts/.docker_config/.thisisdocker') ? 9081 : 0;
 
     const backupDir = path.join(tools.getIobDir(), 'backups');
 
@@ -1744,14 +1748,14 @@ function ulFileServer(protocol) {
         }
 
         try {
-            ulServer = httpsServer.listen(0);
+            ulServer = httpsServer.listen(port);
             adapter.log.debug(`Uploadserver on port ${ulServer.address().port} started`);
         } catch (e) {
             adapter.log.debug('Uploadserver cannot started');
         }
     } else {
         try {
-            ulServer = uploadServer.listen(0);
+            ulServer = uploadServer.listen(port);
             adapter.log.debug(`Uploadserver on port ${ulServer.address().port} started`);
         } catch (e) {
             adapter.log.debug('Uploadserver cannot started');
