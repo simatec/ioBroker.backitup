@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.9.3 (2023-11-11)
 * (simatec) Fix Port for Filerserver
 * (simatec) Docu updated
 

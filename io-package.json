@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.9.2",
+    "version": "2.9.3",
     "news": {
+      "2.9.3": {
+        "en": "Fix Port for Filerserver\nDocu updated",
+        "de": "Fix Port für Filerserver\nDocu aktualisiert",
+        "ru": "Fix Порт для Filerserver\nDocu обновление",
+        "pt": "Porta de fixação para o servidor de arquivos\nDocu atualizado",
+        "nl": "Fix Port\nDocu update",
+        "fr": "Fix Port for Filerserver\nDocu updated",
+        "it": "Fix Port per Filerserver\nDocu aggiornato",
+        "es": "Puerto fijo para Filerserver\nDocu actualizado",
+        "pl": "Fix Port for Filerserver (ang.)\nDocu zaktualizował",
+        "uk": "Фіксований порт для Filerserver\nDocu оновлений",
+        "zh-cn": "菲克斯港\n附录"
+      },
       "2.9.2": {
         "en": "dependencies updated\nDesign fix\nBackup File upload added\nUploadserver added\nTranslation updated",
         "de": "aktualisierte abhängigkeiten\nDesign fix\nBackup File Upload hinzugefügt\nUploadserver hinzugefügt\nÜbersetzung aktualisiert",
@@ -80,19 +93,6 @@
         "pl": "Fix uzyskuje błędy",
         "uk": "Виправлення помилок кріплення",
         "zh-cn": "固定错误"
-      },
-      "2.8.4": {
-        "en": "Fix mysql Backup\nFix pgsql Backup\nFix InfluxDB Backup",
-        "de": "Mysql Backup reparieren\nReparieren pgsql Backup\nInfluxDB Backup",
-        "ru": "Исправление mysql Backup\nИсправление pgsql Backup\nИсправление InfluxDB Backup",
-        "pt": "Corrigir backup mysql\nCorrigir backup pgsql\nFix InfluxDB Backup",
-        "nl": "Vertaling:\nVertaling:\nVertaling:",
-        "fr": "Réparez mysql Backup\nFix pgsql Backup\nFix InfluxDB Backup",
-        "it": "Risolvere mysql Backup\nRisolvere il backup pgsql\nFissare il backup di InfluxDB",
-        "es": "Arregla mi respaldo ql\nFijar el respaldo pgsql\nRetroceso de InfluxDB fijo",
-        "pl": "Fix myql Backup (ang.)\nFgsql Backup\nFix Influx Backup",
-        "uk": "Виправлення резервного копіювання mysql\nФіксація pgsql Резервне копіювання\nФіксація InfluxDB Backup",
-        "zh-cn": "Fix 我的Kql Backup\nFix pgql Backup\nFix 甲烷"
       }
     },
     "title": "BackItUp",
