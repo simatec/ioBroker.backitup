@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.9.3",
+    "version": "2.9.4",
     "news": {
+      "2.9.4": {
+        "en": "dependencies updated\nFix CIFS Password\nFix mySql Password\nFix pgSql Password\nFix redis Password",
+        "de": "aktualisierte abhängigkeiten\nCIFS Passwort löschen\nMySql Passwort beheben\nPasswort festlegen\nRedis Passwort vergessen",
+        "ru": "зависимости обновлены\nFix CIFS Пароль\nFix Пароль mySql\nFix pgSql Пароль\nFix редис Пароль",
+        "pt": "dependências atualizadas\nCorrigir a senha do CIFS\nCorrigir senha mySql\nCorrigir senha pgSql\nCorrigir vermelho Senha",
+        "nl": "afhankelijkheid geüpdateerd\nVertaling:\nVertaling:\nVertaling:\nVertaling: Wachtwoord",
+        "fr": "dépendances mises à jour\nMot de passe fixe CIFS\nCorrection du mot de passe mySql\nCorrection pgSql Mot de passe\nCorrection redis Mot de passe",
+        "it": "dipendenze aggiornate\nFissare la password CIFS\nRisolvere la password\nFissare password pgSql\nRipartizione Password",
+        "es": "dependencias actualizadas\nCorregir contraseña de CIFS\nArregla mi contraseña\nFijar contraseña pgSql\nArreglar redis Contraseña",
+        "pl": "aktualizacja\nFix CIFS Password\nFix mySql Password\nPgSql Password\nFix redis Password",
+        "uk": "оновлені залежності\nВиправлення пароля CIFS\nВиправлення пароля mySql\nВиправлення PgSql пароля\nФіксований червоний Логін",
+        "zh-cn": "b. 更新的依赖\nFix CIFS护照\nFix 我的Sql护照\nFix pgSql护照\nFix 重新定性 护照"
+      },
       "2.9.3": {
         "en": "Fix Port for Filerserver\nDocu updated",
         "de": "Fix Port für Filerserver\nDocu aktualisiert",
@@ -80,19 +93,6 @@
         "pl": "Odnowa węzła Fix\naktualizacja",
         "uk": "Виправлення відновлення вузла\nоновлені залежності",
         "zh-cn": "无端恢复\nb. 更新的依赖"
-      },
-      "2.8.5": {
-        "en": "Fix mount errors",
-        "de": "Fehler bei der Montage behoben",
-        "ru": "Исправление ошибок mount",
-        "pt": "Corrigir erros de montagem",
-        "nl": "Fix Mount fouten",
-        "fr": "Correction des erreurs de montage",
-        "it": "Correzione degli errori di montaggio",
-        "es": "Corregir errores de montaje",
-        "pl": "Fix uzyskuje błędy",
-        "uk": "Виправлення помилок кріплення",
-        "zh-cn": "固定错误"
       }
     },
     "title": "BackItUp",
