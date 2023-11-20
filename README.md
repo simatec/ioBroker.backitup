@@ -55,6 +55,7 @@ When the adapter crashes or another Code error happens, this error message that 
 ### **WORK IN PROGRESS**
 * (simatec) dependencies updated
 * (simatec) Fix CIFS Password
+* (simatec) Fix mySql Password
 
 ### 2.9.3 (2023-11-11)
 * (simatec) Fix Port for Filerserver
