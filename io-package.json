@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.9.4",
+    "version": "2.9.5",
     "news": {
+      "2.9.5": {
+        "en": "dependencies updated\nFix redis Password",
+        "de": "aktualisierte abhängigkeiten\nRedis Passwort vergessen",
+        "ru": "зависимости обновлены\nFix редис Пароль",
+        "pt": "dependências atualizadas\nCorrigir vermelho Senha",
+        "nl": "afhankelijkheid geüpdateerd\nVertaling: Wachtwoord",
+        "fr": "dépendances mises à jour\nCorrection redis Mot de passe",
+        "it": "dipendenze aggiornate\nRipartizione Password",
+        "es": "dependencias actualizadas\nArreglar redis Contraseña",
+        "pl": "aktualizacja\nFix redis Password",
+        "uk": "оновлені залежності\nФіксований червоний Логін",
+        "zh-cn": "b. 更新的依赖\nFix 重新定性 护照"
+      },
       "2.9.4": {
         "en": "dependencies updated\nFix CIFS Password\nFix mySql Password\nFix pgSql Password\nFix redis Password",
         "de": "aktualisierte abhängigkeiten\nCIFS Passwort löschen\nMySql Passwort beheben\nPasswort festlegen\nRedis Passwort vergessen",
@@ -80,19 +93,6 @@
         "pl": "odzyskanie odszkodowania v9",
         "uk": "виправити відновлення в docker v9",
         "zh-cn": "fix 复印机 v 9"
-      },
-      "2.8.6": {
-        "en": "Fix node-red restore\ndependencies updated",
-        "de": "Fix node-red wiederherstellen\naktualisierte abhängigkeiten",
-        "ru": "Исправление node-red восстановления\nзависимости обновлены",
-        "pt": "Corrigir restauração de nó-vermelho\ndependências atualizadas",
-        "nl": "Vertaling:\nafhankelijkheid geüpdateerd",
-        "fr": "Restauration fixe du nœud-rouge\ndépendances mises à jour",
-        "it": "Ristabilimento nodo-rosso\ndipendenze aggiornate",
-        "es": "Reparación de nodos rojos\ndependencias actualizadas",
-        "pl": "Odnowa węzła Fix\naktualizacja",
-        "uk": "Виправлення відновлення вузла\nоновлені залежності",
-        "zh-cn": "无端恢复\nb. 更新的依赖"
       }
     },
     "title": "BackItUp",

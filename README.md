@@ -52,7 +52,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.9.5 (2023-11-29)
 * (simatec) dependencies updated
 * (simatec) Fix redis Password
 
