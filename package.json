@@ -42,7 +42,7 @@
     "cors": "^2.8.5",
     "fs-extra": "^11.2.0",
     "ftp": "^0.3.10",
-    "google-auth-library": "^9.2.0",
+    "google-auth-library": "^9.4.1",
     "node-schedule": "^2.1.1",
     "node-wol": "^0.1.1",
     "onedrive-api": "^1.1.1",
