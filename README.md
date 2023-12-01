@@ -52,6 +52,36 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### 2.9.5 (2023-11-29)
+* (simatec) dependencies updated
+* (simatec) Fix redis Password
+
+### 2.9.4 (2023-11-20)
+* (simatec) dependencies updated
+* (simatec) Fix CIFS Password
+* (simatec) Fix mySql Password
+* (simatec) Fix pgSql Password
+* (simatec) Fix redis Password
+
+### 2.9.3 (2023-11-11)
+* (simatec) Fix Port for Filerserver
+* (simatec) Docu updated
+
+### 2.9.2 (2023-11-10)
+* (simatec) dependencies updated
+* (simatec) Design fix
+* (simatec) Backup File upload added
+* (simatec) Uploadserver added
+* (simatec) Translation updated
+
+### 2.9.1 (2023-11-02)
+* (simatec) ignore Build directory for ESPHome added
+
+### 2.9.0 (2023-11-01)
+* (simatec) mount option "Cache Loose" added
+* (simatec) ESPHome Backup added
+* (simatec) dependencies updated
+
 ### 2.8.7 (2023-10-19)
 * (buanet) fix restore in docker v9
 

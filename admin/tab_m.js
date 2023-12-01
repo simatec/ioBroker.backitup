@@ -4,11 +4,13 @@
 //Settings
 var $dialogCommand = null;
 var $dialogDownload = null;
+var $dialogUpload = null;
 var $output = null;
 var $dialogCommandProgress;
 var lastMessage = '';
 var storageTyp = '';
 var restoreIfWait = 5000;
+var backupDir = null;
 
 function initDialog() {
     $dialogCommand = $('#dialog-command');
@@ -99,7 +101,7 @@ function load(settings, onChange) {
             });
         }
     });
-    console.log('current theme: ' + currentTheme());
+    //console.log('current theme: ' + currentTheme());
 
     sendTo(null, 'getFileSystemInfo', null, function (obj) {
         if (obj && obj.diskState && obj.storage && obj.diskFree) {
@@ -123,6 +125,10 @@ function load(settings, onChange) {
             $('#startAllRestore').prop('disabled', true);
         } else if (obj && obj.systemOS == 'win') {
             restoreIfWait = 18000;
+        }
+
+        if (obj && obj.backupDir) {
+            backupDir = obj.backupDir;
         }
     });
 
@@ -315,6 +321,7 @@ function load(settings, onChange) {
                                 file.search('influxDB') == -1 &&
                                 file.search('pgsql') == -1 &&
                                 file.search('zigbee') == -1 &&
+                                file.search('esphome') == -1 &&
                                 file.search('zigbee2mqtt') == -1 &&
                                 file.search('nodered') == -1 &&
                                 file.search('yahka') == -1 &&
@@ -412,7 +419,7 @@ function load(settings, onChange) {
                                         $('.downloadError').show();
                                     }
 
-                                    sendTo(null, 'serverClose', { downloadFinish: true }, function (result) {
+                                    sendTo(null, 'serverClose', { downloadFinish: true, uploadFinish: false }, function (result) {
                                         if (result && result.serverClose) {
                                             $('.downloadProgress').hide();
                                             $('.downloadFinish').show();
@@ -458,6 +465,7 @@ function load(settings, onChange) {
     $('.detect-backups').on('click', function () { initDialogBackups(); });
     $('.btn-himself').on('click', function () { backupHimSelf(); });
     $('.btn-restore-himself').on('click', function () { restoreHimSelf(); });
+    $('.btn-backup-upload').on('click', function () { backupUpload(); });
 
     showHideSettings(settings);
     onChange(false);
@@ -498,6 +506,59 @@ function backupHimSelf() {
             document.body.removeChild(el);
         }
     });
+}
+
+function backupUpload() {
+    var input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('id', 'files');
+    input.setAttribute('opacity', 0);
+    input.addEventListener('change', function (e) {
+        handleUploadSelect(e, function () { });
+    }, false);
+    (input.click)();
+}
+
+async function handleUploadSelect(evt) {
+    const uploadFile = evt.target.files[0];
+    if (uploadFile) {
+        sendTo(null, 'uploadFile', { protocol: location.protocol }, async function (result) {
+            if (!result || result.error) {
+                showError('<br/><br/>Error:<br/><br/>' + JSON.stringify(result.error));
+            } else {
+                initDialogUpload();
+
+                $('#backupUpload_name').text(` "${uploadFile.name}" `);
+                $('.uploadFinish').hide();
+                $('.uploadError').hide();
+                $('.uploadProgress').show();
+
+                let formData = new FormData();
+
+                formData.append('files', uploadFile);
+
+                await fetch(`${location.protocol}//${location.hostname}:${result.listenPort}`, {
+                    method: 'POST',
+                    body: formData
+                }).then(() => {
+                    console.log('Upload finish!');
+                    $('.uploadProgress').hide();
+                    $('.uploadFinish').show();
+                    setTimeout(() => $dialogUpload.modal('close'), 5000);
+
+                    sendTo(null, 'serverClose', { downloadFinish: false, uploadFinish: true }, function (result) {
+                        if (result && result.serverClose) {
+                            console.log('Upload-Server closed');
+                        }
+                    });
+                }).catch((e) => {
+                    $('.uploadProgress').hide();
+                    $('.uploadError').show();
+                    setTimeout(() => $dialogUpload.modal('close'), 5000);
+                });
+            }
+        });
+    }
 }
 
 function restoreHimSelf() {
@@ -625,6 +686,17 @@ function initDialogDownload() {
     $dialogDownload.modal('open');
 }
 
+function initDialogUpload() {
+    $dialogUpload = $('#dialog-upload');
+    if (!$dialogUpload.data('inited')) {
+        $dialogUpload.data('inited', true);
+        $dialogUpload.modal({
+            dismissible: false
+        });
+    }
+    $dialogUpload.modal('open');
+}
+
 function initDialogRestore() {
     var $dialogRestore = $('#dialog-restore-show');
     if (!$dialogRestore.data('inited')) {
@@ -648,6 +720,7 @@ function fillBackupOptions(settings) {
     if (settings.redisEnabled) _options.push(_('Save Redis state'));
     if (settings.javascriptsEnabled) _options.push(_('Javascripts Backup'));
     if (settings.zigbeeEnabled) _options.push(_('Save Zigbee database'));
+    if (settings.esphomeEnabled) _options.push(_('ESPHome'));
     if (settings.zigbee2mqttEnabled) _options.push(_('Zigbee2MQTT'));
     if (settings.noderedEnabled) _options.push(_('Node-Red Backup'));
     if (settings.yahkaEnabled) _options.push(_('Yahka (Homekit) Backup'));
