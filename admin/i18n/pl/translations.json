@@ -101,6 +101,8 @@
   "Google Drive Path for iobroker backup": "Ścieżka do Dysku Google do tworzenia kopii zapasowych iobroker",
   "Google Drive path": "Ścieżka Dysku Google",
   "Google Drive: Yes": "Dysk Google: Tak",
+  "Gotify": "Gotify",
+  "Gotify instance": "Gotyfikować",
   "Grafana API-Key or Service Token": "Grafana API-Key or Service Token (ang.)",
   "Grafana Backup": "Grafana",
   "Grafana Hostname": "Nazwa / adres IP hosta Grafana",

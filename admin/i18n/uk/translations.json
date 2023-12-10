@@ -101,6 +101,8 @@
   "Google Drive Path for iobroker backup": "Шлях Google Drive для резервного копіювання ioBroker",
   "Google Drive path": "Шлях Google Drive",
   "Google Drive: Yes": "Диск Google: так",
+  "Gotify": "Gotify",
+  "Gotify instance": "Зареєструватися",
   "Grafana API-Key or Service Token": "API-ключ або маркер служби Grafana",
   "Grafana Backup": "Графана",
   "Grafana Hostname": "Ім'я хосту Grafana / IP",

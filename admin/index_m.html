@@ -817,13 +817,14 @@
                 <div class="row">
                     <div class="input-field col s11 m2">
                         <select class="value" id="notificationsType">
-                        <option value="Telegram" class="translate">Telegram</option>
-                        <option value="E-Mail" class="translate">E-Mail</option>
-                        <option value="Pushover" class="translate">Pushover</option>
-                        <option value="WhatsApp" class="translate">WhatsApp</option>
-                        <option value="Signal" class="translate">Signal</option>
-                        <option value="Matrix" class="translate">Matrix</option>
-                        <option value="Discord" class="translate">Discord</option>
+                            <option value="E-Mail" class="translate">E-Mail</option>
+                            <option value="Discord" class="translate">Discord</option>
+                            <option value="Gotify" class="translate">Gotify</option>
+                            <option value="Matrix" class="translate">Matrix</option>
+                            <option value="Pushover" class="translate">Pushover</option>
+                            <option value="Signal" class="translate">Signal</option>
+                            <option value="Telegram" class="translate">Telegram</option>
+                            <option value="WhatsApp" class="translate">WhatsApp</option>
                         </select>
                         <label for="notificationsType" class="translate">notifications type</label>
                     </div>
@@ -887,6 +888,32 @@
                     <div class="input-field col s12 m6 l3 whatsapp">
                         <input class="value" id="whatsappOnlyError" type="checkbox"/>
                         <label for="whatsappOnlyError" class="translate">Notification only on errors</label>
+                    </div>
+                </div>
+                <!-- Gotify -->
+                <div class="row gotify">
+                    <div class="input-field col s12 m6 l3 gotify">
+                        <select id="gotifyInstance" class="value"></select>
+                        <label for="gotifyInstance" class="translate">Gotify instance</label>
+                    </div>
+                    <div class="input-field col s12 m6 l3 gotify">
+                        <select class="value" id="gotifyNoticeType">
+                        <option value="longGotifyNotice" class="translate">Long Notifications</option>
+                        <option value="shortGotifyNotice" class="translate">Short Notifications</option>
+                        </select>
+                        <label class="translate" for="gotifyNoticeType">Notification Style</label>
+                    </div>
+                </div>
+                <div class="row gotify">
+                    <div class="input-field col s12 m6 l3 gotify">
+                        <input type="number" class="value" id="gotifyWaitToSend" min="0" max="20"/>
+                        <label for="gotifyWaitToSend" class="translate">Waiting for the send (seconds)</label>
+                    </div>
+                </div>
+                <div class="row gotify">
+                    <div class="input-field col s12 m6 l3 gotify">
+                        <input class="value" id="gotifyOnlyError" type="checkbox"/>
+                        <label for="gotifyOnlyError" class="translate">Notification only on errors</label>
                     </div>
                 </div>
                 <!-- Signal -->

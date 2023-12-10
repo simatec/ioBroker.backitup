@@ -53,6 +53,7 @@ When the adapter crashes or another Code error happens, this error message that 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
+* (simatec) Gotify Notication added
 * (simatec) dependencies updated
 
 ### 2.9.5 (2023-11-29)

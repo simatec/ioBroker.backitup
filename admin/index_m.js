@@ -1135,6 +1135,10 @@ function load(settings, onChange) {
         fillInstances('whatsappInstance', instances, settings['whatsappInstance'], 'whatsapp-cmb');
     });
 
+    getAdapterInstances('gotify', function (instances) {
+        fillInstances('gotifyInstance', instances, settings['gotifyInstance'], 'gotify');
+    });
+
     getAdapterInstances('signal-cmb', function (instances) {
         fillInstances('signalInstance', instances, settings['signalInstance'], 'signal-cmb');
     });
@@ -1583,6 +1587,7 @@ function showHideSettings(settings) {
             $('.email').hide();
             $('.pushover').hide();
             $('.whatsapp').hide();
+            $('.gotify').hide();
             $('.signal').hide();
             $('.matrix').hide();
             $('.discord').hide();
@@ -1591,6 +1596,7 @@ function showHideSettings(settings) {
             $('.telegram').hide();
             $('.pushover').hide();
             $('.whatsapp').hide();
+            $('.gotify').hide();
             $('.signal').hide();
             $('.matrix').hide();
             $('.discord').hide();
@@ -1599,6 +1605,7 @@ function showHideSettings(settings) {
             $('.telegram').hide();
             $('.email').hide();
             $('.whatsapp').hide();
+            $('.gotify').hide();
             $('.signal').hide();
             $('.matrix').hide();
             $('.discord').hide();
@@ -1606,6 +1613,7 @@ function showHideSettings(settings) {
         } else if ($(this).val() === 'WhatsApp') {
             $('.telegram').hide();
             $('.email').hide();
+            $('.gotify').hide();
             $('.pushover').hide();
             $('.signal').hide();
             $('.matrix').hide();
@@ -1614,6 +1622,7 @@ function showHideSettings(settings) {
         } else if ($(this).val() === 'Signal') {
             $('.telegram').hide();
             $('.email').hide();
+            $('.gotify').hide();
             $('.pushover').hide();
             $('.whatsapp').hide();
             $('.matrix').hide();
@@ -1622,6 +1631,7 @@ function showHideSettings(settings) {
         } else if ($(this).val() === 'Matrix') {
             $('.telegram').hide();
             $('.email').hide();
+            $('.gotify').hide();
             $('.pushover').hide();
             $('.whatsapp').hide();
             $('.signal').hide();
@@ -1630,11 +1640,21 @@ function showHideSettings(settings) {
         } else if ($(this).val() === 'Discord') {
             $('.telegram').hide();
             $('.email').hide();
+            $('.gotify').hide();
             $('.pushover').hide();
             $('.whatsapp').hide();
             $('.signal').hide();
             $('.matrix').hide();
             $('.discord').show();
+        } else if ($(this).val() === 'Gotify') {
+            $('.telegram').hide();
+            $('.email').hide();
+            $('.discord').hide();
+            $('.pushover').hide();
+            $('.whatsapp').hide();
+            $('.signal').hide();
+            $('.matrix').hide();
+            $('.gotify').show();
         }
     }).trigger('change');
 

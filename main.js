@@ -666,6 +666,19 @@ function initConfig(secret) {
         systemLang
     };
 
+    const gotify = {
+        enabled: adapter.config.notificationEnabled,
+        notificationsType: adapter.config.notificationsType,
+        type: 'message',
+        instance: adapter.config.gotifyInstance,
+        NoticeType: adapter.config.gotifyNoticeType,
+        onlyError: adapter.config.gotifyOnlyError,
+        gotifyWaiting: adapter.config.gotifyWaitToSend * 1000,
+        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
+        ignoreErrors: adapter.config.ignoreErrors,
+        systemLang
+    };
+
     const signal = {
         enabled: adapter.config.notificationEnabled,
         notificationsType: adapter.config.notificationsType,
@@ -1139,6 +1152,7 @@ function initConfig(secret) {
         email,
         pushover,
         whatsapp,
+        gotify,
         signal,
         matrix,
         discord,
@@ -1169,6 +1183,7 @@ function initConfig(secret) {
         email,
         pushover,
         whatsapp,
+        gotify,
         signal,
         matrix,
         discord,
