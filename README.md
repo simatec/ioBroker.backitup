@@ -55,6 +55,7 @@ When the adapter crashes or another Code error happens, this error message that 
 ### **WORK IN PROGRESS**
 * (simatec) Gotify Notication added
 * (simatec) dependencies updated
+* (simatec) Copypath check added
 
 ### 2.9.5 (2023-11-29)
 * (simatec) dependencies updated
