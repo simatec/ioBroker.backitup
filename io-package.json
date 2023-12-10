@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.9.5",
+    "version": "2.9.6",
     "news": {
+      "2.9.6": {
+        "en": "Gotify Notication added\ndependencies updated\nCopypath check added",
+        "de": "Gotify Notication hinzugefügt\naktualisierte abhängigkeiten\nCopypath Check hinzugefügt",
+        "ru": "Получить Notication добавлено\nзависимости обновлены\nПроверка Copypath добавлена",
+        "pt": "Gotify Notication adicionado\ndependências atualizadas\nVerificação de copypath adicionado",
+        "nl": "Vertaling:\nafhankelijkheid geüpdateerd\nBegrepen",
+        "fr": "Gotify Notication added\ndépendances mises à jour\nCopypath check added",
+        "it": "Gotify Notication aggiunto\ndipendenze aggiornate\nControllo Copypath aggiunto",
+        "es": "Gotify Notication added\ndependencias actualizadas\nChequeo de cómputo añadido",
+        "pl": "Gotify Notication (ang.)\naktualizacja\nKontrola Copypatha",
+        "uk": "Додана нотифікація\nоновлені залежності\nКопіювати чек додано",
+        "zh-cn": "提名\nb. 更新的依赖\n虫害检查"
+      },
       "2.9.5": {
         "en": "dependencies updated\nFix redis Password",
         "de": "aktualisierte abhängigkeiten\nRedis Passwort vergessen",
@@ -80,19 +93,6 @@
         "pl": "\"Cache Loose\" dodał opcję \"Cache Loose\"\nESPHome Backup\naktualizacja",
         "uk": "додано варіант кріплення \"Cache Loose\"\nESPHome Backup додано\nоновлені залежності",
         "zh-cn": "增加的“每一”选择\nESPHome Back增加\nb. 更新的依赖"
-      },
-      "2.8.7": {
-        "en": "fix restore in docker v9",
-        "de": "wiederherstellen in docker v9",
-        "ru": "исправить восстановление в docker v9",
-        "pt": "corrigir restauração no docker v9",
-        "nl": "herstellen in docker v9",
-        "fr": "restaurer dans docker v9",
-        "it": "fix ripristino in docker v9",
-        "es": "reparación de reparación en docker v9",
-        "pl": "odzyskanie odszkodowania v9",
-        "uk": "виправити відновлення в docker v9",
-        "zh-cn": "fix 复印机 v 9"
       }
     },
     "title": "BackItUp",
