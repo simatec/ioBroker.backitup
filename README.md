@@ -54,6 +54,7 @@ When the adapter crashes or another Code error happens, this error message that 
 <!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
 * (simatec) URL Update
+* (simatec) Fix redis Password
 
 ### 2.9.6 (2023-12-10)
 * (simatec) Gotify Notication added
