@@ -1,8 +1,34 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.9.5",
+    "version": "2.9.7",
     "news": {
+      "2.9.7": {
+        "en": "URL Update\nFix redis Password",
+        "de": "URL aktualisieren\nRedis Passwort vergessen",
+        "ru": "URL Обновление\nFix редис Пароль",
+        "pt": "Atualização de URL\nCorrigir vermelho Senha",
+        "nl": "URL Update\nVertaling: Wachtwoord",
+        "fr": "URL Update\nCorrection redis Mot de passe",
+        "it": "Aggiornamento\nRipartizione Password",
+        "es": "Actualización de URL\nArreglar redis Contraseña",
+        "pl": "URL\nFix redis Password",
+        "uk": "Оновлення URL\nФіксований червоний Логін",
+        "zh-cn": "URL最新情况\nFix 重新定性 护照"
+      },
+      "2.9.6": {
+        "en": "Gotify Notication added\ndependencies updated\nCopypath check added",
+        "de": "Gotify Notication hinzugefügt\naktualisierte abhängigkeiten\nCopypath Check hinzugefügt",
+        "ru": "Получить Notication добавлено\nзависимости обновлены\nПроверка Copypath добавлена",
+        "pt": "Gotify Notication adicionado\ndependências atualizadas\nVerificação de copypath adicionado",
+        "nl": "Vertaling:\nafhankelijkheid geüpdateerd\nBegrepen",
+        "fr": "Gotify Notication added\ndépendances mises à jour\nCopypath check added",
+        "it": "Gotify Notication aggiunto\ndipendenze aggiornate\nControllo Copypath aggiunto",
+        "es": "Gotify Notication added\ndependencias actualizadas\nChequeo de cómputo añadido",
+        "pl": "Gotify Notication (ang.)\naktualizacja\nKontrola Copypatha",
+        "uk": "Додана нотифікація\nоновлені залежності\nКопіювати чек додано",
+        "zh-cn": "提名\nb. 更新的依赖\n虫害检查"
+      },
       "2.9.5": {
         "en": "dependencies updated\nFix redis Password",
         "de": "aktualisierte abhängigkeiten\nRedis Passwort vergessen",
@@ -67,32 +93,6 @@
         "pl": "ignorowanie Directory Build dla ESPHome dodały",
         "uk": "про нас Створіть каталог для ESPHome",
         "zh-cn": "忽视 ESPHome的布兰德名主任补充说"
-      },
-      "2.9.0": {
-        "en": "mount option \"Cache Loose\" added\nESPHome Backup added\ndependencies updated",
-        "de": "mount Option \"Cache Loose\" hinzugefügt\nESPHome Backup hinzugefügt\naktualisierte abhängigkeiten",
-        "ru": "mount option \"Cache Loose\" добавлен\nESPHome Backup добавлен\nзависимости обновлены",
-        "pt": "opção de montagem \"Cache Loose\" adicionado\nESPHome Backup adicionado\ndependências atualizadas",
-        "nl": "mount optie \"Cache Loose\" toegevoegd\nVersterking toegevoegd\nafhankelijkheid geüpdateerd",
-        "fr": "option de montage \"Cache Loose\" ajouté\nESPHome Backup ajouté\ndépendances mises à jour",
-        "it": "opzione di montaggio \"Cache Loose\" aggiunto\nESPHome Backup aggiunto\ndipendenze aggiornate",
-        "es": "opción de montaje \"Cache Loose\" añadido\nESPHome Backup añadido\ndependencias actualizadas",
-        "pl": "\"Cache Loose\" dodał opcję \"Cache Loose\"\nESPHome Backup\naktualizacja",
-        "uk": "додано варіант кріплення \"Cache Loose\"\nESPHome Backup додано\nоновлені залежності",
-        "zh-cn": "增加的“每一”选择\nESPHome Back增加\nb. 更新的依赖"
-      },
-      "2.8.7": {
-        "en": "fix restore in docker v9",
-        "de": "wiederherstellen in docker v9",
-        "ru": "исправить восстановление в docker v9",
-        "pt": "corrigir restauração no docker v9",
-        "nl": "herstellen in docker v9",
-        "fr": "restaurer dans docker v9",
-        "it": "fix ripristino in docker v9",
-        "es": "reparación de reparación en docker v9",
-        "pl": "odzyskanie odszkodowania v9",
-        "uk": "виправити відновлення в docker v9",
-        "zh-cn": "fix 复印机 v 9"
       }
     },
     "title": "BackItUp",
@@ -394,6 +394,10 @@
     "whatsappNoticeType": "longWhatsappNotice",
     "whatsappOnlyError": false,
     "whatsappWaitToSend": 0,
+    "gotifyInstance": "gotify.0",
+    "gotifyNoticeType": "longGotifyNotice",
+    "gotifyOnlyError": false,
+    "gotifyWaitToSend": 0,
     "signalInstance": "signal-cmb.0",
     "signalNoticeType": "longSignalNotice",
     "signalOnlyError": false,

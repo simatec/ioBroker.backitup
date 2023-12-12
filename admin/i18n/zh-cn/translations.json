@@ -101,6 +101,8 @@
   "Google Drive Path for iobroker backup": "ioBroker 备份的 Google Drive 路径",
   "Google Drive path": "谷歌云端硬盘路径",
   "Google Drive: Yes": "谷歌驱动器：是的",
+  "Gotify": "Gotify",
+  "Gotify instance": "评 注",
   "Grafana API-Key or Service Token": "Grafana API 密钥或服务令牌",
   "Grafana Backup": "格拉法纳",
   "Grafana Hostname": "Grafana 主机名/IP",
