@@ -54,7 +54,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.9.8 (2023-12-14)
 * (simatec) Sentry fix
 
 ### 2.9.7 (2023-12-12)

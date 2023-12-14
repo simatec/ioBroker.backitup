@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.9.7",
+    "version": "2.9.8",
     "news": {
+      "2.9.8": {
+        "en": "Sentry fix",
+        "de": "Sentry fix",
+        "ru": "Чувствительная фиксация",
+        "pt": "Sentry fix",
+        "nl": "Vertaling:",
+        "fr": "Sénitry fix",
+        "it": "Sistema di rilevamento",
+        "es": "Sentry fix",
+        "pl": "Naprawa",
+        "uk": "Панчохи",
+        "zh-cn": "Sentry fix"
+      },
       "2.9.7": {
         "en": "URL Update\nFix redis Password",
         "de": "URL aktualisieren\nRedis Passwort vergessen",
@@ -80,19 +93,6 @@
         "pl": "aktualizacja\nProjekt\nFile upload (ang.)\nDodać\nUaktualniać",
         "uk": "оновлені залежності\nФіксація дизайну\nЗавантажити файл резервного копіювання\nДодано\nПереклад оновлений",
         "zh-cn": "b. 更新的依赖\n设计装置\n包装量增加\n海报\n笔译更新"
-      },
-      "2.9.1": {
-        "en": "ignore Build directory for ESPHome added",
-        "de": "! Verzeichnis für ESPHome erstellen",
-        "ru": "игнорировать Создать каталог для ESPHome добавлен",
-        "pt": "ignorar Construir diretório para ESPHome adicionado",
-        "nl": "negeer. Build directory for ESPHome toegevoegd",
-        "fr": "ignorer Build directory for ESPHome added",
-        "it": "ignorare Creazione di directory per ESPHome aggiunto",
-        "es": "ignorar Directorio de compilación para ESPHome",
-        "pl": "ignorowanie Directory Build dla ESPHome dodały",
-        "uk": "про нас Створіть каталог для ESPHome",
-        "zh-cn": "忽视 ESPHome的布兰德名主任补充说"
       }
     },
     "title": "BackItUp",
