@@ -33,6 +33,8 @@ This adapter uses the service `Sentry.io` to automatically report exceptions and
 
 **************************************************************************************************************
 
+`ioBroker.backitup` ist eine Backup-Lösung, die eine zyklische Sicherung einer IoBroker-Installation und einer Homematic CCU ermöglicht.
+
 [Deutsche Beschreibung](https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-Deutsch)
 
 `ioBroker.backitup` is a backup solution that allows cyclical backup of an IoBroker installation and a Homematic CCU.
@@ -52,6 +54,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### 2.9.8 (2023-12-14)
+* (simatec) Sentry fix
+
 ### 2.9.7 (2023-12-12)
 * (simatec) URL Update
 * (simatec) Fix redis Password
