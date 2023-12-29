@@ -54,6 +54,10 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Fix node-red restore
+* (simatec) auto install after restore for node-red added
+
 ### 2.9.9 (2023-12-29)
 * (simatec) dependencies updated
 * (simatec) Default storage path for history adapter added
