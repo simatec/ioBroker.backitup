@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.9.9",
+    "version": "2.9.10",
     "news": {
+      "2.9.10": {
+        "en": "Fix node-red restore\nauto install after restore for node-red added",
+        "de": "Fix node-red wiederherstellen\nauto install nach wiederherstellen für node-red hinzugefügt",
+        "ru": "Исправление node-red восстановления\nавтоматическая установка после восстановления для добавленного node-red",
+        "pt": "Corrigir restauração de nó-vermelho\nauto instalar após a restauração para node-red adicionado",
+        "nl": "Vertaling:\nauto installatie na herstel van node-red",
+        "fr": "Restauration fixe du nœud-rouge\ninstallation automatique après restauration pour node-red ajouté",
+        "it": "Ristabilimento nodo-rosso\ninstallazione automatica dopo il ripristino per nodo-rosso aggiunto",
+        "es": "Reparación de nodos rojos\ninstalación automática después de la restauración para node-red añadido",
+        "pl": "Odnowa węzła Fix\npo przywróceniu węzłów dodawano instalację auto-instalację po przywróceniu węzła",
+        "uk": "Виправлення відновлення вузла\nавтоматична установка після відновлення вузла",
+        "zh-cn": "无端恢复\n恢复原状后安装的汽车"
+      },
       "2.9.9": {
         "en": "dependencies updated\nDefault storage path for history adapter added\nAdded check of the storage path from the History Adapter",
         "de": "aktualisierte abhängigkeiten\nStandard-Speicherpfad für History Adapter hinzugefügt\nZusätzliche Überprüfung des Speicherpfades vom History Adapter",
@@ -80,19 +93,6 @@
         "pl": "aktualizacja\nFix CIFS Password\nFix mySql Password\nPgSql Password\nFix redis Password",
         "uk": "оновлені залежності\nВиправлення пароля CIFS\nВиправлення пароля mySql\nВиправлення PgSql пароля\nФіксований червоний Логін",
         "zh-cn": "b. 更新的依赖\nFix CIFS护照\nFix 我的Sql护照\nFix pgSql护照\nFix 重新定性 护照"
-      },
-      "2.9.3": {
-        "en": "Fix Port for Filerserver\nDocu updated",
-        "de": "Fix Port für Filerserver\nDocu aktualisiert",
-        "ru": "Fix Порт для Filerserver\nDocu обновление",
-        "pt": "Porta de fixação para o servidor de arquivos\nDocu atualizado",
-        "nl": "Fix Port\nDocu update",
-        "fr": "Fix Port for Filerserver\nDocu updated",
-        "it": "Fix Port per Filerserver\nDocu aggiornato",
-        "es": "Puerto fijo para Filerserver\nDocu actualizado",
-        "pl": "Fix Port for Filerserver (ang.)\nDocu zaktualizował",
-        "uk": "Фіксований порт для Filerserver\nDocu оновлений",
-        "zh-cn": "菲克斯港\n附录"
       }
     },
     "title": "BackItUp",
