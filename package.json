@@ -35,7 +35,7 @@
   "dependencies": {
     "@googleapis/drive": "^8.4.0",
     "@iobroker/adapter-core": "^3.0.4",
-    "axios": "^1.6.2",
+    "axios": "^1.6.3",
     "dropbox-v2-api": "^2.5.10",
     "express": "^4.18.2",
     "multer": "^1.4.5-lts.1",
@@ -55,7 +55,7 @@
     "@alcalzone/release-script-plugin-iobroker": "^3.7.0",
     "@alcalzone/release-script-plugin-license": "^3.7.0",
     "@iobroker/testing": "^4.1.0",
-    "chai": "^4.3.10",
+    "chai": "^5.0.0",
     "gulp": "^4.0.2",
     "mocha": "^10.2.0"
   },
