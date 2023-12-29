@@ -54,7 +54,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.9.9 (2023-12-29)
 * (simatec) dependencies updated
 * (simatec) Default storage path for history adapter added
 * (simatec) Added check of the storage path from the History Adapter
