@@ -248,13 +248,15 @@ function fetchCcuConfig(isInitial) {
 }
 function fetchHistoryConfig(isInitial) {
     socket.emit('getObjectView', 'system', 'instance', { startkey: 'system.adapter.history.', endkey: 'system.adapter.history.\u9999', include_docs: true }, function (err, res) {
+        let storeDir = '';
         if (res && res.rows && res.rows.length) {
             var found = false;
             for (var i = 0; i < res.rows.length; i++) {
                 var common = res.rows[i].value.common;
                 if (common.enabled) {
                     var native = res.rows[i].value.native;
-                    $('#historyPath').val(native.storeDir).trigger('change');
+                    $('#historyPath').val(native.storeDir != '' && !native.storeDir.startsWith('/opt/iobroker/backups') ? native.storeDir : '/opt/iobroker/iobroker-data/history').trigger('change');
+                    storeDir = native.storeDir;
                     found = res.rows[i].value._id;
                     break;
                 }
@@ -262,16 +264,22 @@ function fetchHistoryConfig(isInitial) {
             if (!found) {
                 for (var j = 0; j < res.rows.length; j++) {
                     var _native = res.rows[j].value.native;
-                    $('#historyPath').val(_native.storeDir).trigger('change');
+                    $('#historyPath').val(_native.storeDir != '' && !_native.storeDir.startsWith('/opt/iobroker/backups') ? _native.storeDir : '/opt/iobroker/iobroker-data/history').trigger('change');
+                    storeDir = _native.storeDir;
                     found = res.rows[j].value._id;
                 }
             }
         }
-        if (found && native.storeDir == '' && _native.storeDir == '') {
+
+        if (found && storeDir == '') {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('No Config found from %s', found), _('Backitup Information!'), 'info');
-        } else if (found && (native.storeDir !== '' || _native.storeDir !== '')) {
+            !isInitial && showMessage(_('<br/><br/>No storage path of %s is configured.<br/>The default path of the history adapter has been set.', found), _('Backitup Information!'), 'info');
+        } else if (found && storeDir !== '' && storeDir.startsWith('/opt/iobroker/backups')) {
+            M.updateTextFields();
+            found = found.substring('system.adapter.'.length);
+            !isInitial && showMessage(_('<br/><br/>The storage path of %s must not be identical to the path for backups.<br/>The default path of the history adapter has been set.<br/><br/>Please change the path in the history adapter!', found), _('Backitup Information!'), 'info');
+        } else if (found && storeDir !== '') {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
             !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
@@ -1230,7 +1238,7 @@ function fillTelegramUser(id, str, telegramInst) {
 
 function fillDiscordTarget(id, discordInst) {
     if (discordInst !== null) {
-        sendTo(discordInst, 'getNotificationTargets', {}, function(targetList) {
+        sendTo(discordInst, 'getNotificationTargets', {}, function (targetList) {
             var $sel = $('#discordTarget');
             $sel.html('');
             if (Array.isArray(targetList)) {

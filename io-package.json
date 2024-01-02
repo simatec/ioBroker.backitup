@@ -1,8 +1,34 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.9.8",
+    "version": "2.9.10",
     "news": {
+      "2.9.10": {
+        "en": "Fix node-red restore\nauto install after restore for node-red added",
+        "de": "Fix node-red wiederherstellen\nauto install nach wiederherstellen für node-red hinzugefügt",
+        "ru": "Исправление node-red восстановления\nавтоматическая установка после восстановления для добавленного node-red",
+        "pt": "Corrigir restauração de nó-vermelho\nauto instalar após a restauração para node-red adicionado",
+        "nl": "Vertaling:\nauto installatie na herstel van node-red",
+        "fr": "Restauration fixe du nœud-rouge\ninstallation automatique après restauration pour node-red ajouté",
+        "it": "Ristabilimento nodo-rosso\ninstallazione automatica dopo il ripristino per nodo-rosso aggiunto",
+        "es": "Reparación de nodos rojos\ninstalación automática después de la restauración para node-red añadido",
+        "pl": "Odnowa węzła Fix\npo przywróceniu węzłów dodawano instalację auto-instalację po przywróceniu węzła",
+        "uk": "Виправлення відновлення вузла\nавтоматична установка після відновлення вузла",
+        "zh-cn": "无端恢复\n恢复原状后安装的汽车"
+      },
+      "2.9.9": {
+        "en": "dependencies updated\nDefault storage path for history adapter added\nAdded check of the storage path from the History Adapter",
+        "de": "aktualisierte abhängigkeiten\nStandard-Speicherpfad für History Adapter hinzugefügt\nZusätzliche Überprüfung des Speicherpfades vom History Adapter",
+        "ru": "зависимости обновлены\nПо умолчанию путь хранения для адаптера истории добавлен\nДобавлена проверка пути хранения от адаптера истории",
+        "pt": "dependências atualizadas\nCaminho de armazenamento padrão para o adaptador de histórico adicionado\nVerificação adicional do caminho de armazenamento do adaptador de história",
+        "nl": "afhankelijkheid geüpdateerd\nVervalsingspad voor geschiedenisadapter toegevoegd\nControle van het opslagpad van de Geschiedenis",
+        "fr": "dépendances mises à jour\nChemin de stockage par défaut pour adaptateur historique ajouté\nVérification supplémentaire du chemin de stockage depuis l'adaptateur historique",
+        "it": "dipendenze aggiornate\nPasso di archiviazione predefinito per l'adattatore di storia aggiunto\nAggiunto il controllo del percorso di archiviazione dall'adattatore di storia",
+        "es": "dependencias actualizadas\nCarril de almacenamiento predeterminado para adaptador de historia añadido\nComprobación adicional de la ruta de almacenamiento del adaptador de historia",
+        "pl": "aktualizacja\nPrzestrucznik pamięci dla adaptatorów historii dodaje dodatki do do dodatków do do wersji zarchiwizowanej\nZamknięta ścieżka pamięci z History Adapter",
+        "uk": "оновлені залежності\nСпосіб зберігання за замовчуванням додано\nДодано перевірку шляху зберігання з історичного адаптера",
+        "zh-cn": "b. 更新的依赖\n历史变暖的防御储存途径\n对历史阿达佩特的储存途径的检查"
+      },
       "2.9.8": {
         "en": "Sentry fix",
         "de": "Sentry fix",
@@ -67,32 +93,6 @@
         "pl": "aktualizacja\nFix CIFS Password\nFix mySql Password\nPgSql Password\nFix redis Password",
         "uk": "оновлені залежності\nВиправлення пароля CIFS\nВиправлення пароля mySql\nВиправлення PgSql пароля\nФіксований червоний Логін",
         "zh-cn": "b. 更新的依赖\nFix CIFS护照\nFix 我的Sql护照\nFix pgSql护照\nFix 重新定性 护照"
-      },
-      "2.9.3": {
-        "en": "Fix Port for Filerserver\nDocu updated",
-        "de": "Fix Port für Filerserver\nDocu aktualisiert",
-        "ru": "Fix Порт для Filerserver\nDocu обновление",
-        "pt": "Porta de fixação para o servidor de arquivos\nDocu atualizado",
-        "nl": "Fix Port\nDocu update",
-        "fr": "Fix Port for Filerserver\nDocu updated",
-        "it": "Fix Port per Filerserver\nDocu aggiornato",
-        "es": "Puerto fijo para Filerserver\nDocu actualizado",
-        "pl": "Fix Port for Filerserver (ang.)\nDocu zaktualizował",
-        "uk": "Фіксований порт для Filerserver\nDocu оновлений",
-        "zh-cn": "菲克斯港\n附录"
-      },
-      "2.9.2": {
-        "en": "dependencies updated\nDesign fix\nBackup File upload added\nUploadserver added\nTranslation updated",
-        "de": "aktualisierte abhängigkeiten\nDesign fix\nBackup File Upload hinzugefügt\nUploadserver hinzugefügt\nÜbersetzung aktualisiert",
-        "ru": "зависимости обновлены\nДизайн исправить\nBackup Загрузка файла добавлена\nЗагрузитьсервер добавлен\nПеревод обновлен",
-        "pt": "dependências atualizadas\nCorreção de projeto\nBackup File upload adicionado\nCarregador adicionado\nTradução atualizada",
-        "nl": "afhankelijkheid geüpdateerd\nDesign\nQuality over Quantity (QoQ) Releases Vertaling:\nUploadserver toegevoegd\nVertaling:",
-        "fr": "dépendances mises à jour\nDesign fix\nTéléchargement de fichier ajouté\nUploadserver ajouté\nTraduction mise à jour",
-        "it": "dipendenze aggiornate\nDesign fix\nCaricamento file di backup aggiunto\nCaricabatterie aggiunto\nTraduzione aggiornata",
-        "es": "dependencias actualizadas\nDiseño fijo\nCarga de archivo de respaldo añadido\nSubir servidor añadido\nTraducción actualizada",
-        "pl": "aktualizacja\nProjekt\nFile upload (ang.)\nDodać\nUaktualniać",
-        "uk": "оновлені залежності\nФіксація дизайну\nЗавантажити файл резервного копіювання\nДодано\nПереклад оновлений",
-        "zh-cn": "b. 更新的依赖\n设计装置\n包装量增加\n海报\n笔译更新"
       }
     },
     "title": "BackItUp",

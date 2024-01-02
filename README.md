@@ -54,6 +54,15 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### 2.9.10 (2023-12-29)
+* (simatec) Fix node-red restore
+* (simatec) auto install after restore for node-red added
+
+### 2.9.9 (2023-12-29)
+* (simatec) dependencies updated
+* (simatec) Default storage path for history adapter added
+* (simatec) Added check of the storage path from the History Adapter
+
 ### 2.9.8 (2023-12-14)
 * (simatec) Sentry fix
 
@@ -1001,7 +1010,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 The MIT License (MIT)
 
-Copyright (c) 2018 - 2023 simatec
+Copyright (c) 2018 - 2024 simatec
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
