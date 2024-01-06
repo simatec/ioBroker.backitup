@@ -344,9 +344,8 @@ _[Zurück zum Anfang](#top)_
 ---
 
 # Docker Unterstützung
-Ab Version 2.2.0 wird das Backup und der Restore im offiziellen Docker-Container unterstützt.
-
 Da im Docker-Container keine Datenbanksysteme installiert werden sollten, werden Backups sämtlicher Datenbanken nicht unterstützt und sind bei einem erkannten Docker-Container im Standard nicht auswählbar. Um externe Datenbanken trotzdem sichern zu können, sind zwei Container-Umgebungsvariablen zu setzen:
+
 * IOB_BACKITUP_EXTDB=true
 * PACKAGES
 

@@ -345,9 +345,8 @@ _[Back to top](#top)_
 ---
 
 # Docker support
-As of version 2.2.0, backup and restore are supported in the official Docker container.
-
 Since no database systems should be installed in the Docker container, backups of all databases are not supported and cannot be selected in a recognised Docker container by default. To be able to back up external databases anyway, two container environment variables must be set:
+
 * IOB_BACKITUP_EXTDB=true
 * PACKAGES
 
