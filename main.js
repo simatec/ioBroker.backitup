@@ -22,7 +22,6 @@ let timerUmount2;
 let timerMain;
 let slaveTimeOut;
 let waitToSlaveBackup;
-let stopServer;
 let dlServer;
 let ulServer;
 
@@ -172,7 +171,6 @@ function startAdapter(options) {
             clearTimeout(timerMain);
             clearTimeout(slaveTimeOut);
             clearTimeout(waitToSlaveBackup);
-            clearTimeout(stopServer);
             callback();
         } catch (e) {
             callback();
@@ -266,23 +264,18 @@ function startAdapter(options) {
 
                 case 'uploadFile':
                     if (obj.message && obj.message.protocol) {
-                        if (obj.message.protocol === 'https:') {
-                            await getCerts(obj.from);
-                        }
-
-                        if (ulServer && ulServer._connectionKey) {
-                            try {
-                                ulServer.close();
-                                ulServer = null;
-                            } catch (e) {
-                                adapter.log.debug('Upload server could not be closed');
+                        if (ulServer && ulServer._connectionKey && ulServer.listening) {
+                                adapter.log.debug(`Uploadserver is running on Port ${ulServer.address().port}...`);
+                        } else {
+                            if (obj.message.protocol === 'https:') {
+                                await getCerts(obj.from);
                             }
-                        }
 
-                        try {
-                            ulFileServer(obj.message.protocol);
-                        } catch (e) {
-                            adapter.log.debug('Uploadserver cannot started');
+                            try {
+                                ulFileServer(obj.message.protocol);
+                            } catch (e) {
+                                adapter.log.debug('Uploadserver cannot started');
+                            }
                         }
 
                         try {
@@ -296,21 +289,18 @@ function startAdapter(options) {
                     break;
                 case 'getFile':
                     if (obj.message && obj.message.type && obj.message.fileName && obj.message.protocol) {
-                        if (obj.message.protocol === 'https:') {
-                            await getCerts(obj.from);
-                        }
-                        if (dlServer && dlServer._connectionKey) {
-                            try {
-                                dlServer.close();
-                                dlServer = null;
-                            } catch (e) {
-                                adapter.log.debug('Download server could not be closed');
+                        if (dlServer && dlServer._connectionKey && dlServer.listening) {
+                            adapter.log.debug(`Downloadserver is running on Port ${dlServer.address().port}...`);
+                        } else {
+                            if (obj.message.protocol === 'https:') {
+                                await getCerts(obj.from);
                             }
-                        }
-                        try {
-                            dlFileServer(obj.message.protocol);
-                        } catch (e) {
-                            adapter.log.debug('Downloadserver cannot started');
+
+                            try {
+                                dlFileServer(obj.message.protocol);
+                            } catch (e) {
+                                adapter.log.debug('Downloadserver cannot started');
+                            }
                         }
 
                         const fileName = obj.message.fileName.split('/').pop();
@@ -338,7 +328,6 @@ function startAdapter(options) {
                                 } catch (error) {
                                     adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
                                 }
-
                             }
                         }
                     } else if (obj.callback) {
@@ -348,19 +337,11 @@ function startAdapter(options) {
 
                 case 'serverClose':
                     if (obj.message && obj.message.downloadFinish && !obj.message.uploadFinish) {
-                        stopServer = setTimeout(() => {
-                            dlServer.close();
-                            dlServer = null;
-                            adapter.log.debug('Downloadserver closed ...');
-                            adapter.sendTo(obj.from, obj.command, { serverClose: true }, obj.callback);
-                        }, 2000);
+                        adapter.log.debug('Download finish ...');
+                        adapter.sendTo(obj.from, obj.command, { serverClose: true }, obj.callback);
                     } else if (obj.message && obj.message.uploadFinish && !obj.message.downloadFinish) {
-                        stopServer = setTimeout(() => {
-                            ulServer.close();
-                            ulServer = null;
-                            adapter.log.debug('Uploadserver closed ...');
-                            adapter.sendTo(obj.from, obj.command, { serverClose: true }, obj.callback);
-                        }, 2000);
+                        adapter.log.debug('Upload finish ...');
+                        adapter.sendTo(obj.from, obj.command, { serverClose: true }, obj.callback);
                     } else if (obj.callback) {
                         obj.callback({ error: 'Invalid parameters' });
                     }
@@ -1664,15 +1645,28 @@ async function getCerts(instance) {
 function dlFileServer(protocol) {
     const express = require('express');
     const downloadServer = express();
-    const https = require('https');
 
-    let httpsServer;
-
+    // Close all Connection from Downloadserver
+    if (dlServer && dlServer._connectionKey) {
+        try {
+            dlServer.closeAllConnections();
+        } catch (e) {
+            adapter.log.debug('Download server Connections could not be closed: ' + e);
+        }
+        try {
+            dlServer.close();
+        } catch (e) {
+            adapter.log.debug('Download server Connections could not be closed: ' + e);
+        }
+    }
     const port = fs.existsSync('/opt/scripts/.docker_config/.thisisdocker') ? 9081 : 0;
 
     downloadServer.use(express.static(path.join(tools.getIobDir(), 'backups')));
 
     if (protocol === 'https:') {
+        const https = require('https');
+
+        let httpsServer;
         let privateKey = '';
         let certificate = '';
 
@@ -1695,12 +1689,23 @@ function dlFileServer(protocol) {
         try {
             dlServer = httpsServer.listen(port);
             adapter.log.debug(`Downloadserver on port ${dlServer.address().port} started`);
+
         } catch (e) {
             adapter.log.debug('Downloadserver cannot started');
         }
     } else {
+        const http = require('http');
+
+        let httpServer;
+
         try {
-            dlServer = downloadServer.listen(port);
+            httpServer = http.createServer(downloadServer);
+        } catch (e) {
+            adapter.log.debug(`The http server cannot be created: ${e}`);
+        }
+
+        try {
+            dlServer = httpServer.listen(port);
             adapter.log.debug(`Downloadserver on port ${dlServer.address().port} started`);
         } catch (e) {
             adapter.log.debug('Downloadserver cannot started');
@@ -1712,11 +1717,20 @@ function ulFileServer(protocol) {
     const express = require('express');
     const multer = require('multer');
     const cors = require('cors');
-    const https = require('https');
 
-    let httpsServer;
+    // Close all Connection from Uploadserver
+    try {
+        ulServer.closeAllConnections();
+    } catch (e) {
+        adapter.log.debug('Upload server Connections could not be closed');
+    }
+    try {
+        ulServer.close();
+    } catch (e) {
+        adapter.log.debug('Upload server Connections could not be closed');
+    }
 
-    const port = fs.existsSync('/opt/scripts/.docker_config/.thisisdocker') ? 9081 : 0;
+    const port = fs.existsSync('/opt/scripts/.docker_config/.thisisdocker') ? 9082 : 0;
 
     const backupDir = path.join(tools.getIobDir(), 'backups');
 
@@ -1743,6 +1757,9 @@ function ulFileServer(protocol) {
     });
 
     if (protocol === 'https:') {
+        const https = require('https');
+
+        let httpsServer;
         let privateKey = '';
         let certificate = '';
 
@@ -1769,8 +1786,17 @@ function ulFileServer(protocol) {
             adapter.log.debug('Uploadserver cannot started');
         }
     } else {
+        const http = require('http');
+
+        let httpServer;
+
         try {
-            ulServer = uploadServer.listen(port);
+            httpServer = http.createServer(uploadServer);
+        } catch (e) {
+            adapter.log.debug(`The http Uploadserver cannot be created: ${e}`);
+        }
+        try {
+            ulServer = httpServer.listen(port);
             adapter.log.debug(`Uploadserver on port ${ulServer.address().port} started`);
         } catch (e) {
             adapter.log.debug('Uploadserver cannot started');
