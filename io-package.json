@@ -234,6 +234,46 @@
           "agree",
           "cancel"
         ]
+      },
+      {
+        "condition": {
+          "operand": "and",
+          "rules": [
+            "oldVersion<2.10.0",
+            "newVersion>=2.10.0"
+          ]
+        },
+        "title": {
+          "en": "Breaking Changes for Docker mapping ports",
+          "de": "Wichtige Änderungen für Docker Mapping Ports",
+          "ru": "Перерыв изменений для картографических портов Docker",
+          "pt": "Alterações de quebra para portas de mapeamento Docker",
+          "nl": "Wijzigingen voor Docker-mappingpoorten breken",
+          "fr": "Briser les changements pour les ports de cartographie Docker",
+          "it": "Cambiamenti di rottura per porte di mappatura Docker",
+          "es": "Cambios de ruptura para puertos de mapeo de Docker",
+          "pl": "Breaking Changes for Docker mapowanie portów",
+          "uk": "Зміни для портів Docker",
+          "zh-cn": "Docker 映射端口的中断更改"
+        },
+        "text": {
+          "en": "Due to changes, the mapping ports must be adapted for Docker containers. All port details can be found in the documentation. You can find the Docker documentation here: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
+          "de": "Durch Änderungen müssen die Mapping Ports für Docker Container angepasst werden. Alle Port-Details finden Sie in der Dokumentation. Die Docker-Dokumentation finden Sie hier: http://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-Englisch#docker-support",
+          "ru": "Из-за изменений порты картографирования должны быть адаптированы для контейнеров Docker. Все детали порта можно найти в документации. Вы можете найти документацию Docker здесь: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
+          "pt": "Devido a mudanças, as portas de mapeamento devem ser adaptadas para contentores Docker. Todos os detalhes da porta podem ser encontrados na documentação. Você pode encontrar a documentação do Docker aqui: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
+          "nl": "Door veranderingen moeten de ports aangepast worden voor Docker containers. Alle havengegevens zijn te vinden in de documentatie. De Docker documentatie vindt u hier: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
+          "fr": "En raison de changements, les ports de cartographie doivent être adaptés pour les conteneurs Docker. Tous les détails du port se trouvent dans la documentation. Vous pouvez trouver la documentation Docker ici: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
+          "it": "A causa delle modifiche, le porte di mappatura devono essere adattate per contenitori Docker. Tutti i dettagli della porta si trovano nella documentazione. È possibile trovare la documentazione Docker qui: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
+          "es": "Debido a los cambios, los puertos de mapeo deben ser adaptados para contenedores Docker. Todos los detalles del puerto se pueden encontrar en la documentación. Puede encontrar la documentación de Docker aquí: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
+          "pl": "Ze względu na zmiany, porty mapujące muszą być dostosowane do kontenerów Docker. Wszystkie szczegóły portu znajdują się w dokumentacji. Dokumentacja Dockera znajduje się tutaj: https: / / github.com / simatec / ioBroker.backitup / wiki / iBroker.backitup-Wiki- English # docker- support",
+          "uk": "У зв'язку з змінами порти картування повинні бути адаптовані для контейнерів Docker. Усі деталі порту можна знайти в документації. Ви можете знайти документацію Docker тут: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-Ukrainian#docker-support",
+          "zh-cn": "由于变化,绘图端口必须适应多克容器. 所有端口细节均可在文档中找到. 您可以在此找到多克文档: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support"
+        },
+        "level": "warn",
+        "buttons": [
+          "agree",
+          "cancel"
+        ]
       }
     ]
   },

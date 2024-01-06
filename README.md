@@ -59,6 +59,7 @@ When the adapter crashes or another Code error happens, this error message that 
 * (simatec) Restore Tab improved
 * (simatec) Design improved
 * (simatec) Docu updated
+* (simatec) Breaking Changes for Docker mapping ports
 
 ### 2.9.10 (2023-12-29)
 * (simatec) Fix node-red restore
