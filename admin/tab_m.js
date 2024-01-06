@@ -352,10 +352,8 @@ function load(settings, onChange) {
                                     showDialog(name !== '' ? 'restore' : '', isStopped);
                                     showToast(null, _('Restore started'));
                                     var theme = currentTheme();
-                                    var restoreProtocol = location.protocol;
-                                    console.log(restoreProtocol);
 
-                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none', currentProtocol: restoreProtocol, stopIOB: isStopped }, function (result) {
+                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none', currentProtocol: location.protocol, stopIOB: isStopped }, function (result) {
                                         if (!result || result.error) {
                                             showError('<br/><br/>Error:<br/><br/>' + JSON.stringify(result.error));
                                         } else {
