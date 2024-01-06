@@ -56,6 +56,8 @@ When the adapter crashes or another Code error happens, this error message that 
 <!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
 * (simatec) File server improved
+* (simatec) Restore Tab improved
+
 ### 2.9.10 (2023-12-29)
 * (simatec) Fix node-red restore
 * (simatec) auto install after restore for node-red added

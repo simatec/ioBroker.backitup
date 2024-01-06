@@ -101,7 +101,6 @@ function load(settings, onChange) {
             });
         }
     });
-    //console.log('current theme: ' + currentTheme());
 
     sendTo(null, 'getFileSystemInfo', null, function (obj) {
         if (obj && obj.diskState && obj.storage && obj.diskFree) {
@@ -354,13 +353,13 @@ function load(settings, onChange) {
                                     showToast(null, _('Restore started'));
                                     var theme = currentTheme();
 
-                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none', stopIOB: isStopped }, function (result) {
+                                    sendTo(null, 'restore', { type: type, fileName: file, currentTheme: theme || 'none', currentProtocol: location.protocol, stopIOB: isStopped }, function (result) {
                                         if (!result || result.error) {
                                             showError('<br/><br/>Error:<br/><br/>' + JSON.stringify(result.error));
                                         } else {
                                             console.log('Restore finish!')
                                             if (isStopped) {
-                                                var restoreURL = `${location.protocol}//${location.hostname}:${location.protocol === 'https:' ? '8092' : '8091'}/backitup-restore.html`;
+                                                var restoreURL = `${location.protocol}//${location.hostname}:8091/backitup-restore.html`;
                                                 console.log('Restore Url: ' + restoreURL);
                                                 setTimeout(() => window.open(restoreURL, '_self'), restoreIfWait);
                                                 //setTimeout(() => $('<a href="' + restoreURL + '">&nbsp;</a>')[0].click(), restoreIfWait);
