@@ -1,6 +1,6 @@
 {
   "name": "iobroker.backitup",
-  "version": "2.9.10",
+  "version": "2.10.0",
   "engines": {
     "node": ">=16.0.0"
   },
@@ -48,7 +48,8 @@
     "onedrive-api": "^1.1.1",
     "request": "^2.88.2",
     "tar-fs": "^3.0.4",
-    "webdav": "^5.3.1"
+    "webdav": "^5.3.1",
+    "https": "^1.0.0"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^3.7.0",

@@ -345,9 +345,8 @@ _[Back to top](#top)_
 ---
 
 # Docker support
-As of version 2.2.0, backup and restore are supported in the official Docker container.
-
 Since no database systems should be installed in the Docker container, backups of all databases are not supported and cannot be selected in a recognised Docker container by default. To be able to back up external databases anyway, two container environment variables must be set:
+
 * IOB_BACKITUP_EXTDB=true
 * PACKAGES
 
@@ -355,9 +354,9 @@ The content of the environment variable "PACKAGES" is based on the packages to b
 
 In order to be able to use ioBroker.backitup in Docker to its full extent, some ports still need to be mapped.
 
-* Port 8091 - Restore web interface (when using the admin with http)
-* Port 8092 - Restore web interface (when using the admin with https)
-* Port 9081 - file server for uploads and download of backups via the web interface of ioBroker.backitup
+* Port 8091 - Restore web interface
+* Port 9081 - file server for download of backups via the web interface of ioBroker.backitup
+* Port 9082 - file server for uploads of backups via the web interface of ioBroker.backitup
 
 _[Back to top](#top)_
 

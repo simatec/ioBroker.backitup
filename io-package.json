@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.9.10",
+    "version": "2.10.0",
     "news": {
+      "2.10.0": {
+        "en": "File server improved\nRestore Tab improved\nDesign improved\nDocu updated\nBreaking Changes for Docker mapping ports",
+        "de": "Dateiserver verbessert\nRestore Tab verbessert\nDesign verbessert\nDocu aktualisiert\nÄnderungen für Docker Mapping Ports",
+        "ru": "Улучшен сервер файлов\nВосстановление Tab улучшено\nУлучшенный дизайн\nDocu\nПерерыв изменений для картографических портов Docker",
+        "pt": "Servidor de arquivo melhorado\nRestaurar Tab melhorou\nDesign melhorado\nDocu atualizado\nAlterações de quebra para portas de mapeamento Docker",
+        "nl": "Bestandsserver verbeterd\nTabblad verbeterd herstellen\nOntwerp verbeterd\nDocu bijgewerkt\nWijzigingen voor Docker-mappingpoorten breken",
+        "fr": "Serveur de fichiers amélioré\nRestaurer l'onglet amélioré\nAmélioration de la conception\nDocu mis à jour\nBriser les changements pour les ports de cartographie Docker",
+        "it": "Server dei file migliorato\nScheda di ripristino migliorata\nMiglioramento del design\nDocu aggiornato\nCambiamenti di rottura per porte di mappatura Docker",
+        "es": "Servidor de archivo mejorado\nRestore Tab mejorado\nDiseño mejorado\nDocu actualizado\nCambios de ruptura para puertos de mapeo de Docker",
+        "pl": "Poprawiony serwer plików\nPrzywracanie karty\nPoprawiony projekt\nAktualizacja doku\nBreaking Changes for Docker mapowanie portów",
+        "uk": "Покращений сервер файлів\nВідновлення вкладки поліпшення\nПокращений дизайн\nDocu оновлений\nЗміни для портів Docker",
+        "zh-cn": "改进文件服务器\n已改进恢复标签\n设计改进\n更新 Docu\nDocker 映射端口的中断更改"
+      },
       "2.9.10": {
         "en": "Fix node-red restore\nauto install after restore for node-red added",
         "de": "Fix node-red wiederherstellen\nauto install nach wiederherstellen für node-red hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "aktualizacja\nFix redis Password",
         "uk": "оновлені залежності\nФіксований червоний Логін",
         "zh-cn": "b. 更新的依赖\nFix 重新定性 护照"
-      },
-      "2.9.4": {
-        "en": "dependencies updated\nFix CIFS Password\nFix mySql Password\nFix pgSql Password\nFix redis Password",
-        "de": "aktualisierte abhängigkeiten\nCIFS Passwort löschen\nMySql Passwort beheben\nPasswort festlegen\nRedis Passwort vergessen",
-        "ru": "зависимости обновлены\nFix CIFS Пароль\nFix Пароль mySql\nFix pgSql Пароль\nFix редис Пароль",
-        "pt": "dependências atualizadas\nCorrigir a senha do CIFS\nCorrigir senha mySql\nCorrigir senha pgSql\nCorrigir vermelho Senha",
-        "nl": "afhankelijkheid geüpdateerd\nVertaling:\nVertaling:\nVertaling:\nVertaling: Wachtwoord",
-        "fr": "dépendances mises à jour\nMot de passe fixe CIFS\nCorrection du mot de passe mySql\nCorrection pgSql Mot de passe\nCorrection redis Mot de passe",
-        "it": "dipendenze aggiornate\nFissare la password CIFS\nRisolvere la password\nFissare password pgSql\nRipartizione Password",
-        "es": "dependencias actualizadas\nCorregir contraseña de CIFS\nArregla mi contraseña\nFijar contraseña pgSql\nArreglar redis Contraseña",
-        "pl": "aktualizacja\nFix CIFS Password\nFix mySql Password\nPgSql Password\nFix redis Password",
-        "uk": "оновлені залежності\nВиправлення пароля CIFS\nВиправлення пароля mySql\nВиправлення PgSql пароля\nФіксований червоний Логін",
-        "zh-cn": "b. 更新的依赖\nFix CIFS护照\nFix 我的Sql护照\nFix pgSql护照\nFix 重新定性 护照"
       }
     },
     "title": "BackItUp",
@@ -228,6 +228,46 @@
           "pl": "Użytkownicy FritzNAS muszą umożliwić opcję „Cache Loose” w ustawieniach Backitup dla funkcji CIFS. Bez tej opcji nie można pisać FritzNAS.",
           "uk": "Користувачі FritzNAS повинні увімкнути параметр \"Cache Loose\" у налаштуваннях Backitup для коректної функції CIFS під Node 20. Без цього варіанту не можна писати на ФрицНАС.",
           "zh-cn": "FritzNAS用户必须能够使Backitup环境中的“Cache Loose”方案能够正常的CIFS功能。 没有这种选择,就不能向弗朗西斯·弗朗索瓦斯写回来。."
+        },
+        "level": "warn",
+        "buttons": [
+          "agree",
+          "cancel"
+        ]
+      },
+      {
+        "condition": {
+          "operand": "and",
+          "rules": [
+            "oldVersion<2.10.0",
+            "newVersion>=2.10.0"
+          ]
+        },
+        "title": {
+          "en": "Breaking Changes for Docker mapping ports",
+          "de": "Wichtige Änderungen für Docker Mapping Ports",
+          "ru": "Перерыв изменений для картографических портов Docker",
+          "pt": "Alterações de quebra para portas de mapeamento Docker",
+          "nl": "Wijzigingen voor Docker-mappingpoorten breken",
+          "fr": "Briser les changements pour les ports de cartographie Docker",
+          "it": "Cambiamenti di rottura per porte di mappatura Docker",
+          "es": "Cambios de ruptura para puertos de mapeo de Docker",
+          "pl": "Breaking Changes for Docker mapowanie portów",
+          "uk": "Зміни для портів Docker",
+          "zh-cn": "Docker 映射端口的中断更改"
+        },
+        "text": {
+          "en": "Due to changes, the mapping ports must be adapted for Docker containers. All port details can be found in the documentation. You can find the Docker documentation here: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
+          "de": "Durch Änderungen müssen die Mapping Ports für Docker Container angepasst werden. Alle Port-Details finden Sie in der Dokumentation. Die Docker-Dokumentation finden Sie hier: http://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-Englisch#docker-support",
+          "ru": "Из-за изменений порты картографирования должны быть адаптированы для контейнеров Docker. Все детали порта можно найти в документации. Вы можете найти документацию Docker здесь: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
+          "pt": "Devido a mudanças, as portas de mapeamento devem ser adaptadas para contentores Docker. Todos os detalhes da porta podem ser encontrados na documentação. Você pode encontrar a documentação do Docker aqui: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
+          "nl": "Door veranderingen moeten de ports aangepast worden voor Docker containers. Alle havengegevens zijn te vinden in de documentatie. De Docker documentatie vindt u hier: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
+          "fr": "En raison de changements, les ports de cartographie doivent être adaptés pour les conteneurs Docker. Tous les détails du port se trouvent dans la documentation. Vous pouvez trouver la documentation Docker ici: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
+          "it": "A causa delle modifiche, le porte di mappatura devono essere adattate per contenitori Docker. Tutti i dettagli della porta si trovano nella documentazione. È possibile trovare la documentazione Docker qui: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
+          "es": "Debido a los cambios, los puertos de mapeo deben ser adaptados para contenedores Docker. Todos los detalles del puerto se pueden encontrar en la documentación. Puede encontrar la documentación de Docker aquí: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
+          "pl": "Ze względu na zmiany, porty mapujące muszą być dostosowane do kontenerów Docker. Wszystkie szczegóły portu znajdują się w dokumentacji. Dokumentacja Dockera znajduje się tutaj: https: / / github.com / simatec / ioBroker.backitup / wiki / iBroker.backitup-Wiki- English # docker- support",
+          "uk": "У зв'язку з змінами порти картування повинні бути адаптовані для контейнерів Docker. Усі деталі порту можна знайти в документації. Ви можете знайти документацію Docker тут: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-Ukrainian#docker-support",
+          "zh-cn": "由于变化,绘图端口必须适应多克容器. 所有端口细节均可在文档中找到. 您可以在此找到多克文档: https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support"
         },
         "level": "warn",
         "buttons": [
