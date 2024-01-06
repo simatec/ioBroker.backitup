@@ -54,7 +54,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.10.0 (2024-01-06)
 * (simatec) File server improved
 * (simatec) Restore Tab improved
 * (simatec) Design improved
