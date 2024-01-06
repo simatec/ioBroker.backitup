@@ -302,20 +302,6 @@ li {
     overflow-y: auto;
     max-height: 187px;
 }
-#toast-container {
-    bottom: 94%;
-    left: 30%;
-    top: initial;
-    right: initial;
-    position: absolute;
-    background-color: #174475;
-    box-shadow: rgba(0, 0, 0, 0.14) 0px 3px 3px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px, rgba(0, 0, 0, 0.2) 0px 3px 1px -2px;
-    background-image: linear-gradient(179deg, rgb(51, 153, 204) 0%, rgb(23, 68, 117) 60%) !important;
-    color: white;
-    padding: 1rem;
-    font-size: larger;
-    z-index: 999;
-}
 
 #dialog-upload .title {
     width: 100%;
