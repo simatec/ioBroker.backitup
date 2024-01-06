@@ -354,9 +354,9 @@ Der Inhalt der Umgebungsvariable "PACKAGES" orientiert sich dabei an den zu inst
 
 Um ioBroker.backitup im Docker vollumfänglich nutzen zu können, müssen noch einige Ports gemappt werden.
 
-* Port 8091 - Restore Webinterface (bei Nutzung des Admin mit http)
-* Port 8092 - Restore Webinterface (bei Nutzung des Admin mit https)
-* Port 9081 - Fileserver für Uploads und Download von Backups über das Webinterinface von ioBroker.backitup
+* Port 8091 - Restore Webinterface
+* Port 9081 - Fileserver für Download von Backups über das Webinterinface von ioBroker.backitup
+* Port 9082 - Fileserver für Uploads von Backups über das Webinterinface von ioBroker.backitup
 
 _[Zurück zum Anfang](#top)_
 
