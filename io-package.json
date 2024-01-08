@@ -145,6 +145,7 @@
     "stopBeforeUpdate": true,
     "connectionType": "local",
     "dataSource": "assumption",
+    "tier": 2,
     "materializeTab": true,
     "adminTab": {
       "name": {
