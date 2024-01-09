@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.10.0",
+    "version": "2.10.1",
     "news": {
+      "2.10.1": {
+        "en": "small Fixes\nCode restructured",
+        "de": "kleine Feste\nCode umstrukturiert",
+        "ru": "небольшие Fixes\nРеструктуризация кода",
+        "pt": "pequenas correções\nCódigo reestruturado",
+        "nl": "kleine correcties\nGeherstructureerde code",
+        "fr": "petits Fixes\nCode restructuré",
+        "it": "piccoli corredi\nCodice ristrutturato",
+        "es": "pequeñas fijaciones\nCódigo reestructurado",
+        "pl": "małe liczby\nKod zrestrukturyzowany",
+        "uk": "маленькі Фікси\nРеструктуризація коду",
+        "zh-cn": "小修补\n调整代码"
+      },
       "2.10.0": {
         "en": "File server improved\nRestore Tab improved\nDesign improved\nDocu updated\nBreaking Changes for Docker mapping ports",
         "de": "Dateiserver verbessert\nRestore Tab verbessert\nDesign verbessert\nDocu aktualisiert\nÄnderungen für Docker Mapping Ports",
@@ -80,19 +93,6 @@
         "pl": "Gotify Notication (ang.)\naktualizacja\nKontrola Copypatha",
         "uk": "Додана нотифікація\nоновлені залежності\nКопіювати чек додано",
         "zh-cn": "提名\nb. 更新的依赖\n虫害检查"
-      },
-      "2.9.5": {
-        "en": "dependencies updated\nFix redis Password",
-        "de": "aktualisierte abhängigkeiten\nRedis Passwort vergessen",
-        "ru": "зависимости обновлены\nFix редис Пароль",
-        "pt": "dependências atualizadas\nCorrigir vermelho Senha",
-        "nl": "afhankelijkheid geüpdateerd\nVertaling: Wachtwoord",
-        "fr": "dépendances mises à jour\nCorrection redis Mot de passe",
-        "it": "dipendenze aggiornate\nRipartizione Password",
-        "es": "dependencias actualizadas\nArreglar redis Contraseña",
-        "pl": "aktualizacja\nFix redis Password",
-        "uk": "оновлені залежності\nФіксований червоний Логін",
-        "zh-cn": "b. 更新的依赖\nFix 重新定性 护照"
       }
     },
     "title": "BackItUp",
@@ -497,7 +497,7 @@
     "zigbee2mqttEnabled": false,
     "zigbee2mqttPath": "/opt/zigbee2mqtt/data",
     "zigbeeEnabled": false
-},
+  },
   "instanceObjects": [
     {
       "_id": "info",
