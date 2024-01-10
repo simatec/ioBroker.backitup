@@ -91,9 +91,9 @@ A tab is available in the admin tab for the daily work and operation of ioBroker
 If this tab is active in the tab menu of the admin interface, ioBroker.backitup can be operated directly via the tab in the left tab bar of the iobroker.<br><br>
 Information on the backups made is available there, backups can be made and the backup can be restored.
 
-![adminTab](./img/backitup_main.png)
-![adminTabRestore](./img/backitup_restore.png)
-![adminTabInfo](./img/backitup_history.png)
+![adminTab](img/backitup_main.png)
+![adminTabRestore](img/backitup_restore.png)
+![adminTabInfo](img/backitup_history.png)
 
 _[Back to top](#start-of-content)_
 

@@ -86,9 +86,9 @@ Für die tägliche Arbeit und Bedienung von ioBroker.backitup steht im Admin-Tab
 Ist dieser Reiter im Tab-Menü der Admin-Oberfläche aktiv, kann ioBroker.backitup direkt über den Reiter in der linken Tab-Leiste des ioBrokers bedient werden.<br><br>
 Dort stehen Informationen zu den erstellten Backups zur Verfügung, es können Backups erstellt werden und es besteht die Möglichkeit, einen Restore des Backups auszuführen.
 
-![adminTab](./img/backitup_main.png)
-![adminTabRestore](./img/backitup_restore.png)
-![adminTabInfo](./img/backitup_history.png)
+![adminTab](img/backitup_main.png)
+![adminTabRestore](img/backitup_restore.png)
+![adminTabInfo](img/backitup_history.png)
 
 _[Zurück zum Anfang](#start-of-content)_
 
