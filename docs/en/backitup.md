@@ -1,4 +1,4 @@
-![Logo](https://github.com/simatec/ioBroker.backitup/blob/master/docs/en/img/backitup.png)
+![Logo](img/backitup.png)
 
 ![Number of Installations](http://iobroker.live/badges/backitup-installed.svg)
 ![Number of Installations](http://iobroker.live/badges/backitup-stable.svg)
