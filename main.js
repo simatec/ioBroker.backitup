@@ -544,7 +544,8 @@ function createBackupSchedule() {
         if (config.enabled === true || config.enabled === 'true') {
             let time = config.ownCron === false ? config.time.split(':') : config.cronjob;
 
-            adapter.log.info(`[${type}] backup will be activated at ${config.time} every ${config.everyXDays} day(s)`);
+            const backupInfo = config.ownCron === false ? `at ${config.time} every ${config.everyXDays} day(s)` : `with Cronjob "${config.cronjob}"`; 
+            adapter.log.info(`[${type}] backup will be activated ${backupInfo}`);
 
             if (backupTimeSchedules[type]) {
                 backupTimeSchedules[type].cancel();
@@ -576,7 +577,7 @@ function createBackupSchedule() {
                                     adapter.setState(`history.${type}Success`, false, true);
                                 }
                             }), 500);
-                        nextBackup(0, false, type);
+                        nextBackup(false, type);
                         adapter.setState('oneClick.' + type, false, true);
 
                         if (adapter.config.slaveInstance && type === 'iobroker' && adapter.config.hostType === 'Master') {
@@ -1479,31 +1480,31 @@ function detectLatestBackupFile(adapter) {
     }
 }
 
-function nextBackup(diffDays, setMain, type, date) {
-    date = date || new Date();
-
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    let currentTime = (hours + ':' + minutes);
+async function nextBackup(setMain, type) {
+    const cronParser = require('cron-parser');
 
     if (adapter.config.ccuEnabled && setMain || type === 'ccu') {
-        if (adapter.config.ccuTime < currentTime) {
-            diffDays = 0;
-        }
-        let everyXDays = (parseFloat(adapter.config.ccuEveryXDays) - diffDays);
-        adapter.setState(`info.ccuNextTime`, tools.getNextTimeString(systemLang, adapter.config.ccuTime, parseFloat(everyXDays)), true);
-        diffDays = 1;
+        const time = adapter.config.ccuCron === false ? adapter.config.ccuTime.split(':') : adapter.config.ccuCronJob;
+        const cron = adapter.config.ccuCron === false ? `00 ${time[1]} ${time[0]} */${adapter.config.ccuEveryXDays} * *` : time;
+
+        const interval = cronParser.parseExpression(cron);
+        const nextScheduledDate = interval.next();
+
+        await adapter.setStateAsync(`info.ccuNextTime`, tools.getNextTimeString(systemLang, nextScheduledDate), true);
     } else if (!adapter.config.ccuEnabled) {
-        adapter.setState(`info.ccuNextTime`, 'none', true);
+        await adapter.setStateAsync(`info.ccuNextTime`, 'none', true);
     }
+
     if (adapter.config.minimalEnabled && setMain || type === 'iobroker') {
-        if (adapter.config.minimalTime < currentTime) {
-            diffDays = 0;
-        }
-        let everyXDays = (parseFloat(adapter.config.minimalEveryXDays) - diffDays);
-        adapter.setState(`info.iobrokerNextTime`, tools.getNextTimeString(systemLang, adapter.config.minimalTime, parseFloat(everyXDays)), true);
+        const time = adapter.config.iobrokerCron === false ? adapter.config.minimalTime.split(':') : adapter.config.iobrokerCronJob;
+        const cron = adapter.config.iobrokerCron === false ? `00 ${time[1]} ${time[0]} */${adapter.config.minimalEveryXDays} * *` : time;
+
+        const interval = cronParser.parseExpression(cron);
+        const nextScheduledDate = interval.next();
+
+        await adapter.setStateAsync(`info.iobrokerNextTime`, tools.getNextTimeString(systemLang, nextScheduledDate), true);
     } else if (!adapter.config.minimalEnabled) {
-        adapter.setState(`info.iobrokerNextTime`, 'none', true);
+        await adapter.setStateAsync(`info.iobrokerNextTime`, 'none', true);
     }
 }
 
@@ -1867,7 +1868,7 @@ async function main(adapter) {
 
         if (adapter.config.hostType !== 'Slave') {
             createBackupSchedule();
-            nextBackup(1, true, null);
+            nextBackup(true, null);
 
             detectLatestBackupFile(adapter);
         }

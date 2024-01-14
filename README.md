@@ -53,6 +53,11 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Cronjob for Expert Settings added
+* (simatec) Code restructured
+* (simatec) Translation added
+
 ### 2.10.1 (2024-01-09)
 * (simatec) small Fixes
 * (simatec) Code restructured

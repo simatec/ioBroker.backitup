@@ -54,7 +54,8 @@
     "request": "^2.88.2",
     "tar-fs": "^3.0.4",
     "webdav": "^5.3.1",
-    "https": "^1.0.0"
+    "https": "^1.0.0",
+    "cron-parser": "^4.9.0"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^3.7.0",
