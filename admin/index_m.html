@@ -254,12 +254,17 @@
                     </div>
                 </div>
 				<div class="row iobroker">
-                    <div class="input-field col s12 m6 l3">
-                        <input type="text" class="timepicker value" id="minimalTime" type="text">
+                    <div class="input-field col s12 m6 l3 ownIobrokerTime">
+                        <input type="text" class="value timepicker" id="minimalTime" type="text">
                         <label for="minimalTime" class="translate">backup time</label>
                         <span class="translate">Backup start time in hh: mm</span>
                     </div>
-                    <div class="input-field col s12 m6 l3">
+                    <div class="input-field col s12 m6 l3 ownIobrokerCron">
+                        <input type="text" class="value" id="iobrokerCronJob" type="text">
+                        <label for="iobrokerCronJob" class="translate">backup cronjob</label>
+                        <span class="translate">Backup time as cronjob</span>
+                    </div>
+                    <div class="input-field col s12 m6 l3 ownIobrokerTime">
                         <input type="number" class="value" id="minimalEveryXDays" min="1" max="100"/>
                         <label for="minimalEveryXDays" class="translate">days</label>
                         <span class="translate">Backup will run every X days</span>
@@ -273,6 +278,12 @@
                         <input class="value" id="minimalNameSuffix" type="text">
                         <label for="minimalNameSuffix" class="translate">name</label>
                         <span class="translate">Name suffix</span>
+                    </div>
+                </div>
+                <div class="row iobroker">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="iobrokerCron" type="checkbox"/>
+                        <label for="iobrokerCron" class="translate">Create your own cronjob (for experts only)</label>
                     </div>
                 </div>
             </div>
@@ -291,12 +302,17 @@
                     </div>
                 </div>
                 <div class="row ccu">
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l4 ownCCUTime">
                         <input type="text" class="timepicker value" id="ccuTime" type="text">
                         <label for="ccuTime" class="translate">backup time</label>
                         <span class="translate">Backup start time in hh: mm</span>
                     </div>
-                    <div class="input-field col s12 m4 l4">
+                    <div class="input-field col s12 m6 l4 ownCCUCron">
+                        <input type="text" class="value" id="ccuCronJob" type="text">
+                        <label for="ccuCronJob" class="translate">backup cronjob</label>
+                        <span class="translate">Backup time as cronjob</span>
+                    </div>
+                    <div class="input-field col s12 m4 l4 ownCCUTime">
                         <input type="number" class="value" id="ccuEveryXDays" min="1" max="100"/>
                         <label for="ccuEveryXDays" class="translate">days</label>
                         <span class="translate">Backup will run every X days</span>
@@ -324,12 +340,16 @@
                         <span class="translate">Password of the CCU</span>
                     </div>
                 </div>
-                <div class="row ccu multiCCU">
-                    <div class="input-field col s6 l4">
+                <div class="row ccu">
+                    <div class="input-field col s12 m6 l4">
+                        <input class="value" id="ccuCron" type="checkbox"/>
+                        <label for="ccuCron" class="translate">Create your own cronjob (for experts only)</label>
+                    </div>
+                    <div class="input-field col s6 l4 multiCCU">
                         <input class="value" id="ccuUsehttps" type="checkbox" />
                         <span for="ccuUsehttps" class="translate">use https</span>
                     </div>
-                    <div class="input-field col s12 m6 l4 ccuCert">
+                    <div class="input-field col s12 m6 l4 ccuCert multiCCU">
                         <input class="value" id="ccuSignedCertificates" type="checkbox"/>
                         <label for="ccuSignedCertificates" class="translate">Allow only signed certificates</label>
                     </div>

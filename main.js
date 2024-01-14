@@ -542,14 +542,14 @@ function createBackupSchedule() {
 
         const config = backupConfig[type];
         if (config.enabled === true || config.enabled === 'true') {
-            let time = config.time.split(':');
+            let time = config.ownCron === false ? config.time.split(':') : config.cronjob;
 
             adapter.log.info(`[${type}] backup will be activated at ${config.time} every ${config.everyXDays} day(s)`);
 
             if (backupTimeSchedules[type]) {
                 backupTimeSchedules[type].cancel();
             }
-            const cron = `10 ${time[1]} ${time[0]} */${config.everyXDays} * * `;
+            const cron = config.ownCron === false ? `10 ${time[1]} ${time[0]} */${config.everyXDays} * * ` : time;
             backupTimeSchedules[type] = schedule.scheduleJob(cron, async () => {
                 const sysCheck = await systemCheck.storageSizeCheck(adapter, adapterName, adapter.log);
 
@@ -862,6 +862,8 @@ function initConfig(secret) {
         workDir: ioPath,
         enabled: adapter.config.minimalEnabled,
         time: adapter.config.minimalTime,
+        cronjob: adapter.config.iobrokerCronJob,
+        ownCron: adapter.config.iobrokerCron,
         debugging: adapter.config.debugLevel,
         slaveBackup: adapter.config.hostType,
         everyXDays: adapter.config.minimalEveryXDays,
@@ -1145,6 +1147,8 @@ function initConfig(secret) {
         type: 'creator',
         enabled: adapter.config.ccuEnabled,
         time: adapter.config.ccuTime,
+        cronjob: adapter.config.ccuCronJob,
+        ownCron: adapter.config.ccuCron,
         debugging: adapter.config.debugLevel,
         everyXDays: adapter.config.ccuEveryXDays,
         nameSuffix: adapter.config.ccuNameSuffix,                                                   // names addition, appended to the file name
