@@ -1,10 +1,10 @@
 {
   "name": "iobroker.backitup",
-  "version": "2.10.0",
+  "version": "2.10.2",
   "engines": {
     "node": ">=16.0.0"
   },
-  "description": "ioBroker.backitup enables the cyclic creation of backups of an IoBroker / Homematic installation",
+  "description": "ioBroker.backitup allows you to backup and restore your ioBroker installation and other systems, such as databases, Zigbee, scripts and many more.",
   "author": {
     "name": "simatec",
     "email": "backitup@simateccloud.de"
@@ -26,7 +26,12 @@
     "ioBroker.backitup",
     "Smart Home",
     "home automation",
-    "Backup"
+    "Backup",
+    "Restore",
+    "Homematic",
+    "Zigbee",
+    "Onedrive",
+    "WebDav"
   ],
   "repository": {
     "type": "git",
@@ -49,7 +54,8 @@
     "request": "^2.88.2",
     "tar-fs": "^3.0.4",
     "webdav": "^5.3.1",
-    "https": "^1.0.0"
+    "https": "^1.0.0",
+    "cron-parser": "^4.9.0"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^3.7.0",

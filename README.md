@@ -14,7 +14,6 @@
 
 This adapter uses the service `Sentry.io` to automatically report exceptions and code errors and new device schemas to me as the developer. More details see below!
 
-`ioBroker.backitup` ist eine Backuplösung, mit der das zyklische Sichern einer IoBroker-Installation sowie einer Homematic CCU möglich ist.
 
 **************************************************************************************************************
 
@@ -33,13 +32,13 @@ This adapter uses the service `Sentry.io` to automatically report exceptions and
 
 **************************************************************************************************************
 
-`ioBroker.backitup` ist eine Backup-Lösung, die eine zyklische Sicherung einer IoBroker-Installation und einer Homematic CCU ermöglicht.
+`ioBroker.backitup` ermöglich die Sicherung und Wiederherstellung deiner ioBroker Installation und anderen Systemen, wie Datenbanken, Zigbee, Skripten und vielen mehr.
 
-[Deutsche Beschreibung](https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-Deutsch)
+:de: [Deutsche Beschreibung](https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-Deutsch)
 
-`ioBroker.backitup` is a backup solution that allows cyclical backup of an IoBroker installation and a Homematic CCU.
+`ioBroker.backitup` allows you to backup and restore your ioBroker installation and other systems, such as databases, Zigbee, scripts and many more.
 
-[English Description](https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English)
+:uk: [English Description](https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English)
 
 ### What is Sentry.io and what is reported to the servers of that company?
 `Sentry.io` is a service for developers to get an overview about errors from their applications. And exactly this is implemented in this adapter.
@@ -54,6 +53,15 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### 2.10.2 (2024-01-14)
+* (simatec) Cronjob for Expert Settings added
+* (simatec) Code restructured
+* (simatec) Translation added
+
+### 2.10.1 (2024-01-09)
+* (simatec) small Fixes
+* (simatec) Code restructured
+
 ### 2.10.0 (2024-01-06)
 * (simatec) File server improved
 * (simatec) Restore Tab improved

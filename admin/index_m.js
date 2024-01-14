@@ -12,6 +12,7 @@ var storageTyp = '';
 
 var oldJavascriptsEnabled;
 var oldZigbeeEnabled;
+var oldZigbee2MQTTEnabled;
 var oldesphomeEnabled;
 var oldNoderedEnabled;
 var oldJarvisEnabled;
@@ -407,6 +408,10 @@ function load(settings, onChange) {
     if (settings.cifsMount === 'CIFS') {
         settings.cifsMount = '';
     }
+
+    $('.timepicker').timepicker({
+        "twelveHour": false
+    });
 
     oldJavascriptsEnabled = settings.javascriptsEnabled;
     oldZigbeeEnabled = settings.zigbeeEnabled;
@@ -1061,35 +1066,6 @@ function load(settings, onChange) {
                         showError(_('No answer'));
                     }
                 });
-                // BF(2022_10_18): following code is unused because of the new Google auth
-                /*
-                $('.get-googledrive-submit').on('click', function () {
-                    var tokens = $('#googledriveAccessTokens').val();
-                    if (!tokens) {
-                        return showError(_('No token entered'));
-                    }
-                    $('.get-googledrive-submit').addClass('disabled');
-                    sendTo(null, 'authGoogleDrive', { token: token }, function (obj) {
-                        $('.get-googledrive-submit').removeClass('disabled');
-                        if (obj && obj.done) {
-                            if ($('#googledriveAccessJson').val() !== obj.base64) {
-                                $('#googledriveAccessJson').val(obj.base64);
-                                onChange();
-                            }
-
-                            $('.get-googledrive-code').hide();
-                            $('.get-googledrive-url').hide();
-                            $('.get-googledrive-json').show();
-                            $('.get-googledrive-json span').text(_('Renew Google Drive Access'));
-                            $('#googledriveAccessJson_span').text(_('Present'));
-                        } else if (obj && obj.error) {
-                            showError(obj.error);
-                        } else {
-                            showError(_('No answer'));
-                        }
-                    });
-                });
-                */
             });
         } else {
             $('.do-backup').addClass('disabled');
@@ -1114,12 +1090,6 @@ function load(settings, onChange) {
         $('#onedriveAccessJson_span').text(_('Not present'));
     }
 
-    /*if (settings.googledriveAccessJson) {
-        $('#googledriveAccessJson_span').text(_('Present'));
-        $('.get-googledrive-json span').text(_('Renew Google Drive Access'));
-    } else {
-        $('#googledriveAccessJson_span').text(_('Not present'));
-    }*/
     if (settings.googledriveAccessTokens) {
         $('#googledriveAccessJson_span').text(_('Present'));
         $('.get-googledrive-json span').text(_('Renew Google Drive Access'));
@@ -1198,10 +1168,6 @@ function load(settings, onChange) {
     });
 
     fillDiscordTarget(settings['discordTarget'], settings.discordInstance);
-
-    $('.timepicker').timepicker({
-        "twelveHour": false
-    });
 
     initDialog();
 }
@@ -1832,6 +1798,20 @@ function showHideSettings(settings) {
         }
     } else {
         cleanIgnoreMessage('jarvis');
+    }
+    if ($('#iobrokerCron').prop('checked')) {
+        $('.ownIobrokerTime').hide();
+        $('.ownIobrokerCron').show();
+    } else {
+        $('.ownIobrokerTime').show();
+        $('.ownIobrokerCron').hide();
+    }
+    if ($('#ccuCron').prop('checked')) {
+        $('.ownCCUTime').hide();
+        $('.ownCCUCron').show();
+    } else {
+        $('.ownCCUTime').show();
+        $('.ownCCUCron').hide();
     }
     $('#telegramInstance').on('change', function () {
         var telegramInst = $(this).val();

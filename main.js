@@ -542,14 +542,15 @@ function createBackupSchedule() {
 
         const config = backupConfig[type];
         if (config.enabled === true || config.enabled === 'true') {
-            let time = config.time.split(':');
+            let time = config.ownCron === false ? config.time.split(':') : config.cronjob;
 
-            adapter.log.info(`[${type}] backup will be activated at ${config.time} every ${config.everyXDays} day(s)`);
+            const backupInfo = config.ownCron === false ? `at ${config.time} every ${config.everyXDays} day(s)` : `with Cronjob "${config.cronjob}"`; 
+            adapter.log.info(`[${type}] backup will be activated ${backupInfo}`);
 
             if (backupTimeSchedules[type]) {
                 backupTimeSchedules[type].cancel();
             }
-            const cron = `10 ${time[1]} ${time[0]} */${config.everyXDays} * * `;
+            const cron = config.ownCron === false ? `10 ${time[1]} ${time[0]} */${config.everyXDays} * * ` : time;
             backupTimeSchedules[type] = schedule.scheduleJob(cron, async () => {
                 const sysCheck = await systemCheck.storageSizeCheck(adapter, adapterName, adapter.log);
 
@@ -576,7 +577,7 @@ function createBackupSchedule() {
                                     adapter.setState(`history.${type}Success`, false, true);
                                 }
                             }), 500);
-                        nextBackup(0, false, type);
+                        nextBackup(false, type);
                         adapter.setState('oneClick.' + type, false, true);
 
                         if (adapter.config.slaveInstance && type === 'iobroker' && adapter.config.hostType === 'Master') {
@@ -862,6 +863,8 @@ function initConfig(secret) {
         workDir: ioPath,
         enabled: adapter.config.minimalEnabled,
         time: adapter.config.minimalTime,
+        cronjob: adapter.config.iobrokerCronJob,
+        ownCron: adapter.config.iobrokerCron,
         debugging: adapter.config.debugLevel,
         slaveBackup: adapter.config.hostType,
         everyXDays: adapter.config.minimalEveryXDays,
@@ -1145,6 +1148,8 @@ function initConfig(secret) {
         type: 'creator',
         enabled: adapter.config.ccuEnabled,
         time: adapter.config.ccuTime,
+        cronjob: adapter.config.ccuCronJob,
+        ownCron: adapter.config.ccuCron,
         debugging: adapter.config.debugLevel,
         everyXDays: adapter.config.ccuEveryXDays,
         nameSuffix: adapter.config.ccuNameSuffix,                                                   // names addition, appended to the file name
@@ -1475,31 +1480,31 @@ function detectLatestBackupFile(adapter) {
     }
 }
 
-function nextBackup(diffDays, setMain, type, date) {
-    date = date || new Date();
-
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    let currentTime = (hours + ':' + minutes);
+async function nextBackup(setMain, type) {
+    const cronParser = require('cron-parser');
 
     if (adapter.config.ccuEnabled && setMain || type === 'ccu') {
-        if (adapter.config.ccuTime < currentTime) {
-            diffDays = 0;
-        }
-        let everyXDays = (parseFloat(adapter.config.ccuEveryXDays) - diffDays);
-        adapter.setState(`info.ccuNextTime`, tools.getNextTimeString(systemLang, adapter.config.ccuTime, parseFloat(everyXDays)), true);
-        diffDays = 1;
+        const time = adapter.config.ccuCron === false ? adapter.config.ccuTime.split(':') : adapter.config.ccuCronJob;
+        const cron = adapter.config.ccuCron === false ? `00 ${time[1]} ${time[0]} */${adapter.config.ccuEveryXDays} * *` : time;
+
+        const interval = cronParser.parseExpression(cron);
+        const nextScheduledDate = interval.next();
+
+        await adapter.setStateAsync(`info.ccuNextTime`, tools.getNextTimeString(systemLang, nextScheduledDate), true);
     } else if (!adapter.config.ccuEnabled) {
-        adapter.setState(`info.ccuNextTime`, 'none', true);
+        await adapter.setStateAsync(`info.ccuNextTime`, 'none', true);
     }
+
     if (adapter.config.minimalEnabled && setMain || type === 'iobroker') {
-        if (adapter.config.minimalTime < currentTime) {
-            diffDays = 0;
-        }
-        let everyXDays = (parseFloat(adapter.config.minimalEveryXDays) - diffDays);
-        adapter.setState(`info.iobrokerNextTime`, tools.getNextTimeString(systemLang, adapter.config.minimalTime, parseFloat(everyXDays)), true);
+        const time = adapter.config.iobrokerCron === false ? adapter.config.minimalTime.split(':') : adapter.config.iobrokerCronJob;
+        const cron = adapter.config.iobrokerCron === false ? `00 ${time[1]} ${time[0]} */${adapter.config.minimalEveryXDays} * *` : time;
+
+        const interval = cronParser.parseExpression(cron);
+        const nextScheduledDate = interval.next();
+
+        await adapter.setStateAsync(`info.iobrokerNextTime`, tools.getNextTimeString(systemLang, nextScheduledDate), true);
     } else if (!adapter.config.minimalEnabled) {
-        adapter.setState(`info.iobrokerNextTime`, 'none', true);
+        await adapter.setStateAsync(`info.iobrokerNextTime`, 'none', true);
     }
 }
 
@@ -1863,7 +1868,7 @@ async function main(adapter) {
 
         if (adapter.config.hostType !== 'Slave') {
             createBackupSchedule();
-            nextBackup(1, true, null);
+            nextBackup(true, null);
 
             detectLatestBackupFile(adapter);
         }

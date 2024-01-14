@@ -1,4 +1,4 @@
-![Logo](https://github.com/simatec/ioBroker.backitup/blob/master/docs/de/img/backitup.png)
+![Logo](img/backitup.png)
 
 ![Number of Installations](http://iobroker.live/badges/backitup-installed.svg)
 ![Number of Installations](http://iobroker.live/badges/backitup-stable.svg)
@@ -48,7 +48,7 @@ ioBroker.backitup hat nach dem Start des iobrokers keinerlei Einfluss auf die Wi
 Im Gegensatz zu dem CLI Befehl kann aber ioBroker.backitup auch noch einen Restore der verschiedenen optinalen Backups durchführen.
 Dies ist über die CLI nicht möglich.
 
-_[Zurück zum Anfang](#top)_
+_[Zurück zum Anfang](#start-of-content)_
 
 ---
 
@@ -76,7 +76,7 @@ _[Zurück zum Anfang](#top)_
     - [Installationsanleitung InfluxDB 2.x](https://docs.influxdata.com/influxdb/v2.1/install/)
     - [Installationsanleitung Influx-CLI für 2.x](https://docs.influxdata.com/influxdb/v2.1/tools/influx-cli/?t=Linux)
 
-_[Zurück zum Anfang](#top)_
+_[Zurück zum Anfang](#start-of-content)_
 
 ---
 
@@ -86,11 +86,11 @@ Für die tägliche Arbeit und Bedienung von ioBroker.backitup steht im Admin-Tab
 Ist dieser Reiter im Tab-Menü der Admin-Oberfläche aktiv, kann ioBroker.backitup direkt über den Reiter in der linken Tab-Leiste des ioBrokers bedient werden.<br><br>
 Dort stehen Informationen zu den erstellten Backups zur Verfügung, es können Backups erstellt werden und es besteht die Möglichkeit, einen Restore des Backups auszuführen.
 
-![adminTab](https://github.com/simatec/ioBroker.backitup/blob/master/docs/de/img/adminTab.png)
-![adminTabRestore](https://github.com/simatec/ioBroker.backitup/blob/master/docs/de/img/adminTabRestore.png)
-![adminTabInfo](https://github.com/simatec/ioBroker.backitup/blob/master/docs/de/img/adminTabInfo.png)
+![adminTab](img/backitup_main.png)
+![adminTabRestore](img/backitup_restore.png)
+![adminTabInfo](img/backitup_history.png)
 
-_[Zurück zum Anfang](#top)_
+_[Zurück zum Anfang](#start-of-content)_
 
 ---
 
@@ -224,7 +224,7 @@ Der Api-Key kann unter ***"Configuration → API Keys bzw. Service Token"*** ers
 Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.<br><br>
 Es werden alle Systemeinstellungen und Geräteeinstellungen von Homekit gesichert.
 
-_[Zurück zum Anfang](#top)_
+_[Zurück zum Anfang](#start-of-content)_
 
 ---
 
@@ -244,7 +244,7 @@ Es sollte beachtet werden, dass cifs-utils installiert ist.
 Die Pfadangabe sollte wie folgt aussehen (Bsp: "/Freigabename/Pfadangabe")<br>
 Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werden sollen.
 
-  ## NFS
+## NFS
 NFS-Mount ist unter Linux kein Problem.<br>
 Es sollte beachtet werden, dass nfs-common installiert ist.<br><br>
 Die Pfadangabe sollte wie folgt aussehen (Bsp: "/Freigabename/Pfadangabe").<br>
@@ -296,9 +296,10 @@ Um eine Verbindung aufbauen zu können, muss der Hostname der Cloud alle Sicherh
 > Beispiel URL: "https://example.com/remote.php/dav/files/username/"<br><br>
 Eine Verbindung mit lokaler IP-Adresse ist nur möglich, wenn die Option "Nur signierte Zertifikate zulassen" deaktiviert ist.
 
-_[Zurück zum Anfang](#top)_
+_[Zurück zum Anfang](#start-of-content)_
 
 ---
+
 
 # Löschen alter Backups
 ioBroker.backitup kann ältere Backups automatisch löschen. Die Anzahl der vorzuhaltenden Backups kann in der Konfiguration von ioBroker.backitup festgelegt werden.
@@ -310,7 +311,7 @@ Sollte während des Backupprozesses ein Fehler auftreten, wird aus Sicherheitsgr
 
 Welche Backups gelöscht wurden und mögliche Fehler beim Löschen werden in Debuglog ausgegeben.
 
-_[Zurück zum Anfang](#top)_
+_[Zurück zum Anfang](#start-of-content)_
 
 ---
 
@@ -339,9 +340,10 @@ Die Speicherorte für die einzelnen Backups können auf jedem Slave frei konfigu
 Bei Systemen mit begrenztem RAM kann der ioBroker.backitup Master die Slave Instanzen für den Backupprozess automatisch starten und im Anschluss wieder stoppen.<br>
 Diese Option ist im Menü konfigurierbar. 
 
-_[Zurück zum Anfang](#top)_
+_[Zurück zum Anfang](#start-of-content)_
 
 ---
+
 
 # Docker Unterstützung
 Da im Docker-Container keine Datenbanksysteme installiert werden sollten, werden Backups sämtlicher Datenbanken nicht unterstützt und sind bei einem erkannten Docker-Container im Standard nicht auswählbar. Um externe Datenbanken trotzdem sichern zu können, sind zwei Container-Umgebungsvariablen zu setzen:
@@ -357,9 +359,10 @@ Um ioBroker.backitup im Docker vollumfänglich nutzen zu können, müssen noch e
 * Port 9081 - Fileserver für Download von Backups über das Webinterinface von ioBroker.backitup
 * Port 9082 - Fileserver für Uploads von Backups über das Webinterinface von ioBroker.backitup
 
-_[Zurück zum Anfang](#top)_
+_[Zurück zum Anfang](#start-of-content)_
 
 ---
+
 
 # Verwendung
 1.	Der Adapter erstellt einige Datenpunkte zur Verwendung in Vis<br>
@@ -414,9 +417,10 @@ Syntax: {BackitupInstanz.history.html}
 
 Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || wert === true ? "Text während der Backuperstellung" : "Standard-Text"}
 
-_[Zurück zum Anfang](#top)_
+_[Zurück zum Anfang](#start-of-content)_
 
 ---
+
 
 # Benachichtigungen
  ioBroker.backitup unterstützt für die Benachrichtigung nach einem erfolgreichen Backup folgende Messenger.
@@ -430,9 +434,10 @@ _[Zurück zum Anfang](#top)_
    * Matrix
    * Discord
 
-_[Zurück zum Anfang](#top)_
+_[Zurück zum Anfang](#start-of-content)_
 
 ---
+
 
 # Restore
 
@@ -477,17 +482,19 @@ Eine detailierte Anleitung zum Restore mit ioBroker.backitup und auch zum manuel
     - Den Befehl: “reboot“ auf der Raspberrymatic ausführen um den PI neu zu starten
     - Alternativ kann das Backup natürlich auch wie gewohnt über das Webinterface wieder hergestellt werden.
 
-_[Zurück zum Anfang](#top)_
+_[Zurück zum Anfang](#start-of-content)_
 
 ---
+
 
 # Fehlersuche
 
     Um Fehler zu loggen, muss ioBroker.backitup in unter dem ioBroker Reiter "Instanzen" auf Log-Stufe "debug" gestellt werden.
 
-_[Zurück zum Anfang](#top)_
+_[Zurück zum Anfang](#start-of-content)_
 
 ---
+
 
 # Aufgetretene Fehler / Lösungen
 
@@ -522,6 +529,6 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen (sofern vo
 
 8.  Wenn eine Fritzbox als NAS mit einer Firmware >= 7.21 verwendet wird, sollten in ioBroker.backitup die SMB-Einstellungen auf "3.1.1" eingestellt und die Option "noserverino" aktiviert werden.
 
-_[Zurück zum Anfang](#top)_
+_[Zurück zum Anfang](#start-of-content)_
 
 ---
