@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.10.1",
+    "version": "2.10.2",
     "news": {
+      "2.10.2": {
+        "en": "Cronjob for Expert Settings added\nCode restructured\nTranslation added",
+        "de": "Cronjob für Experteneinstellungen hinzugefügt\nCode umstrukturiert\nÜbersetzung hinzugefügt",
+        "ru": "Cronjob for Expert Settings\nРеструктуризация кода\nДобавлено",
+        "pt": "Cronjob para configurações de especialistas adicionado\nCódigo reestruturado\nTradução adicionada",
+        "nl": "Cronjob voor Expert Instellingen toegevoegd\nGeherstructureerde code\nVertaling toegevoegd",
+        "fr": "Cronjob pour les paramètres experts ajoutés\nCode restructuré\nTraduction ajoutée",
+        "it": "Cronjob per le impostazioni degli esperti aggiunto\nCodice ristrutturato\nTraduzione aggiunto",
+        "es": "Cronjob for Expert Settings añadido\nCódigo reestructurado\nTraducción añadido",
+        "pl": "Cronjob dla ustawień ekspertów dodano\nKod zrestrukturyzowany\nTłumaczenie dodane",
+        "uk": "Cronjob for Expert Settings додано\nРеструктуризація коду\nПереклад додано",
+        "zh-cn": "添加了专家设置的编程工作\n调整代码\n增加了翻译"
+      },
       "2.10.1": {
         "en": "small Fixes\nCode restructured",
         "de": "kleine Feste\nCode umstrukturiert",
@@ -80,19 +93,6 @@
         "pl": "URL\nFix redis Password",
         "uk": "Оновлення URL\nФіксований червоний Логін",
         "zh-cn": "URL最新情况\nFix 重新定性 护照"
-      },
-      "2.9.6": {
-        "en": "Gotify Notication added\ndependencies updated\nCopypath check added",
-        "de": "Gotify Notication hinzugefügt\naktualisierte abhängigkeiten\nCopypath Check hinzugefügt",
-        "ru": "Получить Notication добавлено\nзависимости обновлены\nПроверка Copypath добавлена",
-        "pt": "Gotify Notication adicionado\ndependências atualizadas\nVerificação de copypath adicionado",
-        "nl": "Vertaling:\nafhankelijkheid geüpdateerd\nBegrepen",
-        "fr": "Gotify Notication added\ndépendances mises à jour\nCopypath check added",
-        "it": "Gotify Notication aggiunto\ndipendenze aggiornate\nControllo Copypath aggiunto",
-        "es": "Gotify Notication added\ndependencias actualizadas\nChequeo de cómputo añadido",
-        "pl": "Gotify Notication (ang.)\naktualizacja\nKontrola Copypatha",
-        "uk": "Додана нотифікація\nоновлені залежності\nКопіювати чек додано",
-        "zh-cn": "提名\nb. 更新的依赖\n虫害检查"
       }
     },
     "title": "BackItUp",
