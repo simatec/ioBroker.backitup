@@ -51,7 +51,6 @@
     "node-schedule": "^2.1.1",
     "node-wol": "^0.1.1",
     "onedrive-api": "^1.1.1",
-    "request": "^2.88.2",
     "tar-fs": "^3.0.4",
     "webdav": "^5.3.1",
     "https": "^1.0.0",
