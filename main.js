@@ -265,7 +265,7 @@ function startAdapter(options) {
                 case 'uploadFile':
                     if (obj.message && obj.message.protocol) {
                         if (ulServer && ulServer._connectionKey && ulServer.listening) {
-                                adapter.log.debug(`Uploadserver is running on Port ${ulServer.address().port}...`);
+                            adapter.log.debug(`Uploadserver is running on Port ${ulServer.address().port}...`);
                         } else {
                             if (obj.message.protocol === 'https:') {
                                 await getCerts(obj.from);
@@ -544,7 +544,7 @@ function createBackupSchedule() {
         if (config.enabled === true || config.enabled === 'true') {
             let time = config.ownCron === false ? config.time.split(':') : config.cronjob;
 
-            const backupInfo = config.ownCron === false ? `at ${config.time} every ${config.everyXDays} day(s)` : `with Cronjob "${config.cronjob}"`; 
+            const backupInfo = config.ownCron === false ? `at ${config.time} every ${config.everyXDays} day(s)` : `with Cronjob "${config.cronjob}"`;
             adapter.log.info(`[${type}] backup will be activated ${backupInfo}`);
 
             if (backupTimeSchedules[type]) {
@@ -1487,10 +1487,14 @@ async function nextBackup(setMain, type) {
         const time = adapter.config.ccuCron === false ? adapter.config.ccuTime.split(':') : adapter.config.ccuCronJob;
         const cron = adapter.config.ccuCron === false ? `00 ${time[1]} ${time[0]} */${adapter.config.ccuEveryXDays} * *` : time;
 
-        const interval = cronParser.parseExpression(cron);
-        const nextScheduledDate = interval.next();
+        try {
+            const interval = cronParser.parseExpression(cron);
+            const nextScheduledDate = interval.next();
 
-        await adapter.setStateAsync(`info.ccuNextTime`, tools.getNextTimeString(systemLang, nextScheduledDate), true);
+            await adapter.setStateAsync(`info.ccuNextTime`, tools.getNextTimeString(systemLang, nextScheduledDate), true);
+        } catch (e) {
+            adapter.log.warn(`Your configured CCU cronjob is not correct: ${e}`);
+        }
     } else if (!adapter.config.ccuEnabled) {
         await adapter.setStateAsync(`info.ccuNextTime`, 'none', true);
     }
@@ -1499,10 +1503,14 @@ async function nextBackup(setMain, type) {
         const time = adapter.config.iobrokerCron === false ? adapter.config.minimalTime.split(':') : adapter.config.iobrokerCronJob;
         const cron = adapter.config.iobrokerCron === false ? `00 ${time[1]} ${time[0]} */${adapter.config.minimalEveryXDays} * *` : time;
 
-        const interval = cronParser.parseExpression(cron);
-        const nextScheduledDate = interval.next();
+        try {
+            const interval = cronParser.parseExpression(cron);
+            const nextScheduledDate = interval.next();
 
-        await adapter.setStateAsync(`info.iobrokerNextTime`, tools.getNextTimeString(systemLang, nextScheduledDate), true);
+            await adapter.setStateAsync(`info.iobrokerNextTime`, tools.getNextTimeString(systemLang, nextScheduledDate), true);
+        } catch (e) {
+            adapter.log.warn(`Your configured iobroker cronjob is not correct: ${e}`);
+        }
     } else if (!adapter.config.minimalEnabled) {
         await adapter.setStateAsync(`info.iobrokerNextTime`, 'none', true);
     }
