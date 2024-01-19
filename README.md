@@ -53,7 +53,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.10.3 (2024-01-19)
 * (simatec) CCU backup switched from request to axios
 * (simatec) Sentry fix
 
