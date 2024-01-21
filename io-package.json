@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.10.3",
+    "version": "2.10.4",
     "news": {
+      "2.10.4": {
+        "en": "Fix CCU Backup",
+        "de": "CCU Backup",
+        "ru": "Fix CCU Назад",
+        "pt": "Corrigir CCU Backup",
+        "nl": "CCU repareren Reservekopie",
+        "fr": "Correction du CCU Sauvegarde",
+        "it": "Riparare CCU Backup",
+        "es": "CCU fijar Copia de seguridad",
+        "pl": "Napraw CCU Kopia zapasowa",
+        "uk": "Фіксація CCU Зареєструватися",
+        "zh-cn": "修复 CCU 备份"
+      },
       "2.10.3": {
         "en": "CCU backup switched from request to axios\nSentry fix",
         "de": "CCU-Backup von der Anfrage auf axios geschaltet\nSentry fix",
@@ -80,19 +93,6 @@
         "pl": "aktualizacja\nPrzestrucznik pamięci dla adaptatorów historii dodaje dodatki do do dodatków do do wersji zarchiwizowanej\nZamknięta ścieżka pamięci z History Adapter",
         "uk": "оновлені залежності\nСпосіб зберігання за замовчуванням додано\nДодано перевірку шляху зберігання з історичного адаптера",
         "zh-cn": "b. 更新的依赖\n历史变暖的防御储存途径\n对历史阿达佩特的储存途径的检查"
-      },
-      "2.9.8": {
-        "en": "Sentry fix",
-        "de": "Sentry fix",
-        "ru": "Чувствительная фиксация",
-        "pt": "Sentry fix",
-        "nl": "Vertaling:",
-        "fr": "Sénitry fix",
-        "it": "Sistema di rilevamento",
-        "es": "Sentry fix",
-        "pl": "Naprawa",
-        "uk": "Панчохи",
-        "zh-cn": "Sentry fix"
       }
     },
     "title": "BackItUp",
