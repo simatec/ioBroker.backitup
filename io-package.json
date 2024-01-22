@@ -1,8 +1,47 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.10.2",
+    "version": "2.10.5",
     "news": {
+      "2.10.5": {
+        "en": "Fix CCU Backup with selfsigned Certificates",
+        "de": "CCU Backup mit selbstsignierten Zertifikaten",
+        "ru": "Fix CCU Резервное копирование с самоподписанными сертификатами",
+        "pt": "Corrigir CCU Backup com certificados auto-assinados",
+        "nl": "CCU repareren Back-up met zelf ondertekende certificaten",
+        "fr": "Correction du CCU Sauvegarde avec certificats autosignés",
+        "it": "Riparare CCU Backup con certificati selfsigned",
+        "es": "CCU fijar Copia de seguridad con certificados autosignados",
+        "pl": "Napraw CCU Kopia zapasowa z samopodpisanymi certyfikatami",
+        "uk": "Фіксація CCU Резервне копіювання з самопризначеними сертифікатами",
+        "zh-cn": "修复 CCU 使用自签名证书备份"
+      },
+      "2.10.4": {
+        "en": "Fix CCU Backup",
+        "de": "CCU Backup",
+        "ru": "Fix CCU Назад",
+        "pt": "Corrigir CCU Backup",
+        "nl": "CCU repareren Reservekopie",
+        "fr": "Correction du CCU Sauvegarde",
+        "it": "Riparare CCU Backup",
+        "es": "CCU fijar Copia de seguridad",
+        "pl": "Napraw CCU Kopia zapasowa",
+        "uk": "Фіксація CCU Зареєструватися",
+        "zh-cn": "修复 CCU 备份"
+      },
+      "2.10.3": {
+        "en": "CCU backup switched from request to axios\nSentry fix",
+        "de": "CCU-Backup von der Anfrage auf axios geschaltet\nSentry fix",
+        "ru": "Резервное копирование CCU переключается с запроса на axios\nЗаказ",
+        "pt": "Cópia de segurança CCU alternada de pedido para axios\nSentry fix",
+        "nl": "CCU back-up overgeschakeld van verzoek naar axios\nSentry fix",
+        "fr": "La sauvegarde CCU est passée de la requête à l'axios\nCorrection de l'entrée",
+        "it": "Il backup CCU è passato da richiesta ad assi\nSistema di rilevamento",
+        "es": "CCU backup switched from request to axios\nSentry fix",
+        "pl": "Backup CCU przełączył się z prośby na axios\nZnak rejestracyjny",
+        "uk": "CCU переключений з запиту на аксіос\nПанчохи",
+        "zh-cn": "CCU 备份从请求切换到轴\n哨兵固定装置"
+      },
       "2.10.2": {
         "en": "Cronjob for Expert Settings added\nCode restructured\nTranslation added",
         "de": "Cronjob für Experteneinstellungen hinzugefügt\nCode umstrukturiert\nÜbersetzung hinzugefügt",
@@ -54,45 +93,6 @@
         "pl": "Odnowa węzła Fix\npo przywróceniu węzłów dodawano instalację auto-instalację po przywróceniu węzła",
         "uk": "Виправлення відновлення вузла\nавтоматична установка після відновлення вузла",
         "zh-cn": "无端恢复\n恢复原状后安装的汽车"
-      },
-      "2.9.9": {
-        "en": "dependencies updated\nDefault storage path for history adapter added\nAdded check of the storage path from the History Adapter",
-        "de": "aktualisierte abhängigkeiten\nStandard-Speicherpfad für History Adapter hinzugefügt\nZusätzliche Überprüfung des Speicherpfades vom History Adapter",
-        "ru": "зависимости обновлены\nПо умолчанию путь хранения для адаптера истории добавлен\nДобавлена проверка пути хранения от адаптера истории",
-        "pt": "dependências atualizadas\nCaminho de armazenamento padrão para o adaptador de histórico adicionado\nVerificação adicional do caminho de armazenamento do adaptador de história",
-        "nl": "afhankelijkheid geüpdateerd\nVervalsingspad voor geschiedenisadapter toegevoegd\nControle van het opslagpad van de Geschiedenis",
-        "fr": "dépendances mises à jour\nChemin de stockage par défaut pour adaptateur historique ajouté\nVérification supplémentaire du chemin de stockage depuis l'adaptateur historique",
-        "it": "dipendenze aggiornate\nPasso di archiviazione predefinito per l'adattatore di storia aggiunto\nAggiunto il controllo del percorso di archiviazione dall'adattatore di storia",
-        "es": "dependencias actualizadas\nCarril de almacenamiento predeterminado para adaptador de historia añadido\nComprobación adicional de la ruta de almacenamiento del adaptador de historia",
-        "pl": "aktualizacja\nPrzestrucznik pamięci dla adaptatorów historii dodaje dodatki do do dodatków do do wersji zarchiwizowanej\nZamknięta ścieżka pamięci z History Adapter",
-        "uk": "оновлені залежності\nСпосіб зберігання за замовчуванням додано\nДодано перевірку шляху зберігання з історичного адаптера",
-        "zh-cn": "b. 更新的依赖\n历史变暖的防御储存途径\n对历史阿达佩特的储存途径的检查"
-      },
-      "2.9.8": {
-        "en": "Sentry fix",
-        "de": "Sentry fix",
-        "ru": "Чувствительная фиксация",
-        "pt": "Sentry fix",
-        "nl": "Vertaling:",
-        "fr": "Sénitry fix",
-        "it": "Sistema di rilevamento",
-        "es": "Sentry fix",
-        "pl": "Naprawa",
-        "uk": "Панчохи",
-        "zh-cn": "Sentry fix"
-      },
-      "2.9.7": {
-        "en": "URL Update\nFix redis Password",
-        "de": "URL aktualisieren\nRedis Passwort vergessen",
-        "ru": "URL Обновление\nFix редис Пароль",
-        "pt": "Atualização de URL\nCorrigir vermelho Senha",
-        "nl": "URL Update\nVertaling: Wachtwoord",
-        "fr": "URL Update\nCorrection redis Mot de passe",
-        "it": "Aggiornamento\nRipartizione Password",
-        "es": "Actualización de URL\nArreglar redis Contraseña",
-        "pl": "URL\nFix redis Password",
-        "uk": "Оновлення URL\nФіксований червоний Логін",
-        "zh-cn": "URL最新情况\nFix 重新定性 护照"
       }
     },
     "title": "BackItUp",

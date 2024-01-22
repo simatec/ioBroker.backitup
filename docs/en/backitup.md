@@ -303,7 +303,8 @@ In order to be able to establish a connection, the host name of the cloud must m
 > Example URL: "https://example.com/remote.php/dav/files/username/"<br><br>
 A connection with a local IP address is only possible if the option "Only allow signed certificates" is deactivated.
 
-### [back](#Content)<!-- omit in toc -->
+_[Back to top](#start-of-content)_
+
 ---
 
 
@@ -317,7 +318,8 @@ If an error occurs during the backup process, older backups will also not be del
 
 Which backups were deleted and possible errors during deletion are output in Debuglog.
 
-### [back](#Content)<!-- omit in toc -->
+_[Back to top](#start-of-content)_
+
 ---
 
 

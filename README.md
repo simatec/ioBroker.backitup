@@ -53,6 +53,16 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### 2.10.5 (2024-01-22)
+* (simatec) Fix CCU Backup with selfsigned Certificates
+
+### 2.10.4 (2024-01-21)
+* (simatec) Fix CCU Backup
+
+### 2.10.3 (2024-01-19)
+* (simatec) CCU backup switched from request to axios
+* (simatec) Sentry fix
+
 ### 2.10.2 (2024-01-14)
 * (simatec) Cronjob for Expert Settings added
 * (simatec) Code restructured
