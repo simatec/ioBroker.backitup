@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.10.4",
+    "version": "2.10.5",
     "news": {
+      "2.10.5": {
+        "en": "Fix CCU Backup with selfsigned Certificates",
+        "de": "CCU Backup mit selbstsignierten Zertifikaten",
+        "ru": "Fix CCU Резервное копирование с самоподписанными сертификатами",
+        "pt": "Corrigir CCU Backup com certificados auto-assinados",
+        "nl": "CCU repareren Back-up met zelf ondertekende certificaten",
+        "fr": "Correction du CCU Sauvegarde avec certificats autosignés",
+        "it": "Riparare CCU Backup con certificati selfsigned",
+        "es": "CCU fijar Copia de seguridad con certificados autosignados",
+        "pl": "Napraw CCU Kopia zapasowa z samopodpisanymi certyfikatami",
+        "uk": "Фіксація CCU Резервне копіювання з самопризначеними сертифікатами",
+        "zh-cn": "修复 CCU 使用自签名证书备份"
+      },
       "2.10.4": {
         "en": "Fix CCU Backup",
         "de": "CCU Backup",
@@ -80,19 +93,6 @@
         "pl": "Odnowa węzła Fix\npo przywróceniu węzłów dodawano instalację auto-instalację po przywróceniu węzła",
         "uk": "Виправлення відновлення вузла\nавтоматична установка після відновлення вузла",
         "zh-cn": "无端恢复\n恢复原状后安装的汽车"
-      },
-      "2.9.9": {
-        "en": "dependencies updated\nDefault storage path for history adapter added\nAdded check of the storage path from the History Adapter",
-        "de": "aktualisierte abhängigkeiten\nStandard-Speicherpfad für History Adapter hinzugefügt\nZusätzliche Überprüfung des Speicherpfades vom History Adapter",
-        "ru": "зависимости обновлены\nПо умолчанию путь хранения для адаптера истории добавлен\nДобавлена проверка пути хранения от адаптера истории",
-        "pt": "dependências atualizadas\nCaminho de armazenamento padrão para o adaptador de histórico adicionado\nVerificação adicional do caminho de armazenamento do adaptador de história",
-        "nl": "afhankelijkheid geüpdateerd\nVervalsingspad voor geschiedenisadapter toegevoegd\nControle van het opslagpad van de Geschiedenis",
-        "fr": "dépendances mises à jour\nChemin de stockage par défaut pour adaptateur historique ajouté\nVérification supplémentaire du chemin de stockage depuis l'adaptateur historique",
-        "it": "dipendenze aggiornate\nPasso di archiviazione predefinito per l'adattatore di storia aggiunto\nAggiunto il controllo del percorso di archiviazione dall'adattatore di storia",
-        "es": "dependencias actualizadas\nCarril de almacenamiento predeterminado para adaptador de historia añadido\nComprobación adicional de la ruta de almacenamiento del adaptador de historia",
-        "pl": "aktualizacja\nPrzestrucznik pamięci dla adaptatorów historii dodaje dodatki do do dodatków do do wersji zarchiwizowanej\nZamknięta ścieżka pamięci z History Adapter",
-        "uk": "оновлені залежності\nСпосіб зберігання за замовчуванням додано\nДодано перевірку шляху зберігання з історичного адаптера",
-        "zh-cn": "b. 更新的依赖\n历史变暖的防御储存途径\n对历史阿达佩特的储存途径的检查"
       }
     },
     "title": "BackItUp",

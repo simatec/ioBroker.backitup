@@ -53,7 +53,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.10.5 (2024-01-22)
 * (simatec) Fix CCU Backup with selfsigned Certificates
 
 ### 2.10.4 (2024-01-21)
