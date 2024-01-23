@@ -1,695 +1,712 @@
 {
-  "common": {
-    "name": "backitup",
-    "version": "2.10.5",
-    "news": {
-      "2.10.5": {
-        "en": "Fix CCU Backup with selfsigned Certificates",
-        "de": "CCU Backup mit selbstsignierten Zertifikaten",
-        "ru": "Fix CCU Резервное копирование с самоподписанными сертификатами",
-        "pt": "Corrigir CCU Backup com certificados auto-assinados",
-        "nl": "CCU repareren Back-up met zelf ondertekende certificaten",
-        "fr": "Correction du CCU Sauvegarde avec certificats autosignés",
-        "it": "Riparare CCU Backup con certificati selfsigned",
-        "es": "CCU fijar Copia de seguridad con certificados autosignados",
-        "pl": "Napraw CCU Kopia zapasowa z samopodpisanymi certyfikatami",
-        "uk": "Фіксація CCU Резервне копіювання з самопризначеними сертифікатами",
-        "zh-cn": "修复 CCU 使用自签名证书备份"
-      },
-      "2.10.4": {
-        "en": "Fix CCU Backup",
-        "de": "CCU Backup",
-        "ru": "Fix CCU Назад",
-        "pt": "Corrigir CCU Backup",
-        "nl": "CCU repareren Reservekopie",
-        "fr": "Correction du CCU Sauvegarde",
-        "it": "Riparare CCU Backup",
-        "es": "CCU fijar Copia de seguridad",
-        "pl": "Napraw CCU Kopia zapasowa",
-        "uk": "Фіксація CCU Зареєструватися",
-        "zh-cn": "修复 CCU 备份"
-      },
-      "2.10.3": {
-        "en": "CCU backup switched from request to axios\nSentry fix",
-        "de": "CCU-Backup von der Anfrage auf axios geschaltet\nSentry fix",
-        "ru": "Резервное копирование CCU переключается с запроса на axios\nЗаказ",
-        "pt": "Cópia de segurança CCU alternada de pedido para axios\nSentry fix",
-        "nl": "CCU back-up overgeschakeld van verzoek naar axios\nSentry fix",
-        "fr": "La sauvegarde CCU est passée de la requête à l'axios\nCorrection de l'entrée",
-        "it": "Il backup CCU è passato da richiesta ad assi\nSistema di rilevamento",
-        "es": "CCU backup switched from request to axios\nSentry fix",
-        "pl": "Backup CCU przełączył się z prośby na axios\nZnak rejestracyjny",
-        "uk": "CCU переключений з запиту на аксіос\nПанчохи",
-        "zh-cn": "CCU 备份从请求切换到轴\n哨兵固定装置"
-      },
-      "2.10.2": {
-        "en": "Cronjob for Expert Settings added\nCode restructured\nTranslation added",
-        "de": "Cronjob für Experteneinstellungen hinzugefügt\nCode umstrukturiert\nÜbersetzung hinzugefügt",
-        "ru": "Cronjob for Expert Settings\nРеструктуризация кода\nДобавлено",
-        "pt": "Cronjob para configurações de especialistas adicionado\nCódigo reestruturado\nTradução adicionada",
-        "nl": "Cronjob voor Expert Instellingen toegevoegd\nGeherstructureerde code\nVertaling toegevoegd",
-        "fr": "Cronjob pour les paramètres experts ajoutés\nCode restructuré\nTraduction ajoutée",
-        "it": "Cronjob per le impostazioni degli esperti aggiunto\nCodice ristrutturato\nTraduzione aggiunto",
-        "es": "Cronjob for Expert Settings añadido\nCódigo reestructurado\nTraducción añadido",
-        "pl": "Cronjob dla ustawień ekspertów dodano\nKod zrestrukturyzowany\nTłumaczenie dodane",
-        "uk": "Cronjob for Expert Settings додано\nРеструктуризація коду\nПереклад додано",
-        "zh-cn": "添加了专家设置的编程工作\n调整代码\n增加了翻译"
-      },
-      "2.10.1": {
-        "en": "small Fixes\nCode restructured",
-        "de": "kleine Feste\nCode umstrukturiert",
-        "ru": "небольшие Fixes\nРеструктуризация кода",
-        "pt": "pequenas correções\nCódigo reestruturado",
-        "nl": "kleine correcties\nGeherstructureerde code",
-        "fr": "petits Fixes\nCode restructuré",
-        "it": "piccoli corredi\nCodice ristrutturato",
-        "es": "pequeñas fijaciones\nCódigo reestructurado",
-        "pl": "małe liczby\nKod zrestrukturyzowany",
-        "uk": "маленькі Фікси\nРеструктуризація коду",
-        "zh-cn": "小修补\n调整代码"
-      },
-      "2.10.0": {
-        "en": "File server improved\nRestore Tab improved\nDesign improved\nDocu updated\nBreaking Changes for Docker mapping ports",
-        "de": "Dateiserver verbessert\nRestore Tab verbessert\nDesign verbessert\nDocu aktualisiert\nÄnderungen für Docker Mapping Ports",
-        "ru": "Улучшен сервер файлов\nВосстановление Tab улучшено\nУлучшенный дизайн\nDocu\nПерерыв изменений для картографических портов Docker",
-        "pt": "Servidor de arquivo melhorado\nRestaurar Tab melhorou\nDesign melhorado\nDocu atualizado\nAlterações de quebra para portas de mapeamento Docker",
-        "nl": "Bestandsserver verbeterd\nTabblad verbeterd herstellen\nOntwerp verbeterd\nDocu bijgewerkt\nWijzigingen voor Docker-mappingpoorten breken",
-        "fr": "Serveur de fichiers amélioré\nRestaurer l'onglet amélioré\nAmélioration de la conception\nDocu mis à jour\nBriser les changements pour les ports de cartographie Docker",
-        "it": "Server dei file migliorato\nScheda di ripristino migliorata\nMiglioramento del design\nDocu aggiornato\nCambiamenti di rottura per porte di mappatura Docker",
-        "es": "Servidor de archivo mejorado\nRestore Tab mejorado\nDiseño mejorado\nDocu actualizado\nCambios de ruptura para puertos de mapeo de Docker",
-        "pl": "Poprawiony serwer plików\nPrzywracanie karty\nPoprawiony projekt\nAktualizacja doku\nBreaking Changes for Docker mapowanie portów",
-        "uk": "Покращений сервер файлів\nВідновлення вкладки поліпшення\nПокращений дизайн\nDocu оновлений\nЗміни для портів Docker",
-        "zh-cn": "改进文件服务器\n已改进恢复标签\n设计改进\n更新 Docu\nDocker 映射端口的中断更改"
-      },
-      "2.9.10": {
-        "en": "Fix node-red restore\nauto install after restore for node-red added",
-        "de": "Fix node-red wiederherstellen\nauto install nach wiederherstellen für node-red hinzugefügt",
-        "ru": "Исправление node-red восстановления\nавтоматическая установка после восстановления для добавленного node-red",
-        "pt": "Corrigir restauração de nó-vermelho\nauto instalar após a restauração para node-red adicionado",
-        "nl": "Vertaling:\nauto installatie na herstel van node-red",
-        "fr": "Restauration fixe du nœud-rouge\ninstallation automatique après restauration pour node-red ajouté",
-        "it": "Ristabilimento nodo-rosso\ninstallazione automatica dopo il ripristino per nodo-rosso aggiunto",
-        "es": "Reparación de nodos rojos\ninstalación automática después de la restauración para node-red añadido",
-        "pl": "Odnowa węzła Fix\npo przywróceniu węzłów dodawano instalację auto-instalację po przywróceniu węzła",
-        "uk": "Виправлення відновлення вузла\nавтоматична установка після відновлення вузла",
-        "zh-cn": "无端恢复\n恢复原状后安装的汽车"
-      }
-    },
-    "title": "BackItUp",
-    "titleLang": {
-      "en": "BackItUp",
-      "de": "BackItUp",
-      "ru": "BackItUp - Резервное копирование",
-      "pt": "BackItUp",
-      "nl": "BackItUp",
-      "fr": "BackItUp",
-      "it": "BackItUp",
-      "es": "BackItUp",
-      "pl": "Kopia zapasowa",
-      "uk": "Посилання",
-      "zh-cn": "BackItUp"
-    },
-    "desc": {
-      "en": "ioBroker.backitup allows you to backup and restore your ioBroker installation and other systems, such as databases, Zigbee, scripts and many more",
-      "de": "ioBroker.backitup ermöglicht es Ihnen, Ihre ioBroker-Installation und andere Systeme wie Datenbanken, Zigbee, Skripte und vieles mehr zu sichern und wiederherzustellen",
-      "ru": "ioBroker.backitup позволяет резервировать и восстанавливать установку ioBroker и другие системы, такие как базы данных, Zigbee, скрипты и многое другое",
-      "pt": "ioBroker.backitup permite fazer backup e restaurar sua instalação ioBroker e outros sistemas, como bancos de dados, Zigbee, scripts e muito mais",
-      "nl": "ioBroker.backitup kunt u back-up en herstel van uw ioBroker installatie en andere systemen, zoals databases, Zigbee, scripts en nog veel meer",
-      "fr": "ioBroker.backitup vous permet de sauvegarder et de restaurer votre installation ioBroker et d'autres systèmes, tels que les bases de données, Zigbee, scripts et beaucoup plus",
-      "it": "ioBroker.backitup consente di eseguire il backup e ripristinare l'installazione di ioBroker e altri sistemi, come database, Zigbee, script e molti altri",
-      "es": "ioBroker.backitup le permite respaldar y restaurar su instalación de iBroker y otros sistemas, como bases de datos, Zigbee, scripts y muchos más",
-      "pl": "ioBroker.backitup pozwala na tworzenie kopii zapasowych i przywracanie instalacji joBroker i innych systemów, takich jak bazy danych, Zigbee, skrypty i wiele innych",
-      "uk": "ioBroker.backitup дозволяє резервну копіювати та відновити встановлення та інші системи, такі як бази даних, Zigbee, скрипти та багато іншого",
-      "zh-cn": "约布罗克。 备份允许您备份并恢复您的 ioBroker 安装和其他系统, 如数据库、 Zigbee、 脚本和更多"
-    },
-    "authors": [
-      "simatec <backitup@simateccloud.de>",
-      "bluefox <dogafox@gmail.com>"
-    ],
-    "osDependencies": {
-      "linux": [
-        "cifs-utils",
-        "nfs-common"
-      ]
-    },
-    "docs": {
-      "en": "docs/en/backitup.md",
-      "de": "docs/de/backitup.md"
-    },
-    "platform": "Javascript/Node.js",
-    "mode": "daemon",
-    "compact": true,
-    "icon": "backitup.png",
-    "materialize": true,
-    "messagebox": true,
-    "stopBeforeUpdate": true,
-    "connectionType": "local",
-    "dataSource": "assumption",
-    "tier": 2,
-    "materializeTab": true,
-    "adminTab": {
-      "name": {
-        "en": "Backup",
-        "de": "Backup",
-        "ru": "Назад",
-        "pt": "Backup",
-        "nl": "Versterking",
-        "fr": "Sauvegarde",
-        "it": "Backup",
-        "es": "Copia de seguridad",
-        "pl": "Backup",
-        "uk": "Зареєструватися",
-        "zh-cn": "包装"
-      },
-      "ignoreConfigUpdate": true,
-      "singleton": false,
-      "fa-icon": "</i><img style='width:24px;margin-bottom:-6px;' src='/adapter/backitup/backitup.svg'><i>"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=4.0.0"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=6.0.0"
-      }
-    ],
-    "adminUI": {
-      "config": "materialize",
-      "tab": "materialize"
-    },
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/simatec/ioBroker.backitup/master/admin/backitup.png",
-    "keywords": [
-      "Backup",
-      "IoBroker",
-      "Homematic"
-    ],
-    "readme": "https://github.com/simatec/ioBroker.backitup/blob/master/README.md",
-    "loglevel": "info",
-    "type": "general",
-    "license": "MIT",
-    "plugins": {
-      "sentry": {
-        "dsn": "https://e8510540c3a343aa8ce5678a4b3c8107@sentry.iobroker.net/36"
-      }
-    },
-    "messages": [
-      {
-        "condition": {
-          "operand": "and",
-          "rules": [
-            "oldVersion<2.9.0",
-            "newVersion>=2.9.0"
-          ]
+    "common": {
+        "name": "backitup",
+        "version": "2.10.5",
+        "news": {
+            "2.10.5": {
+                "en": "Fix CCU Backup with selfsigned Certificates",
+                "de": "CCU Backup mit selbstsignierten Zertifikaten",
+                "ru": "Fix CCU Резервное копирование с самоподписанными сертификатами",
+                "pt": "Corrigir CCU Backup com certificados auto-assinados",
+                "nl": "CCU repareren Back-up met zelf ondertekende certificaten",
+                "fr": "Correction du CCU Sauvegarde avec certificats autosignés",
+                "it": "Riparare CCU Backup con certificati selfsigned",
+                "es": "CCU fijar Copia de seguridad con certificados autosignados",
+                "pl": "Napraw CCU Kopia zapasowa z samopodpisanymi certyfikatami",
+                "uk": "Фіксація CCU Резервне копіювання з самопризначеними сертифікатами",
+                "zh-cn": "修复 CCU 使用自签名证书备份"
+            },
+            "2.10.4": {
+                "en": "Fix CCU Backup",
+                "de": "CCU Backup",
+                "ru": "Fix CCU Назад",
+                "pt": "Corrigir CCU Backup",
+                "nl": "CCU repareren Reservekopie",
+                "fr": "Correction du CCU Sauvegarde",
+                "it": "Riparare CCU Backup",
+                "es": "CCU fijar Copia de seguridad",
+                "pl": "Napraw CCU Kopia zapasowa",
+                "uk": "Фіксація CCU Зареєструватися",
+                "zh-cn": "修复 CCU 备份"
+            },
+            "2.10.3": {
+                "en": "CCU backup switched from request to axios\nSentry fix",
+                "de": "CCU-Backup von der Anfrage auf axios geschaltet\nSentry fix",
+                "ru": "Резервное копирование CCU переключается с запроса на axios\nЗаказ",
+                "pt": "Cópia de segurança CCU alternada de pedido para axios\nSentry fix",
+                "nl": "CCU back-up overgeschakeld van verzoek naar axios\nSentry fix",
+                "fr": "La sauvegarde CCU est passée de la requête à l'axios\nCorrection de l'entrée",
+                "it": "Il backup CCU è passato da richiesta ad assi\nSistema di rilevamento",
+                "es": "CCU backup switched from request to axios\nSentry fix",
+                "pl": "Backup CCU przełączył się z prośby na axios\nZnak rejestracyjny",
+                "uk": "CCU переключений з запиту на аксіос\nПанчохи",
+                "zh-cn": "CCU 备份从请求切换到轴\n哨兵固定装置"
+            },
+            "2.10.2": {
+                "en": "Cronjob for Expert Settings added\nCode restructured\nTranslation added",
+                "de": "Cronjob für Experteneinstellungen hinzugefügt\nCode umstrukturiert\nÜbersetzung hinzugefügt",
+                "ru": "Cronjob for Expert Settings\nРеструктуризация кода\nДобавлено",
+                "pt": "Cronjob para configurações de especialistas adicionado\nCódigo reestruturado\nTradução adicionada",
+                "nl": "Cronjob voor Expert Instellingen toegevoegd\nGeherstructureerde code\nVertaling toegevoegd",
+                "fr": "Cronjob pour les paramètres experts ajoutés\nCode restructuré\nTraduction ajoutée",
+                "it": "Cronjob per le impostazioni degli esperti aggiunto\nCodice ristrutturato\nTraduzione aggiunto",
+                "es": "Cronjob for Expert Settings añadido\nCódigo reestructurado\nTraducción añadido",
+                "pl": "Cronjob dla ustawień ekspertów dodano\nKod zrestrukturyzowany\nTłumaczenie dodane",
+                "uk": "Cronjob for Expert Settings додано\nРеструктуризація коду\nПереклад додано",
+                "zh-cn": "添加了专家设置的编程工作\n调整代码\n增加了翻译"
+            },
+            "2.10.1": {
+                "en": "small Fixes\nCode restructured",
+                "de": "kleine Feste\nCode umstrukturiert",
+                "ru": "небольшие Fixes\nРеструктуризация кода",
+                "pt": "pequenas correções\nCódigo reestruturado",
+                "nl": "kleine correcties\nGeherstructureerde code",
+                "fr": "petits Fixes\nCode restructuré",
+                "it": "piccoli corredi\nCodice ristrutturato",
+                "es": "pequeñas fijaciones\nCódigo reestructurado",
+                "pl": "małe liczby\nKod zrestrukturyzowany",
+                "uk": "маленькі Фікси\nРеструктуризація коду",
+                "zh-cn": "小修补\n调整代码"
+            },
+            "2.10.0": {
+                "en": "File server improved\nRestore Tab improved\nDesign improved\nDocu updated\nBreaking Changes for Docker mapping ports",
+                "de": "Dateiserver verbessert\nRestore Tab verbessert\nDesign verbessert\nDocu aktualisiert\nÄnderungen für Docker Mapping Ports",
+                "ru": "Улучшен сервер файлов\nВосстановление Tab улучшено\nУлучшенный дизайн\nDocu\nПерерыв изменений для картографических портов Docker",
+                "pt": "Servidor de arquivo melhorado\nRestaurar Tab melhorou\nDesign melhorado\nDocu atualizado\nAlterações de quebra para portas de mapeamento Docker",
+                "nl": "Bestandsserver verbeterd\nTabblad verbeterd herstellen\nOntwerp verbeterd\nDocu bijgewerkt\nWijzigingen voor Docker-mappingpoorten breken",
+                "fr": "Serveur de fichiers amélioré\nRestaurer l'onglet amélioré\nAmélioration de la conception\nDocu mis à jour\nBriser les changements pour les ports de cartographie Docker",
+                "it": "Server dei file migliorato\nScheda di ripristino migliorata\nMiglioramento del design\nDocu aggiornato\nCambiamenti di rottura per porte di mappatura Docker",
+                "es": "Servidor de archivo mejorado\nRestore Tab mejorado\nDiseño mejorado\nDocu actualizado\nCambios de ruptura para puertos de mapeo de Docker",
+                "pl": "Poprawiony serwer plików\nPrzywracanie karty\nPoprawiony projekt\nAktualizacja doku\nBreaking Changes for Docker mapowanie portów",
+                "uk": "Покращений сервер файлів\nВідновлення вкладки поліпшення\nПокращений дизайн\nDocu оновлений\nЗміни для портів Docker",
+                "zh-cn": "改进文件服务器\n已改进恢复标签\n设计改进\n更新 Docu\nDocker 映射端口的中断更改"
+            },
+            "2.9.10": {
+                "en": "Fix node-red restore\nauto install after restore for node-red added",
+                "de": "Fix node-red wiederherstellen\nauto install nach wiederherstellen für node-red hinzugefügt",
+                "ru": "Исправление node-red восстановления\nавтоматическая установка после восстановления для добавленного node-red",
+                "pt": "Corrigir restauração de nó-vermelho\nauto instalar após a restauração para node-red adicionado",
+                "nl": "Vertaling:\nauto installatie na herstel van node-red",
+                "fr": "Restauration fixe du nœud-rouge\ninstallation automatique après restauration pour node-red ajouté",
+                "it": "Ristabilimento nodo-rosso\ninstallazione automatica dopo il ripristino per nodo-rosso aggiunto",
+                "es": "Reparación de nodos rojos\ninstalación automática después de la restauración para node-red añadido",
+                "pl": "Odnowa węzła Fix\npo przywróceniu węzłów dodawano instalację auto-instalację po przywróceniu węzła",
+                "uk": "Виправлення відновлення вузла\nавтоматична установка після відновлення вузла",
+                "zh-cn": "无端恢复\n恢复原状后安装的汽车"
+            }
         },
-        "title": {
-          "en": "Changes for CIFS under Node 20.x.x",
-          "de": "Änderungen für CIFS unter Node 20.x.x",
-          "ru": "Изменения для CIFS под Node 20.x.x",
-          "pt": "Alterações para CIFS em Node 20.x.x",
-          "nl": "Veranderingen voor CIFS onder Node 20.x",
-          "fr": "Changements pour le CIFS sous le no 20.x.x",
-          "it": "Modifiche per CIFS sotto Node 20.x.x",
-          "es": "Cambios para CIFS bajo Nodo 20.x.x",
-          "pl": "Zmiany dla CIFS pod numerem 20.x",
-          "uk": "Зміни для CIFS під Node 20.x.x",
-          "zh-cn": "第20.x号CIFS的变动"
+        "titleLang": {
+            "en": "BackItUp",
+            "de": "BackItUp",
+            "ru": "BackItUp - Резервное копирование",
+            "pt": "BackItUp",
+            "nl": "BackItUp",
+            "fr": "BackItUp",
+            "it": "BackItUp",
+            "es": "BackItUp",
+            "pl": "Kopia zapasowa",
+            "uk": "Посилання",
+            "zh-cn": "BackItUp"
         },
-        "text": {
-          "en": "FritzNAS users must enable the \"Cache Loose\" option in the Backitup settings for proper CIFS function under Node 20. Without this option, no backup can be written to the FritzNAS.",
-          "de": "FritzNAS-Benutzer müssen die Option \"Cache Loose\" in den Backitup-Einstellungen für die richtige CIFS-Funktion unter Node 20 aktivieren. Ohne diese Option kann kein Backup auf das FritzNAS geschrieben werden.",
-          "ru": "Пользователи FritzNAS должны включить опцию \"Cache Loose\" в настройках Backitup для правильной функции CIFS под Node 20. Без этого варианта резервное копирование не может быть написано на FritzNAS.",
-          "pt": "Os usuários do FritzNAS devem ativar a opção \"Cache Loose\" nas configurações do Backitup para a função CIFS apropriada sob o Node 20. Sem esta opção, nenhum backup pode ser escrito para o FritzNAS.",
-          "nl": "FritzNAS gebruikers moeten de \"Cache Loose\" optie in de Backitup settings voor goede CIFS-functies onder de 20. Zonder deze optie kan er geen back-up geschreven worden aan de FritzNAS.",
-          "fr": "Les utilisateurs de FritzNAS doivent activer l'option \"Cache Loose\" dans les paramètres de sauvegarde de la fonction CIFS appropriée sous le numéro 20. Sans cette option, aucune sauvegarde ne peut être écrite au FritzNAS.",
-          "it": "Gli utenti di FritzNAS devono abilitare l'opzione \"Cache Loose\" nelle impostazioni di Backitup per una corretta funzione CIFS sotto Node 20. Senza questa opzione, nessun backup può essere scritto al FritzNAS.",
-          "es": "Los usuarios de FritzNAS deben habilitar la opción \"Cache Loose\" en la configuración de Backitup para la función apropiada de CIFS bajo Nodo 20. Sin esta opción, no se puede escribir copia de seguridad al FritzNAS.",
-          "pl": "Użytkownicy FritzNAS muszą umożliwić opcję „Cache Loose” w ustawieniach Backitup dla funkcji CIFS. Bez tej opcji nie można pisać FritzNAS.",
-          "uk": "Користувачі FritzNAS повинні увімкнути параметр \"Cache Loose\" у налаштуваннях Backitup для коректної функції CIFS під Node 20. Без цього варіанту не можна писати на ФрицНАС.",
-          "zh-cn": "FritzNAS用户必须能够使Backitup环境中的“Cache Loose”方案能够正常的CIFS功能。 没有这种选择,就不能向弗朗西斯·弗朗索瓦斯写回来。."
+        "desc": {
+            "en": "ioBroker.backitup allows you to backup and restore your ioBroker installation and other systems, such as databases, Zigbee, scripts and many more",
+            "de": "ioBroker.backitup ermöglicht es Ihnen, Ihre ioBroker-Installation und andere Systeme wie Datenbanken, Zigbee, Skripte und vieles mehr zu sichern und wiederherzustellen",
+            "ru": "ioBroker.backitup позволяет резервировать и восстанавливать установку ioBroker и другие системы, такие как базы данных, Zigbee, скрипты и многое другое",
+            "pt": "ioBroker.backitup permite fazer backup e restaurar sua instalação ioBroker e outros sistemas, como bancos de dados, Zigbee, scripts e muito mais",
+            "nl": "ioBroker.backitup kunt u back-up en herstel van uw ioBroker installatie en andere systemen, zoals databases, Zigbee, scripts en nog veel meer",
+            "fr": "ioBroker.backitup vous permet de sauvegarder et de restaurer votre installation ioBroker et d'autres systèmes, tels que les bases de données, Zigbee, scripts et beaucoup plus",
+            "it": "ioBroker.backitup consente di eseguire il backup e ripristinare l'installazione di ioBroker e altri sistemi, come database, Zigbee, script e molti altri",
+            "es": "ioBroker.backitup le permite respaldar y restaurar su instalación de iBroker y otros sistemas, como bases de datos, Zigbee, scripts y muchos más",
+            "pl": "ioBroker.backitup pozwala na tworzenie kopii zapasowych i przywracanie instalacji joBroker i innych systemów, takich jak bazy danych, Zigbee, skrypty i wiele innych",
+            "uk": "ioBroker.backitup дозволяє резервну копіювати та відновити встановлення та інші системи, такі як бази даних, Zigbee, скрипти та багато іншого",
+            "zh-cn": "约布罗克。 备份允许您备份并恢复您的 ioBroker 安装和其他系统, 如数据库、 Zigbee、 脚本和更多"
         },
-        "level": "warn",
-        "buttons": [
-          "agree",
-          "cancel"
-        ]
-      },
-      {
-        "condition": {
-          "operand": "and",
-          "rules": [
-            "oldVersion<2.10.0",
-            "newVersion>=2.10.0"
-          ]
-        },
-        "title": {
-          "en": "Breaking Changes for Docker mapping ports",
-          "de": "Wichtige Änderungen für Docker Mapping Ports",
-          "ru": "Перерыв изменений для картографических портов Docker",
-          "pt": "Alterações de quebra para portas de mapeamento Docker",
-          "nl": "Wijzigingen voor Docker-mappingpoorten breken",
-          "fr": "Briser les changements pour les ports de cartographie Docker",
-          "it": "Cambiamenti di rottura per porte di mappatura Docker",
-          "es": "Cambios de ruptura para puertos de mapeo de Docker",
-          "pl": "Breaking Changes for Docker mapowanie portów",
-          "uk": "Зміни для портів Docker",
-          "zh-cn": "Docker 映射端口的中断更改"
-        },
-        "text": {
-          "en": "Due to changes, the mapping ports must be adapted for Docker containers. All port details can be found in the documentation.",
-          "de": "Durch Änderungen müssen die Mapping Ports für Docker Container angepasst werden. Alle Port-Details finden Sie in der Dokumentation.",
-          "ru": "Из-за изменений порты картографирования должны быть адаптированы для контейнеров Docker. Все детали порта можно найти в документации.",
-          "pt": "Devido a mudanças, as portas de mapeamento devem ser adaptadas para contentores Docker. Todos os detalhes da porta podem ser encontrados na documentação.",
-          "nl": "Door veranderingen moeten de ports aangepast worden voor Docker containers. Alle havengegevens zijn te vinden in de documentatie.",
-          "fr": "En raison de changements, les ports de cartographie doivent être adaptés pour les conteneurs Docker. Tous les détails du port se trouvent dans la documentation.",
-          "it": "A causa delle modifiche, le porte di mappatura devono essere adattate per contenitori Docker. Tutti i dettagli della porta si trovano nella documentazione.",
-          "es": "Debido a los cambios, los puertos de mapeo deben ser adaptados para contenedores Docker. Todos los detalles del puerto se pueden encontrar en la documentación.",
-          "pl": "Ze względu na zmiany, porty mapujące muszą być dostosowane do kontenerów Docker. Wszystkie szczegóły portu znajdują się w dokumentacji.",
-          "uk": "У зв'язку з змінами порти картування повинні бути адаптовані для контейнерів Docker. Усі деталі порту можна знайти в документації.",
-          "zh-cn": "由于变化,绘图端口必须适应多克容器. 所有端口细节均可在文档中找到."
-        },
-        "level": "warn",
-        "buttons": [
-          "agree",
-          "cancel"
+        "authors": [
+            "simatec <backitup@simateccloud.de>",
+            "bluefox <dogafox@gmail.com>"
         ],
-        "link": "https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
-        "linkText": {
-          "en": "Docker-Documentation",
-          "de": "Docker-Dokumentation",
-          "ru": "Docker-Document",
-          "pt": "Docker-Documentação",
-          "nl": "Dockerdocumentatie",
-          "fr": "Docker-Documentation",
-          "it": "Docker-Documentazione",
-          "es": "Docker-Documentación",
-          "pl": "Dokumentacja dokerów",
-          "uk": "Документація",
-          "zh-cn": "Docker 文档"
+        "osDependencies": {
+            "linux": [
+                "cifs-utils",
+                "nfs-common"
+            ]
+        },
+        "docs": {
+            "en": "docs/en/backitup.md",
+            "de": "docs/de/backitup.md"
+        },
+        "platform": "Javascript/Node.js",
+        "mode": "daemon",
+        "compact": true,
+        "icon": "backitup.png",
+        "materialize": true,
+        "messagebox": true,
+        "stopBeforeUpdate": true,
+        "connectionType": "local",
+        "dataSource": "assumption",
+        "tier": 2,
+        "materializeTab": true,
+        "adminTab": {
+            "name": {
+                "en": "Backup",
+                "de": "Backup",
+                "ru": "Назад",
+                "pt": "Backup",
+                "nl": "Versterking",
+                "fr": "Sauvegarde",
+                "it": "Backup",
+                "es": "Copia de seguridad",
+                "pl": "Backup",
+                "uk": "Зареєструватися",
+                "zh-cn": "包装"
+            },
+            "ignoreConfigUpdate": true,
+            "singleton": false,
+            "fa-icon": "</i><img style='width:24px;margin-bottom:-6px;' src='/adapter/backitup/backitup.svg'><i>"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=4.0.0"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=6.0.0"
+            }
+        ],
+        "adminUI": {
+            "config": "materialize",
+            "tab": "materialize"
+        },
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/simatec/ioBroker.backitup/master/admin/backitup.png",
+        "keywords": [
+            "Backup",
+            "iob",
+            "Homematic",
+            "Grafana",
+            "Zigbee",
+            "MySql",
+            "InfluxDB",
+            "Onedrive",
+            "GoogleDrive",
+            "Dropbox",
+            "WebDav",
+            "NFS",
+            "CIFS",
+            "FTP",
+            "NAS",
+            "Backitup",
+            "JavaScript",
+            "Restore",
+            "Redis",
+            "Node-Red",
+            "Yahka"
+        ],
+        "readme": "https://github.com/simatec/ioBroker.backitup/blob/master/README.md",
+        "loglevel": "info",
+        "type": "general",
+        "license": "MIT",
+        "plugins": {
+            "sentry": {
+                "dsn": "https://e8510540c3a343aa8ce5678a4b3c8107@sentry.iobroker.net/36"
+            }
+        },
+        "messages": [
+            {
+                "condition": {
+                    "operand": "and",
+                    "rules": [
+                        "oldVersion<2.9.0",
+                        "newVersion>=2.9.0"
+                    ]
+                },
+                "title": {
+                    "en": "Changes for CIFS under Node 20.x.x",
+                    "de": "Änderungen für CIFS unter Node 20.x.x",
+                    "ru": "Изменения для CIFS под Node 20.x.x",
+                    "pt": "Alterações para CIFS em Node 20.x.x",
+                    "nl": "Veranderingen voor CIFS onder Node 20.x",
+                    "fr": "Changements pour le CIFS sous le no 20.x.x",
+                    "it": "Modifiche per CIFS sotto Node 20.x.x",
+                    "es": "Cambios para CIFS bajo Nodo 20.x.x",
+                    "pl": "Zmiany dla CIFS pod numerem 20.x",
+                    "uk": "Зміни для CIFS під Node 20.x.x",
+                    "zh-cn": "第20.x号CIFS的变动"
+                },
+                "text": {
+                    "en": "FritzNAS users must enable the \"Cache Loose\" option in the Backitup settings for proper CIFS function under Node 20. Without this option, no backup can be written to the FritzNAS.",
+                    "de": "FritzNAS-Benutzer müssen die Option \"Cache Loose\" in den Backitup-Einstellungen für die richtige CIFS-Funktion unter Node 20 aktivieren. Ohne diese Option kann kein Backup auf das FritzNAS geschrieben werden.",
+                    "ru": "Пользователи FritzNAS должны включить опцию \"Cache Loose\" в настройках Backitup для правильной функции CIFS под Node 20. Без этого варианта резервное копирование не может быть написано на FritzNAS.",
+                    "pt": "Os usuários do FritzNAS devem ativar a opção \"Cache Loose\" nas configurações do Backitup para a função CIFS apropriada sob o Node 20. Sem esta opção, nenhum backup pode ser escrito para o FritzNAS.",
+                    "nl": "FritzNAS gebruikers moeten de \"Cache Loose\" optie in de Backitup settings voor goede CIFS-functies onder de 20. Zonder deze optie kan er geen back-up geschreven worden aan de FritzNAS.",
+                    "fr": "Les utilisateurs de FritzNAS doivent activer l'option \"Cache Loose\" dans les paramètres de sauvegarde de la fonction CIFS appropriée sous le numéro 20. Sans cette option, aucune sauvegarde ne peut être écrite au FritzNAS.",
+                    "it": "Gli utenti di FritzNAS devono abilitare l'opzione \"Cache Loose\" nelle impostazioni di Backitup per una corretta funzione CIFS sotto Node 20. Senza questa opzione, nessun backup può essere scritto al FritzNAS.",
+                    "es": "Los usuarios de FritzNAS deben habilitar la opción \"Cache Loose\" en la configuración de Backitup para la función apropiada de CIFS bajo Nodo 20. Sin esta opción, no se puede escribir copia de seguridad al FritzNAS.",
+                    "pl": "Użytkownicy FritzNAS muszą umożliwić opcję „Cache Loose” w ustawieniach Backitup dla funkcji CIFS. Bez tej opcji nie można pisać FritzNAS.",
+                    "uk": "Користувачі FritzNAS повинні увімкнути параметр \"Cache Loose\" у налаштуваннях Backitup для коректної функції CIFS під Node 20. Без цього варіанту не можна писати на ФрицНАС.",
+                    "zh-cn": "FritzNAS用户必须能够使Backitup环境中的“Cache Loose”方案能够正常的CIFS功能。 没有这种选择,就不能向弗朗西斯·弗朗索瓦斯写回来。."
+                },
+                "level": "warn",
+                "buttons": [
+                    "agree",
+                    "cancel"
+                ]
+            },
+            {
+                "condition": {
+                    "operand": "and",
+                    "rules": [
+                        "oldVersion<2.10.0",
+                        "newVersion>=2.10.0"
+                    ]
+                },
+                "title": {
+                    "en": "Breaking Changes for Docker mapping ports",
+                    "de": "Wichtige Änderungen für Docker Mapping Ports",
+                    "ru": "Перерыв изменений для картографических портов Docker",
+                    "pt": "Alterações de quebra para portas de mapeamento Docker",
+                    "nl": "Wijzigingen voor Docker-mappingpoorten breken",
+                    "fr": "Briser les changements pour les ports de cartographie Docker",
+                    "it": "Cambiamenti di rottura per porte di mappatura Docker",
+                    "es": "Cambios de ruptura para puertos de mapeo de Docker",
+                    "pl": "Breaking Changes for Docker mapowanie portów",
+                    "uk": "Зміни для портів Docker",
+                    "zh-cn": "Docker 映射端口的中断更改"
+                },
+                "text": {
+                    "en": "Due to changes, the mapping ports must be adapted for Docker containers. All port details can be found in the documentation.",
+                    "de": "Durch Änderungen müssen die Mapping Ports für Docker Container angepasst werden. Alle Port-Details finden Sie in der Dokumentation.",
+                    "ru": "Из-за изменений порты картографирования должны быть адаптированы для контейнеров Docker. Все детали порта можно найти в документации.",
+                    "pt": "Devido a mudanças, as portas de mapeamento devem ser adaptadas para contentores Docker. Todos os detalhes da porta podem ser encontrados na documentação.",
+                    "nl": "Door veranderingen moeten de ports aangepast worden voor Docker containers. Alle havengegevens zijn te vinden in de documentatie.",
+                    "fr": "En raison de changements, les ports de cartographie doivent être adaptés pour les conteneurs Docker. Tous les détails du port se trouvent dans la documentation.",
+                    "it": "A causa delle modifiche, le porte di mappatura devono essere adattate per contenitori Docker. Tutti i dettagli della porta si trovano nella documentazione.",
+                    "es": "Debido a los cambios, los puertos de mapeo deben ser adaptados para contenedores Docker. Todos los detalles del puerto se pueden encontrar en la documentación.",
+                    "pl": "Ze względu na zmiany, porty mapujące muszą być dostosowane do kontenerów Docker. Wszystkie szczegóły portu znajdują się w dokumentacji.",
+                    "uk": "У зв'язку з змінами порти картування повинні бути адаптовані для контейнерів Docker. Усі деталі порту можна знайти в документації.",
+                    "zh-cn": "由于变化,绘图端口必须适应多克容器. 所有端口细节均可在文档中找到."
+                },
+                "level": "warn",
+                "buttons": [
+                    "agree",
+                    "cancel"
+                ],
+                "link": "https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English#docker-support",
+                "linkText": {
+                    "en": "Docker-Documentation",
+                    "de": "Docker-Dokumentation",
+                    "ru": "Docker-Document",
+                    "pt": "Docker-Documentação",
+                    "nl": "Dockerdocumentatie",
+                    "fr": "Docker-Documentation",
+                    "it": "Docker-Documentazione",
+                    "es": "Docker-Documentación",
+                    "pl": "Dokumentacja dokerów",
+                    "uk": "Документація",
+                    "zh-cn": "Docker 文档"
+                }
+            }
+        ]
+    },
+    "native": {
+        "cacheLoose": false,
+        "ccuCron": false,
+        "ccuCronJob": "00 36 01 */3 * *",
+        "ccuDeleteAfter": 10,
+        "ccuEnabled": false,
+        "ccuEvents": [],
+        "ccuEveryXDays": 3,
+        "ccuHost": "",
+        "ccuMulti": false,
+        "ccuNameSuffix": "",
+        "ccuPassword": "",
+        "ccuSignedCertificates": true,
+        "ccuTime": "01:36",
+        "ccuUsehttps": false,
+        "ccuUser": "Admin",
+        "cifsCcuDir": "sharename/backupDir",
+        "cifsDeleteOldBackup": false,
+        "cifsDir": "sharename/backupDir",
+        "cifsDomain": "",
+        "cifsEnabled": false,
+        "cifsMinimalDir": "sharename/backupDir",
+        "cifsMount": "",
+        "cifsOwnDir": false,
+        "cifsPassword": "",
+        "cifsUser": "",
+        "connectType": "NFS",
+        "debugLevel": false,
+        "deleteOldDataBase": false,
+        "discordInstance": "discord.0",
+        "discordNoticeType": "longWhatsappNotice",
+        "discordOnlyError": false,
+        "discordTarget": "",
+        "discordWaitToSend": 0,
+        "dropboxAccessJson": "",
+        "dropboxAccessToken": "",
+        "dropboxCcuDir": "/backupDir/ccu",
+        "dropboxCodeChallenge": "",
+        "dropboxDeleteOldBackup": false,
+        "dropboxDir": "/backupDir",
+        "dropboxEnabled": false,
+        "dropboxMinimalDir": "/backupDir/iobroker",
+        "dropboxOwnDir": false,
+        "dropboxTokenType": "custom",
+        "emailInstance": "email.0",
+        "emailNoticeType": "longEmailNotice",
+        "emailOnlyError": false,
+        "emailReceiver": "xxx@xxx.com",
+        "emailSender": "xxx@xxx.com",
+        "emailWaitToSend": 0,
+        "esphomeEnabled": false,
+        "fileSizeError": 512,
+        "fileSizeWarning": 1024,
+        "ftpCcuDir": "/backupDir/ccu",
+        "ftpDeleteOldBackup": false,
+        "ftpDir": "/backupDir",
+        "ftpEnabled": false,
+        "ftpHost": "",
+        "ftpMinimalDir": "/backupDir/iobroker",
+        "ftpOwnDir": false,
+        "ftpPassword": "",
+        "ftpPort": 21,
+        "ftpSecure": false,
+        "ftpSignedCertificates": true,
+        "ftpUser": "",
+        "googledriveAccessTokens": "",
+        "googledriveCcuDir": "/backupDir/ccu",
+        "googledriveDeleteOldBackup": false,
+        "googledriveDir": "/backupDir",
+        "googledriveEnabled": false,
+        "googledriveMinimalDir": "/backupDir/iobroker",
+        "googledriveOwnDir": false,
+        "gotifyInstance": "gotify.0",
+        "gotifyNoticeType": "longGotifyNotice",
+        "gotifyOnlyError": false,
+        "gotifyWaitToSend": 0,
+        "grafanaApiKey": "",
+        "grafanaEnabled": false,
+        "grafanaHost": "",
+        "grafanaPassword": "",
+        "grafanaPort": "3000",
+        "grafanaProtocol": "http",
+        "grafanaSignedCertificates": true,
+        "grafanaUsername": "admin",
+        "historyEnabled": false,
+        "historyEntriesNumber": 25,
+        "historyPath": "/opt/iobroker/iobroker-data/history",
+        "hostType": "Single",
+        "ignoreErrors": false,
+        "influxDBDeleteAfter": 5,
+        "influxDBDumpExe": "",
+        "influxDBEnabled": false,
+        "influxDBEvents": [],
+        "influxDBHost": "localhost",
+        "influxDBMulti": false,
+        "influxDBName": "iobroker",
+        "influxDBPort": "8088",
+        "influxDBProtocol": "http",
+        "influxDBToken": "",
+        "influxDBType": "local",
+        "influxDBVersion": "1.x",
+        "iobrokerCron": false,
+        "iobrokerCronJob": "00 48 02 */1 * *",
+        "jarvisEnabled": false,
+        "javascriptsEnabled": false,
+        "macAd": "20:DE:20:DE:20:DE",
+        "matrixInstance": "matrix-org.0",
+        "matrixNoticeType": "longMatrixNotice",
+        "matrixOnlyError": false,
+        "matrixWaitToSend": 0,
+        "minimalDeleteAfter": 10,
+        "minimalEnabled": true,
+        "minimalEveryXDays": 1,
+        "minimalNameSuffix": "",
+        "minimalTime": "02:48",
+        "mySqlDeleteAfter": 5,
+        "mySqlDumpExe": "",
+        "mySqlEnabled": false,
+        "mySqlEvents": [],
+        "mySqlHost": "localhost",
+        "mysqlMinimalEnabled": false,
+        "mySqlMulti": false,
+        "mySqlName": "iobroker",
+        "mySqlPassword": "",
+        "mySqlPort": "3306",
+        "mysqlQuick": false,
+        "mysqlSingleTransaction": false,
+        "mySqlUser": "",
+        "noderedEnabled": false,
+        "noserverino": false,
+        "notificationEnabled": false,
+        "notificationsType": "Telegram",
+        "onedriveAccessJson": "",
+        "onedriveCcuDir": "backupDir/ccu",
+        "onedriveDeleteOldBackup": false,
+        "onedriveDir": "backupDir",
+        "onedriveEnabled": false,
+        "onedriveLastTokenRenew": "",
+        "onedriveMinimalDir": "backupDir/iobroker",
+        "onedriveOwnDir": false,
+        "pgSqlDeleteAfter": 5,
+        "pgSqlDumpExe": "",
+        "pgSqlEnabled": false,
+        "pgSqlEvents": [],
+        "pgSqlHost": "",
+        "pgSqlMulti": false,
+        "pgSqlName": "",
+        "pgSqlPassword": "",
+        "pgSqlPort": "5432",
+        "pgSqlUser": "",
+        "pushoverDeviceID": "",
+        "pushoverInstance": "pushover.0",
+        "pushoverNoticeType": "longPushoverNotice",
+        "pushoverOnlyError": false,
+        "pushoverSilentNotice": false,
+        "pushoverWaitToSend": 0,
+        "redisAOFactive": false,
+        "redisEnabled": false,
+        "redisHost": "",
+        "redisMinimalEnabled": false,
+        "redisPassword": "",
+        "redisPath": "/var/lib/redis",
+        "redisPort": 6379,
+        "redisType": "local",
+        "redisUser": "",
+        "restoreSource": "local",
+        "restoreTab": false,
+        "sentry_enable": true,
+        "signalInstance": "signal-cmb.0",
+        "signalNoticeType": "longSignalNotice",
+        "signalOnlyError": false,
+        "signalWaitToSend": 0,
+        "slaveInstance": "backitup.1",
+        "slaveNameSuffix": "",
+        "smbType": "vers=3.1.1",
+        "sqliteDumpExe": "",
+        "sqliteEnabled": false,
+        "sqlitePath": "/opt/sqlite/data.db",
+        "startAllRestore": false,
+        "stopSlaveAfter": false,
+        "sudoMount": true,
+        "telegramInstance": "telegram.0",
+        "telegramNoticeType": "longTelegramNotice",
+        "telegramOnlyError": false,
+        "telegramSilentNotice": false,
+        "telegramUser": "All Receiver",
+        "telegramWaitToSend": 0,
+        "wakeOnLAN": false,
+        "webdavCcuDir": "/backupDir/ccu",
+        "webdavDeleteOldBackup": false,
+        "webdavDir": "/backupDir",
+        "webdavEnabled": false,
+        "webdavMinimalDir": "/backupDir/iobroker",
+        "webdavOwnDir": false,
+        "webdavPassword": "",
+        "webdavSignedCertificates": true,
+        "webdavURL": "https://<example.com>/remote.php/dav/files/<username>/",
+        "webdavUsername": "username",
+        "whatsappInstance": "whatsapp-cmb.0",
+        "whatsappNoticeType": "longWhatsappNotice",
+        "whatsappOnlyError": false,
+        "whatsappWaitToSend": 0,
+        "wolExtra": false,
+        "wolPort": 9,
+        "wolWait": 25,
+        "yahkaEnabled": false,
+        "zigbee2mqttEnabled": false,
+        "zigbee2mqttPath": "/opt/zigbee2mqtt/data",
+        "zigbeeEnabled": false
+    },
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.latestBackup",
+            "type": "state",
+            "common": {
+                "role": "state",
+                "name": "Latest backup found by start",
+                "type": "json",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.ccuNextTime",
+            "type": "state",
+            "common": {
+                "role": "state",
+                "name": "Next CCU backup",
+                "type": "string",
+                "read": true,
+                "write": false,
+                "def": "none"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.iobrokerNextTime",
+            "type": "state",
+            "common": {
+                "role": "state",
+                "name": "Next iobroker backup",
+                "type": "string",
+                "read": true,
+                "write": false,
+                "def": "none"
+            },
+            "native": {}
+        },
+        {
+            "_id": "history",
+            "type": "channel",
+            "common": {
+                "name": "History Logs"
+            },
+            "native": {}
+        },
+        {
+            "_id": "history.html",
+            "type": "state",
+            "common": {
+                "role": "html",
+                "name": "History-Log of executed backups",
+                "type": "string",
+                "read": true,
+                "write": false,
+                "def": "No backups yet"
+            },
+            "native": {}
+        },
+        {
+            "_id": "history.json",
+            "type": "state",
+            "common": {
+                "role": "state",
+                "name": "History-Log of executed backups",
+                "type": "json",
+                "read": true,
+                "write": false,
+                "def": "[]"
+            },
+            "native": {}
+        },
+        {
+            "_id": "history.ccuLastTime",
+            "type": "state",
+            "common": {
+                "role": "state",
+                "name": "Last CCU backup",
+                "type": "string",
+                "read": true,
+                "write": false,
+                "def": "No backups yet"
+            },
+            "native": {}
+        },
+        {
+            "_id": "history.iobrokerLastTime",
+            "type": "state",
+            "common": {
+                "role": "state",
+                "name": "Last iobroker backup",
+                "type": "string",
+                "read": true,
+                "write": false,
+                "def": "No backups yet"
+            },
+            "native": {}
+        },
+        {
+            "_id": "history.ccuSuccess",
+            "type": "state",
+            "common": {
+                "role": "switch",
+                "name": "Last ccu backup Success",
+                "type": "boolean",
+                "read": true,
+                "write": true,
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "history.iobrokerSuccess",
+            "type": "state",
+            "common": {
+                "role": "switch",
+                "name": "Last iobroker backup Success",
+                "type": "boolean",
+                "read": true,
+                "write": true,
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "oneClick",
+            "type": "channel",
+            "common": {
+                "name": "OneClick Buttons"
+            },
+            "native": {}
+        },
+        {
+            "_id": "oneClick.ccu",
+            "type": "state",
+            "common": {
+                "role": "switch",
+                "name": "Execute CCU backup",
+                "type": "boolean",
+                "read": true,
+                "write": true,
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "oneClick.iobroker",
+            "type": "state",
+            "common": {
+                "role": "switch",
+                "name": "Execute iobroker backup",
+                "type": "boolean",
+                "read": true,
+                "write": true,
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "output",
+            "type": "channel",
+            "common": {
+                "name": "Output states"
+            },
+            "native": {}
+        },
+        {
+            "_id": "output.line",
+            "type": "state",
+            "common": {
+                "role": "state",
+                "name": "Used for debug outputs",
+                "type": "string",
+                "read": true,
+                "write": false,
+                "def": ""
+            },
+            "native": {}
         }
-      }
-    ]
-  },
-  "native": {
-    "cacheLoose": false,
-    "ccuCron": false,
-    "ccuCronJob": "00 36 01 */3 * *",
-    "ccuDeleteAfter": 10,
-    "ccuEnabled": false,
-    "ccuEvents": [],
-    "ccuEveryXDays": 3,
-    "ccuHost": "",
-    "ccuMulti": false,
-    "ccuNameSuffix": "",
-    "ccuPassword": "",
-    "ccuSignedCertificates": true,
-    "ccuTime": "01:36",
-    "ccuUsehttps": false,
-    "ccuUser": "Admin",
-    "cifsCcuDir": "sharename/backupDir",
-    "cifsDeleteOldBackup": false,
-    "cifsDir": "sharename/backupDir",
-    "cifsDomain": "",
-    "cifsEnabled": false,
-    "cifsMinimalDir": "sharename/backupDir",
-    "cifsMount": "",
-    "cifsOwnDir": false,
-    "cifsPassword": "",
-    "cifsUser": "",
-    "connectType": "NFS",
-    "debugLevel": false,
-    "deleteOldDataBase": false,
-    "discordInstance": "discord.0",
-    "discordNoticeType": "longWhatsappNotice",
-    "discordOnlyError": false,
-    "discordTarget": "",
-    "discordWaitToSend": 0,
-    "dropboxAccessJson": "",
-    "dropboxAccessToken": "",
-    "dropboxCcuDir": "/backupDir/ccu",
-    "dropboxCodeChallenge": "",
-    "dropboxDeleteOldBackup": false,
-    "dropboxDir": "/backupDir",
-    "dropboxEnabled": false,
-    "dropboxMinimalDir": "/backupDir/iobroker",
-    "dropboxOwnDir": false,
-    "dropboxTokenType": "custom",
-    "emailInstance": "email.0",
-    "emailNoticeType": "longEmailNotice",
-    "emailOnlyError": false,
-    "emailReceiver": "xxx@xxx.com",
-    "emailSender": "xxx@xxx.com",
-    "emailWaitToSend": 0,
-    "esphomeEnabled": false,
-    "fileSizeError": 512,
-    "fileSizeWarning": 1024,
-    "ftpCcuDir": "/backupDir/ccu",
-    "ftpDeleteOldBackup": false,
-    "ftpDir": "/backupDir",
-    "ftpEnabled": false,
-    "ftpHost": "",
-    "ftpMinimalDir": "/backupDir/iobroker",
-    "ftpOwnDir": false,
-    "ftpPassword": "",
-    "ftpPort": 21,
-    "ftpSecure": false,
-    "ftpSignedCertificates": true,
-    "ftpUser": "",
-    "googledriveAccessTokens": "",
-    "googledriveCcuDir": "/backupDir/ccu",
-    "googledriveDeleteOldBackup": false,
-    "googledriveDir": "/backupDir",
-    "googledriveEnabled": false,
-    "googledriveMinimalDir": "/backupDir/iobroker",
-    "googledriveOwnDir": false,
-    "gotifyInstance": "gotify.0",
-    "gotifyNoticeType": "longGotifyNotice",
-    "gotifyOnlyError": false,
-    "gotifyWaitToSend": 0,
-    "grafanaApiKey": "",
-    "grafanaEnabled": false,
-    "grafanaHost": "",
-    "grafanaPassword": "",
-    "grafanaPort": "3000",
-    "grafanaProtocol": "http",
-    "grafanaSignedCertificates": true,
-    "grafanaUsername": "admin",
-    "historyEnabled": false,
-    "historyEntriesNumber": 25,
-    "historyPath": "/opt/iobroker/iobroker-data/history",
-    "hostType": "Single",
-    "ignoreErrors": false,
-    "influxDBDeleteAfter": 5,
-    "influxDBDumpExe": "",
-    "influxDBEnabled": false,
-    "influxDBEvents": [],
-    "influxDBHost": "localhost",
-    "influxDBMulti": false,
-    "influxDBName": "iobroker",
-    "influxDBPort": "8088",
-    "influxDBProtocol": "http",
-    "influxDBToken": "",
-    "influxDBType": "local",
-    "influxDBVersion": "1.x",
-    "iobrokerCron": false,
-    "iobrokerCronJob": "00 48 02 */1 * *",
-    "jarvisEnabled": false,
-    "javascriptsEnabled": false,
-    "macAd": "20:DE:20:DE:20:DE",
-    "matrixInstance": "matrix-org.0",
-    "matrixNoticeType": "longMatrixNotice",
-    "matrixOnlyError": false,
-    "matrixWaitToSend": 0,
-    "minimalDeleteAfter": 10,
-    "minimalEnabled": true,
-    "minimalEveryXDays": 1,
-    "minimalNameSuffix": "",
-    "minimalTime": "02:48",
-    "mySqlDeleteAfter": 5,
-    "mySqlDumpExe": "",
-    "mySqlEnabled": false,
-    "mySqlEvents": [],
-    "mySqlHost": "localhost",
-    "mysqlMinimalEnabled": false,
-    "mySqlMulti": false,
-    "mySqlName": "iobroker",
-    "mySqlPassword": "",
-    "mySqlPort": "3306",
-    "mysqlQuick": false,
-    "mysqlSingleTransaction": false,
-    "mySqlUser": "",
-    "noderedEnabled": false,
-    "noserverino": false,
-    "notificationEnabled": false,
-    "notificationsType": "Telegram",
-    "onedriveAccessJson": "",
-    "onedriveCcuDir": "backupDir/ccu",
-    "onedriveDeleteOldBackup": false,
-    "onedriveDir": "backupDir",
-    "onedriveEnabled": false,
-    "onedriveLastTokenRenew": "",
-    "onedriveMinimalDir": "backupDir/iobroker",
-    "onedriveOwnDir": false,
-    "pgSqlDeleteAfter": 5,
-    "pgSqlDumpExe": "",
-    "pgSqlEnabled": false,
-    "pgSqlEvents": [],
-    "pgSqlHost": "",
-    "pgSqlMulti": false,
-    "pgSqlName": "",
-    "pgSqlPassword": "",
-    "pgSqlPort": "5432",
-    "pgSqlUser": "",
-    "pushoverDeviceID": "",
-    "pushoverInstance": "pushover.0",
-    "pushoverNoticeType": "longPushoverNotice",
-    "pushoverOnlyError": false,
-    "pushoverSilentNotice": false,
-    "pushoverWaitToSend": 0,
-    "redisAOFactive": false,
-    "redisEnabled": false,
-    "redisHost": "",
-    "redisMinimalEnabled": false,
-    "redisPassword": "",
-    "redisPath": "/var/lib/redis",
-    "redisPort": 6379,
-    "redisType": "local",
-    "redisUser": "",
-    "restoreSource": "local",
-    "restoreTab": false,
-    "sentry_enable": true,
-    "signalInstance": "signal-cmb.0",
-    "signalNoticeType": "longSignalNotice",
-    "signalOnlyError": false,
-    "signalWaitToSend": 0,
-    "slaveInstance": "backitup.1",
-    "slaveNameSuffix": "",
-    "smbType": "vers=3.1.1",
-    "sqliteDumpExe": "",
-    "sqliteEnabled": false,
-    "sqlitePath": "/opt/sqlite/data.db",
-    "startAllRestore": false,
-    "stopSlaveAfter": false,
-    "sudoMount": true,
-    "telegramInstance": "telegram.0",
-    "telegramNoticeType": "longTelegramNotice",
-    "telegramOnlyError": false,
-    "telegramSilentNotice": false,
-    "telegramUser": "All Receiver",
-    "telegramWaitToSend": 0,
-    "wakeOnLAN": false,
-    "webdavCcuDir": "/backupDir/ccu",
-    "webdavDeleteOldBackup": false,
-    "webdavDir": "/backupDir",
-    "webdavEnabled": false,
-    "webdavMinimalDir": "/backupDir/iobroker",
-    "webdavOwnDir": false,
-    "webdavPassword": "",
-    "webdavSignedCertificates": true,
-    "webdavURL": "https://<example.com>/remote.php/dav/files/<username>/",
-    "webdavUsername": "username",
-    "whatsappInstance": "whatsapp-cmb.0",
-    "whatsappNoticeType": "longWhatsappNotice",
-    "whatsappOnlyError": false,
-    "whatsappWaitToSend": 0,
-    "wolExtra": false,
-    "wolPort": 9,
-    "wolWait": 25,
-    "yahkaEnabled": false,
-    "zigbee2mqttEnabled": false,
-    "zigbee2mqttPath": "/opt/zigbee2mqtt/data",
-    "zigbeeEnabled": false
-  },
-  "instanceObjects": [
-    {
-      "_id": "info",
-      "type": "channel",
-      "common": {
-        "name": "Information"
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.latestBackup",
-      "type": "state",
-      "common": {
-        "role": "state",
-        "name": "Latest backup found by start",
-        "type": "json",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.ccuNextTime",
-      "type": "state",
-      "common": {
-        "role": "state",
-        "name": "Next CCU backup",
-        "type": "string",
-        "read": true,
-        "write": false,
-        "def": "none"
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.iobrokerNextTime",
-      "type": "state",
-      "common": {
-        "role": "state",
-        "name": "Next iobroker backup",
-        "type": "string",
-        "read": true,
-        "write": false,
-        "def": "none"
-      },
-      "native": {}
-    },
-    {
-      "_id": "history",
-      "type": "channel",
-      "common": {
-        "name": "History Logs"
-      },
-      "native": {}
-    },
-    {
-      "_id": "history.html",
-      "type": "state",
-      "common": {
-        "role": "html",
-        "name": "History-Log of executed backups",
-        "type": "string",
-        "read": true,
-        "write": false,
-        "def": "No backups yet"
-      },
-      "native": {}
-    },
-    {
-      "_id": "history.json",
-      "type": "state",
-      "common": {
-        "role": "state",
-        "name": "History-Log of executed backups",
-        "type": "json",
-        "read": true,
-        "write": false,
-        "def": "[]"
-      },
-      "native": {}
-    },
-    {
-      "_id": "history.ccuLastTime",
-      "type": "state",
-      "common": {
-        "role": "state",
-        "name": "Last CCU backup",
-        "type": "string",
-        "read": true,
-        "write": false,
-        "def": "No backups yet"
-      },
-      "native": {}
-    },
-    {
-      "_id": "history.iobrokerLastTime",
-      "type": "state",
-      "common": {
-        "role": "state",
-        "name": "Last iobroker backup",
-        "type": "string",
-        "read": true,
-        "write": false,
-        "def": "No backups yet"
-      },
-      "native": {}
-    },
-    {
-      "_id": "history.ccuSuccess",
-      "type": "state",
-      "common": {
-        "role": "switch",
-        "name": "Last ccu backup Success",
-        "type": "boolean",
-        "read": true,
-        "write": true,
-        "def": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "history.iobrokerSuccess",
-      "type": "state",
-      "common": {
-        "role": "switch",
-        "name": "Last iobroker backup Success",
-        "type": "boolean",
-        "read": true,
-        "write": true,
-        "def": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "oneClick",
-      "type": "channel",
-      "common": {
-        "name": "OneClick Buttons"
-      },
-      "native": {}
-    },
-    {
-      "_id": "oneClick.ccu",
-      "type": "state",
-      "common": {
-        "role": "switch",
-        "name": "Execute CCU backup",
-        "type": "boolean",
-        "read": true,
-        "write": true,
-        "def": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "oneClick.iobroker",
-      "type": "state",
-      "common": {
-        "role": "switch",
-        "name": "Execute iobroker backup",
-        "type": "boolean",
-        "read": true,
-        "write": true,
-        "def": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "output",
-      "type": "channel",
-      "common": {
-        "name": "Output states"
-      },
-      "native": {}
-    },
-    {
-      "_id": "output.line",
-      "type": "state",
-      "common": {
-        "role": "state",
-        "name": "Used for debug outputs",
-        "type": "string",
-        "read": true,
-        "write": false,
-        "def": ""
-      },
-      "native": {}
-    }
-  ],
-  "objects": []
+    ],
+    "objects": []
 }
