@@ -31,6 +31,7 @@
 
 /* Tabs menu */
 .m .tabs .tab a { color: rgba(13, 134, 231, 0.7); } /* Color */
+.m .tabs { background-color: rgb(255, 255, 255) !important;}
 .m .tabs .active { border-bottom: 2px solid #0d47a1; font-weight: bold;}
 .m .tabs .tab a.active, .m .tabs .tab a:hover { color:#0d47a1; }
 .m .tabs .tab a:hover { border-bottom: 2px solid #46a0e9 !important; }
@@ -306,4 +307,51 @@ p.notice {
     float: right;
     color: #3399CC;
     padding-right: 1em;
+}
+
+/* Navbar Bottom */
+.m nav {
+    background-color: #3399cc;
+    min-height: 48px;
+}
+.m .btn.disabled, .m .btn-small.disabled {
+    background-color: rgba(0, 0, 0, 0.12) !important;
+    color: rgba(0, 0, 0, 0.26) !important;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+.m .btn-save, .m .btn-save-close, .m .btn-cancel {
+    background-color: #e0e0e0;
+    color: #000000;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+.m .btn-save:hover, .m .btn-save-close:hover, .m .btn-cancel:hover {
+    /*background-color: #3399CC;*/
+    background-color: #e0e0e0!important;
+    filter: brightness(105%);
+    /*transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;*/
+    box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+/* Help Buttons */
+.m .btn-floating i.material-icons, .m.react-blue .btn-floating i.material-icons, .m.react-dark .btn-floating i.material-icons {
+    color: rgba(0, 0, 0, 0.87)!important;
+    background-color: rgb(224, 224, 224)!important;
+    line-height: 36px;
+}
+.m .btn-floating i.material-icons:hover {
+    background-color: #e0e0e0!important;
+    filter: brightness(150%);
+}
+.m .btn-floating {
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 6px 10px 0px, rgba(0, 0, 0, 0.12) 0px 1px 18px 0px;
+    height: 36px!important;
+    width: 36px!important;
+}
+.m .btn-floating:hover {
+    box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }

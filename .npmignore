@@ -1,0 +1,23 @@
+# exclude all dot-files and directories
+.*
+
+tasks
+node_modules
+.idea
+.git
+/node_modules
+test
+admin/i18n/flat.txt
+admin/i18n/*/flat.txt
+/lib/*.bat
+/lib/*.log
+/lib/*.sh
+/lib/restore.json
+.vscode
+.mount
+package-lock.json
+/package-lock.json
+.DS_Store
+.gitignore
+.github
+.gitattributes
