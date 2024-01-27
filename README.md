@@ -53,7 +53,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.10.6 (2024-01-27)
 * (simatec) Gulp deleted
 * (simatec) adapter-dev added
 * (simatec) Translation added
