@@ -58,6 +58,8 @@ When the adapter crashes or another Code error happens, this error message that 
 * (simatec) adapter-dev added
 * (simatec) Translation added
 * (simatec) Customised design
+* (simatec) Hover info added to the Restore tab
+* (simatec) Improved mobile view
 * (simatec) dependencies updated
 
 ### 2.10.5 (2024-01-22)
