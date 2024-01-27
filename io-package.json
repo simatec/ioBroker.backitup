@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.10.5",
+    "version": "2.10.6",
     "news": {
+      "2.10.6": {
+        "en": "Gulp deleted\nadapter-dev added\nTranslation added\nCustomised design\nHover info added to the Restore tab\nImproved mobile view\ndependencies updated",
+        "de": "Gulp gelöscht\nadapter-dev hinzugefügt\nÜbersetzung hinzugefügt\nKundenspezifisches Design\nHover-Info zum Restore Tab hinzugefügt\nVerbesserte mobile Ansicht\naktualisierte abhängigkeiten",
+        "ru": "Удалить\nадаптер-dev добавлен\nДобавлено\nНастраиваемый дизайн\nИнформация Hover добавлена на вкладку Восстановление\nУлучшенный мобильный\nобновленная информация о зависимостях",
+        "pt": "Gulp excluído\nadaptador-dev adicionado\nTradução adicionada\nDesign personalizado\nInformaÃ§Ãμes da hora adicionadas Ã guia Restaurar\nMelhor visualização móvel\ndependências atualizadas",
+        "nl": "Gulp verwijderd\nadapter-dev toegevoegd\nVertaling toegevoegd\nAangepast ontwerp\nHover info toegevoegd aan het tabblad Restore\nVerbeterde mobiele weergave\nafhankelijkheden bijgewerkt",
+        "fr": "Gulp supprimé\nadaptateur-dev ajouté\nTraduction ajoutée\nConception personnalisée\nHover info ajouté à l'onglet Restauration\nAmélioration de la vue mobile\ndépendances mises à jour",
+        "it": "Gulp cancellato\nadattatore-dev aggiunto\nTraduzione aggiunto\nDesign personalizzato\nHover info aggiunto alla scheda Ripristino\nVista mobile migliorata\ndipendenze aggiornate",
+        "es": "Gulp eliminado\nadaptador-dev añadido\nTraducción añadido\nDiseño personalizado\nInformación de Hover añadido a la pestaña Restore\nMejora de la vista móvil\ndependencias actualizadas",
+        "pl": "Gulp usunięty\nadapter -dev dodany\nTłumaczenie dodane\nKonstrukcja dostosowana\nInformacje o Hover dodane do zakładki Przywracanie\nUlepszony widok mobilny\nzaktualizowane zależności",
+        "uk": "Відхилити\nадаптер-dev додано\nПереклад додано\nІндивідуальний дизайн\nДодайте інформацію про Hover в вкладку Restore\nПокращений мобільний вигляд\nоновлені залежності",
+        "zh-cn": "Gulp 已删除\n添加适配器- dev\n增加了翻译\n自定义设计\n向恢复标签添加信息\n改进移动视图\n更新依赖关系"
+      },
       "2.10.5": {
         "en": "Fix CCU Backup with selfsigned Certificates",
         "de": "CCU Backup mit selbstsignierten Zertifikaten",
@@ -80,22 +93,8 @@
         "pl": "Poprawiony serwer plików\nPrzywracanie karty\nPoprawiony projekt\nAktualizacja doku\nBreaking Changes for Docker mapowanie portów",
         "uk": "Покращений сервер файлів\nВідновлення вкладки поліпшення\nПокращений дизайн\nDocu оновлений\nЗміни для портів Docker",
         "zh-cn": "改进文件服务器\n已改进恢复标签\n设计改进\n更新 Docu\nDocker 映射端口的中断更改"
-      },
-      "2.9.10": {
-        "en": "Fix node-red restore\nauto install after restore for node-red added",
-        "de": "Fix node-red wiederherstellen\nauto install nach wiederherstellen für node-red hinzugefügt",
-        "ru": "Исправление node-red восстановления\nавтоматическая установка после восстановления для добавленного node-red",
-        "pt": "Corrigir restauração de nó-vermelho\nauto instalar após a restauração para node-red adicionado",
-        "nl": "Vertaling:\nauto installatie na herstel van node-red",
-        "fr": "Restauration fixe du nœud-rouge\ninstallation automatique après restauration pour node-red ajouté",
-        "it": "Ristabilimento nodo-rosso\ninstallazione automatica dopo il ripristino per nodo-rosso aggiunto",
-        "es": "Reparación de nodos rojos\ninstalación automática después de la restauración para node-red añadido",
-        "pl": "Odnowa węzła Fix\npo przywróceniu węzłów dodawano instalację auto-instalację po przywróceniu węzła",
-        "uk": "Виправлення відновлення вузла\nавтоматична установка після відновлення вузла",
-        "zh-cn": "无端恢复\n恢复原状后安装的汽车"
       }
     },
-    "title": "BackItUp",
     "titleLang": {
       "en": "BackItUp",
       "de": "BackItUp",
@@ -183,8 +182,26 @@
     "extIcon": "https://raw.githubusercontent.com/simatec/ioBroker.backitup/master/admin/backitup.png",
     "keywords": [
       "Backup",
-      "IoBroker",
-      "Homematic"
+      "iob",
+      "Homematic",
+      "Grafana",
+      "Zigbee",
+      "MySql",
+      "InfluxDB",
+      "Onedrive",
+      "GoogleDrive",
+      "Dropbox",
+      "WebDav",
+      "NFS",
+      "CIFS",
+      "FTP",
+      "NAS",
+      "Backitup",
+      "JavaScript",
+      "Restore",
+      "Redis",
+      "Node-Red",
+      "Yahka"
     ],
     "readme": "https://github.com/simatec/ioBroker.backitup/blob/master/README.md",
     "loglevel": "info",

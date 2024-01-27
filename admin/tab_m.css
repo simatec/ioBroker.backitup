@@ -5,40 +5,49 @@
     /* Don't cut off dropdowns! */
     overflow: initial;
 }
+
 .m .col .select-wrapper+label {
     top: -26px;
 }
+
 .m span {
     font-size: 0.9em;
 }
+
 .m .page {
     height: calc(100% - 220px);
 }
+
 #header-area {
     margin-top: -5px;
     margin-top: 0px;
-    margin-bottom: 1px; 
-    background-color:#3399CC;
+    margin-bottom: 1px;
+    background-color: #3399CC;
     background-image: linear-gradient(135deg, #174475 0%, #3399CC 30%);
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
 }
+
 body {
     height: auto;
-    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)!important;
-    border-radius: 4px!important;
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%) !important;
+    border-radius: 4px !important;
 }
-.collapsible.root .collapsible-header { 
-    padding-top: 0.2rem; 
-    padding-bottom: 0.2rem; 
+
+.collapsible.root .collapsible-header {
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
 }
+
 .collapsible.root .collapsible-header h6 {
-    font-size: 1.0em; 
+    font-size: 1.0em;
     font-weight: bold;
 }
+
 .collapsible.root .collapsible-header.top {
-    background-color:#3399CC; 
-    color:white; padding-top: 0.2rem; 
+    background-color: #3399CC;
+    color: white;
+    padding-top: 0.2rem;
     padding-bottom: 0.2rem;
     border-radius: 4px;
     position: sticky;
@@ -46,26 +55,32 @@ body {
     overflow: overlay;
     z-index: 997;
 }
+
 .collapsible.root .collapsible-header.top h6 {
     /*background-color:#3399CC;*/
-    color:white; 
-    font-size: 1.2em !important; 
+    color: white;
+    font-size: 1.2em !important;
     font-weight: bold;
 }
+
 .m .collapsible {
     border-radius: 4px;
 }
+
 .m .secondary-content {
     float: right;
     color: #3399CC;
     padding-right: 1em;
 }
+
 .m .collapsible-body.collection.head {
     height: calc(100% - 48px);
 }
+
 .m .collapsible-body.collection {
     overflow: overlay;
 }
+
 .m .chip {
     display: inline-table;
     height: 32;
@@ -80,10 +95,12 @@ body {
     margin-bottom: 5px;
     margin-right: 5px;
 }
+
 .m .chip:hover {
     filter: brightness(115%);
     box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
+
 .chip {
     margin-top: 0.5rem;
     margin-bottom: 0.2rem;
@@ -91,47 +108,89 @@ body {
     text-align: center;
     border-radius: 4px;
 }
+
 .title {
     background-color: #174475;
-    background-image: linear-gradient(179deg, #3399CC 0%, #174475 60%)!important;
+    background-image: linear-gradient(179deg, #3399CC 0%, #174475 60%) !important;
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-}
-.m.react-dark .title, .m.react-blue .title {
-    background-color: #272727!important;
-    background-image: linear-gradient(179deg, gray 0%, #272727 60%)!important;
 }
 
-.btn-iobroker {
+.m.react-dark .title,
+.m.react-blue .title {
+    background-color: #272727 !important;
+    background-image: linear-gradient(179deg, gray 0%, #272727 60%) !important;
+}
+
+.m .btn,
+.m .btn-flat,
+.m .btn-large {
+    background-color: #3399CC;
+    border-radius: 4px;
+}
+
+.m .btn-tab {
     width: 100%;
     margin-top: 0.3rem;
     border-radius: 4px;
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    background-color: rgb(224, 224, 224);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+    color: rgba(0, 0, 0, 0.87) !important;
 }
-.btn-ccu {
+
+.m .btn-tab:hover {
+    background-color: #e0e0e0 !important;
+    filter: brightness(105%);
+    box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.m.react-dark .btn-tab,
+.m.react-blue .btn-tab {
     width: 100%;
     margin-top: 0.3rem;
     border-radius: 4px;
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    background-color: #3399CC !important;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+    color: rgba(0, 0, 0, 0.87) !important;
 }
-.detect-backups {
-    width: 100%;
-    margin-top: 0.3rem;
-    border-radius: 4px;
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+
+.m .btn-tab.disabled {
+    background-color: rgba(0, 0, 0, 0.12) !important;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    filter: brightness(40%);
 }
-.btn-himself, .btn-restore-himself, .btn-backup-upload {
-    width: 100%;
-    margin-top: 0.3rem;
-    border-radius: 4px;
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+
+.m.react-dark .btn-tab.disabled,
+.m.react-blue .btn-tab.disabled {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    filter: brightness(40%);
 }
-.m .btn, .m .btn-flat, .m .btn-large {
-    background-color:#3399CC;
-    border-radius: 4px;
+
+.m.react-blue .btn-tab:hover,
+.m.react-dark .btn-tab:hover {
+    background-color: #3399CC !important;
+    filter: brightness(105%);
+    box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
 .m .btn-small {
-    background-color:#3399CC;
+    background-color: #3399CC;
 }
 
 #dialog-backups-show .title {
@@ -143,19 +202,23 @@ body {
     padding: 0.5rem;
     border-radius: 4px;
 }
+
 #dialog-backups-show .modal-footer {
     padding: 4px 20px;
     margin-left: 0.4rem;
 }
+
 #dialog-backups-show .modal-content {
     width: 100% !important;
     height: calc(100% - 10px) !important;
 }
+
 #dialog-backups-show .page {
     width: calc(100% - 10px) !important;
-    padding-left:20;
+    padding-left: 20;
     height: calc(100% - 115px);
 }
+
 #dialog-backups-show {
     max-height: 95% !important;
     max-width: 85% !important;
@@ -176,19 +239,23 @@ body {
     padding: 0.5rem;
     border-radius: 4px;
 }
+
 #dialog-restore-show .modal-footer {
     padding: 4px 20px;
     margin-left: 0.4rem;
 }
+
 #dialog-restore-show .modal-content {
     width: 100% !important;
     height: calc(100% - 20px) !important;
 }
+
 #dialog-restore-show .root {
     width: 100%;
     height: calc(100% - 165px);
     overflow: hidden;
 }
+
 #dialog-restore-show {
     max-height: 95% !important;
     max-width: 85% !important;
@@ -199,39 +266,50 @@ body {
     width: calc(100% - 100px);
     border-radius: 4px;
 }
-.tableFixHead { 
+
+.tableFixHead {
     overflow-y: auto;
 }
+
 .tableFixHead thead th {
-    position: sticky; top: 0;
+    position: sticky;
+    top: 0;
 }
+
 table {
     border-collapse: collapse;
     width: 100%;
 }
-th, td {
+
+th,
+td {
     padding: 8px 16px;
 }
+
 th {
-    background:#3399CC;
+    background: #3399CC;
 }
+
 .footer {
-    position: fixed; 
+    position: fixed;
     bottom: 0 !important;
     width: calc(100% - 0.1rem);
     margin-bottom: -7px;
     overflow: overlay;
     z-index: 997;
 }
+
 .header-fix {
     position: sticky;
     top: 0;
     overflow: overlay;
     z-index: 997;
 }
+
 #dialog-confirm {
     border-radius: 4px;
 }
+
 #dialog-confirm .title {
     width: 100% !important;
     background: #174475;
@@ -239,6 +317,7 @@ th {
     padding: 0.5rem;
     border-radius: 4px;
 }
+
 #dialog-command .title {
     width: 100% !important;
     background: #174475;
@@ -246,14 +325,17 @@ th {
     padding: 0.5rem;
     border-radius: 4px;
 }
+
 #dialog-command .btn {
     margin-right: 0.5rem;
     background-color: #3399CC;
 }
+
 #dialog-command .modal-footer {
     padding: 4px 20px;
     margin-left: 0.4rem;
 }
+
 #dialog-command {
     border-radius: 4px;
     z-index: 1010 !important;
@@ -266,6 +348,7 @@ th {
     background-image: linear-gradient(179deg, #e2e2e2 40%, #474747 180%);
     max-width: 30%;
 }
+
 .m .card.horizontal .card-image i {
     border-radius: 4px 0 0 4px;
     max-width: 100%;
@@ -276,6 +359,7 @@ th {
     font-size: 80px;
 
 }
+
 .m .card {
     box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
     background-image: linear-gradient(179deg, #fff 50%, rgb(0 0 0 / 14%) 100%);
@@ -283,7 +367,8 @@ th {
     height: 300px;
 }
 
-.m.react-blue .card, .m.react-dark .card {
+.m.react-blue .card,
+.m.react-dark .card {
     background-color: #222a2e;
     background-image: linear-gradient(179deg, #222a2e 50%, #474747 100%);
 }
@@ -292,12 +377,15 @@ ul {
     padding-inline-start: 20px;
     margin-bottom: auto;
 }
+
 li {
     padding-bottom: 0.2rem;
 }
+
 .next-last-backups {
     padding-bottom: 0.4rem;
 }
+
 .card-content-text {
     overflow-y: auto;
     max-height: 187px;
@@ -327,4 +415,28 @@ li {
     top: 10px !important;
     width: calc(100% - 100px);
     border-radius: 4px;
+}
+
+/* Tab Buttons*/
+.bFont {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    outline: 0px;
+    border: 0px;
+    height: 35px;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+/* Display Mobil */
+.customCol {
+    min-height: 58px !important;
 }

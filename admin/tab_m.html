@@ -114,45 +114,36 @@
         </div>
         <div class="row">
             <div class="input-field col s6 l3">
-                <a class="waves-effect waves-light btn btn-backitup btn-iobroker do-backup" data-type="iobroker"><i class="material-icons right">backup</i><span class="translate">iobroker start backup</span></a>
+                <a class="waves-effect waves-light btn btn-tab btn-iobroker do-backup" data-type="iobroker"><i class="material-icons right">backup</i><span class="bFont translate">iobroker start backup</span></a>
             </div>
             <div class="input-field col s6 l3">
-                <a class="waves-effect waves-light btn btn-backitup btn-ccu do-backup" data-type="ccu"><i class="material-icons right">backup</i><span class="translate">Homematic start backup</span></a>
+                <a class="waves-effect waves-light btn btn-tab btn-ccu do-backup" data-type="ccu"><i class="material-icons right">backup</i><span class="bFont translate">Homematic start backup</span></a>
             </div>
             <div class="input-field col s6 l3">
-                <a class="waves-effect waves-light btn btn-backitup detect-backups" ><i class="material-icons right">search</i><span class="translate">Backup history</span></a>
+                <a class="waves-effect waves-light btn btn-tab detect-backups" ><i class="material-icons right">search</i><span class="bFont translate">Backup history</span></a>
             </div>
             <div class="input-field col s6 l3">
-                <a class="waves-effect waves-light btn btn-backitup btn-himself" ><i class="material-icons right">backup</i><span class="translate">save Backitup settings</span></a>
+                <a class="waves-effect waves-light btn btn-tab btn-himself" ><i class="material-icons right">backup</i><span class="bFont translate">save Backitup settings</span></a>
             </div>
         </div>
         <!-- Restore -->
         <div class="row" style="padding: 2px;">
             <h6 class="title" style="background-color:#174475; border-radius: 4px;"><i class="material-icons left">settings_backup_restore</i><span class="translate" style="font-size: 0.9rem;">Restore</span></h6>
         </div>
-        <div class="row" style="margin-bottom: 0">
-            <div class="input-field col s11 m3">
+        <div class="row" style="margin-bottom: 1rem">
+            <div class="input-field col s6 l3 customCol">
                 <select class="value" id="restoreSource">
-                    <!--
-                    <option value="local" class="translate">Local</option>
-                    <option value="cifs" class="translate">NAS / Copy</option>
-                    <option value="dropbox" class="translate">Dropbox</option>
-                    <option value="onedrive" class="translate">Onedrive</option>
-                    <option value="googledrive" class="translate">Google Drive</option>
-                    <option value="webdav" class="translate">WebDAV</option>
-                    <option value="ftp" class="translate">FTP</option>
-                    -->
                 </select>
                 <label for="restoreSource" class="translate">source type</label>
             </div>
-            <div class="input-field col s6 m3">
-                <a class="waves-effect waves-light btn btn-backitup btn-iobroker do-list" ><i class="material-icons right">search</i><span class="translate">Get list</span></a>
+            <div class="input-field col s6 l3 customCol">
+                <a class="waves-effect waves-light btn btn-tab btn-iobroker do-list" ><i class="material-icons right">search</i><span class="bFont translate">Get list</span></a>
             </div>
-            <div class="input-field col s6 m3">
-                <a class="waves-effect waves-light btn btn-backitup btn-backup-upload" ><i class="material-icons right">file_upload</i><span class="translate">Upload Backup File</span></a>
+            <div class="input-field col s6 l3 customCol">
+                <a class="waves-effect waves-light btn btn-tab btn-backup-upload" ><i class="material-icons right">file_upload</i><span class="bFont translate">Upload Backup File</span></a>
             </div>
-            <div class="input-field col s6 m3">
-                <a class="waves-effect waves-light btn btn-backitup btn-restore-himself" ><i class="material-icons right">settings_backup_restore</i><span class="translate">restore Backitup settings</span></a>
+            <div class="input-field col s6 l3 customCol">
+                <a class="waves-effect waves-light btn btn-tab btn-restore-himself" ><i class="material-icons right">settings_backup_restore</i><span class="bFont translate">restore Backitup settings</span></a>
             </div>
             <div class="col s6 l2 cloudRestore">
                 <div class="chip blink" style="background-color:#64b5f6;">

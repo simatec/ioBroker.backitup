@@ -777,17 +777,18 @@ function load(settings, onChange) {
                                     break;
                             }
 
-                            text += '<li><div class="collapsible-header top"><i class="material-icons">expand_more</i><h6>' + _(storageTyp) + '</h6></div>';
-                            text += '<ul class="collapsible-body collection">';
+                            text += `<li><div class="collapsible-header top"><i class="material-icons">expand_more</i><h6>${_(storageTyp)}</h6></div>`;
+                            text += `<ul class="collapsible-body collection head">`;
                             for (var storage in data[type]) {
                                 if (data[type].hasOwnProperty(storage)) {
-                                    text += '<ul class="collapsible"><li><div class="collapsible-header"><i class="material-icons">expand_more</i><h6>' + storage.toUpperCase() + '</h6></div>';
-                                    text += '<ul class="collapsible-body collection">';
+                                    text += `<ul class="collapsible"><li><div class="collapsible-header"><i class="material-icons">expand_more</i><h6>${storage.toUpperCase()}</h6></div>`;
+                                    text += `<ul class="collapsible-body collection">`;
                                     for (var i = data[type][storage].length - 1; i >= 0; i--) {
-                                        text += '<li class="collection-item"><div>' + getName(data[type][storage][i].name) + ' <b>>>> ' + data[type][storage][i].name + ' <<<</b> (' + getSize(data[type][storage][i].size) + ')' +
-                                            '<a class="secondary-content do-restore" title="' + _('Restore Backup File') + '" data-file="' + data[type][storage][i].path + '" data-type="' + type + '">  <i class="material-icons">restore</i></a>' +
-                                            '<a class="secondary-content do-download" title="' + _('Download Backup File') + '" data-file="' + data[type][storage][i].path + '" data-type="' + type + '">  <i class="material-icons">file_download</i></a>' +
-                                            '</div></li>';
+                                        text += `<li title="${_('source type')}: ${_(storageTyp)}\n${_('Type')}: ${storage.charAt(0).toUpperCase() + storage.slice(1)}\n${_('backup time')}: ${getName(data[type][storage][i].name)}\n${_('filesize')}: ${getSize(data[type][storage][i].size)}\n\n${_('name')}:\n${data[type][storage][i].name}" class="collection-item">`;
+                                        text += `<div>${_('backup time')}: ${getName(data[type][storage][i].name)} | ${_('filesize')}: ${getSize(data[type][storage][i].size)}`;
+                                        text += `<a class="btn-floating secondary-content do-restore" style="height: 32.4px!important; width: 32.4px!important;" title="${_('Restore Backup File')}" data-file="${data[type][storage][i].path}" data-type="${type}"><i style="line-height: 32.4px;" class="material-icons">settings_backup_restore</i></a>`;
+                                        text += `<a class="btn-floating secondary-content do-download" style="height: 32.4px!important; width: 32.4px!important;" title="${_('Download Backup File')}" data-file="${data[type][storage][i].path}" data-type="${type}"><i style="line-height: 32.4px;" class="material-icons">file_download</i></a>`;
+                                        text += `</div></li>`;
                                     }
                                     text += '</ul></li></ul>';
                                 }
