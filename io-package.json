@@ -473,7 +473,7 @@
     "redisPath": "/var/lib/redis",
     "redisPort": 6379,
     "redisType": "local",
-    "redisUser": "",
+    "redisUser": "default",
     "restoreSource": "local",
     "restoreTab": false,
     "sentry_enable": true,
