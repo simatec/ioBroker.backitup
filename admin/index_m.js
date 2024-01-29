@@ -1452,13 +1452,48 @@ function showHideSettings(settings) {
     $('#connectType').on('change', function () {
         if ($(this).val() === 'NFS') {
             $('.nfs').hide();
+            $('.mountExpert').hide();
             $('.copy').show();
+            $('.noExpert').show();
+            if ($('#cifsOwnDir').prop('checked')) {
+                $('.cifs-extra').show();
+                $('.cifs-standard').hide();
+            } else {
+                $('.cifs-extra').hide();
+                $('.cifs-standard').show();
+            }
         } else if ($(this).val() === 'CIFS') {
+            $('.mountExpert').hide();
             $('.nfs').show();
             $('.copy').show();
+            $('.noExpert').show();
+            if ($('#cifsOwnDir').prop('checked')) {
+                $('.cifs-extra').show();
+                $('.cifs-standard').hide();
+            } else {
+                $('.cifs-extra').hide();
+                $('.cifs-standard').show();
+            }
         } else if ($(this).val() === 'Copy') {
+            $('.mountExpert').hide();
             $('.nfs').hide();
             $('.copy').hide();
+            $('.noExpert').show();
+            if ($('#cifsOwnDir').prop('checked')) {
+                $('.cifs-extra').show();
+                $('.cifs-standard').hide();
+            } else {
+                $('.cifs-extra').hide();
+                $('.cifs-standard').show();
+            }
+        } else if ($(this).val() === 'Expert') {
+            $('.mountExpert').show();
+            $('.nfs').hide();
+            $('.copy').hide();
+            $('.cifs-extra').hide();
+            $('.cifs-standard').hide();
+            $('.noExpert').hide();
+
         }
     }).trigger('change');
 

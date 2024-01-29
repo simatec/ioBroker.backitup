@@ -57,6 +57,7 @@ When the adapter crashes or another Code error happens, this error message that 
 * (simatec) small fixes
 * (simatec) small Design Fix
 * (simatec) Translation updated
+* (simatec) Expert Mount added
 
 ### 2.10.6 (2024-01-27)
 * (simatec) Gulp deleted

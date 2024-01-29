@@ -1101,6 +1101,7 @@
                         <option value="NFS" >NFS</option>
                         <option value="CIFS" >CIFS</option>
                         <option value="Copy" >Copy</option>
+                        <option value="Expert" class="translate">Expert</option>
                         </select>
                         <label for="connectType" class="translate">connection type</label>
                     </div>
@@ -1145,7 +1146,7 @@
                     </div>
                 </div>
                 <div class="row cifs">
-                    <div class="input-field col s6 l4">
+                    <div class="input-field col s6 l4 noExpert">
                         <input class="value" id="sudoMount" type="checkbox"/>
                         <label for="sudoMount" class="translate">Mount as root</label>
                     </div>
@@ -1153,7 +1154,7 @@
                         <input class="value" id="cifsDeleteOldBackup" type="checkbox"/>
                         <label for="cifsDeleteOldBackup" class="translate">Delete old NAS / Copy-Backups</label>
                     </div>
-                    <div class="input-field col s6 l4">
+                    <div class="input-field col s6 l4 noExpert">
                         <input class="value" id="cifsOwnDir" type="checkbox"/>
                         <span for="cifsOwnDir" class="translate">Extra path for backup types</span>
                     </div>
@@ -1188,7 +1189,7 @@
                         <input class="value" id="cifsMinimalDir" type="text">
                         <label for="cifsMinimalDir" class="translate">Path for iobroker backup</label>
                     </div>
-                    <div class="input-field col s12 m6 l4">
+                    <div class="input-field col s12 m6 l4 noExpert">
                         <input class="value" id="cifsCcuDir" type="text">
                         <label for="cifsCcuDir" class="translate">Path for CCU backup</label>
                     </div>
@@ -1197,6 +1198,14 @@
                     <div class="input-field col s12">
                         <input class="value" id="cifsDir" type="text">
                         <label for="cifsDir" class="translate">path</label>
+                    </div>
+                </div>
+
+                <!-- Expert Settings -->
+                <div class="row mountExpert">
+                    <div class="input-field col s12 m6 l12">
+                        <input class="value" id="expertMount" type="text">
+                        <label for="expertMount" class="translate">Mount command (expert)</label>
                     </div>
                 </div>
             </div>
