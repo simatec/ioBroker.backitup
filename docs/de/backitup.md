@@ -100,7 +100,7 @@ Hier eine kurze Erklärung der Optionen im Tab Menü
 8. In dieser Option wählt man den Speicher, aus dem der Restore ausgeführt werden soll.
 9. Mit dem Button "Sicherungen abrufen" öffnet sich ein neues Fenster und listet alle vorhanden Backups in dem gewählten Speicher auf.
 10. Möchte man ein Backup von einem anderen System wiederherstellen, kann die Backupdatei über diesen Button auf das System hochgeladen werden.
-11. Dieser Button dient dazu, die gespeicherten ioBroker.Backitup Settings innerhalb des Adapter wiederherzustellen. Es ist kein Restore des ioBrokers und hier können nur Dateien im JSON Format hochgeladen werden!
+11. Dieser Button dient dazu, die gespeicherten ioBroker.backitup Settings innerhalb des Adapter wiederherzustellen. Es ist kein Restore des ioBrokers und hier können nur Dateien im JSON Format hochgeladen werden!
 12. Öffnet ein neuen Tab und zeigt die Dokumentation von ioBroker.backitup an.
 13. Öffnet ein neuen Tab und zeigt die Readme von ioBroker.backitup an.
 
