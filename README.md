@@ -53,6 +53,17 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### 2.10.8 (2024-01-30)
+* (simatec) Fix Expert Mount
+* (simatec) Docu updated
+* (simatec) dependencies updated
+
+### 2.10.7 (2024-01-29)
+* (simatec) small fixes
+* (simatec) small Design Fix
+* (simatec) Translation updated
+* (simatec) Expert Mount added
+
 ### 2.10.6 (2024-01-27)
 * (simatec) Gulp deleted
 * (simatec) adapter-dev added

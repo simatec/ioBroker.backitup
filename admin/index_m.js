@@ -786,7 +786,7 @@ function load(settings, onChange) {
                                     for (var i = data[type][storage].length - 1; i >= 0; i--) {
                                         text += `<li title="${_('source type')}: ${_(storageTyp)}\n${_('Type')}: ${storage.charAt(0).toUpperCase() + storage.slice(1)}\n${_('backup time')}: ${getName(data[type][storage][i].name)}\n${_('filesize')}: ${getSize(data[type][storage][i].size)}\n\n${_('name')}:\n${data[type][storage][i].name}" class="collection-item">`;
                                         text += `<div>${_('backup time')}: ${getName(data[type][storage][i].name)} | ${_('filesize')}: ${getSize(data[type][storage][i].size)}`;
-                                        text += `<a class="btn-floating secondary-content do-restore" style="height: 32.4px!important; width: 32.4px!important;" title="${_('Restore Backup File')}" data-file="${data[type][storage][i].path}" data-type="${type}"><i style="line-height: 32.4px;" class="material-icons">settings_backup_restore</i></a>`;
+                                        text += `<a class="btn-floating secondary-content do-restore" style="height: 32.4px!important; width: 32.4px!important;" title="${_('Restore Backup File')}" data-file="${data[type][storage][i].path}" data-type="${type}"><i style="line-height: 32.4px;" class="material-icons">restore</i></a>`;
                                         text += `<a class="btn-floating secondary-content do-download" style="height: 32.4px!important; width: 32.4px!important;" title="${_('Download Backup File')}" data-file="${data[type][storage][i].path}" data-type="${type}"><i style="line-height: 32.4px;" class="material-icons">file_download</i></a>`;
                                         text += `</div></li>`;
                                     }
@@ -1452,13 +1452,48 @@ function showHideSettings(settings) {
     $('#connectType').on('change', function () {
         if ($(this).val() === 'NFS') {
             $('.nfs').hide();
+            $('.mountExpert').hide();
             $('.copy').show();
+            $('.noExpert').show();
+            if ($('#cifsOwnDir').prop('checked')) {
+                $('.cifs-extra').show();
+                $('.cifs-standard').hide();
+            } else {
+                $('.cifs-extra').hide();
+                $('.cifs-standard').show();
+            }
         } else if ($(this).val() === 'CIFS') {
+            $('.mountExpert').hide();
             $('.nfs').show();
             $('.copy').show();
+            $('.noExpert').show();
+            if ($('#cifsOwnDir').prop('checked')) {
+                $('.cifs-extra').show();
+                $('.cifs-standard').hide();
+            } else {
+                $('.cifs-extra').hide();
+                $('.cifs-standard').show();
+            }
         } else if ($(this).val() === 'Copy') {
+            $('.mountExpert').hide();
             $('.nfs').hide();
             $('.copy').hide();
+            $('.noExpert').show();
+            if ($('#cifsOwnDir').prop('checked')) {
+                $('.cifs-extra').show();
+                $('.cifs-standard').hide();
+            } else {
+                $('.cifs-extra').hide();
+                $('.cifs-standard').show();
+            }
+        } else if ($(this).val() === 'Expert') {
+            $('.mountExpert').show();
+            $('.nfs').hide();
+            $('.copy').hide();
+            $('.cifs-extra').hide();
+            $('.cifs-standard').hide();
+            $('.noExpert').hide();
+
         }
     }).trigger('change');
 

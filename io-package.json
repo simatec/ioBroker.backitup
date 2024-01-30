@@ -1,8 +1,34 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.10.6",
+    "version": "2.10.8",
     "news": {
+      "2.10.8": {
+        "en": "Fix Expert Mount\nDocu updated\ndependencies updated",
+        "de": "Fix Expert Mount\nDocu aktualisiert\naktualisierte abhängigkeiten",
+        "ru": "Экспедиторская гора\nDocu\nобновленная информация о зависимостях",
+        "pt": "Fix Expert Mount\nDocu atualizado\ndependências atualizadas",
+        "nl": "Fix Expert Mount\nDocu bijgewerkt\nafhankelijkheden bijgewerkt",
+        "fr": "Correction du montage expert\nDocu mis à jour\ndépendances mises à jour",
+        "it": "Fissare il supporto esperto\nDocu aggiornato\ndipendenze aggiornate",
+        "es": "Fix Expert Mount\nDocu actualizado\ndependencias actualizadas",
+        "pl": "Fix Expert Mount\nAktualizacja doku\nzaktualizowane zależności",
+        "uk": "Фіксований експертний монтаж\nDocu оновлений\nоновлені залежності",
+        "zh-cn": "修复专家山\n更新 Docu\n更新依赖关系"
+      },
+      "2.10.7": {
+        "en": "small fixes\nsmall Design Fix\nTranslation updated\nExpert Mount added",
+        "de": "kleine fixes\nkleines Design Fix\nÜbersetzung aktualisiert\nExpert Mount hinzugefügt",
+        "ru": "небольшие исправления\nмаленький дизайн Fix\nОбновленный перевод\nЭкспертная гора добавлена",
+        "pt": "pequenas correções\npequeno Design Fix\nTradução atualizada\nExpert Mount adicionado",
+        "nl": "kleine fixes\nkleine ontwerp Fix\nVertaling bijgewerkt\nExpert Mount toegevoegd",
+        "fr": "petites corrections\npetite fixation de conception\nTraduction mise à jour\nSupport expert ajouté",
+        "it": "piccole correzioni\npiccolo Design Fix\nTraduzione aggiornata\nSupporto esperto aggiunto",
+        "es": "pequeñas fijaciones\npequeño diseño fijar\nTraducción actualizada\nExpert Mount added",
+        "pl": "małe poprawki\nmały projekt Fix\nAktualizacja tłumaczeń\nName",
+        "uk": "маленькі кріплення\nневеликий дизайн виправити\nПереклад оновлений\nДодано експертний монтаж",
+        "zh-cn": "小修正\n小设计\n翻译更新\n添加专家山"
+      },
       "2.10.6": {
         "en": "Gulp deleted\nadapter-dev added\nTranslation added\nCustomised design\nHover info added to the Restore tab\nImproved mobile view\ndependencies updated",
         "de": "Gulp gelöscht\nadapter-dev hinzugefügt\nÜbersetzung hinzugefügt\nKundenspezifisches Design\nHover-Info zum Restore Tab hinzugefügt\nVerbesserte mobile Ansicht\naktualisierte abhängigkeiten",
@@ -67,32 +93,6 @@
         "pl": "Cronjob dla ustawień ekspertów dodano\nKod zrestrukturyzowany\nTłumaczenie dodane",
         "uk": "Cronjob for Expert Settings додано\nРеструктуризація коду\nПереклад додано",
         "zh-cn": "添加了专家设置的编程工作\n调整代码\n增加了翻译"
-      },
-      "2.10.1": {
-        "en": "small Fixes\nCode restructured",
-        "de": "kleine Feste\nCode umstrukturiert",
-        "ru": "небольшие Fixes\nРеструктуризация кода",
-        "pt": "pequenas correções\nCódigo reestruturado",
-        "nl": "kleine correcties\nGeherstructureerde code",
-        "fr": "petits Fixes\nCode restructuré",
-        "it": "piccoli corredi\nCodice ristrutturato",
-        "es": "pequeñas fijaciones\nCódigo reestructurado",
-        "pl": "małe liczby\nKod zrestrukturyzowany",
-        "uk": "маленькі Фікси\nРеструктуризація коду",
-        "zh-cn": "小修补\n调整代码"
-      },
-      "2.10.0": {
-        "en": "File server improved\nRestore Tab improved\nDesign improved\nDocu updated\nBreaking Changes for Docker mapping ports",
-        "de": "Dateiserver verbessert\nRestore Tab verbessert\nDesign verbessert\nDocu aktualisiert\nÄnderungen für Docker Mapping Ports",
-        "ru": "Улучшен сервер файлов\nВосстановление Tab улучшено\nУлучшенный дизайн\nDocu\nПерерыв изменений для картографических портов Docker",
-        "pt": "Servidor de arquivo melhorado\nRestaurar Tab melhorou\nDesign melhorado\nDocu atualizado\nAlterações de quebra para portas de mapeamento Docker",
-        "nl": "Bestandsserver verbeterd\nTabblad verbeterd herstellen\nOntwerp verbeterd\nDocu bijgewerkt\nWijzigingen voor Docker-mappingpoorten breken",
-        "fr": "Serveur de fichiers amélioré\nRestaurer l'onglet amélioré\nAmélioration de la conception\nDocu mis à jour\nBriser les changements pour les ports de cartographie Docker",
-        "it": "Server dei file migliorato\nScheda di ripristino migliorata\nMiglioramento del design\nDocu aggiornato\nCambiamenti di rottura per porte di mappatura Docker",
-        "es": "Servidor de archivo mejorado\nRestore Tab mejorado\nDiseño mejorado\nDocu actualizado\nCambios de ruptura para puertos de mapeo de Docker",
-        "pl": "Poprawiony serwer plików\nPrzywracanie karty\nPoprawiony projekt\nAktualizacja doku\nBreaking Changes for Docker mapowanie portów",
-        "uk": "Покращений сервер файлів\nВідновлення вкладки поліпшення\nПокращений дизайн\nDocu оновлений\nЗміни для портів Docker",
-        "zh-cn": "改进文件服务器\n已改进恢复标签\n设计改进\n更新 Docu\nDocker 映射端口的中断更改"
       }
     },
     "titleLang": {
@@ -360,6 +360,7 @@
     "emailSender": "xxx@xxx.com",
     "emailWaitToSend": 0,
     "esphomeEnabled": false,
+    "expertMount": "sudo mount -t cifs -o username=<username>,password=\"<password>\",noserverino,cache=loose,rw,uid=iobroker,gid=iobroker,file_mode=0777,dir_mode=0777,vers=3.1.1 //192.168.0.1/NAS/BACKUP /opt/iobroker/backups",
     "fileSizeError": 512,
     "fileSizeWarning": 1024,
     "ftpCcuDir": "/backupDir/ccu",
@@ -473,7 +474,7 @@
     "redisPath": "/var/lib/redis",
     "redisPort": 6379,
     "redisType": "local",
-    "redisUser": "",
+    "redisUser": "default",
     "restoreSource": "local",
     "restoreTab": false,
     "sentry_enable": true,
