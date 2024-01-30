@@ -53,6 +53,11 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Fix Expert Mount
+* (simatec) Docu updated
+* (simatec) dependencies updated
+
 ### 2.10.7 (2024-01-29)
 * (simatec) small fixes
 * (simatec) small Design Fix

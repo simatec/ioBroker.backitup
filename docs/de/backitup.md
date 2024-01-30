@@ -87,7 +87,34 @@ Ist dieser Reiter im Tab-Menü der Admin-Oberfläche aktiv, kann ioBroker.backit
 Dort stehen Informationen zu den erstellten Backups zur Verfügung, es können Backups erstellt werden und es besteht die Möglichkeit, einen Restore des Backups auszuführen.
 
 ![adminTab](img/backitup_main.png)
+
+Hier eine kurze Erklärung der Optionen im Tab Menü
+
+1. Informationen zum letzten und nächsten Backup.
+2. Informationen, wo die Backups gespeichert werden.
+3. Informationen, welche Backuptypen aktiv sind und gesichert werden.
+4. Ein iobroker Backup manuell starten.
+5. Ein Homematic Backup manuell starten.
+6. Öffnet ein neues Fenster und zeigt alle Backups aus dem Verlauf an.
+7. Mit diesem Button kann man die Settings von ioBroker.backitup sichern. Dies ist bei einem Systemwechsel ein nützliches Hilfsmittel. Die Settings werden im JSON Format ausgegeben.
+8. In dieser Option wählt man den Speicher, aus dem der Restore ausgeführt werden soll.
+9. Mit dem Button "Sicherungen abrufen" öffnet sich ein neues Fenster und listet alle vorhanden Backups in dem gewählten Speicher auf.
+10. Möchte man ein Backup von einem anderen System wiederherstellen, kann die Backupdatei über diesen Button auf das System hochgeladen werden.
+11. Dieser Button dient dazu, die gespeicherten ioBroker.Backitup Settings innerhalb des Adapter wiederherzustellen. Es ist kein Restore des ioBrokers und hier können nur Dateien im JSON Format hochgeladen werden!
+12. Öffnet ein neuen Tab und zeigt die Dokumentation von ioBroker.backitup an.
+13. Öffnet ein neuen Tab und zeigt die Readme von ioBroker.backitup an.
+
+
 ![adminTabRestore](img/backitup_restore.png)
+
+Die Bedienung des Restore Tabs sieht wie folgt aus.
+
+1. Download des gewählten Backups auf den PC.
+2. Start des Restore des gewählten Backups.
+3. Informationen zum Backup.
+4. Informationen zum Backuptyp.
+
+
 ![adminTabInfo](img/backitup_history.png)
 
 _[Zurück zum Anfang](#start-of-content)_
@@ -259,6 +286,12 @@ Optional kann man aktivieren/deaktivieren, ob die Backups vom NAS gelöscht werd
 Sollte kein CIFS-Mount möglich sein, besteht eine weitere Möglichkeit der Copy-Funktion.<br>
 Hier muss in den CIFS-Einstellungen die Pfadangabe eingetragen werden, wo hin kopiert werden soll.<br>
 Die Angabe der IP Adresse muss für die Copy-Funktion leer bleiben.
+
+## Experten Mount
+Im Bereich Experte besteht die Möglichkeit einen eigenen Mount-Befehl zu erstellen, welchen der Adapter dann für ein Backup und einen Restore verwendet.
+Hier kann man individuell arbeiten und z.B. die fstab oder auch credentials einbinden.
+
+>:grey_exclamation: Bitte beachtet, dass diese Option nur für Experten gedacht ist. :grey_exclamation:
   
 ## Dropbox
 Um die Sicherung in der Dropbox zu nutzen, muss man einen Access Token holen. Das kann man auf der Konfigurationsseite von ioBroker.backitup machen.<br>

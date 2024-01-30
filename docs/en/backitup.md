@@ -92,7 +92,34 @@ If this tab is active in the tab menu of the admin interface, ioBroker.backitup 
 Information on the backups made is available there, backups can be made and the backup can be restored.
 
 ![adminTab](img/backitup_main.png)
+
+Here is a brief explanation of the options in the Menu tab
+
+1. information on the last and next backup.
+2. information on where the backups are stored.
+3. information on which backup types are active and being backed up.
+4. start an iobroker backup manually.
+5. start a Homematic backup manually.
+6. opens a new window and displays all backups from the history.
+7. with this button you can save the settings of ioBroker.backitup. This is a useful tool when changing systems. The settings are output in JSON format.
+8. in this option you select the memory from which the restore is to be executed.
+9. click on the "Retrieve backups" button to open a new window and list all existing backups in the selected memory.
+10. if you want to restore a backup from another system, the backup file can be uploaded to the system using this button.
+11. this button is used to restore the saved ioBroker.backitup settings within the adapter. It is not a restore of the ioBroker and only files in JSON format can be uploaded here!
+12. opens a new tab and shows the documentation of ioBroker.backitup.
+13. opens a new tab and shows the readme of ioBroker.backitup.
+
+
 ![adminTabRestore](img/backitup_restore.png)
+
+The operation of the Restore tab is as follows.
+
+1. download the selected backup to the PC.
+2. start the restore of the selected backup.
+3. information about the backup.
+4. information on the backup type.
+
+
 ![adminTabInfo](img/backitup_history.png)
 
 _[Back to top](#start-of-content)_
@@ -266,7 +293,13 @@ You can optionally activate / deactivate whether the backups should be deleted f
 If a CIFS mount is not possible, there is another possibility of the copy function.<br>
 Here in the CIFS settings the path must be entered where the copy is to be made.<br>
 The specification of the IP address must remain empty for the copy function.
-  
+
+## Expert Mount
+In the Expert area, it is possible to create your own mount command, which the adapter then uses for a backup and a restore.
+Here you can work individually and, for example, integrate the fstab or credentials.
+
+>grey_exclamation: Please note that this option is only intended for experts. :grey_exclamation:
+
 ## Dropbox
 In order to use the backup in Dropbox, you have to get an access token. This can be done on the ioBroker.backitup configuration page.<br>
 ioBroker only accesses the defined areas. No tokens or user data are stored in the cloud.
