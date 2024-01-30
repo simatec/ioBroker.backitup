@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.10.7",
+    "version": "2.10.8",
     "news": {
+      "2.10.8": {
+        "en": "Fix Expert Mount\nDocu updated\ndependencies updated",
+        "de": "Fix Expert Mount\nDocu aktualisiert\naktualisierte abhängigkeiten",
+        "ru": "Экспедиторская гора\nDocu\nобновленная информация о зависимостях",
+        "pt": "Fix Expert Mount\nDocu atualizado\ndependências atualizadas",
+        "nl": "Fix Expert Mount\nDocu bijgewerkt\nafhankelijkheden bijgewerkt",
+        "fr": "Correction du montage expert\nDocu mis à jour\ndépendances mises à jour",
+        "it": "Fissare il supporto esperto\nDocu aggiornato\ndipendenze aggiornate",
+        "es": "Fix Expert Mount\nDocu actualizado\ndependencias actualizadas",
+        "pl": "Fix Expert Mount\nAktualizacja doku\nzaktualizowane zależności",
+        "uk": "Фіксований експертний монтаж\nDocu оновлений\nоновлені залежності",
+        "zh-cn": "修复专家山\n更新 Docu\n更新依赖关系"
+      },
       "2.10.7": {
         "en": "small fixes\nsmall Design Fix\nTranslation updated\nExpert Mount added",
         "de": "kleine fixes\nkleines Design Fix\nÜbersetzung aktualisiert\nExpert Mount hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "Cronjob dla ustawień ekspertów dodano\nKod zrestrukturyzowany\nTłumaczenie dodane",
         "uk": "Cronjob for Expert Settings додано\nРеструктуризація коду\nПереклад додано",
         "zh-cn": "添加了专家设置的编程工作\n调整代码\n增加了翻译"
-      },
-      "2.10.1": {
-        "en": "small Fixes\nCode restructured",
-        "de": "kleine Feste\nCode umstrukturiert",
-        "ru": "небольшие Fixes\nРеструктуризация кода",
-        "pt": "pequenas correções\nCódigo reestruturado",
-        "nl": "kleine correcties\nGeherstructureerde code",
-        "fr": "petits Fixes\nCode restructuré",
-        "it": "piccoli corredi\nCodice ristrutturato",
-        "es": "pequeñas fijaciones\nCódigo reestructurado",
-        "pl": "małe liczby\nKod zrestrukturyzowany",
-        "uk": "маленькі Фікси\nРеструктуризація коду",
-        "zh-cn": "小修补\n调整代码"
       }
     },
     "titleLang": {
