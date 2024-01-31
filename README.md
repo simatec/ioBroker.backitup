@@ -16,7 +16,7 @@ This adapter uses the service `Sentry.io` to automatically report exceptions and
 
 **************************************************************************************************************
 
-# Support adapter development
+## Support adapter development
 **If you like ioBroker.backitup, please consider making a donation:**
   
 [![paypal](https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif)](https://paypal.me/mk1676)
