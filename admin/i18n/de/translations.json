@@ -261,7 +261,7 @@
     "WhatsApp": "Whatsapp",
     "WhatsApp instance": "WhatsApp-Instanz",
     "Yahka (Homekit) Backup": "Yahka (Homekit)",
-    "Your backup was not completely created. Please check the errors!": "Die Sicherung wurde nicht vollständig erstellt. Bitte die Fehlermeldungen überprüfen!",
+    "Your backup was not completely created. Please check the errors!!": "Die Sicherung wurde nicht vollständig erstellt. Bitte die Fehlermeldungen überprüfen!",
     "Zigbee2MQTT": "Zigbee2MQTT",
     "Zigbee2MQTT file path": "Zigbee2MQTT Dateipfad",
     "activated backupoptions": "aktive Backup-Optionen",
