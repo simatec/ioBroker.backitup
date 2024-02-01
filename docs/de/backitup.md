@@ -13,6 +13,7 @@
 
 **************************************************************************************************************
 
+# Unterstütze die Adapterentwicklung
 **Wenn Ihnen ioBroker.backitup gefällt, denken Sie bitte über eine Spende nach:**
   
 [![paypal](https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif)](https://paypal.me/mk1676)
@@ -90,29 +91,36 @@ Dort stehen Informationen zu den erstellten Backups zur Verfügung, es können B
 
 Hier eine kurze Erklärung der Optionen im Tab Menü
 
-1. Informationen zum letzten und nächsten Backup.
-2. Informationen, wo die Backups gespeichert werden.
-3. Informationen, welche Backuptypen aktiv sind und gesichert werden.
-4. Ein iobroker Backup manuell starten.
-5. Ein Homematic Backup manuell starten.
-6. Öffnet ein neues Fenster und zeigt alle Backups aus dem Verlauf an.
-7. Mit diesem Button kann man die Settings von ioBroker.backitup sichern. Dies ist bei einem Systemwechsel ein nützliches Hilfsmittel. Die Settings werden im JSON Format ausgegeben.
-8. In dieser Option wählt man den Speicher, aus dem der Restore ausgeführt werden soll.
-9. Mit dem Button "Sicherungen abrufen" öffnet sich ein neues Fenster und listet alle vorhanden Backups in dem gewählten Speicher auf.
-10. Möchte man ein Backup von einem anderen System wiederherstellen, kann die Backupdatei über diesen Button auf das System hochgeladen werden.
-11. Dieser Button dient dazu, die gespeicherten ioBroker.backitup Settings innerhalb des Adapter wiederherzustellen. Es ist kein Restore des ioBrokers und hier können nur Dateien im JSON Format hochgeladen werden!
-12. Öffnet ein neuen Tab und zeigt die Dokumentation von ioBroker.backitup an.
-13. Öffnet ein neuen Tab und zeigt die Readme von ioBroker.backitup an.
+
+| Nr.           | Beschreibung  |
+| ------------- | ------------- |
+| 1.    | Informationen zum letzten und nächsten Backup. |
+| 2.    | Informationen, wo die Backups gespeichert werden. |
+| 3.    | Informationen, welche Backuptypen aktiv sind und gesichert werden. |
+| 4.    | Ein iobroker Backup manuell starten. |
+| 5.    | Ein Homematic Backup manuell starten. |
+| 6.    | Öffnet ein neues Fenster und zeigt alle Backups aus dem Verlauf an. |
+| 7.    | Mit diesem Button kann man die Settings von ioBroker.backitup sichern. Dies ist bei einem Systemwechsel ein nützliches Hilfsmittel. Die Settings werden im JSON Format ausgegeben. |
+| 8.    | In dieser Option wählt man den Speicher, aus dem der Restore ausgeführt werden soll. |
+| 9.    | Mit dem Button "Sicherungen abrufen" öffnet sich ein neues Fenster und listet alle vorhanden Backups in dem gewählten Speicher auf. |
+| 10.   | Möchte man ein Backup von einem anderen System wiederherstellen, kann die Backupdatei über diesen Button auf das System hochgeladen werden. |
+| 11.   | Dieser Button dient dazu, die gespeicherten ioBroker.backitup Settings innerhalb des Adapter wiederherzustellen. Es ist kein Restore des ioBrokers und hier können nur Dateien im JSON Format hochgeladen werden! |
+| 12.   | Öffnet ein neuen Tab und zeigt die Dokumentation von ioBroker.backitup an. |
+| 13.   | Öffnet ein neuen Tab und zeigt die Readme von ioBroker.backitup an. |
+
 
 
 ![adminTabRestore](img/backitup_restore.png)
 
 Die Bedienung des Restore Tabs sieht wie folgt aus.
 
-1. Download des gewählten Backups auf den PC.
-2. Start des Restore des gewählten Backups.
-3. Informationen zum Backup.
-4. Informationen zum Backuptyp.
+
+| Nr.           | Beschreibung                                  |
+| ------------- | -------------                                 |
+| 1.            | Download des gewählten Backups auf den PC.    |
+| 2.            | Start des Restores des gewählten Backups.      |
+| 3.            | Informationen zum Backup.                     |
+| 4.            | Informationen zum Backuptyp.                  |
 
 
 ![adminTabInfo](img/backitup_history.png)
@@ -130,6 +138,9 @@ Dieses Backup entspricht dem in ioBroker enthaltenen Backup, welches man in der 
 ## CCU Backup (Homematic)
 Dieses Backup bietet die Möglichkeit, drei verschiedene Varianten einer Homematic Installation (CCU-Original / pivCCU / Raspberrymatic) zu sichern. Auch die Ausführung dieses Backups kann durch die festgelegten Einstellungen in der Adapterkonfiguration oder dem Widget OneClick-Backup durchgeführt werden.<br><br>
 Wer nicht nur eine CCU sichern will, kann die Option "Sicherung mehrerer Systeme" aktivieren und im Anschluss seine Homematic Zentralen in der Tabelle definieren.
+
+> [!IMPORTANT]
+> Ein Backup der CCU kann nur mit dem User `Admin` der CCU durchgeführt werden!
 
 ## Mysql-Backup
 Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.<br><br>
@@ -206,6 +217,9 @@ Hier findet Ihr die offizielle Anleitung, wie Ihr Influx-CLI auf eurem System in
 
 Wer nicht nur eine Datenbank sichern will, kann die Option "Sicherung mehrerer Systeme" aktivieren und im Anschluss seine Datenbanken in der Tabelle definieren.<br>
 
+> [!IMPORTANT]
+> Um ein InfluxDB2 Backup zu erstellen und es auch wiederherstellen zu können, wird der Operator-Token benötigt!
+
 ## PostgreSQL-Backup
 Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.<br><br>
 Wichig hierbei ist, dass auch wenn der PostgreSQL-Server auf einem entfernten System läuft, die PostgreSQL auf dem ioBroker System laufen muss.<br>Für Linuxsysteme gibt es [hier](https://www.postgresql.org/download/linux/debian/) eine Installationsanleitung.<br><br>
@@ -242,9 +256,12 @@ sudo reboot
 Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.
 
 ## Grafana-Backup
-Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.<br><br>
-**Um ein Grafana-Backup erstellen zu können, wird der Benutzername (Admin) und das Passwort von Grafana benötigt.**<br><br>
-**Des Weiteren muss in der Grafana-Weboberfläche ein API-Key bzw. Service Token erzeugt werden, um Zugriff auf die Dashboards zu bekommen.**<br>
+Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.<br>
+
+> [!IMPORTANT]
+> Um ein Grafana-Backup erstellen zu können, wird der Benutzername (Admin) und das Passwort von Grafana benötigt.
+> Des Weiteren muss in der Grafana-Weboberfläche ein API-Key bzw. Service Token erzeugt werden, um Zugriff auf die Dashboards zu bekommen.
+
 Der Api-Key kann unter ***"Configuration → API Keys bzw. Service Token"*** erstellt werden und muss die vollen Admin-Rechte besitzen.
 
 ## Yahka-Backup
@@ -291,7 +308,8 @@ Die Angabe der IP Adresse muss für die Copy-Funktion leer bleiben.
 Im Bereich Experte besteht die Möglichkeit einen eigenen Mount-Befehl zu erstellen, welchen der Adapter dann für ein Backup und einen Restore verwendet.
 Hier kann man individuell arbeiten und z.B. die fstab oder auch credentials einbinden.
 
->:grey_exclamation: Bitte beachtet, dass diese Option nur für Experten gedacht ist. :grey_exclamation:
+> [!WARNING]
+> Bitte beachtet, dass diese Option nur für Experten gedacht ist.
   
 ## Dropbox
 Um die Sicherung in der Dropbox zu nutzen, muss man einen Access Token holen. Das kann man auf der Konfigurationsseite von ioBroker.backitup machen.<br>
@@ -338,9 +356,11 @@ _[Zurück zum Anfang](#start-of-content)_
 ioBroker.backitup kann ältere Backups automatisch löschen. Die Anzahl der vorzuhaltenden Backups kann in der Konfiguration von ioBroker.backitup festgelegt werden.
 Ein löschen älterer Backups erfolgt nur, wenn der Adapter ein automatisches zeitgesteuertes Backup durchführt.
 
-Bei manuellen Backups werden ältere Backupdateien nicht gelöscht.
+> [!NOTE]
+> Bei manuellen Backups werden ältere Backupdateien nicht gelöscht.
 
-Sollte während des Backupprozesses ein Fehler auftreten, wird aus Sicherheitsgründen ebenfalls kein löschen älterer Backups erfolgen. 
+> [!IMPORTANT]
+> Sollte während des Backupprozesses ein Fehler auftreten, wird aus Sicherheitsgründen ebenfalls kein löschen älterer Backups erfolgen. 
 
 Welche Backups gelöscht wurden und mögliche Fehler beim Löschen werden in Debuglog ausgegeben.
 
@@ -487,7 +507,11 @@ Nach dem Restore startet euer ioBroker neu und ab da übernimmt die Installation
 ioBroker.backitup hat nach dem Start des iobrokers keinerlei Einfluss auf die Wiederherstellung. Dies  übernimmt der js-controller im Hintergrund anhand der wiederhergestellten Informationen in den States und Objects.
 
 Es kann aus allen Speichermedien ein Restore ausgeführt werden.<br><br>
-**Grundsätzlich ist aber der sicherste Weg, den Restore lokal auszuführen.**<br><br>
+
+> [!NOTE]
+> Grundsätzlich ist aber der sicherste Weg, den Restore lokal auszuführen.
+
+
 Wer den sichersten Weg wählt und den Restore lokal ausführen möchte, muss die Backupdatei im ioBroker Backup-Ordner ablegen.
 Auf Linuxsystemen befindet sich dieser Ordner unter folgenden Pfad: `/opt/iobroker/backups`
 

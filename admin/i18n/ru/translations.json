@@ -261,7 +261,7 @@
     "WhatsApp": "WhatsApp",
     "WhatsApp instance": "Экземпляр WhatsApp",
     "Yahka (Homekit) Backup": "Яка (Homekit)",
-    "Your backup was not completely created. Please check the errors!": "Ваша резервная копия была создана не полностью. Пожалуйста, проверьте ошибки!",
+    "Your backup was not completely created. Please check the errors!!": "Ваша резервная копия была создана не полностью. Пожалуйста, проверьте ошибки!",
     "Zigbee2MQTT": "Зигбе2MQTT",
     "Zigbee2MQTT file path": "Зигбе2MQTT путь файла",
     "activated backupoptions": "активированные резервные варианты",

@@ -12,6 +12,9 @@
 [![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/simatec)
 
 
+**************************************************************************************************************
+
+# Support adapter development
 **If you like ioBroker.backitup, please consider making a donation:**
   
 [![paypal](https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif)](https://paypal.me/mk1676)
@@ -19,7 +22,7 @@
 
 **************************************************************************************************************
 
-## Disclaimer
+# Disclaimer
 **ioBroker.backitup is backup plugin only for the smart home software ioBroker.**<br>
 **Is it not affiliated with or endorsed by [Nero BackItUp](https://www.nero.com/deu/products/nero-backitup/?vlang=en) (a Tool backup under Windows-Systems).**
 
@@ -95,29 +98,35 @@ Information on the backups made is available there, backups can be made and the 
 
 Here is a brief explanation of the options in the Menu tab
 
-1. information on the last and next backup.
-2. information on where the backups are stored.
-3. information on which backup types are active and being backed up.
-4. start an iobroker backup manually.
-5. start a Homematic backup manually.
-6. opens a new window and displays all backups from the history.
-7. with this button you can save the settings of ioBroker.backitup. This is a useful tool when changing systems. The settings are output in JSON format.
-8. in this option you select the memory from which the restore is to be executed.
-9. click on the "Retrieve backups" button to open a new window and list all existing backups in the selected memory.
-10. if you want to restore a backup from another system, the backup file can be uploaded to the system using this button.
-11. this button is used to restore the saved ioBroker.backitup settings within the adapter. It is not a restore of the ioBroker and only files in JSON format can be uploaded here!
-12. opens a new tab and shows the documentation of ioBroker.backitup.
-13. opens a new tab and shows the readme of ioBroker.backitup.
+
+| No.           | Description   |
+| ------------- | ------------- |
+| 1.    | Information on the last and next backup. |
+| 2.    | Information on where the backups are stored. |
+| 3.    | Information on which backup types are active and being backed up. |
+| 4.    | Start an iobroker backup manually. |
+| 5.    | Start a Homematic backup manually. |
+| 6.    | Opens a new window and displays all backups from the history. |
+| 7.    | With this button you can save the settings of ioBroker.backitup. This is a useful tool when changing systems. The settings are output in JSON format. |
+| 8.    | This option is used to select the memory from which the restore is to be executed. |
+| 9.    | With the "Retrieve backups" button, a new window opens and lists all existing backups in the selected memory. |
+| 10.   | If you want to restore a backup from another system, the backup file can be uploaded to the system using this button. |
+| 11.   | This button is used to restore the saved ioBroker.backitup settings within the adapter. It is not a restore of the ioBroker and only files in JSON format can be uploaded here! |
+| 12.   | Opens a new tab and shows the documentation of ioBroker.backitup. |
+| 13.   | Opens a new tab and shows the readme of ioBroker.backitup. |
 
 
 ![adminTabRestore](img/backitup_restore.png)
 
 The operation of the Restore tab is as follows.
 
-1. download the selected backup to the PC.
-2. start the restore of the selected backup.
-3. information about the backup.
-4. information on the backup type.
+
+| No.           | Description                               |
+| ------------- | -------------                             |
+| 1.            | Download the selected backup to the PC.   |
+| 2.            | Start the restore of the selected backup. |
+| 3.            | Information about the backup.             |
+| 4.            | Information about the backup type.        |
 
 
 ![adminTabInfo](img/backitup_history.png)
@@ -136,6 +145,9 @@ This backup corresponds to the backup contained in ioBroker which can be started
 ## CCU backup (Homematic)
 This backup offers the possibility to save 3 different variants of a Homematic installation (CCU-Original / pivCCU / Raspberrymatic). This backup can also be performed using the settings specified in the adapter configuration or the OneClick backup widget.<br> <br>
 If you don't want to secure just one CCU, you can activate the "Securing multiple systems" option and then define your Homematic central units in the table.
+
+> [!IMPORTANT]
+> A backup of the CCU can only be carried out with the user `Admin` of the CCU!
 
 ## Mysql backup
 If activated, this separately adjustable backup is created with every ioBroker backup and is also deleted after the specified retention time has expired. FTP or CIFS are also valid for this backup if the other ioBroker backup types are set.<br><br>
@@ -212,6 +224,9 @@ Here you will find the official instructions on how to install Influx-CLI on you
 
 If you don't just want to back up one database, you can activate the "Backup of multiple systems" option and then define your databases in the table.<br>
 
+> [!IMPORTANT]
+> To create and restore an InfluxDB2 backup, the operator token is required!
+
 ## PostgreSQL backup
 If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other ioBroker backup types are set.<br><br>
 What is important here is that even if the PostgreSQL server is running on a remote system, PostgreSQL must run on the ioBroker system / debian /) an installation guide.<br> <br>
@@ -248,9 +263,13 @@ sudo reboot
 This backup, which can be set separately, is created with every backup ioBroker if it is activated and is also deleted after the specified retention time has expired. FTP or CIFS are also valid for this backup if set for the other ioBroker backup types.
 
 ## Grafana backup
-If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set.<br><br>
-**In order to be able to create a Grafana backup, the Grafana username (Admin) and password are required.**<br><br>
-**Furthermore, an API key or service token must be created in the Grafana web interface to get access to the dashboards.** <br>
+If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other IoBroker backup types are set.<br>
+
+> [!IMPORTANT]
+> In order to be able to create a Grafana backup, the Grafana username (Admin) and password are required.
+> Furthermore, an API key or service token must be created in the Grafana web interface to get access to the dashboards.
+
+
 The API key can be created under ***"Configuration → API Keys or Service Token"*** and must have full admin permissions.
 
 ## Yahka backup
@@ -298,7 +317,8 @@ The specification of the IP address must remain empty for the copy function.
 In the Expert area, it is possible to create your own mount command, which the adapter then uses for a backup and a restore.
 Here you can work individually and, for example, integrate the fstab or credentials.
 
->grey_exclamation: Please note that this option is only intended for experts. :grey_exclamation:
+> [!WARNING]
+> Please note that this option is only intended for experts.
 
 ## Dropbox
 In order to use the backup in Dropbox, you have to get an access token. This can be done on the ioBroker.backitup configuration page.<br>
@@ -345,9 +365,11 @@ _[Back to top](#start-of-content)_
 ioBroker.backitup can delete older backups automatically. The number of backups to be kept can be defined in the configuration of ioBroker.backitup.
 Deletion of older backups only occurs when the adapter performs an automatic scheduled backup.
 
-In case of manual backups, older backup files are not deleted.
+> [!NOTE]
+> In case of manual backups, older backup files are not deleted.
 
-If an error occurs during the backup process, older backups will also not be deleted for security reasons. 
+> [!IMPORTANT]
+> If an error occurs during the backup process, older backups will also not be deleted for security reasons. 
 
 Which backups were deleted and possible errors during deletion are output in Debuglog.
 
@@ -493,7 +515,11 @@ After the restore, your iobroker restarts and from there the js-controller takes
 ioBroker.backitup has no effect whatsoever on the recovery after the iobroker has started. This all happens in the background and the js-controller takes over based on the restored information in the States and Objects.
 
 A restore can be carried out from all storage media.<br><br>
-**Basically, however, the safest way is to execute the restore locally.**<br><br>
+
+> [!NOTE]
+> Basically, however, the safest way is to execute the restore locally.
+
+
 If you choose the safest way and want to do the restore locally, you have to store the backup file in the ioBroker backup folder.
 On Linux systems this folder is located under the following path: `/opt/iobroker/backups`
 
