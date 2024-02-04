@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.10.9",
+    "version": "2.10.10",
     "news": {
+      "2.10.10": {
+        "en": "small Design Fix",
+        "de": "kleines Design Fix",
+        "ru": "маленький дизайн Fix",
+        "pt": "pequeno Design Fix",
+        "nl": "kleine ontwerp Fix",
+        "fr": "petite fixation de conception",
+        "it": "piccolo Design Fix",
+        "es": "pequeño diseño fijar",
+        "pl": "mały projekt Fix",
+        "uk": "невеликий дизайн виправити",
+        "zh-cn": "小设计"
+      },
       "2.10.9": {
         "en": "Fix Translation",
         "de": "Über uns",
@@ -80,19 +93,6 @@
         "pl": "Napraw CCU Kopia zapasowa",
         "uk": "Фіксація CCU Зареєструватися",
         "zh-cn": "修复 CCU 备份"
-      },
-      "2.10.3": {
-        "en": "CCU backup switched from request to axios\nSentry fix",
-        "de": "CCU-Backup von der Anfrage auf axios geschaltet\nSentry fix",
-        "ru": "Резервное копирование CCU переключается с запроса на axios\nЗаказ",
-        "pt": "Cópia de segurança CCU alternada de pedido para axios\nSentry fix",
-        "nl": "CCU back-up overgeschakeld van verzoek naar axios\nSentry fix",
-        "fr": "La sauvegarde CCU est passée de la requête à l'axios\nCorrection de l'entrée",
-        "it": "Il backup CCU è passato da richiesta ad assi\nSistema di rilevamento",
-        "es": "CCU backup switched from request to axios\nSentry fix",
-        "pl": "Backup CCU przełączył się z prośby na axios\nZnak rejestracyjny",
-        "uk": "CCU переключений з запиту на аксіос\nПанчохи",
-        "zh-cn": "CCU 备份从请求切换到轴\n哨兵固定装置"
       }
     },
     "titleLang": {
