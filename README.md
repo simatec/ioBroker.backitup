@@ -57,6 +57,9 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) small Design Fix
+
 ### 2.10.9 (2024-02-01)
 * (simatec) Fix Translation
 
