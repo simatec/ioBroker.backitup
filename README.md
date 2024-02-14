@@ -57,7 +57,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.10.11 (2024-02-14)
 * (simatec) Design Fix
 * (simatec) dependencies updated
 

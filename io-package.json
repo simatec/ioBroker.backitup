@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.10.10",
+    "version": "2.10.11",
     "news": {
+      "2.10.11": {
+        "en": "Design Fix\ndependencies updated",
+        "de": "Design Fix\naktualisierte abhängigkeiten",
+        "ru": "Дизайн Fix\nобновленная информация о зависимостях",
+        "pt": "Correção de Design\ndependências atualizadas",
+        "nl": "Ontwerpfix\nafhankelijkheden bijgewerkt",
+        "fr": "Correction de conception\ndépendances mises à jour",
+        "it": "Design Fix\ndipendenze aggiornate",
+        "es": "Diseño fijo\ndependencias actualizadas",
+        "pl": "Popraw projekt\nzaktualizowane zależności",
+        "uk": "Фіксація дизайну\nоновлені залежності",
+        "zh-cn": "设计\n更新依赖关系"
+      },
       "2.10.10": {
         "en": "small Design Fix",
         "de": "kleines Design Fix",
@@ -80,19 +93,6 @@
         "pl": "Napraw CCU Kopia zapasowa z samopodpisanymi certyfikatami",
         "uk": "Фіксація CCU Резервне копіювання з самопризначеними сертифікатами",
         "zh-cn": "修复 CCU 使用自签名证书备份"
-      },
-      "2.10.4": {
-        "en": "Fix CCU Backup",
-        "de": "CCU Backup",
-        "ru": "Fix CCU Назад",
-        "pt": "Corrigir CCU Backup",
-        "nl": "CCU repareren Reservekopie",
-        "fr": "Correction du CCU Sauvegarde",
-        "it": "Riparare CCU Backup",
-        "es": "CCU fijar Copia de seguridad",
-        "pl": "Napraw CCU Kopia zapasowa",
-        "uk": "Фіксація CCU Зареєструватися",
-        "zh-cn": "修复 CCU 备份"
       }
     },
     "titleLang": {
