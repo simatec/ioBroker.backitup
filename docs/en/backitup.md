@@ -16,7 +16,7 @@
 
 # Documentation and instructions for ioBroker.backitup
 
-**************************************************************************************************************
+
 
 ## Support adapter development
 **If you like ioBroker.backitup, please consider making a donation:**

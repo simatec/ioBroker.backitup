@@ -15,7 +15,7 @@
 
 # Dokumentation und Anleitung für ioBroker.backitup
 
-**************************************************************************************************************
+
 
 ## Unterstütze die Adapterentwicklung
 **Wenn Ihnen ioBroker.backitup gefällt, denken Sie bitte über eine Spende nach:**
