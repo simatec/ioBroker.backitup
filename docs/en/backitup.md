@@ -1,5 +1,7 @@
 ![Logo](img/backitup.png)
 
+# Documentation and instructions for ioBroker.backitup
+
 ![Number of Installations](http://iobroker.live/badges/backitup-installed.svg)
 ![Number of Installations](http://iobroker.live/badges/backitup-stable.svg)
 [![NPM version](http://img.shields.io/npm/v/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
@@ -13,9 +15,6 @@
 
 
 **************************************************************************************************************
-
-# Documentation and instructions for ioBroker.backitup
-
 
 
 ## Support adapter development
@@ -58,7 +57,7 @@ After the restore, your iobroker restarts and from there the js-controller takes
 
 ioBroker.backitup has no effect whatsoever on the recovery after the ioBroker has started. This all happens in the background and the js-controller takes over based on the restored information in the States and Objects.
 
-_[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
+_[Back to top](#documentation-and-instructions-for-iobrokerbackitup)_
 
 ---
 
@@ -87,7 +86,7 @@ _[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
      - [Installation instructions InfluxDB 2.x](https://docs.influxdata.com/influxdb/v2.1/install/)
      - [Installation instructions Influx-CLI für 2.x](https://docs.influxdata.com/influxdb/v2.1/tools/influx-cli/?t=Linux)
 
-_[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
+_[Back to top](#documentation-and-instructions-for-iobrokerbackitup)_
 
 ---
 
@@ -135,7 +134,7 @@ The operation of the Restore tab is as follows.
 
 ![adminTabInfo](img/backitup_history.png)
 
-_[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
+_[Back to top](#documentation-and-instructions-for-iobrokerbackitup)_
 
 ---
 
@@ -280,7 +279,7 @@ The API key can be created under ***"Configuration → API Keys or Service Token
 If activated, this separately adjustable backup is created with every ioBroker backup and is also deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other ioBroker backup types are set. <br> <br>
 All system settings and device settings from Homekit are saved.
 
-_[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
+_[Back to top](#documentation-and-instructions-for-iobrokerbackitup)_
 
 ---
 
@@ -360,7 +359,7 @@ In order to be able to establish a connection, the host name of the cloud must m
 > Example URL: "https://example.com/remote.php/dav/files/username/"<br><br>
 A connection with a local IP address is only possible if the option "Only allow signed certificates" is deactivated.
 
-_[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
+_[Back to top](#documentation-and-instructions-for-iobrokerbackitup)_
 
 ---
 
@@ -377,7 +376,7 @@ Deletion of older backups only occurs when the adapter performs an automatic sch
 
 Which backups were deleted and possible errors during deletion are output in Debuglog.
 
-_[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
+_[Back to top](#documentation-and-instructions-for-iobrokerbackitup)_
 
 ---
 
@@ -406,7 +405,7 @@ The storage locations for the individual backups can be freely configured on eac
 In systems with limited RAM, the backup master can automatically start the slave instances for the backup process and then stop them again.<br>
 This option can be configured in the menu.
 
-_[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
+_[Back to top](#documentation-and-instructions-for-iobrokerbackitup)_
 
 ---
 
@@ -425,7 +424,7 @@ In order to be able to use ioBroker.backitup in Docker to its full extent, some 
 * Port 9081 - file server for download of backups via the web interface of ioBroker.backitup
 * Port 9082 - file server for uploads of backups via the web interface of ioBroker.backitup
 
-_[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
+_[Back to top](#documentation-and-instructions-for-iobrokerbackitup)_
 
 ---
 
@@ -483,7 +482,7 @@ Syntax: {BackitupInstance.history.html}
 
 Syntax: {value: <BackitupInstance>.oneClick.<trigger>; value ==="true" || value === true ? "Text during backup creation" : "Standard text"}
 
-_[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
+_[Back to top](#documentation-and-instructions-for-iobrokerbackitup)_
 
 ---
 
@@ -500,7 +499,7 @@ _[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
     * Matrix
     * Discord
 
-_[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
+_[Back to top](#documentation-and-instructions-for-iobrokerbackitup)_
 
 ---
 
@@ -551,7 +550,7 @@ Detailed instructions for restoring with Backup and also for manual restoring ca
     - Execute the command: “reboot“ on the Raspberrymatic to restart the PI
     - Alternatively, the backup can of course also be restored as usual via the web interface.
 
-_[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
+_[Back to top](#documentation-and-instructions-for-iobrokerbackitup)_
 
 ---
 
@@ -559,7 +558,7 @@ _[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
 ## Troubleshooting
 To log errors, ioBroker.backitup must be set to log level "debug" under the ioBroker tab "Instances".
 
-_[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
+_[Back to top](#documentation-and-instructions-for-iobrokerbackitup)_
 
 ---
 
@@ -596,6 +595,6 @@ Here is a list of the problems that have occurred so far and their solutions, if
 
 8. If a Fritzbox is used as a NAS with a firmware > = 7.21, the SMB settings should be set to "3.1.1" in ioBroker.backitup and the "noserverino" option should be activated.
 
-_[Back to top](#Documentation-and-instructions-for-ioBroker.backitup)_
+_[Back to top](#documentation-and-instructions-for-iobrokerbackitup)_
 
 ---
