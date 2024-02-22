@@ -1,5 +1,7 @@
 ![Logo](img/backitup.png)
 
+# Dokumentation und Anleitung für ioBroker.backitup
+
 ![Number of Installations](http://iobroker.live/badges/backitup-installed.svg)
 ![Number of Installations](http://iobroker.live/badges/backitup-stable.svg)
 [![NPM version](http://img.shields.io/npm/v/iobroker.backitup.svg)](https://www.npmjs.com/package/iobroker.backitup)
@@ -12,9 +14,6 @@
 [![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/simatec)
 
 **************************************************************************************************************
-
-# Dokumentation und Anleitung für ioBroker.backitup
-
 
 
 ## Unterstütze die Adapterentwicklung
@@ -53,7 +52,7 @@ ioBroker.backitup hat nach dem Start des iobrokers keinerlei Einfluss auf die Wi
 Im Gegensatz zu dem CLI Befehl kann aber ioBroker.backitup auch noch einen Restore der verschiedenen optinalen Backups durchführen.
 Dies ist über die CLI nicht möglich.
 
-_[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
+_[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
 ---
 
@@ -81,7 +80,7 @@ _[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
     - [Installationsanleitung InfluxDB 2.x](https://docs.influxdata.com/influxdb/v2.1/install/)
     - [Installationsanleitung Influx-CLI für 2.x](https://docs.influxdata.com/influxdb/v2.1/tools/influx-cli/?t=Linux)
 
-_[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
+_[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
 ---
 
@@ -129,7 +128,7 @@ Die Bedienung des Restore Tabs sieht wie folgt aus.
 
 ![adminTabInfo](img/backitup_history.png)
 
-_[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
+_[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
 ---
 
@@ -272,7 +271,7 @@ Der Api-Key kann unter ***"Configuration → API Keys bzw. Service Token"*** ers
 Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.<br><br>
 Es werden alle Systemeinstellungen und Geräteeinstellungen von Homekit gesichert.
 
-_[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
+_[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
 ---
 
@@ -351,7 +350,7 @@ Um eine Verbindung aufbauen zu können, muss der Hostname der Cloud alle Sicherh
 > Beispiel URL: "https://example.com/remote.php/dav/files/username/"<br><br>
 Eine Verbindung mit lokaler IP-Adresse ist nur möglich, wenn die Option "Nur signierte Zertifikate zulassen" deaktiviert ist.
 
-_[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
+_[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
 ---
 
@@ -368,7 +367,7 @@ Ein löschen älterer Backups erfolgt nur, wenn der Adapter ein automatisches ze
 
 Welche Backups gelöscht wurden und mögliche Fehler beim Löschen werden in Debuglog ausgegeben.
 
-_[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
+_[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
 ---
 
@@ -397,7 +396,7 @@ Die Speicherorte für die einzelnen Backups können auf jedem Slave frei konfigu
 Bei Systemen mit begrenztem RAM kann der ioBroker.backitup Master die Slave Instanzen für den Backupprozess automatisch starten und im Anschluss wieder stoppen.<br>
 Diese Option ist im Menü konfigurierbar. 
 
-_[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
+_[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
 ---
 
@@ -416,7 +415,7 @@ Um ioBroker.backitup im Docker vollumfänglich nutzen zu können, müssen noch e
 * Port 9081 - Fileserver für Download von Backups über das Webinterinface von ioBroker.backitup
 * Port 9082 - Fileserver für Uploads von Backups über das Webinterinface von ioBroker.backitup
 
-_[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
+_[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
 ---
 
@@ -474,7 +473,7 @@ Syntax: {BackitupInstanz.history.html}
 
 Syntax: {wert: <BackitupInstanz>.oneClick.<Auslösetrigger>; wert === "true" || wert === true ? "Text während der Backuperstellung" : "Standard-Text"}
 
-_[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
+_[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
 ---
 
@@ -491,7 +490,7 @@ _[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
    * Matrix
    * Discord
 
-_[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
+_[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
 ---
 
@@ -543,7 +542,7 @@ Eine detailierte Anleitung zum Restore mit ioBroker.backitup und auch zum manuel
     - Den Befehl: “reboot“ auf der Raspberrymatic ausführen um den PI neu zu starten
     - Alternativ kann das Backup natürlich auch wie gewohnt über das Webinterface wieder hergestellt werden.
 
-_[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
+_[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
 ---
 
@@ -552,7 +551,7 @@ _[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
 
     Um Fehler zu loggen, muss ioBroker.backitup in unter dem ioBroker Reiter "Instanzen" auf Log-Stufe "debug" gestellt werden.
 
-_[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
+_[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
 ---
 
@@ -590,6 +589,6 @@ Hier eine Liste der bisher aufgetretenen Probleme und deren Lösungen (sofern vo
 
 8.  Wenn eine Fritzbox als NAS mit einer Firmware >= 7.21 verwendet wird, sollten in ioBroker.backitup die SMB-Einstellungen auf "3.1.1" eingestellt und die Option "noserverino" aktiviert werden.
 
-_[Zurück zum Anfang](#dokumentation-und-anleitung-für-ioBroker.backitup)_
+_[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
 ---
