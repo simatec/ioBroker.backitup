@@ -6,7 +6,7 @@ updates:
       interval: monthly
       time: "04:00"
       timezone: Europe/Berlin
-    target-branch: "dev"
+    target-branch: "master"
     labels:
       - "dev dependencies"
   - package-ecosystem: npm
@@ -15,7 +15,7 @@ updates:
       interval: monthly
       time: "04:00"
       timezone: Europe/Berlin
-    target-branch: "dev"
+    target-branch: "master"
     labels:
       - "dev dependencies"
     open-pull-requests-limit: 10
