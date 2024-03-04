@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.10.11",
+    "version": "2.11.0",
     "news": {
+      "2.11.0": {
+        "en": "Fix Sqlite3 Path",
+        "de": "Fix Sqlite3 Pfad",
+        "ru": "Fix Sqlite3 Path",
+        "pt": "Fix Sqlite3 Path",
+        "nl": "Sqlite3-pad herstellen",
+        "fr": "Correction du chemin Sqlite3",
+        "it": "Fix Sqlite3 Path",
+        "es": "Fijar el camino sqlite3",
+        "pl": "Fix Sqlite3 Ścieżka",
+        "uk": "Фіксація Sqlite3 Шлях",
+        "zh-cn": "修正 Sqlite3 路径"
+      },
       "2.10.11": {
         "en": "Design Fix\ndependencies updated",
         "de": "Design Fix\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "Gulp usunięty\nadapter -dev dodany\nTłumaczenie dodane\nKonstrukcja dostosowana\nInformacje o Hover dodane do zakładki Przywracanie\nUlepszony widok mobilny\nzaktualizowane zależności",
         "uk": "Відхилити\nадаптер-dev додано\nПереклад додано\nІндивідуальний дизайн\nДодайте інформацію про Hover в вкладку Restore\nПокращений мобільний вигляд\nоновлені залежності",
         "zh-cn": "Gulp 已删除\n添加适配器- dev\n增加了翻译\n自定义设计\n向恢复标签添加信息\n改进移动视图\n更新依赖关系"
-      },
-      "2.10.5": {
-        "en": "Fix CCU Backup with selfsigned Certificates",
-        "de": "CCU Backup mit selbstsignierten Zertifikaten",
-        "ru": "Fix CCU Резервное копирование с самоподписанными сертификатами",
-        "pt": "Corrigir CCU Backup com certificados auto-assinados",
-        "nl": "CCU repareren Back-up met zelf ondertekende certificaten",
-        "fr": "Correction du CCU Sauvegarde avec certificats autosignés",
-        "it": "Riparare CCU Backup con certificati selfsigned",
-        "es": "CCU fijar Copia de seguridad con certificados autosignados",
-        "pl": "Napraw CCU Kopia zapasowa z samopodpisanymi certyfikatami",
-        "uk": "Фіксація CCU Резервне копіювання з самопризначеними сертифікатами",
-        "zh-cn": "修复 CCU 使用自签名证书备份"
       }
     },
     "titleLang": {

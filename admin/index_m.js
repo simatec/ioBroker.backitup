@@ -94,8 +94,9 @@ function fetchSqliteConfig(isInitial) {
             for (var i = 0; i < res.rows.length; i++) {
                 var common = res.rows[0].value.common;
                 var native = res.rows[i].value.native;
-                if (common.enabled && native.dbtype === 'sqlite') {
-                    $('#sqlitePath').val(native.fileName).trigger('change');
+                if (common.enabled && native && native.dbtype === 'sqlite' && native.fileName) {
+                    const pathLenght = native.fileName.split('/');
+                    $('#sqlitePath').val(pathLenght > 1 ? native.fileName : `/opt/iobroker/iobroker-data/sqlite/${native.fileName}`).trigger('change');
                     var id = res.rows[i].value.
                         found = res.rows[i].value._id;
                     break;
@@ -104,8 +105,9 @@ function fetchSqliteConfig(isInitial) {
             if (!found) {
                 for (var j = 0; j < res.rows.length; j++) {
                     var _native = res.rows[j].value.native;
-                    if (_native.dbtype === 'sqlite') {
-                        $('#sqlitePath').val(_native.fileName).trigger('change');
+                    if (_native && _native.dbtype === 'sqlite' && _native.fileName) {
+                        const pathLenght = _native.fileName.split('/');
+                    $('#sqlitePath').val(pathLenght > 1 ? _native.fileName : `/opt/iobroker/iobroker-data/sqlite/${_native.fileName}`).trigger('change');
                         found = res.rows[j].value._id;
                         break;
                     }
