@@ -57,7 +57,7 @@ When the adapter crashes or another Code error happens, this error message that 
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 2.11.0 (2024-03-04)
 * (simatec) Fix Sqlite3 Path
 
 ### 2.10.11 (2024-02-14)
