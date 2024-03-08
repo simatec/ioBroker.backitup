@@ -1,7 +1,8 @@
 import { I18n } from '@iobroker/adapter-react-v5';
 import {
-    Accordion, AccordionDetails, AccordionSummary, Dialog, DialogContent, DialogTitle,
+    Accordion, AccordionDetails, AccordionSummary, Dialog, DialogContent, DialogTitle, Fab, Table, TableCell, TableRow,
 } from '@mui/material';
+import { Download, History } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 
 function parseSize(bytes) {
@@ -32,6 +33,11 @@ const GetBackups = props => {
     const [backups, setBackups] = useState(null);
     useEffect(() => {
         props.socket.sendTo(`${props.adapterName}.${props.instance}`, 'list', 'local').then(result => {
+            Object.keys(result.data).forEach(location => {
+                Object.keys(result.data[location]).forEach(object => {
+                    result.data[location][object].sort((a, b) => (a.name > b.name ? -1 : 1));
+                });
+            });
             setBackups(result);
         });
     }, [props.open]);
@@ -58,11 +64,25 @@ const GetBackups = props => {
                                     {I18n.t(object)}
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    {backups.data[location][object].map((backup, index) => <div key={index}>
-                                        {parseName(backup.name)}
-                                        {' - '}
-                                        {parseSize(backup.size)}
-                                    </div>)}
+                                    <Table>
+                                        {backups.data[location][object].map((backup, index) => <TableRow key={index}>
+                                            <TableCell style={{ width: '100%' }}>
+                                                {`${I18n.t('Backup time')}: ${parseName(backup.name)
+                                                } | ${I18n.t('filesize')}: ${
+                                                    parseSize(backup.size)}`}
+                                            </TableCell>
+                                            <TableCell>
+                                                <div style={{ display: 'flex' }}>
+                                                    <Fab size="small">
+                                                        <Download />
+                                                    </Fab>
+                                                    <Fab size="small">
+                                                        <History />
+                                                    </Fab>
+                                                </div>
+                                            </TableCell>
+                                        </TableRow>)}
+                                    </Table>
                                 </AccordionDetails>
                             </Accordion>)}
                     </AccordionDetails>
