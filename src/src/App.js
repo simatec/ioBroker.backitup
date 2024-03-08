@@ -3,11 +3,13 @@ import { withStyles } from '@mui/styles';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
 import {
-    AppBar,
+    Card, CardContent, Button,
 } from '@mui/material';
 
 import GenericApp from '@iobroker/adapter-react-v5/GenericApp';
 import { I18n, Loader, AdminConnection } from '@iobroker/adapter-react-v5';
+import BackupHistory from './Components/BackupHistory';
+import GetBackups from './Components/GetBackups';
 
 const styles = theme => ({
     root: {},
@@ -58,32 +60,8 @@ class App extends GenericApp {
         super(props, extendedProps);
     }
 
-    // socket.emit('getState', adapter + '.' + instance + '.history.iobrokerLastTime', function (err, state) {
-    //     if (state && state.val && settings.minimalEnabled) {
-    //         text += `<li class="next-last-backups"><b>${_('Last iobroker Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
-    //     }
-    //     socket.emit('getState', adapter + '.' + instance + '.history.ccuLastTime', function (err, state) {
-    //         if (state && state.val && settings.ccuEnabled) {
-    //             text += `<li class="next-last-backups"><b>${_('Last CCU Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
-    //         }
-    //         socket.emit('getState', adapter + '.' + instance + '.info.iobrokerNextTime', function (err, state) {
-    //             if (state && state.val && settings.minimalEnabled) {
-    //                 text += `<li class="next-last-backups"><b>${_('Next iobroker Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
-    //             }
-    //             socket.emit('getState', adapter + '.' + instance + '.info.ccuNextTime', function (err, state) {
-    //                 if (state && state.val && settings.ccuEnabled) {
-    //                     text += `<li class="next-last-backups"><b>${_('Next CCU Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
-    //                 }
-    //                 var $backups = $('.card-content-text');
-    //                 $backups
-    //                     .find('.fillBackups')
-    //                     .html(text);
-    //             });
-    //         });
-    //     });
-
     onConnectionReady() {
-        if (this.state.minimalEnabled) {
+        if (this.state.native.minimalEnabled) {
             this.socket.getState(`${this.adapterName}.${this.instance}.history.iobrokerLastTime`)
                 .then(state => {
                     this.setState({ iobrokerLastTime: state.val });
@@ -93,7 +71,7 @@ class App extends GenericApp {
                     this.setState({ iobrokerNextTime: state.val });
                 });
         }
-        if (this.state.ccuEnabled) {
+        if (this.state.native.ccuEnabled) {
             this.socket.getState(`${this.adapterName}.${this.instance}.history.ccuLastTime`)
                 .then(state => {
                     this.setState({ ccuLastTime: state.val });
@@ -106,14 +84,74 @@ class App extends GenericApp {
     }
 
     renderBackupInformation() {
-
+        return <Card>
+            <div>
+                {I18n.t('Backup information')}
+            </div>
+            <CardContent>
+                {this.state.native.minimalEnabled &&
+                <div>
+                    <div>{I18n.t('Last iobroker Backup:')}</div>
+                    <div>{this.state.iobrokerLastTime}</div>
+                </div>}
+                {this.state.native.ccuEnabled &&
+                <div>
+                    <div>{I18n.t('Last CCU Backup:')}</div>
+                    <div>{this.state.ccuLastTime}</div>
+                </div>}
+                {this.state.native.minimalEnabled &&
+                <div>
+                    <div>{I18n.t('Next iobroker Backup:')}</div>
+                    <div>{this.state.iobrokerNextTime}</div>
+                </div>}
+                {this.state.native.ccuEnabled &&
+                <div>
+                    <div>{I18n.t('Next CCU Backup:')}</div>
+                    <div>{this.state.ccuNextTime}</div>
+                </div>}
+            </CardContent>
+        </Card>;
     }
 
     renderActivatedStorageOptions() {
-
+        const options = [
+            { name: 'cifsEnabled', label: `NAS (${this.state.native.connectType})` },
+            { name: 'ftpEnabled', label: 'FTP' },
+            { name: 'dropboxEnabled', label: 'Dropbox' },
+            { name: 'onedriveEnabled', label: 'Onedrive' },
+            { name: 'googledriveEnabled', label: 'Google Drive' },
+            { name: 'webdavEnabled', label: 'WebDAV' },
+        ];
+        return <Card>
+            <CardContent>
+                {options.map(option => this.state.native[option.name] && <div key={option.name}>{I18n.t(option.label)}</div>)}
+            </CardContent>
+        </Card>;
     }
 
     renderActivatedBackupOptions() {
+        const options = [
+            { name: 'jarvisEnabled', label: 'Jarvis Backup' },
+            { name: 'minimalEnabled', label: 'ioBroker' },
+            { name: 'ccuEnabled', label: 'Homematic CCU backup' },
+            { name: 'redisEnabled', label: 'Save Redis state' },
+            { name: 'javascriptsEnabled', label: 'Javascripts Backup' },
+            { name: 'zigbeeEnabled', label: 'Save Zigbee database' },
+            { name: 'esphomeEnabled', label: 'ESPHome' },
+            { name: 'zigbee2mqttEnabled', label: 'Zigbee2MQTT' },
+            { name: 'noderedEnabled', label: 'Node-Red Backup' },
+            { name: 'yahkaEnabled', label: 'Yahka (Homekit) Backup' },
+            { name: 'historyEnabled', label: 'Save History Data' },
+            { name: 'influxDBEnabled', label: 'InfluxDB Backup' },
+            { name: 'mySqlEnabled', label: 'MySql Backup' },
+            { name: 'sqliteEnabled', label: 'sqlite3 Backup' },
+            { name: 'grafanaEnabled', label: 'Grafana Backup' },
+        ];
+        return <Card>
+            <CardContent>
+                {options.map(option => this.state.native[option.name] && <div key={option.name}>{I18n.t(option.label)}</div>)}
+            </CardContent>
+        </Card>;
     }
 
     render() {
@@ -128,15 +166,41 @@ class App extends GenericApp {
         return <StyledEngineProvider injectFirst>
             <ThemeProvider theme={this.state.theme}>
                 <div className="App" style={{ background: this.state.theme.palette.background.default, color: this.state.theme.palette.text.primary }}>
-                    <AppBar position="static">
-11
-                    </AppBar>
-
                     <div className={this.isIFrame ? this.props.classes.tabContentIFrame : this.props.classes.tabContent}>
-
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+                            {this.renderBackupInformation()}
+                            {this.renderActivatedStorageOptions()}
+                            {this.renderActivatedBackupOptions()}
+                        </div>
+                        <div>
+                            <Button
+                                onClick={() => this.setState({ showBackupHistory: true })}
+                            >
+                                {I18n.t('Backup history')}
+                            </Button>
+                            <Button
+                                onClick={() => this.setState({ showGetBackups: true })}
+                            >
+                                {I18n.t('Get backups')}
+                            </Button>
+                        </div>
                     </div>
                     {this.renderError()}
                 </div>
+                <BackupHistory
+                    open={this.state.showBackupHistory}
+                    onClose={() => this.setState({ showBackupHistory: false })}
+                    socket={this.socket}
+                    adapterName={this.adapterName}
+                    instance={this.instance}
+                />
+                <GetBackups
+                    open={this.state.showGetBackups}
+                    onClose={() => this.setState({ showGetBackups: false })}
+                    socket={this.socket}
+                    adapterName={this.adapterName}
+                    instance={this.instance}
+                />
             </ThemeProvider>
         </StyledEngineProvider>;
     }
