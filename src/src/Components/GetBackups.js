@@ -1,19 +1,20 @@
 import { I18n } from '@iobroker/adapter-react-v5';
 import {
-    Accordion, AccordionDetails, AccordionSummary, Dialog, DialogContent, DialogTitle, Fab, Table, TableCell, TableRow,
+    Accordion, AccordionDetails, AccordionSummary, Dialog, DialogContent, DialogTitle, Fab, Table, TableCell, TableRow, Tooltip,
 } from '@mui/material';
 import { Download, History } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
+import { saveAs } from 'file-saver';
 
 function parseSize(bytes) {
     if (bytes > 1024 * 1024 * 512) {
-        return `${Math.round((bytes / (1024 * 1024 * 1024)) * 10) / 10}GiB`;
+        return `${Math.round((bytes / (1024 * 1024 * 1024)) * 10) / 10}${I18n.t('GiB')}`;
     } if (bytes > 1024 * 1024) {
-        return `${Math.round((bytes / (1024 * 1024)) * 10) / 10}MiB`;
+        return `${Math.round((bytes / (1024 * 1024)) * 10) / 10}${I18n.t('MiB')}`;
     } if (bytes > 1024) {
-        return `${Math.round((bytes / (1024)) * 10) / 10}KiB`;
+        return `${Math.round((bytes / (1024)) * 10) / 10}${I18n.t('KiB')}`;
     }
-    return `${bytes} bytes`;
+    return `${bytes} ${I18n.t('bytes')}`;
 }
 function parseName(name) {
     const parts = name.split('_');
@@ -73,12 +74,28 @@ const GetBackups = props => {
                                             </TableCell>
                                             <TableCell>
                                                 <div style={{ display: 'flex' }}>
-                                                    <Fab size="small">
-                                                        <Download />
-                                                    </Fab>
-                                                    <Fab size="small">
-                                                        <History />
-                                                    </Fab>
+                                                    <Tooltip title={I18n.t('Download Backup File')}>
+                                                        <Fab
+                                                            size="small"
+                                                            onClick={async () => {
+                                                                const data = await props.socket.sendTo(
+                                                                    `${props.adapterName}.${props.instance}`,
+                                                                    'getFile',
+                                                                    { type: location, fileName: backup.path, protocol: window.location.protocol },
+                                                                );
+                                                                const url = `${window.location.protocol}//${window.location.hostname}:${data.listenPort}/${data.fileName ? data.fileName : backup.path.split(/[\\/]/).pop()}`;
+                                                                saveAs(url);
+                                                                console.log(url);
+                                                            }}
+                                                        >
+                                                            <Download />
+                                                        </Fab>
+                                                    </Tooltip>
+                                                    <Tooltip title={I18n.t('Restore Backup File')}>
+                                                        <Fab size="small">
+                                                            <History />
+                                                        </Fab>
+                                                    </Tooltip>
                                                 </div>
                                             </TableCell>
                                         </TableRow>)}
