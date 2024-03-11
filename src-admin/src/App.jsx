@@ -9,7 +9,10 @@ import GenericApp from '@iobroker/adapter-react-v5/GenericApp';
 import I18n from '@iobroker/adapter-react-v5/i18n';
 import Loader from '@iobroker/adapter-react-v5/Components/Loader';
 
-import TelegramComponent from './TelegramComponent';
+import AdapterExist from './AdapterExist';
+import BackupNow from './BackupNow';
+import DetectConfig from './DetectConfig';
+import GoogleDrive from './GoogleDrive';
 
 const styles = theme => ({
     app: {
@@ -19,8 +22,8 @@ const styles = theme => ({
     },
     item: {
         padding: 50,
-        width: 400
-    }
+        width: 400,
+    },
 });
 
 class App extends GenericApp {
@@ -61,13 +64,61 @@ class App extends GenericApp {
 
         return <StyledEngineProvider injectFirst>
             <ThemeProvider theme={this.state.theme}>
-                <div className={this.props.classes.app}>
+                <div className={this.props.classes.app}>1122
                     <div className={this.props.classes.item}>
-                        <TelegramComponent
+                        <AdapterExist
                             socket={this.socket}
                             themeType={this.state.themeType}
                             themeName={this.state.themeName}
-                            attr='myCustomAttribute'
+                            attr="myCustomAttribute"
+                            data={this.state.data}
+                            onError={() => {}}
+                            instance={0}
+                            schema={{
+                                name: 'ConfigCustomTelegramSet/Components/TelegramComponent',
+                                type: 'custom',
+                            }}
+                            onChange={data => {
+                                this.setState({ data });
+                            }}
+                        />
+                        <BackupNow
+                            socket={this.socket}
+                            themeType={this.state.themeType}
+                            themeName={this.state.themeName}
+                            attr="myCustomAttribute"
+                            data={this.state.data}
+                            onError={() => {}}
+                            instance={0}
+                            schema={{
+                                name: 'ConfigCustomTelegramSet/Components/TelegramComponent',
+                                type: 'custom',
+                            }}
+                            onChange={data => {
+                                this.setState({ data });
+                            }}
+                        />
+                        <DetectConfig
+                            socket={this.socket}
+                            themeType={this.state.themeType}
+                            themeName={this.state.themeName}
+                            attr="myCustomAttribute"
+                            data={this.state.data}
+                            onError={() => {}}
+                            instance={0}
+                            schema={{
+                                name: 'ConfigCustomTelegramSet/Components/TelegramComponent',
+                                type: 'custom',
+                            }}
+                            onChange={data => {
+                                this.setState({ data });
+                            }}
+                        />
+                        <GoogleDrive
+                            socket={this.socket}
+                            themeType={this.state.themeType}
+                            themeName={this.state.themeName}
+                            attr="myCustomAttribute"
                             data={this.state.data}
                             onError={() => {}}
                             instance={0}
