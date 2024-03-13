@@ -6,24 +6,33 @@ import { withStyles } from '@mui/styles';
 // invalid
 // import ConfigGeneric from '@iobroker/adapter-react-v5/ConfigGeneric';
 // valid
-import { ConfigGeneric, i18n as I18n } from '@iobroker/adapter-react-v5';
+import { ConfigGeneric, i18n as I18n, Message } from '@iobroker/adapter-react-v5';
 import { Button, Checkbox, FormControlLabel } from '@mui/material';
+import { fetchCcuConfig } from './Utils';
+import BaseField from './BaseField';
 
 const styles = () => ({
 
 });
 
-class AdapterExist extends ConfigGeneric {
+class AdapterExist extends BaseField {
+    constructor(props) {
+        super(props);
+        this.state.message = false;
+    }
+
     renderItem() {
-        return <FormControlLabel
-            control={<Checkbox
-                onChange={async () => {
-                    const result = await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.hm-rpc.', 'system.adapter.hm-rpc.\u9999');
-                    console.log(result);
-                }}
-            />}
-            label={I18n.t('Adapter exist')}
-        />;
+        return <>
+            <FormControlLabel
+                control={<Checkbox
+                    onChange={async () => {
+                        this.fetchCcuConfig();
+                    }}
+                />}
+                label={I18n.t('Adapter exist')}
+            />
+            {this.renderMessage()}
+        </>;
     }
 }
 

@@ -36,6 +36,9 @@ class BackupNow extends ConfigGeneric {
             });
             if (value.val === '[EXIT] 0') {
                 this.setState({ executing: false });
+                if (this.state.closeOnReady) {
+                    this.setState({ executionDialog: false });
+                }
             }
         }
     };
