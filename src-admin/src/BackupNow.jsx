@@ -2,162 +2,103 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@mui/styles';
 
-import {
-    LinearProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Checkbox, IconButton,
-} from '@mui/material';
-import { Delete as IconDelete } from '@mui/icons-material';
 // important to make from package and not from some children.
 // invalid
 // import ConfigGeneric from '@iobroker/adapter-react-v5/ConfigGeneric';
 // valid
-import { ConfigGeneric, Confirm, i18n as I18n } from '@iobroker/adapter-react-v5';
+import { ConfigGeneric, i18n as I18n } from '@iobroker/adapter-react-v5';
+import {
+    Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel,
+} from '@mui/material';
+import { CloudUpload } from '@mui/icons-material';
 
 const styles = () => ({
-    table: {
-        minWidth: 400,
-    },
-    header: {
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
+
 });
 
 class BackupNow extends ConfigGeneric {
     constructor(props) {
         super(props);
         this.state = {
-            alive: false,
-            initialized: false,
-            users: [],
-            confirm: null,
+            executing: false,
+            executionDialog: false,
+            executionLog: '',
+            lastExecutionLine: '',
+            closeOnReady: '',
         };
     }
 
-    componentDidMount() {
-        super.componentDidMount();
-
-        this.props.socket.getState(`system.adapter.backitup.${this.props.instance}.alive`)
-            .then(async state => {
-                if (state && state.val) {
-                    this.setState({ alive: true }, () => this.readData());
-                } else {
-                    this.setState({ alive: false });
-                }
-
-                await this.props.socket.subscribeState(`system.adapter.backitup.${this.props.instance}.alive`, this.onAliveChanged);
+    onOutput = (id, value)  => {
+        if (value && value.val && value.val !== this.state.lastExecutionLine) {
+            this.setState({
+                executionLog: `${this.state.executionLog + value.val}\n`,
+                lastExecutionLine: value.val,
             });
-    }
-
-    readData() {
-        this.props.socket.sendTo(`backitup.${this.props.instance}`, 'adminuser', null)
-            .then(obj => {  // get admin user
-                const users = [];
-                for (const id in obj) {
-                    const names = [];
-                    obj[id].userName  && names.push(obj[id].userName);
-                    obj[id].firstName && names.push(obj[id].firstName);
-                    users.push({
-                        id,
-                        names: names.join(' / '),
-                        sysMessages: obj[id].sysMessages,
-                    });
-                }
-                this.setState({ users, initialized: true });
-            });
-    }
-
-    async componentWillUnmount() {
-        await this.props.socket.unsubscribeState(`system.adapter.backitup.${this.props.instance}.alive`, this.onAliveChanged);
-    }
-
-    onAliveChanged = (id, state) => {
-        const alive = state ? state.val : false;
-        if (alive !== this.state.alive) {
-            this.setState({ alive }, () => {
-                if (alive && !this.state.initialized) {
-                    this.readData();
-                }
-            });
+            if (value.val === '[EXIT] 0') {
+                this.setState({ executing: false });
+            }
         }
     };
 
-    onSysMessageChange(id) {
-        const pos = this.state.users.findIndex(item => item.id === id);
-        if (pos !== -1) {
-            const checked = !this.state.users[pos].sysMessages;
-
-            this.props.socket.sendTo(`backitup.${this.props.instance}`, 'systemMessages', { itemId: id, checked })
-                .then(obj => {
-                    if (obj === id) {
-                        const users = JSON.parse(JSON.stringify(this.state.users));
-                        const pos = users.findIndex(item => item.id === id);
-                        if (pos !== -1) {
-                            users[pos].sysMessages = checked;
-                            this.setState({ users });
-                        }
-                    }
-                });
-        }
+    componentDidMount() {
+        super.componentDidMount();
+        this.props.socket.subscribeState(`${this.props.adapterName}.${this.props.instance}.output.line`, this.onOutput);
     }
 
-    onDelete(id) {
-        this.props.socket.sendTo(`backitup.${this.props.instance}`, 'delUser', id)
-            .then(obj => {
-                if (obj === id) {
-                    const users = JSON.parse(JSON.stringify(this.state.users));
-                    const pos = users.findIndex(item => item.id === id);
-                    if (pos !== -1) {
-                        users.splice(pos, 1);
-                        this.setState({ users });
-                    }
-                }
-            });
+    componentWillUnmount() {
+        super.componentWillUnmount();
+        this.props.socket.unsubscribeState(`${this.props.adapterName}.${this.props.instance}.output.line`, this.onOutput);
     }
 
-    renderConfirmDialog() {
-        if (this.state.confirm) {
-            return <Confirm onClose={result => {
-                const id = this.state.confirm;
-                this.setState({ confirm: null }, () => result && this.onDelete(id));
-            }}
-            />;
-        }
-        return null;
+    renderExecutionDialog() {
+        return <Dialog
+            open={this.state.executionDialog}
+            onClose={() => this.setState({ executionDialog: false })}
+            maxWidth="md"
+            fullWidth
+        >
+            <DialogTitle>
+                {I18n.t('Backitup execution:')}
+            </DialogTitle>
+            <DialogContent>
+                <pre style={{ height: 400 }}>
+                    {this.state.executionLog}
+                </pre>
+            </DialogContent>
+            <DialogActions>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            checked={this.state.closeOnReady}
+                            onChange={e => this.setState({ closeOnReady: e.target.checked })}
+                        />
+                    }
+                    label={I18n.t('Close on ready')}
+                />
+                <Button
+                    variant="contained"
+                    onClick={() => this.setState({ executionDialog: false })}
+                >
+                    {I18n.t('Close')}
+                </Button>
+            </DialogActions>
+        </Dialog>;
     }
 
     renderItem() {
-        if (!this.state.alive && !this.state.initialized) {
-            return <div>{I18n.t('custom_telegram_not_alive')}</div>;
-        } if (!this.state.initialized) {
-            return <><LinearProgress />111222222122</>
-        }
-        return <div style={{ width: '100%' }}>
-            <h4>{I18n.t('custom_telegram_title')}</h4>
-            <TableContainer component={Paper} style={{ width: '100%' }}>
-                <Table style={{ width: '100%' }} size="small">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>{I18n.t('custom_telegram_id')}</TableCell>
-                            <TableCell>{I18n.t('custom_telegram_name')}</TableCell>
-                            <TableCell>{I18n.t('custom_telegram_sys_messages')}</TableCell>
-                            <TableCell></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {this.state.users.map(user => <TableRow
-                            key={user.id}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell component="th" scope="row">{user.id}</TableCell>
-                            <TableCell>{user.names}</TableCell>
-                            <TableCell><Checkbox disabled={!this.state.alive} checked={!!user.sysMessages} onClick={() => this.onSysMessageChange(user.id)} /></TableCell>
-                            <TableCell><IconButton disabled={!this.state.alive} onClick={() => this.setState({ confirm: user.id })}><IconDelete /></IconButton></TableCell>
-                        </TableRow>)}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            {this.renderConfirmDialog()}
-        </div>;
+        return <>
+            <Button
+                onClick={async () => {
+                    this.setState({ executionDialog: true, executionLog: '', executing: true });
+                    await this.props.socket.setState(`${this.props.adapterName}.${this.props.instance}.oneClick.ccu`, true);
+                }}
+                variant="contained"
+                endIcon={<CloudUpload />}
+            >
+                {I18n.t('Backup now')}
+            </Button>
+            {this.renderExecutionDialog()}
+        </>;
     }
 }
 

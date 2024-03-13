@@ -64,7 +64,7 @@ class App extends GenericApp {
 
         return <StyledEngineProvider injectFirst>
             <ThemeProvider theme={this.state.theme}>
-                <div className={this.props.classes.app}>1122
+                <div className={this.props.classes.app}>
                     <div className={this.props.classes.item}>
                         <AdapterExist
                             socket={this.socket}
@@ -81,6 +81,7 @@ class App extends GenericApp {
                             onChange={data => {
                                 this.setState({ data });
                             }}
+                            adapterName="backitup"
                         />
                         <BackupNow
                             socket={this.socket}
@@ -97,6 +98,7 @@ class App extends GenericApp {
                             onChange={data => {
                                 this.setState({ data });
                             }}
+                            adapterName="backitup"
                         />
                         <DetectConfig
                             socket={this.socket}
@@ -113,6 +115,7 @@ class App extends GenericApp {
                             onChange={data => {
                                 this.setState({ data });
                             }}
+                            adapterName="backitup"
                         />
                         <GoogleDrive
                             socket={this.socket}
@@ -129,6 +132,7 @@ class App extends GenericApp {
                             onChange={data => {
                                 this.setState({ data });
                             }}
+                            adapterName="backitup"
                         />
                     </div>
                 </div>
