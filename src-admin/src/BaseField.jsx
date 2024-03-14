@@ -7,7 +7,7 @@ class BaseField extends ConfigGeneric {
     }
 
     fetchCcuConfig = async () => {
-        const result = await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.hm-rpc.', 'system.adapter.hm-rpc.\u9999');
+        const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.hm-rpc.', 'system.adapter.hm-rpc.\u9999'));
 
         let found = false;
         if (result && result.length) {
@@ -35,6 +35,32 @@ class BaseField extends ConfigGeneric {
             this.showMessage(I18n.t('Backitup Information!'), I18n.t('Config taken from %s', found));
         } else {
             this.showMessage(I18n.t('Backitup Warning!'), I18n.t('No config found'));
+        }
+    };
+
+    checkAdapterInstall = async name => {
+        const backitupHost = this.props.common.host;
+        const ignore = false;
+        let adapterName = name;
+
+        if (name === 'pgsql' || name === 'mysql' || name === 'sqlite') {
+            adapterName = 'sql';
+        }
+
+        if (!ignore) {
+            const res = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', `system.adapter.${adapterName}.`, `system.adapter.${adapterName}.\u9999`));
+            if (res && res.length) {
+                for (let i = 0; i < res.length; i++) {
+                    const common = res[i].common;
+
+                    if (common.host !== backitupHost && (adapterName === 'zigbee' || adapterName === 'esphome' || adapterName === 'zigbee2mqtt' || adapterName === 'node-red' || adapterName === 'yahka' || adapterName === 'jarvis' || adapterName === 'history')) {
+                        this.showMessage(I18n.t('Backitup Warning!'), I18n.t('No %s Instance found on this host. Please check your System', adapterName));
+                        break;
+                    }
+                }
+            } else if (res.length === 0 && (adapterName === 'zigbee' || adapterName === 'esphome' || adapterName === 'zigbee2mqtt' || adapterName === 'node-red' || adapterName === 'yahka' || adapterName === 'jarvis' || adapterName === 'history')) {
+                this.showMessage(I18n.t('Backitup Warning!'), I18n.t('No %s Instance found on this host. Please check your System', adapterName));
+            }
         }
     };
 

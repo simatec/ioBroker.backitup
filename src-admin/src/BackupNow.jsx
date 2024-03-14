@@ -20,6 +20,7 @@ class BackupNow extends ConfigGeneric {
     constructor(props) {
         super(props);
         this.state = {
+            ...this.state,
             executing: false,
             executionDialog: false,
             executionLog: '',

@@ -8,7 +8,6 @@ import { withStyles } from '@mui/styles';
 // valid
 import { ConfigGeneric, i18n as I18n, Message } from '@iobroker/adapter-react-v5';
 import { Button, Checkbox, FormControlLabel } from '@mui/material';
-import { fetchCcuConfig } from './Utils';
 import BaseField from './BaseField';
 
 const styles = () => ({
@@ -22,11 +21,12 @@ class AdapterExist extends BaseField {
     }
 
     renderItem() {
+        console.log(this.props.common);
         return <>
             <FormControlLabel
                 control={<Checkbox
                     onChange={async () => {
-                        this.fetchCcuConfig();
+                        this.checkAdapterInstall('influxdb');
                     }}
                 />}
                 label={I18n.t('Adapter exist')}

@@ -82,6 +82,7 @@ class App extends GenericApp {
                                 this.setState({ data });
                             }}
                             adapterName="backitup"
+                            common={this.common}
                         />
                         <BackupNow
                             socket={this.socket}
@@ -99,6 +100,7 @@ class App extends GenericApp {
                                 this.setState({ data });
                             }}
                             adapterName="backitup"
+                            common={this.common}
                         />
                         <DetectConfig
                             socket={this.socket}
@@ -116,6 +118,7 @@ class App extends GenericApp {
                                 this.setState({ data });
                             }}
                             adapterName="backitup"
+                            common={this.common}
                         />
                         <GoogleDrive
                             socket={this.socket}
@@ -133,6 +136,7 @@ class App extends GenericApp {
                                 this.setState({ data });
                             }}
                             adapterName="backitup"
+                            common={this.common}
                         />
                     </div>
                 </div>

@@ -9,23 +9,26 @@ import { withStyles } from '@mui/styles';
 import { ConfigGeneric, i18n as I18n } from '@iobroker/adapter-react-v5';
 import { Button } from '@mui/material';
 import { Search } from '@mui/icons-material';
+import BaseField from './BaseField';
 
 const styles = () => ({
 
 });
 
-class DetectConfig extends ConfigGeneric {
+class DetectConfig extends BaseField {
     renderItem() {
-        return <Button
-            variant="contained"
-            endIcon={<Search />}
-            onClick={async () => {
-                const result = await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.hm-rpc.', 'system.adapter.hm-rpc.\u9999');
-                console.log(result);
-            }}
-        >
-            {I18n.t('Detect config')}
-        </Button>;
+        return <>
+            <Button
+                variant="contained"
+                endIcon={<Search />}
+                onClick={async () => {
+                    this.fetchCcuConfig();
+                }}
+            >
+                {I18n.t('Detect config')}
+            </Button>
+            {this.renderMessage()}
+        </>;
     }
 }
 
