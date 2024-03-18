@@ -76,7 +76,7 @@ const GetBackups = props => {
                                                         parseSize(backup.size)}`}
                                                 </TableCell>
                                                 <TableCell>
-                                                    <div style={{ display: 'flex' }}>
+                                                    <div style={{ display: 'flex', gap: 8 }}>
                                                         <Tooltip title={I18n.t('Download Backup File')}>
                                                             <Fab
                                                                 size="small"
