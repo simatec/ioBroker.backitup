@@ -2,13 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@mui/styles';
 
-// important to make from package and not from some children.
-// invalid
-// import ConfigGeneric from '@iobroker/adapter-react-v5/ConfigGeneric';
-// valid
 import { ConfigGeneric, i18n as I18n } from '@iobroker/adapter-react-v5';
 import {
-    Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel,
+    Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, TextField,
 } from '@mui/material';
 import { CloudUpload } from '@mui/icons-material';
 
@@ -25,7 +21,7 @@ class BackupNow extends ConfigGeneric {
             executionDialog: false,
             executionLog: '',
             lastExecutionLine: '',
-            closeOnReady: '',
+            closeOnReady: false,
         };
     }
 
@@ -65,9 +61,12 @@ class BackupNow extends ConfigGeneric {
                 {I18n.t('Backitup execution:')}
             </DialogTitle>
             <DialogContent>
-                <pre style={{ height: 400 }}>
-                    {this.state.executionLog}
-                </pre>
+                <TextField
+                    multiline
+                    fullWidth
+                    inputProps={{ style: { height: 400 } }}
+                    value={this.state.executionLog}
+                />
             </DialogContent>
             <DialogActions>
                 <FormControlLabel

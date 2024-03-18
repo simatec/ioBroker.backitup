@@ -2,12 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@mui/styles';
 
-// important to make from package and not from some children.
-// invalid
-// import ConfigGeneric from '@iobroker/adapter-react-v5/ConfigGeneric';
-// valid
 import { ConfigGeneric, i18n as I18n } from '@iobroker/adapter-react-v5';
-import { Button, MenuItem, TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { CloudUpload } from '@mui/icons-material';
 
 const styles = () => ({
@@ -20,7 +16,18 @@ class GoogleDrive extends ConfigGeneric {
         this.state.googleDriveUrl = '';
     }
 
+    async componentDidMount() {
+        super.componentDidMount();
+        const object = await this.props.socket.getObject(`system.adapter.${this.props.adapterName}.${this.props.instance}`);
+        if (object && object.native) {
+            this.setState({ native: object.native });
+        }
+    }
+
     renderItem() {
+        if (!this.state.native) {
+            return null;
+        }
         return <div>
             <div>
                 <Button
@@ -31,21 +38,31 @@ class GoogleDrive extends ConfigGeneric {
                         this.setState({ googleDriveUrl: result.url });
                     }}
                 >
-                    {I18n.t('Get google drive access')}
+                    {I18n.t(
+                        this.state.native.googledriveAccessTokens ?
+                            'Renew google drive access' :
+                            'Get google drive access',
+                    )}
                 </Button>
             </div>
             {this.state.googleDriveUrl ? <>
                 <div>
-                    <MenuItem
-                        onClick={() => window.open(this.state.googleDriveUrl, '_blank')}
+                    {`${I18n.t('Authorize this app by visiting this url')}: `}
+                    <a
+                        target="_blank"
+                        href={this.state.googleDriveUrl}
+                        rel="noreferrer"
                     >
-                        {I18n.t('Open google drive')}
-                    </MenuItem>
+                        {this.state.googleDriveUrl}
+                    </a>
                 </div>
                 <div>
                     <TextField
                         label={I18n.t('Enter the code from that page here')}
                         variant="standard"
+                        value={this.props.data.googledriveAccessTokens || ''}
+                        onChange={e => this.props.onChange({ ...this.props.data, googledriveAccessTokens: e.target.value })}
+                        fullWidth
                     />
                 </div>
             </> : null}

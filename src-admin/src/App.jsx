@@ -13,6 +13,7 @@ import AdapterExist from './AdapterExist';
 import BackupNow from './BackupNow';
 import DetectConfig from './DetectConfig';
 import GoogleDrive from './GoogleDrive';
+import DetectConfigInvisible from './DetectConfigInvisible';
 
 const styles = theme => ({
     app: {
@@ -103,6 +104,24 @@ class App extends GenericApp {
                             common={this.common}
                         />
                         <DetectConfig
+                            socket={this.socket}
+                            themeType={this.state.themeType}
+                            themeName={this.state.themeName}
+                            attr="myCustomAttribute"
+                            data={this.state.data}
+                            onError={() => {}}
+                            instance={0}
+                            schema={{
+                                name: 'ConfigCustomTelegramSet/Components/TelegramComponent',
+                                type: 'custom',
+                            }}
+                            onChange={data => {
+                                this.setState({ data });
+                            }}
+                            adapterName="backitup"
+                            common={this.common}
+                        />
+                        <DetectConfigInvisible
                             socket={this.socket}
                             themeType={this.state.themeType}
                             themeName={this.state.themeName}

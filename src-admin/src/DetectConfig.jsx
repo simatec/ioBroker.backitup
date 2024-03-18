@@ -2,11 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@mui/styles';
 
-// important to make from package and not from some children.
-// invalid
-// import ConfigGeneric from '@iobroker/adapter-react-v5/ConfigGeneric';
-// valid
-import { ConfigGeneric, i18n as I18n } from '@iobroker/adapter-react-v5';
+import { i18n as I18n } from '@iobroker/adapter-react-v5';
 import { Button } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import BaseField from './BaseField';

@@ -2,12 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@mui/styles';
 
-// important to make from package and not from some children.
-// invalid
-// import ConfigGeneric from '@iobroker/adapter-react-v5/ConfigGeneric';
-// valid
-import { ConfigGeneric, i18n as I18n, Message } from '@iobroker/adapter-react-v5';
-import { Button, Checkbox, FormControlLabel } from '@mui/material';
+import { i18n as I18n } from '@iobroker/adapter-react-v5';
+import { Checkbox, FormControlLabel } from '@mui/material';
 import BaseField from './BaseField';
 
 const styles = () => ({
@@ -21,7 +17,6 @@ class AdapterExist extends BaseField {
     }
 
     renderItem() {
-        console.log(this.props.common);
         return <>
             <FormControlLabel
                 control={<Checkbox

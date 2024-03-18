@@ -4,8 +4,10 @@ import {
     DialogContent,
     DialogTitle,
     Table, TableCell, TableHead, TableRow,
+    DialogActions, Button,
 } from '@mui/material';
 import { I18n } from '@iobroker/adapter-react-v5';
+import { Close } from '@mui/icons-material';
 
 const BackupHistory = props => {
     const [backupHistory, setBackupHistory] = useState([]);
@@ -45,6 +47,16 @@ const BackupHistory = props => {
                 </TableRow>)}
             </Table>
         </DialogContent>
+        <DialogActions>
+            <Button
+                onClick={props.onClose}
+                startIcon={<Close />}
+                variant="contained"
+                color="grey"
+            >
+                {I18n.t('Close')}
+            </Button>
+        </DialogActions>
     </Dialog>;
 };
 
