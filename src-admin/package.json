@@ -1,0 +1,53 @@
+{
+    "name": "iobroker-admin-component-backitup",
+    "private": true,
+    "version": "0.1.0",
+    "scripts": {
+        "start": "set PORT=4173 && craco start",
+        "build": "craco build"
+    },
+    "devDependencies": {
+        "@craco/craco": "^7.1.0",
+        "@emotion/react": "^11.11.4",
+        "@emotion/styled": "^11.11.5",
+        "@iobroker/adapter-react-v5": "^4.13.5",
+        "@mui/icons-material": "^5.15.14",
+        "@mui/material": "5.14.14",
+        "@mui/styles": "5.14.14",
+        "@originjs/vite-plugin-federation": "^1.3.5",
+        "@rollup/plugin-babel": "^6.0.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-node-resolve": "^15.2.3",
+        "@rollup/plugin-replace": "^5.0.5",
+        "@types/react": "^18.2.74",
+        "@types/react-dom": "^18.2.23",
+        "craco-esbuild": "^0.6.1",
+        "craco-module-federation": "^1.1.0",
+        "eslint": "^8.57.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-plugin-eqeqeq-fix": "^1.0.3",
+        "eslint-plugin-import": "^2.29.1",
+        "eslint-plugin-jsx-a11y": "^6.8.0",
+        "eslint-plugin-only-warn": "^1.1.0",
+        "eslint-plugin-react": "^7.34.1",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "prop-types": "^15.8.1",
+        "react": "^18.2.0",
+        "react-ace": "^11.0.1",
+        "react-dom": "^18.2.0",
+        "react-refresh": "^0.14.0",
+        "react-scripts": "^5.0.1"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}

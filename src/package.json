@@ -1,0 +1,42 @@
+{
+    "name": "backitup-admin",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@iobroker/adapter-react-v5": "^4.13.5",
+        "@mui/icons-material": "^5.15.14",
+        "@mui/material": "5.14.14",
+        "@mui/styles": "5.14.14",
+        "@sentry/browser": "^7.109.0",
+        "@sentry/integrations": "^7.109.0",
+        "babel-eslint": "^10.1.0",
+        "eslint": "^8.57.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-plugin-eqeqeq-fix": "^1.0.3",
+        "eslint-plugin-import": "^2.29.1",
+        "eslint-plugin-jsx-a11y": "^6.8.0",
+        "eslint-plugin-only-warn": "^1.1.0",
+        "eslint-plugin-react": "^7.34.1",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "file-saver": "^2.0.5",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-dropzone": "^14.2.3",
+        "react-scripts": "^5.0.1"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "lint": "eslint --fix --ext .js,.jsx src"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "homepage": ".",
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not ie <= 11",
+        "not op_mini all"
+    ]
+}
