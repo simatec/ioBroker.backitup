@@ -1146,7 +1146,7 @@ function load(settings, onChange) {
     if ($('#historyEnabled').prop('checked') && !settings.historyPath) {
         fetchHistoryConfig(true);
     }
-    if ($('#mySqlEnabled').prop('checked') && !settings.mySqlUser) {
+    if ($('#cEnabled').prop('checked') && !settings.mySqlUser) {
         fetchMySqlConfig(true)
     }
     if ($('#sqliteEnabled').prop('checked') && !settings.sqlitePath) {
@@ -1861,6 +1861,7 @@ function showHideSettings(settings) {
             fillTelegramUser(settings['telegramUser'], null, null);
         }
     }).trigger('change');
+
     $('#discordInstance').on('change', function () {
         var discordInst = $(this).val();
         if (discordInst && discordInst.length >= 9) {

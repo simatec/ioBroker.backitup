@@ -350,7 +350,7 @@ function startAdapter(options) {
                 case 'getTelegramUser':
                     if (obj && obj.message) {
                         const inst = obj.message.config.instance ? obj.message.config.instance : adapter.config.telegramInstance;
-                        adapter.getForeignState(inst + '.communicate.users', (err, state) => {
+                        adapter.getForeignState(`${inst}.communicate.users`, (err, state) => {
                             err && adapter.log.error(err);
                             if (state && state.val) {
                                 try {

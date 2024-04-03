@@ -1,16 +1,13 @@
 import PropTypes from 'prop-types';
-import { withStyles } from '@mui/styles';
 
 import BaseField from './BaseField';
 
-const styles = () => ({
-
-});
-
 class DetectConfigInvisible extends BaseField {
-    componentDidMount() {
+    async componentDidMount() {
         super.componentDidMount();
-        this.fetchCcuConfig();
+        if (!this.isConfigFilled(this.props.schema.adapter)) {
+            await this.fetchConfig(this.props.schema.adapter, true);
+        }
     }
 
     renderItem() {
@@ -31,4 +28,4 @@ DetectConfigInvisible.propTypes = {
     onChange: PropTypes.func,
 };
 
-export default withStyles(styles)(DetectConfigInvisible);
+export default DetectConfigInvisible;

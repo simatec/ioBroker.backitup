@@ -76,8 +76,11 @@ class App extends GenericApp {
                             onError={() => {}}
                             instance={0}
                             schema={{
-                                name: 'ConfigCustomTelegramSet/Components/TelegramComponent',
+                                name: 'ConfigCustomBackitupSet/Components/TelegramComponent',
                                 type: 'custom',
+                                // adapter: 'zigbee',
+                                title: 'Backitup Information!',
+                                alert: 'The JavaScript Adapter scripts are already saved in the ioBroker backup.\n\nThis option is just an additional option to be able to restore the scripts individually if necessary.',
                             }}
                             onChange={data => {
                                 this.setState({ data });
@@ -89,6 +92,7 @@ class App extends GenericApp {
                             socket={this.socket}
                             themeType={this.state.themeType}
                             themeName={this.state.themeName}
+                            alive
                             attr="myCustomAttribute"
                             data={this.state.data}
                             onError={() => {}}
@@ -96,9 +100,7 @@ class App extends GenericApp {
                             schema={{
                                 name: 'ConfigCustomTelegramSet/Components/TelegramComponent',
                                 type: 'custom',
-                            }}
-                            onChange={data => {
-                                this.setState({ data });
+                                backUpType: 'ccu',
                             }}
                             adapterName="backitup"
                             common={this.common}
@@ -114,6 +116,7 @@ class App extends GenericApp {
                             schema={{
                                 name: 'ConfigCustomTelegramSet/Components/TelegramComponent',
                                 type: 'custom',
+                                adapter: 'ccu',
                             }}
                             onChange={data => {
                                 this.setState({ data });
@@ -132,6 +135,7 @@ class App extends GenericApp {
                             schema={{
                                 name: 'ConfigCustomTelegramSet/Components/TelegramComponent',
                                 type: 'custom',
+                                adapter: 'ccu',
                             }}
                             onChange={data => {
                                 this.setState({ data });

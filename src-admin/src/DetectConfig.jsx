@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@mui/styles';
 
-import { i18n as I18n } from '@iobroker/adapter-react-v5';
 import { Button } from '@mui/material';
+
 import { Search } from '@mui/icons-material';
+
+import { I18n } from '@iobroker/adapter-react-v5';
+
 import BaseField from './BaseField';
-
-const styles = () => ({
-
-});
 
 class DetectConfig extends BaseField {
     renderItem() {
@@ -18,7 +16,7 @@ class DetectConfig extends BaseField {
                 variant="contained"
                 endIcon={<Search />}
                 onClick={async () => {
-                    this.fetchCcuConfig();
+                    await this.fetchConfig(this.props.schema.adapter);
                 }}
             >
                 {I18n.t('Detect config')}
@@ -41,4 +39,4 @@ DetectConfig.propTypes = {
     onChange: PropTypes.func,
 };
 
-export default withStyles(styles)(DetectConfig);
+export default DetectConfig;

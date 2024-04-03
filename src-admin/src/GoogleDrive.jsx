@@ -1,52 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@mui/styles';
 
-import { ConfigGeneric, i18n as I18n } from '@iobroker/adapter-react-v5';
 import { Button, TextField } from '@mui/material';
 import { CloudUpload } from '@mui/icons-material';
 
-const styles = () => ({
-
-});
+import { ConfigGeneric, i18n as I18n } from '@iobroker/adapter-react-v5';
 
 class GoogleDrive extends ConfigGeneric {
-    constructor(props) {
-        super(props);
-        this.state.googleDriveUrl = '';
-    }
-
-    async componentDidMount() {
-        super.componentDidMount();
-        const object = await this.props.socket.getObject(`system.adapter.${this.props.adapterName}.${this.props.instance}`);
-        if (object && object.native) {
-            this.setState({ native: object.native });
-        }
-    }
-
     renderItem() {
-        if (!this.state.native) {
-            return null;
-        }
-        return <div>
-            <div>
-                <Button
-                    endIcon={<CloudUpload />}
-                    variant="contained"
-                    onClick={async () => {
-                        const result = await this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'authGoogleDrive');
-                        this.setState({ googleDriveUrl: result.url });
-                    }}
-                >
-                    {I18n.t(
-                        this.state.native.googledriveAccessTokens ?
-                            'Renew google drive access' :
-                            'Get google drive access',
-                    )}
-                </Button>
-            </div>
+        return <div style={{ width: '100%' }}>
+            <Button
+                disabled={!this.props.alive || this.state.running}
+                endIcon={<CloudUpload />}
+                variant="contained"
+                onClick={() => this.setState({ running: true }, async () => {
+                    const result = await this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'authGoogleDrive');
+                    this.setState({ googleDriveUrl: result.url, running: false });
+                })}
+            >
+                {I18n.t(
+                    this.props.data.googledriveAccessTokens ?
+                        'Renew google drive access' :
+                        'Get google drive access',
+                )}
+            </Button>
             {this.state.googleDriveUrl ? <>
-                <div>
+                <div style={{ width: '100%' }}>
                     {`${I18n.t('Authorize this app by visiting this url')}: `}
                     <a
                         target="_blank"
@@ -56,15 +35,13 @@ class GoogleDrive extends ConfigGeneric {
                         {this.state.googleDriveUrl}
                     </a>
                 </div>
-                <div>
-                    <TextField
-                        label={I18n.t('Enter the code from that page here')}
-                        variant="standard"
-                        value={this.props.data.googledriveAccessTokens || ''}
-                        onChange={e => this.props.onChange({ ...this.props.data, googledriveAccessTokens: e.target.value })}
-                        fullWidth
-                    />
-                </div>
+                <TextField
+                    label={I18n.t('Enter the code from that page here')}
+                    variant="standard"
+                    value={this.props.data.googledriveAccessTokens || ''}
+                    onChange={e => this.props.onChange({ ...this.props.data, googledriveAccessTokens: e.target.value })}
+                    fullWidth
+                />
             </> : null}
         </div>;
     }
@@ -83,4 +60,4 @@ GoogleDrive.propTypes = {
     onChange: PropTypes.func,
 };
 
-export default withStyles(styles)(GoogleDrive);
+export default GoogleDrive;

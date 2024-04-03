@@ -499,7 +499,7 @@
     "telegramNoticeType": "longTelegramNotice",
     "telegramOnlyError": false,
     "telegramSilentNotice": false,
-    "telegramUser": "All Receiver",
+    "telegramUser": "allTelegramUsers",
     "telegramWaitToSend": 0,
     "wakeOnLAN": false,
     "webdavCcuDir": "/backupDir/ccu",
