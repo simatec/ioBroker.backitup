@@ -1,19 +1,24 @@
 import React from 'react';
 import { withStyles } from '@mui/styles';
+import { saveAs } from 'file-saver';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
 import {
-    Card, CardContent, Button, TextField, MenuItem,
+    Card, CardContent, Button, TextField, MenuItem, AppBar, Toolbar,
 } from '@mui/material';
 
 import GenericApp from '@iobroker/adapter-react-v5/GenericApp';
 import { I18n, Loader, AdminConnection } from '@iobroker/adapter-react-v5';
 import {
-    CloudUpload, FormatListBulleted, Search, SettingsBackupRestore, Upload,
+    CloudUpload, FormatListBulleted, Info, Search, SettingsBackupRestore, Upload, Storage
 } from '@mui/icons-material';
+
+import logo from './assets/backitup.png';
+
 import BackupHistory from './Components/BackupHistory';
 import GetBackups from './Components/GetBackups';
 import UploadBackup from './Components/UploadBackup';
+import UploadSettings from "./Components/UploadSettings";
 
 const styles = theme => ({
     root: {},
@@ -32,6 +37,47 @@ const styles = theme => ({
     },
     indicator: {
         backgroundColor: theme.palette.mode === 'dark' ? theme.palette.secondary.main : '#FFF',
+    },
+    header: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 16,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: theme.palette.secondary.main,
+        padding: '2px 16px',
+        borderRadius: 4,
+    },
+    subHeader: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 8,
+    },
+    icon: {
+        height: 64,
+        width: 64,
+        margin: 4,
+    },
+    iconDiv: {
+        display: 'inline-block',
+        backgroundColor: theme.palette.primary.main,
+        height: '100%',
+        marginRight: 8,
+        verticalAlign: 'top',
+    },
+    textDiv: {
+        width: 'calc(100% - 80px)',
+        display: 'inline-block',
+    },
+    cardContent: {
+        height: 'calc(100% - 32px)',
+    },
+    label: {
+        fontWeight: 'bold',
+    },
+    value: {
+        marginLeft: 8,
     },
 });
 
@@ -67,59 +113,74 @@ class App extends GenericApp {
         this.state.showGetBackups = false;
         this.state.showUploadBackup = false;
         this.state.backupSource = 'local';
+        this.state.alive = false;
     }
 
-    onConnectionReady() {
+    async onConnectionReady() {
+        const alive = await this.socket.getState(`system.adapter.${this.adapterName}.${this.instance}.alive`);
+        const newState = { alive: !!alive?.val };
+
         if (this.state.native.minimalEnabled) {
-            this.socket.getState(`${this.adapterName}.${this.instance}.history.iobrokerLastTime`)
-                .then(state => {
-                    this.setState({ iobrokerLastTime: state.val });
-                });
-            this.socket.getState(`${this.adapterName}.${this.instance}.info.iobrokerNextTime`)
-                .then(state => {
-                    this.setState({ iobrokerNextTime: state.val });
-                });
+            const iobrokerLastTime = await this.socket.getState(`${this.adapterName}.${this.instance}.history.iobrokerLastTime`);
+            const iobrokerNextTime = await this.socket.getState(`${this.adapterName}.${this.instance}.info.iobrokerNextTime`);
+            newState.iobrokerNextTime = iobrokerNextTime.val;
+            newState.iobrokerLastTime = iobrokerLastTime.val;
         }
+
         if (this.state.native.ccuEnabled) {
-            this.socket.getState(`${this.adapterName}.${this.instance}.history.ccuLastTime`)
-                .then(state => {
-                    this.setState({ ccuLastTime: state.val });
-                });
-            this.socket.getState(`${this.adapterName}.${this.instance}.info.ccuNextTime`)
-                .then(state => {
-                    this.setState({ ccuNextTime: state.val });
-                });
+            const ccuLastTime = await this.socket.getState(`${this.adapterName}.${this.instance}.history.ccuLastTime`);
+            const ccuNextTime = await this.socket.getState(`${this.adapterName}.${this.instance}.info.ccuNextTime`);
+            newState.iobrokerNextTime = ccuLastTime.val;
+            newState.iobrokerLastTime = ccuNextTime.val;
+        }
+
+        await this.socket.subscribeState(`system.adapter.${this.adapterName}.${this.instance}.alive`, this.onAlive);
+
+        this.setState(newState);
+    }
+
+    componentWillUnmount() {
+        super.componentWillUnmount();
+        this.socket.unsubscribeState(`system.adapter.${this.adapterName}.${this.instance}.alive`, this.onAlive);
+    }
+
+    onAlive = (id, state) => {
+        if (id === `system.adapter.${this.adapterName}.${this.instance}.alive`) {
+            if (!!state?.val !== this.state.alive) {
+                this.setState({ alive: !!state?.val });
+            }
         }
     }
 
     renderBackupInformation() {
         return <Card>
-            <CardContent>
-                <h4>
-                    {I18n.t('Backup information')}
-                </h4>
-                <ul>
-                    {this.state.native.minimalEnabled &&
-                <li>
-                    <div>{I18n.t('Last iobroker Backup:')}</div>
-                    <div>{this.state.iobrokerLastTime}</div>
-                </li>}
-                    {this.state.native.ccuEnabled &&
-                <li>
-                    <div>{I18n.t('Last CCU Backup:')}</div>
-                    <div>{this.state.ccuLastTime}</div>
-                </li>}
-                    {this.state.native.minimalEnabled &&
-                <li>
-                    <div>{I18n.t('Next iobroker Backup:')}</div>
-                    <div>{this.state.iobrokerNextTime}</div>
-                </li>}
-                    {this.state.native.ccuEnabled &&
-                <li>
-                    <div>{I18n.t('Next CCU Backup:')}</div>
-                    <div>{this.state.ccuNextTime}</div>
-                </li>}
-                </ul>
+            <CardContent className={this.props.classes.cardContent}>
+                <div className={this.props.classes.iconDiv}>
+                    <Info className={this.props.classes.icon} />
+                </div>
+                <div className={this.props.classes.textDiv}>
+                    <div className={this.props.classes.subHeader}>
+                        {I18n.t('Backup information')}
+                    </div>
+                    <ul>
+                        {this.state.native.minimalEnabled && <li>
+                            <span className={this.props.classes.label}>{I18n.t('Last iobroker Backup:')}</span>
+                            <span className={this.props.classes.value}>{this.state.iobrokerLastTime}</span>
+                        </li>}
+                        {this.state.native.ccuEnabled && <li>
+                            <span className={this.props.classes.label}>{I18n.t('Last CCU Backup:')}</span>
+                            <span className={this.props.classes.value}>{this.state.ccuLastTime}</span>
+                        </li>}
+                        {this.state.native.minimalEnabled && <li>
+                            <span className={this.props.classes.label}>{I18n.t('Next iobroker Backup:')}</span>
+                            <span className={this.props.classes.value}>{this.state.iobrokerNextTime}</span>
+                        </li>}
+                        {this.state.native.ccuEnabled && <li>
+                            <span className={this.props.classes.label}>{I18n.t('Next CCU Backup:')}</span>
+                            <span className={this.props.classes.value}>{this.state.ccuNextTime}</span>
+                        </li>}
+                    </ul>
+                </div>
             </CardContent>
         </Card>;
     }
@@ -134,13 +195,18 @@ class App extends GenericApp {
             { name: 'webdavEnabled', label: 'WebDAV' },
         ];
         return <Card>
-            <CardContent>
-                <h4>
-                    {I18n.t('Activated storageoptions')}
-                </h4>
-                <ul>
-                    {options.map(option => this.state.native[option.name] && <li key={option.name}>{I18n.t(option.label)}</li>)}
-                </ul>
+            <CardContent className={this.props.classes.cardContent}>
+                <div className={this.props.classes.iconDiv}>
+                    <Storage className={this.props.classes.icon} />
+                </div>
+                <div className={this.props.classes.textDiv}>
+                    <div className={this.props.classes.subHeader}>
+                        {I18n.t('Activated storage options')}
+                    </div>
+                    <ul>
+                        {options.map(option => this.state.native[option.name] && <li key={option.name}>{I18n.t(option.label)}</li>)}
+                    </ul>
+                </div>
             </CardContent>
         </Card>;
     }
@@ -164,15 +230,34 @@ class App extends GenericApp {
             { name: 'grafanaEnabled', label: 'Grafana Backup' },
         ];
         return <Card>
-            <CardContent>
-                <h4>
-                    {I18n.t('Activated backupoptions')}
-                </h4>
-                <ul>
-                    {options.map(option => this.state.native[option.name] && <li key={option.name}>{I18n.t(option.label)}</li>)}
-                </ul>
+            <CardContent className={this.props.classes.cardContent}>
+                <div className={this.props.classes.iconDiv}>
+                    <CloudUpload className={this.props.classes.icon} />
+                </div>
+                <div className={this.props.classes.textDiv}>
+                    <div className={this.props.classes.subHeader}>
+                        {I18n.t('Activated backup options')}
+                    </div>
+                    <ul style={{maxHeight: 150, overflow: 'auto'}}>
+                        {options.map(option => this.state.native[option.name] &&
+                            <li key={option.name}>{I18n.t(option.label)}</li>)}
+                    </ul>
+                </div>
             </CardContent>
         </Card>;
+    }
+
+    renderUploadSettingsDialog() {
+        if (!this.state.showUploadSettings) {
+            return null;
+        }
+        return <UploadSettings
+            onClose={() => this.setState({ showUploadSettings: false })}
+            socket={this.socket}
+            themeType={this.state.themeType}
+            adapterName={this.adapterName}
+            instance={this.instance}
+        />
     }
 
     render() {
@@ -195,142 +280,166 @@ class App extends GenericApp {
 
         return <StyledEngineProvider injectFirst>
             <ThemeProvider theme={this.state.theme}>
-                <div className="App" style={{ background: this.state.theme.palette.background.default, color: this.state.theme.palette.text.primary }}>
-                    <h4>
-                        {I18n.t('Backup information')}
-                    </h4>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
-                        {this.renderBackupInformation()}
-                        {this.renderActivatedStorageOptions()}
-                        {this.renderActivatedBackupOptions()}
-                    </div>
-                    <h4>
-                        {I18n.t('System backup')}
-                    </h4>
+                <div className="App" style={{
+                    background: this.state.theme.palette.background.default,
+                    color: this.state.theme.palette.text.primary
+                }}>
+                    <AppBar color="primary" position="static" enableColorOnDark>
+                        <Toolbar>
+                            <img src={logo} alt="logo" style={{height: 48, marginRight: 16}}/>
+                            <div>
+                                <div style={{fontWeight: 'bold', fontSize: 20}}>BackItUp</div>
+                                <div>{I18n.t('Backup your System')}</div>
+                            </div>
+                        </Toolbar>
+                    </AppBar>
                     <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: '1fr 1fr 1fr 1fr',
-                        gap: 12,
-                        justifyItems: 'center',
-                    }}
-                    >
-                        <div>
+                        width: 'calc(100% - 16px)',
+                        height: 'calc(100% - 64px - 16px)',
+                        overflow: 'auto',
+                        padding: 8
+                    }}>
+                        <div className={this.props.classes.header}>
+                            {I18n.t('Backup information')}
+                        </div>
+                        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12}}>
+                            {this.renderBackupInformation()}
+                            {this.renderActivatedStorageOptions()}
+                            {this.renderActivatedBackupOptions()}
+                        </div>
+                        <div className={this.props.classes.header} style={{marginTop: 10}}>
+                            {I18n.t('System backup')}
+                        </div>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: '1fr 1fr 1fr 1fr',
+                            gap: 12,
+                            justifyItems: 'center',
+                        }}
+                        >
                             <Button
                                 variant="contained"
                                 color="grey"
-                                endIcon={<CloudUpload />}
+                                disabled={!this.state.alive}
+                                endIcon={<CloudUpload/>}
+                                onClick={() => {
+
+                                }}
                             >
                                 {I18n.t('Iobroker start backup')}
                             </Button>
-                        </div>
-                        <div>
                             <Button
                                 variant="contained"
                                 color="grey"
-                                endIcon={<CloudUpload />}
+                                disabled={!this.state.alive}
+                                endIcon={<CloudUpload/>}
                             >
                                 {I18n.t('Homematic start backup')}
                             </Button>
-                        </div>
-                        <div>
                             <Button
                                 onClick={() => this.setState({ showBackupHistory: true })}
                                 variant="contained"
                                 color="grey"
-                                endIcon={<FormatListBulleted />}
+                                endIcon={<FormatListBulleted/>}
                             >
                                 {I18n.t('Backup history')}
                             </Button>
-                        </div>
-                        <div>
                             <Button
                                 variant="contained"
                                 color="grey"
-                                endIcon={<CloudUpload />}
+                                onClick={() => {
+                                    const obj = this.socket.getObject(`system.adapter.${this.adapterName}.${this.instance}`);
+                                    const blob = new Blob([JSON.stringify(obj.native)], { type: 'application/json;charset=utf-8' });
+                                    const now = new Date();
+                                    saveAs(blob, `${now.getFullYear()}_${(now.getMonth() + 1).toString().padStart(2, '0')}_${now.getDate().toString().padStart(2, '0')}-${this.adapterName}.${this.instance}.json`);
+                                }}
+                                endIcon={<CloudUpload/>}
                             >
-                                {I18n.t('Save backitup settings')}
+                                {I18n.t('Save BackItUp settings')}
                             </Button>
                         </div>
-                    </div>
-                    <h4>
-                        {I18n.t('Restore')}
-                    </h4>
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: '1fr 1fr 1fr 1fr',
-                        gap: 12,
-                        justifyItems: 'center',
-                    }}
-                    >
-                        <div style={{ width: '100%' }}>
-                            <TextField
-                                select
-                                label={I18n.t('Backup source')}
-                                variant="standard"
-                                fullWidth
-                                value={this.state.backupSource}
-                                onChange={e => this.setState({ backupSource: e.target.value })}
-                            >
-                                {options.map(option =>
-                                    (!option.name || this.state.native[option.name] ?
-                                        <MenuItem key={option.value} value={option.value}>{I18n.t(option.label)}</MenuItem> :
-                                        null))}
-                            </TextField>
+                        <div className={this.props.classes.header} style={{marginTop: 10}}>
+                            {I18n.t('Restore')}
                         </div>
-                        <div>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: '1fr 1fr 1fr 1fr',
+                            gap: 12,
+                            justifyItems: 'center',
+                        }}
+                        >
+                            <div style={{width: '100%'}}>
+                                <TextField
+                                    select
+                                    label={I18n.t('Backup source')}
+                                    variant="standard"
+                                    fullWidth
+                                    value={this.state.backupSource}
+                                    onChange={e => this.setState({ backupSource: e.target.value })}
+                                >
+                                    {options.map(option =>
+                                        (!option.name || this.state.native[option.name] ?
+                                            <MenuItem key={option.value}
+                                                      value={option.value}>{I18n.t(option.label)}</MenuItem> :
+                                            null))}
+                                </TextField>
+                            </div>
                             <Button
-                                onClick={() => this.setState({ showGetBackups: true })}
+                                onClick={() => this.setState({showGetBackups: true})}
+                                disabled={!this.state.alive}
                                 variant="contained"
                                 color="grey"
-                                endIcon={<Search />}
+                                endIcon={<Search/>}
                             >
                                 {I18n.t('Get backups')}
                             </Button>
-                        </div>
-                        <div>
                             <Button
                                 onClick={() => this.setState({ showUploadBackup: true })}
                                 variant="contained"
                                 color="grey"
-                                endIcon={<Upload />}
+                                endIcon={<Upload/>}
                             >
                                 {I18n.t('Upload backup file')}
                             </Button>
-                        </div>
-                        <div>
                             <Button
                                 variant="contained"
                                 color="grey"
+                                onClick={() => this.setState({ showUploadSettings: true })}
                                 endIcon={<SettingsBackupRestore />}
                             >
-                                {I18n.t('Restore backitup settings')}
+                                {I18n.t('Restore BackItUp settings')}
                             </Button>
                         </div>
+                        {this.renderError()}
+                        <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center', marginTop: 8 }}>
+                            {I18n.t('All backup settings can be changed in the adapter configuration of BackItUp.')}
+                        </div>
                     </div>
-                    {this.renderError()}
                 </div>
-                <BackupHistory
-                    open={this.state.showBackupHistory}
+                {this.state.showBackupHistory ? <BackupHistory
                     onClose={() => this.setState({ showBackupHistory: false })}
                     socket={this.socket}
+                    themeType={this.state.themeType}
                     adapterName={this.adapterName}
                     instance={this.instance}
-                />
-                <GetBackups
-                    open={this.state.showGetBackups}
+                /> : null}
+                {this.state.showGetBackups ? <GetBackups
                     onClose={() => this.setState({ showGetBackups: false })}
                     socket={this.socket}
+                    themeType={this.state.themeType}
                     adapterName={this.adapterName}
                     instance={this.instance}
                     backupSource={this.state.backupSource}
-                />
-                <UploadBackup
-                    open={this.state.showUploadBackup}
+                /> : null}
+                {this.state.showUploadBackup ? <UploadBackup
+                    alive={this.state.alive}
                     onClose={() => this.setState({ showUploadBackup: false })}
                     socket={this.socket}
+                    themeType={this.state.themeType}
                     adapterName={this.adapterName}
                     instance={this.instance}
-                />
+                /> : null}
+                {this.renderUploadSettingsDialog()}
             </ThemeProvider>
         </StyledEngineProvider>;
     }

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 import {
@@ -17,13 +17,6 @@ const UploadBackup = props => {
     const [working, setWorking] = useState(false);
     const [error, setError] = useState('');
     const [uploaded, setUploaded] = useState(false);
-
-    useEffect(() => {
-        setFileName('');
-        setFileData(null);
-        setError('');
-        setUploaded(false);
-    }, [props.open]);
 
     const onDrop = useCallback((acceptedFiles, fileRejections) => {
         if (acceptedFiles?.length) {
@@ -63,7 +56,7 @@ const UploadBackup = props => {
     });
 
     return <Dialog
-        open={props.open}
+        open={!0}
         onClose={props.onClose}
         fullWidth
         maxWidth="lg"
@@ -103,7 +96,7 @@ const UploadBackup = props => {
                                 {Utils.formatBytes(fileData.length)}
                         )
                             </div> : null}
-                        </> : (props.instruction || `${I18n.t('Drop the files here ...')} ${props.maxSize ? I18n.t('(Maximal file size is %s)', Utils.formatBytes(props.maxSize)) : ''}`)}
+                        </> : (props.instruction || `${I18n.t('Drop the file here ...')} ${props.maxSize ? I18n.t('(Maximal file size is %s)', Utils.formatBytes(props.maxSize)) : ''}`)}
                     </p>}
             </div>
         </DialogContent>

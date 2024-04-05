@@ -1,5 +1,6 @@
 html {
   height: 100%;
+  overflow: hidden;
 }
 body {
   margin: 0;
@@ -23,10 +24,8 @@ body {
   background-color: #575757;
 }
 
-
-#root {
+#root, .App {
   height: 100%;
-}
-.App {
-  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }

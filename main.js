@@ -3,15 +3,15 @@
 /* jslint node: true */
 'use strict';
 
+const fs = require('node:fs');
+const path = require('node:path');
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
 const schedule = require('node-schedule');
-const fs = require('fs');
-const path = require('path');
-const adapterName = require('./package.json').name.split('.').pop();
-
 const tools = require('./lib/tools');
 const executeScripts = require('./lib/execute');
 const systemCheck = require('./lib/systemCheck');
+
+const adapterName = require('./package.json').name.split('.').pop();
 
 let adapter;
 
@@ -94,8 +94,8 @@ function startAdapter(options) {
     adapter.on('stateChange', async (id, state) => {
         if (state && (state.val === true || state.val === 'true') && !state.ack) {
 
-            if (id === adapter.namespace + '.oneClick.iobroker' ||
-                id === adapter.namespace + '.oneClick.ccu') {
+            if (id === `${adapter.namespace}.oneClick.iobroker` ||
+                id === `${adapter.namespace}.oneClick.ccu`) {
 
                 const sysCheck = await systemCheck.storageSizeCheck(adapter, adapterName, adapter.log);
 
@@ -134,7 +134,7 @@ function startAdapter(options) {
 
                             });
                         }, 500);
-                        adapter.setState('oneClick.' + type, false, true);
+                        adapter.setState(`oneClick.${type}`, false, true);
 
                         if (adapter.config.slaveInstance && type === 'iobroker' && adapter.config.hostType === 'Master') {
                             adapter.log.debug('Slave backup from Backitup-Master is started ...');
@@ -183,9 +183,11 @@ function startAdapter(options) {
                 case 'list':
                     try {
                         const list = require('./lib/list');
-
-                        list(obj.message, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
-                        adapter.log.debug('Backup list be read ...');
+                        adapter.log.debug(`Backup list reading ...${JSON.stringify(backupConfig)}`);
+                        list(obj.message, backupConfig, adapter.log, res => {
+                            adapter.log.debug(`Backup list was read: ${JSON.stringify(res)}`);
+                            obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback);
+                        });
                     } catch (e) {
                         adapter.log.debug('Backup list cannot be read ...');
                     }
@@ -215,7 +217,7 @@ function startAdapter(options) {
                         const dropbox = new Dropbox();
 
                         dropbox.getRefreshToken(obj.message.code, obj.message.codeChallenge, adapter.log)
-                            .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json: json }, obj.callback))
+                            .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json }, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
                     } else if (obj.callback) {
                         const dropbox = new Dropbox();
@@ -237,7 +239,7 @@ function startAdapter(options) {
                         const onedrive = new Onedrive();
 
                         onedrive.getRefreshToken(obj.message.code, adapter.log)
-                            .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json: json }, obj.callback))
+                            .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json }, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
                     } else if (obj.callback) {
                         const onedrive = new Onedrive();
@@ -463,7 +465,7 @@ function startAdapter(options) {
                                                 renewOnedriveToken();
                                             }
                                         } else {
-                                            adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
+                                            adapter.setState(`history.${type}LastTime`, `error: ${tools.getTimeString(systemLang)}`, true);
                                             adapter.setState(`history.${type}Success`, false, true);
                                             if (state && state.val) {
                                                 try {
@@ -555,7 +557,7 @@ function createBackupSchedule() {
                 const sysCheck = await systemCheck.storageSizeCheck(adapter, adapterName, adapter.log);
 
                 if ((sysCheck && sysCheck.ready && sysCheck.ready === true) || adapter.config.cifsEnabled === true) {
-                    adapter.setState('oneClick.' + type, true, true);
+                    adapter.setState(`oneClick.${type}`, true, true);
 
                     startBackup(backupConfig[type], err => {
                         if (err) {
@@ -573,7 +575,7 @@ function createBackupSchedule() {
                                         renewOnedriveToken();
                                     }
                                 } else {
-                                    adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
+                                    adapter.setState(`history.${type}LastTime`, `error: ${tools.getTimeString(systemLang)}`, true);
                                     adapter.setState(`history.${type}Success`, false, true);
                                 }
                             }), 500);
@@ -1766,7 +1768,7 @@ function ulFileServer(protocol) {
     uploadServer.post('/', upload.single('files'), (req, res) => {
         adapter.log.debug(req.body);
         adapter.log.debug(req.files);
-        res.json({ message: "File(s) uploaded successfully" });
+        res.json({ message: 'File(s) uploaded successfully' });
 
     });
 

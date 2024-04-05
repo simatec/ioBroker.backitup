@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import {
     Dialog,
     DialogContent,
@@ -6,8 +7,10 @@ import {
     Table, TableCell, TableHead, TableRow,
     DialogActions, Button,
 } from '@mui/material';
-import { I18n } from '@iobroker/adapter-react-v5';
+
 import { Close } from '@mui/icons-material';
+
+import { I18n, Utils } from '@iobroker/adapter-react-v5';
 
 const BackupHistory = props => {
     const [backupHistory, setBackupHistory] = useState([]);
@@ -18,10 +21,10 @@ const BackupHistory = props => {
                     setBackupHistory(JSON.parse(state.val));
                 }
             });
-    }, [props.open]);
+    }, []);
 
     return <Dialog
-        open={props.open}
+        open={!0}
         onClose={props.onClose}
         fullWidth
         maxWidth="lg"

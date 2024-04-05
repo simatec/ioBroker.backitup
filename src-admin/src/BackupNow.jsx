@@ -16,7 +16,7 @@ const styles = {
         height: '100%',
         '& .MuiInputBase-root': {
             height: '100%',
-        }
+        },
     },
 };
 
@@ -59,7 +59,7 @@ class BackupNow extends ConfigGeneric {
                 this.setState({ executing: !!state?.val });
             }
         }
-    }
+    };
 
     componentWillUnmount() {
         super.componentWillUnmount();
@@ -79,7 +79,15 @@ class BackupNow extends ConfigGeneric {
                 {I18n.t('Backitup execution:')}
             </DialogTitle>
             <DialogContent>
-                {this.state.executing ? <LinearProgress style={{ position: 'absolute', top: 0, left: 0, width: '100%' }} /> : null}
+                {this.state.executing ?
+                    <LinearProgress
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                        }}
+                    /> : null}
                 <TextField
                     multiline
                     fullWidth
@@ -113,12 +121,10 @@ class BackupNow extends ConfigGeneric {
         return <>
             <Button
                 disabled={!this.props.alive || this.state.executing}
-                onClick={() =>
-                    this.setState({ executionDialog: true, executionLog: '', executing: true }, async () => {
-                        this.lastExecutionLine = '';
-                        await this.props.socket.setState(`${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`, true);
-                    })
-                }
+                onClick={() => this.setState({ executionDialog: true, executionLog: '', executing: true }, async () => {
+                    this.lastExecutionLine = '';
+                    await this.props.socket.setState(`${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`, true);
+                })}
                 variant="contained"
                 endIcon={<CloudUpload />}
             >

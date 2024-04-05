@@ -23,7 +23,7 @@ class Instance extends BaseField {
         ));
 
         const instances = result.map(item => ({ value: item._id.substring('system.adapter.'.length), label: item._id.substring('system.adapter.'.length) }));
-        instances.unshift({ value: '', label: 'none' });
+        instances.unshift({ value: '_', label: 'none' });
 
         this.setState({ instances, instance, target }, () => {
             this.readTargets();
@@ -31,19 +31,19 @@ class Instance extends BaseField {
     }
 
     async fillTelegramUser() {
-        if (this.state.target?.startsWith('telegram.')) {
-            if (this.targetRead !== this.state.target) {
+        if (this.state.instance?.startsWith('telegram.')) {
+            if (this.instanceRead !== this.state.instance) {
                 let useUserName = false;
-                const obj = await this.props.socket.getObject(`system.adapter.${this.state.target}`);
+                const obj = await this.props.socket.getObject(`system.adapter.${this.state.instance}`);
                 if (obj && obj.native) {
                     useUserName = obj.native.useUsername;
                 }
-                const state = await this.props.socket.getState(`${this.state.target}.communicate.users`);
+                const state = await this.props.socket.getState(`${this.state.instance}.communicate.users`);
                 const userListStr = state?.val;
                 const targets = [{ value: 'allTelegramUsers', label: 'All Receiver' }];
 
                 if (userListStr) {
-                    this.targetRead = this.state.target;
+                    this.instanceRead = this.state.target;
                     const userList = JSON.parse(userListStr);
                     for (const i in userList) {
                         if (useUserName) {
@@ -61,20 +61,23 @@ class Instance extends BaseField {
     }
 
     async fillDiscordTarget() {
-        if (this.state.target?.startsWith('discord.')) {
-            const alive = await this.props.socket.getState(`system.adapter.${this.state.target}.alive`);
-            if (alive?.val) {
-                const targetList = await this.props.socket.sendTo(this.state.target, 'getNotificationTargets', {})
-                if (Array.isArray(targetList)) {
-                    const targets = [{ value: '', label: 'none' }];
-                    for (const i in targetList) {
-                        targets.push({ value: targetList[i].value, label: targetList[i].label });
+        if (this.state.instance?.startsWith('discord.')) {
+            if (this.instanceRead !== this.state.instance) {
+                const alive = await this.props.socket.getState(`system.adapter.${this.state.instance}.alive`);
+                if (alive?.val) {
+                    const targetList = await this.props.socket.sendTo(this.state.instance, 'getNotificationTargets', {});
+                    if (Array.isArray(targetList)) {
+                        this.instanceRead = this.state.instance;
+                        const targets = [{ value: '_', label: 'none' }];
+                        for (const i in targetList) {
+                            targets.push({ value: targetList[i].value, label: targetList[i].label });
+                        }
+                        this.setState({ targets });
                     }
-                    this.setState({ targets });
                 }
             }
         } else {
-            const targets = [{ value: '', label: 'none' }];
+            const targets = [{ value: '_', label: 'none' }];
             this.setState({ targets });
             if (this.props.data.discordTarget) {
                 setTimeout(() => this.props.onChange({ ...this.props.data, discordTarget: '' }), 50);
@@ -91,28 +94,24 @@ class Instance extends BaseField {
     }
 
     renderItem() {
-        const itemInstance = this.instances.find(it => it.value == this.state.instance); // let "==" be and not ===
-        const itemTarget = this.targets.find(it => it.value == this.state.target); // let "==" be and not ===
+        const itemInstance = this.state.instances?.find(it => it.value === (this.state.instance || ''));
+        const itemTarget = this.state.targets?.find(it => it.value === (this.state.target || ''));
 
         return <div style={{ width: '100%' }}>
-            {this.state.instances ? <FormControl style={{ width: 'calc(50% - 5px)' }} variant="standard">
+            {this.state.instances ? <FormControl style={{ width: 'calc(50% - 5px)', marginRight: 10 }} variant="standard">
                 <InputLabel>{I18n.t(this.props.schema.label)}</InputLabel>
                 <Select
                     variant="standard"
                     value={this.state.instance || '_'}
                     renderValue={() => this.getText(itemInstance?.label, itemInstance?.label !== 'none')}
-                    onChange={e => {
-                        this.setState({ instance: e.target.value === '_' ? '' : e.target.value }, () => {
-                            this.readTargets();
-                            this.onChange(this.props.attr, this.state.value);
-                        });
-                    }}
-                >
-                    {this.state.instances.map((it, i) => {
-                        return <MenuItem key={i} value={it.value}>
-                            {this.getText(it.label, it?.label !== 'none')}
-                        </MenuItem>;
+                    onChange={e => this.setState({ instance: e.target.value === '_' ? '' : e.target.value }, () => {
+                        this.readTargets();
+                        this.onChange(this.props.attr, this.state.value);
                     })}
+                >
+                    {this.state.instances.map((it, i) => <MenuItem key={i} value={it.value}>
+                        {this.getText(it.label, it?.label !== 'none')}
+                    </MenuItem>)}
                 </Select>
                 {this.props.schema.help ? <FormHelperText>{this.renderHelp(this.props.schema.help, this.props.schema.helpLink, this.props.schema.noTranslation)}</FormHelperText> : null}
             </FormControl> : null}
@@ -123,17 +122,12 @@ class Instance extends BaseField {
                     variant="standard"
                     value={this.state.target || '_'}
                     renderValue={() => this.getText(itemTarget?.label, itemTarget?.label !== 'none')}
-                    onChange={e => {
-                        this.setState({ value: e.target.value === '_' ? '' : e.target.value }, () => {
-                            this.onChange(this.props.attr, this.state.value);
-                        });
-                    }}
+                    onChange={e => this.setState({ target: e.target.value === '_' ? '' : e.target.value }, () =>
+                        this.onChange(this.props.schema.adapter === 'telegram' ? 'telegramUser' : 'discordTarget', this.state.target))}
                 >
-                    {this.state.targets.map((it, i) => {
-                        return <MenuItem key={i} value={it.value}>
-                            {this.getText(it.label, item?.label !== 'none')}
-                        </MenuItem>;
-                    })}
+                    {this.state.targets.map((it, i) => <MenuItem key={i} value={it.value}>
+                        {this.getText(it.label, it?.label !== 'none')}
+                    </MenuItem>)}
                 </Select>
                 {this.props.schema.help ? <FormHelperText>{this.renderHelp(this.props.schema.help, this.props.schema.helpLink, this.props.schema.noTranslation)}</FormHelperText> : null}
             </FormControl> : <TextField
@@ -142,11 +136,8 @@ class Instance extends BaseField {
                 disabled={!this.state.instance}
                 label={I18n.t(this.props.schema.adapter === 'telegram' ? 'Telegram Receiver' : 'Discord receiver')}
                 value={this.state.target}
-                onChange={e => {
-                    this.setState({ value: e.target.value }, () => {
-                        this.onChange(this.props.attr, this.state.value);
-                    });
-                }}
+                onChange={e => this.setState({ target: e.target.value }, () =>
+                    this.onChange(this.props.schema.adapter === 'telegram' ? 'telegramUser' : 'discordTarget', this.state.target))}
             />}
         </div>;
     }

@@ -14,6 +14,7 @@ import BackupNow from './BackupNow';
 import DetectConfig from './DetectConfig';
 import GoogleDrive from './GoogleDrive';
 import DetectConfigInvisible from './DetectConfigInvisible';
+import Instance from './Instance';
 
 const styles = theme => ({
     app: {
@@ -33,7 +34,10 @@ class App extends GenericApp {
         super(props, extendedProps);
 
         this.state = {
-            data: { myCustomAttribute: 'red' },
+            data: {
+                myCustomAttribute: 'red',
+                telegramInstance: 'telegram.0',
+            },
             theme: this.createTheme(),
         };
         const translations = {
@@ -154,6 +158,25 @@ class App extends GenericApp {
                             schema={{
                                 name: 'ConfigCustomTelegramSet/Components/TelegramComponent',
                                 type: 'custom',
+                            }}
+                            onChange={data => {
+                                this.setState({ data });
+                            }}
+                            adapterName="backitup"
+                            common={this.common}
+                        />
+                        <Instance
+                            socket={this.socket}
+                            themeType={this.state.themeType}
+                            themeName={this.state.themeName}
+                            attr="telegramInstance"
+                            data={this.state.data}
+                            onError={() => {}}
+                            instance={0}
+                            schema={{
+                                name: 'ConfigCustomTelegramSet/Components/TelegramComponent',
+                                type: 'custom',
+                                adapter: 'telegram',
                             }}
                             onChange={data => {
                                 this.setState({ data });
