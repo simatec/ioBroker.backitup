@@ -19,6 +19,7 @@ import BackupHistory from './Components/BackupHistory';
 import GetBackups from './Components/GetBackups';
 import UploadBackup from './Components/UploadBackup';
 import UploadSettings from "./Components/UploadSettings";
+import BackupNow from "./Components/BackupNow";
 
 const styles = theme => ({
     root: {},
@@ -113,12 +114,12 @@ class App extends GenericApp {
         this.state.showGetBackups = false;
         this.state.showUploadBackup = false;
         this.state.backupSource = 'local';
-        this.state.alive = false;
+        this.state.myAlive = false;
     }
 
     async onConnectionReady() {
-        const alive = await this.socket.getState(`system.adapter.${this.adapterName}.${this.instance}.alive`);
-        const newState = { alive: !!alive?.val };
+        const myAlive = await this.socket.getState(`system.adapter.${this.adapterName}.${this.instance}.alive`);
+        const newState = { myAlive: !!myAlive?.val };
 
         if (this.state.native.minimalEnabled) {
             const iobrokerLastTime = await this.socket.getState(`${this.adapterName}.${this.instance}.history.iobrokerLastTime`);
@@ -135,19 +136,47 @@ class App extends GenericApp {
         }
 
         await this.socket.subscribeState(`system.adapter.${this.adapterName}.${this.instance}.alive`, this.onAlive);
+        await this.socket.subscribeObject(`system.adapter.${this.adapterName}.${this.instance}`, this.onSettings);
+        await this.socket.subscribeState(`${this.adapterName}.${this.instance}.history.iobrokerLastTime`, this.onHistory);
+        await this.socket.subscribeState(`${this.adapterName}.${this.instance}.info.iobrokerNextTime`, this.onHistory);
+        await this.socket.subscribeState(`${this.adapterName}.${this.instance}.history.ccuLastTime`, this.onHistory);
+        await this.socket.subscribeState(`${this.adapterName}.${this.instance}.info.ccuNextTime`, this.onHistory);
 
         this.setState(newState);
+    }
+
+    onSettings = (id, obj) => {
+        if (id === `system.adapter.${this.adapterName}.${this.instance}`) {
+            this.setState({ native: obj.native });
+        }
+    };
+
+    onHistory = (id, state) => {
+        if (id === `${this.adapterName}.${this.instance}.history.iobrokerLastTime` && state.val !== this.state.iobrokerLastTime) {
+            this.setState({ iobrokerLastTime: state.val });
+        } else if (id === `${this.adapterName}.${this.instance}.history.iobrokerNextTime` && state.val !== this.state.iobrokerNextTime) {
+            this.setState({ iobrokerNextTime: state.val });
+        } else if (id === `${this.adapterName}.${this.instance}.history.ccuLastTime` && state.val !== this.state.ccuLastTime) {
+            this.setState({ ccuLastTime: state.val });
+        } else if (id === `${this.adapterName}.${this.instance}.history.ccuNextTime` && state.val !== this.state.ccuNextTime) {
+            this.setState({ ccuNextTime: state.val });
+        }
     }
 
     componentWillUnmount() {
         super.componentWillUnmount();
         this.socket.unsubscribeState(`system.adapter.${this.adapterName}.${this.instance}.alive`, this.onAlive);
+        this.socket.unsubscribeObject(`system.adapter.${this.adapterName}.${this.instance}`, this.onSettings);
+        this.socket.unsubscribeState(`${this.adapterName}.${this.instance}.history.iobrokerLastTime`, this.onHistory);
+        this.socket.unsubscribeState(`${this.adapterName}.${this.instance}.info.iobrokerNextTime`, this.onHistory);
+        this.socket.unsubscribeState(`${this.adapterName}.${this.instance}.history.ccuLastTime`, this.onHistory);
+        this.socket.unsubscribeState(`${this.adapterName}.${this.instance}.info.ccuNextTime`, this.onHistory);
     }
 
     onAlive = (id, state) => {
         if (id === `system.adapter.${this.adapterName}.${this.instance}.alive`) {
-            if (!!state?.val !== this.state.alive) {
-                this.setState({ alive: !!state?.val });
+            if (!!state?.val !== this.state.myAlive) {
+                this.setState({ myAlive: !!state?.val });
             }
         }
     }
@@ -317,25 +346,48 @@ class App extends GenericApp {
                             justifyItems: 'center',
                         }}
                         >
-                            <Button
+                            {this.state.myAlive ? <BackupNow
                                 variant="contained"
                                 color="grey"
-                                disabled={!this.state.alive}
-                                endIcon={<CloudUpload/>}
-                                onClick={() => {
-
+                                adapterName={this.adapterName}
+                                instance={this.instance}
+                                alive
+                                socket={this.socket}
+                                themeType={this.state.themeType}
+                                endIcon={<CloudUpload />}
+                                schema={{
+                                    backUpType: 'iobroker',
+                                    label: 'Start ioBroker backup',
                                 }}
-                            >
-                                {I18n.t('Iobroker start backup')}
-                            </Button>
-                            <Button
-                                variant="contained"
+                            /> : <Button
+                                disabled
                                 color="grey"
-                                disabled={!this.state.alive}
-                                endIcon={<CloudUpload/>}
+                                variant="contained"
+                                endIcon={<CloudUpload />}
                             >
-                                {I18n.t('Homematic start backup')}
-                            </Button>
+                                {I18n.t('Start ioBroker backup')}
+                            </Button>}
+                            {this.state.myAlive ? <BackupNow
+                                variant="contained"
+                                adapterName={this.adapterName}
+                                instance={this.instance}
+                                color="grey"
+                                alive
+                                socket={this.socket}
+                                themeType={this.state.themeType}
+                                endIcon={<CloudUpload />}
+                                schema={{
+                                    backUpType: 'ccu',
+                                    label: 'Start Homematic backup',
+                                }}
+                            /> : <Button
+                                disabled
+                                color="grey"
+                                variant="contained"
+                                endIcon={<CloudUpload />}
+                            >
+                                {I18n.t('Start Homematic backup')}
+                            </Button>}
                             <Button
                                 onClick={() => this.setState({ showBackupHistory: true })}
                                 variant="contained"
@@ -386,7 +438,7 @@ class App extends GenericApp {
                             </div>
                             <Button
                                 onClick={() => this.setState({showGetBackups: true})}
-                                disabled={!this.state.alive}
+                                disabled={!this.state.myAlive}
                                 variant="contained"
                                 color="grey"
                                 endIcon={<Search/>}
@@ -432,7 +484,7 @@ class App extends GenericApp {
                     backupSource={this.state.backupSource}
                 /> : null}
                 {this.state.showUploadBackup ? <UploadBackup
-                    alive={this.state.alive}
+                    alive={this.state.myAlive}
                     onClose={() => this.setState({ showUploadBackup: false })}
                     socket={this.socket}
                     themeType={this.state.themeType}
