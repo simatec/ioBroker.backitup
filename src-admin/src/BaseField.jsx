@@ -25,7 +25,7 @@ class BaseField extends ConfigGeneric {
         if (type === 'history') {
             return !!this.props.data.historyPath && !!this.props.data.historyEnabled;
         }
-        this.showMessage(I18n.t('Backitup Warning!'), I18n.t('Unknown config type %s', type));
+        this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('Unknown config type %s', type));
         return false;
     }
 
@@ -43,7 +43,7 @@ class BaseField extends ConfigGeneric {
         } else if (type === 'history') {
             await this.fetchHistoryConfig(isInitial);
         } else {
-            this.showMessage(I18n.t('Backitup Warning!'), I18n.t('Unknown config type %s', type));
+            this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('Unknown config type %s', type));
         }
     };
 
@@ -71,9 +71,9 @@ class BaseField extends ConfigGeneric {
         }
         if (found) {
             found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('Backitup Information!'), I18n.t('Config taken from %s', found));
+            !isInitial && this.showMessage(I18n.t('BackItUp Information!'), I18n.t('Config taken from %s', found));
         } else {
-            !isInitial && this.showMessage(I18n.t('Backitup Warning!'), I18n.t('No config found'));
+            !isInitial && this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('No config found'));
         }
     }
 
@@ -118,9 +118,9 @@ class BaseField extends ConfigGeneric {
         }
         if (found) {
             found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('Backitup Information!'), I18n.t('Config taken from %s', found));
+            !isInitial && this.showMessage(I18n.t('BackItUp Information!'), I18n.t('Config taken from %s', found));
         } else {
-            !isInitial && this.showMessage(I18n.t('Backitup Warning!'), I18n.t('No config found'));
+            !isInitial && this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('No config found'));
         }
     }
 
@@ -158,9 +158,9 @@ class BaseField extends ConfigGeneric {
         }
         if (found) {
             found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('Backitup Information!'), I18n.t('Config taken from %s', found));
+            !isInitial && this.showMessage(I18n.t('BackItUp Information!'), I18n.t('Config taken from %s', found));
         } else {
-            !isInitial && this.showMessage(I18n.t('Backitup Warning!'), I18n.t('No config found'));
+            !isInitial && this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('No config found'));
         }
     }
 
@@ -207,9 +207,9 @@ class BaseField extends ConfigGeneric {
 
         if (found) {
             found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('Backitup Information!'), I18n.t('Config taken from %s', found));
+            !isInitial && this.showMessage(I18n.t('BackItUp Information!'), I18n.t('Config taken from %s', found));
         } else {
-            !isInitial && this.showMessage(I18n.t('Backitup Warning!'), I18n.t('No config found'));
+            !isInitial && this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('No config found'));
         }
     }
 
@@ -259,9 +259,9 @@ class BaseField extends ConfigGeneric {
         }
         if (found) {
             found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('Backitup Information!'), I18n.t('Config taken from %s', found));
+            !isInitial && this.showMessage(I18n.t('BackItUp Information!'), I18n.t('Config taken from %s', found));
         } else {
-            !isInitial && this.showMessage(I18n.t('Backitup Warning!'), I18n.t('No config found'));
+            !isInitial && this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('No config found'));
         }
     }
 
@@ -298,20 +298,20 @@ class BaseField extends ConfigGeneric {
 
         if (found && !storeDir) {
             found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('No storage path of %s is configured.\nThe default path of the history adapter has been set.', found), I18n.t('Backitup Information!'));
+            !isInitial && this.showMessage(I18n.t('No storage path of %s is configured.\nThe default path of the history adapter has been set.', found), I18n.t('BackItUp Information!'));
         } else if (found && storeDir && storeDir.startsWith('/opt/iobroker/backups')) {
             found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!', found), I18n.t('Backitup Information!'));
+            !isInitial && this.showMessage(I18n.t('The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!', found), I18n.t('BackItUp Information!'));
         } else if (found && storeDir) {
             found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('Config taken from %s', found), I18n.t('Backitup Information!'));
+            !isInitial && this.showMessage(I18n.t('Config taken from %s', found), I18n.t('BackItUp Information!'));
         } else {
-            !isInitial && this.showMessage(I18n.t('No config found'), I18n.t('Backitup Warning!'));
+            !isInitial && this.showMessage(I18n.t('No config found'), I18n.t('BackItUp Warning!'));
         }
     }
 
-    checkAdapterInstall = async name => {
-        const backitupHost = this.props.common.host;
+    checkAdapterInstall = async (name, ignoreHosts) => {
+        const backItUpHost = this.props.common.host;
         const ignore = false;
         let adapterName = name;
 
@@ -319,19 +319,36 @@ class BaseField extends ConfigGeneric {
             adapterName = 'sql';
         }
 
+        const SHOW_MESSAGE_FOR = [
+            'zigbee',
+            'esphome',
+            'zigbee2mqtt',
+            'node-red',
+            'yahka',
+            'jarvis',
+            'history',
+        ];
+
         if (!ignore) {
             const res = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', `system.adapter.${adapterName}.`, `system.adapter.${adapterName}.\u9999`));
-            if (res && res.length) {
+            if (res?.length) {
+                let found = false
                 for (let i = 0; i < res.length; i++) {
                     const common = res[i].common;
 
-                    if (common.host !== backitupHost && (adapterName === 'zigbee' || adapterName === 'esphome' || adapterName === 'zigbee2mqtt' || adapterName === 'node-red' || adapterName === 'yahka' || adapterName === 'jarvis' || adapterName === 'history')) {
-                        this.showMessage(I18n.t('Backitup Warning!'), I18n.t('No %s Instance found on this host. Please check your System', adapterName));
+                    if (common.host === backItUpHost || ignoreHosts) {
+                        found = true;
                         break;
                     }
                 }
-            } else if (res.length === 0 && (adapterName === 'zigbee' || adapterName === 'esphome' || adapterName === 'zigbee2mqtt' || adapterName === 'node-red' || adapterName === 'yahka' || adapterName === 'jarvis' || adapterName === 'history')) {
-                this.showMessage(I18n.t('Backitup Warning!'), I18n.t('No %s Instance found on this host. Please check your System', adapterName));
+                if (!found && SHOW_MESSAGE_FOR.includes(adapterName)) {
+                    this.showMessage(I18n.t('BackItUp Warning!'),
+                        I18n.t('No "%s" Instance found on this host. Please check your system', adapterName));
+                }
+            } else if (SHOW_MESSAGE_FOR.includes(adapterName)) {
+                this.showMessage(I18n.t('BackItUp Warning!'),
+                    I18n.t('No "%s" Instance found. Please check your system', adapterName));
+                return false;
             }
         }
     };

@@ -4,7 +4,7 @@ import { saveAs } from 'file-saver';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
 import {
-    Card, CardContent, Button, TextField, MenuItem, AppBar, Toolbar,
+    Card, CardContent, Button, TextField, MenuItem, AppBar, Toolbar, FormControl, InputLabel, Select,
 } from '@mui/material';
 
 import GenericApp from '@iobroker/adapter-react-v5/GenericApp';
@@ -113,7 +113,7 @@ class App extends GenericApp {
         this.state.showBackupHistory = false;
         this.state.showGetBackups = false;
         this.state.showUploadBackup = false;
-        this.state.backupSource = 'local';
+        this.state.backupSource = window.localStorage.getItem('BackItUp.backupSource') || 'local';
         this.state.myAlive = false;
     }
 
@@ -410,7 +410,7 @@ class App extends GenericApp {
                                 {I18n.t('Save BackItUp settings')}
                             </Button>
                         </div>
-                        <div className={this.props.classes.header} style={{marginTop: 10}}>
+                        <div className={this.props.classes.header} style={{ marginTop: 10, marginBottom: 0 }}>
                             {I18n.t('Restore')}
                         </div>
                         <div style={{
@@ -420,23 +420,25 @@ class App extends GenericApp {
                             justifyItems: 'center',
                         }}
                         >
-                            <div style={{width: '100%'}}>
-                                <TextField
-                                    select
-                                    label={I18n.t('Backup source')}
+                            <FormControl fullWidth variant="standard" style={{ height: 32, marginTop: 6, maxWidth: 250 }}>
+                                <InputLabel>{I18n.t('Backup source')}</InputLabel>
+                                <Select
                                     variant="standard"
-                                    fullWidth
                                     value={this.state.backupSource}
-                                    onChange={e => this.setState({ backupSource: e.target.value })}
+                                    onChange={e => {
+                                        window.localStorage.setItem('BackItUp.backupSource', e.target.value);
+                                        this.setState({ backupSource: e.target.value });
+                                    }}
                                 >
                                     {options.map(option =>
                                         (!option.name || this.state.native[option.name] ?
                                             <MenuItem key={option.value}
                                                       value={option.value}>{I18n.t(option.label)}</MenuItem> :
                                             null))}
-                                </TextField>
-                            </div>
+                                </Select>
+                            </FormControl>
                             <Button
+                                style={{ marginTop: 16 }}
                                 onClick={() => this.setState({showGetBackups: true})}
                                 disabled={!this.state.myAlive}
                                 variant="contained"
@@ -446,6 +448,7 @@ class App extends GenericApp {
                                 {I18n.t('Get backups')}
                             </Button>
                             <Button
+                                style={{ marginTop: 16 }}
                                 onClick={() => this.setState({ showUploadBackup: true })}
                                 variant="contained"
                                 color="grey"
@@ -454,6 +457,7 @@ class App extends GenericApp {
                                 {I18n.t('Upload backup file')}
                             </Button>
                             <Button
+                                style={{ marginTop: 16 }}
                                 variant="contained"
                                 color="grey"
                                 onClick={() => this.setState({ showUploadSettings: true })}

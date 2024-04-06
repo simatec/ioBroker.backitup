@@ -12,7 +12,7 @@ const makeShared = pkgs => {
 };
 
 module.exports = {
-    name: 'ConfigCustomBackitupSet',
+    name: 'ConfigCustomBackItUpSet',
     filename: 'customComponents.js',
     exposes: {
         './Components': './src/Components.jsx',

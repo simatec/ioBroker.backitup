@@ -1,0 +1,54 @@
+{
+  "type": "panel",
+  "label": "Main settings",
+  "items": {
+    "_header1": {
+      type: "header",
+      text: "What to back up",
+      sm: 12,
+      size: 4
+    },
+    "minimalEnabled": {
+      "newLine": true,
+      "type": "checkbox",
+      "sm": 6,
+      "md": 4,
+      "lg": 2,
+      label: "ioBroker",
+    },
+    "ccuEnabled": {
+      "type": "custom",
+      "sm": 6,
+      "md": 4,
+      "lg": 2,
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
+      "adapter": "hm-rpc",
+      "label": "Homematic CCU"
+    },
+    "redisEnabled": {
+      // todo: check if object or states use redis and hide if not
+      "type": "checkbox",
+      "sm": 6,
+      "md": 4,
+      "lg": 2,
+      label: "Redis"
+    },
+    "javascriptsEnabled": {
+      "type": "custom",
+      "sm": 6,
+      "md": 4,
+      "lg": 2,
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
+      "adapter": "javascript",
+      "label": "JavaScripts",
+      "title": "BackItUp Information",
+      "showAlertAlways": true,
+      "allHosts": true,
+      "alert": "The JavaScript Adapter scripts are already saved in the ioBroker backup.\nThis option is just an additional option to be able to restore the scripts individually if necessary."
+    }
+  }
+}

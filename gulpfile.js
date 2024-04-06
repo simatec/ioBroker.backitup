@@ -3,9 +3,8 @@
  * Date: 2023-02-22
  */
 const gulp = require('gulp');
-const fs = require('fs');
-const cp = require('child_process');
-const adapterName = require('./package.json').name.replace('iobroker.', '');
+const fs = require('node:fs');
+const cp = require('node:child_process');
 const gulpHelper = require('@iobroker/vis-2-widgets-react-dev/gulpHelper');
 
 function deleteFoldersRecursive(path, exceptions) {
@@ -28,11 +27,26 @@ function deleteFoldersRecursive(path, exceptions) {
     }
 }
 
+function sync2files(src, dst) {
+    const srcTxt = fs.readFileSync(src).toString('utf8');
+    const destTxt = fs.readFileSync(dst).toString('utf8');
+    if (srcTxt !== destTxt) {
+        const srcs = fs.statSync(src);
+        const dest = fs.statSync(dst);
+        if (srcs.mtime > dest.mtime) {
+            fs.writeFileSync(dst, srcTxt);
+        } else {
+            fs.writeFileSync(src, destTxt);
+        }
+    }
+}
+
 function build() {
+    sync();
     return new Promise((resolve, reject) => {
         const options = {
             stdio: 'pipe',
-            cwd:   `${__dirname}/src/`
+            cwd:   `${__dirname}/src/`,
         };
 
         const version = JSON.parse(fs.readFileSync(`${__dirname}/package.json`).toString('utf8')).version;
@@ -61,37 +75,13 @@ function build() {
     });
 }
 
+function sync() {
+    sync2files(`${__dirname}/src-admin/src/BackupNow.jsx`, `${__dirname}/src/src/Components/BackupNow.jsx`);
+}
+
 function buildAdmin() {
-    return new Promise((resolve, reject) => {
-        const options = {
-            stdio: 'pipe',
-            cwd:   `${__dirname}/src-admin/`
-        };
-
-        const version = JSON.parse(fs.readFileSync(`${__dirname}/package.json`).toString('utf8')).version;
-        const data = JSON.parse(fs.readFileSync(`${__dirname}/src/package.json`).toString('utf8'));
-        data.version = version;
-        fs.writeFileSync(`${__dirname}/src/package.json`, JSON.stringify(data, null, 4));
-
-        console.log(options.cwd);
-
-        let script = `${__dirname}/src/node_modules/react-scripts/scripts/build.js`;
-        if (!fs.existsSync(script)) {
-            script = `${__dirname}/node_modules/react-scripts/scripts/build.js`;
-        }
-        if (!fs.existsSync(script)) {
-            console.error(`Cannot find execution file: ${script}`);
-            reject(`Cannot find execution file: ${script}`);
-        } else {
-            const child = cp.fork(script, [], options);
-            child.stdout.on('data', data => console.log(data.toString()));
-            child.stderr.on('data', data => console.log(data.toString()));
-            child.on('close', code => {
-                console.log(`child process exited with code ${code}`);
-                code ? reject(`Exit code: ${code}`) : resolve();
-            });
-        }
-    });
+    sync();
+    return gulpHelper.buildWidgets(__dirname, `${__dirname}/src-admin/`);
 }
 
 // TASKS
@@ -116,7 +106,26 @@ gulp.task('admin-3-copy', () => Promise.all([
 gulp.task('admin-build', gulp.series(['admin-0-clean', 'admin-1-npm', 'admin-2-compile', 'admin-3-copy']));
 
 gulp.task('clean', done => {
-    gulpHelper.deleteFoldersRecursive(`${__dirname}/admin`, ['backitup.png'])
+    gulpHelper.deleteFoldersRecursive(`${__dirname}/admin`, [
+        'backitup.png',
+        'jsonConfig.json',
+        'jsonConfig.json5',
+        'jsonConfigExtras.json5',
+        'jsonConfigRestore.json5',
+        'jsonConfigNotifications.json5',
+        'jsonConfigMain.json5',
+        'custom',
+        'adapter-settings.js',
+        'backitup.svg',
+        'index.html',
+        'index_m.html',
+        'index_m.js',
+        'style.css',
+        'tab_m.css',
+        'tab_m.html',
+        'tab_m.js',
+        'words.js',
+    ]);
     done();
 });
 
@@ -272,13 +281,13 @@ gulp.task('6-patch', () => new Promise(resolve => {
         code = code.replace(/<script>var script=document\.createElement\("script"\)[^<]+<\/script>/,
             `<script type="text/javascript" src="./../../lib/js/socket.io.js"></script>`);
 
-        fs.existsSync(`${__dirname}/admin/tab_mm.html`) && fs.unlinkSync(`${__dirname}/admin/tab_mm.html`);
-        fs.writeFileSync(`${__dirname}/admin/tab_mm.html`, code);
+        fs.existsSync(`${__dirname}/admin/tab_m.html`) && fs.unlinkSync(`${__dirname}/admin/tab_m.html`);
+        fs.writeFileSync(`${__dirname}/admin/tab_m.html`, code);
     }
 
     resolve();
 }));
 
-gulp.task('6-patch-dep',  gulp.series('5-copy-dep', '6-patch'));
+gulp.task('6-patch-dep', gulp.series('5-copy-dep', '6-patch'));
 
 gulp.task('default', gulp.series('6-patch-dep', 'admin-build'));

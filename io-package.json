@@ -175,7 +175,7 @@
       }
     ],
     "adminUI": {
-      "config": "materialize",
+      "config": "json",
       "tab": "materialize"
     },
     "enabled": true,

@@ -1,0 +1,15 @@
+{
+    "i18n": true,
+    "type": "tabs",
+    "items": {
+        "_options": {
+            "#include": "jsonConfigMain.json5"
+        },
+        "_extras": {
+            "#include": "jsonConfigExtras.json5",
+        },
+        "_notification": {
+            "#include": "jsonConfigNotifications.json5",
+        }
+    }
+}

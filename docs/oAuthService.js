@@ -30,13 +30,13 @@ exports.handler = async (event) => {
 
                 return {
                     statusCode: 200,
-                    body: JSON.stringify(tokens)
+                    body: JSON.stringify(tokens),
                 };
             } catch (e) {
                 console.error(JSON.stringify(e));
                 return {
                     statusCode: 500,
-                    body: JSON.stringify((e.response && e.response.data) || e)
+                    body: JSON.stringify((e.response && e.response.data) || e),
                 };
             }
         } else {
@@ -45,9 +45,9 @@ exports.handler = async (event) => {
                 body: JSON.stringify({
                     authURL: oAuth2Client.generateAuthUrl({
                         access_type: 'offline',
-                        scope: SCOPES.join(' ')
-                    })
-                })
+                        scope: SCOPES.join(' '),
+                    }),
+                }),
             };
         }
     } else
@@ -82,7 +82,7 @@ exports.handler = async (event) => {
         } catch (e) {
             return {
                 statusCode: 501,
-                body: JSON.stringify({error: 'Cannot get access token: ' + e}),
+                body: JSON.stringify({error: `Cannot get access token: ${e}`}),
             }
         }
     }

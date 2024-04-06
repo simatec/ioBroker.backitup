@@ -1,0 +1,19 @@
+{
+  "type": "panel",
+  "label": "Extra-Settings",
+  "items": {
+    "_header": {
+      "type": "header",
+      "size": 4,
+      "label": "Additional setting",
+      "sm": 12,
+    },
+    "notificationEnabled": {
+      "newLine": true,
+      "type": "checkbox",
+      "label": "Enable Notifications",
+      "value": false,
+      "sm": 12,
+    },
+  }
+}

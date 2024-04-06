@@ -10,10 +10,11 @@ class AdapterExist extends BaseField {
         return <>
             <FormControlLabel
                 control={<Checkbox
+                    checked={this.props.data[this.props.attr] || false}
                     onChange={async e => {
                         if (e.target.checked) {
                             if (this.props.schema.adapter) {
-                                this.checkAdapterInstall(this.props.schema.adapter)
+                                this.checkAdapterInstall(this.props.schema.adapter, this.props.schema.allHosts)
                                     .catch(err => console.error(err));
                             } else if (this.props.schema.alert) {
                                 const text = I18n.t(this.props.schema.alert);
@@ -21,7 +22,7 @@ class AdapterExist extends BaseField {
                                 this.setState({ message: { text: lines, title: I18n.t(this.props.schema.title) } });
                             }
                         }
-                        this.props.onChange(this.props.attr, e.target.checked);
+                        this.props.onChange({ ...this.props.data, [this.props.attr]: e.target.checked });
                     }}
                 />}
                 label={I18n.t(this.props.schema.label || this.props.schema.adapter)}
