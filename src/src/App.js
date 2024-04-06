@@ -1,4 +1,3 @@
-// width = 100% for Button BackupNow not working :(
 import React from 'react';
 import { withStyles } from '@mui/styles';
 import { saveAs } from 'file-saver';
@@ -25,6 +24,7 @@ import GetBackups from './Components/GetBackups';
 import UploadBackup from './Components/UploadBackup';
 import UploadSettings from './Components/UploadSettings';
 import BackupNow from './Components/BackupNow';
+import SourceSelector from './Components/SourceSelector';
 
 const styles = theme => ({
     root: {},
@@ -470,7 +470,7 @@ class App extends GenericApp {
                                 color="grey"
                                 onClick={async() => {
                                     let obj = await this.socket.getObject(`system.adapter.${this.adapterName}.${this.instance}`);
-                                    
+
                                     if (obj && obj.common && obj.common.news) {
                                         delete obj.common.news;
                                     }
@@ -570,6 +570,7 @@ class App extends GenericApp {
                     adapterName={this.adapterName}
                     instance={this.instance}
                     backupSource={this.state.backupSource}
+                    allowDownload
                 /> : null}
                 {this.state.showUploadBackup ? <UploadBackup
                     alive={this.state.myAlive}

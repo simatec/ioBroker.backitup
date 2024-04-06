@@ -1,4 +1,6 @@
 import { ConfigGeneric, I18n, Message } from '@iobroker/adapter-react-v5';
+import { Info, Warning } from '@mui/icons-material';
+import { Alert } from '@mui/material';
 
 class BaseField extends ConfigGeneric {
     constructor(props) {
@@ -29,285 +31,308 @@ class BaseField extends ConfigGeneric {
         return false;
     }
 
-    fetchConfig = async (type, isInitial) => {
+    fetchConfig = async (type, data) => {
         if (type === 'ccu') {
-            await this.fetchCcuConfig(isInitial);
+            return await this.fetchCcuConfig(data);
         } else if (type === 'mySql') {
-            await this.fetchMySqlConfig(isInitial);
+            return await this.fetchMySqlConfig(data);
         } else if (type === 'sqlite') {
-            await this.fetchSqliteConfig(isInitial);
+            return await this.fetchSqliteConfig(data);
         } else if (type === 'pgSql') {
-            await this.fetchPgSqlConfig(isInitial);
+            return await this.fetchPgSqlConfig(data);
         } else if (type === 'influxDB') {
-            await this.fetchInfluxDBConfig(isInitial);
+            return await this.fetchInfluxDBConfig(data);
         } else if (type === 'history') {
-            await this.fetchHistoryConfig(isInitial);
+            return await this.fetchHistoryConfig(data);
         } else {
             this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('Unknown config type %s', type));
+            return { changed: false, found: false };
         }
     };
 
-    async fetchCcuConfig(isInitial) {
+    async fetchCcuConfig(data) {
         const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.hm-rpc.', 'system.adapter.hm-rpc.\u9999'));
 
         let found = false;
-        if (result && result.length) {
-            for (let i = 0; i < result.length; i++) {
-                const common = result[i].common;
-                if (common.enabled) {
-                    const native = result[i].native;
-                    this.props.onChange({ ...this.props.data, ccuHost: native.homematicAddress, ccuUsehttps: native.useHttps });
-                    found = result[i]._id;
-                    break;
-                }
-            }
-            if (!found) {
-                for (let j = 0; j < result.length; j++) {
-                    const _native = result[j].native;
-                    this.props.onChange({ ...this.props.data, ccuHost: _native.homematicAddress, ccuUsehttps: _native.useHttps });
-                    found = result[j]._id;
-                }
-            }
-        }
-        if (found) {
-            found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('BackItUp Information!'), I18n.t('Config taken from %s', found));
-        } else {
-            !isInitial && this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('No config found'));
-        }
-    }
-
-    async fetchMySqlConfig(isInitial) {
-        const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
-
-        let found = false;
+        let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
                 const common = result[i].common;
                 const native = result[i].native;
-                if (common.enabled && native.dbtype === 'mysql') {
-                    this.props.onChange({
-                        ...this.props.data,
-                        mySqlUser: native.user,
-                        mySqlPassword: native.password,
-                        mySqlHost: native.host,
-                        mySqlPort: native.port === '0' ? 3306 : native.port || 3306,
-                        mySqlName: native.dbname,
-                    });
+                if (common.enabled && native) {
+                    if (data.ccuHost !== native.homematicAddress || data.ccuUsehttps !== native.useHttps) {
+                        data.ccuHost = native.homematicAddress;
+                        data.ccuUsehttps = native.useHttps;
+                        changed = true;
+                    }
                     found = result[i]._id;
                     break;
                 }
             }
             if (!found) {
-                for (let j = 0; j < result.length; j++) {
-                    const _native = result[j].native;
-                    if (_native.dbtype === 'mysql') {
-                        this.props.onChange({
-                            ...this.props.data,
-                            mySqlUser: _native.user,
-                            mySqlPassword: _native.password,
-                            mySqlHost: _native.host,
-                            mySqlPort: _native.port === '0' ? 3306 : _native.port || 3306,
-                            mySqlName: _native.dbname,
-                        });
-                        found = result[j]._id;
+                for (let i = 0; i < result.length; i++) {
+                    const native = result[i].native;
+                    if (native && data.ccuHost !== native.homematicAddress || data.ccuUsehttps !== native.useHttps) {
+                        data.ccuHost = native.homematicAddress;
+                        data.ccuUsehttps = native.useHttps;
+                        changed = true;
+                    }
+                    found = result[i]._id;
+                }
+            }
+        }
+
+        return { changed, found };
+    }
+
+    async fetchMySqlConfig(isInitial, data) {
+        const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
+
+        let found = false;
+        let changed = false;
+        if (result && result.length) {
+            for (let i = 0; i < result.length; i++) {
+                const common = result[i].common;
+                const native = result[i].native;
+                if (common.enabled && native?.dbtype === 'mysql') {
+                    const port = native.port === '0' ? 3306 : (native.port || 3306);
+                    if (data.mySqlUser !== native.user ||
+                        data.mySqlPassword !== native.password ||
+                        data.mySqlHost !== native.host ||
+                        data.mySqlPort !== port ||
+                        data.mySqlName !== native.dbname
+                    ) {
+                        data.mySqlUser = native.user;
+                        data.mySqlPassword = native.password;
+                        data.mySqlHost = native.host;
+                        data.mySqlPort = port;
+                        data.mySqlName = native.dbname;
+                        changed = true;
+                    }
+                    found = result[i]._id;
+                    break;
+                }
+            }
+            if (!found) {
+                for (let i = 0; i < result.length; i++) {
+                    const native = result[i].native;
+                    if (native?.dbtype === 'mysql') {
+                        const port = native.port === '0' ? 3306 : (native.port || 3306);
+                        if (data.mySqlUser !== native.user ||
+                            data.mySqlPassword !== native.password ||
+                            data.mySqlHost !== native.host ||
+                            data.mySqlPort !== port ||
+                            data.mySqlName !== native.dbname
+                        ) {
+                            data.mySqlUser = native.user;
+                            data.mySqlPassword = native.password;
+                            data.mySqlHost = native.host;
+                            data.mySqlPort = port;
+                            data.mySqlName = native.dbname;
+                            changed = true;
+                        }
+                        found = result[i]._id;
                         break;
                     }
                 }
             }
         }
-        if (found) {
-            found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('BackItUp Information!'), I18n.t('Config taken from %s', found));
-        } else {
-            !isInitial && this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('No config found'));
-        }
+
+        return { changed, found };
     }
 
-    async fetchSqliteConfig(isInitial) {
+    async fetchSqliteConfig(isInitial, data) {
         const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
         let found = false;
+        let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
                 const common = result[i].common;
                 const native = result[i].native;
                 if (common.enabled && native && native.dbtype === 'sqlite' && native.fileName) {
                     const pathLength = native.fileName.split('/');
-                    this.props.onChange({
-                        ...this.props.data,
-                        sqlitePath: pathLength > 1 ? native.fileName : `/opt/iobroker/iobroker-data/sqlite/${native.fileName}`,
-                    });
+                    const sqlitePath = pathLength > 1 ? native.fileName : `/opt/iobroker/iobroker-data/sqlite/${native.fileName}`;
+                    if (data.sqlitePath !== sqlitePath) {
+                        data.sqlitePath = sqlitePath;
+                        changed = true;
+                    }
                     found = result[i]._id;
                     break;
                 }
             }
             if (!found) {
-                for (let j = 0; j < result.length; j++) {
-                    const _native = result[j].native;
-                    if (_native && _native.dbtype === 'sqlite' && _native.fileName) {
-                        const pathLength = _native.fileName.split('/');
-                        this.props.onChange({
-                            ...this.props.data,
-                            sqlitePath: pathLength > 1 ? _native.fileName : `/opt/iobroker/iobroker-data/sqlite/${_native.fileName}`,
-                        });
-                        found = result[j]._id;
+                for (let i = 0; i < result.length; i++) {
+                    const native = result[i].native;
+                    if (native?.dbtype === 'sqlite' && native.fileName) {
+                        const pathLength = native.fileName.split('/');
+                        const sqlitePath = pathLength > 1 ? native.fileName : `/opt/iobroker/iobroker-data/sqlite/${native.fileName}`;
+                        if (data.sqlitePath !== sqlitePath) {
+                            data.sqlitePath = sqlitePath;
+                            changed = true;
+                        }
+                        found = result[i]._id;
                         break;
                     }
                 }
             }
         }
-        if (found) {
-            found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('BackItUp Information!'), I18n.t('Config taken from %s', found));
-        } else {
-            !isInitial && this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('No config found'));
-        }
+
+        return { changed, found };
     }
 
-    async fetchPgSqlConfig(isInitial) {
+    async fetchPgSqlConfig(isInitial, data) {
         const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
 
         let found = false;
+        let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
                 const common = result[i].common;
                 const native = result[i].native;
-                if (common.enabled && native.dbtype === 'postgresql') {
-                    this.props.onChange({
-                        ...this.props.data,
-                        pgSqlUser: native.user,
-                        pgSqlPassword: native.password,
-                        pgSqlHost: native.host,
-                        pgSqlPort: native.port === '0' ? 5432 : native.port || 5432,
-                        pgSqlName: native.dbname,
-                    });
+                if (common.enabled && native?.dbtype === 'postgresql') {
+                    const port = native.port === '0' ? 5432 : native.port || 5432;
+                    if (data.pgSqlUser !== native.user ||
+                        data.pgSqlPassword !== native.password ||
+                        data.pgSqlHost !== native.host ||
+                        data.pgSqlPort !== port ||
+                        data.pgSqlName !== native.dbname
+                    ) {
+                        data.pgSqlUser = native.user;
+                        data.pgSqlPassword = native.password;
+                        data.pgSqlHost = native.host;
+                        data.pgSqlPort = port;
+                        data.pgSqlName = native.dbname;
+                        changed = true;
+                    }
                     found = result[i]._id;
-
                     break;
                 }
             }
             if (!found) {
-                for (let j = 0; j < result.length; j++) {
-                    const _native = result[j].native;
-                    if (_native.dbtype === 'postgresql') {
-                        this.props.onChange({
-                            ...this.props.data,
-                            pgSqlUser: _native.user,
-                            pgSqlPassword: _native.password,
-                            pgSqlHost: _native.host,
-                            pgSqlPort: _native.port === '0' ? 5432 : _native.port || 5432,
-                            pgSqlName: _native.dbname,
-                        });
-                        found = result[j]._id;
+                for (let i = 0; i < result.length; i++) {
+                    const native = result[i].native;
+                    if (native?.dbtype === 'postgresql') {
+                        const port = native.port === '0' ? 5432 : native.port || 5432;
+                        if (data.pgSqlUser !== native.user ||
+                            data.pgSqlPassword !== native.password ||
+                            data.pgSqlHost !== native.host ||
+                            data.pgSqlPort !== port ||
+                            data.pgSqlName !== native.dbname
+                        ) {
+                            data.pgSqlUser = native.user;
+                            data.pgSqlPassword = native.password;
+                            data.pgSqlHost = native.host;
+                            data.pgSqlPort = port;
+                            data.pgSqlName = native.dbname;
+                            changed = true;
+                        }
+                        found = result[i]._id;
                         break;
                     }
                 }
             }
         }
 
-        if (found) {
-            found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('BackItUp Information!'), I18n.t('Config taken from %s', found));
-        } else {
-            !isInitial && this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('No config found'));
-        }
+        return { changed, found };
     }
 
-    async fetchInfluxDBConfig(isInitial) {
+    async fetchInfluxDBConfig(isInitial, data) {
         const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.influxdb.', 'system.adapter.influxdb.\u9999'));
         let found = false;
+        let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
                 const common = result[i].common;
                 const native = result[i].native;
                 if (common.enabled) {
-                    const settings = {
-                        influxDBHost: native.host,
-                        influxDBVersion: native.dbversion,
-                        influxDBProtocol: native.protocol,
-                        influxDBName: native.dbname,
-                    };
-                    if (native.port && native.dbversion && native.dbversion === '2.x') {
-                        settings.influxDBPort = native.port;
+                    if (data.influxDBHost !== native.host ||
+                        data.influxDBVersion !== native.dbversion ||
+                        data.influxDBProtocol !== native.protocol ||
+                        data.influxDBName !== native.dbname ||
+                        (native.dbversion === '2.x' && data.influxDBPort !== native.port)
+                    ) {
+                        data.influxDBHost = native.host;
+                        data.influxDBVersion = native.dbversion;
+                        data.influxDBProtocol = native.protocol;
+                        data.influxDBName = native.dbname;
+                        if (native.port && native.dbversion === '2.x') {
+                            data.influxDBPort = native.port;
+                        }
                     }
-                    this.props.onChange({
-                        ...this.props.data,
-                        settings,
-                    });
 
                     found = result[i]._id;
                     break;
                 }
             }
             if (!found && result.length && result[0].native) {
-                const _native = result[0].native;
-                const settings = {
-                    influxDBHost: _native.host,
-                    influxDBVersion: _native.dbversion,
-                    influxDBProtocol: _native.protocol,
-                    influxDBName: _native.dbname,
-                };
-                if (_native.port && _native.dbversion && _native.dbversion === '2.x') {
-                    settings.influxDBPort = _native.port;
+                const native = result[0].native;
+                if (native && data.influxDBHost !== native.host ||
+                    data.influxDBVersion !== native.dbversion ||
+                    data.influxDBProtocol !== native.protocol ||
+                    data.influxDBName !== native.dbname ||
+                    (native.dbversion === '2.x' && data.influxDBPort !== native.port)
+                ) {
+                    data.influxDBHost = native.host;
+                    data.influxDBVersion = native.dbversion;
+                    data.influxDBProtocol = native.protocol;
+                    data.influxDBName = native.dbname;
+                    if (native.port && native.dbversion === '2.x') {
+                        data.influxDBPort = native.port;
+                    }
                 }
-                this.props.onChange({
-                    ...this.props.data,
-                    settings,
-                });
+
                 found = result[0]._id;
             }
         }
-        if (found) {
-            found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('BackItUp Information!'), I18n.t('Config taken from %s', found));
-        } else {
-            !isInitial && this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('No config found'));
-        }
+
+        return { changed, found };
     }
 
-    async fetchHistoryConfig(isInitial) {
+    async fetchHistoryConfig(isInitial, data) {
         const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.history.', 'system.adapter.history.\u9999'));
+
         let storeDir = '';
         let found = false;
+        let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
                 const common = result[i].common;
                 const native = result[i].native;
-                if (common.enabled) {
-                    this.props.onChange({
-                        ...this.props.data,
-                        historyPath: native.storeDir && !native.storeDir.startsWith('/opt/iobroker/backups') ? native.storeDir : '/opt/iobroker/iobroker-data/history',
-                    });
+                if (common.enabled && native) {
+                    const historyPath = native.storeDir && !native.storeDir.startsWith('/opt/iobroker/backups') ? native.storeDir : '/opt/iobroker/iobroker-data/history';
+                    if (data.historyPath !== historyPath) {
+                        data.historyPath = historyPath;
+                        changed = true;
+                    }
                     storeDir = native.storeDir;
                     found = result[i]._id;
                     break;
                 }
             }
-            if (!found) {
-                for (let j = 0; j < result.length; j++) {
-                    const _native = result[j].native;
-                    this.props.onChange({
-                        ...this.props.data,
-                        historyPath: _native.storeDir && !_native.storeDir.startsWith('/opt/iobroker/backups') ? _native.storeDir : '/opt/iobroker/iobroker-data/history',
-                    });
-                    storeDir = _native.storeDir;
-                    found = result[j]._id;
+            if (!found && result[0]) {
+                const native = result[0].native;
+                if (native) {
+                    const historyPath = native.storeDir && !native.storeDir.startsWith('/opt/iobroker/backups') ? native.storeDir : '/opt/iobroker/iobroker-data/history';
+                    if (data.historyPath !== historyPath) {
+                        data.historyPath = historyPath;
+                        changed = true;
+                    }
+                    storeDir = native.storeDir;
+                    found = result[0]._id;
                 }
             }
         }
 
-        if (found && !storeDir) {
-            found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('No storage path of %s is configured.\nThe default path of the history adapter has been set.', found), I18n.t('BackItUp Information!'));
-        } else if (found && storeDir && storeDir.startsWith('/opt/iobroker/backups')) {
-            found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!', found), I18n.t('BackItUp Information!'));
-        } else if (found && storeDir) {
-            found = found.substring('system.adapter.'.length);
-            !isInitial && this.showMessage(I18n.t('Config taken from %s', found), I18n.t('BackItUp Information!'));
-        } else {
-            !isInitial && this.showMessage(I18n.t('No config found'), I18n.t('BackItUp Warning!'));
+        let message;
+        if (found) {
+            if (!storeDir) {
+                message = I18n.t('No storage path of %s is configured.\nThe default path of the history adapter has been set.', found.substring('system.adapter.'.length));
+            } else if (storeDir?.startsWith('/opt/iobroker/backups')) {
+                message = I18n.t('The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!', found.substring('system.adapter.'.length));
+            }
         }
+
+        return { changed, found, message };
     }
 
     checkAdapterInstall = async (name, ignoreHosts) => {
@@ -332,7 +357,7 @@ class BaseField extends ConfigGeneric {
         if (!ignore) {
             const res = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', `system.adapter.${adapterName}.`, `system.adapter.${adapterName}.\u9999`));
             if (res?.length) {
-                let found = false
+                let found = false;
                 for (let i = 0; i < res.length; i++) {
                     const common = res[i].common;
 
@@ -342,25 +367,31 @@ class BaseField extends ConfigGeneric {
                     }
                 }
                 if (!found && SHOW_MESSAGE_FOR.includes(adapterName)) {
-                    this.showMessage(I18n.t('BackItUp Warning!'),
-                        I18n.t('No "%s" Instance found on this host. Please check your system', adapterName));
+                    this.showMessage(
+                        I18n.t('BackItUp Warning!'),
+                        I18n.t('No "%s" Instance found on this host. Please check your system', adapterName),
+                    );
                 }
             } else if (SHOW_MESSAGE_FOR.includes(adapterName)) {
-                this.showMessage(I18n.t('BackItUp Warning!'),
-                    I18n.t('No "%s" Instance found. Please check your system', adapterName));
-                return false;
+                this.showMessage(
+                    I18n.t('BackItUp Warning!'),
+                    I18n.t('No "%s" Instance found. Please check your system', adapterName),
+                );
             }
         }
     };
 
-    showMessage = (title, text) => {
-        this.setState({ message: { title, text } });
+    showMessage = (title, text, level) => {
+        this.setState({ message: { title, text, level: level || 'info' } });
     };
 
     renderMessage() {
         return this.state.message ? <Message
             title={this.state.message.title}
             text={this.state.message.text}
+            icon={this.state.message.level === 'info' ? <Info /> :
+                (this.state.message.level === 'warning' ? <Warning style={{ color: 'orange' }} /> :
+                    (this.state.message.level === 'error' ? <Alert style={{ color: 'red' }} /> : null))}
             onClose={() => this.setState({ message: false })}
         /> : null;
     }

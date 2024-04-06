@@ -59,7 +59,14 @@ class BackupNow extends ConfigGeneric {
             this.lastExecutionLine = state.val;
             const executionLog = [...this.state.executionLog];
             executionLog.push(state.val);
+
+            // scroll down
+            if (this.textRef.current && this.textRef.current.scrollTop + this.textRef.current.clientHeight >= this.textRef.current.scrollHeight) {
+                setTimeout(() => this.textRef.current.scrollTop = this.textRef.current.scrollHeight, 100);
+            }
+
             this.setState({ executionLog });
+
             if (state.val.startsWith('[EXIT]')) {
                 this.setState({ executing: false });
                 const code = state.val.match(/^\[EXIT] ([-\d]+)/);
@@ -120,7 +127,7 @@ class BackupNow extends ConfigGeneric {
             classes={{ paper: this.props.classes.paper }}
         >
             <DialogTitle>
-                {I18n.t('Backitup execution')}
+                {I18n.t('BackItUp execution:')}
             </DialogTitle>
             <DialogContent style={{ position: 'relative' }}>
                 {this.state.executing ?

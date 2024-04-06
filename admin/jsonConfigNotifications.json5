@@ -1,6 +1,6 @@
 {
   "type": "panel",
-  "label": "Extra-Settings",
+  "label": "Restore",
   "items": {
     "_checkConfig": {
       // this component is not visible in the UI
@@ -13,15 +13,9 @@
     "_header": {
       "type": "header",
       "size": 4,
-      "text": "Additional setting",
+      "text": "Notifications",
       "sm": 12,
     },
-    "notificationEnabled": {
-      "newLine": true,
-      "type": "checkbox",
-      "label": "Enable Notifications",
-      "value": false,
-      "sm": 12,
-    },
+
   }
 }

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { saveAs } from 'file-saver';
 import {
     Accordion, AccordionDetails, AccordionSummary, Dialog,
     DialogContent, DialogTitle, Fab, Table,
@@ -8,7 +7,6 @@ import {
 } from '@mui/material';
 import {
     Close,
-    Download,
     History,
     ExpandMore,
     Save,
@@ -68,7 +66,7 @@ const ICONS = {
     redis: DiRedis,
     history: historyIcon,
     ccu: CCU,
-    javascripts: javascriptIcon,
+    javascript: javascriptIcon,
     nodered: SiNodered,
 };
 
@@ -113,7 +111,7 @@ const GetBackups = props => {
         fullWidth
         maxWidth="lg"
     >
-        <DialogTitle>{I18n.t('Backup files')}</DialogTitle>
+        <DialogTitle>{I18n.t('Backup history')}</DialogTitle>
         <DialogContent>
             {backups ? Object.keys(backups.data).map(location =>
                 <Accordion
@@ -165,7 +163,7 @@ const GetBackups = props => {
                                     <Table size="small">
                                         {backups.data[location][object].map((backup, index) => <TableRow key={index}>
                                             <TableCell style={{ width: 200, whiteSpace: 'nowrap', paddingRight: 0 }}>
-                                                {I18n.t('backup time')}
+                                                {I18n.t('Backup time')}
                                                 :
                                                 <span style={{ marginLeft: 8 }}>{parseName(backup.name)}</span>
                                             </TableCell>
@@ -177,22 +175,6 @@ const GetBackups = props => {
                                             </TableCell>
                                             <TableCell style={{ width: 88 }}>
                                                 <div style={{ display: 'flex', gap: 8 }}>
-                                                    {props.allowDownload ? <Tooltip title={I18n.t('Download Backup File')}>
-                                                        <Fab
-                                                            size="small"
-                                                            onClick={async () => {
-                                                                const data = await props.socket.sendTo(
-                                                                    `${props.adapterName}.${props.instance}`,
-                                                                    'getFile',
-                                                                    { type: location, fileName: backup.path, protocol: window.location.protocol },
-                                                                );
-                                                                const url = `${window.location.protocol}//${window.location.hostname}:${data.listenPort}/${data.fileName ? data.fileName : backup.path.split(/[\\/]/).pop()}`;
-                                                                saveAs(url);
-                                                            }}
-                                                        >
-                                                            <Download />
-                                                        </Fab>
-                                                    </Tooltip> : null}
                                                     <Tooltip title={I18n.t('Restore Backup File')}>
                                                         <Fab size="small">
                                                             <History />

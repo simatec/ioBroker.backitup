@@ -412,7 +412,7 @@ function load(settings, onChange) {
     }
 
     $('.timepicker').timepicker({
-        "twelveHour": false
+        twelveHour: false
     });
 
     oldJavascriptsEnabled = settings.javascriptsEnabled;
@@ -450,12 +450,11 @@ function load(settings, onChange) {
     sendTo(null, 'getFileSystemInfo', null, function (obj) {
         if (obj && obj.diskState && obj.storage && obj.diskFree) {
 
-            if (obj.diskState == 'warn' && obj.storage == 'local') {
+            if (obj.diskState === 'warn' && obj.storage === 'local') {
                 showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Please check your system!', obj.diskFree), _('Backitup Information!'), 'info');
-            } else if (obj.diskState == 'error' && obj.storage == 'local') {
+            } else if (obj.diskState === 'error' && obj.storage === 'local') {
                 showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Local backups are currently not possible. <br/><br/>Please check your system!', obj.diskFree), _('Backitup Information!'), 'warning');
             }
-
         }
     });
 
@@ -498,7 +497,7 @@ function load(settings, onChange) {
 
         if (obj && obj.systemOS === 'docker') {
             restoreIfWait = 10000;
-        } else if (obj && obj.systemOS == 'win') {
+        } else if (obj && obj.systemOS === 'win') {
             restoreIfWait = 18000;
         }
     });
@@ -710,6 +709,7 @@ function load(settings, onChange) {
                         showToast(null, _('Start or enable adapter first'));
                     } else {
                         $('#testWebDAV').addClass('disabled');
+
                         sendTo(null, 'testWebDAV', {
                             config: {
                                 host: $('#webdavURL').val(),

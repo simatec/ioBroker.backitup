@@ -16,7 +16,18 @@ class DetectConfig extends BaseField {
                 variant="contained"
                 endIcon={<Search />}
                 onClick={async () => {
-                    await this.fetchConfig(this.props.schema.adapter);
+                    const data = { ...this.props.data };
+                    const result = await this.fetchConfig(this.props.schema.adapter, false, data);
+                    if (result.found) {
+                        if (result.changed) {
+                            this.showMessage(I18n.t('BackItUp Information!'), result.message || I18n.t('Config taken from %s', result.found.substring('system.adapter.'.length)));
+                            this.props.onChange(data);
+                        } else {
+                            this.showMessage(I18n.t('BackItUp Information!'), result.message || I18n.t('Config found in %s, but nothing changed', result.found.substring('system.adapter.'.length)));
+                        }
+                    } else {
+                        this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('No config found'), 'warning');
+                    }
                 }}
             >
                 {I18n.t('Detect config')}

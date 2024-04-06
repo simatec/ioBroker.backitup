@@ -14,7 +14,7 @@ class GoogleDrive extends ConfigGeneric {
                 endIcon={<CloudUpload />}
                 variant="contained"
                 onClick={() => this.setState({ running: true }, async () => {
-                    const result = await this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'authGoogleDrive');
+                    const result = await this.props.socket.sendTo(null, 'authGoogleDrive');
                     this.setState({ googleDriveUrl: result.url, running: false });
                 })}
             >

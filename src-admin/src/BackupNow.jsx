@@ -4,7 +4,7 @@ import { withStyles } from '@mui/styles';
 
 import { ConfigGeneric, I18n } from '@iobroker/adapter-react-v5';
 import {
-    Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, LinearProgress, TextField,
+    Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, LinearProgress,
 } from '@mui/material';
 import { CloudUpload } from '@mui/icons-material';
 
@@ -36,33 +36,9 @@ const styles = {
     },
     text: {
         display: 'inline-block',
-    }
+    },
 };
 
-
-const DEBUGLOG = `[ERROR] [iobroker] - Debugger listening on ws://127.0.0.1:52136/a2d4655f-b965-4e25-b07c-3ef13725d923
-For help, see: https://nodejs.org/en/docs/inspector
-
-[ERROR] [iobroker] - Debugger attached.
-
-[DEBUG] [iobroker] - host.MSI 11856 states saved
-
-[DEBUG] [iobroker] - host.MSI 14814 objects saved
-
-[ERROR] [iobroker] - host.MSI Please ensure that self-created JSON files are valid
-
-[DEBUG] [iobroker] - This backup can only be restored with js-controller version up from 4.1
-
-[ERROR] [iobroker] - Waiting for the debugger to disconnect...
-
-[DEBUG] [iobroker] - done
-[DEBUG] [influxDB] - InfluxDB-Backup started ...
-[DEBUG] [influxDB] - InfluxDB Backup tmp directory created 
-[DEBUG] [influxDB] - done
-[ERROR] [sqlite] - Error: Command failed: sqlite3  .dump > C:\\pWork\\backups\\sqlite_2024_04_05-22_45_53_backupiobroker.sql
-Der Befehl "sqlite3" ist entweder falsch geschrieben oder
-konnte nicht gefunden werden.
-`;
 class BackupNow extends ConfigGeneric {
     constructor(props) {
         super(props);
@@ -82,7 +58,14 @@ class BackupNow extends ConfigGeneric {
             this.lastExecutionLine = state.val;
             const executionLog = [...this.state.executionLog];
             executionLog.push(state.val);
+
+            // scroll down
+            if (this.textRef.current && this.textRef.current.scrollTop + this.textRef.current.clientHeight >= this.textRef.current.scrollHeight) {
+                setTimeout(() => this.textRef.current.scrollTop = this.textRef.current.scrollHeight, 100);
+            }
+
             this.setState({ executionLog });
+
             if (state.val.startsWith('[EXIT]')) {
                 this.setState({ executing: false });
                 const code = state.val.match(/^\[EXIT] ([-\d]+)/);
@@ -122,8 +105,7 @@ class BackupNow extends ConfigGeneric {
         const parts = line.match(/^\[(\w+)] \[(\w+)] - (.*)/);
         if (parts) {
             return <div key={i}>
-                <div
-                    className={`${this.props.classes.textLevel} ${this.props.classes[`textLevel-${parts[1]}`]}`}>{parts[1]}</div>
+                <div className={`${this.props.classes.textLevel} ${this.props.classes[`textLevel-${parts[1]}`]}`}>{parts[1]}</div>
                 <div className={this.props.classes.textSource}>{parts[2]}</div>
                 <div className={this.props.classes.text}>{parts[3]}</div>
             </div>;
@@ -138,13 +120,13 @@ class BackupNow extends ConfigGeneric {
     renderExecutionDialog() {
         return this.state.executionDialog ? <Dialog
             open={!0}
-            onClose={() => this.setState({executionDialog: false})}
+            onClose={() => this.setState({ executionDialog: false })}
             maxWidth="md"
             fullWidth
-            classes={{paper: this.props.classes.paper}}
+            classes={{ paper: this.props.classes.paper }}
         >
             <DialogTitle>
-            {I18n.t('BackItUp execution:')}
+                {I18n.t('BackItUp execution:')}
             </DialogTitle>
             <DialogContent style={{ position: 'relative' }}>
                 {this.state.executing ?
@@ -194,8 +176,9 @@ class BackupNow extends ConfigGeneric {
     renderItem() {
         return <>
             <Button
+                style={this.props.customStyle}
                 disabled={!this.props.alive || this.state.executing}
-                onClick={() => this.setState({ executionDialog: true, executionLog: DEBUGLOG.split('\n'), executing: true }, async () => {
+                onClick={() => this.setState({ executionDialog: true, executionLog: [], executing: true }, async () => {
                     this.lastExecutionLine = '';
                     // await this.props.socket.setState(`${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`, true);
                 })}

@@ -18,8 +18,11 @@ function deleteFoldersRecursive(path, exceptions) {
 
             const stat = fs.statSync(curPath);
             if (stat.isDirectory()) {
-                deleteFoldersRecursive(curPath);
-                fs.rmdirSync(curPath);
+                deleteFoldersRecursive(curPath, exceptions);
+                const files = fs.readdirSync(curPath);
+                if (!files.length) {
+                    fs.rmdirSync(curPath);
+                }
             } else {
                 fs.unlinkSync(curPath);
             }
@@ -76,7 +79,8 @@ function build() {
 }
 
 function sync() {
-    sync2files(`${__dirname}/src-admin/src/BackupNow.jsx`, `${__dirname}/src/src/Components/BackupNow.jsx`);
+    sync2files(`${__dirname}/src-admin/src/BackupNow.jsx`, `${__dirname}/src/src/Components/BackupNow.js`);
+    sync2files(`${__dirname}/src-admin/src/Components/SourceSelector.jsx`, `${__dirname}/src/src/Components/SourceSelector.js`);
 }
 
 function buildAdmin() {
@@ -98,6 +102,7 @@ gulp.task('admin-2-compile', async () => buildAdmin());
 gulp.task('admin-3-copy', () => Promise.all([
     gulp.src(['src-admin/build/static/js/*.js', '!src-admin/build/static/js/vendors*.js']).pipe(gulp.dest('admin/custom/static/js')),
     gulp.src(['src-admin/build/static/js/*.map', '!src-admin/build/static/js/vendors*.map']).pipe(gulp.dest('admin/custom/static/js')),
+    gulp.src(['src-admin/build/static/js/vendors-node_modules_react-icons_*.*']).pipe(gulp.dest('admin/custom/static/js')),
     gulp.src(['src-admin/build/customComponents.js']).pipe(gulp.dest('admin/custom')),
     gulp.src(['src-admin/build/customComponents.js.map']).pipe(gulp.dest('admin/custom')),
     gulp.src(['src-admin/src/i18n/*.json']).pipe(gulp.dest('admin/custom/i18n')),
@@ -106,7 +111,7 @@ gulp.task('admin-3-copy', () => Promise.all([
 gulp.task('admin-build', gulp.series(['admin-0-clean', 'admin-1-npm', 'admin-2-compile', 'admin-3-copy']));
 
 gulp.task('clean', done => {
-    gulpHelper.deleteFoldersRecursive(`${__dirname}/admin`, [
+    deleteFoldersRecursive(`${__dirname}/admin`, [
         'backitup.png',
         'jsonConfig.json',
         'jsonConfig.json5',
@@ -125,6 +130,7 @@ gulp.task('clean', done => {
         'tab_m.html',
         'tab_m.js',
         'words.js',
+        'translations.json',
     ]);
     done();
 });

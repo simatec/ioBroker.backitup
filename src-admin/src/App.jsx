@@ -13,8 +13,9 @@ import AdapterExist from './AdapterExist';
 import BackupNow from './BackupNow';
 import DetectConfig from './DetectConfig';
 import GoogleDrive from './GoogleDrive';
-import DetectConfigInvisible from './DetectConfigInvisible';
+import CheckConfigInvisible from './CheckConfigInvisible';
 import Instance from './Instance';
+import RestoreBackup from './RestoreBackup';
 
 const styles = theme => ({
     app: {
@@ -80,7 +81,7 @@ class App extends GenericApp {
                             onError={() => {}}
                             instance={0}
                             schema={{
-                                name: 'ConfigCustomBackitupSet/Components/TelegramComponent',
+                                name: 'ConfigCustomBackItUpSet/Components/AdapterExist',
                                 type: 'custom',
                                 // adapter: 'zigbee',
                                 title: 'Backitup Information!',
@@ -102,7 +103,7 @@ class App extends GenericApp {
                             onError={() => {}}
                             instance={0}
                             schema={{
-                                name: 'ConfigCustomTelegramSet/Components/TelegramComponent',
+                                name: 'ConfigCustomBackItUpSet/Components/BackupNow',
                                 type: 'custom',
                                 backUpType: 'ccu',
                             }}
@@ -118,7 +119,7 @@ class App extends GenericApp {
                             onError={() => {}}
                             instance={0}
                             schema={{
-                                name: 'ConfigCustomTelegramSet/Components/TelegramComponent',
+                                name: 'ConfigCustomBackItUpSet/Components/DetectConfig',
                                 type: 'custom',
                                 adapter: 'ccu',
                             }}
@@ -128,7 +129,7 @@ class App extends GenericApp {
                             adapterName="backitup"
                             common={this.common}
                         />
-                        <DetectConfigInvisible
+                        <CheckConfigInvisible
                             socket={this.socket}
                             themeType={this.state.themeType}
                             themeName={this.state.themeName}
@@ -137,7 +138,7 @@ class App extends GenericApp {
                             onError={() => {}}
                             instance={0}
                             schema={{
-                                name: 'ConfigCustomTelegramSet/Components/TelegramComponent',
+                                name: 'ConfigCustomBackItUpSet/Components/DetectConfigInvisible',
                                 type: 'custom',
                                 adapter: 'ccu',
                             }}
@@ -156,7 +157,7 @@ class App extends GenericApp {
                             onError={() => {}}
                             instance={0}
                             schema={{
-                                name: 'ConfigCustomTelegramSet/Components/TelegramComponent',
+                                name: 'ConfigCustomBackItUpSet/Components/GoogleDrive',
                                 type: 'custom',
                             }}
                             onChange={data => {
@@ -174,7 +175,7 @@ class App extends GenericApp {
                             onError={() => {}}
                             instance={0}
                             schema={{
-                                name: 'ConfigCustomTelegramSet/Components/TelegramComponent',
+                                name: 'ConfigCustomBackItUpSet/Components/Instance',
                                 type: 'custom',
                                 adapter: 'telegram',
                             }}
@@ -183,6 +184,23 @@ class App extends GenericApp {
                             }}
                             adapterName="backitup"
                             common={this.common}
+                        />
+                        <RestoreBackup
+                            socket={this.socket}
+                            themeType={this.state.themeType}
+                            themeName={this.state.themeName}
+                            data={this.state.data}
+                            onError={() => {}}
+                            instance={0}
+                            schema={{
+                                name: 'ConfigCustomBackItUpSet/Components/RestoreBackup',
+                                type: 'custom',
+                                allowDownload: false,
+                            }}
+                            onChange={data => {
+                                this.setState({ data });
+                            }}
+                            adapterName="backitup"
                         />
                     </div>
                 </div>

@@ -116,7 +116,10 @@ const UploadBackup = props => {
                         setUploaded(true);
                         setTimeout(props.onClose, 5000);
 
-                        await props.socket.sendTo(`${props.adapterName}.${props.instance}`, 'serverClose', { downloadFinish: false, uploadFinish: true });
+                        const closeResult = await props.socket.sendTo(`${props.adapterName}.${props.instance}`, 'serverClose', { downloadFinish: false, uploadFinish: true });
+                        if (closeResult?.serverClose) {
+                            console.log('Upload-Server closed');
+                        }
                     } catch (e) {
                         setError(e);
                         setTimeout(props.onClose, 5000);

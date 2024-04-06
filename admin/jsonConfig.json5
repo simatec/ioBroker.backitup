@@ -8,8 +8,11 @@
         "_extras": {
             "#include": "jsonConfigExtras.json5",
         },
+        "_restore": {
+            "#include": "jsonConfigRestore.json5",
+        },
         "_notification": {
             "#include": "jsonConfigNotifications.json5",
-        }
+        },
     }
 }
