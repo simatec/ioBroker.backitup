@@ -113,6 +113,7 @@ const UploadBackup = props => {
                             method: 'POST',
                             body: formData,
                         });
+                        setUploaded(true);
                         setTimeout(() => props.onClose, 5000);
 
                         await props.socket.sendTo(`${props.adapterName}.${props.instance}`, 'serverClose', { downloadFinish: false, uploadFinish: true });
@@ -140,7 +141,7 @@ const UploadBackup = props => {
 };
 
 UploadBackup.propTypes = {
-    onUpload: PropTypes.func,
+    onClose: PropTypes.func,
     disabled: PropTypes.bool,
     themeType: PropTypes.string,
     instruction: PropTypes.string,

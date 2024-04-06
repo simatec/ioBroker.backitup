@@ -10,7 +10,7 @@ import {
 
 import { Close } from '@mui/icons-material';
 
-import { I18n, Utils } from '@iobroker/adapter-react-v5';
+import { I18n } from '@iobroker/adapter-react-v5';
 
 const BackupHistory = props => {
     const [backupHistory, setBackupHistory] = useState([]);

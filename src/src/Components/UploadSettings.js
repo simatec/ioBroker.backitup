@@ -4,10 +4,12 @@ import { useDropzone } from 'react-dropzone';
 
 import {
     Button,
-    CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle,
+    CircularProgress, Dialog, DialogActions,
+    DialogContent,
+    DialogTitle,
 } from '@mui/material';
 
-import {Check, Close, Source, Upload} from '@mui/icons-material';
+import { Check, Close, Source } from '@mui/icons-material';
 
 import { I18n, Utils } from '@iobroker/adapter-react-v5';
 
@@ -41,6 +43,7 @@ const UploadSettings = props => {
                 } else {
                     setError(`Error: ${err.message}`);
                 }
+                // hide error after 3 seconds
                 setTimeout(() => error && setError(''), 3000);
             });
         }
@@ -79,7 +82,7 @@ const UploadSettings = props => {
                 }}
             >
                 {error ? <div style={{ color: '#a90000' }}>{error}</div> : null}
-                {uploaded ? <div style={{ color: 'green' }}>{I18n.t('Upload completed successfully. The popup will close automatically')}</div> : null}
+                {uploaded ? <div style={{ color: 'green' }}>{I18n.t('Configuration restored successfully. The popup will close automatically')}</div> : null}
                 {props.disabled || working ? null : <input {...getInputProps()} />}
                 {working ? <CircularProgress /> :
                     <p
@@ -108,13 +111,15 @@ const UploadSettings = props => {
                         try {
                             obj.native = JSON.parse(fileData);
                             props.socket.setObject(obj._id, obj);
+                            setUploaded(true);
+                            setTimeout(props.onClose, 3000);
                         } catch (e) {
                             setError(I18n.t('Cannot parse JSON'));
                             setTimeout(() => error && setError(''), 5000);
                         }
                     } catch (e) {
                         setError(e);
-                        setTimeout(() => props.onClose, 5000);
+                        setTimeout(props.onClose, 5000);
                     }
                 }}
                 color="primary"
@@ -136,7 +141,7 @@ const UploadSettings = props => {
 };
 
 UploadSettings.propTypes = {
-    onUpload: PropTypes.func,
+    onClose: PropTypes.func,
     disabled: PropTypes.bool,
     themeType: PropTypes.string,
     instruction: PropTypes.string,

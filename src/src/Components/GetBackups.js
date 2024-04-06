@@ -23,7 +23,7 @@ import {
     DiOnedrive, DiRedis,
 } from 'react-icons/di';
 import {
-    SiNodered
+    SiNodered,
 } from 'react-icons/si';
 import { I18n } from '@iobroker/adapter-react-v5';
 
@@ -72,7 +72,6 @@ const ICONS = {
     nodered: SiNodered,
 };
 
-
 function getIcon(type) {
     if (!ICONS[type]) {
         return null;
@@ -88,13 +87,13 @@ const GetBackups = props => {
     const [expanded, setExpanded] = useState([]);
 
     useEffect(() => {
-        let expanded = window.localStorage.getItem('BackupExpanded');
+        let _expanded = window.localStorage.getItem('BackupExpanded');
         try {
-            expanded = JSON.parse(expanded);
+            _expanded = JSON.parse(_expanded);
         } catch {
-            expanded = [];
+            _expanded = [];
         }
-        setExpanded(expanded || []);
+        setExpanded(_expanded || []);
         setBackups(null);
         props.socket.sendTo(`${props.adapterName}.${props.instance}`, 'list', props.backupSource).then(result => {
             Object.keys(result.data).forEach(location => {
@@ -130,7 +129,7 @@ const GetBackups = props => {
                         setExpanded(_expanded);
                     }}
                     style={{
-                        backgroundColor: props.themeType ? 'rgba(10, 10, 10, 0.05)' : 'rgba(250, 250, 250, 0.05)'
+                        backgroundColor: props.themeType ? 'rgba(10, 10, 10, 0.05)' : 'rgba(250, 250, 250, 0.05)',
                     }}
                 >
                     <AccordionSummary expandIcon={<ExpandMore />}>
@@ -166,7 +165,7 @@ const GetBackups = props => {
                                                 :
                                                 <span style={{ marginLeft: 8 }}>{parseName(backup.name)}</span>
                                             </TableCell>
-                                            <TableCell style={{ width: 'calc(100% - 320px)', whiteSpace: 'nowrap',paddingleft: 0 }}>
+                                            <TableCell style={{ width: 'calc(100% - 320px)', whiteSpace: 'nowrap', paddingleft: 0 }}>
                                                 <span style={{ marginRight: 8 }}>|</span>
                                                 {I18n.t('filesize')}
                                                 :

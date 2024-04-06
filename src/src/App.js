@@ -4,13 +4,17 @@ import { saveAs } from 'file-saver';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
 import {
-    Card, CardContent, Button, TextField, MenuItem, AppBar, Toolbar, FormControl, InputLabel, Select,
+    Card, CardContent, Button, MenuItem,
+    AppBar, Toolbar, FormControl,
+    InputLabel, Select,
 } from '@mui/material';
 
 import GenericApp from '@iobroker/adapter-react-v5/GenericApp';
 import { I18n, Loader, AdminConnection } from '@iobroker/adapter-react-v5';
 import {
-    CloudUpload, FormatListBulleted, Info, Search, SettingsBackupRestore, Upload, Storage
+    CloudUpload, FormatListBulleted,
+    Info, Search, SettingsBackupRestore,
+    Upload, Storage,
 } from '@mui/icons-material';
 
 import logo from './assets/backitup.png';
@@ -18,8 +22,8 @@ import logo from './assets/backitup.png';
 import BackupHistory from './Components/BackupHistory';
 import GetBackups from './Components/GetBackups';
 import UploadBackup from './Components/UploadBackup';
-import UploadSettings from "./Components/UploadSettings";
-import BackupNow from "./Components/BackupNow";
+import UploadSettings from './Components/UploadSettings';
+import BackupNow from './Components/BackupNow';
 
 const styles = theme => ({
     root: {},
@@ -161,7 +165,7 @@ class App extends GenericApp {
         } else if (id === `${this.adapterName}.${this.instance}.history.ccuNextTime` && state.val !== this.state.ccuNextTime) {
             this.setState({ ccuNextTime: state.val });
         }
-    }
+    };
 
     componentWillUnmount() {
         super.componentWillUnmount();
@@ -179,7 +183,7 @@ class App extends GenericApp {
                 this.setState({ myAlive: !!state?.val });
             }
         }
-    }
+    };
 
     renderBackupInformation() {
         return <Card>
@@ -267,7 +271,7 @@ class App extends GenericApp {
                     <div className={this.props.classes.subHeader}>
                         {I18n.t('Activated backup options')}
                     </div>
-                    <ul style={{maxHeight: 150, overflow: 'auto'}}>
+                    <ul style={{ maxHeight: 150, overflow: 'auto' }}>
                         {options.map(option => this.state.native[option.name] &&
                             <li key={option.name}>{I18n.t(option.label)}</li>)}
                     </ul>
@@ -286,7 +290,7 @@ class App extends GenericApp {
             themeType={this.state.themeType}
             adapterName={this.adapterName}
             instance={this.instance}
-        />
+        />;
     }
 
     render() {
@@ -309,34 +313,39 @@ class App extends GenericApp {
 
         return <StyledEngineProvider injectFirst>
             <ThemeProvider theme={this.state.theme}>
-                <div className="App" style={{
-                    background: this.state.theme.palette.background.default,
-                    color: this.state.theme.palette.text.primary
-                }}>
+                <div
+                    className="App"
+                    style={{
+                        background: this.state.theme.palette.background.default,
+                        color: this.state.theme.palette.text.primary,
+                    }}
+                >
                     <AppBar color="primary" position="static" enableColorOnDark>
                         <Toolbar>
-                            <img src={logo} alt="logo" style={{height: 48, marginRight: 16}}/>
+                            <img src={logo} alt="logo" style={{ height: 48, marginRight: 16 }} />
                             <div>
-                                <div style={{fontWeight: 'bold', fontSize: 20}}>BackItUp</div>
+                                <div style={{ fontWeight: 'bold', fontSize: 20 }}>BackItUp</div>
                                 <div>{I18n.t('Backup your System')}</div>
                             </div>
                         </Toolbar>
                     </AppBar>
-                    <div style={{
-                        width: 'calc(100% - 16px)',
-                        height: 'calc(100% - 64px - 16px)',
-                        overflow: 'auto',
-                        padding: 8
-                    }}>
+                    <div
+                        style={{
+                            width: 'calc(100% - 16px)',
+                            height: 'calc(100% - 64px - 16px)',
+                            overflow: 'auto',
+                            padding: 8,
+                        }}
+                    >
                         <div className={this.props.classes.header}>
                             {I18n.t('Backup information')}
                         </div>
-                        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12}}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
                             {this.renderBackupInformation()}
                             {this.renderActivatedStorageOptions()}
                             {this.renderActivatedBackupOptions()}
                         </div>
-                        <div className={this.props.classes.header} style={{marginTop: 10}}>
+                        <div className={this.props.classes.header} style={{ marginTop: 10 }}>
                             {I18n.t('System backup')}
                         </div>
                         <div style={{
@@ -392,7 +401,7 @@ class App extends GenericApp {
                                 onClick={() => this.setState({ showBackupHistory: true })}
                                 variant="contained"
                                 color="grey"
-                                endIcon={<FormatListBulleted/>}
+                                endIcon={<FormatListBulleted />}
                             >
                                 {I18n.t('Backup history')}
                             </Button>
@@ -405,12 +414,15 @@ class App extends GenericApp {
                                     const now = new Date();
                                     saveAs(blob, `${now.getFullYear()}_${(now.getMonth() + 1).toString().padStart(2, '0')}_${now.getDate().toString().padStart(2, '0')}-${this.adapterName}.${this.instance}.json`);
                                 }}
-                                endIcon={<CloudUpload/>}
+                                endIcon={<CloudUpload />}
                             >
                                 {I18n.t('Save BackItUp settings')}
                             </Button>
                         </div>
-                        <div className={this.props.classes.header} style={{ marginTop: 10, marginBottom: 0 }}>
+                        <div
+                            className={this.props.classes.header}
+                            style={{ marginTop: 10, marginBottom: 0 }}
+                        >
                             {I18n.t('Restore')}
                         </div>
                         <div style={{
@@ -431,19 +443,18 @@ class App extends GenericApp {
                                     }}
                                 >
                                     {options.map(option =>
-                                        (!option.name || this.state.native[option.name] ?
-                                            <MenuItem key={option.value}
-                                                      value={option.value}>{I18n.t(option.label)}</MenuItem> :
-                                            null))}
+                                        (!option.name || this.state.native[option.name] ? <MenuItem key={option.value} value={option.value}>
+                                            {I18n.t(option.label)}
+                                        </MenuItem> : null))}
                                 </Select>
                             </FormControl>
                             <Button
                                 style={{ marginTop: 16 }}
-                                onClick={() => this.setState({showGetBackups: true})}
+                                onClick={() => this.setState({ showGetBackups: true })}
                                 disabled={!this.state.myAlive}
                                 variant="contained"
                                 color="grey"
-                                endIcon={<Search/>}
+                                endIcon={<Search />}
                             >
                                 {I18n.t('Get backups')}
                             </Button>
@@ -452,7 +463,7 @@ class App extends GenericApp {
                                 onClick={() => this.setState({ showUploadBackup: true })}
                                 variant="contained"
                                 color="grey"
-                                endIcon={<Upload/>}
+                                endIcon={<Upload />}
                             >
                                 {I18n.t('Upload backup file')}
                             </Button>
@@ -467,7 +478,14 @@ class App extends GenericApp {
                             </Button>
                         </div>
                         {this.renderError()}
-                        <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center', marginTop: 8 }}>
+                        <div
+                            style={{
+                                fontWeight: 'bold',
+                                width: '100%',
+                                textAlign: 'center',
+                                marginTop: 8,
+                            }}
+                        >
                             {I18n.t('All backup settings can be changed in the adapter configuration of BackItUp.')}
                         </div>
                     </div>

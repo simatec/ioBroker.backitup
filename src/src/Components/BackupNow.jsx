@@ -4,7 +4,7 @@ import { withStyles } from '@mui/styles';
 
 import { ConfigGeneric, I18n } from '@iobroker/adapter-react-v5';
 import {
-    Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, LinearProgress, TextField,
+    Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, LinearProgress,
 } from '@mui/material';
 import { CloudUpload } from '@mui/icons-material';
 
@@ -36,9 +36,8 @@ const styles = {
     },
     text: {
         display: 'inline-block',
-    }
+    },
 };
-
 
 const DEBUGLOG = `[ERROR] [iobroker] - Debugger listening on ws://127.0.0.1:52136/a2d4655f-b965-4e25-b07c-3ef13725d923
 For help, see: https://nodejs.org/en/docs/inspector
@@ -122,8 +121,7 @@ class BackupNow extends ConfigGeneric {
         const parts = line.match(/^\[(\w+)] \[(\w+)] - (.*)/);
         if (parts) {
             return <div key={i}>
-                <div
-                    className={`${this.props.classes.textLevel} ${this.props.classes[`textLevel-${parts[1]}`]}`}>{parts[1]}</div>
+                <div className={`${this.props.classes.textLevel} ${this.props.classes[`textLevel-${parts[1]}`]}`}>{parts[1]}</div>
                 <div className={this.props.classes.textSource}>{parts[2]}</div>
                 <div className={this.props.classes.text}>{parts[3]}</div>
             </div>;
@@ -138,13 +136,13 @@ class BackupNow extends ConfigGeneric {
     renderExecutionDialog() {
         return this.state.executionDialog ? <Dialog
             open={!0}
-            onClose={() => this.setState({executionDialog: false})}
+            onClose={() => this.setState({ executionDialog: false })}
             maxWidth="md"
             fullWidth
-            classes={{paper: this.props.classes.paper}}
+            classes={{ paper: this.props.classes.paper }}
         >
             <DialogTitle>
-            {I18n.t('BackItUp execution:')}
+                {I18n.t('BackItUp execution:')}
             </DialogTitle>
             <DialogContent style={{ position: 'relative' }}>
                 {this.state.executing ?
