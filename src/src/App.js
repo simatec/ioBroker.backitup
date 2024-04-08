@@ -1,3 +1,4 @@
+// width = 100% for Button BackupNow not working :(
 import React from 'react';
 import { withStyles } from '@mui/styles';
 import { saveAs } from 'file-saver';
@@ -53,20 +54,26 @@ const styles = theme => ({
         backgroundColor: theme.palette.secondary.main,
         padding: '2px 16px',
         borderRadius: 4,
+        color: '#FFF !important',
     },
     subHeader: {
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 8,
+        color: '#FFF !important',
     },
     icon: {
         height: 64,
         width: 64,
         margin: 4,
+        color: '#3399CC !important',
+        fontSize: '80px',
     },
     iconDiv: {
         display: 'inline-block',
-        backgroundColor: theme.palette.primary.main,
+        background: '#e2e2e2',
+        backgroundImage: 'linear-gradient(179deg, #e2e2e2 40%, #474747 180%)',
+        maxWidth: '30%',
         height: '100%',
         marginRight: 8,
         verticalAlign: 'top',
@@ -83,6 +90,20 @@ const styles = theme => ({
     },
     value: {
         marginLeft: 8,
+    },
+    footer: {
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginTop: 8,
+        position: 'fixed',
+        bottom: 0,
+        width: 'calc(100% - 0.1rem)',
+        overflow: 'overlay',
+        zIndex: 997,
+        backgroundColor: theme.palette.secondary.main,
+    },
+    buttonWidth: {
+        width: '100%',
     },
 });
 
@@ -337,25 +358,28 @@ class App extends GenericApp {
                             padding: 8,
                         }}
                     >
-                        <div className={this.props.classes.header}>
+                        <div className={this.props.classes.header} style={{ margin: '1rem 0 1rem 0' }}>
                             {I18n.t('Backup information')}
                         </div>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, height: '300px' }}>
                             {this.renderBackupInformation()}
                             {this.renderActivatedStorageOptions()}
                             {this.renderActivatedBackupOptions()}
                         </div>
-                        <div className={this.props.classes.header} style={{ marginTop: 10 }}>
+                        <div className={this.props.classes.header} style={{ margin: '1rem 0 1rem 0' }}>
                             {I18n.t('System backup')}
                         </div>
-                        <div style={{
-                            display: 'grid',
-                            gridTemplateColumns: '1fr 1fr 1fr 1fr',
-                            gap: 12,
-                            justifyItems: 'center',
-                        }}
+                        <div 
+                            className={this.props.classes.buttonWidth}
+                            style={{
+                                display: 'grid',
+                                gridTemplateColumns: '1fr 1fr 1fr 1fr',
+                                gap: 12,
+                                justifyItems: 'center',
+                            }}
                         >
                             {this.state.myAlive ? <BackupNow
+                                style={{ width: '100% !important' }}
                                 variant="contained"
                                 color="grey"
                                 adapterName={this.adapterName}
@@ -369,13 +393,14 @@ class App extends GenericApp {
                                     label: 'Start ioBroker backup',
                                 }}
                             /> : <Button
-                                disabled
-                                color="grey"
-                                variant="contained"
-                                endIcon={<CloudUpload />}
-                            >
-                                {I18n.t('Start ioBroker backup')}
-                            </Button>}
+                                    style={{ width: '100% !important' }}
+                                    disabled
+                                    color="grey"
+                                    variant="contained"
+                                    endIcon={<CloudUpload />}
+                                >
+                                    {I18n.t('Start ioBroker backup')}
+                                </Button>}
                             {this.state.myAlive ? <BackupNow
                                 variant="contained"
                                 adapterName={this.adapterName}
@@ -384,12 +409,14 @@ class App extends GenericApp {
                                 alive
                                 socket={this.socket}
                                 themeType={this.state.themeType}
+                                style={{ width: '100%' }}
                                 endIcon={<CloudUpload />}
                                 schema={{
                                     backUpType: 'ccu',
                                     label: 'Start Homematic backup',
                                 }}
                             /> : <Button
+                                style={{ width: '100%' }}
                                 disabled
                                 color="grey"
                                 variant="contained"
@@ -398,6 +425,7 @@ class App extends GenericApp {
                                 {I18n.t('Start Homematic backup')}
                             </Button>}
                             <Button
+                                style={{ width: '100%' }}
                                 onClick={() => this.setState({ showBackupHistory: true })}
                                 variant="contained"
                                 color="grey"
@@ -406,6 +434,7 @@ class App extends GenericApp {
                                 {I18n.t('Backup history')}
                             </Button>
                             <Button
+                                style={{ width: '100%' }}
                                 variant="contained"
                                 color="grey"
                                 onClick={() => {
@@ -421,18 +450,19 @@ class App extends GenericApp {
                         </div>
                         <div
                             className={this.props.classes.header}
-                            style={{ marginTop: 10, marginBottom: 0 }}
+                            style={{ margin: '1rem 0 1rem 0' }}
                         >
                             {I18n.t('Restore')}
                         </div>
                         <div style={{
+                            width: '100%',
                             display: 'grid',
                             gridTemplateColumns: '1fr 1fr 1fr 1fr',
                             gap: 12,
                             justifyItems: 'center',
                         }}
                         >
-                            <FormControl fullWidth variant="standard" style={{ height: 32, marginTop: 6, maxWidth: 250 }}>
+                            <FormControl fullWidth variant="standard" style={{ height: 32, marginTop: 6, width: '100%' }}>
                                 <InputLabel>{I18n.t('Backup source')}</InputLabel>
                                 <Select
                                     variant="standard"
@@ -449,7 +479,7 @@ class App extends GenericApp {
                                 </Select>
                             </FormControl>
                             <Button
-                                style={{ marginTop: 16 }}
+                                style={{ marginTop: 16, width: '100%' }}
                                 onClick={() => this.setState({ showGetBackups: true })}
                                 disabled={!this.state.myAlive}
                                 variant="contained"
@@ -459,7 +489,7 @@ class App extends GenericApp {
                                 {I18n.t('Get backups')}
                             </Button>
                             <Button
-                                style={{ marginTop: 16 }}
+                                style={{ marginTop: 16, width: '100%' }}
                                 onClick={() => this.setState({ showUploadBackup: true })}
                                 variant="contained"
                                 color="grey"
@@ -468,7 +498,7 @@ class App extends GenericApp {
                                 {I18n.t('Upload backup file')}
                             </Button>
                             <Button
-                                style={{ marginTop: 16 }}
+                                style={{ marginTop: 16, width: '100%' }}
                                 variant="contained"
                                 color="grey"
                                 onClick={() => this.setState({ showUploadSettings: true })}
@@ -479,12 +509,7 @@ class App extends GenericApp {
                         </div>
                         {this.renderError()}
                         <div
-                            style={{
-                                fontWeight: 'bold',
-                                width: '100%',
-                                textAlign: 'center',
-                                marginTop: 8,
-                            }}
+                            className={this.props.classes.footer}
                         >
                             {I18n.t('All backup settings can be changed in the adapter configuration of BackItUp.')}
                         </div>
