@@ -30,38 +30,16 @@ const styles = {
     },
     textSource: {
         display: 'inline-block',
-        width: 70,
-        marginRight: 8,
-        textAlign: 'right',
+        width: 100,
+        margin: '0.2rem 0 0 0.8rem',
+        textAlign: 'left',
     },
     text: {
         display: 'inline-block',
     },
 };
 
-const DEBUGLOG = `[ERROR] [iobroker] - Debugger listening on ws://127.0.0.1:52136/a2d4655f-b965-4e25-b07c-3ef13725d923
-For help, see: https://nodejs.org/en/docs/inspector
-
-[ERROR] [iobroker] - Debugger attached.
-
-[DEBUG] [iobroker] - host.MSI 11856 states saved
-
-[DEBUG] [iobroker] - host.MSI 14814 objects saved
-
-[ERROR] [iobroker] - host.MSI Please ensure that self-created JSON files are valid
-
-[DEBUG] [iobroker] - This backup can only be restored with js-controller version up from 4.1
-
-[ERROR] [iobroker] - Waiting for the debugger to disconnect...
-
-[DEBUG] [iobroker] - done
-[DEBUG] [influxDB] - InfluxDB-Backup started ...
-[DEBUG] [influxDB] - InfluxDB Backup tmp directory created 
-[DEBUG] [influxDB] - done
-[ERROR] [sqlite] - Error: Command failed: sqlite3  .dump > C:\\pWork\\backups\\sqlite_2024_04_05-22_45_53_backupiobroker.sql
-Der Befehl "sqlite3" ist entweder falsch geschrieben oder
-konnte nicht gefunden werden.
-`;
+const DEBUGLOG = `Start Backup`;
 class BackupNow extends ConfigGeneric {
     constructor(props) {
         super(props);
@@ -137,7 +115,7 @@ class BackupNow extends ConfigGeneric {
         return this.state.executionDialog ? <Dialog
             open={!0}
             onClose={() => this.setState({ executionDialog: false })}
-            maxWidth="md"
+            maxWidth="lg"
             fullWidth
             classes={{ paper: this.props.classes.paper }}
         >
