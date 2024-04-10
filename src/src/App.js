@@ -62,6 +62,12 @@ const styles = theme => ({
         marginBottom: 8,
         color: '#FFF !important',
     },
+    cardHeader: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 8,
+        padding: '16px',
+    },
     icon: {
         height: 64,
         width: 64,
@@ -83,7 +89,8 @@ const styles = theme => ({
         display: 'inline-block',
     },
     cardContent: {
-        height: 'calc(100% - 32px)',
+        padding: '0px',
+        height: '100%',
     },
     label: {
         fontWeight: 'bold',
@@ -213,24 +220,24 @@ class App extends GenericApp {
                     <Info className={this.props.classes.icon} />
                 </div>
                 <div className={this.props.classes.textDiv}>
-                    <div className={this.props.classes.subHeader}>
+                    <div className={this.props.classes.cardHeader}>
                         {I18n.t('Backup information')}
                     </div>
                     <ul>
                         {this.state.native.minimalEnabled && <li>
-                            <span className={this.props.classes.label}>{I18n.t('Last iobroker Backup:')}</span>
+                            <span className={this.props.classes.label}>{I18n.t('Last iobroker Backup:')}</span><br/>
                             <span className={this.props.classes.value}>{this.state.iobrokerLastTime}</span>
                         </li>}
                         {this.state.native.ccuEnabled && <li>
-                            <span className={this.props.classes.label}>{I18n.t('Last CCU Backup:')}</span>
+                            <span className={this.props.classes.label}>{I18n.t('Last CCU Backup:')}</span><br/>
                             <span className={this.props.classes.value}>{this.state.ccuLastTime}</span>
                         </li>}
                         {this.state.native.minimalEnabled && <li>
-                            <span className={this.props.classes.label}>{I18n.t('Next iobroker Backup:')}</span>
+                            <span className={this.props.classes.label}>{I18n.t('Next iobroker Backup:')}</span><br/>
                             <span className={this.props.classes.value}>{this.state.iobrokerNextTime}</span>
                         </li>}
                         {this.state.native.ccuEnabled && <li>
-                            <span className={this.props.classes.label}>{I18n.t('Next CCU Backup:')}</span>
+                            <span className={this.props.classes.label}>{I18n.t('Next CCU Backup:')}</span><br/>
                             <span className={this.props.classes.value}>{this.state.ccuNextTime}</span>
                         </li>}
                     </ul>
@@ -254,7 +261,7 @@ class App extends GenericApp {
                     <Storage className={this.props.classes.icon} />
                 </div>
                 <div className={this.props.classes.textDiv}>
-                    <div className={this.props.classes.subHeader}>
+                    <div className={this.props.classes.cardHeader}>
                         {I18n.t('Activated storage options')}
                     </div>
                     <ul>
@@ -289,7 +296,7 @@ class App extends GenericApp {
                     <CloudUpload className={this.props.classes.icon} />
                 </div>
                 <div className={this.props.classes.textDiv}>
-                    <div className={this.props.classes.subHeader}>
+                    <div className={this.props.classes.cardHeader}>
                         {I18n.t('Activated backup options')}
                     </div>
                     <ul style={{ maxHeight: 150, overflow: 'auto' }}>
@@ -369,8 +376,7 @@ class App extends GenericApp {
                         <div className={this.props.classes.header} style={{ margin: '1rem 0 1rem 0' }}>
                             {I18n.t('System backup')}
                         </div>
-                        <div 
-                            className={this.props.classes.buttonWidth}
+                        <div
                             style={{
                                 display: 'grid',
                                 gridTemplateColumns: '1fr 1fr 1fr 1fr',
@@ -379,8 +385,8 @@ class App extends GenericApp {
                             }}
                         >
                             {this.state.myAlive ? <BackupNow
-                                style={{ width: '100% !important' }}
                                 variant="contained"
+                                style={{ width: '100%' }}
                                 color="grey"
                                 adapterName={this.adapterName}
                                 instance={this.instance}
@@ -393,7 +399,7 @@ class App extends GenericApp {
                                     label: 'Start ioBroker backup',
                                 }}
                             /> : <Button
-                                    style={{ width: '100% !important' }}
+                                    style={{ width: '100%' }}
                                     disabled
                                     color="grey"
                                     variant="contained"
@@ -403,13 +409,13 @@ class App extends GenericApp {
                                 </Button>}
                             {this.state.myAlive ? <BackupNow
                                 variant="contained"
+                                style={{ width: '100%' }}
                                 adapterName={this.adapterName}
                                 instance={this.instance}
                                 color="grey"
                                 alive
                                 socket={this.socket}
                                 themeType={this.state.themeType}
-                                style={{ width: '100%' }}
                                 endIcon={<CloudUpload />}
                                 schema={{
                                     backUpType: 'ccu',

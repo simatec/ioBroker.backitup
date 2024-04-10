@@ -195,10 +195,11 @@ class BackupNow extends ConfigGeneric {
                 disabled={!this.props.alive || this.state.executing}
                 onClick={() => this.setState({ executionDialog: true, executionLog: DEBUGLOG.split('\n'), executing: true }, async () => {
                     this.lastExecutionLine = '';
-                    // await this.props.socket.setState(`${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`, true);
+                    await this.props.socket.setState(`${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`, true);
                 })}
                 color={this.props.color}
                 variant="contained"
+                style={{ width: '100%' }}
                 endIcon={<CloudUpload />}
             >
                 {this.props.schema.label ? I18n.t(this.props.schema.label) : I18n.t('Backup now')}
