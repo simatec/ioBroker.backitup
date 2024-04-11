@@ -120,7 +120,7 @@ class BackupNow extends ConfigGeneric {
             classes={{ paper: this.props.classes.paper }}
         >
             <DialogTitle>
-                {I18n.t('BackItUp execution:')}
+                {I18n.t('Backitup execution')}
             </DialogTitle>
             <DialogContent style={{ position: 'relative' }}>
                 {this.state.executing ?
@@ -155,7 +155,7 @@ class BackupNow extends ConfigGeneric {
                             onChange={e => this.setState({ closeOnReady: e.target.checked })}
                         />
                     }
-                    label={I18n.t('Close on ready')}
+                    label={I18n.t('close on ready')}
                 />
                 <Button
                     variant="contained"
@@ -180,7 +180,7 @@ class BackupNow extends ConfigGeneric {
                 style={{ width: '100%' }}
                 endIcon={<CloudUpload />}
             >
-                {this.props.schema.label ? I18n.t(this.props.schema.label) : I18n.t('Backup now')}
+                {this.props.schema.label ? I18n.t(this.props.schema.label) : I18n.t('backup now')}
             </Button>
             {this.renderExecutionDialog()}
         </>;

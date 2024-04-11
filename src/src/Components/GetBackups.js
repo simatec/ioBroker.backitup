@@ -68,7 +68,7 @@ const ICONS = {
     redis: DiRedis,
     history: historyIcon,
     ccu: CCU,
-    javascript: javascriptIcon,
+    javascripts: javascriptIcon,
     nodered: SiNodered,
 };
 
@@ -161,7 +161,7 @@ const GetBackups = props => {
                                     <Table size="small">
                                         {backups.data[location][object].map((backup, index) => <TableRow key={index}>
                                             <TableCell style={{ width: 200, whiteSpace: 'nowrap', paddingRight: 0 }}>
-                                                {I18n.t('Backup time')}
+                                                {I18n.t('backup time')}
                                                 :
                                                 <span style={{ marginLeft: 8 }}>{parseName(backup.name)}</span>
                                             </TableCell>

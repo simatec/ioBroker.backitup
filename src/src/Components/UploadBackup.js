@@ -61,7 +61,7 @@ const UploadBackup = props => {
         fullWidth
         maxWidth="lg"
     >
-        <DialogTitle>{I18n.t('Upload backup')}</DialogTitle>
+        <DialogTitle>{I18n.t('Upload Backup File')}</DialogTitle>
         <DialogContent>
             <div
                 {...getRootProps()}
@@ -105,7 +105,7 @@ const UploadBackup = props => {
                 onClick={async () => {
                     try {
                         const result = await props.socket.sendTo(`${props.adapterName}.${props.instance}`, 'uploadFile', { protocol: window.location.protocol });
-                        const formData = new FormData();
+                        let formData = new FormData();
 
                         formData.append('files', fileData);
 
@@ -126,7 +126,7 @@ const UploadBackup = props => {
                 variant="contained"
                 startIcon={<Upload />}
             >
-                {I18n.t('Upload')}
+                {I18n.t('Backup Upload')}
             </Button>}
             <Button
                 onClick={props.onClose}

@@ -107,9 +107,10 @@ const UploadSettings = props => {
             {fileData && <Button
                 onClick={async () => {
                     try {
-                        const obj = props.socket.getObject(`system.adapter.${props.adapterName}.${props.instance}`);
+                        const obj = await props.socket.getObject(`system.adapter.${props.adapterName}.${props.instance}`);
                         try {
-                            obj.native = JSON.parse(fileData);
+                            const newObj = JSON.parse(fileData);
+                            obj.native = newObj.native;
                             props.socket.setObject(obj._id, obj);
                             setUploaded(true);
                             setTimeout(props.onClose, 3000);

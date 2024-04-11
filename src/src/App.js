@@ -44,17 +44,22 @@ const styles = theme => ({
     indicator: {
         backgroundColor: theme.palette.mode === 'dark' ? theme.palette.secondary.main : '#FFF',
     },
+    headerArea: {
+        backgroundImage: 'linear-gradient(135deg, #174475 0%, #3399CC 30%)',
+        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
+    },
     header: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 16,
+        fontSize: '0.9rem',
+        fontWeight: 400,
+        lineHeight: '110%',
         display: 'flex',
-        justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: theme.palette.secondary.main,
-        padding: '2px 16px',
+        padding: '0.3rem',
         borderRadius: 4,
         color: '#FFF !important',
+        backgroundImage: 'linear-gradient(179deg, #3399CC 0%, #174475 60%) !important',
+        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
     },
     subHeader: {
         fontSize: 16,
@@ -67,6 +72,13 @@ const styles = theme => ({
         fontWeight: 'bold',
         marginBottom: 8,
         padding: '16px',
+    },
+    headerIcon: {
+        height: 24,
+        width: 24,
+        fontSize: '24px',
+        float: 'left',
+        margin: '0 10px 0 5px',
     },
     icon: {
         height: 64,
@@ -99,15 +111,22 @@ const styles = theme => ({
         marginLeft: 8,
     },
     footer: {
-        fontWeight: 'bold',
+        fontSize: '0.8rem',
+        fontWeight: 400,
+        lineHeight: '110%',
         textAlign: 'center',
         marginTop: 8,
         position: 'fixed',
         bottom: 0,
-        width: 'calc(100% - 0.1rem)',
+        width: '100%',
         overflow: 'overlay',
         zIndex: 997,
         backgroundColor: theme.palette.secondary.main,
+        backgroundImage: 'linear-gradient(179deg, #3399CC 0%, #174475 60%) !important',
+        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
+        color: '#FFF !important',
+        padding: '5px 0 5px 0',
+        margin: '0 0 0 -8px',
     },
     buttonWidth: {
         width: '100%',
@@ -221,23 +240,23 @@ class App extends GenericApp {
                 </div>
                 <div className={this.props.classes.textDiv}>
                     <div className={this.props.classes.cardHeader}>
-                        {I18n.t('Backup information')}
+                        {I18n.t('Backupinformations')}
                     </div>
                     <ul>
                         {this.state.native.minimalEnabled && <li>
-                            <span className={this.props.classes.label}>{I18n.t('Last iobroker Backup:')}</span><br/>
+                            <span className={this.props.classes.label}>{I18n.t('Last iobroker Backup: ')}</span><br/>
                             <span className={this.props.classes.value}>{this.state.iobrokerLastTime}</span>
                         </li>}
                         {this.state.native.ccuEnabled && <li>
-                            <span className={this.props.classes.label}>{I18n.t('Last CCU Backup:')}</span><br/>
+                            <span className={this.props.classes.label}>{I18n.t('Last CCU Backup: ')}</span><br/>
                             <span className={this.props.classes.value}>{this.state.ccuLastTime}</span>
                         </li>}
                         {this.state.native.minimalEnabled && <li>
-                            <span className={this.props.classes.label}>{I18n.t('Next iobroker Backup:')}</span><br/>
+                            <span className={this.props.classes.label}>{I18n.t('Next iobroker Backup: ')}</span><br/>
                             <span className={this.props.classes.value}>{this.state.iobrokerNextTime}</span>
                         </li>}
                         {this.state.native.ccuEnabled && <li>
-                            <span className={this.props.classes.label}>{I18n.t('Next CCU Backup:')}</span><br/>
+                            <span className={this.props.classes.label}>{I18n.t('Next CCU Backup: ')}</span><br/>
                             <span className={this.props.classes.value}>{this.state.ccuNextTime}</span>
                         </li>}
                     </ul>
@@ -262,7 +281,7 @@ class App extends GenericApp {
                 </div>
                 <div className={this.props.classes.textDiv}>
                     <div className={this.props.classes.cardHeader}>
-                        {I18n.t('Activated storage options')}
+                        {I18n.t('activated storageoptions')}
                     </div>
                     <ul>
                         {options.map(option => this.state.native[option.name] && <li key={option.name}>{I18n.t(option.label)}</li>)}
@@ -297,7 +316,7 @@ class App extends GenericApp {
                 </div>
                 <div className={this.props.classes.textDiv}>
                     <div className={this.props.classes.cardHeader}>
-                        {I18n.t('Activated backup options')}
+                        {I18n.t('activated backupoptions')}
                     </div>
                     <ul style={{ maxHeight: 150, overflow: 'auto' }}>
                         {options.map(option => this.state.native[option.name] &&
@@ -348,12 +367,12 @@ class App extends GenericApp {
                         color: this.state.theme.palette.text.primary,
                     }}
                 >
-                    <AppBar color="primary" position="static" enableColorOnDark>
+                    <AppBar className={this.props.classes.headerArea} position="static" enableColorOnDark>
                         <Toolbar>
                             <img src={logo} alt="logo" style={{ height: 48, marginRight: 16 }} />
                             <div>
-                                <div style={{ fontWeight: 'bold', fontSize: 20 }}>BackItUp</div>
-                                <div>{I18n.t('Backup your System')}</div>
+                                <div style={{ fontWeight: 'bold', fontSize: 20, color: '#fff' }}>Backitup</div>
+                                <div style={{ color: '#fff' }}>{I18n.t('Backup your System …')}</div>
                             </div>
                         </Toolbar>
                     </AppBar>
@@ -365,8 +384,8 @@ class App extends GenericApp {
                             padding: 8,
                         }}
                     >
-                        <div className={this.props.classes.header} style={{ margin: '1rem 0 1rem 0' }}>
-                            {I18n.t('Backup information')}
+                        <div className={this.props.classes.header} style={{ margin: '0.2rem 0 1.0rem 0' }}>
+                            <Info className={this.props.classes.headerIcon}/><span>{I18n.t('Backupinformations')}</span>
                         </div>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, height: '300px' }}>
                             {this.renderBackupInformation()}
@@ -374,7 +393,7 @@ class App extends GenericApp {
                             {this.renderActivatedBackupOptions()}
                         </div>
                         <div className={this.props.classes.header} style={{ margin: '1rem 0 1rem 0' }}>
-                            {I18n.t('System backup')}
+                            <CloudUpload className={this.props.classes.headerIcon}/><span>{I18n.t('System backup')}</span>
                         </div>
                         <div
                             style={{
@@ -396,7 +415,7 @@ class App extends GenericApp {
                                 endIcon={<CloudUpload />}
                                 schema={{
                                     backUpType: 'iobroker',
-                                    label: 'Start ioBroker backup',
+                                    label: 'iobroker start backup',
                                 }}
                             /> : <Button
                                     style={{ width: '100%' }}
@@ -405,7 +424,7 @@ class App extends GenericApp {
                                     variant="contained"
                                     endIcon={<CloudUpload />}
                                 >
-                                    {I18n.t('Start ioBroker backup')}
+                                    {I18n.t('iobroker start backup')}
                                 </Button>}
                             {this.state.myAlive ? <BackupNow
                                 variant="contained"
@@ -419,7 +438,7 @@ class App extends GenericApp {
                                 endIcon={<CloudUpload />}
                                 schema={{
                                     backUpType: 'ccu',
-                                    label: 'Start Homematic backup',
+                                    label: 'Homematic start backup',
                                 }}
                             /> : <Button
                                 style={{ width: '100%' }}
@@ -428,7 +447,7 @@ class App extends GenericApp {
                                 variant="contained"
                                 endIcon={<CloudUpload />}
                             >
-                                {I18n.t('Start Homematic backup')}
+                                {I18n.t('Homematic start backup')}
                             </Button>}
                             <Button
                                 style={{ width: '100%' }}
@@ -443,22 +462,29 @@ class App extends GenericApp {
                                 style={{ width: '100%' }}
                                 variant="contained"
                                 color="grey"
-                                onClick={() => {
-                                    const obj = this.socket.getObject(`system.adapter.${this.adapterName}.${this.instance}`);
-                                    const blob = new Blob([JSON.stringify(obj.native)], { type: 'application/json;charset=utf-8' });
+                                onClick={async() => {
+                                    let obj = await this.socket.getObject(`system.adapter.${this.adapterName}.${this.instance}`);
+                                    
+                                    if (obj && obj.common && obj.common.news) {
+                                        delete obj.common.news;
+                                    }
+                                    if (obj && obj.common && obj.common.titleLang) {
+                                        delete obj.common.titleLang;
+                                    }
+                                    if (obj && obj.common && obj.common.desc) {
+                                        delete obj.common.desc;
+            }
+                                    const blob = new Blob([JSON.stringify(obj)], { type: 'application/json;charset=utf-8' });
                                     const now = new Date();
                                     saveAs(blob, `${now.getFullYear()}_${(now.getMonth() + 1).toString().padStart(2, '0')}_${now.getDate().toString().padStart(2, '0')}-${this.adapterName}.${this.instance}.json`);
                                 }}
                                 endIcon={<CloudUpload />}
                             >
-                                {I18n.t('Save BackItUp settings')}
+                                {I18n.t('save Backitup settings')}
                             </Button>
                         </div>
-                        <div
-                            className={this.props.classes.header}
-                            style={{ margin: '1rem 0 1rem 0' }}
-                        >
-                            {I18n.t('Restore')}
+                        <div className={this.props.classes.header} style={{ margin: '1rem 0 1rem 0' }}>
+                            <SettingsBackupRestore className={this.props.classes.headerIcon}/><span>{I18n.t('Restore')}</span>
                         </div>
                         <div style={{
                             width: '100%',
@@ -469,7 +495,7 @@ class App extends GenericApp {
                         }}
                         >
                             <FormControl fullWidth variant="standard" style={{ height: 32, marginTop: 6, width: '100%' }}>
-                                <InputLabel>{I18n.t('Backup source')}</InputLabel>
+                                <InputLabel>{I18n.t('source type')}</InputLabel>
                                 <Select
                                     variant="standard"
                                     value={this.state.backupSource}
@@ -492,7 +518,7 @@ class App extends GenericApp {
                                 color="grey"
                                 endIcon={<Search />}
                             >
-                                {I18n.t('Get backups')}
+                                {I18n.t('Get list')}
                             </Button>
                             <Button
                                 style={{ marginTop: 16, width: '100%' }}
@@ -501,7 +527,7 @@ class App extends GenericApp {
                                 color="grey"
                                 endIcon={<Upload />}
                             >
-                                {I18n.t('Upload backup file')}
+                                {I18n.t('Upload Backup File')}
                             </Button>
                             <Button
                                 style={{ marginTop: 16, width: '100%' }}
@@ -510,14 +536,14 @@ class App extends GenericApp {
                                 onClick={() => this.setState({ showUploadSettings: true })}
                                 endIcon={<SettingsBackupRestore />}
                             >
-                                {I18n.t('Restore BackItUp settings')}
+                                {I18n.t('restore Backitup settings')}
                             </Button>
                         </div>
                         {this.renderError()}
                         <div
                             className={this.props.classes.footer}
                         >
-                            {I18n.t('All backup settings can be changed in the adapter configuration of BackItUp.')}
+                            {I18n.t('All backup settings can be changed in the adapter configuration of Backitup.')}
                         </div>
                     </div>
                 </div>
