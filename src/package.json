@@ -2,7 +2,6 @@
     "name": "backitup-admin",
     "version": "2.11.0",
     "private": true,
-    "license": "MIT",
     "dependencies": {
         "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
         "@iobroker/adapter-react-v5": "^4.13.5",
