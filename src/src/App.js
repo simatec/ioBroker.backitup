@@ -129,7 +129,7 @@ const styles = theme => ({
         margin: '0 0 0 -8px',
     },
     buttonWidth: {
-        width: '100%',
+        width: '100% !important',
     },
 });
 
@@ -403,9 +403,10 @@ class App extends GenericApp {
                                 justifyItems: 'center',
                             }}
                         >
-                            {this.state.myAlive ? <BackupNow
-                                variant="contained"
+                            {this.state.myAlive && this.state.native.minimalEnabled ? <BackupNow
+                                className={this.props.classes.buttonWidth}
                                 style={{ width: '100%' }}
+                                variant="contained"
                                 color="grey"
                                 adapterName={this.adapterName}
                                 instance={this.instance}
@@ -426,9 +427,10 @@ class App extends GenericApp {
                                 >
                                     {I18n.t('iobroker start backup')}
                                 </Button>}
-                            {this.state.myAlive ? <BackupNow
+                            {this.state.myAlive && this.state.native.ccuEnabled ? <BackupNow
+                                className={this.props.classes.buttonWidth}
+                                style={{ width: '100% !important' }}
                                 variant="contained"
-                                style={{ width: '100%' }}
                                 adapterName={this.adapterName}
                                 instance={this.instance}
                                 color="grey"

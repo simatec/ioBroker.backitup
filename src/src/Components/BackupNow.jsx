@@ -175,9 +175,10 @@ class BackupNow extends ConfigGeneric {
                     this.lastExecutionLine = '';
                     await this.props.socket.setState(`${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`, true);
                 })}
+                className={this.props.className}
                 color={this.props.color}
                 variant="contained"
-                style={{ width: '100%' }}
+                style={this.props.style}
                 endIcon={<CloudUpload />}
             >
                 {this.props.schema.label ? I18n.t(this.props.schema.label) : I18n.t('backup now')}
