@@ -212,10 +212,6 @@
         "dsn": "https://e8510540c3a343aa8ce5678a4b3c8107@sentry.iobroker.net/36"
       }
     },
-    "licenseInformation": {
-      "type": "free",
-      "link": "https://github.com/simatec/ioBroker.backitup/blob/master/LICENSE"
-    },
     "messages": [
       {
         "condition": {
