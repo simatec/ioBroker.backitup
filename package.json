@@ -2,7 +2,7 @@
   "name": "iobroker.backitup",
   "version": "2.11.0",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "description": "ioBroker.backitup allows you to backup and restore your ioBroker installation and other systems, such as databases, Zigbee, scripts and many more.",
   "author": {
