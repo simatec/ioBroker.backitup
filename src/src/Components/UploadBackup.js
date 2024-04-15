@@ -80,7 +80,7 @@ const UploadBackup = props => {
             >
                 {error ? <div style={{ color: '#a90000' }}>{error}</div> : null}
                 {uploaded ? <div style={{ color: 'green' }}>{I18n.t('Upload completed successfully. The popup will close automatically')}</div> : null}
-                {props.disabled || working ? null : <input {...getInputProps()} />}
+                {(props.disabled && !uploaded) || (working && !uploaded) ? null : <input {...getInputProps()} />}
                 {working ? <CircularProgress /> :
                     <p
                         style={{
@@ -89,9 +89,9 @@ const UploadBackup = props => {
                         }}
                     >
                         {fileName ? <>
-                            <div>{fileName}</div>
-                            {fileName.endsWith('.tar.gz') ? <FolderZip /> : null}
-                            {fileData ? <div style={{ fontSize: 10, opacity: 0.5 }}>
+                            <div>{fileName && !uploaded && !uploaded ? fileName : null}</div>
+                            {fileName.endsWith('.tar.gz') && !uploaded ? <FolderZip /> : null}
+                            {fileData && !uploaded ? <div style={{ fontSize: 10, opacity: 0.5 }}>
                         (
                                 {Utils.formatBytes(fileData.length)}
                         )
@@ -114,12 +114,12 @@ const UploadBackup = props => {
                             body: formData,
                         });
                         setUploaded(true);
-                        setTimeout(() => props.onClose, 5000);
+                        setTimeout(props.onClose, 5000);
 
                         await props.socket.sendTo(`${props.adapterName}.${props.instance}`, 'serverClose', { downloadFinish: false, uploadFinish: true });
                     } catch (e) {
                         setError(e);
-                        setTimeout(() => props.onClose, 5000);
+                        setTimeout(props.onClose, 5000);
                     }
                 }}
                 color="primary"

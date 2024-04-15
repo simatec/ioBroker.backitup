@@ -68,7 +68,7 @@ const styles = theme => ({
         color: '#FFF !important',
     },
     cardHeader: {
-        fontSize: 16,
+        fontSize: '1.2rem',
         fontWeight: 'bold',
         marginBottom: 8,
         padding: '16px',
@@ -81,9 +81,10 @@ const styles = theme => ({
         margin: '0 10px 0 5px',
     },
     icon: {
-        height: 64,
-        width: 64,
+        height: 80,
+        width: 100,
         margin: 4,
+        marginTop: '1.5rem',
         color: '#3399CC !important',
         fontSize: '80px',
     },
@@ -97,7 +98,7 @@ const styles = theme => ({
         verticalAlign: 'top',
     },
     textDiv: {
-        width: 'calc(100% - 80px)',
+        width: 'calc(100% - 120px)',
         display: 'inline-block',
     },
     cardContent: {
@@ -400,7 +401,10 @@ class App extends GenericApp {
                                 display: 'grid',
                                 gridTemplateColumns: '1fr 1fr 1fr 1fr',
                                 gap: 12,
-                                justifyItems: 'center',
+                                justifyContent: 'space-evenly',
+                                alignContent: 'center',
+                                justifyItems: 'stretch',
+                                alignItems: 'stretch',
                             }}
                         >
                             {this.state.myAlive && this.state.native.minimalEnabled ? <BackupNow
@@ -493,7 +497,10 @@ class App extends GenericApp {
                             display: 'grid',
                             gridTemplateColumns: '1fr 1fr 1fr 1fr',
                             gap: 12,
-                            justifyItems: 'center',
+                            justifyItems: 'stretch',
+                            justifyContent: 'space-evenly',
+                            alignContent: 'center',
+                            alignItems: 'stretch',
                         }}
                         >
                             <FormControl fullWidth variant="standard" style={{ height: 32, marginTop: 6, width: '100%' }}>
