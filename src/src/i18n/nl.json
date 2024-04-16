@@ -4,5 +4,15 @@
   "Error": "Fout",
   "Backup source": "Back-upbron",
   "Drop the file here ...": "Zet het bestand hier neer...",
-  "Upload completed successfully. The popup will close automatically": "Uploaden is succesvol voltooid. De pop-up wordt automatisch gesloten"
+  "Upload completed successfully. The popup will close automatically": "Uploaden is succesvol voltooid. De pop-up wordt automatisch gesloten",
+  "Backup time": "Back-uptijd",
+  "Type": "Type",
+  "Name": "Naam",
+  "Source type": "Bron Type",
+  "File size": "Bestandsgrootte",
+  "ioBroker will be stopped and started again. Please wait...": "ioBroker wordt gestopt en opnieuw gestart. Even geduld aub...",
+  "BackItUp restore execution:": "Uitvoering van BackItUp-herstel:",
+  "Close on ready": "Sluit klaar",
+  "Backup now": "Nu backuppen",
+  "Cancel": "Annuleren"
 }

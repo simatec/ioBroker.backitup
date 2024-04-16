@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import { saveAs } from 'file-saver';
 import {
     Accordion, AccordionDetails, AccordionSummary, Dialog,
@@ -98,11 +98,12 @@ const GetBackups = props => {
         setBackups(null);
         props.socket.sendTo(`${props.adapterName}.${props.instance}`, 'list', props.backupSource)
             .then(result => {
-                Object.keys(result.data).forEach(location => {
-                    Object.keys(result.data[location]).forEach(object => {
-                        result.data[location][object].sort((a, b) => (a.name > b.name ? -1 : 1));
-                    });
-                });
+                Object.keys(result.data)
+                    .forEach(location =>
+                        Object.keys(result.data[location])
+                            .forEach(object =>
+                                result.data[location][object].sort((a, b) => (a.name > b.name ? -1 : 1))));
+
                 setBackups(result);
             });
     }, []);
@@ -195,7 +196,7 @@ const GetBackups = props => {
                                                             </Fab>
                                                         </Tooltip> : null}
                                                         <Tooltip title={I18n.t('Restore Backup File')}>
-                                                            <Fab size="small">
+                                                            <Fab size="small" onClick={() => props.onRestore(location, object)}>
                                                                 <History />
                                                             </Fab>
                                                         </Tooltip>

@@ -4,5 +4,15 @@
   "Error": "Помилка",
   "Backup source": "Резервне джерело",
   "Drop the file here ...": "Перекиньте файл сюди...",
-  "Upload completed successfully. The popup will close automatically": "Завантаження успішно завершено. Спливаюче вікно закриється автоматично"
+  "Upload completed successfully. The popup will close automatically": "Завантаження успішно завершено. Спливаюче вікно закриється автоматично",
+  "Backup time": "Резервний час",
+  "Type": "Тип",
+  "Name": "Ім'я",
+  "Source type": "Тип джерела",
+  "File size": "Розмір файлу",
+  "ioBroker will be stopped and started again. Please wait...": "ioBroker буде зупинено та запущено знову. Будь ласка, зачекайте...",
+  "BackItUp restore execution:": "Виконання відновлення BackItUp:",
+  "Close on ready": "Закрити на готовому",
+  "Backup now": "Резервне копіювання зараз",
+  "Cancel": "Скасувати"
 }

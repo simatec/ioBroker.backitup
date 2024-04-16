@@ -282,7 +282,17 @@ function startAdapter(options) {
                         }
                         adapter.log.debug(obj.message.currentProtocol);
                         const _restore = require('./lib/restore');
-                        _restore.restore(adapter, backupConfig, obj.message.type, obj.message.fileName, obj.message.currentTheme, obj.message.currentProtocol, bashDir, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                        _restore.restore(
+                            adapter,
+                            backupConfig,
+                            obj.message.type,
+                            obj.message.fileName,
+                            obj.message.currentTheme,
+                            obj.message.currentProtocol,
+                            bashDir,
+                            adapter.log,
+                            res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback),
+                        );
                     } else if (obj.callback) {
                         obj.callback({ error: 'Invalid parameters' });
                     }

@@ -188,7 +188,7 @@ class BackupNow extends ConfigGeneric {
                             onChange={e => this.setState({ closeOnReady: e.target.checked })}
                         />
                     }
-                    label={I18n.t('close on ready')}
+                    label={I18n.t('Close on ready')}
                 />
                 <Button
                     variant="contained"
@@ -218,7 +218,7 @@ class BackupNow extends ConfigGeneric {
                 style={this.props.style}
                 endIcon={<CloudUpload />}
             >
-                {this.props.schema.label ? I18n.t(this.props.schema.label) : I18n.t('backup now')}
+                {this.props.schema.label ? I18n.t(this.props.schema.label) : I18n.t('Backup now')}
             </Button>
             {this.renderExecutionDialog()}
         </>;

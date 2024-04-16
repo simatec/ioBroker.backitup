@@ -4,5 +4,15 @@
   "Error": "错误",
   "Backup source": "备份源",
   "Drop the file here ...": "将文件拖放到此处...",
-  "Upload completed successfully. The popup will close automatically": "上传成功完成。弹出窗口将自动关闭"
+  "Upload completed successfully. The popup will close automatically": "上传成功完成。弹出窗口将自动关闭",
+  "Backup time": "备份时间",
+  "Type": "类型",
+  "Name": "姓名",
+  "Source type": "源类型",
+  "File size": "文件大小",
+  "ioBroker will be stopped and started again. Please wait...": "ioBroker 将停止并重新启动。请等待...",
+  "BackItUp restore execution:": "BackItUp 恢复执行：",
+  "Close on ready": "准备就绪后关闭",
+  "Backup now": "立即备份",
+  "Cancel": "取消"
 }

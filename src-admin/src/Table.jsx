@@ -15,7 +15,7 @@ import { I18n } from '@iobroker/adapter-react-v5';
 
 import BaseField from './BaseField';
 
-class Table extends BaseField {
+class CustomTable extends BaseField {
     componentDidMount() {
         super.componentDidMount();
         // decode pass
@@ -41,6 +41,11 @@ class Table extends BaseField {
                     }
                 }}
             >
+                <TableHead>
+                    <TableRow>
+                        <TableCell>{I18n.t('Detect config')}</TableCell>
+                    </TableRow>
+                </TableHead>
                 {I18n.t('Detect config')}
             </Table>
             {this.renderMessage()}
@@ -48,7 +53,7 @@ class Table extends BaseField {
     }
 }
 
-Table.propTypes = {
+CustomTable.propTypes = {
     socket: PropTypes.object.isRequired,
     themeType: PropTypes.string,
     themeName: PropTypes.string,
@@ -61,4 +66,4 @@ Table.propTypes = {
     onChange: PropTypes.func,
 };
 
-export default Table;
+export default CustomTable;

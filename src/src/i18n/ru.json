@@ -4,5 +4,15 @@
   "Error": "Ошибка",
   "Backup source": "Резервный источник",
   "Drop the file here ...": "Киньте файл сюда...",
-  "Upload completed successfully. The popup will close automatically": "Загрузка завершена успешно. Окно закроется автоматически"
+  "Upload completed successfully. The popup will close automatically": "Загрузка завершена успешно. Окно закроется автоматически",
+  "Backup time": "Время резервного копирования",
+  "Type": "Тип",
+  "Name": "Имя",
+  "Source type": "Тип источника",
+  "File size": "Размер файла",
+  "ioBroker will be stopped and started again. Please wait...": "ioBroker будет остановлен и запущен снова. Пожалуйста, подождите...",
+  "BackItUp restore execution:": "Выполнение восстановления BackItUp:",
+  "Close on ready": "Закрыть по готовности",
+  "Backup now": "Резервное копирование сейчас",
+  "Cancel": "Отмена"
 }

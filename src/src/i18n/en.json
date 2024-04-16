@@ -20,7 +20,6 @@
   "Type": "Type",
   "Name": "Name",
   "Source type": "Source type",
-  "Filesize": "Filesize",
   "Close": "Close",
   "GiB": "GiB",
   "MiB": "MiB",
@@ -60,5 +59,10 @@
   "activated storageoptions": "Active storage options",
   "activated backupoptions": "Active backup options",
   "Error": "Error",
-  "Drop the file here ...": "Drop the file here..."
+  "Drop the file here ...": "Drop the file here...",
+  "File size": "File size",
+  "ioBroker will be stopped and started again. Please wait...": "ioBroker will be stopped and started again. Please wait...",
+  "BackItUp restore execution:": "BackItUp restore execution:",
+  "Close on ready": "Close on ready",
+  "Backup now": "Backup now"
 }

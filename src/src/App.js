@@ -24,6 +24,7 @@ import UploadBackup from './Components/UploadBackup';
 import UploadSettings from './Components/UploadSettings';
 import BackupNow from './Components/BackupNow';
 import SourceSelector from './Components/SourceSelector';
+import Restore from './Components/Restore';
 
 const styles = theme => ({
     root: {},
@@ -163,9 +164,11 @@ class App extends GenericApp {
 
         this.state.showBackupHistory = false;
         this.state.showGetBackups = false;
+        this.state.showRestore = null;
         this.state.showUploadBackup = false;
         this.state.backupSource = window.localStorage.getItem('BackItUp.backupSource') || 'local';
         this.state.myAlive = false;
+        this.state.restoreIfWait = 5000;
     }
 
     static translateTime(time) {
@@ -205,6 +208,11 @@ class App extends GenericApp {
         await this.socket.subscribeState(`${this.adapterName}.${this.instance}.info.iobrokerNextTime`, this.onHistory);
         await this.socket.subscribeState(`${this.adapterName}.${this.instance}.history.ccuLastTime`, this.onHistory);
         await this.socket.subscribeState(`${this.adapterName}.${this.instance}.info.ccuNextTime`, this.onHistory);
+
+        if (myAlive) {
+            newState.systemInfo = await this.socket.sendTo(`${this.adapterName}.${this.instance}`, 'getSystemInfo', null);
+            newState.restoreIfWait = newState.systemInfo?.systemOS === 'docker' ? 10000 : (newState.systemInfo?.systemOS === 'win' ? 18000 : 5000);
+        }
 
         this.setState(newState);
     }
@@ -569,6 +577,7 @@ class App extends GenericApp {
                 /> : null}
                 {this.state.showGetBackups ? <GetBackups
                     onClose={() => this.setState({ showGetBackups: false })}
+                    onRestore={(location, object) => this.setState({ showRestore: { location, object }, showGetBackups: false })}
                     socket={this.socket}
                     themeType={this.state.themeType}
                     adapterName={this.adapterName}
@@ -583,6 +592,17 @@ class App extends GenericApp {
                     themeType={this.state.themeType}
                     adapterName={this.adapterName}
                     instance={this.instance}
+                /> : null}
+                {this.state.showRestore ? <Restore
+                    alive={this.state.myAlive}
+                    location={this.state.showRestore.location}
+                    fileName={this.state.showRestore.object}
+                    onClose={() => this.setState({ showRestore: null })}
+                    socket={this.socket}
+                    themeType={this.state.themeType}
+                    adapterName={this.adapterName}
+                    instance={this.instance}
+                    restoreIfWait={this.state.restoreIfWait}
                 /> : null}
                 {this.renderUploadSettingsDialog()}
             </ThemeProvider>

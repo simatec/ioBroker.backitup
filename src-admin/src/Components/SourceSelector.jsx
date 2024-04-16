@@ -23,8 +23,7 @@ export default class SourceSelector extends Component {
             variant="standard"
             style={{
                 height: 32,
-                marginTop: 6,
-                maxWidth: 250,
+                // maxWidth: 250,
                 ...(this.props.style || {}),
             }}
         >

@@ -34,11 +34,11 @@ const BackupHistory = props => {
             <Table size="small">
                 <TableHead>
                     <TableRow>
-                        <TableCell>{I18n.t('backup time')}</TableCell>
+                        <TableCell>{I18n.t('Backup time')}</TableCell>
                         <TableCell>{I18n.t('Type')}</TableCell>
-                        <TableCell>{I18n.t('name')}</TableCell>
-                        <TableCell>{I18n.t('source type')}</TableCell>
-                        <TableCell>{I18n.t('filesize')}</TableCell>
+                        <TableCell>{I18n.t('Name')}</TableCell>
+                        <TableCell>{I18n.t('Source type')}</TableCell>
+                        <TableCell>{I18n.t('File size')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

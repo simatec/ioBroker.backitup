@@ -4,5 +4,15 @@
   "Error": "Błąd",
   "Backup source": "Źródło zapasowe",
   "Drop the file here ...": "Upuść plik tutaj...",
-  "Upload completed successfully. The popup will close automatically": "Przesyłanie zakończone pomyślnie. Wyskakujące okienko zamknie się automatycznie"
+  "Upload completed successfully. The popup will close automatically": "Przesyłanie zakończone pomyślnie. Wyskakujące okienko zamknie się automatycznie",
+  "Backup time": "Czas tworzenia kopii zapasowych",
+  "Type": "Typ",
+  "Name": "Nazwa",
+  "Source type": "Rodzaj źródła",
+  "File size": "Rozmiar pliku",
+  "ioBroker will be stopped and started again. Please wait...": "ioBroker zostanie zatrzymany i uruchomiony ponownie. Proszę czekać...",
+  "BackItUp restore execution:": "Wykonanie przywracania BackItUp:",
+  "Close on ready": "Zamknij gotowe",
+  "Backup now": "Utwórz kopię zapasową teraz",
+  "Cancel": "Anulować"
 }
