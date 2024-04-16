@@ -14,7 +14,7 @@
       type: "header",
       text: "What to back up",
       sm: 12,
-      size: 4
+      size: 3
     },
     "minimalEnabled": {
       "newLine": true,
@@ -236,7 +236,8 @@
       type: "header",
       text: "Storage location",
       sm: 12,
-      size: 4
+      size: 3,
+      color: "#fff"
     },
     "cifsEnabled": {
       "newLine": true,
@@ -285,7 +286,7 @@
       type: "header",
       text: "Some features of BackItUp require additional adapters and tools. For detailed information please read the documentation of BackItUp!",
       sm: 12,
-      size: 4
+      size: 3
     },
     "_helpLink": {
       "type": "staticLink",

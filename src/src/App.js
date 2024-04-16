@@ -68,8 +68,9 @@ const styles = theme => ({
         color: '#FFF !important',
     },
     cardHeader: {
-        fontSize: '1.2rem',
-        fontWeight: 'bold',
+        fontSize: '1.64rem',
+        lineHeight: '110%',
+        fontWeight: '400',
         marginBottom: 8,
         padding: '16px',
     },
@@ -104,12 +105,15 @@ const styles = theme => ({
     cardContent: {
         padding: '0px',
         height: '100%',
+        boxShadow: '0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%)',
+        backgroundImage: theme.palette.mode === 'dark' ? undefined : 'linear-gradient(179deg, #fff 50%, rgb(0 0 0 / 14%) 100%)',
     },
     label: {
         fontWeight: 'bold',
+        fontSize: '0.9em',
     },
     value: {
-        marginLeft: 8,
+        fontSize: '0.9em',
     },
     footer: {
         fontSize: '0.8rem',
@@ -384,7 +388,7 @@ class App extends GenericApp {
                             <img src={logo} alt="logo" style={{ height: 48, marginRight: 16 }} />
                             <div>
                                 <div style={{ fontWeight: 'bold', fontSize: 20, color: '#fff' }}>BackItUp</div>
-                                <div style={{ color: '#fff' }}>{I18n.t('Backup your System …')}</div>
+                                <div style={{ color: '#fff', fontStyle: 'italic' }}>{I18n.t('Backup your System …')}</div>
                             </div>
                         </Toolbar>
                     </AppBar>
