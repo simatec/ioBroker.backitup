@@ -1,1 +1,8 @@
-{}
+{
+  "activated storageoptions": "主动存储选项",
+  "activated backupoptions": "主动备份选项",
+  "Error": "错误",
+  "Backup source": "备份源",
+  "Drop the file here ...": "将文件拖放到此处...",
+  "Upload completed successfully. The popup will close automatically": "上传成功完成。弹出窗口将自动关闭"
+}

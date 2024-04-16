@@ -6,6 +6,7 @@ import GoogleDrive from './GoogleDrive';
 import Instance from './Instance';
 import RestoreBackup from './RestoreBackup';
 import CheckAllConfigInvisible from './CheckAllConfigInvisible';
+import Table from './Table';
 
 export default {
     AdapterExist,
@@ -16,4 +17,5 @@ export default {
     Instance,
     RestoreBackup,
     CheckAllConfigInvisible,
+    Table,
 };

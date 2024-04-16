@@ -4,9 +4,8 @@ import { saveAs } from 'file-saver';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
 import {
-    Card, CardContent, Button, MenuItem,
-    AppBar, Toolbar, FormControl,
-    InputLabel, Select,
+    Card, CardContent, Button,
+    AppBar, Toolbar,
 } from '@mui/material';
 
 import GenericApp from '@iobroker/adapter-react-v5/GenericApp';
@@ -169,6 +168,19 @@ class App extends GenericApp {
         this.state.myAlive = false;
     }
 
+    static translateTime(time) {
+        if (time === 'none') {
+            return '--';
+        }
+        if (time === 'No backups yet') {
+            return I18n.t('No backups yet');
+        }
+        if (typeof time === 'string' && time.startsWith('error')) {
+            return time.replace('error', I18n.t('Error'));
+        }
+        return time;
+    }
+
     async onConnectionReady() {
         const myAlive = await this.socket.getState(`system.adapter.${this.adapterName}.${this.instance}.alive`);
         const newState = { myAlive: !!myAlive?.val };
@@ -176,15 +188,15 @@ class App extends GenericApp {
         if (this.state.native.minimalEnabled) {
             const iobrokerLastTime = await this.socket.getState(`${this.adapterName}.${this.instance}.history.iobrokerLastTime`);
             const iobrokerNextTime = await this.socket.getState(`${this.adapterName}.${this.instance}.info.iobrokerNextTime`);
-            newState.iobrokerNextTime = iobrokerNextTime.val;
-            newState.iobrokerLastTime = iobrokerLastTime.val;
+            newState.iobrokerNextTime = App.translateTime(iobrokerNextTime.val);
+            newState.iobrokerLastTime = App.translateTime(iobrokerLastTime.val);
         }
 
         if (this.state.native.ccuEnabled) {
             const ccuLastTime = await this.socket.getState(`${this.adapterName}.${this.instance}.history.ccuLastTime`);
             const ccuNextTime = await this.socket.getState(`${this.adapterName}.${this.instance}.info.ccuNextTime`);
-            newState.iobrokerNextTime = ccuLastTime.val;
-            newState.iobrokerLastTime = ccuNextTime.val;
+            newState.ccuLastTime = App.translateTime(ccuLastTime.val);
+            newState.ccuNextTime = App.translateTime(ccuNextTime.val);
         }
 
         await this.socket.subscribeState(`system.adapter.${this.adapterName}.${this.instance}.alive`, this.onAlive);
@@ -205,13 +217,13 @@ class App extends GenericApp {
 
     onHistory = (id, state) => {
         if (id === `${this.adapterName}.${this.instance}.history.iobrokerLastTime` && state.val !== this.state.iobrokerLastTime) {
-            this.setState({ iobrokerLastTime: state.val });
+            this.setState({ iobrokerLastTime: App.translateTime(state.val) });
         } else if (id === `${this.adapterName}.${this.instance}.history.iobrokerNextTime` && state.val !== this.state.iobrokerNextTime) {
-            this.setState({ iobrokerNextTime: state.val });
+            this.setState({ iobrokerNextTime: App.translateTime(state.val) });
         } else if (id === `${this.adapterName}.${this.instance}.history.ccuLastTime` && state.val !== this.state.ccuLastTime) {
-            this.setState({ ccuLastTime: state.val });
+            this.setState({ ccuLastTime: App.translateTime(state.val) });
         } else if (id === `${this.adapterName}.${this.instance}.history.ccuNextTime` && state.val !== this.state.ccuNextTime) {
-            this.setState({ ccuNextTime: state.val });
+            this.setState({ ccuNextTime: App.translateTime(state.val) });
         }
     };
 
@@ -241,24 +253,24 @@ class App extends GenericApp {
                 </div>
                 <div className={this.props.classes.textDiv}>
                     <div className={this.props.classes.cardHeader}>
-                        {I18n.t('Backupinformations')}
+                        {I18n.t('Backup Information')}
                     </div>
                     <ul>
                         {this.state.native.minimalEnabled && <li>
-                            <span className={this.props.classes.label}>{I18n.t('Last iobroker Backup: ')}</span><br/>
-                            <span className={this.props.classes.value}>{this.state.iobrokerLastTime}</span>
+                            <div className={this.props.classes.label}>{I18n.t('Last iobroker Backup: ')}</div>
+                            <div className={this.props.classes.value}>{this.state.iobrokerLastTime}</div>
                         </li>}
                         {this.state.native.ccuEnabled && <li>
-                            <span className={this.props.classes.label}>{I18n.t('Last CCU Backup: ')}</span><br/>
-                            <span className={this.props.classes.value}>{this.state.ccuLastTime}</span>
+                            <div className={this.props.classes.label}>{I18n.t('Last CCU Backup: ')}</div>
+                            <div className={this.props.classes.value}>{this.state.ccuLastTime}</div>
                         </li>}
                         {this.state.native.minimalEnabled && <li>
-                            <span className={this.props.classes.label}>{I18n.t('Next iobroker Backup: ')}</span><br/>
-                            <span className={this.props.classes.value}>{this.state.iobrokerNextTime}</span>
+                            <div className={this.props.classes.label}>{I18n.t('Next iobroker Backup: ')}</div>
+                            <div className={this.props.classes.value}>{this.state.iobrokerNextTime}</div>
                         </li>}
                         {this.state.native.ccuEnabled && <li>
-                            <span className={this.props.classes.label}>{I18n.t('Next CCU Backup: ')}</span><br/>
-                            <span className={this.props.classes.value}>{this.state.ccuNextTime}</span>
+                            <div className={this.props.classes.label}>{I18n.t('Next CCU Backup: ')}</div>
+                            <div className={this.props.classes.value}>{this.state.ccuNextTime}</div>
                         </li>}
                     </ul>
                 </div>
@@ -345,19 +357,10 @@ class App extends GenericApp {
         if (!this.state.loaded) {
             return <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={this.state.theme}>
-                    <Loader theme={this.state.themeType} />
+                    <Loader themeType={this.state.themeType} />
                 </ThemeProvider>
             </StyledEngineProvider>;
         }
-        const options = [
-            { label: 'Local', value: 'local' },
-            { name: 'cifsEnabled', label: `NAS (${this.state.native.connectType})`, value: 'cifs' },
-            { name: 'ftpEnabled', label: 'FTP', value: 'ftp' },
-            { name: 'dropboxEnabled', label: 'Dropbox', value: 'dropbox' },
-            { name: 'onedriveEnabled', label: 'Onedrive', value: 'onedrive' },
-            { name: 'googledriveEnabled', label: 'Google Drive', value: 'googledrive' },
-            { name: 'webdavEnabled', label: 'WebDAV', value: 'webdav' },
-        ];
 
         return <StyledEngineProvider injectFirst>
             <ThemeProvider theme={this.state.theme}>
@@ -372,7 +375,7 @@ class App extends GenericApp {
                         <Toolbar>
                             <img src={logo} alt="logo" style={{ height: 48, marginRight: 16 }} />
                             <div>
-                                <div style={{ fontWeight: 'bold', fontSize: 20, color: '#fff' }}>Backitup</div>
+                                <div style={{ fontWeight: 'bold', fontSize: 20, color: '#fff' }}>BackItUp</div>
                                 <div style={{ color: '#fff' }}>{I18n.t('Backup your System …')}</div>
                             </div>
                         </Toolbar>
@@ -380,21 +383,30 @@ class App extends GenericApp {
                     <div
                         style={{
                             width: 'calc(100% - 16px)',
-                            height: 'calc(100% - 64px - 16px)',
+                            height: 'calc(100% - 104px)',
                             overflow: 'auto',
                             padding: 8,
                         }}
                     >
                         <div className={this.props.classes.header} style={{ margin: '0.2rem 0 1.0rem 0' }}>
-                            <Info className={this.props.classes.headerIcon}/><span>{I18n.t('Backupinformations')}</span>
+                            <Info className={this.props.classes.headerIcon} />
+                            <span>{I18n.t('Backup Information')}</span>
                         </div>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, height: '300px' }}>
+                        <div
+                            style={{
+                                display: 'grid',
+                                gridTemplateColumns: '1fr 1fr 1fr',
+                                gap: 12,
+                                height: 300,
+                            }}
+                        >
                             {this.renderBackupInformation()}
                             {this.renderActivatedStorageOptions()}
                             {this.renderActivatedBackupOptions()}
                         </div>
                         <div className={this.props.classes.header} style={{ margin: '1rem 0 1rem 0' }}>
-                            <CloudUpload className={this.props.classes.headerIcon}/><span>{I18n.t('System backup')}</span>
+                            <CloudUpload className={this.props.classes.headerIcon} />
+                            <span>{I18n.t('System backup')}</span>
                         </div>
                         <div
                             style={{
@@ -423,14 +435,14 @@ class App extends GenericApp {
                                     label: 'iobroker start backup',
                                 }}
                             /> : <Button
-                                    style={{ width: '100%' }}
-                                    disabled
-                                    color="grey"
-                                    variant="contained"
-                                    endIcon={<CloudUpload />}
-                                >
-                                    {I18n.t('iobroker start backup')}
-                                </Button>}
+                                style={{ width: '100%' }}
+                                disabled
+                                color="grey"
+                                variant="contained"
+                                endIcon={<CloudUpload />}
+                            >
+                                {I18n.t('iobroker start backup')}
+                            </Button>}
                             {this.state.myAlive && this.state.native.ccuEnabled ? <BackupNow
                                 className={this.props.classes.buttonWidth}
                                 style={{ width: '100% !important' }}
@@ -468,8 +480,8 @@ class App extends GenericApp {
                                 style={{ width: '100%' }}
                                 variant="contained"
                                 color="grey"
-                                onClick={async() => {
-                                    let obj = await this.socket.getObject(`system.adapter.${this.adapterName}.${this.instance}`);
+                                onClick={async () => {
+                                    const obj = await this.socket.getObject(`system.adapter.${this.adapterName}.${this.instance}`);
 
                                     if (obj && obj.common && obj.common.news) {
                                         delete obj.common.news;
@@ -479,18 +491,19 @@ class App extends GenericApp {
                                     }
                                     if (obj && obj.common && obj.common.desc) {
                                         delete obj.common.desc;
-            }
+                                    }
                                     const blob = new Blob([JSON.stringify(obj)], { type: 'application/json;charset=utf-8' });
                                     const now = new Date();
                                     saveAs(blob, `${now.getFullYear()}_${(now.getMonth() + 1).toString().padStart(2, '0')}_${now.getDate().toString().padStart(2, '0')}-${this.adapterName}.${this.instance}.json`);
                                 }}
                                 endIcon={<CloudUpload />}
                             >
-                                {I18n.t('save Backitup settings')}
+                                {I18n.t('save BackItUp settings')}
                             </Button>
                         </div>
                         <div className={this.props.classes.header} style={{ margin: '1rem 0 1rem 0' }}>
-                            <SettingsBackupRestore className={this.props.classes.headerIcon}/><span>{I18n.t('Restore')}</span>
+                            <SettingsBackupRestore className={this.props.classes.headerIcon} />
+                            <span>{I18n.t('Restore')}</span>
                         </div>
                         <div style={{
                             width: '100%',
@@ -503,24 +516,15 @@ class App extends GenericApp {
                             alignItems: 'stretch',
                         }}
                         >
-                            <FormControl fullWidth variant="standard" style={{ height: 32, marginTop: 6, width: '100%' }}>
-                                <InputLabel>{I18n.t('source type')}</InputLabel>
-                                <Select
-                                    variant="standard"
-                                    value={this.state.backupSource}
-                                    onChange={e => {
-                                        window.localStorage.setItem('BackItUp.backupSource', e.target.value);
-                                        this.setState({ backupSource: e.target.value });
-                                    }}
-                                >
-                                    {options.map(option =>
-                                        (!option.name || this.state.native[option.name] ? <MenuItem key={option.value} value={option.value}>
-                                            {I18n.t(option.label)}
-                                        </MenuItem> : null))}
-                                </Select>
-                            </FormControl>
+                            <SourceSelector
+                                value={this.state.backupSource}
+                                onChange={backupSource => {
+                                    window.localStorage.setItem('BackItUp.backupSource', backupSource);
+                                    this.setState({ backupSource });
+                                }}
+                            />
                             <Button
-                                style={{ marginTop: 16, width: '100%' }}
+                                style={{ width: '100%' }}
                                 onClick={() => this.setState({ showGetBackups: true })}
                                 disabled={!this.state.myAlive}
                                 variant="contained"
@@ -530,7 +534,7 @@ class App extends GenericApp {
                                 {I18n.t('Get list')}
                             </Button>
                             <Button
-                                style={{ marginTop: 16, width: '100%' }}
+                                style={{ width: '100%' }}
                                 onClick={() => this.setState({ showUploadBackup: true })}
                                 variant="contained"
                                 color="grey"
@@ -539,20 +543,20 @@ class App extends GenericApp {
                                 {I18n.t('Upload Backup File')}
                             </Button>
                             <Button
-                                style={{ marginTop: 16, width: '100%' }}
+                                style={{ width: '100%' }}
                                 variant="contained"
                                 color="grey"
                                 onClick={() => this.setState({ showUploadSettings: true })}
                                 endIcon={<SettingsBackupRestore />}
                             >
-                                {I18n.t('restore Backitup settings')}
+                                {I18n.t('restore BackItUp settings')}
                             </Button>
                         </div>
                         {this.renderError()}
                         <div
                             className={this.props.classes.footer}
                         >
-                            {I18n.t('All backup settings can be changed in the adapter configuration of Backitup.')}
+                            {I18n.t('All backup settings can be changed in the adapter configuration of BackItUp.')}
                         </div>
                     </div>
                 </div>

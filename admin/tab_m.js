@@ -106,9 +106,9 @@ function load(settings, onChange) {
         if (obj && obj.diskState && obj.storage && obj.diskFree) {
 
             if (obj.diskState == 'warn' && obj.storage == 'local') {
-                showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Please check your system!', obj.diskFree), _('Backitup Information!'), 'info');
+                showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Please check your system!', obj.diskFree), _('BackItUp Information!'), 'info');
             } else if (obj.diskState == 'error' && obj.storage == 'local') {
-                showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Local backups are currently not possible. <br/><br/>Please check your system!', obj.diskFree), _('Backitup Information!'), 'warning');
+                showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Local backups are currently not possible. <br/><br/>Please check your system!', obj.diskFree), _('BackItUp Information!'), 'warning');
             }
 
         }
@@ -214,7 +214,7 @@ function load(settings, onChange) {
                             }
             });
             if (settings.ftpEnabled === false && settings.dropboxEnabled === false && settings.onedriveEnabled === false && settings.cifsEnabled === false && settings.googledriveEnabled === false && settings.webdavEnabled === false) {
-                showMessage(_("<br/><br/>According to the Backitup settings, backups are currently stored in the same local file system that is the source of the backup can be accessed more. <br/> <br/>It is recommended to use an external storage space as a backup target."), _('Backitup Information!'), 'info');
+                showMessage(_("<br/><br/>According to the BackItUp settings, backups are currently stored in the same local file system that is the source of the backup can be accessed more. <br/> <br/>It is recommended to use an external storage space as a backup target."), _('BackItUp Information!'), 'info');
             }
             socket.emit('subscribeStates', 'backitup.' + instance + '.*');
             socket.emit('subscribeStates', 'system.adapter.backitup.' + instance + '.alive');
@@ -514,7 +514,7 @@ function backupUpload() {
     input.setAttribute('id', 'files');
     input.setAttribute('opacity', 0);
     input.addEventListener('change', function (e) {
-        handleUploadSelect(e, function () { });
+        handleUploadSelect(e);
     }, false);
     (input.click)();
 }
@@ -540,22 +540,24 @@ async function handleUploadSelect(evt) {
                 await fetch(`${location.protocol}//${location.hostname}:${result.listenPort}`, {
                     method: 'POST',
                     body: formData
-                }).then(() => {
-                    console.log('Upload finish!');
-                    $('.uploadProgress').hide();
-                    $('.uploadFinish').show();
-                    setTimeout(() => $dialogUpload.modal('close'), 5000);
+                })
+                    .then(() => {
+                        console.log('Upload finish!');
+                        $('.uploadProgress').hide();
+                        $('.uploadFinish').show();
+                        setTimeout(() => $dialogUpload.modal('close'), 5000);
 
-                    sendTo(null, 'serverClose', { downloadFinish: false, uploadFinish: true }, function (result) {
-                        if (result && result.serverClose) {
-                            console.log('Upload-Server closed');
-                        }
+                        sendTo(null, 'serverClose', { downloadFinish: false, uploadFinish: true }, function (result) {
+                            if (result && result.serverClose) {
+                                console.log('Upload-Server closed');
+                            }
+                        });
+                    })
+                    .catch((e) => {
+                        $('.uploadProgress').hide();
+                        $('.uploadError').show();
+                        setTimeout(() => $dialogUpload.modal('close'), 5000);
                     });
-                }).catch((e) => {
-                    $('.uploadProgress').hide();
-                    $('.uploadError').show();
-                    setTimeout(() => $dialogUpload.modal('close'), 5000);
-                });
             }
         });
     }

@@ -24,6 +24,8 @@ let slaveTimeOut;
 let waitToSlaveBackup;
 let dlServer;
 let ulServer;
+let http;
+let https;
 
 let systemLang = 'de';              // system language
 const backupConfig = {};
@@ -164,17 +166,41 @@ function startAdapter(options) {
     adapter.on('unload', (callback) => {
         try {
             adapter.log.info('cleaned everything up...');
-            clearTimeout(timerOutput2);
-            clearTimeout(timerOutput);
-            clearTimeout(timerUmount1);
-            clearTimeout(timerUmount2);
-            clearTimeout(timerMain);
-            clearTimeout(slaveTimeOut);
-            clearTimeout(waitToSlaveBackup);
-            callback();
+            timerOutput2 && clearTimeout(timerOutput2);
+            timerOutput && clearTimeout(timerOutput);
+            timerUmount1 && clearTimeout(timerUmount1);
+            timerUmount2 && clearTimeout(timerUmount2);
+            timerMain && clearTimeout(timerMain);
+            slaveTimeOut && clearTimeout(slaveTimeOut);
+            waitToSlaveBackup && clearTimeout(waitToSlaveBackup);
+            if (dlServer) {
+                try {
+                    dlServer.closeAllConnections();
+                } catch (e) {
+                    adapter.log.debug(`Download server Connections could not be closed: ${e}`);
+                }
+                try {
+                    dlServer.close();
+                } catch (e) {
+                    adapter.log.debug(`Download server Connections could not be closed: ${e}`);
+                }
+            }
+            if (ulServer) {
+                try {
+                    ulServer.closeAllConnections();
+                } catch (e) {
+                    adapter.log.debug(`Upload server connections could not be closed: ${e}`);
+                }
+                try {
+                    ulServer.close();
+                } catch (e) {
+                    adapter.log.debug(`Upload server connections could not be closed: ${e}`);
+                }
+            }
         } catch (e) {
-            callback();
+            console.log(`Cannot unload: ${e}`);
         }
+        callback();
     });
 
     adapter.on('message', async obj => {
@@ -287,10 +313,11 @@ function startAdapter(options) {
                         obj.callback({ error: 'Invalid parameters' });
                     }
                     break;
+
                 case 'getFile':
                     if (obj.message && obj.message.type && obj.message.fileName && obj.message.protocol) {
                         if (dlServer && dlServer._connectionKey && dlServer.listening) {
-                            adapter.log.debug(`Downloadserver is running on Port ${dlServer.address().port}...`);
+                            adapter.log.debug(`Download server is running on port ${dlServer.address().port}...`);
                         } else {
                             if (obj.message.protocol === 'https:') {
                                 await getCerts(obj.from);
@@ -335,10 +362,10 @@ function startAdapter(options) {
 
                 case 'serverClose':
                     if (obj.message && obj.message.downloadFinish && !obj.message.uploadFinish) {
-                        adapter.log.debug('Download finish ...');
+                        adapter.log.debug('Download finished...');
                         adapter.sendTo(obj.from, obj.command, { serverClose: true }, obj.callback);
                     } else if (obj.message && obj.message.uploadFinish && !obj.message.downloadFinish) {
-                        adapter.log.debug('Upload finish ...');
+                        adapter.log.debug('Upload finished...');
                         adapter.sendTo(obj.from, obj.command, { serverClose: true }, obj.callback);
                     } else if (obj.callback) {
                         obj.callback({ error: 'Invalid parameters' });
@@ -1656,7 +1683,7 @@ function dlFileServer(protocol) {
     const express = require('express');
     const downloadServer = express();
 
-    // Close all Connection from Downloadserver
+    // Close all connections from Downloadserver
     if (dlServer && dlServer._connectionKey) {
         try {
             dlServer.closeAllConnections();
@@ -1673,10 +1700,10 @@ function dlFileServer(protocol) {
 
     downloadServer.use(express.static(path.join(tools.getIobDir(), 'backups')));
 
+    let httpServer;
     if (protocol === 'https:') {
-        const https = require('node:https');
+        https = https || require('node:https');
 
-        let httpsServer;
         let privateKey = '';
         let certificate = '';
 
@@ -1688,38 +1715,27 @@ function dlFileServer(protocol) {
                 adapter.log.debug('no certificates found');
             }
         }
-        const credentials = { key: privateKey, cert: certificate };
 
         try {
-            httpsServer = https.createServer(credentials, downloadServer);
+            httpServer = https.createServer({ key: privateKey, cert: certificate }, downloadServer);
         } catch (e) {
             adapter.log.debug(`The https server cannot be created: ${e}`);
         }
-
-        try {
-            dlServer = httpsServer.listen(port);
-            adapter.log.debug(`Downloadserver on port ${dlServer.address().port} started`);
-
-        } catch (e) {
-            adapter.log.debug('Downloadserver cannot started');
-        }
     } else {
-        const http = require('node:http');
-
-        let httpServer;
+        http = http || require('node:http');
 
         try {
             httpServer = http.createServer(downloadServer);
         } catch (e) {
             adapter.log.debug(`The http server cannot be created: ${e}`);
         }
+    }
 
-        try {
-            dlServer = httpServer.listen(port);
-            adapter.log.debug(`Downloadserver on port ${dlServer.address().port} started`);
-        } catch (e) {
-            adapter.log.debug('Downloadserver cannot started');
-        }
+    try {
+        dlServer = httpServer.listen(port);
+        adapter.log.debug(`Download ${protocol.replace(':', '')} server started on port ${dlServer.address().port}`);
+    } catch (e) {
+        adapter.log.debug('Download server cannot be started');
     }
 }
 
@@ -1728,16 +1744,16 @@ function ulFileServer(protocol) {
     const multer = require('multer');
     const cors = require('cors');
 
-    // Close all Connection from Uploadserver
+    // Close all Connections from upload server
     try {
         ulServer.closeAllConnections();
     } catch (e) {
-        adapter.log.debug('Upload server Connections could not be closed');
+        adapter.log.debug('Upload server connections could not be closed');
     }
     try {
         ulServer.close();
     } catch (e) {
-        adapter.log.debug('Upload server Connections could not be closed');
+        adapter.log.debug('Upload server connections could not be closed');
     }
 
     const port = fs.existsSync('/opt/scripts/.docker_config/.thisisdocker') ? 9082 : 0;
@@ -1748,69 +1764,56 @@ function ulFileServer(protocol) {
     uploadServer.use(cors());
 
     const storage = multer.diskStorage({
-        destination: function (req, file, callback) {
-            callback(null, backupDir);
-        },
+        destination: (req, file, callback) => callback(null, backupDir),
         filename: function (req, file, callback) {
-            callback(null, file.originalname);
             adapter.log.debug(`Upload from ${file.originalname} started...`);
-        }
-    })
-
-    const upload = multer({ storage: storage })
-
-    uploadServer.post('/', upload.single('files'), (req, res) => {
-        adapter.log.debug(req.body);
-        adapter.log.debug(req.files);
-        res.json({ message: 'File(s) uploaded successfully' });
-
+            callback(null, file.originalname);
+        },
     });
 
-    if (protocol === 'https:') {
-        const https = require('node:https');
+    const upload = multer({ storage });
 
-        let httpsServer;
-        let privateKey = '';
-        let certificate = '';
+    uploadServer.post('/', upload.single('files'), (req, res) => {
+        adapter.log.debug(req.file);
+        res.json({ message: 'File(s) uploaded successfully' });
+    });
+
+    let httpServer;
+    if (protocol === 'https:') {
+        https = https || require('node:https');
+
+        let key = '';
+        let cert = '';
 
         if (fs.existsSync(path.join(bashDir, 'iob.key')) && fs.existsSync(path.join(bashDir, 'iob.crt'))) {
             try {
-                privateKey = fs.readFileSync(path.join(bashDir, 'iob.key'), 'utf8');
-                certificate = fs.readFileSync(path.join(bashDir, 'iob.crt'), 'utf8');
+                key = fs.readFileSync(path.join(bashDir, 'iob.key'), 'utf8');
+                cert = fs.readFileSync(path.join(bashDir, 'iob.crt'), 'utf8');
             } catch (e) {
                 adapter.log.debug('no certificates found');
             }
         }
-        const credentials = { key: privateKey, cert: certificate };
 
         try {
-            httpsServer = https.createServer(credentials, uploadServer);
+            httpServer = https.createServer({ key, cert }, uploadServer);
         } catch (e) {
-            adapter.log.debug(`The https Uploadserver cannot be created: ${e}`);
-        }
-
-        try {
-            ulServer = httpsServer.listen(port);
-            adapter.log.debug(`Uploadserver on port ${ulServer.address().port} started`);
-        } catch (e) {
-            adapter.log.debug('Uploadserver cannot started');
+            adapter.log.debug(`The https upload server cannot be created: ${e}`);
         }
     } else {
-        const http = require('node:http');
-
-        let httpServer;
+        http = http || require('node:http');
 
         try {
             httpServer = http.createServer(uploadServer);
         } catch (e) {
-            adapter.log.debug(`The http Uploadserver cannot be created: ${e}`);
+            adapter.log.debug(`The http upload server cannot be created: ${e}`);
         }
-        try {
-            ulServer = httpServer.listen(port);
-            adapter.log.debug(`Uploadserver on port ${ulServer.address().port} started`);
-        } catch (e) {
-            adapter.log.debug('Uploadserver cannot started');
-        }
+    }
+
+    try {
+        ulServer = httpServer.listen(port);
+        adapter.log.debug(`Upload ${protocol.replace(':', '')} server started on port ${ulServer.address().port}`);
+    } catch (e) {
+        adapter.log.debug('Upload server cannot be started');
     }
 }
 

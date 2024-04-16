@@ -1,1 +1,8 @@
-{}
+{
+  "activated storageoptions": "Actieve opslagmogelijkheden",
+  "activated backupoptions": "Actieve back-upopties",
+  "Error": "Fout",
+  "Backup source": "Back-upbron",
+  "Drop the file here ...": "Zet het bestand hier neer...",
+  "Upload completed successfully. The popup will close automatically": "Uploaden is succesvol voltooid. De pop-up wordt automatisch gesloten"
+}

@@ -84,7 +84,7 @@ class App extends GenericApp {
                                 name: 'ConfigCustomBackItUpSet/Components/AdapterExist',
                                 type: 'custom',
                                 // adapter: 'zigbee',
-                                title: 'Backitup Information!',
+                                title: 'BackItUp Information!',
                                 alert: 'The JavaScript Adapter scripts are already saved in the ioBroker backup.\n\nThis option is just an additional option to be able to restore the scripts individually if necessary.',
                             }}
                             onChange={data => {

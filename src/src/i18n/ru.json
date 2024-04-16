@@ -1,1 +1,8 @@
-{}
+{
+  "activated storageoptions": "Активные параметры хранения",
+  "activated backupoptions": "Активное резервное копирование",
+  "Error": "Ошибка",
+  "Backup source": "Резервный источник",
+  "Drop the file here ...": "Киньте файл сюда...",
+  "Upload completed successfully. The popup will close automatically": "Загрузка завершена успешно. Окно закроется автоматически"
+}

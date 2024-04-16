@@ -81,9 +81,9 @@ function fetchMySqlConfig(isInitial) {
         if (found) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
+            !isInitial && showMessage(_('Config taken from %s', found), _('BackItUp Information!'), 'info');
         } else {
-            !isInitial && showMessage(_('No config found'), _('Backitup Warning!'), 'info');
+            !isInitial && showMessage(_('No config found'), _('BackItUp Warning!'), 'info');
         }
     });
 }
@@ -117,9 +117,9 @@ function fetchSqliteConfig(isInitial) {
         if (found) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
+            !isInitial && showMessage(_('Config taken from %s', found), _('BackItUp Information!'), 'info');
         } else {
-            !isInitial && showMessage(_('No config found'), _('Backitup Warning!'), 'info');
+            !isInitial && showMessage(_('No config found'), _('BackItUp Warning!'), 'info');
         }
     });
 }
@@ -159,9 +159,9 @@ function fetchPgSqlConfig(isInitial) {
         if (found) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
+            !isInitial && showMessage(_('Config taken from %s', found), _('BackItUp Information!'), 'info');
         } else {
-            !isInitial && showMessage(_('No config found'), _('Backitup Warning!'), 'info');
+            !isInitial && showMessage(_('No config found'), _('BackItUp Warning!'), 'info');
         }
     });
 }
@@ -211,9 +211,9 @@ function fetchInfluxDBConfig(isInitial) {
         if (found) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
+            !isInitial && showMessage(_('Config taken from %s', found), _('BackItUp Information!'), 'info');
         } else {
-            !isInitial && showMessage(_('No config found'), _('Backitup Warning!'), 'info');
+            !isInitial && showMessage(_('No config found'), _('BackItUp Warning!'), 'info');
         }
     });
 }
@@ -243,9 +243,9 @@ function fetchCcuConfig(isInitial) {
         if (found) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
+            !isInitial && showMessage(_('Config taken from %s', found), _('BackItUp Information!'), 'info');
         } else {
-            !isInitial && showMessage(_('No config found'), _('Backitup Warning!'), 'info');
+            !isInitial && showMessage(_('No config found'), _('BackItUp Warning!'), 'info');
         }
     });
 }
@@ -277,17 +277,17 @@ function fetchHistoryConfig(isInitial) {
         if (found && storeDir == '') {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('<br/><br/>No storage path of %s is configured.<br/>The default path of the history adapter has been set.', found), _('Backitup Information!'), 'info');
+            !isInitial && showMessage(_('<br/><br/>No storage path of %s is configured.<br/>The default path of the history adapter has been set.', found), _('BackItUp Information!'), 'info');
         } else if (found && storeDir !== '' && storeDir.startsWith('/opt/iobroker/backups')) {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('<br/><br/>The storage path of %s must not be identical to the path for backups.<br/>The default path of the history adapter has been set.<br/><br/>Please change the path in the history adapter!', found), _('Backitup Information!'), 'info');
+            !isInitial && showMessage(_('<br/><br/>The storage path of %s must not be identical to the path for backups.<br/>The default path of the history adapter has been set.<br/><br/>Please change the path in the history adapter!', found), _('BackItUp Information!'), 'info');
         } else if (found && storeDir !== '') {
             M.updateTextFields();
             found = found.substring('system.adapter.'.length);
-            !isInitial && showMessage(_('Config taken from %s', found), _('Backitup Information!'), 'info');
+            !isInitial && showMessage(_('Config taken from %s', found), _('BackItUp Information!'), 'info');
         } else {
-            !isInitial && showMessage(_('No config found'), _('Backitup Warning!'), 'info');
+            !isInitial && showMessage(_('No config found'), _('BackItUp Warning!'), 'info');
         }
     });
 }
@@ -324,13 +324,13 @@ function checkAdapterInstall(name, backitupHost) {
                     var common = res.rows[i].value.common;
 
                     if (common.host !== backitupHost && (adapterName == 'zigbee' || adapterName == 'esphome' || adapterName == 'zigbee2mqtt' || adapterName == 'node-red' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
-                        showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
+                        showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('BackItUp Warning!'), 'info');
                         ignoreMessage.push(name);
                         break;
                     }
                 }
             } else if (res.rows.length == 0 && (adapterName == 'zigbee' || adapterName == 'esphome' || adapterName == 'zigbee2mqtt' || adapterName == 'node-red' || adapterName == 'yahka' || adapterName == 'jarvis' || adapterName == 'history')) {
-                showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('Backitup Warning!'), 'info');
+                showMessage(_("No %s Instance found on this host. Please check your System", adapterName), _('BackItUp Warning!'), 'info');
                 ignoreMessage.push(name);
             }
         });
@@ -451,9 +451,9 @@ function load(settings, onChange) {
         if (obj && obj.diskState && obj.storage && obj.diskFree) {
 
             if (obj.diskState === 'warn' && obj.storage === 'local') {
-                showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Please check your system!', obj.diskFree), _('Backitup Information!'), 'info');
+                showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Please check your system!', obj.diskFree), _('BackItUp Information!'), 'info');
             } else if (obj.diskState === 'error' && obj.storage === 'local') {
-                showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Local backups are currently not possible. <br/><br/>Please check your system!', obj.diskFree), _('Backitup Information!'), 'warning');
+                showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Local backups are currently not possible. <br/><br/>Please check your system!', obj.diskFree), _('BackItUp Information!'), 'warning');
             }
         }
     });
@@ -694,7 +694,7 @@ function load(settings, onChange) {
                                 }
             });
             if (settings.ftpEnabled === false && settings.dropboxEnabled === false && settings.onedriveEnabled === false && settings.cifsEnabled === false && settings.googledriveEnabled === false && settings.webdavEnabled === false) {
-                showMessage(_("<br/><br/>According to the Backitup settings, backups are currently stored in the same local file system that is the source of the backup can be accessed more. <br/> <br/>It is recommended to use an external storage space as a backup target."), _('Backitup Information!'), 'info');
+                showMessage(_("<br/><br/>According to the BackItUp settings, backups are currently stored in the same local file system that is the source of the backup can be accessed more. <br/> <br/>It is recommended to use an external storage space as a backup target."), _('BackItUp Information!'), 'info');
             }
             socket.emit('subscribeStates', 'backitup.' + instance + '.*');
             socket.emit('subscribeStates', 'system.adapter.backitup.' + instance + '.alive');
@@ -722,7 +722,7 @@ function load(settings, onChange) {
                             if (response.error) {
                                 showError('Error: ' + response.error);
                             } else {
-                                showMessage(_('The connection to the WebDAV server was established successfully.'), _('Backitup Information!'), 'info');
+                                showMessage(_('The connection to the WebDAV server was established successfully.'), _('BackItUp Information!'), 'info');
                             }
                         });
                     }
@@ -1792,7 +1792,7 @@ function showHideSettings(settings) {
     }).trigger('change');
 
     if ($('#javascriptsEnabled').prop('checked') && !oldJavascriptsEnabled) {
-        showMessage(_("<br/><br/>The JavaScript Adapter scripts are already saved in the ioBroker backup.<br/><br/>This option is just an additional option to be able to restore the scripts individually if necessary."), _('Backitup Information!'), 'info');
+        showMessage(_("<br/><br/>The JavaScript Adapter scripts are already saved in the ioBroker backup.<br/><br/>This option is just an additional option to be able to restore the scripts individually if necessary."), _('BackItUp Information!'), 'info');
         oldJavascriptsEnabled = true;
     }
     if ($('#zigbeeEnabled').prop('checked')) {

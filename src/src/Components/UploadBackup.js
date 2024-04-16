@@ -20,26 +20,17 @@ const UploadBackup = props => {
 
     const onDrop = useCallback((acceptedFiles, fileRejections) => {
         if (acceptedFiles?.length) {
-            setWorking(true);
             error && setError('');
-            const reader = new FileReader();
             setFileName(acceptedFiles[0].name);
-
-            reader.onload = async evt => {
-                setWorking(false);
-                setFileData(evt.target.result);
-            };
-
-            reader.readAsDataURL(acceptedFiles[0]);
-        }
-        if (fileRejections?.length) {
+            setFileData(acceptedFiles[0]);
+        } else if (fileRejections?.length) {
             fileRejections[0].errors.forEach(err => {
                 if (err.code === 'file-too-large') {
                     setError(I18n.t('File too large'));
                 } else if (err.code === 'file-invalid-type') {
                     setError(I18n.t('Invalid file type'));
                 } else {
-                    setError(`Error: ${err.message}`);
+                    setError(`${I18n.t('Error')}: ${err.message}`);
                 }
                 setTimeout(() => error && setError(''), 3000);
             });
@@ -55,16 +46,18 @@ const UploadBackup = props => {
         },
     });
 
+    const uploadProps = working || uploaded ? {} : getRootProps();
+
     return <Dialog
         open={!0}
-        onClose={props.onClose}
+        onClose={() => !working && props.onClose()}
         fullWidth
         maxWidth="lg"
     >
         <DialogTitle>{I18n.t('Upload Backup File')}</DialogTitle>
         <DialogContent>
             <div
-                {...getRootProps()}
+                {...uploadProps}
                 style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -93,7 +86,7 @@ const UploadBackup = props => {
                             {fileName.endsWith('.tar.gz') && !uploaded ? <FolderZip /> : null}
                             {fileData && !uploaded ? <div style={{ fontSize: 10, opacity: 0.5 }}>
                         (
-                                {Utils.formatBytes(fileData.length)}
+                                {Utils.formatBytes(fileData.size)}
                         )
                             </div> : null}
                         </> : (props.instruction || `${I18n.t('Drop the file here ...')} ${props.maxSize ? I18n.t('(Maximal file size is %s)', Utils.formatBytes(props.maxSize)) : ''}`)}
@@ -102,25 +95,37 @@ const UploadBackup = props => {
         </DialogContent>
         <DialogActions>
             {fileData && <Button
+                disabled={working || uploaded || props.disabled}
                 onClick={async () => {
                     try {
+                        // start server
                         const result = await props.socket.sendTo(`${props.adapterName}.${props.instance}`, 'uploadFile', { protocol: window.location.protocol });
-                        let formData = new FormData();
+                        if (!result || result.error) {
+                            setError(`${I18n.t('Error')}: ${result.error}`);
+                        } else {
+                            setWorking(true);
+                            const formData = new FormData();
 
-                        formData.append('files', fileData);
+                            formData.append('files', fileData);
 
-                        await fetch(`${window.location.protocol}//${window.location.hostname}:${result.listenPort}`, {
-                            method: 'POST',
-                            body: formData,
-                        });
-                        setUploaded(true);
-                        setTimeout(props.onClose, 5000);
+                            await fetch(`${window.location.protocol}//${window.location.hostname}:${result.listenPort}`, {
+                                method: 'POST',
+                                body: formData,
+                            });
+                            setUploaded(true);
 
-                        const closeResult = await props.socket.sendTo(`${props.adapterName}.${props.instance}`, 'serverClose', { downloadFinish: false, uploadFinish: true });
-                        if (closeResult?.serverClose) {
-                            console.log('Upload-Server closed');
+                            const closeResult = await props.socket.sendTo(`${props.adapterName}.${props.instance}`, 'serverClose', {
+                                downloadFinish: false,
+                                uploadFinish: true,
+                            });
+                            if (closeResult?.serverClose) {
+                                console.log('Upload-Server closed');
+                            }
+                            setWorking(false);
+                            setTimeout(props.onClose, 5000);
                         }
                     } catch (e) {
+                        setWorking(false);
                         setError(e);
                         setTimeout(props.onClose, 5000);
                     }
@@ -132,6 +137,7 @@ const UploadBackup = props => {
                 {I18n.t('Backup Upload')}
             </Button>}
             <Button
+                disabled={working}
                 onClick={props.onClose}
                 color="grey"
                 variant="contained"

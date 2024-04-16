@@ -1,1 +1,8 @@
-{}
+{
+  "activated storageoptions": "Aktywne opcje przechowywania",
+  "activated backupoptions": "Aktywne opcje tworzenia kopii zapasowych",
+  "Error": "Błąd",
+  "Backup source": "Źródło zapasowe",
+  "Drop the file here ...": "Upuść plik tutaj...",
+  "Upload completed successfully. The popup will close automatically": "Przesyłanie zakończone pomyślnie. Wyskakujące okienko zamknie się automatycznie"
+}

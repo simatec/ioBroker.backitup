@@ -18,6 +18,10 @@ const styles = {
             height: '100%',
         },
     },
+    textTime: {
+        display: 'inline-block',
+        width: 85,
+    },
     textLevel: {
         display: 'inline-block',
         width: 40,
@@ -31,15 +35,16 @@ const styles = {
     textSource: {
         display: 'inline-block',
         width: 100,
-        margin: '0.2rem 0 0 0.8rem',
         textAlign: 'left',
     },
     text: {
         display: 'inline-block',
     },
+    textLine: {
+        whiteSpace: 'nowrap',
+    },
 };
 
-const DEBUGLOG = `Start Backup`;
 class BackupNow extends ConfigGeneric {
     constructor(props) {
         super(props);
@@ -54,11 +59,34 @@ class BackupNow extends ConfigGeneric {
         this.textRef = React.createRef();
     }
 
+    static getTime() {
+        const date = new Date();
+        return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}.${date.getMilliseconds().toString().padStart(3, '0')}`;
+    }
+
     onOutput = (id, state)  => {
         if (state && state.val && state.val !== this.lastExecutionLine) {
             this.lastExecutionLine = state.val;
             const executionLog = [...this.state.executionLog];
-            executionLog.push(state.val);
+            const lines = (state.val || '').toString().replace(/\n$/, '').split('\n');
+            const now = BackupNow.getTime();
+            lines.forEach(line => {
+                line = line.trim();
+                if (!line) {
+                    // return;
+                }
+                const parts = line.match(/^\[(\w+)] \[(\w+)] - (.*)/);
+                if (parts) {
+                    executionLog.push({
+                        level: parts[1],
+                        source: parts[2],
+                        ts: now,
+                        text: parts[3],
+                    });
+                } else {
+                    executionLog.push({ text: line });
+                }
+            });
 
             // scroll down
             if (this.textRef.current && this.textRef.current.scrollTop + this.textRef.current.clientHeight >= this.textRef.current.scrollHeight) {
@@ -103,18 +131,11 @@ class BackupNow extends ConfigGeneric {
     }
 
     renderLine(line, i) {
-        const parts = line.match(/^\[(\w+)] \[(\w+)] - (.*)/);
-        if (parts) {
-            return <div key={i}>
-                <div className={`${this.props.classes.textLevel} ${this.props.classes[`textLevel-${parts[1]}`]}`}>{parts[1]}</div>
-                <div className={this.props.classes.textSource}>{parts[2]}</div>
-                <div className={this.props.classes.text}>{parts[3]}</div>
-            </div>;
-        }
-        return <div key={i}>
-            <div className={this.props.classes.textLevel} />
-            <div className={this.props.classes.textSource} />
-            <div className={this.props.classes.text}>{line}</div>
+        return <div key={i} className={this.props.classes.textLine}>
+            <div className={this.props.classes.textTime}>{line.ts}</div>
+            <div className={`${this.props.classes.textLevel} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.level}</div>
+            <div className={this.props.classes.textSource}>{line.source}</div>
+            <div className={this.props.classes.text}>{line.text}</div>
         </div>;
     }
 
@@ -136,9 +157,9 @@ class BackupNow extends ConfigGeneric {
                             position: 'absolute',
                             top: 0,
                             left: 24,
-                            width: 'calc(100% - 48px)',
+                            width: 'calc(100% - 64px)',
                         }}
-                    /> : null}
+                    /> : <div style={{ height: 4, width: 'calc(100% - 64px)' }} />}
                 <div
                     style={{
                         height: 'calc(100% - 16px - 4px)',
@@ -147,6 +168,11 @@ class BackupNow extends ConfigGeneric {
                         fontFamily: 'monospace',
                         marginTop: 4,
                         padding: 8,
+                        border: '1px solid grey',
+                        borderRadius: 5,
+                        overflow: 'auto',
+                        backgroundColor: this.props.themeType === 'dark' ? '#111' : '#EEE',
+                        boxSizing: 'border-box',
                     }}
                     ref={this.textRef}
                 >
@@ -178,7 +204,11 @@ class BackupNow extends ConfigGeneric {
         return <>
             <Button
                 disabled={!this.props.alive || this.state.executing}
-                onClick={() => this.setState({ executionDialog: true, executionLog: DEBUGLOG.split('\n'), executing: true }, async () => {
+                onClick={() => this.setState({
+                    executionDialog: true,
+                    executionLog: [{ ts: BackupNow.getTime(), level: 'INFO', text: 'starting...', source: 'gui' }],
+                    executing: true,
+                }, async () => {
                     this.lastExecutionLine = '';
                     await this.props.socket.setState(`${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`, true);
                 })}

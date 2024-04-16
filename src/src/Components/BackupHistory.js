@@ -5,7 +5,7 @@ import {
     DialogContent,
     DialogTitle,
     Table, TableCell, TableHead, TableRow,
-    DialogActions, Button,
+    DialogActions, Button, TableBody,
 } from '@mui/material';
 
 import { Close } from '@mui/icons-material';
@@ -31,7 +31,7 @@ const BackupHistory = props => {
     >
         <DialogTitle>{I18n.t('Backup history')}</DialogTitle>
         <DialogContent>
-            <Table>
+            <Table size="small">
                 <TableHead>
                     <TableRow>
                         <TableCell>{I18n.t('backup time')}</TableCell>
@@ -41,13 +41,15 @@ const BackupHistory = props => {
                         <TableCell>{I18n.t('filesize')}</TableCell>
                     </TableRow>
                 </TableHead>
-                {backupHistory.map((entry, index) => <TableRow key={index}>
-                    <TableCell>{entry.date}</TableCell>
-                    <TableCell>{entry.type}</TableCell>
-                    <TableCell>{entry.name}</TableCell>
-                    <TableCell>{entry.storage}</TableCell>
-                    <TableCell>{entry.filesize}</TableCell>
-                </TableRow>)}
+                <TableBody>
+                    {backupHistory.map((entry, index) => <TableRow key={index}>
+                        <TableCell>{entry.date}</TableCell>
+                        <TableCell>{entry.type}</TableCell>
+                        <TableCell>{entry.name}</TableCell>
+                        <TableCell>{entry.storage}</TableCell>
+                        <TableCell>{entry.filesize}</TableCell>
+                    </TableRow>)}
+                </TableBody>
             </Table>
         </DialogContent>
         <DialogActions>
