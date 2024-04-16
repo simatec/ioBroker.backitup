@@ -20,11 +20,11 @@ const styles = {
     },
     textTime: {
         display: 'inline-block',
-        width: 85,
+        width: 95,
     },
     textLevel: {
         display: 'inline-block',
-        width: 40,
+        width: 50,
     },
     'textLevel-ERROR': {
         color: 'red',
