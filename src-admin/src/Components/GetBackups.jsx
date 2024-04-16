@@ -66,7 +66,7 @@ const ICONS = {
     redis: DiRedis,
     history: historyIcon,
     ccu: CCU,
-    javascript: javascriptIcon,
+    javascripts: javascriptIcon,
     nodered: SiNodered,
 };
 

@@ -52,7 +52,7 @@ class RestoreBackup extends ConfigGeneric {
     }
 
     renderItem() {
-        return <div style={{ width: '100%', display: 'flex' }}>
+        return <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
             <SourceSelector
                 value={this.state.backupSource}
                 data={this.props.data}

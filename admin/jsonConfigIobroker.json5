@@ -34,7 +34,7 @@
       "help": "Backup start time in hh: mm",
       "format": "HH:mm",
       "views": ['hours', 'minutes'],
-      "returnFormat": "HH:mm",
+      "returnFormat": "HH:mm:ss",
       "sm": 9,
       "md": 6,
       "lg": 3

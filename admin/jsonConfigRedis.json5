@@ -1,0 +1,21 @@
+{
+  "type": "panel",
+  "label": "Redis Backup",
+  "items": {
+    "_checkConfig": {
+      // this component is not visible in the UI
+      // it checks the configuration
+      "type": "custom",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
+    },
+    "_header": {
+      "type": "header",
+      "size": 4,
+      "text": "Save Redis state",
+      "sm": 12,
+    },
+
+  }
+}
