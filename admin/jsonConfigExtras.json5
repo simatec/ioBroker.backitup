@@ -22,6 +22,128 @@
       "label": "Enable Notifications",
       "value": false,
       "sm": 12,
+			"md": 8,
+			"lg": 4
+    },
+    "restoreTab": {
+      "type": "checkbox",
+      "label": "Show restore tab",
+      "value": false,
+      "sm": 12,
+			"md": 8,
+			"lg": 4
+    },
+    "debugLevel": {
+      "type": "checkbox",
+      "label": "Enable debug",
+      "value": false,
+      "sm": 12,
+			"md": 8,
+			"lg": 4
+    },
+    "sentry_enable": {
+      "newLine": true,
+      "type": "checkbox",
+      "label": "send analysis data",
+      "value": false,
+      "sm": 12,
+			"md": 8,
+			"lg": 4
+    },
+    "ignoreErrors": {
+      "type": "checkbox",
+      "label": "ignore Backup Errors",
+      "value": false,
+      "sm": 12,
+			"md": 8,
+			"lg": 4
+    },
+    "historyEntriesNumber": {
+      "newLine": true,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "min": 1,
+      "max": 50,
+      "type": "number",
+      "label": "Number of history entries"
+    },
+    "fileSizeWarning": {
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "min": 1,
+      "max": 5000,
+      "type": "number",
+      "label": "Local hard disk space Limit value for warning message (MB)"
+    },
+    "fileSizeError": {
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "min": 1,
+      "max": 5000,
+      "type": "number",
+      "label": "Local hard disk space Limit value for error message (MB)"
+    },
+    "_header1": {
+      "type": "header",
+      "size": 4,
+      "text": "Multihost settings",
+      "sm": 12,
+    },
+    "hostType": {
+			"type": "select",
+			"label": "Host Type",
+			"sm": 12,
+			"md": 8,
+			"lg": 4,
+			"help": "Host Type",
+			"options": [
+				{
+					"label": "Single",
+					"value": "Single"
+				},
+				{
+					"label": "Master",
+					"value": "Master"
+				},
+				{
+					"label": "Slave",
+					"value": "Slave"
+				}
+			],
+			"newLine": true
+		},
+    "slaveInstance": {
+      "hidden": "data.hostType !== 'Master'",
+			"type": "select",
+			"label": "slave instances",
+			"sm": 12,
+			"md": 8,
+			"lg": 4,
+			"help": "slave instances",
+			"options": [
+				
+			],
+		},
+    "slaveNameSuffix": {
+      "hidden": "data.hostType !== 'Slave'",
+			"type": "text",
+			"label": "name",
+			"sm": 12,
+			"md": 8,
+			"lg": 4,
+			"help": "Slave Name suffix",
+		},
+    "stopSlaveAfter": {
+      "hidden": "data.hostType !== 'Master'",
+      "type": "checkbox",
+      "label": "Slave Instances stopping after backup",
+      "value": false,
+      "sm": 12,
+			"md": 8,
+			"lg": 4
     },
   }
 }

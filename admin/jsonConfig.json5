@@ -9,10 +9,76 @@
             "#include": "jsonConfigExtras.json5",
         },
         "_restore": {
+            "hidden": "!data.restoreTab",
             "#include": "jsonConfigRestore.json5",
         },
         "_notification": {
+            "hidden": "!data.notificationEnabled",
             "#include": "jsonConfigNotifications.json5",
+        },
+        "_iobroker": {
+            "hidden": "!data.minimalEnabled",
+            "#include": "jsonConfigIobroker.json5",
+        },
+        "_ccu": {
+            "hidden": "!data.ccuEnabled",
+            "#include": "jsonConfigCcu.json5",
+        },
+        "_mysql": {
+            "hidden": "!data.mySqlEnabled",
+            "#include": "jsonConfigMysql.json5",
+        },
+        "_pgsql": {
+            "hidden": "!data.pgSqlEnabled",
+            "#include": "jsonConfigPgsql.json5",
+        },
+        "_sqlite": {
+            "hidden": "!data.sqliteEnabled",
+            "#include": "jsonConfigSqlite.json5",
+        },
+        "_influxdb": {
+            "hidden": "!data.influxDBEnabled",
+            "#include": "jsonConfigInfluxdb.json5",
+        },
+        "_redis": {
+            "hidden": "!data.redisEnabled",
+            "#include": "jsonConfigRedis.json5",
+        },
+        "_history": {
+            "hidden": "!data.historyEnabled",
+            "#include": "jsonConfigHistory.json5",
+        },
+        "_zigbee2mqtt": {
+            "hidden": "!data.zigbee2mqttEnabled",
+            "#include": "jsonConfigZigbee2mqtt.json5",
+        },
+        "_cifs": {
+            "hidden": "!data.cifsEnabled",
+            "#include": "jsonConfigCifs.json5",
+        },
+        "_ftp": {
+            "hidden": "!data.ftpEnabled",
+            "#include": "jsonConfigFtp.json5",
+        },
+        "_dropbox": {
+            "hidden": "!data.dropboxEnabled",
+            "#include": "jsonConfigDropbox.json5",
+        },
+        "_onedrive": {
+            "hidden": "!data.onedriveEnabled",
+            "#include": "jsonConfigOnedrive.json5",
+        },
+        "_googledrive": {
+            "hidden": "!data.googledriveEnabled",
+            "#include": "jsonConfigGoogledrive.json5",
+        },
+        "_webdav": {
+            "hidden": "!data.webdavEnabled",
+            "#include": "jsonConfigWebdav.json5",
+        },
+        "_grafana": {
+            "hidden": "!data.grafanaEnabled",
+            "#include": "jsonConfigGrafana.json5",
         },
     }
 }
