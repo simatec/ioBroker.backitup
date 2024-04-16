@@ -518,6 +518,30 @@ function startAdapter(options) {
                         }
                     }
                     break;
+                case 'slaveInstance':
+                    if (obj && obj.command === 'slaveInstance' && obj.message && obj.message.instance) {
+                        let resultInstances = [];
+
+                        const instances = await adapter.getObjectViewAsync('system', 'instance', {
+                            startkey: `system.adapter.${obj.message.instance}.`,
+                            endkey: `system.adapter.${obj.message.instance}.\u9999`,
+                        }).catch((err) => adapter.log.error(err));
+    
+                        if (instances && instances.rows && instances.rows.length != 0) {
+                            instances.rows.forEach(async (row) => {
+                                if (row.id.replace('system.adapter.', '') != adapter.namespace) {
+                                    resultInstances.push({
+                                        label: row.id.replace('system.adapter.', ''),
+                                        value: row.id.replace('system.adapter.', ''),
+                                    });
+                                }
+                            });
+                        }
+                        
+                        adapter.log.debug(`slaveInstance - ${JSON.stringify(obj)}`);
+                        adapter.sendTo(obj.from, obj.command, resultInstances, obj.callback);
+                    }
+                    break;
             }
         }
     });

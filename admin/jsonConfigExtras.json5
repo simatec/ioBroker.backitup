@@ -116,8 +116,13 @@
 			"newLine": true
 		},
     "slaveInstance": {
+      "type": "selectSendTo",
+			"command": "slaveInstance",
+			"jsonData": "{ \"instance\": \"backitup\" }",
+      "multiple": true,
+      "showAllValues": true,
+      "noTranslation": true,
       "hidden": "data.hostType !== 'Master'",
-			"type": "select",
 			"label": "slave instances",
 			"sm": 12,
 			"md": 8,
