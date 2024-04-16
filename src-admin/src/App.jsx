@@ -6,8 +6,7 @@ import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import withStyles from '@mui/styles/withStyles';
 
 import GenericApp from '@iobroker/adapter-react-v5/GenericApp';
-import I18n from '@iobroker/adapter-react-v5/i18n';
-import Loader from '@iobroker/adapter-react-v5/Components/Loader';
+import { I18n, Loader } from '@iobroker/adapter-react-v5';
 
 import AdapterExist from './AdapterExist';
 import BackupNow from './BackupNow';
