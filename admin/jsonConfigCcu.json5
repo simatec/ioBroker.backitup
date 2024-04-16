@@ -1,6 +1,6 @@
 {
   "type": "panel",
-  "label": "iobroker backup",
+  "label": "CCU Backup",
   "items": {
     "_checkConfig": {
       // this component is not visible in the UI
@@ -13,7 +13,7 @@
     "_header": {
       "type": "header",
       "size": 4,
-      "text": "iobroker backup",
+      "text": "Homematic CCU backup",
       "sm": 12,
     },
     "backupNow": {
@@ -25,9 +25,17 @@
       "label": "backup now",
       "newLine": true
     },
-    "minimalTime": {
+    "detectNow": {
+      // Todo detect Button!!
+      "type": "staticLink",
+      "button": true,
+      "variant": "contained",
+      "icon": "search",
+      "label": "detect config"
+    },
+    "ccuTime": {
       // Todo TimePicker only HH:mm for native minimalTime
-      "hidden": "data.iobrokerCron",
+      "hidden": "data.ccuCron",
       "newLine": true,
       "type": "timePicker",
       "label": "backup time",
@@ -39,8 +47,8 @@
       "md": 6,
       "lg": 3
     },
-    "iobrokerCronJob": {
-      "hidden": "!data.iobrokerCron",
+    "ccuCronJob": {
+      "hidden": "!data.ccuCron",
       "newLine": true,
       "type": "cron",
       "label": "backup cronjob",
@@ -50,8 +58,8 @@
       "md": 6,
       "lg": 3
     },
-    "minimalEveryXDays": {
-      "hidden": "data.iobrokerCron",
+    "ccuEveryXDays": {
+      "hidden": "data.ccuCron",
       "sm": 9,
       "md": 6,
       "lg": 3,
@@ -61,7 +69,7 @@
       "label": "days",
       "help": "Backup will run every X days"
     },
-    "minimalDeleteAfter": {
+    "ccuDeleteAfter": {
       "sm": 9,
       "md": 6,
       "lg": 3,
@@ -71,19 +79,37 @@
       "label": "piece",
       "help": "old iobroker backups delete after X-days"
     },
-    "minimalNameSuffix": {
+    "ccuHost": {
+      "newLine": true,
       "sm": 9,
       "md": 6,
       "lg": 3,
       "type": "text",
-      "label": "name",
-      "help": "Name suffix"
+      "label": "IP address",
+      "help": "IP of the CCU"
     },
-    "iobrokerCron": {
+    "ccuUser": {
+      "sm": 9,
+      "md": 6,
+      "lg": 3,
+      "type": "text",
+      "label": "Username",
+      "help": "Username of the CCU"
+    },
+    "ccuPassword": {
+      "sm": 9,
+      "md": 6,
+      "lg": 3,
+      "type": "password",
+      "label": "password",
+      "help": "Password of the CCU"
+    },
+    "ccuCron": {
       "newLine": true,
       "type": "checkbox",
       "label": "Create your own cronjob (for experts only)",
       "sm": 12
     },
+    // Todo Multi-CCU
   }
 }
