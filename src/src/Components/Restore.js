@@ -201,6 +201,9 @@ class Restore extends Component {
                 } else if (this.state.isStopped) {
                     const restoreURL = `${window.location.protocol}//${window.location.hostname}:8091/backitup-restore.html`;
                     setTimeout(() => window.open(restoreURL, '_self'), this.props.restoreIfWait || 5000);
+                    // TODO: When is finished?
+                } else {
+                    this.setState({ done: true, executing: false });
                 }
             } catch (error) {
                 this.setState({ error: error.toString(), executing: false });
