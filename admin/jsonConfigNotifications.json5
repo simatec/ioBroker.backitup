@@ -12,10 +12,231 @@
     },
     "_header": {
       "type": "header",
-      "size": 4,
+      "size": 3,
       "text": "Notifications",
       "sm": 12,
     },
-
+    "notificationsType": {
+			"type": "select",
+			"label": "notifications type",
+			"sm": 12,
+			"md": 8,
+			"lg": 4,
+			"help": "notifications type",
+			"options": [
+				{
+					"label": "E-Mail",
+					"value": "E-Mail"
+				},
+				{
+					"label": "Discord",
+					"value": "Discord"
+				},
+				{
+					"label": "Gotify",
+					"value": "Gotify"
+				},
+        {
+					"label": "Matrix",
+					"value": "Matrix"
+				},
+        {
+					"label": "Pushover",
+					"value": "Pushover"
+				},
+        {
+					"label": "Signal",
+					"value": "Signal"
+				},
+        {
+					"label": "Telegram",
+					"value": "Telegram"
+				},
+        {
+					"label": "WhatsApp",
+					"value": "WhatsApp"
+				}
+			],
+			"newLine": true
+		},
+    "telegramInstance": {
+      "hidden": "data.notificationsType !== 'Telegram'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "custom",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/Instance",
+      "adapter": "telegram",
+      "label": "Telegram instance",
+      "newLine": true
+    },
+    "telegramUser": {
+      "hidden": "data.notificationsType !== 'Telegram'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "custom",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/Instance",
+      "adapter": "telegram",
+      "label": "Telegram Receiver"
+    },
+    "telegramNoticeType": {
+      "hidden": "data.notificationsType !== 'Telegram'",
+			"type": "select",
+			"label": "Notification Style",
+			"sm": 12,
+			"md": 8,
+			"lg": 4,
+			"help": "Notification Style",
+			"options": [
+				{
+					"label": "Long Notifications",
+					"value": "longTelegramNotice"
+				},
+				{
+					"label": "Short Notifications",
+					"value": "shortTelegramNotice"
+				}
+			],
+			"newLine": true
+		},
+    "telegramWaitToSend": {
+      "hidden": "data.notificationsType !== 'Telegram'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "min": 0,
+      "max": 20,
+      "type": "number",
+      "label": "seconds",
+      "help": "Waiting for the send (seconds)"
+    },
+    "telegramSilentNotice": {
+      "hidden": "data.notificationsType !== 'Telegram'",
+      "newLine": true,
+      "type": "checkbox",
+      "label": "Silent Notice",
+      "sm": 12,
+      "md": 8,
+      "lg": 4
+    },
+    "telegramOnlyError": {
+      "hidden": "data.notificationsType !== 'Telegram'",
+      "type": "checkbox",
+      "label": "Notification only on errors",
+      "sm": 12,
+      "md": 8,
+      "lg": 4
+    },
+    "whatsappInstance": {
+      "hidden": "data.notificationsType !== 'WhatsApp'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "custom",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/Instance",
+      "adapter": "whatsapp-cmb",
+      "label": "WhatsApp instance",
+      "newLine": true
+    },
+    "whatsappNoticeType": {
+      "hidden": "data.notificationsType !== 'WhatsApp'",
+			"type": "select",
+			"label": "Notification Style",
+			"sm": 12,
+			"md": 8,
+			"lg": 4,
+			"help": "Notification Style",
+			"options": [
+				{
+					"label": "Long Notifications",
+					"value": "longWhatsappNotice"
+				},
+				{
+					"label": "Short Notifications",
+					"value": "shortWhatsappNotice"
+				}
+			],
+		},
+    "whatsappWaitToSend": {
+      "hidden": "data.notificationsType !== 'WhatsApp'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "min": 0,
+      "max": 20,
+      "type": "number",
+      "label": "seconds",
+      "help": "Waiting for the send (seconds)",
+      "newLine": true
+    },
+    "whatsappOnlyError": {
+      "hidden": "data.notificationsType !== 'WhatsApp'",
+      "type": "checkbox",
+      "label": "Notification only on errors",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "newLine": true
+    },
+    "gotifyInstance": {
+      "hidden": "data.notificationsType !== 'Gotify'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "custom",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/Instance",
+      "adapter": "gotify",
+      "label": "Gotify instance",
+      "newLine": true
+    },
+    "gotifyNoticeType": {
+      "hidden": "data.notificationsType !== 'Gotify'",
+			"type": "select",
+			"label": "Notification Style",
+			"sm": 12,
+			"md": 8,
+			"lg": 4,
+			"help": "Notification Style",
+			"options": [
+				{
+					"label": "Long Notifications",
+					"value": "longGotifyNotice"
+				},
+				{
+					"label": "Short Notifications",
+					"value": "shortGotifyNotice"
+				}
+			],
+		},
+    "gotifyWaitToSend": {
+      "hidden": "data.notificationsType !== 'Gotify'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "min": 0,
+      "max": 20,
+      "type": "number",
+      "label": "seconds",
+      "help": "Waiting for the send (seconds)",
+      "newLine": true
+    },
+    "gotifyOnlyError": {
+      "hidden": "data.notificationsType !== 'Gotify'",
+      "type": "checkbox",
+      "label": "Notification only on errors",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "newLine": true
+    },
   }
 }

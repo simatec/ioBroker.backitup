@@ -537,8 +537,7 @@ function startAdapter(options) {
                                 }
                             });
                         }
-                        
-                        adapter.log.debug(`slaveInstance - ${JSON.stringify(obj)}`);
+
                         adapter.sendTo(obj.from, obj.command, resultInstances, obj.callback);
                     }
                     break;
