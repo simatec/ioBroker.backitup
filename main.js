@@ -280,7 +280,7 @@ function startAdapter(options) {
                         if (obj.message.stopIOB) {
                             await getCerts(obj.from);
                         }
-                        adapter.log.debug(obj.message.currentProtocol);
+
                         const _restore = require('./lib/restore');
                         _restore.restore(
                             adapter,
