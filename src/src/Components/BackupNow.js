@@ -206,7 +206,12 @@ class BackupNow extends ConfigGeneric {
                 disabled={!this.props.alive || this.state.executing}
                 onClick={() => this.setState({
                     executionDialog: true,
-                    executionLog: [{ ts: BackupNow.getTime(), level: 'INFO', text: 'starting...', source: 'gui' }],
+                    executionLog: [{
+                        ts: BackupNow.getTime(),
+                        level: 'INFO',
+                        text: 'starting...',
+                        source: 'gui',
+                    }],
                     executing: true,
                 }, async () => {
                     this.lastExecutionLine = '';

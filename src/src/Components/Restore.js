@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@mui/styles';
 
-import {I18n, Message} from '@iobroker/adapter-react-v5';
+import { I18n, Message } from '@iobroker/adapter-react-v5';
 import {
     Button, Checkbox, Dialog, DialogActions, DialogContent,
     DialogTitle, FormControlLabel, LinearProgress,
@@ -149,7 +149,7 @@ class Restore extends Component {
                 if (this.state.closeOnReady && (!code || code[1] === '0')) {
                     this.closeTimeout = this.closeTimeout || setTimeout(() => {
                         this.closeTimeout = null;
-                        this.setState({ executionDialog: false });
+                        this.props.onClose();
                     }, 1500);
                 }
             }
@@ -159,14 +159,6 @@ class Restore extends Component {
     async componentDidMount() {
         await this.props.socket.subscribeState(`${this.props.adapterName}.${this.props.instance}.output.line`, this.onOutput);
     }
-
-    onEnabled = (id, state) => {
-        if (id === `${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`) {
-            if (!!state?.val !== this.state.executing) {
-                this.setState({ executing: !!state?.val });
-            }
-        }
-    };
 
     componentWillUnmount() {
         this.props.socket.unsubscribeState(`${this.props.adapterName}.${this.props.instance}.output.line`, this.onOutput);
@@ -268,7 +260,7 @@ class Restore extends Component {
                             <span>{message.text}</span>
                         </li>)}
                     </ul>
-                </div>: null}
+                </div> : null}
             </DialogContent>
             <DialogActions>
                 <FormControlLabel
@@ -304,10 +296,9 @@ class Restore extends Component {
 Restore.propTypes = {
     socket: PropTypes.object.isRequired,
     themeType: PropTypes.string,
-    onError: PropTypes.func,
     adapterName: PropTypes.string.isRequired,
     instance: PropTypes.number.isRequired,
-    file: PropTypes.string.isRequired,
+    fileName: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
 };
 

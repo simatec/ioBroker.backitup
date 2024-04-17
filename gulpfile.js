@@ -113,12 +113,8 @@ gulp.task('admin-build', gulp.series(['admin-0-clean', 'admin-1-npm', 'admin-2-c
 gulp.task('clean', done => {
     deleteFoldersRecursive(`${__dirname}/admin`, [
         'backitup.png',
-        'jsonConfig.json',
-        'jsonConfig.json5',
-        'jsonConfigExtras.json5',
-        'jsonConfigRestore.json5',
-        'jsonConfigNotifications.json5',
-        'jsonConfigMain.json5',
+        '.json',
+        '.json5',
         'custom',
         'adapter-settings.js',
         'backitup.svg',

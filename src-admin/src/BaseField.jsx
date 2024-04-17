@@ -33,21 +33,26 @@ class BaseField extends ConfigGeneric {
 
     fetchConfig = async (type, data) => {
         if (type === 'ccu') {
-            return await this.fetchCcuConfig(data);
-        } else if (type === 'mySql') {
-            return await this.fetchMySqlConfig(data);
-        } else if (type === 'sqlite') {
-            return await this.fetchSqliteConfig(data);
-        } else if (type === 'pgSql') {
-            return await this.fetchPgSqlConfig(data);
-        } else if (type === 'influxDB') {
-            return await this.fetchInfluxDBConfig(data);
-        } else if (type === 'history') {
-            return await this.fetchHistoryConfig(data);
-        } else {
-            this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('Unknown config type %s', type));
-            return { changed: false, found: false };
+            return this.fetchCcuConfig(data);
         }
+        if (type === 'mySql') {
+            return this.fetchMySqlConfig(data);
+        }
+        if (type === 'sqlite') {
+            return this.fetchSqliteConfig(data);
+        }
+        if (type === 'pgSql') {
+            return this.fetchPgSqlConfig(data);
+        }
+        if (type === 'influxDB') {
+            return this.fetchInfluxDBConfig(data);
+        }
+        if (type === 'history') {
+            return this.fetchHistoryConfig(data);
+        }
+
+        this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('Unknown config type %s', type));
+        return { changed: false, found: false };
     };
 
     async fetchCcuConfig(data) {
@@ -72,7 +77,7 @@ class BaseField extends ConfigGeneric {
             if (!found) {
                 for (let i = 0; i < result.length; i++) {
                     const native = result[i].native;
-                    if (native && data.ccuHost !== native.homematicAddress || data.ccuUsehttps !== native.useHttps) {
+                    if (native && (data.ccuHost !== native.homematicAddress || data.ccuUsehttps !== native.useHttps)) {
                         data.ccuHost = native.homematicAddress;
                         data.ccuUsehttps = native.useHttps;
                         changed = true;
@@ -258,6 +263,7 @@ class BaseField extends ConfigGeneric {
                         if (native.port && native.dbversion === '2.x') {
                             data.influxDBPort = native.port;
                         }
+                        changed = true;
                     }
 
                     found = result[i]._id;
@@ -279,6 +285,7 @@ class BaseField extends ConfigGeneric {
                     if (native.port && native.dbversion === '2.x') {
                         data.influxDBPort = native.port;
                     }
+                    changed = true;
                 }
 
                 found = result[0]._id;

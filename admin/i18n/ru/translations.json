@@ -268,7 +268,7 @@
     "activated storageoptions": "активированные варианты хранения",
     "automatically delete old Influx-database before restore": "автоматически удалять старую Influx-базу данных перед восстановлением",
     "backup cronjob": "резервное копирование",
-    "backup now": "резервное копирование",
+    "Backup now": "резервное копирование",
     "backup time": "время резервного копирования",
     "close on ready": "закрыть по окончании",
     "connection type": "Тип подключения",

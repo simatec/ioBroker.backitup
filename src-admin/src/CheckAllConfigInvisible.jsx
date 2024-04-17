@@ -44,9 +44,9 @@ class CheckAllConfigInvisible extends BaseField {
                     const CONFIGS = ['ccu', 'mySql', 'sqlite', 'pgSql', 'influxDB', 'history'];
                     for (let c = 0; c < CONFIGS.length; c++) {
                         if (!this.isConfigFilled(CONFIGS[c])) {
-                            const result = await this.fetchConfig(CONFIGS[c], data)
+                            const _result = await this.fetchConfig(CONFIGS[c], data)
                                 .catch(e => this.showError(e));
-                            changed = changed || result.changed;
+                            changed = changed || _result.changed;
                         }
                     }
 

@@ -17,12 +17,11 @@
       "sm": 12,
     },
     "backupNow": {
-      // Todo Backup Button!!
       "type": "staticLink",
       "button": true,
       "variant": "contained",
-      "icon": "backup",
-      "label": "backup now",
+      "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIj4NCiAgICA8cGF0aCBkPSJNMTkuMzUgMTAuMDRDMTguNjcgNi41OSAxNS42NCA0IDEyIDQgOS4xMSA0IDYuNiA1LjY0IDUuMzUgOC4wNCAyLjM0IDguMzYgMCAxMC45MSAwIDE0YzAgMy4zMSAyLjY5IDYgNiA2aDEzYzIuNzYgMCA1LTIuMjQgNS01IDAtMi42NC0yLjA1LTQuNzgtNC42NS00Ljk2ek0xNCAxM3Y0aC00di00SDdsNS01IDUgNWgtM3oiLz4NCjwvc3ZnPg0K",
+      "label": "Backup now",
       "newLine": true
     },
     "detectNow": {
@@ -110,6 +109,28 @@
       "label": "Create your own cronjob (for experts only)",
       "sm": 12
     },
-    // Todo Multi-CCU
+    "ccuMulti": {
+      "newLine": true,
+      "type": "checkbox",
+      "label": "Backup of several Systems",
+      "sm": 12
+    },
+    "ccuEvents": {
+      "newLine": true,
+      "type": "table",
+      "sm": 12,
+      "label": "CCU hosts",
+      "hidden": "!data.ccuMulti",
+      "encryptedAttributes": ["pass"],
+      "labelsInHeader": true,
+      "items": [
+        {"attr": "host", "type": "text", "title": "IP address", width: "25%"},
+        {"attr": "user", "type": "text", "title": "Username", width: "25%"},
+        {"attr": "pass", "type": "password", "title": "Password", width: "25%"},
+        {"attr": "nameSuffix", "type": "text", "title": "Name suffix", width: "25%"},
+        {"attr": "usehttps", "type": "checkbox", "title": "Use https", width: 50},
+        {"attr": "signedCertificates", "type": "checkbox", "title": "Allow only signed certificates", width: 50},
+      ]
+    }
   }
 }

@@ -268,7 +268,7 @@
     "activated storageoptions": "geactiveerde opslagopties",
     "automatically delete old Influx-database before restore": "automatisch de oude Influx-database verwijderen voordat deze wordt hersteld",
     "backup cronjob": "back-up cronjob",
-    "backup now": "nu backuppen",
+    "Backup now": "nu backuppen",
     "backup time": "back-up tijd",
     "close on ready": "dichtbij klaar",
     "connection type": "verbindingstype",

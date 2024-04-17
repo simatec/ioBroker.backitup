@@ -268,7 +268,7 @@
     "activated storageoptions": "激活的存储选项",
     "automatically delete old Influx-database before restore": "恢复前自动删除旧的 Influx 数据库",
     "backup cronjob": "备份",
-    "backup now": "立即备份",
+    "Backup now": "立即备份",
     "backup time": "备份时间",
     "close on ready": "关闭就绪",
     "connection type": "连接类型",

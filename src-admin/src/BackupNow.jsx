@@ -20,11 +20,11 @@ const styles = {
     },
     textTime: {
         display: 'inline-block',
-        width: 85,
+        width: 95,
     },
     textLevel: {
         display: 'inline-block',
-        width: 40,
+        width: 50,
     },
     'textLevel-ERROR': {
         color: 'red',
@@ -188,7 +188,7 @@ class BackupNow extends ConfigGeneric {
                             onChange={e => this.setState({ closeOnReady: e.target.checked })}
                         />
                     }
-                    label={I18n.t('close on ready')}
+                    label={I18n.t('Close on ready')}
                 />
                 <Button
                     variant="contained"
@@ -206,7 +206,12 @@ class BackupNow extends ConfigGeneric {
                 disabled={!this.props.alive || this.state.executing}
                 onClick={() => this.setState({
                     executionDialog: true,
-                    executionLog: [{ ts: BackupNow.getTime(), level: 'INFO', text: 'starting...', source: 'gui' }],
+                    executionLog: [{
+                        ts: BackupNow.getTime(),
+                        level: 'INFO',
+                        text: 'starting...',
+                        source: 'gui',
+                    }],
                     executing: true,
                 }, async () => {
                     this.lastExecutionLine = '';
@@ -218,7 +223,7 @@ class BackupNow extends ConfigGeneric {
                 style={this.props.style}
                 endIcon={<CloudUpload />}
             >
-                {this.props.schema.label ? I18n.t(this.props.schema.label) : I18n.t('backup now')}
+                {this.props.schema.label ? I18n.t(this.props.schema.label) : I18n.t('Backup now')}
             </Button>
             {this.renderExecutionDialog()}
         </>;

@@ -268,7 +268,7 @@
     "activated storageoptions": "aktywowane opcje przechowywania",
     "automatically delete old Influx-database before restore": "automatycznie usuń starą bazę danych Influx przed przywróceniem",
     "backup cronjob": "backup cronjob",
-    "backup now": "kopia zapasowa teraz",
+    "Backup now": "kopia zapasowa teraz",
     "backup time": "czas podtrzymania",
     "close on ready": "gotowe do użycia",
     "connection type": "Typ polaczenia",

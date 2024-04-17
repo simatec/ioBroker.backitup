@@ -89,9 +89,8 @@ function getIcon(type) {
     return <img src={ICONS[type]} style={{ width: 24, height: 24, marginRight: 8 }} alt={type} />;
 }
 
-
 function doRestore(socket, data) {
-    if (downloadPanel) {
+/*    if (downloadPanel) {
         $('.cloudRestore').show();
     } else {
         $('.cloudRestore').hide();
@@ -132,6 +131,7 @@ function doRestore(socket, data) {
         $('#tab-restore').find('.do-restore').removeClass('disabled').show();
         $('#tab-restore').find('.do-download').removeClass('disabled').show();
     });
+ */
 }
 
 const GetBackups = props => {
