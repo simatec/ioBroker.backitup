@@ -30,6 +30,10 @@ import { I18n } from '@iobroker/adapter-react-v5';
 import CCU from '../assets/ccu.png';
 import ioBrokerIcon from '../assets/iobroker.png';
 import historyIcon from '../assets/history.png';
+import influxdbIcon from '../assets/influxdb.png';
+import zigbeeIcon from '../assets/zigbee.png';
+import grafanaIcon from '../assets/grafana.png';
+import zigbee2mqttIcon from '../assets/zigbee2mqtt.png';
 import javascriptIcon from '../assets/javascript.png';
 
 function parseSize(bytes) {
@@ -70,6 +74,10 @@ const ICONS = {
     ccu: CCU,
     javascripts: javascriptIcon,
     nodered: SiNodered,
+    influxDB: influxdbIcon,
+    zigbee: zigbeeIcon,
+    zigbee2mqtt: zigbee2mqttIcon,
+    grafana: grafanaIcon,
 };
 
 function getIcon(type) {
@@ -138,7 +146,7 @@ const GetBackups = props => {
                 >
                     <AccordionSummary expandIcon={<ExpandMore />}>
                         {getIcon(location)}
-                        <span style={{ fontWeight: 'bold', fontSize: 16 }}>{I18n.t(location)}</span>
+                        <span style={{ fontWeight: 'bold', fontSize: 16 }}>{I18n.t(location).toUpperCase()}</span>
                     </AccordionSummary>
                     <AccordionDetails>
                         {Object.keys(backups.data[location]).map(object =>
@@ -160,20 +168,20 @@ const GetBackups = props => {
                             >
                                 <AccordionSummary expandIcon={<ExpandMore />}>
                                     {getIcon(object)}
-                                    <span style={{ fontWeight: 'bold', fontSize: 14 }}>{I18n.t(object)}</span>
+                                    <span style={{ fontWeight: 'bold', fontSize: 14 }}>{I18n.t(object).toUpperCase()}</span>
                                 </AccordionSummary>
                                 <AccordionDetails>
                                     <Table size="small">
                                         <TableBody>
                                             {backups.data[location][object].map((backup, index) => <TableRow key={index}>
                                                 <TableCell style={{ width: 200, whiteSpace: 'nowrap', paddingRight: 0 }}>
-                                                    {I18n.t('backup time')}
+                                                    {I18n.t('Backup time')}
                                                     :
                                                     <span style={{ marginLeft: 8 }}>{parseName(backup.name)}</span>
                                                 </TableCell>
                                                 <TableCell style={{ width: 'calc(100% - 320px)', whiteSpace: 'nowrap', paddingleft: 0 }}>
                                                     <span style={{ marginRight: 8 }}>|</span>
-                                                    {I18n.t('filesize')}
+                                                    {I18n.t('File size')}
                                                     :
                                                     <span style={{ marginLeft: 8 }}>{parseSize(backup.size)}</span>
                                                 </TableCell>

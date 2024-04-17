@@ -29,6 +29,10 @@ import CCU from '../assets/ccu.png';
 import ioBrokerIcon from '../assets/iobroker.png';
 import historyIcon from '../assets/history.png';
 import javascriptIcon from '../assets/javascript.png';
+import influxdbIcon from '../assets/influxdb.png';
+import zigbeeIcon from '../assets/zigbee.png';
+import grafanaIcon from '../assets/grafana.png';
+import zigbee2mqttIcon from '../assets/zigbee2mqtt.png';
 
 function parseSize(bytes) {
     if (bytes > 1024 * 1024 * 512) {
@@ -68,6 +72,10 @@ const ICONS = {
     ccu: CCU,
     javascripts: javascriptIcon,
     nodered: SiNodered,
+    influxDB: influxdbIcon,
+    zigbee: zigbeeIcon,
+    zigbee2mqtt: zigbee2mqttIcon,
+    grafana: grafanaIcon,
 };
 
 function getIcon(type) {
@@ -194,7 +202,7 @@ const GetBackups = props => {
                 >
                     <AccordionSummary expandIcon={<ExpandMore />}>
                         {getIcon(location)}
-                        <span style={{ fontWeight: 'bold', fontSize: 16 }}>{I18n.t(location)}</span>
+                        <span style={{ fontWeight: 'bold', fontSize: 16 }}>{I18n.t(location).toUpperCase()}</span>
                     </AccordionSummary>
                     <AccordionDetails>
                         {Object.keys(backups.data[location]).map(object =>
@@ -216,7 +224,7 @@ const GetBackups = props => {
                             >
                                 <AccordionSummary expandIcon={<ExpandMore />}>
                                     {getIcon(object)}
-                                    <span style={{ fontWeight: 'bold', fontSize: 14 }}>{I18n.t(object)}</span>
+                                    <span style={{ fontWeight: 'bold', fontSize: 14 }}>{I18n.t(object).toUpperCase()}</span>
                                 </AccordionSummary>
                                 <AccordionDetails>
                                     <Table size="small">
@@ -228,7 +236,7 @@ const GetBackups = props => {
                                             </TableCell>
                                             <TableCell style={{ width: 'calc(100% - 320px)', whiteSpace: 'nowrap', paddingleft: 0 }}>
                                                 <span style={{ marginRight: 8 }}>|</span>
-                                                {I18n.t('filesize')}
+                                                {I18n.t('File size')}
                                                 :
                                                 <span style={{ marginLeft: 8 }}>{parseSize(backup.size)}</span>
                                             </TableCell>
