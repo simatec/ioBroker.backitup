@@ -62,8 +62,8 @@
     "telegramInstance": {
       "hidden": "data.notificationsType !== 'Telegram'",
       "sm": 12,
-      "md": 8,
-      "lg": 4,
+      "md": 12,
+      "lg": 8,
       "type": "custom",
       "i18n": true,
       "url": "custom/customComponents.js",
@@ -71,18 +71,6 @@
       "adapter": "telegram",
       "label": "Telegram instance",
       "newLine": true
-    },
-    "telegramUser": {
-      "hidden": "data.notificationsType !== 'Telegram'",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "type": "custom",
-      "i18n": true,
-      "url": "custom/customComponents.js",
-      "name": "ConfigCustomBackItUpSet/Components/Instance",
-      "adapter": "telegram",
-      "label": "Telegram Receiver"
     },
     "telegramNoticeType": {
       "hidden": "data.notificationsType !== 'Telegram'",
@@ -231,6 +219,307 @@
     },
     "gotifyOnlyError": {
       "hidden": "data.notificationsType !== 'Gotify'",
+      "type": "checkbox",
+      "label": "Notification only on errors",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "newLine": true
+    },
+    "signalInstance": {
+      "hidden": "data.notificationsType !== 'Signal'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "custom",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/Instance",
+      "adapter": "signal-cmb",
+      "label": "Signal instance",
+      "newLine": true
+    },
+    "signalNoticeType": {
+      "hidden": "data.notificationsType !== 'Signal'",
+			"type": "select",
+			"label": "Notification Style",
+			"sm": 12,
+			"md": 8,
+			"lg": 4,
+			"help": "Notification Style",
+			"options": [
+				{
+					"label": "Long Notifications",
+					"value": "longSignalNotice"
+				},
+				{
+					"label": "Short Notifications",
+					"value": "shortSignalNotice"
+				}
+			],
+		},
+    "signalWaitToSend": {
+      "hidden": "data.notificationsType !== 'Signal'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "min": 0,
+      "max": 20,
+      "type": "number",
+      "label": "seconds",
+      "help": "Waiting for the send (seconds)",
+      "newLine": true
+    },
+    "signalOnlyError": {
+      "hidden": "data.notificationsType !== 'Signal'",
+      "type": "checkbox",
+      "label": "Notification only on errors",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "newLine": true
+    },
+    "matrixInstance": {
+      "hidden": "data.notificationsType !== 'Matrix'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "custom",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/Instance",
+      "adapter": "matrix-org",
+      "label": "Matrix instance",
+      "newLine": true
+    },
+    "matrixNoticeType": {
+      "hidden": "data.notificationsType !== 'Matrix'",
+			"type": "select",
+			"label": "Notification Style",
+			"sm": 12,
+			"md": 8,
+			"lg": 4,
+			"help": "Notification Style",
+			"options": [
+				{
+					"label": "Long Notifications",
+					"value": "longMatrixNotice"
+				},
+				{
+					"label": "Short Notifications",
+					"value": "shortMatrixNotice"
+				}
+			],
+		},
+    "matrixWaitToSend": {
+      "hidden": "data.notificationsType !== 'Matrix'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "min": 0,
+      "max": 20,
+      "type": "number",
+      "label": "seconds",
+      "help": "Waiting for the send (seconds)",
+      "newLine": true
+    },
+    "matrixOnlyError": {
+      "hidden": "data.notificationsType !== 'Matrix'",
+      "type": "checkbox",
+      "label": "Notification only on errors",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "newLine": true
+    },
+     "pushoverInstance": {
+      "hidden": "data.notificationsType !== 'Pushover'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "custom",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/Instance",
+      "adapter": "pushover",
+      "label": "Pushover instance",
+      "newLine": true
+    },
+    "pushoverNoticeType": {
+      "hidden": "data.notificationsType !== 'Pushover'",
+			"type": "select",
+			"label": "Notification Style",
+			"sm": 12,
+			"md": 8,
+			"lg": 4,
+			"help": "Notification Style",
+			"options": [
+				{
+					"label": "Long Notifications",
+					"value": "longPushoverNotice"
+				},
+				{
+					"label": "Short Notifications",
+					"value": "shortPushoverNotice"
+				}
+			],
+		},
+    "pushoverWaitToSend": {
+      "hidden": "data.notificationsType !== 'Pushover'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "min": 0,
+      "max": 20,
+      "type": "number",
+      "label": "seconds",
+      "help": "Waiting for the send (seconds)",
+      "newLine": true
+    },
+    "pushoverDeviceID": {
+      "hidden": "data.notificationsType !== 'Pushover'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "device ID (optional)",
+      "help": "device ID (optional)"
+    },
+    "pushoverSilentNotice": {
+      "hidden": "data.notificationsType !== 'Pushover'",
+      "type": "checkbox",
+      "label": "Silent Notice",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "newLine": true
+    },
+    "pushoverOnlyError": {
+      "hidden": "data.notificationsType !== 'Pushover'",
+      "type": "checkbox",
+      "label": "Notification only on errors",
+      "sm": 12,
+      "md": 8,
+      "lg": 4
+    },
+    "emailReceiver": {
+      "hidden": "data.notificationsType !== 'E-Mail'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "email receiver",
+      "help": "email receiver",
+      "newLine": true
+    },
+    "emailSender": {
+      "hidden": "data.notificationsType !== 'E-Mail'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "email sender",
+      "help": "email sender"
+    },
+    "emailInstance": {
+      "hidden": "data.notificationsType !== 'E-Mail'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "custom",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/Instance",
+      "adapter": "email",
+      "label": "email instance",
+      "newLine": true
+    },
+    "emailNoticeType": {
+      "hidden": "data.notificationsType !== 'E-Mail'",
+			"type": "select",
+			"label": "Notification Style",
+			"sm": 12,
+			"md": 8,
+			"lg": 4,
+			"help": "Notification Style",
+			"options": [
+				{
+					"label": "Long Notifications",
+					"value": "longEmailNotice"
+				},
+				{
+					"label": "Short Notifications",
+					"value": "shortEmailNotice"
+				}
+			],
+		},
+    "emailWaitToSend": {
+      "hidden": "data.notificationsType !== 'E-Mail'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "min": 0,
+      "max": 20,
+      "type": "number",
+      "label": "seconds",
+      "help": "Waiting for the send (seconds)",
+      "newLine": true
+    },
+    "emailOnlyError": {
+      "hidden": "data.notificationsType !== 'E-Mail'",
+      "type": "checkbox",
+      "label": "Notification only on errors",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "newLine": true
+    },
+    "discordInstance": {
+      "hidden": "data.notificationsType !== 'Discord'",
+      "sm": 12,
+      "md": 12,
+      "lg": 8,
+      "type": "custom",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/Instance",
+      "adapter": "discord",
+      "label": "Discord instance",
+      "newLine": true
+    },
+    "discordNoticeType": {
+      "hidden": "data.notificationsType !== 'Discord'",
+			"type": "select",
+			"label": "Notification Style",
+			"sm": 12,
+			"md": 8,
+			"lg": 4,
+			"help": "Notification Style",
+			"options": [
+				{
+					"label": "Long Notifications",
+					"value": "longDiscordNotice"
+				},
+				{
+					"label": "Short Notifications",
+					"value": "shortDiscordNotice"
+				}
+			],
+		},
+    "discordWaitToSend": {
+      "hidden": "data.notificationsType !== 'Discord'",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "min": 0,
+      "max": 20,
+      "type": "number",
+      "label": "seconds",
+      "help": "Waiting for the send (seconds)",
+      "newLine": true
+    },
+    "discordOnlyError": {
+      "hidden": "data.notificationsType !== 'Discord'",
       "type": "checkbox",
       "label": "Notification only on errors",
       "sm": 12,

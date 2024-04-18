@@ -98,7 +98,7 @@ class Instance extends BaseField {
         const itemTarget = this.state.targets?.find(it => it.value === (this.state.target || ''));
 
         return <div style={{ width: '100%' }}>
-            {this.state.instances ? <FormControl style={{ width: 'calc(50% - 5px)', marginRight: 10 }} variant="standard">
+            {this.state.instances ? <FormControl style={this.props.schema.adapter === 'telegram' || this.props.schema.adapter === 'discord' ? { width: 'calc(50% - 5px)', marginRight: 10 } : { width: '100%', marginRight: 10 }} variant="standard">
                 <InputLabel>{I18n.t(this.props.schema.label)}</InputLabel>
                 <Select
                     variant="standard"
@@ -115,7 +115,8 @@ class Instance extends BaseField {
                 </Select>
                 {this.props.schema.help ? <FormHelperText>{this.renderHelp(this.props.schema.help, this.props.schema.helpLink, this.props.schema.noTranslation)}</FormHelperText> : null}
             </FormControl> : null}
-            {this.state.targets ? <FormControl style={{ width: 'calc(50% - 5px)' }} variant="standard">
+            
+            {this.state.targets && (this.props.schema.adapter === 'telegram' || this.props.schema.adapter === 'discord') ? <FormControl style={{ width: 'calc(50% - 5px)' }} variant="standard">
                 <InputLabel>{I18n.t(this.props.schema.adapter === 'telegram' ? 'Telegram Receiver' : 'Discord receiver')}</InputLabel>
                 <Select
                     disabled={!this.state.instance}
@@ -130,7 +131,7 @@ class Instance extends BaseField {
                     </MenuItem>)}
                 </Select>
                 {this.props.schema.help ? <FormHelperText>{this.renderHelp(this.props.schema.help, this.props.schema.helpLink, this.props.schema.noTranslation)}</FormHelperText> : null}
-            </FormControl> : <TextField
+            </FormControl> : this.props.schema.adapter === 'telegram' || this.props.schema.adapter === 'discord' ? <TextField
                 style={{ width: 'calc(50% - 5px)' }}
                 variant="standard"
                 disabled={!this.state.instance}
@@ -138,7 +139,7 @@ class Instance extends BaseField {
                 value={this.state.target}
                 onChange={e => this.setState({ target: e.target.value }, () =>
                     this.onChange(this.props.schema.adapter === 'telegram' ? 'telegramUser' : 'discordTarget', this.state.target))}
-            />}
+            /> : null}
         </div>;
     }
 }

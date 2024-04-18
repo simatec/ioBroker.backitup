@@ -130,12 +130,12 @@
       "encryptedAttributes": ["pass"],
       "labelsInHeader": true,
       "items": [
-        {"attr": "host", "type": "text", "title": "IP address", width: "25%"},
-        {"attr": "user", "type": "text", "title": "Username", width: "25%"},
-        {"attr": "pass", "type": "password", "title": "Password", width: "25%"},
-        {"attr": "nameSuffix", "type": "text", "title": "Name suffix", width: "25%"},
-        {"attr": "usehttps", "type": "checkbox", "title": "Use https", width: 50},
-        {"attr": "signedCertificates", "type": "checkbox", "title": "Allow only signed certificates", width: 50},
+        {"attr": "host", "type": "text", "title": "IP address", width: "20%"},
+        {"attr": "user", "type": "text", "title": "Username", width: "20%"},
+        {"attr": "pass", "type": "password", "title": "password", width: "20%"},
+        {"attr": "nameSuffix", "type": "text", "title": "Name suffix", width: "20%"},
+        {"attr": "usehttps", "type": "checkbox", "title": "use https", width: "5%"},
+        {"attr": "signedCertificates", "type": "checkbox", "title": "Allow only signed certificates", width: "10%"},
       ]
     }
   }
