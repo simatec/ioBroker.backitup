@@ -59,6 +59,11 @@
 			],
 			"newLine": true
 		},
+    "_helpLine1": {
+      "newLine": true,
+      "type": "divider",
+      "color": "primary"
+    },
     "telegramInstance": {
       "hidden": "data.notificationsType !== 'Telegram'",
       "sm": 12,

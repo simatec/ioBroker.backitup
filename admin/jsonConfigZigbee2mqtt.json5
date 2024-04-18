@@ -12,8 +12,8 @@
     },
     "_header": {
       "type": "header",
-      "size": 4,
-      "text": "Zigbee2MQTTe",
+      "size": 3,
+      "text": "Zigbee2MQTT",
       "sm": 12,
     },
     "zigbee2mqttPath": {

@@ -27,6 +27,11 @@
       "label": "Backup now",
       "newLine": true
     },
+    "_helpLine1": {
+      "newLine": true,
+      "type": "divider",
+      "color": "primary"
+    },
     "minimalTime": {
       // Todo TimePicker only HH:mm for native minimalTime
       "hidden": "data.iobrokerCron",
@@ -54,6 +59,7 @@
     },
     "minimalEveryXDays": {
       "hidden": "data.iobrokerCron",
+      "newLine": true,
       "sm": 9,
       "md": 6,
       "lg": 3,
