@@ -206,8 +206,8 @@
     "readme": "https://github.com/simatec/ioBroker.backitup/blob/master/README.md",
     "loglevel": "info",
     "type": "general",
-    "license": "MIT",
     "licenseInformation": {
+      "license": "MIT",
       "type": "free"
     },
     "plugins": {
