@@ -118,6 +118,7 @@
       "md": 6,
       "lg": 3,
       "type": "password",
+			"visible": true,
       "label": "password",
       "help": "Password of the CCU"
     },
