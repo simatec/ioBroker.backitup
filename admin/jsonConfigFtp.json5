@@ -12,10 +12,106 @@
     },
     "_header": {
       "type": "header",
-      "size": 4,
+      "size": 3,
       "text": "FTP",
       "sm": 12,
     },
-
+    "ftpHost": {
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "Host",
+      "help": "IP adress or hostname",
+      "newLine": true
+    },
+    "ftpPort": {
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "min": 1,
+      "max": 65535,
+      "type": "number",
+      "label": "Port",
+      "help": "Port"
+    },
+    "ftpUser": {
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "Username",
+      "help": "Username",
+      "newLine": true
+    },
+    "ftpPassword": {
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "password",
+			"visible": true,
+      "label": "password",
+      "help": "Password"
+    },
+    "ftpDeleteOldBackup": {
+      "type": "checkbox",
+      "label": "Delete old FTP-Backups",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "newLine": true
+    },
+    "ftpSecure": {
+      "type": "checkbox",
+      "label": "Secure FTP connection (explicit TLS)",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+    },
+    "ftpOwnDir": {
+      "type": "checkbox",
+      "label": "Extra path for backup types",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "newLine": true
+    },
+    "ftpSignedCertificates": {
+      "hidden": "!data.ftpSecure",
+      "type": "checkbox",
+      "label": "Allow only signed certificates",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+    },
+    "ftpMinimalDir": {
+      "hidden": "!data.ftpOwnDir",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "Path for iobroker backup",
+      "help": "Path for iobroker backup",
+      "newLine": true
+    },
+    "ftpCcuDir": {
+      "hidden": "!data.ftpOwnDir",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "Path for CCU backup",
+      "help": "Path for CCU backup"
+    },
+    "ftpDir": {
+      "hidden": "data.ftpOwnDir",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "path",
+      "help": "path",
+      "newLine": true
+    },
   }
 }
