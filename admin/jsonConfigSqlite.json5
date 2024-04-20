@@ -12,10 +12,44 @@
     },
     "_header": {
       "type": "header",
-      "size": 4,
+      "size": 2,
       "text": "sqlite3 Backup",
       "sm": 12,
     },
-
+    "detectNow": {
+      "type": "custom",
+      "button": true,
+      "variant": "contained",
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/DetectConfig",
+      "adapter": "sqlite",
+      "icon": "search",
+      "label": "detect config",
+      "sm": 9,
+      "md": 6,
+      "lg": 3
+    },
+    "_helpLine1": {
+      "newLine": true,
+      "type": "divider",
+      "color": "primary"
+    },
+    "sqlitePath": {
+      "sm": 12,
+      "md": 9,
+      "lg": 6,
+      "type": "text",
+      "label": "sqlite3 file path",
+      "help": "sqlite3 file path",
+      "newLine": true
+    },
+    "sqliteDumpExe": {
+      "sm": 12,
+      "md": 9,
+      "lg": 6,
+      "type": "text",
+      "label": "Full path",
+      "help": "Path with filename to sqlite3 executable (leave empty to use default)",
+    }
   }
 }

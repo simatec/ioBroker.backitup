@@ -12,7 +12,7 @@
     },
     "_header": {
       "type": "header",
-      "size": 3,
+      "size": 2,
       "text": "Notifications",
       "sm": 12,
     },

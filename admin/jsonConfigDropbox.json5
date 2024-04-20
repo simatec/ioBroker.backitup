@@ -12,7 +12,7 @@
     },
     "_header": {
       "type": "header",
-      "size": 4,
+      "size": 2,
       "text": "Dropbox",
       "sm": 12,
     },

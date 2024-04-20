@@ -12,10 +12,120 @@
     },
     "_header": {
       "type": "header",
-      "size": 4,
+      "size": 2,
       "text": "Postgresql Backup",
       "sm": 12,
     },
-
+    "detectNow": {
+      "type": "custom",
+      "hidden": "data.pgSqlMulti",
+      "button": true,
+      "variant": "contained",
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/DetectConfig",
+      "adapter": "pgSql",
+      "icon": "search",
+      "label": "detect config",
+      "sm": 9,
+      "md": 6,
+      "lg": 3
+    },
+    "_helpLine1": {
+      "hidden": "data.pgSqlMulti",
+      "newLine": true,
+      "type": "divider",
+      "color": "primary"
+    },
+    "pgSqlHost": {
+      "hidden": "data.pgSqlMulti",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "Host",
+      "help": "Postgresql Hostname",
+      "newLine": true
+    },
+    "pgSqlPort": {
+      "hidden": "data.pgSqlMulti",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "min": 1,
+      "max": 65535,
+      "type": "number",
+      "label": "Port",
+      "help": "Postgresql port"
+    },
+    "pgSqlName": {
+      "hidden": "data.pgSqlMulti",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "name",
+      "help": "Postgresql database name"
+    },
+    "pgSqlUser": {
+      "hidden": "data.pgSqlMulti",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "Postgresql username",
+      "help": "Postgresql username",
+      "newLine": true
+    },
+    "pgSqlPassword": {
+      "hidden": "data.pgSqlMulti",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "password",
+			"visible": true,
+      "label": "password",
+      "help": "Postgresql password"
+    },
+    "pgSqlDumpExe": {
+      "hidden": "data.pgSqlMulti",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "Full path",
+      "help": "Path with filename to postgresql executable (leave empty to use default)",
+    },
+    "pgSqlMulti": {
+      "type": "checkbox",
+      "label": "Backup of several Systems",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "newLine": true
+    },
+    "_helpLine2": {
+      "hidden": "!data.pgSqlMulti",
+      "newLine": true,
+      "type": "divider",
+      "color": "primary"
+    },
+    "pgSqlEvents": {
+      "newLine": true,
+      "type": "table",
+      "sm": 12,
+      "label": "Postgresql hosts",
+      "hidden": "!data.pgSqlMulti",
+      "encryptedAttributes": ["pass"],
+      "labelsInHeader": true,
+      "items": [
+        {"attr": "host", "type": "text", "title": "Host", width: "15%"},
+        {"attr": "port", "type": "number", "title": "port", width: "7%"},
+        {"attr": "user", "type": "text", "title": "Username", width: "15%"},
+        {"attr": "pass", "type": "password", "title": "password", width: "15%"},
+        {"attr": "dbName", "type": "text", "title": "Postgresql database name", width: "15%"},
+        {"attr": "nameSuffix", "type": "text", "title": "Name suffix", width: "15%"},
+        {"attr": "exe", "type": "text", "title": "Full path", width: "18%"},
+      ]
+    }
   }
 }

@@ -14,7 +14,7 @@
       type: "header",
       text: "What to back up",
       sm: 12,
-      size: 3
+      size: 2
     },
     "minimalEnabled": {
       "newLine": true,
@@ -236,7 +236,7 @@
       type: "header",
       text: "Storage location",
       sm: 12,
-      size: 3,
+      size: 2,
       color: "#fff"
     },
     "cifsEnabled": {

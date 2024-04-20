@@ -12,7 +12,7 @@
     },
     "_header": {
       "type": "header",
-      "size": 4,
+      "size": 2,
       "text": "Additional setting",
       "sm": 12,
     },
@@ -88,7 +88,7 @@
     },
     "_header1": {
       "type": "header",
-      "size": 4,
+      "size": 2,
       "text": "Multihost settings",
       "sm": 12,
     },

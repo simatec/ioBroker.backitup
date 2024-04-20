@@ -90,7 +90,7 @@ class BaseField extends ConfigGeneric {
         return { changed, found };
     }
 
-    async fetchMySqlConfig(isInitial, data) {
+    async fetchMySqlConfig(data) {
         const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
 
         let found = false;
@@ -146,7 +146,7 @@ class BaseField extends ConfigGeneric {
         return { changed, found };
     }
 
-    async fetchSqliteConfig(isInitial, data) {
+    async fetchSqliteConfig(data) {
         const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
         let found = false;
         let changed = false;
@@ -185,7 +185,7 @@ class BaseField extends ConfigGeneric {
         return { changed, found };
     }
 
-    async fetchPgSqlConfig(isInitial, data) {
+    async fetchPgSqlConfig(data) {
         const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
 
         let found = false;
@@ -241,7 +241,7 @@ class BaseField extends ConfigGeneric {
         return { changed, found };
     }
 
-    async fetchInfluxDBConfig(isInitial, data) {
+    async fetchInfluxDBConfig(data) {
         const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.influxdb.', 'system.adapter.influxdb.\u9999'));
         let found = false;
         let changed = false;
@@ -295,7 +295,7 @@ class BaseField extends ConfigGeneric {
         return { changed, found };
     }
 
-    async fetchHistoryConfig(isInitial, data) {
+    async fetchHistoryConfig(data) {
         const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.history.', 'system.adapter.history.\u9999'));
 
         let storeDir = '';
