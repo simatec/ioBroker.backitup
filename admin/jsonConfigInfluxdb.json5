@@ -180,6 +180,21 @@
         {"attr": "protocol", "type": "select", "options": [ { "label": "http", "value": "http" }, { "label": "https", "value": "https" } ], "title": "Protocol", width: "10%"},
         {"attr": "dbversion", "type": "select", "options": [ { "label": "1.x", "value": "1.x" }, { "label": "2.x", "value": "2.x" } ], "title": "Version", width: "10%"}
       ]
+    },
+    "_helpText1": {
+      "type": "staticText",
+      "text": "Configuring remote connections. For detailed information please read the documentation of InfluxDB!",
+      "sm": 12,
+      "newLine": true
+    },
+    "_helpLink": {
+      "type": "staticLink",
+      "button": true,
+      "variant": "outlined",
+      "icon": "info",
+      "label": " *** Open InfluxDB Documentation ***",
+      "href": "https://docs.influxdata.com/influxdb/v1.8/administration/backup_and_restore/#configuring-remote-connections",
+      "newLine": true
     }
   }
 }
