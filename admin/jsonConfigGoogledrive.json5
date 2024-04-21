@@ -16,6 +16,58 @@
       "text": "Google Drive",
       "sm": 12,
     },
-
+    "_googleDrive": {
+      "newLine": true,
+      "type": "custom",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/GoogleDrive",
+      "value": false,
+      "sm": 12
+    },
+    "googledriveDeleteOldBackup": {
+      "type": "checkbox",
+      "label": "Delete old Google Drive-Backups",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "newLine": true
+    },
+    "googledriveOwnDir": {
+      "type": "checkbox",
+      "label": "Extra path for backup types",
+      "sm": 12,
+      "md": 8,
+      "lg": 4
+    },
+    "googledriveMinimalDir": {
+      "hidden": "!data.googledriveOwnDir",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "Google Drive Path for iobroker backup",
+      "help": "Google Drive Path for iobroker backup",
+      "newLine": true
+    },
+    "googledriveCcuDir": {
+      "hidden": "!data.googledriveOwnDir",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "Google Drive Path for CCU backup",
+      "help": "Google Drive Path for CCU backup"
+    },
+    "googledriveDir": {
+      "hidden": "data.googledriveOwnDir",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "path",
+      "help": "Google Drive path",
+      "newLine": true
+    },
   }
 }

@@ -13,7 +13,7 @@ class CheckAllConfigInvisible extends BaseField {
     checkConfiguration() {
         if (this.props.alive && !this.storedChecked) {
             this.storedChecked = true;
-            this.props.socket.sendTo(null, 'getFileSystemInfo', null)
+            this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'getFileSystemInfo', null)
                 .then(result => {
                     if (result?.diskState && result.storage && result.diskFree) {
                         if (result.diskState === 'warn' && result.storage === 'local') {
@@ -23,7 +23,7 @@ class CheckAllConfigInvisible extends BaseField {
                         }
                     }
                 });
-            this.props.socket.sendTo(null, 'getSystemInfo', null)
+            this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'getSystemInfo', null)
                 .then(async result => {
                     const data = { ...this.props.data };
                     let changed = false;
