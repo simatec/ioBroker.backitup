@@ -8,9 +8,9 @@ import { ConfigGeneric, i18n as I18n } from '@iobroker/adapter-react-v5';
 
 class GoogleDrive extends ConfigGeneric {
     renderItem() {
-        return <div style={{ width: '100%' }}>
+        return <div style={{ width: '100%', margin: '0 0 1rem 0' }}>
             <Button
-                disabled={!this.props.alive || this.state.running}
+                disabled={this.state.googleDriveUrl || !this.props.alive || this.state.running}
                 endIcon={<CloudUpload />}
                 variant="contained"
                 onClick={() => this.setState({ running: true }, async () => {
@@ -20,13 +20,14 @@ class GoogleDrive extends ConfigGeneric {
             >
                 {I18n.t(
                     this.props.data.googledriveAccessTokens ?
-                        'Renew google drive access' :
-                        'Get google drive access',
+                        'Renew Google Drive Access' :
+                        'Get Google Drive Access',
                 )}
             </Button>
             {this.state.googleDriveUrl ? <>
-                <div style={{ width: '100%' }}>
+                <div style={{ width: '100%', margin: '1rem 0 1rem 0' }}>
                     {`${I18n.t('Authorize this app by visiting this url: ')}`}
+                    <br/>
                     <a
                         target="_blank"
                         href={this.state.googleDriveUrl}
@@ -38,7 +39,7 @@ class GoogleDrive extends ConfigGeneric {
                 <TextField
                     label={I18n.t('Enter the code from that page here')}
                     variant="standard"
-                    value={this.props.data.googledriveAccessTokens || ''}
+                    value={''}
                     onChange={e => this.props.onChange({ ...this.props.data, googledriveAccessTokens: e.target.value })}
                     fullWidth
                 />
