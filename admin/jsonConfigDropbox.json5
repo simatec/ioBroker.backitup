@@ -16,6 +16,88 @@
       "text": "Dropbox",
       "sm": 12,
     },
-
+    "dropboxTokenType": {
+			"type": "select",
+			"label": "Dropbox-API Type",
+			"sm": 12,
+			"md": 8,
+			"lg": 4,
+			"help": "Dropbox-API Type",
+			"options": [
+				{
+					"label": "Default Dropbox-API App for BackItUp",
+					"value": "default"
+				},
+				{
+					"label": "custom app with long-lived tokens",
+					"value": "custom"
+				}
+			],
+      "newLine": true
+		},
+    "_dropbox": {
+      "hidden": "data.dropboxTokenType == 'custom'",
+      "newLine": true,
+      "type": "custom",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/Dropbox",
+      "value": false,
+      "sm": 12
+    },
+    "dropboxAccessToken": {
+      "hidden": "data.dropboxTokenType == 'default'",
+      "sm": 12,
+      "type": "password",
+			"visible": true,
+      "label": "Access token",
+      "help": "dropbox.com",
+      "helpLink": "https://www.dropbox.com/developers/apps",
+      "newLine": true
+    },
+     "dropboxDeleteOldBackup": {
+      "type": "checkbox",
+      "label": "Delete old Dropbox-Backups",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "newLine": true
+    },
+    "dropboxOwnDir": {
+      "type": "checkbox",
+      "label": "Extra path for backup types",
+      "sm": 12,
+      "md": 8,
+      "lg": 4
+    },
+    "dropboxMinimalDir": {
+      "hidden": "!data.dropboxOwnDir",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "Dropbox Path for iobroker backup",
+      "help": "Dropbox Path for iobroker backup",
+      "newLine": true
+    },
+    "dropboxCcuDir": {
+      "hidden": "!data.dropboxOwnDir",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "Dropbox Path for CCU backup",
+      "help": "Dropbox Path for CCU backup"
+    },
+    "dropboxDir": {
+      "hidden": "data.dropboxOwnDir",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "path",
+      "help": "Dropbox path",
+      "newLine": true
+    }
   }
 }

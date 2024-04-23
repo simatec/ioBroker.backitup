@@ -4,6 +4,7 @@ import DetectConfig from './DetectConfig';
 import CheckConfigInvisible from './CheckConfigInvisible';
 import GoogleDrive from './GoogleDrive';
 import Onedrive from './Onedrive';
+import Dropbox from './Dropbox';
 import Instance from './Instance';
 import RestoreBackup from './RestoreBackup';
 import CheckAllConfigInvisible from './CheckAllConfigInvisible';
@@ -14,6 +15,7 @@ export default {
     DetectConfig,
     GoogleDrive,
     Onedrive,
+    Dropbox,
     CheckConfigInvisible,
     Instance,
     RestoreBackup,
