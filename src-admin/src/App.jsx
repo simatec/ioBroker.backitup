@@ -12,6 +12,7 @@ import AdapterExist from './AdapterExist';
 import BackupNow from './BackupNow';
 import DetectConfig from './DetectConfig';
 import GoogleDrive from './GoogleDrive';
+import Onedrive from './Onedrive';
 import CheckConfigInvisible from './CheckConfigInvisible';
 import Instance from './Instance';
 import RestoreBackup from './RestoreBackup';
@@ -157,6 +158,24 @@ class App extends GenericApp {
                             instance={0}
                             schema={{
                                 name: 'ConfigCustomBackItUpSet/Components/GoogleDrive',
+                                type: 'custom',
+                            }}
+                            onChange={data => {
+                                this.setState({ data });
+                            }}
+                            adapterName="backitup"
+                            common={this.common}
+                        />
+                        <Onedrive
+                            socket={this.socket}
+                            themeType={this.state.themeType}
+                            themeName={this.state.themeName}
+                            attr="myCustomAttribute"
+                            data={this.state.data}
+                            onError={() => {}}
+                            instance={0}
+                            schema={{
+                                name: 'ConfigCustomBackItUpSet/Components/Onedrive',
                                 type: 'custom',
                             }}
                             onChange={data => {
