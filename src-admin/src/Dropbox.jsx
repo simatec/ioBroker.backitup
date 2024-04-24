@@ -27,7 +27,7 @@ class Dropbox extends ConfigGeneric {
                 variant="contained"
                 onClick={() => this.setState({ running: true }, async () => {
                     const result = await this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'authDropbox', null);
-                    this.setState({ dropboxUrl: result.url, running: false });
+                    this.setState({ dropboxUrl: result.url, codeChallenge: result.code_challenge, running: false });
                     this.props.onChange({ ...this.props.data, dropboxCodeChallenge: result.code_challenge });
                 })}
             >
@@ -43,10 +43,10 @@ class Dropbox extends ConfigGeneric {
                     <br/>
                     <a
                         target="_blank"
-                        href={this.state.dropboxUrl}
+                        href={`${this.state.dropboxUrl}&code_challenge=${this.state.dropboxCodeChallenge}`}
                         rel="noreferrer"
                     >
-                        {this.state.dropboxUrl}
+                        {`${this.state.dropboxUrl}&code_challenge=${this.state.dropboxCodeChallenge}`}
                     </a>
                 </div>
                 <TextField
