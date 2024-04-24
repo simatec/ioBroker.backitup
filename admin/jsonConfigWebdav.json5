@@ -16,6 +16,98 @@
       "text": "WebDAV",
       "sm": 12,
     },
-
+    "webdavURL": {
+      "newLine": true,
+      "sm": 9,
+      "md": 6,
+      "lg": 3,
+      "type": "text",
+      "label": "URL",
+      "help": "WebDAV URL"
+    },
+    "webdavUsername": {
+      "newLine": true,
+      "sm": 9,
+      "md": 6,
+      "lg": 3,
+      "type": "text",
+      "label": "Username",
+      "help": "Username"
+    },
+    "webdavPassword": {
+      "sm": 9,
+      "md": 6,
+      "lg": 3,
+      "type": "password",
+			"visible": true,
+      "label": "Password",
+      "help": "Password"
+    },
+    "_testConnection": {
+      "newLine": true,
+      "variant": "contained",
+      "color": "primary",
+      "disabled": "!_alive",
+      "type": "sendTo",
+      "error": {
+        "connect timeout": "Connection timeout"
+      },
+      "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJjdXJyZW50Q29sb3IiIGQ9Im0xMiAyMWwzLjYtNC44Yy0xLS43NS0yLjI1LTEuMi0zLjYtMS4ycy0yLjYuNDUtMy42IDEuMnptMC0xOEM3Ljk1IDMgNC4yMSA0LjM0IDEuMiA2LjZMMyA5YzIuNS0xLjg4IDUuNjItMyA5LTNzNi41IDEuMTIgOSAzbDEuOC0yLjRDMTkuNzkgNC4zNCAxNi4wNSAzIDEyIDNtMCA2Yy0yLjcgMC01LjE5Ljg5LTcuMiAyLjRsMS44IDIuNEM4LjEgMTIuNjcgOS45NyAxMiAxMiAxMnMzLjkuNjcgNS40IDEuOGwxLjgtMi40QzE3LjE5IDkuODkgMTQuNyA5IDEyIDkiLz48L3N2Zz4=",
+      "command": "testWebDAV",
+      "jsonData": "{\"config\": {\"host\": \"${data.webdavURL}\", \"username\": \"${data.webdavUsername}\", \"password\": \"${data.webdavPassword}\", \"signedCertificates\": \"${data.webdavSignedCertificates}\"}}",
+      "label": "Test connection"
+    },
+    "webdavSignedCertificates": {
+      "newLine": true,
+      "type": "checkbox",
+      "label": "Allow only signed certificates",
+      "sm": 9,
+      "md": 6,
+      "lg": 3,
+    },
+    "webdavDeleteOldBackup": {
+      "type": "checkbox",
+      "label": "Delete old WebDAV-Backups",
+      "sm": 9,
+      "md": 6,
+      "lg": 3,
+    },
+    "webdavOwnDir": {
+      "newLine": true,
+      "type": "checkbox",
+      "label": "Extra path for backup types",
+      "sm": 9,
+      "md": 6,
+      "lg": 3,
+    },
+    "webdavMinimalDir": {
+      "hidden": "!data.webdavOwnDir",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "Path for iobroker backup",
+      "help": "Path for iobroker backup",
+      "newLine": true
+    },
+    "webdavCcuDir": {
+      "hidden": "!data.webdavOwnDir",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "Path for CCU backup",
+      "help": "Path for CCU backup"
+    },
+    "webdavDir": {
+      "hidden": "data.webdavOwnDir",
+      "sm": 12,
+      "md": 8,
+      "lg": 4,
+      "type": "text",
+      "label": "path",
+      "help": "path",
+      "newLine": true
+    }
   }
 }

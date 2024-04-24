@@ -43,10 +43,10 @@ class Dropbox extends ConfigGeneric {
                     <br/>
                     <a
                         target="_blank"
-                        href={`${this.state.dropboxUrl}&code_challenge=${this.state.dropboxCodeChallenge}`}
+                        href={`${this.state.dropboxUrl}&code_challenge=${this.state.codeChallenge}`}
                         rel="noreferrer"
                     >
-                        {`${this.state.dropboxUrl}&code_challenge=${this.state.dropboxCodeChallenge}`}
+                        {`${this.state.dropboxUrl}&code_challenge=${this.state.codeChallenge}`}
                     </a>
                 </div>
                 <TextField
