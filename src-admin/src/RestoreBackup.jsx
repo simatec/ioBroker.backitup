@@ -69,7 +69,7 @@ class RestoreBackup extends ConfigGeneric {
                 color="grey"
                 endIcon={<Search />}
             >
-                {I18n.t('Get backups')}
+                {I18n.t('Get list')}
             </Button>
             <FormControlLabel
                 control={<Checkbox
@@ -77,7 +77,7 @@ class RestoreBackup extends ConfigGeneric {
                     onChange={e =>
                         this.props.onChange({ ...this.props.data, startAllRestore: e.target.checked })}
                 />}
-                label={I18n.t('Start all adapter after restore')}
+                label={I18n.t('start all adapter after restore')}
             />
             {this.state.showGetBackups ? <GetBackups
                 onClose={() => this.setState({ showGetBackups: false })}

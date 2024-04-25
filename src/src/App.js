@@ -400,7 +400,7 @@ class App extends GenericApp {
                             padding: 8,
                         }}
                     >
-                        <div className={this.props.classes.header} style={{ margin: '0.2rem 0 1.0rem 0' }}>
+                        <div className={this.props.classes.header} style={{ margin: '0.2rem 0 1.5rem 0' }}>
                             <Info className={this.props.classes.headerIcon} />
                             <span>{I18n.t('Backup Information')}</span>
                         </div>
@@ -416,7 +416,7 @@ class App extends GenericApp {
                             {this.renderActivatedStorageOptions()}
                             {this.renderActivatedBackupOptions()}
                         </div>
-                        <div className={this.props.classes.header} style={{ margin: '1rem 0 1rem 0' }}>
+                        <div className={this.props.classes.header} style={{ margin: '1.5rem 0 1.5rem 0' }}>
                             <CloudUpload className={this.props.classes.headerIcon} />
                             <span>{I18n.t('System backup')}</span>
                         </div>
@@ -513,7 +513,7 @@ class App extends GenericApp {
                                 {I18n.t('save BackItUp settings')}
                             </Button>
                         </div>
-                        <div className={this.props.classes.header} style={{ margin: '1rem 0 1rem 0' }}>
+                        <div className={this.props.classes.header} style={{ margin: '1.5rem 0px 1.0rem 0px' }}>
                             <SettingsBackupRestore className={this.props.classes.headerIcon} />
                             <span>{I18n.t('Restore')}</span>
                         </div>
@@ -530,13 +530,14 @@ class App extends GenericApp {
                         >
                             <SourceSelector
                                 value={this.state.backupSource}
+                                data={this.state.native}
                                 onChange={backupSource => {
                                     window.localStorage.setItem('BackItUp.backupSource', backupSource);
                                     this.setState({ backupSource });
                                 }}
                             />
                             <Button
-                                style={{ width: '100%' }}
+                                style={{ width: '100%', marginTop: '0.5rem' }}
                                 onClick={() => this.setState({ showGetBackups: true })}
                                 disabled={!this.state.myAlive}
                                 variant="contained"
@@ -546,7 +547,7 @@ class App extends GenericApp {
                                 {I18n.t('Get list')}
                             </Button>
                             <Button
-                                style={{ width: '100%' }}
+                                style={{ width: '100%', marginTop: '0.5rem' }}
                                 onClick={() => this.setState({ showUploadBackup: true })}
                                 variant="contained"
                                 color="grey"
@@ -555,7 +556,7 @@ class App extends GenericApp {
                                 {I18n.t('Upload Backup File')}
                             </Button>
                             <Button
-                                style={{ width: '100%' }}
+                                style={{ width: '100%', marginTop: '0.5rem' }}
                                 variant="contained"
                                 color="grey"
                                 onClick={() => this.setState({ showUploadSettings: true })}
