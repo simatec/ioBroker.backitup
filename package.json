@@ -66,7 +66,7 @@
     "node-schedule": "^2.1.1",
     "node-wol": "^0.1.1",
     "onedrive-api": "^1.1.1",
-    "tar-fs": "^3.0.5",
+    "tar-fs": "^3.0.6",
     "webdav": "^5.5.0",
     "https": "^1.0.0",
     "cron-parser": "^4.9.0"
