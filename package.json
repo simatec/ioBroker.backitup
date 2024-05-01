@@ -67,7 +67,7 @@
     "node-wol": "^0.1.1",
     "onedrive-api": "^1.1.1",
     "tar-fs": "^3.0.5",
-    "webdav": "^5.5.0",
+    "webdav": "^5.6.0",
     "https": "^1.0.0",
     "cron-parser": "^4.9.0"
   },
