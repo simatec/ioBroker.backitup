@@ -33,6 +33,12 @@ import influxdbIcon from '../assets/influxdb.png';
 import zigbeeIcon from '../assets/zigbee.png';
 import grafanaIcon from '../assets/grafana.png';
 import zigbee2mqttIcon from '../assets/zigbee2mqtt.png';
+import esphomeIcon from '../assets/esphome.png';
+import jarvisIcon from '../assets/jarvis.png';
+import noderedIcon from '../assets/nodered.png';
+import redisIcon from '../assets/redis.png';
+import sqlIcon from '../assets/sql.png';
+import yahkaIcon from '../assets/yahka.png';
 
 function parseSize(bytes) {
     if (bytes > 1024 * 1024 * 512) {
@@ -67,8 +73,7 @@ const ICONS = {
     onedrive: DiOnedrive,
     webdav: FaDatabase,
     iobroker: ioBrokerIcon,
-    redis: DiRedis,
-    history: historyIcon,
+    historyDB: historyIcon,
     ccu: CCU,
     javascripts: javascriptIcon,
     nodered: SiNodered,
@@ -76,6 +81,14 @@ const ICONS = {
     zigbee: zigbeeIcon,
     zigbee2mqtt: zigbee2mqttIcon,
     grafana: grafanaIcon,
+    esphome: esphomeIcon,
+    nodered: noderedIcon,
+    jarvis: jarvisIcon,
+    redis: redisIcon,
+    mysql: sqlIcon,
+    sqlite: sqlIcon,
+    pgsql: sqlIcon,
+    yahka: yahkaIcon,
 };
 
 function getIcon(type) {
@@ -223,7 +236,7 @@ const GetBackups = props => {
                                 }}
                             >
                                 <AccordionSummary expandIcon={<ExpandMore />}>
-                                    {getIcon(object)}
+                                    {getIcon(object.split('.').shift())}
                                     <span style={{ fontWeight: 'bold', fontSize: 14 }}>{I18n.t(object).toUpperCase()}</span>
                                 </AccordionSummary>
                                 <AccordionDetails>
