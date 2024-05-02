@@ -60,6 +60,9 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) dependencies updated
+
 ### 2.11.0 (2024-03-04)
 * (simatec) Fix Sqlite3 Path
 
