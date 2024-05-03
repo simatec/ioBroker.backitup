@@ -15,29 +15,31 @@ import {
 import {
     FaDropbox,
     FaNetworkWired,
-    FaGoogleDrive, FaDatabase,
+    FaGoogleDrive,
 } from 'react-icons/fa';
 import {
-    DiOnedrive, DiRedis,
+    DiOnedrive,
+    DiRedis,
+    DiMysql,
+    DiPostgresql,
+    DiSqllite,
 } from 'react-icons/di';
 import {
     SiNodered,
+    SiEsphome,
+    SiZigbee,
+    SiGrafana,
+    SiInfluxdb,
+    SiNextcloud,
 } from 'react-icons/si';
 import { I18n, Confirm } from '@iobroker/adapter-react-v5';
 
 import CCU from '../assets/ccu.png';
 import ioBrokerIcon from '../assets/iobroker.png';
 import historyIcon from '../assets/history.png';
-import javascriptIcon from '../assets/javascript.png';
-import influxdbIcon from '../assets/influxdb.png';
-import zigbeeIcon from '../assets/zigbee.png';
-import grafanaIcon from '../assets/grafana.png';
 import zigbee2mqttIcon from '../assets/zigbee2mqtt.png';
-import esphomeIcon from '../assets/esphome.png';
+import javascriptIcon from '../assets/javascript.png';
 import jarvisIcon from '../assets/jarvis.png';
-import noderedIcon from '../assets/nodered.png';
-import redisIcon from '../assets/redis.png';
-import sqlIcon from '../assets/sql.png';
 import yahkaIcon from '../assets/yahka.png';
 
 function parseSize(bytes) {
@@ -71,23 +73,22 @@ const ICONS = {
     ftp: FaNetworkWired,
     googledrive: FaGoogleDrive,
     onedrive: DiOnedrive,
-    webdav: FaDatabase,
+    webdav: SiNextcloud,
     iobroker: ioBrokerIcon,
-    historyDB: historyIcon,
+    history: historyIcon,
     ccu: CCU,
     javascripts: javascriptIcon,
     nodered: SiNodered,
-    influxDB: influxdbIcon,
-    zigbee: zigbeeIcon,
+    influxDB: SiInfluxdb,
+    zigbee: SiZigbee,
     zigbee2mqtt: zigbee2mqttIcon,
-    grafana: grafanaIcon,
-    esphome: esphomeIcon,
-    nodered: noderedIcon,
+    grafana: SiGrafana,
+    esphome: SiEsphome,
     jarvis: jarvisIcon,
-    redis: redisIcon,
-    mysql: sqlIcon,
-    sqlite: sqlIcon,
-    pgsql: sqlIcon,
+    redis: DiRedis,
+    mysql: DiMysql,
+    sqlite: DiSqllite,
+    pgsql: DiPostgresql,
     yahka: yahkaIcon,
 };
 
@@ -95,7 +96,7 @@ function getIcon(type) {
     if (!ICONS[type]) {
         return null;
     }
-    if (typeof ICONS[type] === 'object') {
+    if (typeof ICONS[type] === 'object' || typeof ICONS[type] === 'function') {
         const OwnIcon = ICONS[type];
         return <OwnIcon style={{ width: 24, height: 24, marginRight: 8 }} />;
     }
