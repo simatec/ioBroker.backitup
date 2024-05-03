@@ -136,6 +136,10 @@ const styles = theme => ({
     buttonWidth: {
         width: '100% !important',
     },
+    helpButton: {
+        width: 36,
+        height: 36,
+    },
 });
 
 class App extends GenericApp {
@@ -392,12 +396,12 @@ class App extends GenericApp {
                             </div>
                         </Toolbar>
                         <div style={{
-                            display: 'inline-block', position: 'absolute', right: 10, top: 10,
+                            display: 'inline-block', position: 'absolute', right: 10, top: 13,
                         }}
                         >
                             <Tooltip size="small" title="PayPal.Me" style={{ marginRight: '0.2rem' }}>
                                 <Fab
-                                    classes={{ root: this.props.classes.button }}
+                                    className={ this.props.classes.helpButton }
                                     onClick={() => {
                                         window.open('https://paypal.me/mk1676', '_blank');
                                     }}
@@ -407,7 +411,7 @@ class App extends GenericApp {
                             </Tooltip>
                             <Tooltip size="small" title="Wiki" style={{ marginRight: '0.2rem' }}>
                                 <Fab
-                                    classes={{ root: this.props.classes.button }}
+                                    className={ this.props.classes.helpButton }
                                     onClick={() => {
                                         window.open('https://github.com/simatec/ioBroker.backitup/wiki', '_blank');
                                     }}
@@ -417,7 +421,7 @@ class App extends GenericApp {
                             </Tooltip>
                             <Tooltip size="small" title="Readme" style={{ marginRight: '0.2rem' }}>
                                 <Fab
-                                    classes={{ root: this.props.classes.button }}
+                                    className={ this.props.classes.helpButton }
                                     onClick={() => {
                                         window.open('https://github.com/simatec/ioBroker.backitup/blob/master/README.md', '_blank');
                                     }}
