@@ -5,7 +5,7 @@ import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
 import {
     Card, CardContent, Button,
-    AppBar, Toolbar,
+    AppBar, Toolbar, Tooltip, Fab,
 } from '@mui/material';
 
 import GenericApp from '@iobroker/adapter-react-v5/GenericApp';
@@ -13,7 +13,7 @@ import { I18n, Loader, AdminConnection } from '@iobroker/adapter-react-v5';
 import {
     CloudUpload, FormatListBulleted,
     Info, Search, SettingsBackupRestore,
-    Upload, Storage,
+    Upload, Storage, Help, School, Favorite,
 } from '@mui/icons-material';
 
 import logo from './assets/backitup.png';
@@ -391,6 +391,41 @@ class App extends GenericApp {
                                 <div style={{ color: '#fff', fontStyle: 'italic' }}>{I18n.t('Backup your System …')}</div>
                             </div>
                         </Toolbar>
+                        <div style={{
+                            display: 'inline-block', position: 'absolute', right: 10, top: 10,
+                        }}
+                        >
+                            <Tooltip size="small" title="PayPal.Me" style={{ marginRight: '0.2rem' }}>
+                                <Fab
+                                    classes={{ root: this.props.classes.button }}
+                                    onClick={() => {
+                                        window.open('https://paypal.me/mk1676', '_blank');
+                                    }}
+                                >
+                                    <Favorite />
+                                </Fab>
+                            </Tooltip>
+                            <Tooltip size="small" title="Wiki" style={{ marginRight: '0.2rem' }}>
+                                <Fab
+                                    classes={{ root: this.props.classes.button }}
+                                    onClick={() => {
+                                        window.open('https://github.com/simatec/ioBroker.backitup/wiki', '_blank');
+                                    }}
+                                >
+                                    <School />
+                                </Fab>
+                            </Tooltip>
+                            <Tooltip size="small" title="Readme" style={{ marginRight: '0.2rem' }}>
+                                <Fab
+                                    classes={{ root: this.props.classes.button }}
+                                    onClick={() => {
+                                        window.open('https://github.com/simatec/ioBroker.backitup/blob/master/README.md', '_blank');
+                                    }}
+                                >
+                                    <Help />
+                                </Fab>
+                            </Tooltip>
+                        </div>
                     </AppBar>
                     <div
                         style={{
