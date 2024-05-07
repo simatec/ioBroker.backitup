@@ -11,6 +11,7 @@ class CheckAllConfigInvisible extends BaseField {
     }
 
     checkConfiguration() {
+        console.log('Check Config');
         if (this.props.alive && !this.storedChecked) {
             this.storedChecked = true;
             this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'getFileSystemInfo', null)
@@ -30,8 +31,19 @@ class CheckAllConfigInvisible extends BaseField {
                     if (result?.systemOS === 'docker' && result.dockerDB === false) {
                         if (data.redisType !== 'remote' && data.redisEnabled) {
                             data.redisType = 'remote';
+                            this.props.data._dockerDB = false;
+                            console.log('DockerDB: ' + data._dockerDB);
                             changed = true;
                         }
+                    } else if(result?.systemOS === 'docker' && result.dockerDB === true) {
+                        this.props.data._dockerDB = true;
+                        console.log('DockerDB: ' + data._dockerDB);
+                        changed = true;
+                    } else if(result?.systemOS !== 'docker') {
+                        this.props.data._dockerDB = true;
+                        console.log('OS: ' + result?.systemOS);
+                        console.log('DockerDB: ' + data._dockerDB);
+                        changed = true;
                     }
 
                     if (result?.systemOS === 'docker') {
@@ -50,14 +62,15 @@ class CheckAllConfigInvisible extends BaseField {
                         }
                     }
 
-                    changed && this.props.onChange(data);
+                    //changed && this.props.onChange(data);
                 });
         }
     }
 
     async componentDidMount() {
         super.componentDidMount();
-        this.checkDisk();
+        this.checkConfiguration();
+        //this.checkDisk();
     }
 
     renderItem() {
