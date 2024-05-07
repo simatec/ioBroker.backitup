@@ -11,20 +11,22 @@
       "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
     },
     "_header1": {
-      type: "header",
-      text: "What to back up",
-      sm: 12,
-      size: 2
+      "type": "header",
+      "text": "What to back up",
+      "sm": 12,
+      "size": 2
     },
     "minimalEnabled": {
+      "disabled": "data.hostType === 'Slave'",
       "newLine": true,
       "type": "checkbox",
       "sm": 6,
       "md": 4,
       "lg": 2,
-      label: "ioBroker",
+      "label": "ioBroker",
     },
     "ccuEnabled": {
+      "disabled": "data.hostType === 'Slave'",
       "type": "custom",
       "sm": 6,
       "md": 4,
@@ -41,9 +43,10 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
-      label: "Redis"
+      "label": "Redis"
     },
     "javascriptsEnabled": {
+      "disabled": "data.hostType === 'Slave'",
       "type": "custom",
       "sm": 6,
       "md": 4,
@@ -173,7 +176,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
-      label: "Grafana Backup"
+      "label": "Grafana Backup"
     },
     "noderedEnabled": {
       "newLine": true,
@@ -237,11 +240,11 @@
       "alert": "No ESP-Home Instance found on this host.\nPlease check your System."
     },
     "_header2": {
-      type: "header",
-      text: "Storage location",
-      sm: 12,
-      size: 2,
-      color: "#fff"
+      "type": "header",
+      "text": "Storage location",
+      "sm": 12,
+      "size": 2,
+      "color": "#fff"
     },
     "cifsEnabled": {
       "newLine": true,
@@ -249,48 +252,48 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
-      label: "NAS / Copy",
+      "label": "NAS / Copy",
     },
     "ftpEnabled": {
       "type": "checkbox",
       "sm": 6,
       "md": 4,
       "lg": 2,
-      label: "FTP",
+      "label": "FTP",
     },
     "dropboxEnabled": {
       "type": "checkbox",
       "sm": 6,
       "md": 4,
       "lg": 2,
-      label: "Dropbox",
+      "label": "Dropbox",
     },
     "googledriveEnabled": {
       "type": "checkbox",
       "sm": 6,
       "md": 4,
       "lg": 2,
-      label: "Google Drive",
+      "label": "Google Drive",
     },
     "webdavEnabled": {
       "type": "checkbox",
       "sm": 6,
       "md": 4,
       "lg": 2,
-      label: "WebDAV",
+      "label": "WebDAV",
     },
     "onedriveEnabled": {
       "type": "checkbox",
       "sm": 6,
       "md": 4,
       "lg": 2,
-      label: "Onedrive",
+      "label": "Onedrive",
     },
     "_header3": {
-      type: "header",
-      text: "Some features of BackItUp require additional adapters and tools. For detailed information please read the documentation of BackItUp!",
-      sm: 12,
-      size: 3
+      "type": "header",
+      "text": "Some features of BackItUp require additional adapters and tools. For detailed information please read the documentation of BackItUp!",
+      "sm": 12,
+      "size": 3
     },
     "_helpLink": {
       "type": "staticLink",

@@ -11,7 +11,6 @@ class CheckAllConfigInvisible extends BaseField {
     }
 
     checkConfiguration() {
-        console.log('Check Config');
         if (this.props.alive && !this.storedChecked) {
             this.storedChecked = true;
             this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'getFileSystemInfo', null)
@@ -38,16 +37,14 @@ class CheckAllConfigInvisible extends BaseField {
 
                         if (this.props.data.redisType !== 'remote' && this.props.data.redisEnabled) {
                             this.props.data.redisType = 'remote';
-                            console.log('isDocker: ' + this.props.data._isDockerDB);
                             changed = true;
                         }
+                        changed = true;
                     } else if(result?.systemOS === 'docker' && result.dockerDB === true) {
                         this.props.data._isDockerDB = true;
-                        console.log('isDocker: ' + this.props.data._isDockerDB);
                         changed = true;
                     } else if(result?.systemOS !== 'docker') {
                         this.props.data._isDockerDB = true;
-                        console.log('isDocker: ' + this.props.data._isDockerDB);
                         changed = true;
                     }
 
