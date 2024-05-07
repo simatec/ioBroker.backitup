@@ -11,6 +11,7 @@ class AdapterExist extends BaseField {
             <FormControlLabel
                 control={<Checkbox
                     checked={this.props.data[this.props.attr] || false}
+                    disabled={(this.props.schema.adapter === 'influxdb' || this.props.schema.adapter === 'sql') && !this.props.data._isDockerDB}
                     onChange={async e => {
                         if (e.target.checked) {
                             if (this.props.schema.adapter) {

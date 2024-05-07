@@ -37,7 +37,6 @@
     },
     "redisEnabled": {
       // todo: check if object or states use redis and hide if not
-      "disabled": "!data._isDockerDB",
       "type": "checkbox",
       "sm": 6,
       "md": 4,
