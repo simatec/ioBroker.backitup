@@ -26,37 +26,42 @@ class CheckAllConfigInvisible extends BaseField {
                 });
             this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'getSystemInfo', null)
                 .then(async result => {
-                    const data = { ...this.props.data };
+                    //const data = { ...this.props.data };
                     let changed = false;
                     if (result?.systemOS === 'docker' && result.dockerDB === false) {
-                        if (data.redisType !== 'remote' && data.redisEnabled) {
-                            data.redisType = 'remote';
-                            this.props.data._dockerDB = false;
-                            console.log('DockerDB: ' + data._dockerDB);
+                        this.props.data._isDockerDB = false;
+                        this.props.data.influxDBEnabled = false;
+                        this.props.data.mySqlEnabled = false;
+                        this.props.data.sqliteEnabled = false;
+                        this.props.data.pgSqlEnabled = false;
+                        this.props.data.startAllRestore = false;
+
+                        if (this.props.data.redisType !== 'remote' && this.props.data.redisEnabled) {
+                            this.props.data.redisType = 'remote';
+                            console.log('isDocker: ' + this.props.data._isDockerDB);
                             changed = true;
                         }
                     } else if(result?.systemOS === 'docker' && result.dockerDB === true) {
-                        this.props.data._dockerDB = true;
-                        console.log('DockerDB: ' + data._dockerDB);
+                        this.props.data._isDockerDB = true;
+                        console.log('isDocker: ' + this.props.data._isDockerDB);
                         changed = true;
                     } else if(result?.systemOS !== 'docker') {
-                        this.props.data._dockerDB = true;
-                        console.log('OS: ' + result?.systemOS);
-                        console.log('DockerDB: ' + data._dockerDB);
+                        this.props.data._isDockerDB = true;
+                        console.log('isDocker: ' + this.props.data._isDockerDB);
                         changed = true;
                     }
 
                     if (result?.systemOS === 'docker') {
                         changed = true;
-                        data._restoreIfWait = 10000;
+                        this.props.data._restoreIfWait = 10000;
                     } else if (result?.systemOS === 'win') {
                         changed = true;
-                        data._restoreIfWait = 18000;
+                        this.props.data._restoreIfWait = 18000;
                     }
                     const CONFIGS = ['ccu', 'mySql', 'sqlite', 'pgSql', 'influxDB', 'history'];
                     for (let c = 0; c < CONFIGS.length; c++) {
                         if (!this.isConfigFilled(CONFIGS[c])) {
-                            const _result = await this.fetchConfig(CONFIGS[c], data)
+                            const _result = await this.fetchConfig(CONFIGS[c], this.props.data)
                                 .catch(e => this.showError(e));
                             changed = changed || _result.changed;
                         }
