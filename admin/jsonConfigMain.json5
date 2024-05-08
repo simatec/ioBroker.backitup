@@ -17,16 +17,17 @@
       "size": 2
     },
     "minimalEnabled": {
-      "disabled": "data.hostType === 'Slave'",
-      "newLine": true,
-      "type": "checkbox",
+      "type": "custom",
       "sm": 6,
       "md": 4,
       "lg": 2,
-      "label": "ioBroker",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
+      "adapter": "backitup",
+      "label": "ioBroker"
     },
     "ccuEnabled": {
-      "disabled": "data.hostType === 'Slave'",
       "type": "custom",
       "sm": 6,
       "md": 4,
