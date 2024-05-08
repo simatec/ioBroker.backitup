@@ -61,7 +61,14 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
+* (simatec) jsonConfig added
+* (bluefox) Conversion to React
+* (bluefox) Added react components
+* (bluefox/simatec) Working on React GUI
 * (simatec) dependencies updated
+* (simatec) Fix Yahka Backup
+* (simatec) Fix Nodered Backup
+* (simatec) some bugs fixed
 
 ### 2.11.0 (2024-03-04)
 * (simatec) Fix Sqlite3 Path
