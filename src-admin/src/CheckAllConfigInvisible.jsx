@@ -29,11 +29,29 @@ class CheckAllConfigInvisible extends BaseField {
                     let changed = false;
                     if (result?.systemOS === 'docker' && result.dockerDB === false) {
                         this.props.data._isDockerDB = false;
-                        this.props.data.influxDBEnabled = false;
-                        this.props.data.mySqlEnabled = false;
-                        this.props.data.sqliteEnabled = false;
-                        this.props.data.pgSqlEnabled = false;
-                        this.props.data.startAllRestore = false;
+
+                        if (this.props.data.influxDBEnabled) {
+                            this.props.data.influxDBEnabled = false;
+                            changed = true;
+                        }
+                        if (this.props.data.mySqlEnabled) {
+                            this.props.data.mySqlEnabled = false;
+                            changed = true;
+                        }
+                        if (this.props.data.sqliteEnabled) {
+                            this.props.data.sqliteEnabled = false;
+                            changed = true;
+                        }
+                        if (this.props.data.pgSqlEnabled) {
+                            this.props.data.pgSqlEnabled = false;
+                            changed = true;
+                        }
+                        if (this.props.data.startAllRestore) {
+                            this.props.data.startAllRestore = false;
+                            changed = true;
+                        }
+
+                        changed && this.props.onChange(this.props.data);
 
                         if (this.props.data.redisType !== 'remote' && this.props.data.redisEnabled) {
                             this.props.data.redisType = 'remote';
@@ -64,7 +82,7 @@ class CheckAllConfigInvisible extends BaseField {
                         }
                     }
 
-                    //changed && this.props.onChange(data);
+                    //changed && this.props.onChange(this.props.data);
                 });
         }
     }
