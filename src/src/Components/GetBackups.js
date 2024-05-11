@@ -77,7 +77,7 @@ const ICONS = {
     onedrive: DiOnedrive,
     webdav: SiNextcloud,
     iobroker: ioBrokerIcon,
-    history: historyIcon,
+    historyDB: historyIcon,
     ccu: CCU,
     javascripts: javascriptIcon,
     nodered: SiNodered,
