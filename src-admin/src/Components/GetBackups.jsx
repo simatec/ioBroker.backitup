@@ -262,13 +262,13 @@ const GetBackups = props => {
                                                             onClick={() => {
                                                                 let message = I18n.t('ioBroker will be restarted during restore.');
                                                                 message += '\n\n';
-                                                                message += I18n.t('Confirm with \"OK\".');
+                                                                message += I18n.t('Confirm with "OK".');
                                                                 let showDownload = false;
                                                                 if (location === 'dropbox' || location === 'onedrive' || location === 'googledrive' || location === 'ftp' || location === 'webdav') {
                                                                     message = I18n.t('1. Confirm with "OK" and the download begins. Please wait until the download is finished!\n\n2. After the download ioBroker will be restarted during restore.');
                                                                     showDownload = true;
                                                                 }
-                                                                var isStopped = false;
+                                                                let isStopped = false;
                                                                 const STOPPED = [
                                                                     'grafana',
                                                                     'jarvis',
@@ -286,21 +286,25 @@ const GetBackups = props => {
                                                                 ];
                                                                 if (STOPPED.includes(object)) {
                                                                     isStopped = true;
+                                                                } else if (showDownload) {
+                                                                    message = I18n.t('1. Confirm with "OK" and the download begins. Please wait until the download is finished!');
+                                                                    message += '\n\n';
+                                                                    message += I18n.t('2. After the download, the restore begins without restarting ioBroker.');
                                                                 } else {
-                                                                    if (showDownload) {
-                                                                        message = I18n.t('1. Confirm with "OK" and the download begins. Please wait until the download is finished!');
-                                                                        message += '\n\n';
-                                                                        message += I18n.t('2. After the download, the restore begins without restarting ioBroker.');
-                                                                    } else {
-                                                                        message = I18n.t('ioBroker will not be restarted for this restore.\n\nConfirm with \"OK\".');
-                                                                    }
+                                                                    message = I18n.t('ioBroker will not be restarted for this restore.\n\nConfirm with "OK".');
                                                                 }
+
                                                                 if (isStopped) {
                                                                     message += I18n.t('After confirmation, a new tab opens with the Restore Log.');
                                                                     message += '\n\n\n';
                                                                     message += I18n.t('If the tab does not open, please deactivate your popup blocker.');
                                                                 }
-                                                                setConfirm({ location, object, backup, message });
+                                                                setConfirm({
+                                                                    location,
+                                                                    object,
+                                                                    backup,
+                                                                    message,
+                                                                });
                                                             }}
                                                         >
                                                             <History />

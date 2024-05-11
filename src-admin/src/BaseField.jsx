@@ -272,11 +272,11 @@ class BaseField extends ConfigGeneric {
             }
             if (!found && result.length && result[0].native) {
                 const native = result[0].native;
-                if (native && data.influxDBHost !== native.host ||
+                if (native && (data.influxDBHost !== native.host ||
                     data.influxDBVersion !== native.dbversion ||
                     data.influxDBProtocol !== native.protocol ||
                     data.influxDBName !== native.dbname ||
-                    (native.dbversion === '2.x' && data.influxDBPort !== native.port)
+                    (native.dbversion === '2.x' && data.influxDBPort !== native.port))
                 ) {
                     data.influxDBHost = native.host;
                     data.influxDBVersion = native.dbversion;

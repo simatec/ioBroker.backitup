@@ -1,6 +1,9 @@
 {
     "i18n": true,
     "type": "tabs",
+    "tabsStyle": {
+        width: "calc(100% - 100px)",
+    },
     "items": {
         "_options": {
             "#include": "jsonConfigMain.json5"

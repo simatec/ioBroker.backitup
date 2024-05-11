@@ -1,1 +1,18 @@
-{}
+{
+  "Adapter exist": "Adapter bestaat",
+  "Authorize this app by visiting": "Autoriseer deze app door te bezoeken",
+  "BackItUp Information!": "BackItUp-informatie!",
+  "BackItUp Warning!": "BackItUp Waarschuwing!",
+  "BackItUp execution:": "BackItUp-uitvoering:",
+  "Backup now": "Nu backuppen",
+  "Close": "Dichtbij",
+  "Close on ready": "Sluit klaar",
+  "Config taken from %s": "Configuratie overgenomen van %s",
+  "Detect config": "Configuratie detecteren",
+  "Enter the code from that page here": "Voer hier de code van die pagina in",
+  "Get google drive access": "Krijg toegang tot Google Drive",
+  "No %s Instance found on this host. Please check your System": "Geen %s exemplaar gevonden op deze host. Controleer uw systeem",
+  "No config found": "Geen configuratie gevonden",
+  "Renew google drive access": "Verleng Google Drive-toegang",
+  "ra_Close": "Dichtbij"
+}

@@ -1,200 +1,262 @@
 {
-  "type": "panel",
-  "label": "InfluxDB Backup",
-  "items": {
-    "_checkConfig": {
-      // this component is not visible in the UI
-      // it checks the configuration
-      "type": "custom",
-      "i18n": true,
-      "url": "custom/customComponents.js",
-      "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
-    },
-    "_header": {
-      "type": "header",
-      "size": 2,
-      "text": "InfluxDB Backup",
-      "sm": 12
-    },
-    "detectNow": {
-      "type": "custom",
-      "hidden": "data.influxDBMulti",
-      "button": true,
-      "variant": "contained",
-      "url": "custom/customComponents.js",
-      "name": "ConfigCustomBackItUpSet/Components/DetectConfig",
-      "adapter": "influxDB",
-      "icon": "search",
-      "label": "detect config",
-      "sm": 9,
-      "md": 6,
-      "lg": 3
-    },
-    "_helpLine1": {
-      "hidden": "data.influxDBMulti",
-      "newLine": true,
-      "type": "divider",
-      "color": "primary"
-    },
-    "influxDBType": {
-			"type": "select",
-			"label": "source type",
-			"sm": 12,
-			"md": 8,
-			"lg": 4,
-			"help": "source type",
-			"options": [
-				{
-					"label": "Remote",
-					"value": "remote"
-				},
-				{
-					"label": "Local",
-					"value": "local"
-				}
-			],
-      "newLine": true
-		},
-    "influxDBHost": {
-      "hidden": "data.influxDBMulti",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "type": "text",
-      "label": "Host",
-      "help": "InfluxDB Hostname (leave blank to save locally only)",
-      "newLine": true
-    },
-    "influxDBPort": {
-      "hidden": "data.influxDBMulti",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "min": 1,
-      "max": 65535,
-      "type": "number",
-      "label": "Port",
-      "help": "InfluxDB port (default: 8088)"
-    },
-    "influxDBProtocol": {
-      "hidden": "data.influxDBMulti",
-			"type": "select",
-			"label": "Protocol",
-			"sm": 12,
-			"md": 8,
-			"lg": 4,
-			"help": "Protocol",
-			"options": [
-				{
-					"label": "http",
-					"value": "http"
-				},
-				{
-					"label": "https",
-					"value": "https"
-				}
-			],
-		},
-    "influxDBVersion": {
-      "hidden": "data.influxDBMulti",
-			"type": "select",
-			"label": "Database Version",
-			"sm": 12,
-			"md": 8,
-			"lg": 4,
-			"help": "Database Version",
-			"options": [
-				{
-					"label": "1.x",
-					"value": "1.x"
-				},
-				{
-					"label": "2.x",
-					"value": "2.x"
-				}
-			],
-      "newLine": true
-		},
-    "influxDBName": {
-      "hidden": "data.influxDBMulti",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "type": "text",
-      "label": "name",
-      "help": "InfluxDB database name"
-    },
-    "influxDBDumpExe": {
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "type": "text",
-      "label": "Full path",
-      "help": "Path with filename to influxd executable (leave empty to use default)",
-    },
-    "influxDBToken": {
-      "hidden": "data.influxDBMulti",
-      "sm": 12,
-      "type": "password",
-			"visible": true,
-      "label": "Token",
-      "help": "InfluxDB database Token",
-      "newLine": true
-    },
-    "influxDBMulti": {
-      "type": "checkbox",
-      "label": "Backup of several Systems",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "newLine": true
-    },
-    "deleteOldDataBase": {
-      "hidden": "data.influxDBType == 'remote'",
-      "type": "checkbox",
-      "label": "automatically delete old Influx-database before restore",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-    },
-    "_helpLine2": {
-      "hidden": "!data.influxDBMulti",
-      "newLine": true,
-      "type": "divider",
-      "color": "primary"
-    },
-    "influxDBEvents": {
-      "newLine": true,
-      "type": "table",
-      "sm": 12,
-      "label": "InfluxDB hosts",
-      "hidden": "!data.influxDBMulti",
-      "encryptedAttributes": ["token"],
-      "labelsInHeader": true,
-      "items": [
-        {"attr": "host", "type": "text", "title": "Host", "hidden": "data.influxDBType == 'local'", width: "15%"},
-        {"attr": "port", "type": "number", "title": "port", "hidden": "data.influxDBType == 'local'", width: "7%"},
-        {"attr": "dbName", "type": "text", "title": "database name", width: "15%"},
-        {"attr": "nameSuffix", "type": "text", "title": "Name suffix", width: "15%"},
-        {"attr": "token", "type": "password", "title": "Token (only for v2.x)", "disabled": "data.influxDBEvents.dbversion == '1.x'", width: "25%"},
-        {"attr": "protocol", "type": "select", "options": [ { "label": "http", "value": "http" }, { "label": "https", "value": "https" } ], "title": "Protocol", width: "10%"},
-        {"attr": "dbversion", "type": "select", "options": [ { "label": "1.x", "value": "1.x" }, { "label": "2.x", "value": "2.x" } ], "title": "Version", width: "10%"}
-      ]
-    },
-    "_helpText1": {
-      "type": "staticText",
-      "text": "Configuring remote connections. For detailed information please read the documentation of InfluxDB!",
-      "sm": 12,
-      "newLine": true
-    },
-    "_helpLink": {
-      "type": "staticLink",
-      "button": true,
-      "variant": "outlined",
-      "icon": "info",
-      "label": " *** Open InfluxDB Documentation ***",
-      "href": "https://docs.influxdata.com/influxdb/v1.8/administration/backup_and_restore/#configuring-remote-connections",
-      "newLine": true
+    "type": "panel",
+    "label": "InfluxDB Backup",
+    "items": {
+        "_checkConfig": {
+            // this component is not visible in the UI
+            // it checks the configuration
+            "type": "custom",
+            "i18n": true,
+            "url": "custom/customComponents.js",
+            "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
+        },
+        "_header": {
+            "type": "header",
+            "size": 2,
+            "text": "InfluxDB Backup",
+            "sm": 12
+        },
+        "detectNow": {
+            "type": "custom",
+            "hidden": "data.influxDBMulti",
+            "button": true,
+            "variant": "contained",
+            "url": "custom/customComponents.js",
+            "name": "ConfigCustomBackItUpSet/Components/DetectConfig",
+            "adapter": "influxDB",
+            "icon": "search",
+            "label": "Detect config",
+            "sm": 9,
+            "md": 6,
+            "lg": 3
+        },
+        "_helpLine1": {
+            "hidden": "data.influxDBMulti",
+            "newLine": true,
+            "type": "divider",
+            "color": "primary"
+        },
+        "influxDBType": {
+            "type": "select",
+            "label": "Source type",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "options": [
+                {
+                    "label": "Remote",
+                    "value": "remote"
+                },
+                {
+                    "label": "Local",
+                    "value": "local"
+                }
+            ],
+            "newLine": true
+        },
+        "influxDBHost": {
+            "hidden": "data.influxDBMulti",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "Host",
+            "help": "InfluxDB Hostname (leave blank to save locally only)",
+            "newLine": true
+        },
+        "influxDBPort": {
+            "hidden": "data.influxDBMulti",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "min": 1,
+            "max": 65535,
+            "type": "number",
+            "label": "InfluxDB port",
+            "help": "default: 8088"
+        },
+        "influxDBProtocol": {
+            "hidden": "data.influxDBMulti",
+            "type": "select",
+            "label": "Protocol",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "noTranslations": true,
+            "options": [
+                {
+                    "label": "http",
+                    "value": "http"
+                },
+                {
+                    "label": "https",
+                    "value": "https"
+                }
+            ],
+        },
+        "influxDBVersion": {
+            "hidden": "data.influxDBMulti",
+            "type": "select",
+            "label": "Database version",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "noTranslations": true,
+            "options": [
+                {
+                    "label": "1.x",
+                    "value": "1.x"
+                },
+                {
+                    "label": "2.x",
+                    "value": "2.x"
+                }
+            ],
+            "newLine": true
+        },
+        "influxDBName": {
+            "hidden": "data.influxDBMulti",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "InfluxDB database name",
+        },
+        "influxDBDumpExe": {
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "Full path",
+            "help": "Path with filename to InfluxDB executable (leave empty to use default)",
+        },
+        "influxDBToken": {
+            "hidden": "data.influxDBMulti",
+            "sm": 12,
+            "type": "password",
+            "visible": true,
+            "label": "InfluxDB database token",
+            "newLine": true
+        },
+        "influxDBMulti": {
+            "type": "checkbox",
+            "label": "Backup of several systems",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "newLine": true
+        },
+        "deleteOldDataBase": {
+            "hidden": "data.influxDBType == 'remote'",
+            "type": "checkbox",
+            "label": "Automatically delete old Influx-database before restore",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+        },
+        "_helpLine2": {
+            "hidden": "!data.influxDBMulti",
+            "newLine": true,
+            "type": "divider",
+            "color": "primary"
+        },
+        "influxDBEvents": {
+            "newLine": true,
+            "type": "table",
+            "sm": 12,
+            "label": "InfluxDB hosts",
+            "hidden": "!data.influxDBMulti",
+            "encryptedAttributes": [
+                "token"
+            ],
+            "labelsInHeader": true,
+            "items": [
+                {
+                    "attr": "host",
+                    "type": "text",
+                    "title": "Host",
+                    "hidden": "globalData.influxDBType == 'local'",
+                    width: "15%"
+                },
+                {
+                    "attr": "port",
+                    "type": "number",
+                    "title": "Port",
+                    "hidden": "globalData.influxDBType == 'local'",
+                    default: 8088,
+                    width: "7%"
+                },
+                {
+                    "attr": "dbName",
+                    "type": "text",
+                    "title": "Database name",
+                    width: "15%"
+                },
+                {
+                    "attr": "nameSuffix",
+                    "type": "text",
+                    "title": "Name suffix",
+                    width: "15%"
+                },
+                {
+                    "attr": "token",
+                    "type": "password",
+                    "title": "Token (only for v2.x)",
+                    "disabled": "data.dbversion == '1.x'",
+                    width: "25%"
+                },
+                {
+                    "attr": "protocol",
+                    "type": "select",
+                    default: "http",
+                    "noTranslations": true,
+                    "options": [
+                        {
+                            "label": "http",
+                            "value": "http"
+                        },
+                        {
+                            "label": "https",
+                            "value": "https"
+                        }
+                    ],
+                    "title": "Protocol",
+                    width: "10%"
+                },
+                {
+                    "attr": "dbversion",
+                    "type": "select",
+                    "noTranslations": true,
+                    default: "1.x",
+                    "options": [
+                        {
+                            "label": "1.x",
+                            "value": "1.x"
+                        },
+                        {
+                            "label": "2.x",
+                            "value": "2.x"
+                        }
+                    ],
+                    "title": "Version",
+                    width: "10%"
+                }
+            ]
+        },
+        "_helpText1": {
+            "type": "staticText",
+            "text": "Configuring remote connections. For detailed information please read the documentation of InfluxDB!",
+            "sm": 12,
+            "newLine": true
+        },
+        "_helpLink": {
+            "type": "staticLink",
+            "button": true,
+            "variant": "outlined",
+            "icon": "info",
+            "label": "*** Open InfluxDB Documentation ***",
+            "href": "https://docs.influxdata.com/influxdb/v1.8/administration/backup_and_restore/#configuring-remote-connections",
+            "newLine": true
+        }
     }
-  }
 }

@@ -1,1 +1,18 @@
-{}
+{
+  "Adapter exist": "Адаптер є",
+  "Authorize this app by visiting": "Авторизуйте цю програму, відвідавши",
+  "BackItUp Information!": "Інформація BackItUp!",
+  "BackItUp Warning!": "Попередження BackItUp!",
+  "BackItUp execution:": "Виконання BackItUp:",
+  "Backup now": "Резервне копіювання зараз",
+  "Close": "Закрити",
+  "Close on ready": "Закрити на готовому",
+  "Config taken from %s": "Конфігурація взята з %s",
+  "Detect config": "Визначити конфігурацію",
+  "Enter the code from that page here": "Введіть код із цієї сторінки тут",
+  "Get google drive access": "Отримайте доступ до Google Drive",
+  "No %s Instance found on this host. Please check your System": "На цьому хості не знайдено екземпляр %s. Перевірте свою систему",
+  "No config found": "Конфігурацію не знайдено",
+  "Renew google drive access": "Відновити доступ до Google Drive",
+  "ra_Close": "Закрити"
+}

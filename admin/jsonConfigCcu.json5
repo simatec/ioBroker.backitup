@@ -1,6 +1,6 @@
 {
   "type": "panel",
-  "label": "CCU Backup",
+  "label": "CCU backup",
   "items": {
     "_checkConfig": {
       // this component is not visible in the UI
@@ -39,7 +39,7 @@
       "name": "ConfigCustomBackItUpSet/Components/DetectConfig",
       "adapter": "hm-rpc",
       "icon": "search",
-      "label": "detect config",
+      "label": "Detect config",
       "sm": 9,
       "md": 6,
       "lg": 3
@@ -50,15 +50,14 @@
       "color": "primary"
     },
     "ccuTime": {
-      // Todo TimePicker only HH:mm for native minimalTime
       "hidden": "data.ccuCron",
       "newLine": true,
       "type": "timePicker",
-      "label": "backup time",
-      "help": "Backup start time in hh: mm",
+      "label": "Backup time",
+      "help": "Backup start time in hh:mm",
       "format": "HH:mm",
       "views": ['hours', 'minutes'],
-      "returnFormat": "HH:mm:ss",
+      "returnFormat": "HH:mm",
       "sm": 9,
       "md": 6,
       "lg": 3
@@ -67,8 +66,8 @@
       "hidden": "!data.ccuCron",
       "newLine": true,
       "type": "cron",
-      "label": "backup cronjob",
-      "help": "Backup time as cronjob",
+      "label": "Backup CRON job",
+      "help": "Backup time as CRON job",
       "complex": true,
       "sm": 9,
       "md": 6,
@@ -83,8 +82,8 @@
       "min": 1,
       "max": 100,
       "type": "number",
-      "label": "days",
-      "help": "Backup will run every X days"
+      "label": "Backup will run every",
+      "help": "days"
     },
     "ccuDeleteAfter": {
       "sm": 9,
@@ -93,8 +92,8 @@
       "min": 1,
       "max": 100,
       "type": "number",
-      "label": "piece",
-      "help": "old iobroker backups delete after X-days"
+      "label": "Old ioBroker backups delete after",
+      "help": "days"
     },
     "ccuHost": {
       "newLine": true,
@@ -119,19 +118,19 @@
       "lg": 3,
       "type": "password",
 			"visible": true,
-      "label": "password",
+      "label": "Password",
       "help": "Password of the CCU"
     },
     "ccuCron": {
       "newLine": true,
       "type": "checkbox",
-      "label": "Create your own cronjob (for experts only)",
+      "label": "Create your own CRON job (for experts only)",
       "sm": 12
     },
     "ccuMulti": {
       "newLine": true,
       "type": "checkbox",
-      "label": "Backup of several Systems",
+      "label": "Backup of several systems",
       "sm": 12
     },
     "ccuEvents": {
@@ -145,9 +144,9 @@
       "items": [
         {"attr": "host", "type": "text", "title": "IP address", width: "20%"},
         {"attr": "user", "type": "text", "title": "Username", width: "20%"},
-        {"attr": "pass", "type": "password", "title": "password", width: "20%"},
+        {"attr": "pass", "type": "password", "title": "Password", width: "20%"},
         {"attr": "nameSuffix", "type": "text", "title": "Name suffix", width: "20%"},
-        {"attr": "usehttps", "type": "checkbox", "title": "use https", width: "5%"},
+        {"attr": "usehttps", "type": "checkbox", "title": "Use https", width: "5%"},
         {"attr": "signedCertificates", "type": "checkbox", "title": "Allow only signed certificates", width: "10%"},
       ]
     }

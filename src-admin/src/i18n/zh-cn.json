@@ -1,1 +1,18 @@
-{}
+{
+  "Adapter exist": "适配器存在",
+  "Authorize this app by visiting": "通过访问授权此应用",
+  "BackItUp Information!": "BackItUp 信息！",
+  "BackItUp Warning!": "BackItUp 警告！",
+  "BackItUp execution:": "BackItUp 执行：",
+  "Backup now": "立即备份",
+  "Close": "关闭",
+  "Close on ready": "准备就绪后关闭",
+  "Config taken from %s": "配置取自 %s",
+  "Detect config": "检测配置",
+  "Enter the code from that page here": "在此处输入该页面的代码",
+  "Get google drive access": "获取 Google Drive 访问权限",
+  "No %s Instance found on this host. Please check your System": "此主机上未找到 %s 实例。请检查您的系统",
+  "No config found": "未找到配置",
+  "Renew google drive access": "更新 Google Drive 访问权限",
+  "ra_Close": "关闭"
+}

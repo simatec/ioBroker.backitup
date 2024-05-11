@@ -1,73 +1,71 @@
 {
-  "type": "panel",
-  "label": "Onedrive",
-  "items": {
-    "_checkConfig": {
-      // this component is not visible in the UI
-      // it checks the configuration
-      "type": "custom",
-      "i18n": true,
-      "url": "custom/customComponents.js",
-      "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
-    },
-    "_header": {
-      "type": "header",
-      "size": 2,
-      "text": "Onedrive",
-      "sm": 12,
-    },
-    "_oneDrive": {
-      "newLine": true,
-      "type": "custom",
-      "i18n": true,
-      "url": "custom/customComponents.js",
-      "name": "ConfigCustomBackItUpSet/Components/Onedrive",
-      "value": false,
-      "sm": 12
-    },
-    "onedriveDeleteOldBackup": {
-      "type": "checkbox",
-      "label": "Delete old Onedrive-Backups",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "newLine": true
-    },
-    "onedriveOwnDir": {
-      "type": "checkbox",
-      "label": "Extra path for backup types",
-      "sm": 12,
-      "md": 8,
-      "lg": 4
-    },
-    "onedriveMinimalDir": {
-      "hidden": "!data.onedriveOwnDir",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "type": "text",
-      "label": "Onedrive Path for iobroker backup",
-      "help": "Onedrive Path for iobroker backup",
-      "newLine": true
-    },
-    "onedriveCcuDir": {
-      "hidden": "!data.onedriveOwnDir",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "type": "text",
-      "label": "Onedrive Path for CCU backup",
-      "help": "Onedrive Path for CCU backup"
-    },
-    "onedriveDir": {
-      "hidden": "data.onedriveOwnDir",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "type": "text",
-      "label": "path",
-      "help": "Onedrive path",
-      "newLine": true
+    "type": "panel",
+    "label": "OneDrive",
+    "items": {
+        "_checkConfig": {
+            // this component is not visible in the UI
+            // it checks the configuration
+            "type": "custom",
+            "i18n": true,
+            "url": "custom/customComponents.js",
+            "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
+        },
+        "_header": {
+            "type": "header",
+            "size": 2,
+            "text": "OneDrive",
+            "sm": 12,
+        },
+        "_oneDrive": {
+            "newLine": true,
+            "type": "custom",
+            "i18n": true,
+            "url": "custom/customComponents.js",
+            "name": "ConfigCustomBackItUpSet/Components/Onedrive",
+            "value": false,
+            "sm": 12
+        },
+        "onedriveDeleteOldBackup": {
+            "type": "checkbox",
+            "label": "Delete old OneDrive-Backups",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "newLine": true
+        },
+        "onedriveOwnDir": {
+            "type": "checkbox",
+            "label": "Extra path for backup types",
+            "sm": 12,
+            "md": 8,
+            "lg": 4
+        },
+        "onedriveMinimalDir": {
+            "hidden": "!data.onedriveOwnDir",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "OneDrive Path for ioBroker backup",
+            "newLine": true
+        },
+        "onedriveCcuDir": {
+            "hidden": "!data.onedriveOwnDir",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "OneDrive Path for CCU backup",
+        },
+        "onedriveDir": {
+            "hidden": "data.onedriveOwnDir",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "path",
+            "help": "OneDrive path",
+            "newLine": true
+        }
     }
-  }
 }

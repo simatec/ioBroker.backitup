@@ -1,94 +1,90 @@
 {
-  "type": "panel",
-  "label": "Grafana Backup",
-  "items": {
-    "_checkConfig": {
-      // this component is not visible in the UI
-      // it checks the configuration
-      "type": "custom",
-      "i18n": true,
-      "url": "custom/customComponents.js",
-      "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
-    },
-    "_header": {
-      "type": "header",
-      "size": 2,
-      "text": "Grafana Backup",
-      "sm": 12,
-    },
-    "grafanaHost": {
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "type": "text",
-      "label": "Host",
-      "help": "Grafana Hostname",
-      "newLine": true
-    },
-    "grafanaPort": {
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "min": 1,
-      "max": 65535,
-      "type": "number",
-      "label": "Port",
-      "help": "Grafana port"
-    },
-    "grafanaProtocol": {
-			"type": "select",
-			"label": "Protocol",
-			"sm": 12,
-			"md": 8,
-			"lg": 4,
-			"help": "Protocol",
-			"options": [
-				{
-					"label": "http",
-					"value": "http"
-				},
-				{
-					"label": "https",
-					"value": "https"
-				}
-			],
-		},
-    "grafanaUsername": {
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "type": "text",
-      "label": "Grafana username",
-      "help": "Grafana username",
-      "newLine": true
-    },
-    "grafanaPassword": {
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "type": "password",
-			"visible": true,
-      "label": "password",
-      "help": "Grafana password"
-    },
-    "grafanaApiKey": {
-      "sm": 12,
-      "md": 12,
-      "lg": 8,
-      "type": "password",
-			"visible": true,
-      "label": "Grafana API-Key or Service Token",
-      "help": "Grafana API-Key or Service Token",
-      "newLine": true
-    },
-    "grafanaSignedCertificates": {
-      "hidden": "data.grafanaProtocol == 'http'",
-      "type": "checkbox",
-      "label": "Allow only signed certificates",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "newLine": true
+    "type": "panel",
+    "label": "Grafana backup",
+    "items": {
+        "_checkConfig": {
+            // this component is not visible in the UI
+            // it checks the configuration
+            "type": "custom",
+            "i18n": true,
+            "url": "custom/customComponents.js",
+            "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
+        },
+        "_header": {
+            "type": "header",
+            "size": 2,
+            "text": "Grafana backup",
+            "sm": 12,
+        },
+        "grafanaHost": {
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "Grafana Hostname",
+            "newLine": true
+        },
+        "grafanaPort": {
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "min": 1,
+            "max": 65535,
+            "type": "number",
+            "label": "Grafana port",
+        },
+        "grafanaProtocol": {
+            "type": "select",
+            "label": "Protocol",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "help": "Protocol",
+            "noTranslations": true,
+            "options": [
+                {
+                    "label": "http",
+                    "value": "http"
+                },
+                {
+                    "label": "https",
+                    "value": "https"
+                }
+            ],
+        },
+        "grafanaUsername": {
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "Grafana username",
+            "newLine": true
+        },
+        "grafanaPassword": {
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "password",
+            "visible": true,
+            "label": "Grafana password",
+        },
+        "grafanaApiKey": {
+            "sm": 12,
+            "md": 12,
+            "lg": 8,
+            "type": "password",
+            "visible": true,
+            "label": "Grafana API-Key or Service Token",
+            "newLine": true
+        },
+        "grafanaSignedCertificates": {
+            "hidden": "data.grafanaProtocol == 'http'",
+            "type": "checkbox",
+            "label": "Allow only signed certificates",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "newLine": true
+        }
     }
-  }
 }

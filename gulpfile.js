@@ -81,6 +81,7 @@ function build() {
 function sync() {
     sync2files(`${__dirname}/src-admin/src/BackupNow.jsx`, `${__dirname}/src/src/Components/BackupNow.js`);
     sync2files(`${__dirname}/src-admin/src/Components/SourceSelector.jsx`, `${__dirname}/src/src/Components/SourceSelector.js`);
+    sync2files(`${__dirname}/src-admin/src/Components/Restore.js`, `${__dirname}src/src/Components/Restore.js`);
 }
 
 function buildAdmin() {

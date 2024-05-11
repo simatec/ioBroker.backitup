@@ -273,19 +273,19 @@ class App extends GenericApp {
                     </div>
                     <ul>
                         {this.state.native.minimalEnabled && <li>
-                            <div className={this.props.classes.label}>{I18n.t('Last iobroker Backup: ')}</div>
+                            <div className={this.props.classes.label}>{I18n.t('Last iobroker backup: ')}</div>
                             <div className={this.props.classes.value}>{this.state.iobrokerLastTime}</div>
                         </li>}
                         {this.state.native.ccuEnabled && <li>
-                            <div className={this.props.classes.label}>{I18n.t('Last CCU Backup: ')}</div>
+                            <div className={this.props.classes.label}>{I18n.t('Last CCU backup: ')}</div>
                             <div className={this.props.classes.value}>{this.state.ccuLastTime}</div>
                         </li>}
                         {this.state.native.minimalEnabled && <li>
-                            <div className={this.props.classes.label}>{I18n.t('Next iobroker Backup: ')}</div>
+                            <div className={this.props.classes.label}>{I18n.t('Next iobroker backup: ')}</div>
                             <div className={this.props.classes.value}>{this.state.iobrokerNextTime}</div>
                         </li>}
                         {this.state.native.ccuEnabled && <li>
-                            <div className={this.props.classes.label}>{I18n.t('Next CCU Backup: ')}</div>
+                            <div className={this.props.classes.label}>{I18n.t('Next CCU backup: ')}</div>
                             <div className={this.props.classes.value}>{this.state.ccuNextTime}</div>
                         </li>}
                     </ul>
@@ -299,7 +299,7 @@ class App extends GenericApp {
             { name: 'cifsEnabled', label: `NAS (${this.state.native.connectType})` },
             { name: 'ftpEnabled', label: 'FTP' },
             { name: 'dropboxEnabled', label: 'Dropbox' },
-            { name: 'onedriveEnabled', label: 'Onedrive' },
+            { name: 'onedriveEnabled', label: 'OneDrive' },
             { name: 'googledriveEnabled', label: 'Google Drive' },
             { name: 'webdavEnabled', label: 'WebDAV' },
         ];
@@ -310,7 +310,7 @@ class App extends GenericApp {
                 </div>
                 <div className={this.props.classes.textDiv}>
                     <div className={this.props.classes.cardHeader}>
-                        {I18n.t('activated storageoptions')}
+                        {I18n.t('activated storage options')}
                     </div>
                     <ul>
                         {options.map(option => this.state.native[option.name] && <li key={option.name}>{I18n.t(option.label)}</li>)}
@@ -322,21 +322,21 @@ class App extends GenericApp {
 
     renderActivatedBackupOptions() {
         const options = [
-            { name: 'jarvisEnabled', label: 'Jarvis Backup' },
+            { name: 'jarvisEnabled', label: 'Jarvis backup' },
             { name: 'minimalEnabled', label: 'ioBroker' },
             { name: 'ccuEnabled', label: 'Homematic CCU backup' },
             { name: 'redisEnabled', label: 'Save Redis state' },
-            { name: 'javascriptsEnabled', label: 'Javascripts Backup' },
+            { name: 'javascriptsEnabled', label: 'Javascripts backup' },
             { name: 'zigbeeEnabled', label: 'Save Zigbee database' },
             { name: 'esphomeEnabled', label: 'ESPHome' },
             { name: 'zigbee2mqttEnabled', label: 'Zigbee2MQTT' },
-            { name: 'noderedEnabled', label: 'Node-Red Backup' },
-            { name: 'yahkaEnabled', label: 'Yahka (Homekit) Backup' },
+            { name: 'noderedEnabled', label: 'Node-Red backup' },
+            { name: 'yahkaEnabled', label: 'Yahka (Homekit) backup' },
             { name: 'historyEnabled', label: 'Save History Data' },
-            { name: 'influxDBEnabled', label: 'InfluxDB Backup' },
-            { name: 'mySqlEnabled', label: 'MySql Backup' },
-            { name: 'sqliteEnabled', label: 'sqlite3 Backup' },
-            { name: 'grafanaEnabled', label: 'Grafana Backup' },
+            { name: 'influxDBEnabled', label: 'InfluxDB backup' },
+            { name: 'mySqlEnabled', label: 'MySql backup' },
+            { name: 'sqliteEnabled', label: 'SQLite backup' },
+            { name: 'grafanaEnabled', label: 'Grafana backup' },
         ];
         return <Card>
             <CardContent className={this.props.classes.cardContent}>
@@ -345,7 +345,7 @@ class App extends GenericApp {
                 </div>
                 <div className={this.props.classes.textDiv}>
                     <div className={this.props.classes.cardHeader}>
-                        {I18n.t('activated backupoptions')}
+                        {I18n.t('Activated backup options')}
                     </div>
                     <ul style={{ maxHeight: 150, overflow: 'auto' }}>
                         {options.map(option => this.state.native[option.name] &&
@@ -483,7 +483,7 @@ class App extends GenericApp {
                                 endIcon={<CloudUpload />}
                                 schema={{
                                     backUpType: 'iobroker',
-                                    label: 'iobroker start backup',
+                                    label: 'ioBroker start backup',
                                 }}
                             /> : <Button
                                 style={{ width: '100%' }}
@@ -492,7 +492,7 @@ class App extends GenericApp {
                                 variant="contained"
                                 endIcon={<CloudUpload />}
                             >
-                                {I18n.t('iobroker start backup')}
+                                {I18n.t('ioBroker start backup')}
                             </Button>}
                             {this.state.myAlive && this.state.native.ccuEnabled ? <BackupNow
                                 className={this.props.classes.buttonWidth}
@@ -549,7 +549,7 @@ class App extends GenericApp {
                                 }}
                                 endIcon={<CloudUpload />}
                             >
-                                {I18n.t('save BackItUp settings')}
+                                {I18n.t('Save BackItUp settings')}
                             </Button>
                         </div>
                         <div className={this.props.classes.header} style={{ margin: '1.5rem 0px 1.0rem 0px' }}>
@@ -601,7 +601,7 @@ class App extends GenericApp {
                                 onClick={() => this.setState({ showUploadSettings: true })}
                                 endIcon={<SettingsBackupRestore />}
                             >
-                                {I18n.t('restore BackItUp settings')}
+                                {I18n.t('Restore BackItUp settings')}
                             </Button>
                         </div>
                         {this.renderError()}

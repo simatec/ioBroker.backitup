@@ -1,6 +1,6 @@
 {
   "type": "panel",
-  "label": "iobroker backup",
+  "label": "ioBroker backup",
   "items": {
     "_checkConfig": {
       // this component is not visible in the UI
@@ -13,7 +13,7 @@
     "_header": {
       "type": "header",
       "size": 2,
-      "text": "iobroker backup",
+      "text": "ioBroker backup",
       "sm": 12,
     },
     "backupNow": {
@@ -33,16 +33,15 @@
       "color": "primary"
     },
     "minimalTime": {
-      // Todo TimePicker only HH:mm for native minimalTime
       "hidden": "data.iobrokerCron",
       "newLine": true,
       "type": "timePicker",
-      "label": "backup time",
-      "help": "Backup start time in hh: mm",
-      "format": "HH:mm:ss",
-      "views": ['hours', 'minutes', 'seconds'],
-      "timeSteps": { hours: 1, minutes: 1, seconds: 5 },
-      "returnFormat": "HH:mm:ss",
+      "label": "Backup time",
+      "help": "Backup start time in hh:mm",
+      "format": "HH:mm",
+      "views": ['hours', 'minutes'],
+      "timeSteps": { hours: 1, minutes: 1 },
+      "returnFormat": "HH:mm",
       "sm": 9,
       "md": 6,
       "lg": 3
@@ -51,8 +50,7 @@
       "hidden": "!data.iobrokerCron",
       "newLine": true,
       "type": "cron",
-      "label": "backup cronjob",
-      "help": "Backup time as cronjob",
+      "label": "Backup CRON job",
       "complex": true,
       "sm": 9,
       "md": 6,
@@ -67,8 +65,8 @@
       "min": 1,
       "max": 100,
       "type": "number",
-      "label": "days",
-      "help": "Backup will run every X days"
+      "label": "Backup will run every",
+      "help": "days"
     },
     "minimalDeleteAfter": {
       "sm": 9,
@@ -77,21 +75,20 @@
       "min": 1,
       "max": 100,
       "type": "number",
-      "label": "piece",
-      "help": "old iobroker backups delete after X-days"
+      "label": "Old ioBroker backups delete after",
+      "help": "days"
     },
     "minimalNameSuffix": {
       "sm": 9,
       "md": 6,
       "lg": 3,
       "type": "text",
-      "label": "name",
-      "help": "Name suffix"
+      "label": "Name suffix",
     },
     "iobrokerCron": {
       "newLine": true,
       "type": "checkbox",
-      "label": "Create your own cronjob (for experts only)",
+      "label": "Create your own CRON job (for experts only)",
       "sm": 12
     },
   }

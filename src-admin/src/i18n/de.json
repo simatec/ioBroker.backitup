@@ -1,1 +1,18 @@
-{}
+{
+  "Adapter exist": "Adapter vorhanden",
+  "Authorize this app by visiting": "Autorisieren Sie diese App unter",
+  "BackItUp Information!": "BackItUp-Informationen!",
+  "BackItUp Warning!": "BackItUp-Warnung!",
+  "BackItUp execution:": "BackItUp-Ausführung:",
+  "Backup now": "Jetzt sichern",
+  "Close": "Schließen",
+  "Close on ready": "Schließen bei Fertig",
+  "Config taken from %s": "Konfiguration übernommen von %s",
+  "Detect config": "Konfiguration erkennen",
+  "Enter the code from that page here": "Geben Sie den Code von dieser Seite hier ein",
+  "Get google drive access": "Erhalten Sie Zugriff auf Google Drive",
+  "No %s Instance found on this host. Please check your System": "Auf diesem Host wurde keine %s-Instanz gefunden. Bitte überprüfen Sie Ihr System",
+  "No config found": "Keine Konfiguration gefunden",
+  "Renew google drive access": "Google Drive-Zugriff erneuern",
+  "ra_Close": "Schließen"
+}

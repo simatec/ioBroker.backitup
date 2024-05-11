@@ -12,7 +12,7 @@
     },
     "_header1": {
       "type": "header",
-      "text": "What to back up",
+      "text": "What to backup",
       "sm": 12,
       "size": 2
     },
@@ -102,7 +102,7 @@
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
       "adapter": "history",
-      "label": "Save History Data",
+      "label": "Save history data",
       "title": "BackItUp Information",
       "showAlertAlways": true,
       "allHosts": true,
@@ -134,7 +134,7 @@
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
       "adapter": "sql",
-      "label": "MySql Backup",
+      "label": "MySQL Backup",
       "title": "BackItUp Information",
       "showAlertAlways": true,
       "allHosts": true,
@@ -150,7 +150,7 @@
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
       "adapter": "sql",
-      "label": "Postgresql Backup",
+      "label": "PostgreSQL Backup",
       "title": "BackItUp Information",
       "showAlertAlways": true,
       "allHosts": true,
@@ -166,7 +166,7 @@
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
       "adapter": "sql",
-      "label": "sqlite3 Backup",
+      "label": "SQLite3 backup",
       "title": "BackItUp Information",
       "showAlertAlways": true,
       "allHosts": true,
@@ -177,7 +177,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
-      "label": "Grafana Backup"
+      "label": "Grafana backup"
     },
     "noderedEnabled": {
       "newLine": true,
@@ -288,7 +288,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
-      "label": "Onedrive",
+      "label": "OneDrive",
     },
     "_header3": {
       "type": "header",

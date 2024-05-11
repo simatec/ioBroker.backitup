@@ -1,146 +1,178 @@
 {
-  "type": "panel",
-  "label": "MySql Backup",
-  "items": {
-    "_checkConfig": {
-      // this component is not visible in the UI
-      // it checks the configuration
-      "type": "custom",
-      "i18n": true,
-      "url": "custom/customComponents.js",
-      "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
-    },
-    "_header": {
-      "type": "header",
-      "size": 2,
-      "text": "MySql Backup",
-      "sm": 12,
-    },
-    "detectNow": {
-      "type": "custom",
-      "hidden": "data.mySqlMulti",
-      "button": true,
-      "variant": "contained",
-      "url": "custom/customComponents.js",
-      "name": "ConfigCustomBackItUpSet/Components/DetectConfig",
-      "adapter": "mysql",
-      "icon": "search",
-      "label": "detect config",
-      "sm": 9,
-      "md": 6,
-      "lg": 3
-    },
-    "_helpLine1": {
-      "hidden": "data.mySqlMulti",
-      "newLine": true,
-      "type": "divider",
-      "color": "primary"
-    },
-    "mySqlHost": {
-      "hidden": "data.mySqlMulti",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "type": "text",
-      "label": "Host",
-      "help": "MySQL Hostname",
-      "newLine": true
-    },
-    "mySqlPort": {
-      "hidden": "data.mySqlMulti",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "min": 1,
-      "max": 65535,
-      "type": "number",
-      "label": "Port",
-      "help": "MySQL port"
-    },
-    "mySqlName": {
-      "hidden": "data.mySqlMulti",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "type": "text",
-      "label": "name",
-      "help": "MySQL database name"
-    },
-    "mySqlUser": {
-      "hidden": "data.mySqlMulti",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "type": "text",
-      "label": "MySql username",
-      "help": "MySql username",
-      "newLine": true
-    },
-    "mySqlPassword": {
-      "hidden": "data.mySqlMulti",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "type": "password",
-			"visible": true,
-      "label": "password",
-      "help": "MySql password"
-    },
-    "mySqlDumpExe": {
-      "hidden": "data.mySqlMulti",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "type": "text",
-      "label": "Full path",
-      "help": "Path with filename to mysqldump executable (leave empty to use default)",
-    },
-    "mysqlQuick": {
-      "type": "checkbox",
-      "label": "Retrieve tables row by row",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "newLine": true
-    },
-    "mysqlSingleTransaction": {
-      "type": "checkbox",
-      "label": "BEGIN instruction before backup",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-    },
-    "mySqlMulti": {
-      "type": "checkbox",
-      "label": "Backup of several Systems",
-      "sm": 12,
-      "md": 8,
-      "lg": 4,
-      "newLine": true
-    },
-    "_helpLine2": {
-      "hidden": "!data.mySqlMulti",
-      "newLine": true,
-      "type": "divider",
-      "color": "primary"
-    },
-    "mySqlEvents": {
-      "newLine": true,
-      "type": "table",
-      "sm": 12,
-      "label": "MySql hosts",
-      "hidden": "!data.mySqlMulti",
-      "encryptedAttributes": ["pass"],
-      "labelsInHeader": true,
-      "items": [
-        {"attr": "host", "type": "text", "title": "Host", width: "15%"},
-        {"attr": "port", "type": "number", "title": "port", width: "7%"},
-        {"attr": "user", "type": "text", "title": "Username", width: "15%"},
-        {"attr": "pass", "type": "password", "title": "password", width: "15%"},
-        {"attr": "dbName", "type": "text", "title": "MySQL database name", width: "15%"},
-        {"attr": "nameSuffix", "type": "text", "title": "Name suffix", width: "15%"},
-        {"attr": "exe", "type": "text", "title": "Full path", width: "18%"},
-      ]
+    "type": "panel",
+    "label": "MySQL Backup",
+    "items": {
+        "_checkConfig": {
+            // this component is not visible in the UI
+            // it checks the configuration
+            "type": "custom",
+            "i18n": true,
+            "url": "custom/customComponents.js",
+            "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
+        },
+        "_header": {
+            "type": "header",
+            "size": 2,
+            "text": "MySQL Backup",
+            "sm": 12,
+        },
+        "detectNow": {
+            "type": "custom",
+            "hidden": "data.mySqlMulti",
+            "button": true,
+            "variant": "contained",
+            "url": "custom/customComponents.js",
+            "name": "ConfigCustomBackItUpSet/Components/DetectConfig",
+            "adapter": "mysql",
+            "icon": "search",
+            "label": "Detect config",
+            "sm": 9,
+            "md": 6,
+            "lg": 3
+        },
+        "_helpLine1": {
+            "hidden": "data.mySqlMulti",
+            "newLine": true,
+            "type": "divider",
+            "color": "primary"
+        },
+        "mySqlHost": {
+            "hidden": "data.mySqlMulti",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "MySQL Hostname",
+            "newLine": true
+        },
+        "mySqlPort": {
+            "hidden": "data.mySqlMulti",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "min": 1,
+            "max": 65535,
+            "type": "number",
+            "label": "MySQL port",
+        },
+        "mySqlName": {
+            "hidden": "data.mySqlMulti",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "MySQL database name",
+        },
+        "mySqlUser": {
+            "hidden": "data.mySqlMulti",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "MySQL username",
+            "newLine": true
+        },
+        "mySqlPassword": {
+            "hidden": "data.mySqlMulti",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "password",
+            "visible": true,
+            "label": "MySQL password",
+        },
+        "mySqlDumpExe": {
+            "hidden": "data.mySqlMulti",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "Full path",
+            "help": "Path with filename to mysqldump executable (leave empty to use default)",
+        },
+        "mysqlQuick": {
+            "type": "checkbox",
+            "label": "Retrieve tables row by row",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "newLine": true
+        },
+        "mysqlSingleTransaction": {
+            "type": "checkbox",
+            "label": "BEGIN instruction before backup",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+        },
+        "mySqlMulti": {
+            "type": "checkbox",
+            "label": "Backup of several systems",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "newLine": true
+        },
+        "_helpLine2": {
+            "hidden": "!data.mySqlMulti",
+            "newLine": true,
+            "type": "divider",
+            "color": "primary"
+        },
+        "mySqlEvents": {
+            "newLine": true,
+            "type": "table",
+            "sm": 12,
+            "label": "MySQL hosts",
+            "hidden": "!data.mySqlMulti",
+            "encryptedAttributes": [
+                "pass"
+            ],
+            "labelsInHeader": true,
+            "items": [
+                {
+                    "attr": "host",
+                    "type": "text",
+                    "title": "Host",
+                    width: "15%"
+                },
+                {
+                    "attr": "port",
+                    "type": "number",
+                    "title": "Port",
+                    width: "7%"
+                },
+                {
+                    "attr": "user",
+                    "type": "text",
+                    "title": "Username",
+                    width: "15%"
+                },
+                {
+                    "attr": "pass",
+                    "type": "password",
+                    "title": "Password",
+                    width: "15%"
+                },
+                {
+                    "attr": "dbName",
+                    "type": "text",
+                    "title": "MySQL database name",
+                    width: "15%"
+                },
+                {
+                    "attr": "nameSuffix",
+                    "type": "text",
+                    "title": "Name suffix",
+                    width: "15%"
+                },
+                {
+                    "attr": "exe",
+                    "type": "text",
+                    "title": "Full path",
+                    width: "18%"
+                },
+            ]
+        }
     }
-  }
 }

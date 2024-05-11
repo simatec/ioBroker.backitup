@@ -23,7 +23,6 @@
       "lg": 4,
       "type": "text",
       "label": "Zigbee2MQTT file path",
-      "help": "Zigbee2MQTT file path"
     }
   }
 }

@@ -625,7 +625,7 @@ function backupInfo(settings) {
         }
         socket.emit('getState', adapter + '.' + instance + '.history.ccuLastTime', function (err, state) {
             if (state && state.val && settings.ccuEnabled) {
-                text += `<li class="next-last-backups"><b>${_('Last CCU Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
+                text += `<li class="next-last-backups"><b>${_('Last CCU backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
             }
             socket.emit('getState', adapter + '.' + instance + '.info.iobrokerNextTime', function (err, state) {
                 if (state && state.val && settings.minimalEnabled) {
@@ -633,7 +633,7 @@ function backupInfo(settings) {
                 }
                 socket.emit('getState', adapter + '.' + instance + '.info.ccuNextTime', function (err, state) {
                     if (state && state.val && settings.ccuEnabled) {
-                        text += `<li class="next-last-backups"><b>${_('Next CCU Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
+                        text += `<li class="next-last-backups"><b>${_('Next CCU backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
                     }
                     var $backups = $('.card-content-text');
                     $backups
@@ -726,9 +726,9 @@ function fillBackupOptions(settings) {
     if (settings.yahkaEnabled) _options.push(_('Yahka (Homekit) Backup'));
     if (settings.historyEnabled) _options.push(_('Save History Data'));
     if (settings.influxDBEnabled) _options.push(_('InfluxDB Backup'));
-    if (settings.mySqlEnabled) _options.push(_('MySql Backup'));
+    if (settings.mySqlEnabled) _options.push(_('MySQL Backup'));
     if (settings.sqliteEnabled) _options.push(_('sqlite3 Backup'));
-    if (settings.grafanaEnabled) _options.push(_('Grafana Backup'));
+    if (settings.grafanaEnabled) _options.push(_('Grafana backup'));
     var text = '';
     for (var i = 0; i < _options.length; i++) {
         text += `<li>${_options[i]}</li>`;

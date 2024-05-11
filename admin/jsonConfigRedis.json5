@@ -23,7 +23,7 @@
 			"sm": 12,
 			"md": 8,
 			"lg": 4,
-			"help": "source type",
+			"help": "Source type",
 			"options": [
 				{
 					"label": "Local",
@@ -43,7 +43,6 @@
 			"sm": 12,
 			"md": 8,
 			"lg": 4,
-			"help": "Redis file path",
 			"newLine": true
 			},
 		"redisAOFactive": {
@@ -59,21 +58,19 @@
 		"redisHost": {
 			"hidden": "data.redisType == 'local'",
 			"type": "text",
-			"label": "Host",
+			"label": "Redis Hostname",
 			"sm": 12,
 			"md": 8,
 			"lg": 4,
-			"help": "Redis Hostname",
 			"newLine": true
 			},
 		"redisPort": {
 			"hidden": "data.redisType == 'local'",
 			"type": "text",
-			"label": "port",
+			"label": "Port",
 			"sm": 12,
 			"md": 8,
 			"lg": 4,
-			"help": "port"
 			},
 		"redisUser": {
 			"hidden": "data.redisType == 'local'",
@@ -82,18 +79,16 @@
 			"sm": 12,
 			"md": 8,
 			"lg": 4,
-			"help": "Redis username",
 			"newLine": true
 		},
 		"redisPassword": {
 			"hidden": "data.redisType == 'local'",
 			"type": "password",
 			"visible": true,
-			"label": "password",
+			"label": "Redis password",
 			"sm": 12,
 			"md": 8,
 			"lg": 4,
-			"help": "Redis password"
 		},
 	}
 }

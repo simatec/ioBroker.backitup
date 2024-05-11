@@ -1,1 +1,18 @@
-{}
+{
+  "Adapter exist": "Адаптер существует",
+  "Authorize this app by visiting": "Авторизуйте это приложение, посетив",
+  "BackItUp Information!": "Информация BackItUp!",
+  "BackItUp Warning!": "BackItUp Внимание!",
+  "BackItUp execution:": "Выполнение BackItUp:",
+  "Backup now": "Резервное копирование сейчас",
+  "Close": "Закрывать",
+  "Close on ready": "Закрыть по готовности",
+  "Config taken from %s": "Конфигурация взята из %s",
+  "Detect config": "Определить конфигурацию",
+  "Enter the code from that page here": "Введите код с этой страницы здесь",
+  "Get google drive access": "Получить доступ к Google Диску",
+  "No %s Instance found on this host. Please check your System": "На этом хосте не найден экземпляр %s. Пожалуйста, проверьте вашу систему",
+  "No config found": "Конфигурация не найдена",
+  "Renew google drive access": "Продлить доступ к Google Диску",
+  "ra_Close": "Закрывать"
+}

@@ -13,7 +13,7 @@
     "_header": {
       "type": "header",
       "size": 2,
-      "text": "Save History Data",
+      "text": "Save history data",
       "sm": 12,
     },
     "detectNow": {
@@ -24,7 +24,7 @@
       "name": "ConfigCustomBackItUpSet/Components/DetectConfig",
       "adapter": "history",
       "icon": "search",
-      "label": "detect config",
+      "label": "Detect config",
       "sm": 9,
       "md": 6,
       "lg": 3
@@ -40,7 +40,6 @@
       "lg": 6,
       "type": "text",
       "label": "History data path",
-      "help": "History data path",
       "newLine": true
     },
     "_helpText1": {

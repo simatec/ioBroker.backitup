@@ -27,7 +27,7 @@ class GoogleDrive extends ConfigGeneric {
             {this.state.googleDriveUrl ? <>
                 <div style={{ width: '100%', margin: '1rem 0 1rem 0' }}>
                     {`${I18n.t('Authorize this app by visiting this url: ')}`}
-                    <br/>
+                    <br />
                     <a
                         target="_blank"
                         href={this.state.googleDriveUrl}
@@ -39,7 +39,7 @@ class GoogleDrive extends ConfigGeneric {
                 <TextField
                     label={I18n.t('Enter the code from that page here')}
                     variant="standard"
-                    value={''}
+                    value=""
                     onChange={e => this.props.onChange({ ...this.props.data, googledriveAccessTokens: e.target.value })}
                     fullWidth
                 />

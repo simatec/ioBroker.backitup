@@ -12,7 +12,7 @@ class AdapterExist extends BaseField {
                 control={<Checkbox
                     checked={((this.props.schema.adapter === 'hm-rpc' || this.props.schema.adapter === 'javascript' || this.props.schema.adapter === 'backitup') && this.props.data.hostType === 'Slave') ? false : this.props.data[this.props.attr] ? this.props.data[this.props.attr] : false}
                     disabled={
-                        ((this.props.schema.adapter === 'influxdb' || this.props.schema.adapter === 'sql') && !this.props.data._isDockerDB) || 
+                        ((this.props.schema.adapter === 'influxdb' || this.props.schema.adapter === 'sql') && !this.props.data._isDockerDB) ||
                         ((this.props.schema.adapter === 'hm-rpc' || this.props.schema.adapter === 'javascript' || this.props.schema.adapter === 'backitup') && this.props.data.hostType === 'Slave')
                     }
                     onChange={async e => {

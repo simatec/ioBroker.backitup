@@ -46,8 +46,7 @@
       "md": 8,
       "lg": 4,
       "type": "text",
-      "label": "Google Drive Path for iobroker backup",
-      "help": "Google Drive Path for iobroker backup",
+      "label": "Google Drive Path for ioBroker backup",
       "newLine": true
     },
     "googledriveCcuDir": {
@@ -57,7 +56,6 @@
       "lg": 4,
       "type": "text",
       "label": "Google Drive Path for CCU backup",
-      "help": "Google Drive Path for CCU backup"
     },
     "googledriveDir": {
       "hidden": "data.googledriveOwnDir",
@@ -65,8 +63,7 @@
       "md": 8,
       "lg": 4,
       "type": "text",
-      "label": "path",
-      "help": "Google Drive path",
+      "label": "Google Drive path",
       "newLine": true
     },
   }

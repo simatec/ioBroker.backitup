@@ -1,6 +1,6 @@
 {
   "type": "panel",
-  "label": "sqlite3 Backup",
+  "label": "SQLite3 backup",
   "items": {
     "_checkConfig": {
       // this component is not visible in the UI
@@ -13,7 +13,7 @@
     "_header": {
       "type": "header",
       "size": 2,
-      "text": "sqlite3 Backup",
+      "text": "SQLite3 backup",
       "sm": 12,
     },
     "detectNow": {
@@ -24,7 +24,7 @@
       "name": "ConfigCustomBackItUpSet/Components/DetectConfig",
       "adapter": "sqlite",
       "icon": "search",
-      "label": "detect config",
+      "label": "Detect config",
       "sm": 9,
       "md": 6,
       "lg": 3
@@ -39,8 +39,7 @@
       "md": 9,
       "lg": 6,
       "type": "text",
-      "label": "sqlite3 file path",
-      "help": "sqlite3 file path",
+      "label": "SQLite3 file path",
       "newLine": true
     },
     "sqliteDumpExe": {
@@ -49,7 +48,7 @@
       "lg": 6,
       "type": "text",
       "label": "Full path",
-      "help": "Path with filename to sqlite3 executable (leave empty to use default)",
+      "help": "Path with filename to SQLite3 executable (leave empty to use default)",
     }
   }
 }

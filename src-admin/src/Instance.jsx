@@ -115,7 +115,7 @@ class Instance extends BaseField {
                 </Select>
                 {this.props.schema.help ? <FormHelperText>{this.renderHelp(this.props.schema.help, this.props.schema.helpLink, this.props.schema.noTranslation)}</FormHelperText> : null}
             </FormControl> : null}
-            
+
             {this.state.targets && (this.props.schema.adapter === 'telegram' || this.props.schema.adapter === 'discord') ? <FormControl style={{ width: 'calc(50% - 5px)' }} variant="standard">
                 <InputLabel>{I18n.t(this.props.schema.adapter === 'telegram' ? 'Telegram Receiver' : 'Discord receiver')}</InputLabel>
                 <Select

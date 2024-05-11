@@ -9,11 +9,11 @@ import { ConfigGeneric, i18n as I18n } from '@iobroker/adapter-react-v5';
 class Onedrive extends ConfigGeneric {
     renderItem() {
         return <div style={{ width: '100%', margin: '0 0 1rem 0' }}>
-            <div style={{ width: '100%', margin: '0 0 1rem 0' }} >
-                <span 
+            <div style={{ width: '100%', margin: '0 0 1rem 0' }}>
+                <span
                     hidden={this.state.onedriveUrl}
                 >
-                    {`${I18n.t('Onedrive refresh token: ')}`} 
+                    {`${I18n.t('Onedrive refresh token: ')}`}
                     {I18n.t(
                         this.state.onedriveState === 'Present' || this.props.data.onedriveAccessJson ?
                             'Present' :
@@ -39,7 +39,7 @@ class Onedrive extends ConfigGeneric {
             {this.state.onedriveUrl ? <>
                 <div style={{ width: '100%', margin: '1rem 0 1rem 0' }}>
                     {`${I18n.t('Authorize this app by visiting this url: ')}`}
-                    <br/>
+                    <br />
                     <a
                         target="_blank"
                         href={this.state.onedriveUrl}
@@ -61,11 +61,11 @@ class Onedrive extends ConfigGeneric {
                     variant="contained"
                     onClick={() => this.setState({ running: true }, async () => {
                         const result = await this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'authOnedrive', { code: this.state.code });
-                        this.props.onChange({ ...this.props.data, onedriveAccessJson: result.json })
-                        this.setState({ onedriveState: result.done ? 'Present' : 'Not present', running: false, onedriveUrl: null, });
+                        this.props.onChange({ ...this.props.data, onedriveAccessJson: result.json });
+                        this.setState({ onedriveState: result.done ? 'Present' : 'Not present', running: false, onedriveUrl: null });
                     })}
                 >
-                {I18n.t('Submit')}
+                    {I18n.t('Submit')}
                 </Button>
             </> : null}
         </div>;
