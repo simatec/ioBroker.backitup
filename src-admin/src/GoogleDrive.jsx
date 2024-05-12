@@ -26,7 +26,7 @@ class GoogleDrive extends ConfigGeneric {
             </Button>
             {this.state.googleDriveUrl ? <>
                 <div style={{ width: '100%', margin: '1rem 0 1rem 0' }}>
-                    {`${I18n.t('Authorize this app by visiting this url: ')}`}
+                    <span style={{ marginRight: 4 }}>{`${I18n.t('Authorize this app by visiting this url:')}`}</span>
                     <br />
                     <a
                         target="_blank"

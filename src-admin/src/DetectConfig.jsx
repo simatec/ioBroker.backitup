@@ -30,7 +30,7 @@ class DetectConfig extends BaseField {
                     }
                 }}
             >
-                {I18n.t('detect config')}
+                {I18n.t('Detect config')}
             </Button>
             {this.renderMessage()}
         </>;

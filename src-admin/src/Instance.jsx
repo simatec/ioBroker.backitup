@@ -117,7 +117,7 @@ class Instance extends BaseField {
             </FormControl> : null}
 
             {this.state.targets && (this.props.schema.adapter === 'telegram' || this.props.schema.adapter === 'discord') ? <FormControl style={{ width: 'calc(50% - 5px)' }} variant="standard">
-                <InputLabel>{I18n.t(this.props.schema.adapter === 'telegram' ? 'Telegram Receiver' : 'Discord receiver')}</InputLabel>
+                <InputLabel>{I18n.t(this.props.schema.adapter === 'telegram' ? 'Telegram receiver' : 'Discord receiver')}</InputLabel>
                 <Select
                     disabled={!this.state.instance}
                     variant="standard"
@@ -135,7 +135,7 @@ class Instance extends BaseField {
                 style={{ width: 'calc(50% - 5px)' }}
                 variant="standard"
                 disabled={!this.state.instance}
-                label={I18n.t(this.props.schema.adapter === 'telegram' ? 'Telegram Receiver' : 'Discord receiver')}
+                label={I18n.t(this.props.schema.adapter === 'telegram' ? 'Telegram receiver' : 'Discord receiver')}
                 value={this.state.target}
                 onChange={e => this.setState({ target: e.target.value }, () =>
                     this.onChange(this.props.schema.adapter === 'telegram' ? 'telegramUser' : 'discordTarget', this.state.target))}

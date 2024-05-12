@@ -13,7 +13,7 @@ class Dropbox extends ConfigGeneric {
                 <span
                     hidden={this.state.dropboxUrl}
                 >
-                    {`${I18n.t('Dropbox refresh token: ')}`}
+                    <span style={{ marginRight: 4 }}>{`${I18n.t('Dropbox refresh token:')}`}</span>
                     {I18n.t(
                         this.state.droboxState === 'Present' || this.props.data.dropboxAccessJson ?
                             'Present' :
@@ -39,7 +39,7 @@ class Dropbox extends ConfigGeneric {
             </Button>
             {this.state.dropboxUrl ? <>
                 <div style={{ width: '100%', margin: '1rem 0 1rem 0' }}>
-                    {`${I18n.t('Authorize this app by visiting this url: ')}`}
+                    <span style={{ marginRight: 4 }}>{`${I18n.t('Authorize this app by visiting this url:')}`}</span>
                     <br />
                     <a
                         target="_blank"

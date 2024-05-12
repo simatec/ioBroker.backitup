@@ -27,7 +27,7 @@ export default class SourceSelector extends Component {
                 ...(this.props.style || {}),
             }}
         >
-            <InputLabel>{I18n.t('source type')}</InputLabel>
+            <InputLabel>{I18n.t('Source type')}</InputLabel>
             <Select
                 variant="standard"
                 value={this.props.value || 'local'}

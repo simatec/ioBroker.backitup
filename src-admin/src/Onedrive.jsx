@@ -13,7 +13,7 @@ class Onedrive extends ConfigGeneric {
                 <span
                     hidden={this.state.onedriveUrl}
                 >
-                    {`${I18n.t('Onedrive refresh token: ')}`}
+                    <span style={{ marginRight: 4 }}>{`${I18n.t('OneDrive refresh token:')}`}</span>
                     {I18n.t(
                         this.state.onedriveState === 'Present' || this.props.data.onedriveAccessJson ?
                             'Present' :
@@ -32,13 +32,13 @@ class Onedrive extends ConfigGeneric {
             >
                 {I18n.t(
                     this.props.data.onedriveAccessJson ?
-                        'Renew Onedrive Access' :
-                        'Get Onedrive Access',
+                        'Renew OneDrive Access' :
+                        'Get OneDrive Access',
                 )}
             </Button>
             {this.state.onedriveUrl ? <>
                 <div style={{ width: '100%', margin: '1rem 0 1rem 0' }}>
-                    {`${I18n.t('Authorize this app by visiting this url: ')}`}
+                    <span style={{ marginRight: 4 }}>{`${I18n.t('Authorize this app by visiting this url:')}`}</span>
                     <br />
                     <a
                         target="_blank"

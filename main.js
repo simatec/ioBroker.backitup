@@ -6,6 +6,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
+const ioCommon = require('@iobroker/js-controller-common'); // Get common adapter utils
 const schedule = require('node-schedule');
 const tools = require('./lib/tools');
 const executeScripts = require('./lib/execute');
@@ -526,7 +527,7 @@ function startAdapter(options) {
                             startkey: `system.adapter.${obj.message.instance}.`,
                             endkey: `system.adapter.${obj.message.instance}.\u9999`,
                         }).catch((err) => adapter.log.error(err));
-    
+
                         if (instances && instances.rows && instances.rows.length != 0) {
                             instances.rows.forEach(async (row) => {
                                 if (row.id.replace('system.adapter.', '') != adapter.namespace) {
@@ -598,15 +599,15 @@ function createBackupSchedule() {
 
         const config = backupConfig[type];
         if (config.enabled === true || config.enabled === 'true') {
-            let time = config.ownCron === false ? config.time.split(':') : config.cronjob;
+            let time = config.ownCron ? config.cronjob : config.time.split(':');
 
-            const backupInfo = config.ownCron === false ? `at ${config.time} every ${config.everyXDays} day(s)` : `with Cronjob "${config.cronjob}"`;
+            const backupInfo = config.ownCron ? `with Cronjob "${config.cronjob}"` : `at ${config.time} every ${config.everyXDays} day(s)`;
             adapter.log.info(`[${type}] backup will be activated ${backupInfo}`);
 
             if (backupTimeSchedules[type]) {
                 backupTimeSchedules[type].cancel();
             }
-            const cron = config.ownCron === false ? `10 ${time[1]} ${time[0]} */${config.everyXDays} * * ` : time;
+            const cron = config.ownCron ? time : `10 ${time[1]} ${time[0]} */${config.everyXDays} * * `;
             backupTimeSchedules[type] = schedule.scheduleJob(cron, async () => {
                 const sysCheck = await systemCheck.storageSizeCheck(adapter, adapterName, adapter.log);
 
@@ -669,7 +670,7 @@ function initConfig(secret) {
     let ioPath;
 
     try {
-        ioPath = require.resolve('iobroker.js-controller/iobroker.js');
+        ioPath = `${ioCommon.tools.getControllerDir()}/iobroker.js`;
     } catch (e) {
         adapter.log.error(`Unable to read iobroker path: +${e}`);
     }
@@ -1541,8 +1542,8 @@ async function nextBackup(setMain, type) {
     const cronParser = require('cron-parser');
 
     if (adapter.config.ccuEnabled && setMain || type === 'ccu') {
-        const time = adapter.config.ccuCron === false ? adapter.config.ccuTime.split(':') : adapter.config.ccuCronJob;
-        const cron = adapter.config.ccuCron === false ? `00 ${time[1]} ${time[0]} */${adapter.config.ccuEveryXDays} * *` : time;
+        const time = adapter.config.ccuCron ? adapter.config.ccuCronJob : adapter.config.ccuTime.split(':');
+        const cron = adapter.config.ccuCron ? time : `00 ${time[1]} ${time[0]} */${adapter.config.ccuEveryXDays} * *`;
 
         try {
             const interval = cronParser.parseExpression(cron);
@@ -1557,8 +1558,8 @@ async function nextBackup(setMain, type) {
     }
 
     if (adapter.config.minimalEnabled && setMain || type === 'iobroker') {
-        const time = adapter.config.iobrokerCron === false ? adapter.config.minimalTime.split(':') : adapter.config.iobrokerCronJob;
-        const cron = adapter.config.iobrokerCron === false ? `00 ${time[1]} ${time[0]} */${adapter.config.minimalEveryXDays} * *` : time;
+        const time = adapter.config.iobrokerCron ? adapter.config.iobrokerCronJob : adapter.config.minimalTime.split(':');
+        const cron = adapter.config.iobrokerCron ? time : `00 ${time[1]} ${time[0]} */${adapter.config.minimalEveryXDays} * *`;
 
         try {
             const interval = cronParser.parseExpression(cron);

@@ -9,6 +9,7 @@ import { ConfigGeneric, I18n } from '@iobroker/adapter-react-v5';
 
 import GetBackups from './Components/GetBackups';
 import SourceSelector from './Components/SourceSelector';
+import Restore from './Components/Restore';
 
 const styles = {
     paper: {
@@ -48,6 +49,8 @@ class RestoreBackup extends ConfigGeneric {
             ...this.state,
             backupSource: window.localStorage.getItem('BackItUp.backupSource') || 'local',
             showGetBackups: false,
+            showRestore: null,
+            restoreIfWait: 5000,
         };
     }
 
@@ -77,16 +80,28 @@ class RestoreBackup extends ConfigGeneric {
                     onChange={e =>
                         this.props.onChange({ ...this.props.data, startAllRestore: e.target.checked })}
                 />}
-                label={I18n.t('start all adapter after restore')}
+                label={I18n.t('Start all adapter after restore')}
             />
             {this.state.showGetBackups ? <GetBackups
                 onClose={() => this.setState({ showGetBackups: false })}
+                onRestore={(location, object) => this.setState({ showRestore: { location, object }, showGetBackups: false })}
                 socket={this.props.socket}
                 themeType={this.props.themeType}
                 adapterName={this.props.adapterName}
                 instance={this.props.instance}
                 backupSource={this.state.backupSource}
                 allowDownload={this.props.schema.allowDownload}
+            /> : null}
+            {this.state.showRestore ? <Restore
+                alive={this.props.alive}
+                location={this.state.showRestore.location}
+                fileName={this.state.showRestore.object}
+                onClose={() => this.setState({ showRestore: null })}
+                socket={this.props.socket}
+                themeType={this.props.themeType}
+                adapterName={this.props.adapterName}
+                instance={this.props.instance}
+                restoreIfWait={this.state.restoreIfWait}
             /> : null}
         </div>;
     }

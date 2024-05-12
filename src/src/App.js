@@ -273,19 +273,19 @@ class App extends GenericApp {
                     </div>
                     <ul>
                         {this.state.native.minimalEnabled && <li>
-                            <div className={this.props.classes.label}>{I18n.t('Last iobroker backup: ')}</div>
+                            <div className={this.props.classes.label}>{I18n.t('Last ioBroker backup:')}</div>
                             <div className={this.props.classes.value}>{this.state.iobrokerLastTime}</div>
                         </li>}
                         {this.state.native.ccuEnabled && <li>
-                            <div className={this.props.classes.label}>{I18n.t('Last CCU backup: ')}</div>
+                            <div className={this.props.classes.label}>{I18n.t('Last CCU backup:')}</div>
                             <div className={this.props.classes.value}>{this.state.ccuLastTime}</div>
                         </li>}
                         {this.state.native.minimalEnabled && <li>
-                            <div className={this.props.classes.label}>{I18n.t('Next iobroker backup: ')}</div>
+                            <div className={this.props.classes.label}>{I18n.t('Next ioBroker backup:')}</div>
                             <div className={this.props.classes.value}>{this.state.iobrokerNextTime}</div>
                         </li>}
                         {this.state.native.ccuEnabled && <li>
-                            <div className={this.props.classes.label}>{I18n.t('Next CCU backup: ')}</div>
+                            <div className={this.props.classes.label}>{I18n.t('Next CCU backup:')}</div>
                             <div className={this.props.classes.value}>{this.state.ccuNextTime}</div>
                         </li>}
                     </ul>
@@ -310,7 +310,7 @@ class App extends GenericApp {
                 </div>
                 <div className={this.props.classes.textDiv}>
                     <div className={this.props.classes.cardHeader}>
-                        {I18n.t('activated storage options')}
+                        {I18n.t('Activated storage options')}
                     </div>
                     <ul>
                         {options.map(option => this.state.native[option.name] && <li key={option.name}>{I18n.t(option.label)}</li>)}
@@ -401,7 +401,7 @@ class App extends GenericApp {
                         >
                             <Tooltip size="small" title="PayPal.Me" style={{ marginRight: '0.2rem' }}>
                                 <Fab
-                                    className={ this.props.classes.helpButton }
+                                    className={this.props.classes.helpButton}
                                     onClick={() => {
                                         window.open('https://paypal.me/mk1676', '_blank');
                                     }}
@@ -411,7 +411,7 @@ class App extends GenericApp {
                             </Tooltip>
                             <Tooltip size="small" title="Wiki" style={{ marginRight: '0.2rem' }}>
                                 <Fab
-                                    className={ this.props.classes.helpButton }
+                                    className={this.props.classes.helpButton}
                                     onClick={() => {
                                         window.open('https://github.com/simatec/ioBroker.backitup/wiki', '_blank');
                                     }}
@@ -421,7 +421,7 @@ class App extends GenericApp {
                             </Tooltip>
                             <Tooltip size="small" title="Readme" style={{ marginRight: '0.2rem' }}>
                                 <Fab
-                                    className={ this.props.classes.helpButton }
+                                    className={this.props.classes.helpButton}
                                     onClick={() => {
                                         window.open('https://github.com/simatec/ioBroker.backitup/blob/master/README.md', '_blank');
                                     }}
