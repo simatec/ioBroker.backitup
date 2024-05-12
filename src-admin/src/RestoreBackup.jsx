@@ -84,7 +84,7 @@ class RestoreBackup extends ConfigGeneric {
             />
             {this.state.showGetBackups ? <GetBackups
                 onClose={() => this.setState({ showGetBackups: false })}
-                onRestore={(location, object) => this.setState({ showRestore: { location, object }, showGetBackups: false })}
+                onRestore={(location, object, fileName) => this.setState({ showRestore: { location, object, fileName }, showGetBackups: false })}
                 socket={this.props.socket}
                 themeType={this.props.themeType}
                 adapterName={this.props.adapterName}
@@ -95,7 +95,7 @@ class RestoreBackup extends ConfigGeneric {
             {this.state.showRestore ? <Restore
                 alive={this.props.alive}
                 location={this.state.showRestore.location}
-                fileName={this.state.showRestore.object}
+                fileName={this.state.showRestore.fileName}
                 onClose={() => this.setState({ showRestore: null })}
                 socket={this.props.socket}
                 themeType={this.props.themeType}
