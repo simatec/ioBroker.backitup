@@ -621,7 +621,7 @@ class App extends GenericApp {
                 /> : null}
                 {this.state.showGetBackups ? <GetBackups
                     onClose={() => this.setState({ showGetBackups: false })}
-                    onRestore={(location, object) => this.setState({ showRestore: { location, object }, showGetBackups: false })}
+                    onRestore={(location, object, fileName) => this.setState({ showRestore: { location, object, fileName }, showGetBackups: false })}
                     socket={this.socket}
                     themeType={this.state.themeType}
                     adapterName={this.adapterName}
@@ -640,7 +640,7 @@ class App extends GenericApp {
                 {this.state.showRestore ? <Restore
                     alive={this.state.myAlive}
                     location={this.state.showRestore.location}
-                    fileName={this.state.showRestore.object}
+                    fileName={this.state.showRestore.fileName}
                     onClose={() => this.setState({ showRestore: null })}
                     socket={this.socket}
                     themeType={this.state.themeType}

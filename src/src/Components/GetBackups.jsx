@@ -218,7 +218,7 @@ const GetBackups = props => {
                                                             </Fab>
                                                         </Tooltip> : null}
                                                         <Tooltip title={I18n.t('Restore Backup File')}>
-                                                            <Fab size="small" onClick={() => props.onRestore(location, object)}>
+                                                            <Fab size="small" onClick={() => props.onRestore(location, object, backup.path)}>
                                                                 <History />
                                                             </Fab>
                                                         </Tooltip>

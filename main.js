@@ -281,6 +281,7 @@ function startAdapter(options) {
                         if (obj.message.stopIOB) {
                             await getCerts(obj.from);
                         }
+                        adapter.log.info(`DATA: ${JSON.stringify(obj.message)}`);
 
                         const _restore = require('./lib/restore');
                         _restore.restore(
@@ -1669,7 +1670,7 @@ function decryptEvents(secret) {
     }
 }
 
-function clearbashDir() {
+function clearBashDir() {
     // delete restore files
     if (fs.existsSync(bashDir)) {
         const fse = require('fs-extra');
@@ -1889,7 +1890,7 @@ async function main(adapter) {
     if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) createBackupDir();
     if (fs.existsSync(bashDir + '/.redis.info')) deleteHideFiles();
     if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) delTmp();
-    clearbashDir();
+    clearBashDir();
 
     timerMain = setTimeout(function () {
         if (fs.existsSync(bashDir + '/.mount')) {
