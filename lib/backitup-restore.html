@@ -1,135 +1,188 @@
 <html>
+
 <head>
-<title>BackItUp Restore</title>
+    <title>BackItUp Restore</title>
 
-<style>
-    body {
-        background-color: #fff;
-    }
-    body.dark{
-        background-color: #121212;
-    }
-    .box {
-        overflow-y: auto;
-        border-radius: 4px;
-        color: #1f1f1f;
-        background: #fff;
-        font-family: courier, monospace;
-        font-size: 14px;
-        resize: none;
-        width: 100%;
-        margin-bottom: 0;
-        padding: 0.7rem;
-        box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
-    }
-    .box.dark {
-        color: #fff;
-        background: #1f1f1f;
-    }
-    .title {
-        background-color: #3399CC;
-        text-align: center;
-        margin-block-end: 1em;
-        font-size: 1.8rem;
-        color: #fff;
-        padding: 1rem;
-        font-family: system-ui;
-        border-radius: 4px;
-        box-shadow: 0 3px 3px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%), 0 3px 1px -2px rgb(0 0 0 / 20%);
-    }
-    .container {
-        background-color: #fff;
-    }
-    .container.dark {
-        background-color: #121212;
+    <style>
+        body {
+            background-color: #fff;
+        }
 
-    }
-    .status {
-        font-size: 1.5rem;
-        padding-left: 10px;
-        font-family: system-ui;
-        margin-block-start: 0.1em;
-        margin-block-end: 0.1em;
-        font-weight: bold;
-    }
-    .chip {
-        background-color: #2a3135;
-        border-radius: 4px;
-        box-shadow: 0 3px 3px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%), 0 3px 1px -2px rgb(0 0 0 / 20%);
-        margin-left: 20px;
-        margin-right: 20px;
-        padding: 0.2rem;
-    }
-    .button {
-        background-color: #3399CC;
-        border-radius: 4px; color: #fff;
-        width: 100%;
-        position: relative;
-        cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
-        transition: all 0.3s ease-out 0s;
-        padding: 0 2rem;
-        text-align: center;
-        letter-spacing: 1px;
-        font-size: 14px; outline: 0;
-        box-shadow: rgb(0 0 0 / 14%) 0 2px 2px 0, rgb(0 0 0 / 12%) 0 3px 1px -2px, rgb(0 0 0 / 20%) 0 1px 5px 0;
-        border: none;
-        line-height: 36px;
-        text-transform: uppercase;
-    }
-    .button:hover {
-        background-color: rgb(35, 107, 142);
-        filter: brightness(105%);
-        box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-    }
-    ::-webkit-scrollbar {
-        width: 6px;
-        background-color: #ccc;
-        border-bottom-right-radius: 4px;
-        border-top-right-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb {
-        background-color: #575757;
-    }
-    ::-webkit-scrollbar-track {
-        background-color: #ccc;
-        border-bottom-right-radius: 4px;
-        border-top-right-radius: 4px;
-    }
-</style>
+        body.dark {
+            background-color: #121212;
+        }
+
+        .box {
+            overflow-y: auto;
+            border-radius: 4px;
+            color: #1f1f1f;
+            background: #fff;
+            font-family: courier, monospace;
+            font-size: 14px;
+            resize: none;
+            width: 100%;
+            margin-bottom: 0;
+            padding: 0.7rem;
+            box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+        }
+
+        .box.dark {
+            color: #fff;
+            background: #1f1f1f;
+        }
+
+        .title {
+            background-color: #3399CC;
+            text-align: center;
+            margin-block-end: 1em;
+            font-size: 1.8rem;
+            color: #fff;
+            padding: 1rem;
+            font-family: system-ui;
+            border-radius: 4px;
+            box-shadow: 0 3px 3px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%), 0 3px 1px -2px rgb(0 0 0 / 20%);
+        }
+
+        .container {
+            background-color: #fff;
+        }
+
+        .container.dark {
+            background-color: #121212;
+
+        }
+
+        .status {
+            font-size: 1.2rem;
+            padding-left: 10px;
+            font-family: system-ui;
+            margin-block-start: 0.1em;
+            margin-block-end: 0.1em;
+            font-weight: bold;
+        }
+
+        .chip {
+            background-color: #2a3135;
+            border-radius: 4px;
+            box-shadow: 0 3px 3px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%), 0 3px 1px -2px rgb(0 0 0 / 20%);
+            margin-left: 20px;
+            margin-right: 20px;
+            padding: 0.2rem;
+        }
+
+        .button {
+            border-radius: 4px;
+            color: #fff;
+            width: 100%;
+            position: relative;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: all 0.3s ease-out 0s;
+            padding: 0 2rem;
+            text-align: center;
+            letter-spacing: 1px;
+            font-size: 14px;
+            outline: 0;
+            border: none;
+            line-height: 36px;
+            text-transform: uppercase;
+            transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+            background-color: rgb(224, 224, 224);
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+            color: rgba(0, 0, 0, 0.87);
+        }
+
+        .button:hover {
+            color: rgba(0, 0, 0, 0.87);
+            filter: brightness(90%);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            background-color: #ccc;
+            border-bottom-right-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #575757;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #ccc;
+            border-bottom-right-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        #header-area #header-logo-title .logo {
+            float: left;
+            margin: 5px 10px 0 10px;
+            height: 48px;
+        }
+
+        #header-area #header-logo-title p {
+            line-height: normal !important;
+            margin: 0 !important;
+            padding: 0 0 5px 5px;
+            font-family: "system-ui";
+        }
+
+        #header-area #header-logo-title p>span.h-title {
+            font-size: 1.6em !important;
+            color: white;
+        }
+
+        #header-area #header-logo-title p>span.h-sub-title {
+            font-size: 1em !important;
+            color: white;
+            font-style: italic;
+        }
+
+        #header-area {
+            margin-top: 0px;
+            margin-bottom: 15px;
+            background-color: #3399CC;
+            background-image: linear-gradient(135deg, #174475 0%, #3399CC 30%);
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+    </style>
 
 </head>
+
 <body>
-<div class="container">
-    <div class="row">
-        <h6 class="title">ioBroker BackItUp Restore</h6>
-    </div>
-    <div class="row chip" id="status">
-        <h6 id="header1" class="status" style="color: #fff;">Restore and Restart completed successfully!!</h6>
-        <h6 id="header2" class="status"></h6>
-    </div>
-    <div class="row" style="padding: 20px;">
-        <div class="col s12" id="logText">
-            <textarea class="box" readonly cols="120" rows="30" id="logWebIF"></textarea>
+    <div class="container">
+        <div class="row">
+            <div id="header-area">
+                <div id="header-logo-title">
+                    <img class="logo" src="backitup.png">
+                    <p>
+                        <span class="h-title" style="font-weight: bold;">Backitup</span><br />
+                        <span class="h-sub-title">Restore Interface …</span>
+                    </p>
+                </div>
+            </div>
+            <div class="row chip" id="status">
+                <h6 id="header1" class="status" style="color: #fff;">Restore and Restart completed successfully!!</h6>
+                <h6 id="header2" class="status"></h6>
+            </div>
+            <div class="row" style="padding: 20px;">
+                <div class="col s12" id="logText">
+                    <textarea class="box" readonly cols="120" rows="30" id="logWebIF"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12" id="logInput" style="display: none">
+                    <input type="text" id="startFinish" value="" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12" id="backButton" style="text-align: center; margin-left: 20px; margin-right: 20px;">
+                    <input id="backButtonInput" class="button" type="button" value="Backup Menu"
+                        onClick="javascript:history.back()" />
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col s12" id="logInput" style="display: none">
-            <input type="text" id="startFinish" value="" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12" id="backButton" style="text-align: center; margin-left: 20px; margin-right: 20px;">
-            <input
-                id="backButtonInput"
-                class="button"
-                type="button"
-                value="Backup Menu"
-                onClick="javascript:history.back()"
-            />
-        </div>
-    </div>
-</div>
 </body>
 <script>
     function pollStatus() {
@@ -144,8 +197,8 @@
                 document.getElementById('backButtonInput').style.display = data.startFinish !== '[Restore]' ? 'initial' : 'none';
                 document.getElementById('header1').style.display = data.startFinish === '[Finish]' ? 'initial' : 'none';
                 const header2 = document.getElementById('header2');
-                header2.style.color = data.statusColor || '#fff';
-                header2.style.color = data.startFinish === '[Finish]' ? 'none' : 'initial';
+                header2.style.color = data.statusColor ? data.statusColor : '#fff';
+                header2.style.display = data.startFinish === '[Finish]' ? 'none' : 'initial';
                 header2.innerHTML = data.restoreStatus || 'Restore is started ...';
 
                 if (data.dark === true && document.body.classList.contains('dark') === false) {
@@ -167,4 +220,5 @@
     }, 1000);
     pollStatus();
 </script>
+
 </html>
