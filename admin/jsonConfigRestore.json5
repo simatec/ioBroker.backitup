@@ -22,6 +22,7 @@
             "i18n": true,
             "url": "custom/customComponents.js",
             "name": "ConfigCustomBackItUpSet/Components/RestoreBackup",
+            "allowDownload": true,
             "value": false,
             "sm": 12,
             "md": 12,

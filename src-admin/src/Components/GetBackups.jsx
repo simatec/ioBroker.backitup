@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-// import { saveAs } from 'file-saver';
+import { saveAs } from 'file-saver';
 import {
     Accordion, AccordionDetails, AccordionSummary, Dialog,
     DialogContent, DialogTitle, Fab, Table,
@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import {
     Close,
-    // Download,
+    Download,
     History,
     ExpandMore,
     Save,
@@ -199,12 +199,30 @@ const GetBackups = props => {
                                                     :
                                                     <span style={{ marginLeft: 8 }}>{parseSize(backup.size)}</span>
                                                 </TableCell>
-                                                <TableCell style={{ width: 40 }}>
-                                                    <Tooltip title={I18n.t('Restore Backup File')}>
-                                                        <Fab size="small" onClick={() => props.onRestore(location, object)}>
-                                                            <History />
-                                                        </Fab>
-                                                    </Tooltip>
+                                                <TableCell style={{ width: 88 }}>
+                                                    <div style={{ display: 'flex', gap: 8 }}>
+                                                        {props.allowDownload ? <Tooltip title={I18n.t('Download Backup File')}>
+                                                            <Fab
+                                                                size="small"
+                                                                onClick={async () => {
+                                                                    const data = await props.socket.sendTo(
+                                                                        `${props.adapterName}.${props.instance}`,
+                                                                        'getFile',
+                                                                        { type: location, fileName: backup.path, protocol: window.location.protocol },
+                                                                    );
+                                                                    const url = `${window.location.protocol}//${window.location.hostname}:${data.listenPort}/${data.fileName ? data.fileName : backup.path.split(/[\\/]/).pop()}`;
+                                                                    saveAs(url);
+                                                                }}
+                                                            >
+                                                                <Download />
+                                                            </Fab>
+                                                        </Tooltip> : null}
+                                                        <Tooltip title={I18n.t('Restore Backup File')}>
+                                                            <Fab size="small" onClick={() => props.onRestore(location, object, backup.path)}>
+                                                                <History />
+                                                            </Fab>
+                                                        </Tooltip>
+                                                    </div>
                                                 </TableCell>
                                             </TableRow>)}
                                         </TableBody>

@@ -69,6 +69,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) Fix Yahka Backup
 * (simatec) Fix Nodered Backup
 * (simatec) some bugs fixed
+* (simatec) React Design Restore Interface
 
 ### 2.11.0 (2024-03-04)
 * (simatec) Fix Sqlite3 Path
