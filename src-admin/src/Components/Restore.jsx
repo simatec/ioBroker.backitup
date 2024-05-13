@@ -20,11 +20,11 @@ const styles = {
     },
     textTime: {
         display: 'inline-block',
-        width: 85,
+        width: 95,
     },
     textLevel: {
         display: 'inline-block',
-        width: 40,
+        width: 50,
     },
     'textLevel-ERROR': {
         color: 'red',
@@ -112,7 +112,7 @@ class Restore extends Component {
         return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}.${date.getMilliseconds().toString().padStart(3, '0')}`;
     }
 
-    onOutput = (id, state)  => {
+    onOutput = (id, state) => {
         if (state && state.val && state.val !== this.lastExecutionLine) {
             this.lastExecutionLine = state.val;
             const executionLog = [...this.state.executionLog];
@@ -274,7 +274,14 @@ class Restore extends Component {
                 <Button
                     variant="contained"
                     disabled={this.state.executing || this.state.done}
-                    onClick={() => this.doRestore()}
+                    onClick={() => this.setState({
+                        executionLog: [{
+                            ts: Restore.getTime(),
+                            level: 'INFO',
+                            text: 'starting Restore...',
+                            source: 'gui',
+                        }],
+                    }, () => this.doRestore())}
                     color="primary"
                 >
                     {I18n.t('Restore')}

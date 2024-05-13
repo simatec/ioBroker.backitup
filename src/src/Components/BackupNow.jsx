@@ -209,7 +209,7 @@ class BackupNow extends ConfigGeneric {
                     executionLog: [{
                         ts: BackupNow.getTime(),
                         level: 'INFO',
-                        text: 'starting...',
+                        text: 'starting Backup...',
                         source: 'gui',
                     }],
                     executing: true,

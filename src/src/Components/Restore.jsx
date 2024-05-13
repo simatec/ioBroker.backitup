@@ -20,11 +20,11 @@ const styles = {
     },
     textTime: {
         display: 'inline-block',
-        width: 85,
+        width: 95,
     },
     textLevel: {
         display: 'inline-block',
-        width: 40,
+        width: 50,
     },
     'textLevel-ERROR': {
         color: 'red',
@@ -274,7 +274,14 @@ class Restore extends Component {
                 <Button
                     variant="contained"
                     disabled={this.state.executing || this.state.done}
-                    onClick={() => this.doRestore()}
+                    onClick={() => this.setState({
+                        executionLog: [{
+                            ts: Restore.getTime(),
+                            level: 'INFO',
+                            text: 'starting Restore...',
+                            source: 'gui',
+                        }],
+                    }, () => this.doRestore())}
                     color="primary"
                 >
                     {I18n.t('Restore')}
