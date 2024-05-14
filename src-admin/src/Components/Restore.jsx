@@ -192,7 +192,8 @@ class Restore extends Component {
                     this.setState({ error: JSON.stringify(result.error), executing: false });
                 } else if (this.state.isStopped) {
                     const restoreURL = `${window.location.protocol}//${window.location.hostname}:8091/backitup-restore.html`;
-                    setTimeout(() => window.open(restoreURL, '_self'), this.props.restoreIfWait || 5000);
+                    //setTimeout(() => window.open(restoreURL, '_self'), this.props.restoreIfWait || 5000);
+                    setTimeout(() => window.location.href = restoreURL, this.props.restoreIfWait || 5000);
                     // TODO: When is finished?
                 } else {
                     this.setState({ done: true, executing: false });
@@ -257,7 +258,7 @@ class Restore extends Component {
                     <ul>
                         {this.state.messages.map((message, i) => <li key={i}>
                             {message.number ? `${i + 1}. ` : null}
-                            <span>{message.text}</span>
+                            <span style={{ fontSize: 'medium' }}>{message.text}</span>
                         </li>)}
                     </ul>
                 </div> : null}

@@ -257,7 +257,7 @@ class Restore extends Component {
                     <ul>
                         {this.state.messages.map((message, i) => <li key={i}>
                             {message.number ? `${i + 1}. ` : null}
-                            <span>{message.text}</span>
+                            <span style={{ fontSize: 'medium' }}>{message.text}</span>
                         </li>)}
                     </ul>
                 </div> : null}
