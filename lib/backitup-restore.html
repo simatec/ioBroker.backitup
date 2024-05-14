@@ -184,7 +184,7 @@
                 logWebIF.scrollTop = logWebIF.scrollHeight;
 
                 document.getElementById('startFinish').value = data.startFinish;
-                document.getElementById('backButtonInput').style.display = data.startFinish !== '[Restore]' ? 'initial' : 'none';
+                document.getElementById('backButtonInput').style.display = data.startFinish === '[Finish]' ? 'initial' : 'none';
                 document.getElementById('header1').style.display = data.startFinish === '[Finish]' ? 'initial' : 'none';
                 const header2 = document.getElementById('header2');
                 header2.style.color = data.statusColor ? data.statusColor : '#fff';
