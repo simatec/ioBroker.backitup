@@ -1,6 +1,6 @@
 {
   "type": "panel",
-  "label": "CCU backup",
+  "label": "Homematic CCU",
   "items": {
     "_checkConfig": {
       // this component is not visible in the UI
@@ -82,8 +82,8 @@
       "min": 1,
       "max": 100,
       "type": "number",
-      "label": "Backup will run every",
-      "help": "days"
+      "label": "days",
+      "help": "Backup will run every X days"
     },
     "ccuDeleteAfter": {
       "sm": 9,
@@ -92,8 +92,8 @@
       "min": 1,
       "max": 100,
       "type": "number",
-      "label": "Old ioBroker backups delete after",
-      "help": "days"
+      "label": "days",
+      "help": "Old iobroker backups delete after X-days"
     },
     "ccuHost": {
       "newLine": true,

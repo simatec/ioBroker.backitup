@@ -337,6 +337,8 @@ class App extends GenericApp {
             { name: 'mySqlEnabled', label: 'MySql backup' },
             { name: 'sqliteEnabled', label: 'SQLite backup' },
             { name: 'grafanaEnabled', label: 'Grafana backup' },
+            { name: 'pgSqlEnabled', label: 'PostgreSQL Backup' },
+
         ];
         return <Card>
             <CardContent className={this.props.classes.cardContent}>

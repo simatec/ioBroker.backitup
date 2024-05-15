@@ -1,6 +1,6 @@
 {
 	"type": "panel",
-	"label": "Redis Backup",
+	"label": "Redis",
 	"items": {
 		"_checkConfig": {
 			// this component is not visible in the UI

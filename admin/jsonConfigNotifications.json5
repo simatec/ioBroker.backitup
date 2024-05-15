@@ -104,7 +104,7 @@
             "min": 0,
             "max": 20,
             "type": "number",
-            "label": "Waiting for the send",
+            "label": "Waiting for the send (seconds)",
             "help": "seconds"
         },
         "telegramSilentNotice": {
@@ -163,7 +163,7 @@
             "min": 0,
             "max": 20,
             "type": "number",
-            "label": "Waiting for the send",
+            "label": "Waiting for the send (seconds)",
             "help": "seconds",
             "newLine": true
         },
@@ -216,7 +216,7 @@
             "min": 0,
             "max": 20,
             "type": "number",
-            "label": "Waiting for the send",
+            "label": "Waiting for the send (seconds)",
             "help": "seconds",
             "newLine": true
         },
@@ -269,7 +269,7 @@
             "min": 0,
             "max": 20,
             "type": "number",
-            "label": "Waiting for the send",
+            "label": "Waiting for the send (seconds)",
             "help": "seconds",
             "newLine": true
         },
@@ -322,7 +322,7 @@
             "min": 0,
             "max": 20,
             "type": "number",
-            "label": "Waiting for the send",
+            "label": "Waiting for the send (seconds)",
             "help": "seconds",
             "newLine": true
         },
@@ -375,7 +375,7 @@
             "min": 0,
             "max": 20,
             "type": "number",
-            "label": "Waiting for the send",
+            "label": "Waiting for the send (seconds)",
             "help": "seconds",
             "newLine": true
         },
@@ -461,7 +461,7 @@
             "min": 0,
             "max": 20,
             "type": "number",
-            "label": "Waiting for the send",
+            "label": "Waiting for the send (seconds)",
             "help": "seconds",
             "newLine": true
         },
@@ -514,7 +514,7 @@
             "min": 0,
             "max": 20,
             "type": "number",
-            "label": "Waiting for the send",
+            "label": "Waiting for the send (seconds)",
             "help": "seconds",
             "newLine": true
         },

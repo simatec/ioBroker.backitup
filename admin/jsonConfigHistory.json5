@@ -1,6 +1,6 @@
 {
   "type": "panel",
-  "label": "History Data Backup",
+  "label": "History Backup",
   "items": {
     "_checkConfig": {
       // this component is not visible in the UI
@@ -13,7 +13,7 @@
     "_header": {
       "type": "header",
       "size": 2,
-      "text": "Save history data",
+      "text": "History Data Backup",
       "sm": 12,
     },
     "detectNow": {
