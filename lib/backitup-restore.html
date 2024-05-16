@@ -146,7 +146,7 @@
                 <div id="header-logo-title">
                     <img class="logo" src="backitup.png" width="48" height="48" alt="backitup">
                     <p>
-                        <span class="h-title">Backitup</span><br />
+                        <span class="h-title">BackItUp</span><br />
                         <span class="h-sub-title">Restore Interface …</span>
                     </p>
                 </div>
@@ -200,7 +200,12 @@
                     window._refresh && clearInterval(window._refresh);
                     window._refresh = null;
                     window._scroll && clearInterval(window._scroll);
-                    window._scroll = null
+                    window._scroll = null;
+                    try {
+                        window.parent.postMessage('restore-finished', '*');
+                    } catch (e) {
+                        console.error(e);
+                    }
                 }
             });
     }

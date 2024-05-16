@@ -7,6 +7,7 @@ import {
     Button, Checkbox, Dialog, DialogActions, DialogContent,
     DialogTitle, FormControlLabel, LinearProgress,
 } from '@mui/material';
+import { Close } from '@mui/icons-material';
 
 const styles = {
     paper: {
@@ -102,6 +103,8 @@ class Restore extends Component {
             isStopped,
             downloadPanel,
             messages,
+            showRestoreDialog: false,
+            restoreDone: false,
         };
         this.lastExecutionLine = '';
         this.textRef = React.createRef();
@@ -112,7 +115,7 @@ class Restore extends Component {
         return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}.${date.getMilliseconds().toString().padStart(3, '0')}`;
     }
 
-    onOutput = (id, state) => {
+    onOutput = (id, state)  => {
         if (state && state.val && state.val !== this.lastExecutionLine) {
             this.lastExecutionLine = state.val;
             const executionLog = [...this.state.executionLog];
@@ -158,12 +161,20 @@ class Restore extends Component {
 
     async componentDidMount() {
         await this.props.socket.subscribeState(`${this.props.adapterName}.${this.props.instance}.output.line`, this.onOutput);
+        window.addEventListener('message', this.onMessage, false);
+    }
+
+    onMessage = (event) => {
+        if (event.data === 'restore-finished') {
+            this.setState({ done: true });
+        }
     }
 
     componentWillUnmount() {
         this.props.socket.unsubscribeState(`${this.props.adapterName}.${this.props.instance}.output.line`, this.onOutput);
         this.closeTimeout && clearTimeout(this.closeTimeout);
         this.closeTimeout = null;
+        window.removeEventListener('message', this.onMessage, false);
     }
 
     renderLine(line, i) {
@@ -173,6 +184,34 @@ class Restore extends Component {
             <div className={this.props.classes.textSource}>{line.source}</div>
             <div className={this.props.classes.text}>{line.text}</div>
         </div>;
+    }
+
+    renderRestoreDialog() {
+        if (!this.state.showRestoreDialog) {
+            return null;
+        }
+        return <Dialog
+            open={!0}
+            onClose={() => { this.state.restoreDone && this.setState({ showRestoreDialog: false }); }}
+            maxWidth="lg"
+            fullWidth
+            classes={{ paper: this.props.classes.paper }}
+        >
+            <DialogContent>
+                <iframe src={this.state.showRestoreDialog} style={{ width: '100%', height: '100%' }}/>
+            </DialogContent>
+            <DialogActions>
+                <Button
+                    disabled={this.state.restoreDone}
+                    variant="contained"
+                    onClick={() => this.setState({ showRestoreDialog: false })}
+                    startIcon={<Close />}
+                    color="primary"
+                >
+                    {I18n.t('Close')}
+                </Button>
+            </DialogActions>
+        </Dialog>
     }
 
     doRestore() {
@@ -191,9 +230,8 @@ class Restore extends Component {
                 if (!result || result.error) {
                     this.setState({ error: JSON.stringify(result.error), executing: false });
                 } else if (this.state.isStopped) {
-                    const restoreURL = `${window.location.protocol}//${window.location.hostname}:8091/backitup-restore.html`;
-                    // TODO: restoreURL does not load in the frame of admin-config but in the complete browser window
-                    setTimeout(() => window.open(restoreURL, '_self'), this.props.restoreIfWait || 5000);
+                    const showRestoreDialog = `${window.location.protocol}//${window.location.hostname}:8091/backitup-restore.html`;
+                    setTimeout(() => this.setState({ showRestoreDialog, restoreDone: false }), this.props.restoreIfWait || 5000);
                 } else {
                     this.setState({ done: true, executing: false });
                 }
@@ -296,6 +334,7 @@ class Restore extends Component {
                 </Button>
             </DialogActions>
             {this.renderError()}
+            {this.renderRestoreDialog()}
         </Dialog>;
     }
 }
