@@ -198,7 +198,7 @@ class Restore extends Component {
             classes={{ paper: this.props.classes.paper }}
         >
             <DialogContent>
-                <iframe src={this.state.showRestoreDialog} style={{ width: '100%', height: '100%' }}/>
+                <iframe src={this.state.showRestoreDialog} style={{ width: 'calc(100% - 5px)', height: 'calc(100% - 10px)' }}/>
             </DialogContent>
             <DialogActions>
                 <Button

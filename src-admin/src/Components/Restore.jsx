@@ -115,7 +115,7 @@ class Restore extends Component {
         return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}.${date.getMilliseconds().toString().padStart(3, '0')}`;
     }
 
-    onOutput = (id, state)  => {
+    onOutput = (id, state) => {
         if (state && state.val && state.val !== this.lastExecutionLine) {
             this.lastExecutionLine = state.val;
             const executionLog = [...this.state.executionLog];
@@ -198,13 +198,16 @@ class Restore extends Component {
             classes={{ paper: this.props.classes.paper }}
         >
             <DialogContent>
-                <iframe src={this.state.showRestoreDialog} style={{ width: '100%', height: '100%' }}/>
+                <iframe src={this.state.showRestoreDialog} style={{ width: 'calc(100% - 5px)', height: 'calc(100% - 10px)' }} />
             </DialogContent>
             <DialogActions>
                 <Button
                     disabled={this.state.restoreDone}
                     variant="contained"
-                    onClick={() => this.setState({ showRestoreDialog: false })}
+                    onClick={() => {
+                        this.props.onClose();
+                        this.setState({ showRestoreDialog: false });
+                    }}
                     startIcon={<Close />}
                     color="primary"
                 >
