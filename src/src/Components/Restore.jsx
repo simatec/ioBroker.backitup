@@ -198,13 +198,16 @@ class Restore extends Component {
             classes={{ paper: this.props.classes.paper }}
         >
             <DialogContent>
-                <iframe src={this.state.showRestoreDialog} style={{ width: 'calc(100% - 5px)', height: 'calc(100% - 10px)' }}/>
+                <iframe src={this.state.showRestoreDialog} style={{ width: 'calc(100% - 5px)', height: 'calc(100% - 10px)', borderRadius: 4 }}/>
             </DialogContent>
             <DialogActions>
                 <Button
                     disabled={this.state.restoreDone}
                     variant="contained"
-                    onClick={() => this.setState({ showRestoreDialog: false })}
+                    onClick={() =>  {
+                        this.props.onClose();
+                        this.setState({ showRestoreDialog: false });
+                    }}
                     startIcon={<Close />}
                     color="primary"
                 >
