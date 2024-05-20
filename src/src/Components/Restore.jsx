@@ -140,6 +140,11 @@ class Restore extends Component {
                         restoreProcess.done = true;
                     }
 
+                    // scroll down
+                    if (this.textRef.current && this.textRef.current.scrollTop + this.textRef.current.clientHeight >= this.textRef.current.scrollHeight) {
+                        setTimeout(() => this.textRef.current.scrollTop = this.textRef.current.scrollHeight, 100);
+                    }
+                    
                     this.setState({ restoreProcess });
                 })
                 .catch(e => {
