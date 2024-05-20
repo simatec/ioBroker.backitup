@@ -110,7 +110,7 @@ class Restore extends Component {
                 startFinish: '',   // [Restore], [Restart], [Finish]
                 restoreStatus: '', // '', 'Restore completed successfully!! Starting iobroker... Please wait!',
                                    // 'Restore was canceled!! If ioBroker does not start automatically, please start it manually'
-                statusColor: '',   // '', '#7fff00', 'red'
+                statusColor: '',   // '', '#00b204', '#c62828'
             },
         };
         this.lastExecutionLine = '';
@@ -159,7 +159,7 @@ class Restore extends Component {
                                 log: [],
                                 startFinish: '[Finish]', // [Restore], [Restart], [Finish]
                                 restoreStatus: I18n.t('Cannot get status'),
-                                statusColor: 'red',   // '', '#7fff00', 'red'
+                                statusColor: '#c62828',   // '', '#00b204', '#c62828'
                             },
                         });
                     }
@@ -177,7 +177,7 @@ class Restore extends Component {
                         startFinish: '[Finish]',   // [Restart], [Finish], [Restore]
                         restoreStatus: I18n.t('Cannot get status'), // '', 'Restore completed successfully!! Starting iobroker... Please wait!' ,
                         // 'Restore was canceled!! If ioBroker does not start automatically, please start it manually' ,
-                        statusColor: 'red',   // '', '#7fff00', 'red'
+                        statusColor: '#c62828',   // '', '#00b204', '#c62828'
                     },
                 });
             }
@@ -193,7 +193,7 @@ class Restore extends Component {
                 startFinish: '[Starting]',   // [Restart], [Finish], [Restore]
                 restoreStatus: '', // '', 'Restore completed successfully!! Starting iobroker... Please wait!' ,
                 // 'Restore was canceled!! If ioBroker does not start automatically, please start it manually' ,
-                statusColor: '',   // '', '#7fff00', 'red'
+                statusColor: '',   // '', '#00b204', '#c62828'
             },
         });
 
