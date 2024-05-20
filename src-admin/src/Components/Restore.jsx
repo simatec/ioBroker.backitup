@@ -106,7 +106,7 @@ class Restore extends Component {
             showRestoreDialog: false,
             restoreProcess: {
                 done: false,
-                log: [],
+                log: '',
                 startFinish: '',   // [Restore], [Restart], [Finish]
                 restoreStatus: '', // '', 'Restore completed successfully!! Starting iobroker... Please wait!, Restore was canceled!! If ioBroker does not start automatically, please start it manually'
                 statusColor: '' // '', '#7fff00', 'red'
@@ -121,7 +121,7 @@ class Restore extends Component {
         if (!this.state.showRestoreDialog) {
             return;
         }
-        console.log('restoreProcess: ' + this.state.restoreProcess);
+
         try {
             await fetch(`${window.location.protocol}//${window.location.hostname}:8091/status.json`, { mode: 'no-cors'})
                 .then(response => response.json())
@@ -150,7 +150,7 @@ class Restore extends Component {
                         this.setState({
                             restoreProcess: {
                                 done: true,
-                                log: [],
+                                log: '',
                                 startFinish: '[Finish]', // [Restore], [Restart], [Finish]
                                 restoreStatus: I18n.t('Cannot get status'),
                                 statusColor: 'red',   // '', '#7fff00', 'red'
@@ -167,7 +167,7 @@ class Restore extends Component {
                 this.setState({
                     restoreProcess: {
                         done: true,
-                        log: [],
+                        log: '',
                         startFinish: '[Finish]',   // [Restart], [Finish], [Restore]
                         restoreStatus: I18n.t('Cannot get status'), // '', 'Restore completed successfully!! Starting iobroker... Please wait!' ,
                         // 'Restore was canceled!! If ioBroker does not start automatically, please start it manually' ,
@@ -182,7 +182,7 @@ class Restore extends Component {
         this.setState({
             showRestoreDialog: true,
             restoreProcess: {
-                log: [],
+                log: '',
                 done: false,
                 startFinish: '',   // [Restart], [Finish], [Restore]
                 restoreStatus: I18n.t('Restore is started...'), // '', 'Restore completed successfully!! Starting iobroker... Please wait!' ,
