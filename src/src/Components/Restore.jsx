@@ -285,7 +285,7 @@ class Restore extends Component {
                 style={{ color: this.state.restoreProcess.statusColor }}
             >
                 {I18n.t(this.state.restoreProcess.startFinish)}
-                <span style={{ marginLeft: 10, marginRight: 10 }}>{this.state.restoreProcess.restoreStatus ? '-' : ''}</span>
+                {this.state.restoreProcess.restoreStatus ? <span style={{ marginLeft: 10, marginRight: 10 }}>-</span> : null}
                 {I18n.t(this.state.restoreProcess.restoreStatus) || '...'}
             </DialogTitle>
             <DialogContent style={{ position: 'relative' }}>
