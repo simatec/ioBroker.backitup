@@ -108,9 +108,8 @@ class Restore extends Component {
                 done: false,
                 log: [],
                 startFinish: '',   // [Restore], [Restart], [Finish]
-                restoreStatus: '', // '', 'Restore completed successfully!! Starting iobroker... Please wait!',
-                                   // 'Restore was canceled!! If ioBroker does not start automatically, please start it manually'
-                statusColor: '',   // '', '#7fff00', 'red'
+                restoreStatus: '', // '', 'Restore completed successfully!! Starting iobroker... Please wait!, Restore was canceled!! If ioBroker does not start automatically, please start it manually'
+                statusColor: '' // '', '#7fff00', 'red'
             },
         };
         this.lastExecutionLine = '';
@@ -127,9 +126,6 @@ class Restore extends Component {
             await fetch(`${window.location.protocol}//${window.location.hostname}:8091/status.json`, { mode: 'no-cors'})
                 .then(response => response.json())
                 .then(data => {
-                    console.log('restoreProcess: ' + this.state.restoreProcess);
-                    console.log('data: ' + data);
-                    console.log('logWebIF: ' + data.logWebIF.split('\n'));
                     const restoreProcess = JSON.parse(JSON.stringify(this.state.restoreProcess));
                     if (typeof data.logWebIF === 'string') {
                         restoreProcess.log = data.logWebIF.split('\n');
