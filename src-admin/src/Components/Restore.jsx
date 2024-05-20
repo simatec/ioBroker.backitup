@@ -317,7 +317,7 @@ class Restore extends Component {
                         overflow: 'auto',
                         backgroundColor: this.props.themeType === 'dark' ? '#111' : '#EEE',
                         boxSizing: 'border-box',
-                        crollbarColor: 'auto',
+                        scrollbarColor: 'auto',
                         scrollbarWidth: 'auto',
                     }}
                     ref={this.textRef}
