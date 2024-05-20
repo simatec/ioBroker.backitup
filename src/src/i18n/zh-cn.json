@@ -89,5 +89,6 @@
   "[Restart]": "[重启]",
   "[Finish]": "[完成的]",
   "Restore completed successfully!! Starting iobroker... Please wait!": "恢复成功完成！！正在启动 iobroker...请稍候！",
-  "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "恢复已取消！！如果 ioBroker 没有自动启动，请手动启动"
+  "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "恢复已取消！！如果 ioBroker 没有自动启动，请手动启动",
+  "[Starting]": "[开始]"
 }

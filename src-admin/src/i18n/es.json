@@ -61,5 +61,6 @@
   "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "¡¡La restauración fue cancelada!! Si ioBroker no se inicia automáticamente, inícielo manualmente",
   "[Restore]": "[Restaurando]",
   "[Restart]": "[Reiniciar]",
-  "[Finish]": "[Finalizado]"
+  "[Finish]": "[Finalizado]",
+  "[Starting]": "[A partir de]"
 }

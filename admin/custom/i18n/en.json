@@ -61,5 +61,6 @@
   "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "Restore was canceled!! If ioBroker does not start automatically, please start it manually",
   "[Restore]": "[Restoring]",
   "[Restart]": "[Restarting]",
-  "[Finish]": "[Finished]"
+  "[Finish]": "[Finished]",
+  "[Starting]": "[Starting]"
 }

@@ -61,5 +61,6 @@
   "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "Відновлення скасовано!! Якщо ioBroker не запускається автоматично, запустіть його вручну",
   "[Restore]": "[Відновлення]",
   "[Restart]": "[Перезапуск]",
-  "[Finish]": "[Завершено]"
+  "[Finish]": "[Завершено]",
+  "[Starting]": "[Початок]"
 }

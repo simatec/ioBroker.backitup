@@ -89,5 +89,6 @@
   "[Restart]": "[Restarting]",
   "[Finish]": "[Finished]",
   "Restore completed successfully!! Starting iobroker... Please wait!": "Restore completed successfully!! Starting iobroker... Please wait!",
-  "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "Restore was canceled!! If ioBroker does not start automatically, please start it manually"
+  "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "Restore was canceled!! If ioBroker does not start automatically, please start it manually",
+  "[Starting]": "[Starting]"
 }

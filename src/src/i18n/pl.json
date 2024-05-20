@@ -89,5 +89,6 @@
   "[Restart]": "[Ponowne uruchamianie]",
   "[Finish]": "[Skończone]",
   "Restore completed successfully!! Starting iobroker... Please wait!": "Przywracanie zakończone pomyślnie!! Uruchamianie iobrokera... Proszę czekać!",
-  "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "Przywracanie zostało anulowane!! Jeśli ioBroker nie uruchomi się automatycznie, uruchom go ręcznie"
+  "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "Przywracanie zostało anulowane!! Jeśli ioBroker nie uruchomi się automatycznie, uruchom go ręcznie",
+  "[Starting]": "[Startowy]"
 }

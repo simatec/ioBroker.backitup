@@ -61,5 +61,6 @@
   "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "Herstellen is geannuleerd!! Als ioBroker niet automatisch start, start het dan handmatig",
   "[Restore]": "[Herstellen]",
   "[Restart]": "[Herstarten]",
-  "[Finish]": "[Afgerond]"
+  "[Finish]": "[Afgerond]",
+  "[Starting]": "[Beginnend]"
 }

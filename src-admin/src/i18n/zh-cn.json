@@ -61,5 +61,6 @@
   "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "恢复已取消！！如果 ioBroker 没有自动启动，请手动启动",
   "[Restore]": "[恢复]",
   "[Restart]": "[重启]",
-  "[Finish]": "[完成的]"
+  "[Finish]": "[完成的]",
+  "[Starting]": "[开始]"
 }

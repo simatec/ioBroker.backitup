@@ -124,7 +124,7 @@ class Restore extends Component {
         }
 
         try {
-            await fetch(`${window.location.protocol}//${window.location.hostname}:8091/status.json`, { mode: 'no-cors'})
+            await fetch(`${window.location.protocol}//${window.location.hostname}:8091/status.json`)
                 .then(response => response.json())
                 .then(data => {
                     const restoreProcess = JSON.parse(JSON.stringify(this.state.restoreProcess));
@@ -143,9 +143,9 @@ class Restore extends Component {
                     this.setState({ restoreProcess });
                 })
                 .catch(e => {
-                    console.warn(`Cannot get _status: ${e}`);
                     this.retries++;
-                    if (this.retries > 10) {
+                    if (this.retries > 15) {
+                        console.warn(`Cannot get _status: ${e}`);
                         clearInterval(this.polling);
                         this.polling = null;
                         this.setState({
@@ -162,7 +162,7 @@ class Restore extends Component {
         } catch (e) {
             console.warn(`Cannot get status: ${e}`);
             this.retries++;
-            if (this.retries > 10) {
+            if (this.retries > 15) {
                 clearInterval(this.polling);
                 this.polling = null;
                 this.setState({
@@ -179,14 +179,14 @@ class Restore extends Component {
         }
     }
 
-    startPolling(url) {
+    startPolling() {
         this.setState({
             showRestoreDialog: true,
             restoreProcess: {
                 log: [],
                 done: false,
-                startFinish: '',   // [Restart], [Finish], [Restore]
-                restoreStatus: I18n.t('Restore is started...'), // '', 'Restore completed successfully!! Starting iobroker... Please wait!' ,
+                startFinish: '[Starting]',   // [Restart], [Finish], [Restore]
+                restoreStatus: '', // '', 'Restore completed successfully!! Starting iobroker... Please wait!' ,
                 // 'Restore was canceled!! If ioBroker does not start automatically, please start it manually' ,
                 statusColor: '',   // '', '#7fff00', 'red'
             },
@@ -247,20 +247,12 @@ class Restore extends Component {
 
     async componentDidMount() {
         await this.props.socket.subscribeState(`${this.props.adapterName}.${this.props.instance}.output.line`, this.onOutput);
-        window.addEventListener('message', this.onMessage, false);
-    }
-
-    onMessage = (event) => {
-        if (event.data === 'restore-finished') {
-            this.setState({ done: true });
-        }
     }
 
     componentWillUnmount() {
         this.props.socket.unsubscribeState(`${this.props.adapterName}.${this.props.instance}.output.line`, this.onOutput);
         this.closeTimeout && clearTimeout(this.closeTimeout);
         this.closeTimeout = null;
-        window.removeEventListener('message', this.onMessage, false);
     }
 
     renderLine(line, i) {
@@ -294,7 +286,7 @@ class Restore extends Component {
             >
                 {I18n.t(this.state.restoreProcess.startFinish)}
                 <span style={{ marginLeft: 10, marginRight: 10 }}>-</span>
-                {I18n.t(this.state.restoreProcess.restoreStatus)}
+                {I18n.t(this.state.restoreProcess.restoreStatus) || '...'}
             </DialogTitle>
             <DialogContent style={{ position: 'relative' }}>
                 {!this.state.restoreProcess.done ?

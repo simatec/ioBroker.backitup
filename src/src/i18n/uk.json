@@ -89,5 +89,6 @@
   "[Restart]": "[Перезапуск]",
   "[Finish]": "[Завершено]",
   "Restore completed successfully!! Starting iobroker... Please wait!": "Відновлення успішно завершено!! Запуск iobroker... Будь ласка, зачекайте!",
-  "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "Відновлення скасовано!! Якщо ioBroker не запускається автоматично, запустіть його вручну"
+  "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "Відновлення скасовано!! Якщо ioBroker не запускається автоматично, запустіть його вручну",
+  "[Starting]": "[Початок]"
 }
