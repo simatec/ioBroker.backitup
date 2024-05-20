@@ -118,13 +118,13 @@ class Restore extends Component {
         this.retries = 0;
     }
 
-    pollStatus() {
+    async pollStatus() {
         if (!this.state.showRestoreDialog) {
             return;
         }
 
         try {
-            fetch(`${window.location.protocol}//${window.location.hostname}:8091/status.json`)
+            await fetch(`${window.location.protocol}//${window.location.hostname}:8091/status.json`, { mode: 'no-cors'})
                 .then(response => response.json())
                 .then(data => {
                     const restoreProcess = JSON.parse(JSON.stringify(this.state.restoreProcess));
