@@ -134,7 +134,7 @@ class Restore extends Component {
                     restoreProcess.startFinish = data.startFinish;
                     restoreProcess.restoreStatus = data.restoreStatus ? I18n.t(data.restoreStatus) : '';
                     restoreProcess.statusColor = data.statusColor;
-                    if (restoreProcess.restoreStatus === '[Finish]') {
+                    if (restoreProcess.startFinish === '[Finish]') {
                         clearInterval(this.polling);
                         this.polling = null;
                         restoreProcess.done = true;
@@ -285,7 +285,7 @@ class Restore extends Component {
                 style={{ color: this.state.restoreProcess.statusColor }}
             >
                 {I18n.t(this.state.restoreProcess.startFinish)}
-                <span style={{ marginLeft: 10, marginRight: 10 }}>-</span>
+                <span style={{ marginLeft: 10, marginRight: 10 }}>{this.state.restoreProcess.restoreStatus ? '-' : ''}</span>
                 {I18n.t(this.state.restoreProcess.restoreStatus) || '...'}
             </DialogTitle>
             <DialogContent style={{ position: 'relative' }}>
