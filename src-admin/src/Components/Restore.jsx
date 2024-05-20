@@ -124,7 +124,7 @@ class Restore extends Component {
         }
 
         try {
-            fetch(`${window.location.protocol}//${window.location.hostname}:8091/status.json`)
+            fetch(`${window.location.protocol}//${window.location.hostname}:8091/status.json`, { mode: 'no-cors'})
                 .then(response => response.json())
                 .then(data => {
                     const restoreProcess = JSON.parse(JSON.stringify(this.state.restoreProcess));
