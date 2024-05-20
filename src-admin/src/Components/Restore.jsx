@@ -127,6 +127,7 @@ class Restore extends Component {
             await fetch(`${window.location.protocol}//${window.location.hostname}:8091/status.json`, { mode: 'no-cors'})
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data.logWebIF.split('\n'));
                     const restoreProcess = JSON.parse(JSON.stringify(this.state.restoreProcess));
                     if (typeof data.logWebIF === 'string') {
                         restoreProcess.log = data.logWebIF.split('\n');
