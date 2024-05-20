@@ -144,7 +144,7 @@ class Restore extends Component {
                     if (this.textRef.current && this.textRef.current.scrollTop + this.textRef.current.clientHeight >= this.textRef.current.scrollHeight) {
                         setTimeout(() => this.textRef.current.scrollTop = this.textRef.current.scrollHeight, 100);
                     }
-                    
+
                     this.setState({ restoreProcess });
                     
                 })
@@ -317,6 +317,8 @@ class Restore extends Component {
                         overflow: 'auto',
                         backgroundColor: this.props.themeType === 'dark' ? '#111' : '#EEE',
                         boxSizing: 'border-box',
+                        crollbarColor: 'auto',
+                        scrollbarWidth: 'auto',
                     }}
                     ref={this.textRef}
                 >
