@@ -1,9 +1,9 @@
 {
   "Adapter exist": "Adapter vorhanden",
   "Authorize this app by visiting": "Autorisieren Sie diese App unter",
-  "BackItUp Information!": "BackItUp-Informationen!",
-  "BackItUp Warning!": "BackItUp-Warnung!",
-  "BackItUp execution:": "BackItUp-Ausführung:",
+  "BackItUp Information!": "Backitup-Informationen!",
+  "BackItUp Warning!": "Backitup-Warnung!",
+  "BackItUp execution:": "Backitup-Ausführung:",
   "Backup now": "Jetzt sichern",
   "Close": "Schließen",
   "Close on ready": "Schließen wenn Fertig",
@@ -24,7 +24,7 @@
   "ioBroker will not be restarted for this restore type.": "ioBroker wird für diesen Wiederherstellungstyp nicht neu gestartet.",
   "Confirm with \"Restore\".": "Bestätigen Sie mit „Wiederherstellen“.",
   "Error": "Fehler",
-  "BackItUp restore execution:": "BackItUp-Wiederherstellungskonsole:",
+  "BackItUp restore execution": "Backitup-Wiederherstellungskonsole:",
   "Restore": "Wiederherstellen",
   "Cancel": "Abbrechen",
   "GiB": "GiB",
@@ -56,5 +56,10 @@
   "Renew OneDrive Access": "OneDrive-Zugriff erneuern",
   "Get OneDrive Access": "Erhalten Sie OneDrive-Zugriff",
   "Get list": "Backup-Liste anzeigen",
-  "Start all adapter after restore": "Starten Sie alle Adapter nach der Wiederherstellung"
+  "Start all adapter after restore": "Starten Sie alle Adapter nach der Wiederherstellung",
+  "Restore completed successfully!! Starting iobroker... Please wait!": "Wiederherstellung erfolgreich abgeschlossen!! Iobroker wird gestartet... Bitte warten!",
+  "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "Wiederherstellung wurde abgebrochen!! Wenn ioBroker nicht automatisch startet, starten Sie es bitte manuell",
+  "[Restore]": "[Wiederherstellen]",
+  "[Restart]": "[Neustart]",
+  "[Finish]": "[Fertig]"
 }

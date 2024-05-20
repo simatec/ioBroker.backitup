@@ -24,7 +24,7 @@
   "ioBroker will not be restarted for this restore type.": "ioBroker will not be restarted for this restore type.",
   "Confirm with \"Restore\".": "Confirm with \"Restore\".",
   "Error": "Error",
-  "BackItUp restore execution:": "BackItUp restore execution:",
+  "BackItUp restore execution": "BackItUp restore execution",
   "Restore": "Restore",
   "Cancel": "Cancel",
   "GiB": "GiB",
@@ -56,5 +56,10 @@
   "Renew OneDrive Access": "Renew OneDrive Access",
   "Get OneDrive Access": "Get OneDrive Access",
   "Get list": "Get list",
-  "Start all adapter after restore": "Start all adapter after restore"
+  "Start all adapter after restore": "Start all adapter after restore",
+  "Restore completed successfully!! Starting iobroker... Please wait!": "Restore completed successfully!! Starting iobroker... Please wait!",
+  "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "Restore was canceled!! If ioBroker does not start automatically, please start it manually",
+  "[Restore]": "[Restoring]",
+  "[Restart]": "[Restarting]",
+  "[Finish]": "[Finished]"
 }

@@ -2,7 +2,7 @@
   "Activated backup options": "Active backup options",
   "Activated storage options": "Active storage options",
   "BackItUp execution:": "BackItUp execution:",
-  "BackItUp restore execution:": "BackItUp restore execution:",
+  "BackItUp restore execution": "BackItUp restore execution",
   "Backup history": "Backup history",
   "Backup information": "Backup information",
   "Backup now": "Backup now",
@@ -84,5 +84,10 @@
   "After download ioBroker will be restarted during restore.": "After download ioBroker will be restarted during restore.",
   "After the download, the restore begins without restarting ioBroker.": "After the download, the restore begins without restarting ioBroker.",
   "ioBroker will not be restarted for this restore type.": "ioBroker will not be restarted for this restore type.",
-  "Confirm with \"Restore\".": "Confirm with \"Restore\"."
+  "Confirm with \"Restore\".": "Confirm with \"Restore\".",
+  "[Restore]": "[Restoring]",
+  "[Restart]": "[Restarting]",
+  "[Finish]": "[Finished]",
+  "Restore completed successfully!! Starting iobroker... Please wait!": "Restore completed successfully!! Starting iobroker... Please wait!",
+  "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "Restore was canceled!! If ioBroker does not start automatically, please start it manually"
 }

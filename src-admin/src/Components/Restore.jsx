@@ -104,10 +104,96 @@ class Restore extends Component {
             downloadPanel,
             messages,
             showRestoreDialog: false,
-            restoreDone: false,
+            restoreProcess: {
+                done: false,
+                log: [],
+                startFinish: '',   // [Restore], [Restart], [Finish]
+                restoreStatus: '', // '', 'Restore completed successfully!! Starting iobroker... Please wait!',
+                                   // 'Restore was canceled!! If ioBroker does not start automatically, please start it manually'
+                statusColor: '',   // '', '#7fff00', 'red'
+            },
         };
         this.lastExecutionLine = '';
         this.textRef = React.createRef();
+        this.retries = 0;
+    }
+
+    pollStatus() {
+        if (!this.state.showRestoreDialog) {
+            return;
+        }
+
+        try {
+            fetch(`${window.location.protocol}//${window.location.hostname}:8091/status.json`)
+                .then(response => response.json())
+                .then(data => {
+                    const restoreProcess = JSON.parse(JSON.stringify(this.state.restoreProcess));
+                    if (typeof data.logWebIF === 'string') {
+                        restoreProcess.log = data.logWebIF.split('\n');
+                    }
+                    restoreProcess.startFinish = data.startFinish;
+                    restoreProcess.restoreStatus = data.restoreStatus ? I18n.t(data.restoreStatus) : '';
+                    restoreProcess.statusColor = data.statusColor;
+                    if (restoreProcess.restoreStatus === '[Finish]') {
+                        clearInterval(this.polling);
+                        this.polling = null;
+                        restoreProcess.done = true;
+                    }
+
+                    this.setState({ restoreProcess });
+                })
+                .catch(e => {
+                    console.warn(`Cannot get _status: ${e}`);
+                    this.retries++;
+                    if (this.retries > 10) {
+                        clearInterval(this.polling);
+                        this.polling = null;
+                        this.setState({
+                            restoreProcess: {
+                                done: true,
+                                log: [],
+                                startFinish: '[Finish]', // [Restore], [Restart], [Finish]
+                                restoreStatus: I18n.t('Cannot get status'),
+                                statusColor: 'red',   // '', '#7fff00', 'red'
+                            },
+                        });
+                    }
+                });
+        } catch (e) {
+            console.warn(`Cannot get status: ${e}`);
+            this.retries++;
+            if (this.retries > 10) {
+                clearInterval(this.polling);
+                this.polling = null;
+                this.setState({
+                    restoreProcess: {
+                        done: true,
+                        log: [],
+                        startFinish: '[Finish]',   // [Restart], [Finish], [Restore]
+                        restoreStatus: I18n.t('Cannot get status'), // '', 'Restore completed successfully!! Starting iobroker... Please wait!' ,
+                        // 'Restore was canceled!! If ioBroker does not start automatically, please start it manually' ,
+                        statusColor: 'red',   // '', '#7fff00', 'red'
+                    },
+                });
+            }
+        }
+    }
+
+    startPolling(url) {
+        this.setState({
+            showRestoreDialog: true,
+            restoreProcess: {
+                log: [],
+                done: false,
+                startFinish: '',   // [Restart], [Finish], [Restore]
+                restoreStatus: I18n.t('Restore is started...'), // '', 'Restore completed successfully!! Starting iobroker... Please wait!' ,
+                // 'Restore was canceled!! If ioBroker does not start automatically, please start it manually' ,
+                statusColor: '',   // '', '#7fff00', 'red'
+            },
+        });
+
+        this.retries = 0;
+        this.polling = setInterval(() => this.pollStatus(), 1000);
     }
 
     static getTime() {
@@ -186,36 +272,67 @@ class Restore extends Component {
         </div>;
     }
 
+    renderRestoreLine(line, i) {
+        return <div key={i} className={this.props.classes.textLine}>
+            <div className={this.props.classes.text} style={{ color: line.startsWith('[ERROR]') ? '#FF0000' : undefined}}>{line}</div>
+        </div>;
+    }
+
     renderRestoreDialog() {
         if (!this.state.showRestoreDialog) {
             return null;
         }
         return <Dialog
             open={!0}
-            onClose={() => { this.state.restoreDone && this.setState({ showRestoreDialog: false }); }}
+            onClose={() => { this.state.restoreProcess.done && this.setState({ showRestoreDialog: false }); }}
             maxWidth="lg"
             fullWidth
             classes={{ paper: this.props.classes.paper }}
         >
-            <DialogContent>
-                <iframe
-                    src={this.state.showRestoreDialog}
+            <DialogTitle
+                style={{ color: this.state.restoreProcess.statusColor }}
+            >
+                {I18n.t(this.state.restoreProcess.startFinish)}
+                <span style={{ marginLeft: 10, marginRight: 10 }}>-</span>
+                {I18n.t(this.state.restoreProcess.restoreStatus)}
+            </DialogTitle>
+            <DialogContent style={{ position: 'relative' }}>
+                {!this.state.restoreProcess.done ?
+                    <LinearProgress
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 24,
+                            width: 'calc(100% - 64px)',
+                        }}
+                    /> : <div style={{ height: 4, width: 'calc(100% - 64px)' }} />}
+                <div
                     style={{
-                        width: 'calc(100% - 5px)',
-                        height: 'calc(100% - 10px)',
-                        borderRadius: 4,
-                        borderStyle: 'none',
-                        boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px'
+                        height: 'calc(100% - 16px - 4px)',
+                        width: 'calc(100% - 16px)',
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                        marginTop: 4,
+                        padding: 8,
+                        border: '1px solid grey',
+                        borderRadius: 5,
+                        overflow: 'auto',
+                        backgroundColor: this.props.themeType === 'dark' ? '#111' : '#EEE',
+                        boxSizing: 'border-box',
                     }}
-                />
+                    ref={this.textRef}
+                >
+                    {this.state.restoreProcess.log.map((line, i) => this.renderRestoreLine(line, i))}
+                </div>
             </DialogContent>
             <DialogActions>
                 <Button
-                    disabled={this.state.restoreDone}
+                    disabled={!this.state.restoreProcess.done}
                     variant="contained"
                     onClick={() => {
                         this.props.onClose();
                         this.setState({ showRestoreDialog: false });
+                        // maybe to reload here, as the version of admin could change
                     }}
                     startIcon={<Close />}
                     color="primary"
@@ -242,8 +359,7 @@ class Restore extends Component {
                 if (!result || result.error) {
                     this.setState({ error: JSON.stringify(result.error), executing: false });
                 } else if (this.state.isStopped) {
-                    const showRestoreDialog = `${window.location.protocol}//${window.location.hostname}:8091/backitup-restore.html`;
-                    setTimeout(() => this.setState({ showRestoreDialog, restoreDone: false }), this.props.restoreIfWait || 5000);
+                    setTimeout(() => this.startPolling(), this.props.restoreIfWait || 5000);
                 } else {
                     this.setState({ done: true, executing: false });
                 }
@@ -273,7 +389,7 @@ class Restore extends Component {
             classes={{ paper: this.props.classes.paper }}
         >
             <DialogTitle>
-                {I18n.t('BackItUp restore execution:')}
+                {I18n.t('BackItUp restore execution')}
             </DialogTitle>
             <DialogContent style={{ position: 'relative' }}>
                 {this.state.executing ?
