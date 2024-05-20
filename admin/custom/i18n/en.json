@@ -62,5 +62,6 @@
   "[Restore]": "[Restoring]",
   "[Restart]": "[Restarting]",
   "[Finish]": "[Finished]",
-  "[Starting]": "[Starting]"
+  "[Starting]": "[Starting]",
+  "The ioBroker is currently being restored": "The ioBroker is currently being restored"
 }
