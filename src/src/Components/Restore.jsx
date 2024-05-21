@@ -71,7 +71,6 @@ class Restore extends Component {
             'yahka',
             'historyDB',
         ];
-        let downloadPanel = false;
         let isStopped = false;
         const messages = [];
         if (!NO_RESTART.find(text => this.props.fileName.includes(text))) {
@@ -80,16 +79,12 @@ class Restore extends Component {
             if (WITH_DOWNLOAD.includes(this.props.location)) {
                 messages[0] = { text: I18n.t('Confirm with "Restore" and the download begins. Please wait until the download is finished!'), number: true };
                 messages[1] = { text: I18n.t('After download ioBroker will be restarted during restore.'), number: true };
-                downloadPanel = true;
             } else {
                 messages[0] = { text: I18n.t('ioBroker will be restarted during restore.'), number: false };
             }
 
             messages.push({ text: I18n.t('After confirmation, a new tab opens with the Restore Log.'), number: false });
             messages.push({ text: I18n.t('If the tab does not open, please deactivate your popup blocker.'), number: false });
-        } else if (downloadPanel) {
-            messages[0] = { text: I18n.t('Confirm with "Restore" and the download begins. Please wait until the download is finished!'), number: true };
-            messages[1] = { text: I18n.t('After the download, the restore begins without restarting ioBroker.'), number: true };
         } else {
             messages[0] = { text: I18n.t('ioBroker will not be restarted for this restore type.'), number: false };
             messages[1] = { text: I18n.t('Confirm with "Restore".'), number: false };
@@ -101,13 +96,12 @@ class Restore extends Component {
             executionLog: [],
             closeOnReady: false,
             isStopped,
-            downloadPanel,
             messages,
             showRestoreDialog: false,
             restoreProcess: {
                 done: false,
                 log: [],
-                startFinish: '',   // [Restore], [Restart], [Finish]
+                startFinish: '',   // [Restore], [Restart], [Finish], [Starting]
                 restoreStatus: '', // '', 'Restore completed successfully!! Starting iobroker... Please wait!',
                                    // 'Restore was canceled!! If ioBroker does not start automatically, please start it manually'
                 statusColor: '',   // '', '#00b204', '#c62828'
@@ -115,6 +109,7 @@ class Restore extends Component {
         };
         this.lastExecutionLine = '';
         this.textRef = React.createRef();
+        this.textRefRestore = React.createRef();
         this.retries = 0;
     }
 
@@ -141,10 +136,10 @@ class Restore extends Component {
                     }
 
                     // scroll down
-                    if (this.textRef.current && this.textRef.current.scrollTop + this.textRef.current.clientHeight >= this.textRef.current.scrollHeight) {
-                        setTimeout(() => this.textRef.current.scrollTop = this.textRef.current.scrollHeight, 100);
+                    if (this.textRefRestore.current && this.textRefRestore.current.scrollTop + this.textRefRestore.current.clientHeight >= this.textRefRestore.current.scrollHeight) {
+                        setTimeout(() => this.textRefRestore.current && (this.textRefRestore.current.scrollTop = this.textRefRestore.current.scrollHeight), 100);
                     }
-                    
+
                     this.setState({ restoreProcess });
                 })
                 .catch(e => {
@@ -157,7 +152,7 @@ class Restore extends Component {
                             restoreProcess: {
                                 done: true,
                                 log: [],
-                                startFinish: '[Finish]', // [Restore], [Restart], [Finish]
+                                startFinish: '[Finish]', // [Restore], [Restart], [Finish], [Starting]
                                 restoreStatus: I18n.t('Cannot get status'),
                                 statusColor: '#c62828',   // '', '#00b204', '#c62828'
                             },
@@ -174,7 +169,7 @@ class Restore extends Component {
                     restoreProcess: {
                         done: true,
                         log: [],
-                        startFinish: '[Finish]',   // [Restart], [Finish], [Restore]
+                        startFinish: '[Finish]',   // [Restart], [Finish], [Restore], [Starting]
                         restoreStatus: I18n.t('Cannot get status'), // '', 'Restore completed successfully!! Starting iobroker... Please wait!' ,
                         // 'Restore was canceled!! If ioBroker does not start automatically, please start it manually' ,
                         statusColor: '#c62828',   // '', '#00b204', '#c62828'
@@ -190,7 +185,7 @@ class Restore extends Component {
             restoreProcess: {
                 log: [],
                 done: false,
-                startFinish: '[Starting]',   // [Restart], [Finish], [Restore]
+                startFinish: '[Starting]',   // [Restart], [Finish], [Restore], [Starting]
                 restoreStatus: '', // '', 'Restore completed successfully!! Starting iobroker... Please wait!' ,
                 // 'Restore was canceled!! If ioBroker does not start automatically, please start it manually' ,
                 statusColor: '',   // '', '#00b204', '#c62828'
@@ -317,7 +312,7 @@ class Restore extends Component {
                         backgroundColor: this.props.themeType === 'dark' ? '#111' : '#EEE',
                         boxSizing: 'border-box',
                     }}
-                    ref={this.textRef}
+                    ref={this.textRefRestore}
                 >
                     {this.state.restoreProcess.log.map((line, i) => this.renderRestoreLine(line, i))}
                 </div>
