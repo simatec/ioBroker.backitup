@@ -57,6 +57,10 @@ function build() {
         data.version = version;
         fs.writeFileSync(`${__dirname}/src/package.json`, JSON.stringify(data, null, 4));
 
+        const dataW = JSON.parse(fs.readFileSync(`${__dirname}/src-admin/package.json`).toString('utf8'));
+        dataW.version = version;
+        fs.writeFileSync(`${__dirname}/src-admin/package.json`, JSON.stringify(dataW, null, 4));
+
         console.log(options.cwd);
 
         let script = `${__dirname}/src/node_modules/react-scripts/scripts/build.js`;
