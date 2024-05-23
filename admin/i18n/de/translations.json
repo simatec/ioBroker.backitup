@@ -119,7 +119,8 @@
     "Notifications": "Benachrichtigungen",
     "Notifications type": "Benachrichtigungstyp",
     "Number of history entries": "Anzahl der Einträge in der Backup Historie",
-    "Old iobroker backups delete after X-days": "Löschen alter ioBroker Backups mit Ausnahme der letzten X Tage",
+    "Delete old ccu backups with the exception of the last X pieces": "Löschen alter CCU Backups mit Ausnahme der letzten X Tage",
+    "Delete old ioBroker backups with the exception of the last X pieces": "Löschen alter ioBroker Backups mit Ausnahme der letzten X Tage",
     "OneDrive": "OneDrive",
     "OneDrive Path for CCU backup": "OneDrive-Pfad für CCU-Backup",
     "OneDrive Path for ioBroker backup": "OneDrive-Pfad für ioBroker-Backup",
@@ -271,5 +272,6 @@
     ", and stored in onedrive": ", und in Onedrive gespeichert",
     ", and stored in google drive": "und in Google Drive gespeichert",
     ", and stored in webdav": ", und in Webdav gespeichert",
-    "Your backup was not completely created. Please check the errors!!": "Ihr Backup wurde nicht vollständig erstellt. Bitte überprüfen Sie die Fehler!!"
+    "Your backup was not completely created. Please check the errors!!": "Ihr Backup wurde nicht vollständig erstellt. Bitte überprüfen Sie die Fehler!!",
+    "piece": "Stück"
 }

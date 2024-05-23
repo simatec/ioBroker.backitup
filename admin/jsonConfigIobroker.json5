@@ -58,7 +58,6 @@
     },
     "minimalEveryXDays": {
       "hidden": "data.iobrokerCron",
-      "newLine": true,
       "sm": 9,
       "md": 6,
       "lg": 3,
@@ -75,8 +74,8 @@
       "min": 1,
       "max": 100,
       "type": "number",
-      "label": "days",
-      "help": "Old iobroker backups delete after X-days"
+      "label": "piece",
+      "help": "Delete old ioBroker backups with the exception of the last X pieces"
     },
     "minimalNameSuffix": {
       "sm": 9,

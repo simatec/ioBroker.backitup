@@ -271,5 +271,8 @@
     ", and stored in onedrive": "en opgeslagen in onedrive",
     ", and stored in google drive": "en opgeslagen in Google Drive",
     ", and stored in webdav": "en opgeslagen in webdav",
-    "Your backup was not completely created. Please check the errors!!": "Uw back-up is niet volledig gemaakt. Controleer de fouten!!"
+    "Your backup was not completely created. Please check the errors!!": "Uw back-up is niet volledig gemaakt. Controleer de fouten!!",
+    "Delete old ccu backups with the exception of the last X pieces": "Verwijder oude ccu-back-ups met uitzondering van de laatste X-stukken",
+    "Delete old ioBroker backups with the exception of the last X pieces": "Verwijder oude ioBroker-back-ups met uitzondering van de laatste X-stukken",
+    "piece": "deel"
 }

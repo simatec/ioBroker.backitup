@@ -271,5 +271,8 @@
     ", and stored in onedrive": ", і зберігається на onedrive",
     ", and stored in google drive": ", і зберігається на Google Drive",
     ", and stored in webdav": ", і зберігається в webdav",
-    "Your backup was not completely created. Please check the errors!!": "Резервну копію створено не повністю. Будь ласка, перевірте помилки!!"
+    "Your backup was not completely created. Please check the errors!!": "Резервну копію створено не повністю. Будь ласка, перевірте помилки!!",
+    "Delete old ccu backups with the exception of the last X pieces": "Видаліть старі резервні копії ccu, за винятком останніх X частин",
+    "Delete old ioBroker backups with the exception of the last X pieces": "Видаліть старі резервні копії ioBroker, за винятком останніх X частин",
+    "piece": "шматок"
 }

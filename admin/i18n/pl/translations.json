@@ -271,5 +271,8 @@
     ", and stored in onedrive": "i przechowywane w onedrive",
     ", and stored in google drive": "i zapisane na dysku Google",
     ", and stored in webdav": "i przechowywane w webdav",
-    "Your backup was not completely created. Please check the errors!!": "Twoja kopia zapasowa nie została w całości utworzona. Proszę sprawdzić błędy!!"
+    "Your backup was not completely created. Please check the errors!!": "Twoja kopia zapasowa nie została w całości utworzona. Proszę sprawdzić błędy!!",
+    "Delete old ccu backups with the exception of the last X pieces": "Usuń stare kopie zapasowe CCU z wyjątkiem ostatnich X elementów",
+    "Delete old ioBroker backups with the exception of the last X pieces": "Usuń stare kopie zapasowe ioBroker z wyjątkiem ostatnich X fragmentów",
+    "piece": "sztuka"
 }

@@ -271,5 +271,8 @@
     ", and stored in onedrive": "，并存储在 onedrive 中",
     ", and stored in google drive": "，并存储在谷歌驱动器中",
     ", and stored in webdav": "，并存储在webdav中",
-    "Your backup was not completely created. Please check the errors!!": "您的备份尚未完全创建。请检查错误！！"
+    "Your backup was not completely created. Please check the errors!!": "您的备份尚未完全创建。请检查错误！！",
+    "Delete old ccu backups with the exception of the last X pieces": "删除旧的 ccu 备份（最后 X 部分除外）",
+    "Delete old ioBroker backups with the exception of the last X pieces": "删除旧的 ioBroker 备份（最后 X 部分除外）",
+    "piece": "片"
 }

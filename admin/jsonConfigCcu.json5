@@ -74,7 +74,6 @@
       "lg": 3
     },
     "ccuEveryXDays": {
-      "newLine": true,
       "hidden": "data.ccuCron",
       "sm": 9,
       "md": 6,
@@ -92,8 +91,8 @@
       "min": 1,
       "max": 100,
       "type": "number",
-      "label": "days",
-      "help": "Old iobroker backups delete after X-days"
+      "label": "piece",
+      "help": "Delete old ccu backups with the exception of the last X pieces"
     },
     "ccuHost": {
       "newLine": true,
