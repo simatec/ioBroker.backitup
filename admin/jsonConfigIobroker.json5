@@ -58,6 +58,7 @@
     },
     "minimalEveryXDays": {
       "hidden": "data.iobrokerCron",
+      "newLine": true,
       "sm": 9,
       "md": 6,
       "lg": 3,

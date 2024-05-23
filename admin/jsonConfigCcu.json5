@@ -74,6 +74,7 @@
       "lg": 3
     },
     "ccuEveryXDays": {
+      "newLine": true,
       "hidden": "data.ccuCron",
       "sm": 9,
       "md": 6,
