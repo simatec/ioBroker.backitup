@@ -1,0 +1,71 @@
+{
+    "type": "panel",
+    "label": "OneDrive",
+    "items": {
+        "_checkConfig": {
+            // this component is not visible in the UI
+            // it checks the configuration
+            "type": "custom",
+            "i18n": true,
+            "url": "custom/customComponents.js",
+            "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
+        },
+        "_header": {
+            "type": "header",
+            "size": 2,
+            "text": "OneDrive",
+            "sm": 12,
+        },
+        "_oneDrive": {
+            "newLine": true,
+            "type": "custom",
+            "i18n": true,
+            "url": "custom/customComponents.js",
+            "name": "ConfigCustomBackItUpSet/Components/Onedrive",
+            "value": false,
+            "sm": 12
+        },
+        "onedriveDeleteOldBackup": {
+            "type": "checkbox",
+            "label": "Delete old OneDrive-Backups",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "newLine": true
+        },
+        "onedriveOwnDir": {
+            "type": "checkbox",
+            "label": "Extra path for backup types",
+            "sm": 12,
+            "md": 8,
+            "lg": 4
+        },
+        "onedriveMinimalDir": {
+            "hidden": "!data.onedriveOwnDir",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "OneDrive Path for ioBroker backup",
+            "newLine": true
+        },
+        "onedriveCcuDir": {
+            "hidden": "!data.onedriveOwnDir",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "OneDrive Path for CCU backup",
+        },
+        "onedriveDir": {
+            "hidden": "data.onedriveOwnDir",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "path",
+            "help": "OneDrive path",
+            "newLine": true
+        }
+    }
+}

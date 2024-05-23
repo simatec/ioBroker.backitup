@@ -17,7 +17,7 @@ This adapter uses the service `Sentry.io` to automatically report exceptions and
 **************************************************************************************************************
 
 ## Support adapter development
-**If you like ioBroker.backitup, please consider making a donation:**
+**If you like `ioBroker.backitup`, please consider making a donation:**
   
 [![paypal](https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif)](https://paypal.me/mk1676)
 
@@ -25,38 +25,53 @@ This adapter uses the service `Sentry.io` to automatically report exceptions and
 **************************************************************************************************************
 
 ## Haftungsausschluss
-**ioBroker.backitup ist ein Backup-Plugin nur für die Smart Home Software ioBroker.**<br>
+**`ioBroker.backitup` ist ein Backup-Plugin nur für die Smart Home Software ioBroker.**
+
 **Es steht in keiner Verbindung zu [Nero BackItUp](https://www.nero.com/deu/products/nero-backitup/?vlang=de) (ein Tool zur Datensicherung unter Windows-Systemen) und wird auch nicht von diesem unterstützt.**
 
-**Dieses persönliche Projekt ioBroker.backitup wird in der Freizeit betrieben und hat keine geschäftlichen Ziele.**
+**Dieses persönliche Projekt `ioBroker.backitup` wird in der Freizeit betrieben und hat keine geschäftlichen Ziele.**
 
 
 ## Disclaimer
-**ioBroker.backitup is backup plugin only for the smart home software ioBroker.**<br>
-**Is it not affiliated with or endorsed by [Nero BackItUp](https://www.nero.com/deu/products/nero-backitup/?vlang=en) (a Tool backup under Windows-Systems).**
+**`ioBroker.backitup` is a backup plugin only for the smart home software ioBroker.**
 
-**This personal project ioBroker.backitup is maintained in spare time and has no business goal.**
+**It is not affiliated with or endorsed by [Nero BackItUp](https://www.nero.com/deu/products/nero-backitup/?vlang=en) (a Tool backup under Windows-Systems).**
+
+**This personal project `ioBroker.backitup` is maintained in spare time and has no business goal.**
 
 **************************************************************************************************************
 
-`ioBroker.backitup` ermöglich die Sicherung und Wiederherstellung deiner ioBroker Installation und anderen Systemen, wie Datenbanken, Zigbee, Skripten und vielen mehr.
+`ioBroker.backitup` ermöglicht die Sicherung und Wiederherstellung deiner ioBroker Installation und anderen Systemen, wie Datenbanken, Zigbee, Skripten und vielen mehr.
 
 :de: [Deutsche Beschreibung](https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-Deutsch)
 
-`ioBroker.backitup` allows you to backup and restore your ioBroker installation and other systems, such as databases, Zigbee, scripts and many more.
+`ioBroker.backitup` allows you to back up and restore your ioBroker installation and other systems, such as databases, Zigbee, scripts and many more.
 
 :uk: [English Description](https://github.com/simatec/ioBroker.backitup/wiki/ioBroker.backitup-Wiki-English)
 
 ### What is Sentry.io and what is reported to the servers of that company?
 `Sentry.io` is a service for developers to get an overview about errors from their applications. And exactly this is implemented in this adapter.
 
-When the adapter crashes or another Code error happens, this error message that also appears in the ioBroker log is submitted to Sentry. When you allowed iobroker GmbH to collect diagnostic data then also your installation ID (this is just a unique ID **without** any additional infos about you, email, name or such) is included. This allows Sentry to group errors and show how many unique users are affected by such an error. All of this helps me to provide error free adapters that basically never crashs.
+When the adapter crashes or another Code error happens, this error message that also appears in the ioBroker log is submitted to Sentry.
+When you allow iobroker GmbH to collect diagnostic data, then also your installation ID (this is just a unique ID **without** any additional infos about you, email, name or such) is included. This allows Sentry to group errors and show how many unique users are affected by such an error. All of this helps me to provide error-free adapters that basically never crash.
 
 
 **************************************************************************************************************
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) jsonConfig added
+* (bluefox) Conversion to React
+* (bluefox) Added react components
+* (bluefox/simatec) Working on React GUI
+* (simatec) dependencies updated
+* (simatec) Fix Yahka Backup
+* (simatec) Fix Nodered Backup
+* (simatec) some bugs fixed
+* (simatec) React Design Restore Interface
+* (simatec) Translation updated
+
 ### 2.11.0 (2024-03-04)
 * (simatec) Fix Sqlite3 Path
 

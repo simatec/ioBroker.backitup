@@ -12,3 +12,5 @@ admin/i18n/*/flat.txt
 .vscode
 .mount
 .DS_Store
+/src-admin/package-lock.json
+/src/package-lock.json

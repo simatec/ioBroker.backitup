@@ -1,0 +1,154 @@
+{
+  "type": "panel",
+  "label": "Homematic CCU",
+  "items": {
+    "_checkConfig": {
+      // this component is not visible in the UI
+      // it checks the configuration
+      "type": "custom",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
+    },
+    "_header": {
+      "type": "header",
+      "size": 2,
+      "text": "Homematic CCU backup",
+      "sm": 12,
+    },
+    "backupNow": {
+      "type": "custom",
+      "button": true,
+      "variant": "contained",
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/BackupNow",
+      "backUpType": "ccu",
+      "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIj4NCiAgICA8cGF0aCBkPSJNMTkuMzUgMTAuMDRDMTguNjcgNi41OSAxNS42NCA0IDEyIDQgOS4xMSA0IDYuNiA1LjY0IDUuMzUgOC4wNCAyLjM0IDguMzYgMCAxMC45MSAwIDE0YzAgMy4zMSAyLjY5IDYgNiA2aDEzYzIuNzYgMCA1LTIuMjQgNS01IDAtMi42NC0yLjA1LTQuNzgtNC42NS00Ljk2ek0xNCAxM3Y0aC00di00SDdsNS01IDUgNWgtM3oiLz4NCjwvc3ZnPg0K",
+      "label": "Backup now",
+      "newLine": true,
+      "sm": 9,
+      "md": 6,
+      "lg": 3
+    },
+    "detectNow": {
+      // Todo detect Button!!
+      "type": "custom",
+      "button": true,
+      "variant": "contained",
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/DetectConfig",
+      "adapter": "hm-rpc",
+      "icon": "search",
+      "label": "Detect config",
+      "sm": 9,
+      "md": 6,
+      "lg": 3
+    },
+    "_helpLine1": {
+      "newLine": true,
+      "type": "divider",
+      "color": "primary"
+    },
+    "ccuTime": {
+      "hidden": "data.ccuCron",
+      "newLine": true,
+      "type": "timePicker",
+      "label": "Backup time",
+      "help": "Backup start time in hh:mm",
+      "format": "HH:mm",
+      "views": ['hours', 'minutes'],
+      "returnFormat": "HH:mm",
+      "sm": 9,
+      "md": 6,
+      "lg": 3
+    },
+    "ccuCronJob": {
+      "hidden": "!data.ccuCron",
+      "newLine": true,
+      "type": "cron",
+      "label": "Backup CRON job",
+      "help": "Backup time as CRON job",
+      "complex": true,
+      "sm": 9,
+      "md": 6,
+      "lg": 3
+    },
+    "ccuEveryXDays": {
+      "newLine": true,
+      "hidden": "data.ccuCron",
+      "sm": 9,
+      "md": 6,
+      "lg": 3,
+      "min": 1,
+      "max": 100,
+      "type": "number",
+      "label": "days",
+      "help": "Backup will run every X days"
+    },
+    "ccuDeleteAfter": {
+      "sm": 9,
+      "md": 6,
+      "lg": 3,
+      "min": 1,
+      "max": 100,
+      "type": "number",
+      "label": "piece",
+      "help": "Delete old ccu backups with the exception of the last X pieces"
+    },
+    "ccuHost": {
+      "newLine": true,
+      "sm": 9,
+      "md": 6,
+      "lg": 3,
+      "type": "text",
+      "label": "IP address",
+      "help": "IP of the CCU"
+    },
+    "ccuUser": {
+      "sm": 9,
+      "md": 6,
+      "lg": 3,
+      "type": "text",
+      "label": "Username",
+      "help": "Username of the CCU"
+    },
+    "ccuPassword": {
+      "sm": 9,
+      "md": 6,
+      "lg": 3,
+      "type": "password",
+			"visible": true,
+      "label": "Password",
+      "help": "Password of the CCU"
+    },
+    "ccuCron": {
+      "newLine": true,
+      "type": "checkbox",
+      "label": "Create your own CRON job (for experts only)",
+      "sm": 12
+    },
+    "ccuMulti": {
+      "newLine": true,
+      "type": "checkbox",
+      "label": "Backup of several systems",
+      "sm": 12
+    },
+    "ccuEvents": {
+      "newLine": true,
+      "type": "table",
+      "sm": 12,
+      "label": "CCU hosts",
+      "hidden": "!data.ccuMulti",
+      "encryptedAttributes": ["pass"],
+      "labelsInHeader": true,
+      "items": [
+        {"attr": "host", "type": "text", "title": "IP address", width: "20%"},
+        {"attr": "user", "type": "text", "title": "Username", width: "20%"},
+        {"attr": "pass", "type": "password", "title": "Password", width: "20%"},
+        {"attr": "nameSuffix", "type": "text", "title": "Name suffix", width: "20%"},
+        {"attr": "usehttps", "type": "checkbox", "title": "Use https", width: "5%"},
+        {"attr": "signedCertificates", "type": "checkbox", "title": "Allow only signed certificates", width: "10%"},
+      ]
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "panel",
+  "label": "Zigbee2MQTT",
+  "items": {
+    "_checkConfig": {
+      // this component is not visible in the UI
+      // it checks the configuration
+      "type": "custom",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
+    },
+    "_header": {
+      "type": "header",
+      "size": 2,
+      "text": "Zigbee2MQTT",
+      "sm": 12,
+    },
+    "zigbee2mqttPath": {
+      "newLine": true,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "type": "text",
+      "label": "Zigbee2MQTT file path",
+    }
+  }
+}

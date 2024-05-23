@@ -1,0 +1,111 @@
+{
+    "type": "panel",
+    "label": "FTP",
+    "items": {
+        "_checkConfig": {
+            // this component is not visible in the UI
+            // it checks the configuration
+            "type": "custom",
+            "i18n": true,
+            "url": "custom/customComponents.js",
+            "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
+        },
+        "_header": {
+            "type": "header",
+            "size": 2,
+            "text": "FTP",
+            "sm": 12,
+        },
+        "ftpHost": {
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "Host",
+            "help": "IP address or hostname",
+            "newLine": true
+        },
+        "ftpPort": {
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "min": 1,
+            "max": 65535,
+            "type": "number",
+            "label": "Port"
+        },
+        "ftpUser": {
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "Username",
+            "newLine": true
+        },
+        "ftpPassword": {
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "password",
+            "visible": true,
+            "label": "Password",
+        },
+        "ftpDeleteOldBackup": {
+            "type": "checkbox",
+            "label": "Delete old FTP-Backups",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "newLine": true
+        },
+        "ftpSecure": {
+            "type": "checkbox",
+            "label": "Secure FTP connection (explicit TLS)",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+        },
+        "ftpOwnDir": {
+            "type": "checkbox",
+            "label": "Extra path for backup types",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "newLine": true
+        },
+        "ftpSignedCertificates": {
+            "hidden": "!data.ftpSecure",
+            "type": "checkbox",
+            "label": "Allow only signed certificates",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+        },
+        "ftpMinimalDir": {
+            "hidden": "!data.ftpOwnDir",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "Path for ioBroker backup",
+            "newLine": true
+        },
+        "ftpCcuDir": {
+            "hidden": "!data.ftpOwnDir",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "Path for CCU backup",
+        },
+        "ftpDir": {
+            "hidden": "data.ftpOwnDir",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "type": "text",
+            "label": "Path",
+            "newLine": true
+        },
+    }
+}

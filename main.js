@@ -3,15 +3,16 @@
 /* jslint node: true */
 'use strict';
 
+const fs = require('node:fs');
+const path = require('node:path');
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
+const ioCommon = require('@iobroker/js-controller-common'); // Get common adapter utils
 const schedule = require('node-schedule');
-const fs = require('fs');
-const path = require('path');
-const adapterName = require('./package.json').name.split('.').pop();
-
 const tools = require('./lib/tools');
 const executeScripts = require('./lib/execute');
 const systemCheck = require('./lib/systemCheck');
+
+const adapterName = require('./package.json').name.split('.').pop();
 
 let adapter;
 
@@ -24,6 +25,8 @@ let slaveTimeOut;
 let waitToSlaveBackup;
 let dlServer;
 let ulServer;
+let http;
+let https;
 
 let systemLang = 'de';              // system language
 const backupConfig = {};
@@ -35,7 +38,7 @@ const bashDir = path.join(utils.getAbsoluteDefaultDataDir(), adapterName).replac
 /**
  * Decrypt the password/value with given key
  * @param {string} key - Secret key
- * @param {string} value - value to decript
+ * @param {string} value - value to decrypt
  * @returns {string}
  */
 function decrypt(key, value) {
@@ -49,17 +52,16 @@ function decrypt(key, value) {
 function startBackup(config, cb) {
     if (taskRunning) {
         return setTimeout(startBackup, 10000, config, cb);
-    } else {
-        taskRunning = true;
-        try {
-            executeScripts(adapter, config, err => {
-                taskRunning = false;
-                cb && cb(err);
-            });
-            adapter.log.debug('Backup has started ...');
-        } catch (e) {
-            adapter.log.warn(`Backup error: ${e} ... please check your config and and try again!!`);
-        }
+    }
+    taskRunning = true;
+    try {
+        executeScripts(adapter, config, err => {
+            taskRunning = false;
+            cb && cb(err);
+        });
+        adapter.log.debug('Backup has started ...');
+    } catch (e) {
+        adapter.log.warn(`Backup error: ${e} ... please check your config and and try again!!`);
     }
 }
 
@@ -93,10 +95,9 @@ function startAdapter(options) {
 
     adapter.on('stateChange', async (id, state) => {
         if (state && (state.val === true || state.val === 'true') && !state.ack) {
-
-            if (id === adapter.namespace + '.oneClick.iobroker' ||
-                id === adapter.namespace + '.oneClick.ccu') {
-
+            if (id === `${adapter.namespace}.oneClick.iobroker` ||
+                id === `${adapter.namespace}.oneClick.ccu`
+            ) {
                 const sysCheck = await systemCheck.storageSizeCheck(adapter, adapterName, adapter.log);
 
                 const type = id.split('.').pop();
@@ -128,23 +129,23 @@ function startAdapter(options) {
                                         renewOnedriveToken();
                                     }
                                 } else {
-                                    adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
+                                    adapter.setState(`history.${type}LastTime`, `error: ${tools.getTimeString(systemLang)}`, true);
                                     adapter.setState(`history.${type}Success`, false, true);
                                 }
 
                             });
                         }, 500);
-                        adapter.setState('oneClick.' + type, false, true);
+                        adapter.setState(`oneClick.${type}`, false, true);
 
                         if (adapter.config.slaveInstance && type === 'iobroker' && adapter.config.hostType === 'Master') {
-                            adapter.log.debug('Slave backup from Backitup-Master is started ...');
+                            adapter.log.debug('Slave backup from BackItUp-Master is started ...');
                             startSlaveBackup(adapter.config.slaveInstance[0], null);
                         }
                     });
                 } else {
                     adapter.log.error(`A local backup is currently not possible. The storage space is currently only ${sysCheck && sysCheck.diskFree ? sysCheck.diskFree : null} MB`);
                     systemCheck.systemMessage(adapter, tools._('A local backup is currently not possible. Please check your System!', systemLang));
-                    adapter.setState('oneClick.' + type, false, true);
+                    adapter.setState(`oneClick.${type}`, false, true);
                     adapter.setState('output.line', `[EXIT] ${tools._('A local backup is currently not possible. Please check your System!', systemLang)}`, true);
                 }
             }
@@ -153,7 +154,9 @@ function startAdapter(options) {
 
     adapter.on('ready', async () => {
         try {
-            if (await setSentryLogging(adapter.config.sentry_enable)) return;
+            if (await setSentryLogging(adapter.config.sentry_enable)) {
+                return;
+            }
             await main(adapter);
         } catch (e) {
             //ignore errors
@@ -164,17 +167,41 @@ function startAdapter(options) {
     adapter.on('unload', (callback) => {
         try {
             adapter.log.info('cleaned everything up...');
-            clearTimeout(timerOutput2);
-            clearTimeout(timerOutput);
-            clearTimeout(timerUmount1);
-            clearTimeout(timerUmount2);
-            clearTimeout(timerMain);
-            clearTimeout(slaveTimeOut);
-            clearTimeout(waitToSlaveBackup);
-            callback();
+            timerOutput2 && clearTimeout(timerOutput2);
+            timerOutput && clearTimeout(timerOutput);
+            timerUmount1 && clearTimeout(timerUmount1);
+            timerUmount2 && clearTimeout(timerUmount2);
+            timerMain && clearTimeout(timerMain);
+            slaveTimeOut && clearTimeout(slaveTimeOut);
+            waitToSlaveBackup && clearTimeout(waitToSlaveBackup);
+            if (dlServer) {
+                try {
+                    dlServer.closeAllConnections();
+                } catch (e) {
+                    adapter.log.debug(`Download server Connections could not be closed: ${e}`);
+                }
+                try {
+                    dlServer.close();
+                } catch (e) {
+                    adapter.log.debug(`Download server Connections could not be closed: ${e}`);
+                }
+            }
+            if (ulServer) {
+                try {
+                    ulServer.closeAllConnections();
+                } catch (e) {
+                    adapter.log.debug(`Upload server connections could not be closed: ${e}`);
+                }
+                try {
+                    ulServer.close();
+                } catch (e) {
+                    adapter.log.debug(`Upload server connections could not be closed: ${e}`);
+                }
+            }
         } catch (e) {
-            callback();
+            console.log(`Cannot unload: ${e}`);
         }
+        callback();
     });
 
     adapter.on('message', async obj => {
@@ -183,9 +210,11 @@ function startAdapter(options) {
                 case 'list':
                     try {
                         const list = require('./lib/list');
-
-                        list(obj.message, backupConfig, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
-                        adapter.log.debug('Backup list be read ...');
+                        adapter.log.debug(`Reading backup list...`);
+                        list(obj.message, backupConfig, adapter.log, res => {
+                            adapter.log.debug(`Backup list was read: ${JSON.stringify(res)}`);
+                            obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback);
+                        });
                     } catch (e) {
                         adapter.log.debug('Backup list cannot be read ...');
                     }
@@ -215,7 +244,7 @@ function startAdapter(options) {
                         const dropbox = new Dropbox();
 
                         dropbox.getRefreshToken(obj.message.code, obj.message.codeChallenge, adapter.log)
-                            .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json: json }, obj.callback))
+                            .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json }, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
                     } else if (obj.callback) {
                         const dropbox = new Dropbox();
@@ -226,7 +255,6 @@ function startAdapter(options) {
                             .then(() => dropbox.getCodeChallage(adapter.log, adapter.config.dropboxCodeChallenge))
                             .then(code_challenge => adapter.sendTo(obj.from, obj.command, { url: auth_url, code_challenge: code_challenge }, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
-
                     }
                     break;
 
@@ -237,7 +265,7 @@ function startAdapter(options) {
                         const onedrive = new Onedrive();
 
                         onedrive.getRefreshToken(obj.message.code, adapter.log)
-                            .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json: json }, obj.callback))
+                            .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json }, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
                     } else if (obj.callback) {
                         const onedrive = new Onedrive();
@@ -245,7 +273,6 @@ function startAdapter(options) {
                         onedrive.getAuthorizeUrl(adapter.log)
                             .then(url => adapter.sendTo(obj.from, obj.command, { url: url }, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
-
                     }
                     break;
 
@@ -254,9 +281,20 @@ function startAdapter(options) {
                         if (obj.message.stopIOB) {
                             await getCerts(obj.from);
                         }
-                        adapter.log.debug(obj.message.currentProtocol);
+                        adapter.log.info(`DATA: ${JSON.stringify(obj.message)}`);
+
                         const _restore = require('./lib/restore');
-                        _restore.restore(adapter, backupConfig, obj.message.type, obj.message.fileName, obj.message.currentTheme, obj.message.currentProtocol, bashDir, adapter.log, res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback));
+                        _restore.restore(
+                            adapter,
+                            backupConfig,
+                            obj.message.type,
+                            obj.message.fileName,
+                            obj.message.currentTheme,
+                            obj.message.currentProtocol,
+                            bashDir,
+                            adapter.log,
+                            res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback),
+                        );
                     } else if (obj.callback) {
                         obj.callback({ error: 'Invalid parameters' });
                     }
@@ -265,7 +303,7 @@ function startAdapter(options) {
                 case 'uploadFile':
                     if (obj.message && obj.message.protocol) {
                         if (ulServer && ulServer._connectionKey && ulServer.listening) {
-                            adapter.log.debug(`Uploadserver is running on Port ${ulServer.address().port}...`);
+                            adapter.log.debug(`Upload server is running on Port ${ulServer.address().port}...`);
                         } else {
                             if (obj.message.protocol === 'https:') {
                                 await getCerts(obj.from);
@@ -274,7 +312,7 @@ function startAdapter(options) {
                             try {
                                 ulFileServer(obj.message.protocol);
                             } catch (e) {
-                                adapter.log.debug('Uploadserver cannot started');
+                                adapter.log.debug('Upload server cannot started');
                             }
                         }
 
@@ -287,10 +325,11 @@ function startAdapter(options) {
                         obj.callback({ error: 'Invalid parameters' });
                     }
                     break;
+
                 case 'getFile':
                     if (obj.message && obj.message.type && obj.message.fileName && obj.message.protocol) {
                         if (dlServer && dlServer._connectionKey && dlServer.listening) {
-                            adapter.log.debug(`Downloadserver is running on Port ${dlServer.address().port}...`);
+                            adapter.log.debug(`Download server is running on port ${dlServer.address().port}...`);
                         } else {
                             if (obj.message.protocol === 'https:') {
                                 await getCerts(obj.from);
@@ -321,13 +360,11 @@ function startAdapter(options) {
                                     adapter.log.warn(`File ${toSaveName} not found`);
                                 }
                             });
-                        } else {
-                            if (fs.existsSync(obj.message.fileName)) {
-                                try {
-                                    adapter.sendTo(obj.from, obj.command, { fileName: fileName, listenPort: dlServer.address().port }, obj.callback);
-                                } catch (error) {
-                                    adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
-                                }
+                        } else if (fs.existsSync(obj.message.fileName)) {
+                            try {
+                                adapter.sendTo(obj.from, obj.command, { fileName: fileName, listenPort: dlServer.address().port }, obj.callback);
+                            } catch (error) {
+                                adapter.sendTo(obj.from, obj.command, { error }, obj.callback);
                             }
                         }
                     } else if (obj.callback) {
@@ -337,10 +374,10 @@ function startAdapter(options) {
 
                 case 'serverClose':
                     if (obj.message && obj.message.downloadFinish && !obj.message.uploadFinish) {
-                        adapter.log.debug('Download finish ...');
+                        adapter.log.debug('Download finished...');
                         adapter.sendTo(obj.from, obj.command, { serverClose: true }, obj.callback);
                     } else if (obj.message && obj.message.uploadFinish && !obj.message.downloadFinish) {
-                        adapter.log.debug('Upload finish ...');
+                        adapter.log.debug('Upload finished...');
                         adapter.sendTo(obj.from, obj.command, { serverClose: true }, obj.callback);
                     } else if (obj.callback) {
                         obj.callback({ error: 'Invalid parameters' });
@@ -350,7 +387,7 @@ function startAdapter(options) {
                 case 'getTelegramUser':
                     if (obj && obj.message) {
                         const inst = obj.message.config.instance ? obj.message.config.instance : adapter.config.telegramInstance;
-                        adapter.getForeignState(inst + '.communicate.users', (err, state) => {
+                        adapter.getForeignState(`${inst}.communicate.users`, (err, state) => {
                             err && adapter.log.error(err);
                             if (state && state.val) {
                                 try {
@@ -401,7 +438,6 @@ function startAdapter(options) {
                             } catch (err) {
                                 err && adapter.log.error(err);
                             }
-
                         }
                     }
                     break;
@@ -410,7 +446,7 @@ function startAdapter(options) {
                     if (obj.message) {
                         //const { createClient } = require('webdav');
                         const { createClient } = await import('webdav');
-                        const agent = require('https').Agent({ rejectUnauthorized: obj.message.config.signedCertificates });
+                        const agent = require('node:https').Agent({ rejectUnauthorized: obj.message.config.signedCertificates });
 
                         const client = createClient(
                             obj.message.config.host,
@@ -438,7 +474,7 @@ function startAdapter(options) {
                                 config.enabled = true;
                                 config.deleteBackupAfter = obj.message.config.deleteAfter ? obj.message.config.deleteAfter : 0; // do delete files with specification from Master
                             } catch (e) {
-                                adapter.log.warn('backup error: ' + e + ' ... please check your config and try again!!');
+                                adapter.log.warn(`backup error: ${e} ... please check your config and try again!!`);
                             }
                             startBackup(config, err => {
                                 if (err) {
@@ -463,7 +499,7 @@ function startAdapter(options) {
                                                 renewOnedriveToken();
                                             }
                                         } else {
-                                            adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
+                                            adapter.setState(`history.${type}LastTime`, `error: ${tools.getTimeString(systemLang)}`, true);
                                             adapter.setState(`history.${type}Success`, false, true);
                                             if (state && state.val) {
                                                 try {
@@ -476,12 +512,35 @@ function startAdapter(options) {
                                         }
 
                                     }), 500);
-                                adapter.setState('oneClick.' + type, false, true);
+                                adapter.setState(`oneClick.${type}`, false, true);
                             });
                         } else {
-                            adapter.log.warn('Your Backitup Instance is not configured as a slave');
+                            adapter.log.warn('Your BackItUp Instance is not configured as a slave');
                             adapter.sendTo(obj.from, obj.command, 'not configured as a slave', obj.callback);
                         }
+                    }
+                    break;
+                case 'slaveInstance':
+                    if (obj && obj.command === 'slaveInstance' && obj.message && obj.message.instance) {
+                        let resultInstances = [];
+
+                        const instances = await adapter.getObjectViewAsync('system', 'instance', {
+                            startkey: `system.adapter.${obj.message.instance}.`,
+                            endkey: `system.adapter.${obj.message.instance}.\u9999`,
+                        }).catch((err) => adapter.log.error(err));
+
+                        if (instances && instances.rows && instances.rows.length != 0) {
+                            instances.rows.forEach(async (row) => {
+                                if (row.id.replace('system.adapter.', '') != adapter.namespace) {
+                                    resultInstances.push({
+                                        label: row.id.replace('system.adapter.', ''),
+                                        value: row.id.replace('system.adapter.', ''),
+                                    });
+                                }
+                            });
+                        }
+
+                        adapter.sendTo(obj.from, obj.command, resultInstances, obj.callback);
                     }
                     break;
             }
@@ -492,7 +551,6 @@ function startAdapter(options) {
 }
 
 async function checkStates() {
-
     // Fill empty data points with default values
     const historyState = await adapter.getStateAsync('history.html');
     if (!historyState || historyState.val === null) {
@@ -542,20 +600,20 @@ function createBackupSchedule() {
 
         const config = backupConfig[type];
         if (config.enabled === true || config.enabled === 'true') {
-            let time = config.ownCron === false ? config.time.split(':') : config.cronjob;
+            let time = config.ownCron ? config.cronjob : config.time.split(':');
 
-            const backupInfo = config.ownCron === false ? `at ${config.time} every ${config.everyXDays} day(s)` : `with Cronjob "${config.cronjob}"`;
+            const backupInfo = config.ownCron ? `with Cronjob "${config.cronjob}"` : `at ${config.time} every ${config.everyXDays} day(s)`;
             adapter.log.info(`[${type}] backup will be activated ${backupInfo}`);
 
             if (backupTimeSchedules[type]) {
                 backupTimeSchedules[type].cancel();
             }
-            const cron = config.ownCron === false ? `10 ${time[1]} ${time[0]} */${config.everyXDays} * * ` : time;
+            const cron = config.ownCron ? time : `10 ${time[1]} ${time[0]} */${config.everyXDays} * * `;
             backupTimeSchedules[type] = schedule.scheduleJob(cron, async () => {
                 const sysCheck = await systemCheck.storageSizeCheck(adapter, adapterName, adapter.log);
 
                 if ((sysCheck && sysCheck.ready && sysCheck.ready === true) || adapter.config.cifsEnabled === true) {
-                    adapter.setState('oneClick.' + type, true, true);
+                    adapter.setState(`oneClick.${type}`, true, true);
 
                     startBackup(backupConfig[type], err => {
                         if (err) {
@@ -573,7 +631,7 @@ function createBackupSchedule() {
                                         renewOnedriveToken();
                                     }
                                 } else {
-                                    adapter.setState(`history.${type}LastTime`, 'error: ' + tools.getTimeString(systemLang), true);
+                                    adapter.setState(`history.${type}LastTime`, `error: ${tools.getTimeString(systemLang)}`, true);
                                     adapter.setState(`history.${type}Success`, false, true);
                                 }
                             }), 500);
@@ -581,7 +639,7 @@ function createBackupSchedule() {
                         adapter.setState('oneClick.' + type, false, true);
 
                         if (adapter.config.slaveInstance && type === 'iobroker' && adapter.config.hostType === 'Master') {
-                            adapter.log.debug('Slave backup from Backitup-Master is started ...');
+                            adapter.log.debug('Slave backup from BackItUp-Master is started ...');
                             startSlaveBackup(adapter.config.slaveInstance[0], null);
                         }
                     });
@@ -613,7 +671,7 @@ function initConfig(secret) {
     let ioPath;
 
     try {
-        ioPath = require.resolve('iobroker.js-controller/iobroker.js');
+        ioPath = `${ioCommon.tools.getControllerDir()}/iobroker.js`;
     } catch (e) {
         adapter.log.error(`Unable to read iobroker path: +${e}`);
     }
@@ -1216,15 +1274,15 @@ function createBashScripts() {
     const isWin = process.platform.startsWith('win');
     if (!fs.existsSync(bashDir)) {
         fs.mkdirSync(bashDir);
-        adapter.log.debug('Backitup data-directory created');
+        adapter.log.debug('BackItUp data-directory created');
     }
     if (isWin) {
-        adapter.log.debug(`Backitup has recognized a ${process.platform} system`);
+        adapter.log.debug(`BackItUp has recognized a ${process.platform} system`);
 
         try {
-            fs.writeFileSync(bashDir + '/stopIOB.bat', `start "" "${path.join(bashDir, 'external.bat')}"`);
+            fs.writeFileSync(`${bashDir}/stopIOB.bat`, `start "" "${path.join(bashDir, 'external.bat')}"`);
         } catch (e) {
-            adapter.log.error('cannot create stopIOB.bat: ' + e + 'Please run "iobroker fix"');
+            adapter.log.error(`cannot create stopIOB.bat: ${e}Please run "iobroker fix"`);
         }
 
         try {
@@ -1237,53 +1295,53 @@ function createBashScripts() {
         try {
             fs.writeFileSync(bashDir + '/startIOB.bat', `if exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker host this\ncall iobroker start\nif exist "${path.join(bashDir, '.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
         } catch (e) {
-            adapter.log.error('cannot create startIOB.bat: ' + e + 'Please run "iobroker fix"');
+            adapter.log.error(`cannot create startIOB.bat: ${e}Please run "iobroker fix"`);
         }
     } else if (fs.existsSync('/opt/scripts/.docker_config/.thisisdocker')) { // Docker Image Support >= 5.2.0
-        adapter.log.debug(`Backitup has recognized a Docker system`);
+        adapter.log.debug(`BackItUp has recognized a Docker system`);
 
         try {
             fs.writeFileSync(bashDir + '/stopIOB.sh', `#!/bin/bash\n# iobroker stop for restore\nbash ${bashDir}/external.sh`);
             fs.chmodSync(bashDir + '/stopIOB.sh', 508);
         } catch (e) {
-            adapter.log.error('cannot create stopIOB.sh: ' + e + 'Please run "iobroker fix"');
+            adapter.log.error(`cannot create stopIOB.sh: ${e}Please run "iobroker fix"`);
         }
 
         try {
-            fs.writeFileSync(bashDir + '/startIOB.sh', `#!/bin/bash\n# iobroker start after restore\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\nsleep 6\nbash /opt/scripts/maintenance.sh off -y`);
-            fs.chmodSync(bashDir + '/startIOB.sh', 508);
+            fs.writeFileSync(`${bashDir}/startIOB.sh`, `#!/bin/bash\n# iobroker start after restore\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\niobroker start all;\nfi\nsleep 6\nbash /opt/scripts/maintenance.sh off -y`);
+            fs.chmodSync(`${bashDir}/startIOB.sh`, 508);
         } catch (e) {
-            adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
+            adapter.log.error(`cannot create startIOB.sh: ${e}Please run "iobroker fix"`);
         }
 
         try {
             fs.writeFileSync(bashDir + '/external.sh', `#!/bin/bash\n# restore\nbash /opt/scripts/maintenance.sh on -y -kbn\nsleep 3\nif [ -f ${bashDir}/.redis.info ]; then\ncd "${path.join(__dirname, 'lib')}"\nelse\ncd "${bashDir}"\nfi\nnode restore.js`);
             fs.chmodSync(bashDir + '/external.sh', 508);
         } catch (e) {
-            adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
+            adapter.log.error(`cannot create external.sh: ${e}Please run "iobroker fix"`);
         }
     } else {
-        adapter.log.debug(`Backitup has recognized a ${process.platform} system`);
+        adapter.log.debug(`BackItUp has recognized a ${process.platform} system`);
 
         try {
-            fs.writeFileSync(bashDir + '/stopIOB.sh', `# iobroker stop for restore\nsudo systemd-run --uid=iobroker bash ${bashDir}/external.sh`);
-            fs.chmodSync(bashDir + '/stopIOB.sh', 508);
+            fs.writeFileSync(`${bashDir}/stopIOB.sh`, `# iobroker stop for restore\nsudo systemd-run --uid=iobroker bash ${bashDir}/external.sh`);
+            fs.chmodSync(`${bashDir}/stopIOB.sh`, 508);
         } catch (e) {
-            adapter.log.error('cannot create stopIOB.sh: ' + e + 'Please run "iobroker fix"');
+            adapter.log.error(`cannot create stopIOB.sh: ${e}Please run "iobroker fix"`);
         }
 
         try {
-            fs.writeFileSync(bashDir + '/startIOB.sh', `# iobroker start after restore\nif [ -f ${bashDir}/.redis.info ]; then\nredis-cli shutdown nosave && echo "[DEBUG] [redis] Redis restart successfully"\nfi\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start all && echo "[EXIT] **** iobroker start upload all now... ****"\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker host this && echo "[DEBUG] [iobroker] Host this successfully"\nbash iobroker start && echo "[EXIT] **** iobroker restart now... ****"`);
-            fs.chmodSync(bashDir + '/startIOB.sh', 508);
+            fs.writeFileSync(`${bashDir}/startIOB.sh`, `# iobroker start after restore\nif [ -f ${bashDir}/.redis.info ]; then\nredis-cli shutdown nosave && echo "[DEBUG] [redis] Redis restart successfully"\nfi\nif [ -f ${bashDir}/.startAll ]; then\ncd "${path.join(tools.getIobDir())}"\nbash iobroker start all && echo "[EXIT] **** iobroker start upload all now... ****"\nfi\ncd "${path.join(tools.getIobDir())}"\nbash iobroker host this && echo "[DEBUG] [iobroker] Host this successfully"\nbash iobroker start && echo "[EXIT] **** iobroker restart now... ****"`);
+            fs.chmodSync(`${bashDir}/startIOB.sh`, 508);
         } catch (e) {
-            adapter.log.error('cannot create startIOB.sh: ' + e + 'Please run "iobroker fix"');
+            adapter.log.error(`cannot create startIOB.sh: ${e}Please run "iobroker fix"`);
         }
 
         try {
-            fs.writeFileSync(bashDir + '/external.sh', `# restore\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop && echo "[DEBUG] [iobroker] iobroker stop successfully"\nif [ -f ${bashDir}/.redis.info ]; then\ncd "${path.join(__dirname, 'lib')}"\nelse\ncd "${bashDir}"\nfi\nnode restore.js`);
-            fs.chmodSync(bashDir + '/external.sh', 508);
+            fs.writeFileSync(`${bashDir}/external.sh`, `# restore\ncd "${path.join(tools.getIobDir())}"\nbash iobroker stop && echo "[DEBUG] [iobroker] iobroker stop successfully"\nif [ -f ${bashDir}/.redis.info ]; then\ncd "${path.join(__dirname, 'lib')}"\nelse\ncd "${bashDir}"\nfi\nnode restore.js`);
+            fs.chmodSync(`${bashDir}/external.sh`, 508);
         } catch (e) {
-            adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
+            adapter.log.error(`cannot create external.sh: ${e}Please run "iobroker fix"`);
         }
     }
 }
@@ -1292,9 +1350,9 @@ function createBashScripts() {
 function umount() {
 
     const backupDir = path.join(tools.getIobDir(), 'backups');
-    const child_process = require('child_process');
+    const child_process = require('node:child_process');
 
-    if (fs.existsSync(bashDir + '/.mount')) {
+    if (fs.existsSync(`${bashDir}/mount`)) {
         child_process.exec(`mount | grep -o "${backupDir}"`, (error, stdout, stderr) => {
             if (stdout.indexOf(backupDir) !== -1) {
                 adapter.log.debug('mount activ... umount in 2 Seconds!!');
@@ -1309,7 +1367,7 @@ function umount() {
                                     } else {
                                         adapter.log.debug('umount successfully completed');
                                         try {
-                                            fs.existsSync(bashDir + '/.mount') && fs.unlinkSync(bashDir + '/.mount');
+                                            fs.existsSync(`${bashDir}/mount`) && fs.unlinkSync(`${bashDir}/mount`);
                                         } catch (e) {
                                             adapter.log.debug('file ".mount" not deleted ...');
                                         }
@@ -1485,8 +1543,8 @@ async function nextBackup(setMain, type) {
     const cronParser = require('cron-parser');
 
     if (adapter.config.ccuEnabled && setMain || type === 'ccu') {
-        const time = adapter.config.ccuCron === false ? adapter.config.ccuTime.split(':') : adapter.config.ccuCronJob;
-        const cron = adapter.config.ccuCron === false ? `00 ${time[1]} ${time[0]} */${adapter.config.ccuEveryXDays} * *` : time;
+        const time = adapter.config.ccuCron ? adapter.config.ccuCronJob : adapter.config.ccuTime.split(':');
+        const cron = adapter.config.ccuCron ? time : `00 ${time[1]} ${time[0]} */${adapter.config.ccuEveryXDays} * *`;
 
         try {
             const interval = cronParser.parseExpression(cron);
@@ -1501,8 +1559,8 @@ async function nextBackup(setMain, type) {
     }
 
     if (adapter.config.minimalEnabled && setMain || type === 'iobroker') {
-        const time = adapter.config.iobrokerCron === false ? adapter.config.minimalTime.split(':') : adapter.config.iobrokerCronJob;
-        const cron = adapter.config.iobrokerCron === false ? `00 ${time[1]} ${time[0]} */${adapter.config.minimalEveryXDays} * *` : time;
+        const time = adapter.config.iobrokerCron ? adapter.config.iobrokerCronJob : adapter.config.minimalTime.split(':');
+        const cron = adapter.config.iobrokerCron ? time : `00 ${time[1]} ${time[0]} */${adapter.config.minimalEveryXDays} * *`;
 
         try {
             const interval = cronParser.parseExpression(cron);
@@ -1612,7 +1670,7 @@ function decryptEvents(secret) {
     }
 }
 
-function clearbashDir() {
+function clearBashDir() {
     // delete restore files
     if (fs.existsSync(bashDir)) {
         const fse = require('fs-extra');
@@ -1660,27 +1718,27 @@ function dlFileServer(protocol) {
     const express = require('express');
     const downloadServer = express();
 
-    // Close all Connection from Downloadserver
+    // Close all connections from Downloadserver
     if (dlServer && dlServer._connectionKey) {
         try {
             dlServer.closeAllConnections();
         } catch (e) {
-            adapter.log.debug('Download server Connections could not be closed: ' + e);
+            adapter.log.debug(`Download server Connections could not be closed: ${e}`);
         }
         try {
             dlServer.close();
         } catch (e) {
-            adapter.log.debug('Download server Connections could not be closed: ' + e);
+            adapter.log.debug(`Download server Connections could not be closed: ${e}`);
         }
     }
     const port = fs.existsSync('/opt/scripts/.docker_config/.thisisdocker') ? 9081 : 0;
 
     downloadServer.use(express.static(path.join(tools.getIobDir(), 'backups')));
 
+    let httpServer;
     if (protocol === 'https:') {
-        const https = require('https');
+        https = https || require('node:https');
 
-        let httpsServer;
         let privateKey = '';
         let certificate = '';
 
@@ -1692,38 +1750,27 @@ function dlFileServer(protocol) {
                 adapter.log.debug('no certificates found');
             }
         }
-        const credentials = { key: privateKey, cert: certificate };
 
         try {
-            httpsServer = https.createServer(credentials, downloadServer);
+            httpServer = https.createServer({ key: privateKey, cert: certificate }, downloadServer);
         } catch (e) {
             adapter.log.debug(`The https server cannot be created: ${e}`);
         }
-
-        try {
-            dlServer = httpsServer.listen(port);
-            adapter.log.debug(`Downloadserver on port ${dlServer.address().port} started`);
-
-        } catch (e) {
-            adapter.log.debug('Downloadserver cannot started');
-        }
     } else {
-        const http = require('http');
-
-        let httpServer;
+        http = http || require('node:http');
 
         try {
             httpServer = http.createServer(downloadServer);
         } catch (e) {
             adapter.log.debug(`The http server cannot be created: ${e}`);
         }
+    }
 
-        try {
-            dlServer = httpServer.listen(port);
-            adapter.log.debug(`Downloadserver on port ${dlServer.address().port} started`);
-        } catch (e) {
-            adapter.log.debug('Downloadserver cannot started');
-        }
+    try {
+        dlServer = httpServer.listen(port);
+        adapter.log.debug(`Download ${protocol.replace(':', '')} server started on port ${dlServer.address().port}`);
+    } catch (e) {
+        adapter.log.debug('Download server cannot be started');
     }
 }
 
@@ -1732,16 +1779,16 @@ function ulFileServer(protocol) {
     const multer = require('multer');
     const cors = require('cors');
 
-    // Close all Connection from Uploadserver
+    // Close all Connections from upload server
     try {
         ulServer.closeAllConnections();
     } catch (e) {
-        adapter.log.debug('Upload server Connections could not be closed');
+        adapter.log.debug('Upload server connections could not be closed');
     }
     try {
         ulServer.close();
     } catch (e) {
-        adapter.log.debug('Upload server Connections could not be closed');
+        adapter.log.debug('Upload server connections could not be closed');
     }
 
     const port = fs.existsSync('/opt/scripts/.docker_config/.thisisdocker') ? 9082 : 0;
@@ -1752,69 +1799,56 @@ function ulFileServer(protocol) {
     uploadServer.use(cors());
 
     const storage = multer.diskStorage({
-        destination: function (req, file, callback) {
-            callback(null, backupDir);
-        },
+        destination: (req, file, callback) => callback(null, backupDir),
         filename: function (req, file, callback) {
-            callback(null, file.originalname);
             adapter.log.debug(`Upload from ${file.originalname} started...`);
-        }
-    })
-
-    const upload = multer({ storage: storage })
-
-    uploadServer.post('/', upload.single('files'), (req, res) => {
-        adapter.log.debug(req.body);
-        adapter.log.debug(req.files);
-        res.json({ message: "File(s) uploaded successfully" });
-
+            callback(null, file.originalname);
+        },
     });
 
-    if (protocol === 'https:') {
-        const https = require('https');
+    const upload = multer({ storage });
 
-        let httpsServer;
-        let privateKey = '';
-        let certificate = '';
+    uploadServer.post('/', upload.single('files'), (req, res) => {
+        adapter.log.debug(req.file);
+        res.json({ message: 'File(s) uploaded successfully' });
+    });
+
+    let httpServer;
+    if (protocol === 'https:') {
+        https = https || require('node:https');
+
+        let key = '';
+        let cert = '';
 
         if (fs.existsSync(path.join(bashDir, 'iob.key')) && fs.existsSync(path.join(bashDir, 'iob.crt'))) {
             try {
-                privateKey = fs.readFileSync(path.join(bashDir, 'iob.key'), 'utf8');
-                certificate = fs.readFileSync(path.join(bashDir, 'iob.crt'), 'utf8');
+                key = fs.readFileSync(path.join(bashDir, 'iob.key'), 'utf8');
+                cert = fs.readFileSync(path.join(bashDir, 'iob.crt'), 'utf8');
             } catch (e) {
                 adapter.log.debug('no certificates found');
             }
         }
-        const credentials = { key: privateKey, cert: certificate };
 
         try {
-            httpsServer = https.createServer(credentials, uploadServer);
+            httpServer = https.createServer({ key, cert }, uploadServer);
         } catch (e) {
-            adapter.log.debug(`The https Uploadserver cannot be created: ${e}`);
-        }
-
-        try {
-            ulServer = httpsServer.listen(port);
-            adapter.log.debug(`Uploadserver on port ${ulServer.address().port} started`);
-        } catch (e) {
-            adapter.log.debug('Uploadserver cannot started');
+            adapter.log.debug(`The https upload server cannot be created: ${e}`);
         }
     } else {
-        const http = require('http');
-
-        let httpServer;
+        http = http || require('node:http');
 
         try {
             httpServer = http.createServer(uploadServer);
         } catch (e) {
-            adapter.log.debug(`The http Uploadserver cannot be created: ${e}`);
+            adapter.log.debug(`The http upload server cannot be created: ${e}`);
         }
-        try {
-            ulServer = httpServer.listen(port);
-            adapter.log.debug(`Uploadserver on port ${ulServer.address().port} started`);
-        } catch (e) {
-            adapter.log.debug('Uploadserver cannot started');
-        }
+    }
+
+    try {
+        ulServer = httpServer.listen(port);
+        adapter.log.debug(`Upload ${protocol.replace(':', '')} server started on port ${ulServer.address().port}`);
+    } catch (e) {
+        adapter.log.debug('Upload server cannot be started');
     }
 }
 
@@ -1856,7 +1890,7 @@ async function main(adapter) {
     if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) createBackupDir();
     if (fs.existsSync(bashDir + '/.redis.info')) deleteHideFiles();
     if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) delTmp();
-    clearbashDir();
+    clearBashDir();
 
     timerMain = setTimeout(function () {
         if (fs.existsSync(bashDir + '/.mount')) {

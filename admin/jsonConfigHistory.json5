@@ -1,0 +1,52 @@
+{
+  "type": "panel",
+  "label": "History Backup",
+  "items": {
+    "_checkConfig": {
+      // this component is not visible in the UI
+      // it checks the configuration
+      "type": "custom",
+      "i18n": true,
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
+    },
+    "_header": {
+      "type": "header",
+      "size": 2,
+      "text": "History Data Backup",
+      "sm": 12,
+    },
+    "detectNow": {
+      "type": "custom",
+      "button": true,
+      "variant": "contained",
+      "url": "custom/customComponents.js",
+      "name": "ConfigCustomBackItUpSet/Components/DetectConfig",
+      "adapter": "history",
+      "icon": "search",
+      "label": "Detect config",
+      "sm": 9,
+      "md": 6,
+      "lg": 3
+    },
+    "_helpLine1": {
+      "newLine": true,
+      "type": "divider",
+      "color": "primary"
+    },
+    "historyPath": {
+      "sm": 12,
+      "md": 9,
+      "lg": 6,
+      "type": "text",
+      "label": "History data path",
+      "newLine": true
+    },
+    "_helpText1": {
+      "type": "staticText",
+      "text": "Backup of all stored data of the history adapter",
+      "sm": 12,
+      "newLine": true
+    },
+  }
+}

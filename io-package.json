@@ -166,16 +166,16 @@
     },
     "dependencies": [
       {
-        "js-controller": ">=4.0.0"
+        "js-controller": ">=5.0.19"
       }
     ],
     "globalDependencies": [
       {
-        "admin": ">=6.0.0"
+        "admin": ">=6.17.11"
       }
     ],
     "adminUI": {
-      "config": "materialize",
+      "config": "json",
       "tab": "materialize"
     },
     "enabled": true,
@@ -206,7 +206,10 @@
     "readme": "https://github.com/simatec/ioBroker.backitup/blob/master/README.md",
     "loglevel": "info",
     "type": "general",
-    "license": "MIT",
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
     "plugins": {
       "sentry": {
         "dsn": "https://e8510540c3a343aa8ce5678a4b3c8107@sentry.iobroker.net/36"
@@ -495,7 +498,7 @@
     "telegramNoticeType": "longTelegramNotice",
     "telegramOnlyError": false,
     "telegramSilentNotice": false,
-    "telegramUser": "All Receiver",
+    "telegramUser": "allTelegramUsers",
     "telegramWaitToSend": 0,
     "wakeOnLAN": false,
     "webdavCcuDir": "/backupDir/ccu",

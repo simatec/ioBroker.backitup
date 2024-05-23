@@ -104,13 +104,11 @@ function load(settings, onChange) {
 
     sendTo(null, 'getFileSystemInfo', null, function (obj) {
         if (obj && obj.diskState && obj.storage && obj.diskFree) {
-
             if (obj.diskState == 'warn' && obj.storage == 'local') {
-                showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Please check your system!', obj.diskFree), _('Backitup Information!'), 'info');
+                showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Please check your system!', obj.diskFree), _('BackItUp Information!'), 'info');
             } else if (obj.diskState == 'error' && obj.storage == 'local') {
-                showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Local backups are currently not possible. <br/><br/>Please check your system!', obj.diskFree), _('Backitup Information!'), 'warning');
+                showMessage(_('<br/><br/><br/> On the host only %s MB free space is available! Local backups are currently not possible. <br/><br/>Please check your system!', obj.diskFree), _('BackItUp Information!'), 'warning');
             }
-
         }
     });
 
@@ -214,7 +212,7 @@ function load(settings, onChange) {
                             }
             });
             if (settings.ftpEnabled === false && settings.dropboxEnabled === false && settings.onedriveEnabled === false && settings.cifsEnabled === false && settings.googledriveEnabled === false && settings.webdavEnabled === false) {
-                showMessage(_("<br/><br/>According to the Backitup settings, backups are currently stored in the same local file system that is the source of the backup can be accessed more. <br/> <br/>It is recommended to use an external storage space as a backup target."), _('Backitup Information!'), 'info');
+                showMessage(_("<br/><br/>According to the BackItUp settings, backups are currently stored in the same local file system that is the source of the backup can be accessed more. <br/> <br/>It is recommended to use an external storage space as a backup target."), _('BackItUp Information!'), 'info');
             }
             socket.emit('subscribeStates', 'backitup.' + instance + '.*');
             socket.emit('subscribeStates', 'system.adapter.backitup.' + instance + '.alive');
@@ -514,7 +512,7 @@ function backupUpload() {
     input.setAttribute('id', 'files');
     input.setAttribute('opacity', 0);
     input.addEventListener('change', function (e) {
-        handleUploadSelect(e, function () { });
+        handleUploadSelect(e);
     }, false);
     (input.click)();
 }
@@ -540,22 +538,24 @@ async function handleUploadSelect(evt) {
                 await fetch(`${location.protocol}//${location.hostname}:${result.listenPort}`, {
                     method: 'POST',
                     body: formData
-                }).then(() => {
-                    console.log('Upload finish!');
-                    $('.uploadProgress').hide();
-                    $('.uploadFinish').show();
-                    setTimeout(() => $dialogUpload.modal('close'), 5000);
+                })
+                    .then(() => {
+                        console.log('Upload finish!');
+                        $('.uploadProgress').hide();
+                        $('.uploadFinish').show();
+                        setTimeout(() => $dialogUpload.modal('close'), 5000);
 
-                    sendTo(null, 'serverClose', { downloadFinish: false, uploadFinish: true }, function (result) {
-                        if (result && result.serverClose) {
-                            console.log('Upload-Server closed');
-                        }
+                        sendTo(null, 'serverClose', { downloadFinish: false, uploadFinish: true }, function (result) {
+                            if (result && result.serverClose) {
+                                console.log('Upload-Server closed');
+                            }
+                        });
+                    })
+                    .catch((e) => {
+                        $('.uploadProgress').hide();
+                        $('.uploadError').show();
+                        setTimeout(() => $dialogUpload.modal('close'), 5000);
                     });
-                }).catch((e) => {
-                    $('.uploadProgress').hide();
-                    $('.uploadError').show();
-                    setTimeout(() => $dialogUpload.modal('close'), 5000);
-                });
             }
         });
     }
@@ -625,7 +625,7 @@ function backupInfo(settings) {
         }
         socket.emit('getState', adapter + '.' + instance + '.history.ccuLastTime', function (err, state) {
             if (state && state.val && settings.ccuEnabled) {
-                text += `<li class="next-last-backups"><b>${_('Last CCU Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
+                text += `<li class="next-last-backups"><b>${_('Last CCU backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
             }
             socket.emit('getState', adapter + '.' + instance + '.info.iobrokerNextTime', function (err, state) {
                 if (state && state.val && settings.minimalEnabled) {
@@ -633,7 +633,7 @@ function backupInfo(settings) {
                 }
                 socket.emit('getState', adapter + '.' + instance + '.info.ccuNextTime', function (err, state) {
                     if (state && state.val && settings.ccuEnabled) {
-                        text += `<li class="next-last-backups"><b>${_('Next CCU Backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
+                        text += `<li class="next-last-backups"><b>${_('Next CCU backup: ')}<br/></b><span class="system-info">${state.val}</span></li>`;
                     }
                     var $backups = $('.card-content-text');
                     $backups
@@ -726,9 +726,9 @@ function fillBackupOptions(settings) {
     if (settings.yahkaEnabled) _options.push(_('Yahka (Homekit) Backup'));
     if (settings.historyEnabled) _options.push(_('Save History Data'));
     if (settings.influxDBEnabled) _options.push(_('InfluxDB Backup'));
-    if (settings.mySqlEnabled) _options.push(_('MySql Backup'));
+    if (settings.mySqlEnabled) _options.push(_('MySQL Backup'));
     if (settings.sqliteEnabled) _options.push(_('sqlite3 Backup'));
-    if (settings.grafanaEnabled) _options.push(_('Grafana Backup'));
+    if (settings.grafanaEnabled) _options.push(_('Grafana backup'));
     var text = '';
     for (var i = 0; i < _options.length; i++) {
         text += `<li>${_options[i]}</li>`;
