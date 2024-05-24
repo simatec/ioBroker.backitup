@@ -95,6 +95,7 @@
     "test:package": "mocha test/package --exit",
     "test:unit": "mocha test/unit --exit",
     "test:integration": "mocha test/integration --exit",
+    "prepublishOnly": "gulp --gulpfile gulpfile.js default",
     "build": "gulp",
     "release": "release-script",
     "release-patch": "release-script patch --yes",
