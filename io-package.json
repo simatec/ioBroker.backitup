@@ -336,7 +336,6 @@
     "cifsMinimalDir": "sharename/backupDir",
     "cifsMount": "",
     "cifsOwnDir": false,
-    "cifsPassword": "",
     "cifsUser": "",
     "connectType": "NFS",
     "debugLevel": false,
@@ -523,6 +522,9 @@
     "zigbee2mqttPath": "/opt/zigbee2mqtt/data",
     "zigbeeEnabled": false
   },
+  "encryptedNative": [
+    "cifsPassword"
+  ],
   "instanceObjects": [
     {
       "_id": "info",
