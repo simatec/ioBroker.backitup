@@ -910,7 +910,8 @@ function initConfig(secret) {
         dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                  // specify if CIFS mount should be used
         dirMinimal: adapter.config.cifsMinimalDir,
         user: adapter.config.cifsUser,                                                              // specify if CIFS mount should be used
-        pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : '',      // password for NAS Server
+        //pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : '',      // password for NAS Server
+        pass: adapter.config.cifsPassword,      // password for NAS Server
         expertMount: adapter.config.expertMount,
         ignoreErrors: adapter.config.ignoreErrors
     };
