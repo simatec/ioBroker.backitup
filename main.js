@@ -1353,7 +1353,7 @@ function umount() {
     const backupDir = path.join(tools.getIobDir(), 'backups');
     const child_process = require('node:child_process');
 
-    if (fs.existsSync(`${bashDir}/mount`)) {
+    if (fs.existsSync(`${bashDir}/.mount`)) {
         child_process.exec(`mount | grep -o "${backupDir}"`, (error, stdout, stderr) => {
             if (stdout.indexOf(backupDir) !== -1) {
                 adapter.log.debug('mount activ... umount in 2 Seconds!!');
@@ -1368,7 +1368,7 @@ function umount() {
                                     } else {
                                         adapter.log.debug('umount successfully completed');
                                         try {
-                                            fs.existsSync(`${bashDir}/mount`) && fs.unlinkSync(`${bashDir}/mount`);
+                                            fs.existsSync(`${bashDir}/.mount`) && fs.unlinkSync(`${bashDir}/.mount`);
                                         } catch (e) {
                                             adapter.log.debug('file ".mount" not deleted ...');
                                         }
@@ -1377,7 +1377,7 @@ function umount() {
                         } else {
                             adapter.log.debug('umount successfully completed');
                             try {
-                                fs.existsSync(bashDir + '/.mount') && fs.unlinkSync(bashDir + '/.mount');
+                                fs.existsSync(`${bashDir}/.mount`) && fs.unlinkSync(`${bashDir}/.mount`);
                             } catch (e) {
                                 adapter.log.debug('file ".mount" not deleted ...');
                             }
