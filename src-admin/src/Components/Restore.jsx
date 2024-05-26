@@ -102,8 +102,7 @@ class Restore extends Component {
                 done: false,
                 log: [],
                 startFinish: '',   // [Restore], [Restart], [Finish], [Starting]
-                restoreStatus: '', // '', 'Restore completed successfully!! Starting iobroker... Please wait!',
-                                   // 'Restore was canceled!! If ioBroker does not start automatically, please start it manually'
+                restoreStatus: '', // '', 'Restore completed successfully!! Starting iobroker... Please wait!, Restore was canceled!! If ioBroker does not start automatically, please start it manually'
                 statusColor: '',   // '', '#00b204', '#c62828'
             },
         };
@@ -266,7 +265,7 @@ class Restore extends Component {
 
     renderRestoreLine(line, i) {
         return <div key={i} className={this.props.classes.textLine}>
-            <div className={this.props.classes.text} style={{ color: line.startsWith('[ERROR]') ? '#FF0000' : undefined}}>{line}</div>
+            <div className={this.props.classes.text} style={{ color: line.startsWith('[ERROR]') ? '#FF0000' : undefined }}>{line}</div>
         </div>;
     }
 
@@ -332,7 +331,7 @@ class Restore extends Component {
                     {I18n.t('Close')}
                 </Button>
             </DialogActions>
-        </Dialog>
+        </Dialog>;
     }
 
     doRestore() {
