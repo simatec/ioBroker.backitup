@@ -6,80 +6,100 @@
     },
     "items": {
         "_options": {
+            "type": "panel",
             "#include": "jsonConfigMain.json5"
         },
         "_extras": {
+            "type": "panel",
             "#include": "jsonConfigExtras.json5",
         },
         "_restore": {
+            "type": "panel",
             "hidden": "!data.restoreTab",
             "#include": "jsonConfigRestore.json5",
         },
         "_notification": {
+            "type": "panel",
             "hidden": "!data.notificationEnabled",
             "#include": "jsonConfigNotifications.json5",
         },
         "_iobroker": {
+            "type": "panel",
             "hidden": "!data.minimalEnabled",
             "#include": "jsonConfigIobroker.json5",
         },
         "_ccu": {
+            "type": "panel",
             "hidden": "!data.ccuEnabled",
             "#include": "jsonConfigCcu.json5",
         },
         "_mysql": {
+            "type": "panel",
             "hidden": "!data.mySqlEnabled",
             "#include": "jsonConfigMysql.json5",
         },
         "_pgsql": {
+            "type": "panel",
             "hidden": "!data.pgSqlEnabled",
             "#include": "jsonConfigPgsql.json5",
         },
         "_sqlite": {
+            "type": "panel",
             "hidden": "!data.sqliteEnabled",
             "#include": "jsonConfigSqlite.json5",
         },
         "_influxdb": {
+            "type": "panel",
             "hidden": "!data.influxDBEnabled",
             "#include": "jsonConfigInfluxdb.json5",
         },
         "_redis": {
+            "type": "panel",
             "hidden": "!data.redisEnabled",
             "#include": "jsonConfigRedis.json5",
         },
         "_history": {
+            "type": "panel",
             "hidden": "!data.historyEnabled",
             "#include": "jsonConfigHistory.json5",
         },
         "_zigbee2mqtt": {
+            "type": "panel",
             "hidden": "!data.zigbee2mqttEnabled",
             "#include": "jsonConfigZigbee2mqtt.json5",
         },
         "_cifs": {
+            "type": "panel",
             "hidden": "!data.cifsEnabled",
             "#include": "jsonConfigCifs.json5",
         },
         "_ftp": {
+            "type": "panel",
             "hidden": "!data.ftpEnabled",
             "#include": "jsonConfigFtp.json5",
         },
         "_dropbox": {
+            "type": "panel",
             "hidden": "!data.dropboxEnabled",
             "#include": "jsonConfigDropbox.json5",
         },
         "_onedrive": {
+            "type": "panel",
             "hidden": "!data.onedriveEnabled",
             "#include": "jsonConfigOnedrive.json5",
         },
         "_googledrive": {
+            "type": "panel",
             "hidden": "!data.googledriveEnabled",
             "#include": "jsonConfigGoogledrive.json5",
         },
         "_webdav": {
+            "type": "panel",
             "hidden": "!data.webdavEnabled",
             "#include": "jsonConfigWebdav.json5",
         },
         "_grafana": {
+            "type": "panel",
             "hidden": "!data.grafanaEnabled",
             "#include": "jsonConfigGrafana.json5",
         },
