@@ -13,16 +13,20 @@ class CheckAllConfigInvisible extends BaseField {
     checkConfiguration() {
         if (this.props.alive && !this.storedChecked) {
             this.storedChecked = true;
-            this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'getFileSystemInfo', null)
-                .then(result => {
-                    if (result?.diskState && result.storage && result.diskFree) {
-                        if (result.diskState === 'warn' && result.storage === 'local') {
-                            this.showMessage(I18n.t('On the host only %s MB free space is available! Please check your system!', result.diskFree), I18n.t('BackItUp Information!'));
-                        } else if (result.diskState === 'error' && result.storage === 'local') {
-                            this.showMessage(I18n.t('On the host only %s MB free space is available! Local backups are currently not possible.\n\nPlease check your system!', result.diskFree), I18n.t('BackItUp Information!'), 'warning');
+
+            if (!this.props.data.cifsEnabled) {
+                this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'getFileSystemInfo', null)
+                    .then(result => {
+                        if (result?.diskState && result.storage && result.diskFree) {
+                            if (result.diskState === 'warn' && result.storage === 'local') {
+                                this.showMessage(I18n.t('On the host only %s MB free space is available! Please check your system!', result.diskFree), I18n.t('BackItUp Information!'));
+                            } else if (result.diskState === 'error' && result.storage === 'local') {
+                                this.showMessage(I18n.t('On the host only %s MB free space is available! Local backups are currently not possible.\n\nPlease check your system!', result.diskFree), I18n.t('BackItUp Information!'), 'warning');
+                            }
                         }
-                    }
-                });
+                    });
+            }
+
             this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'getSystemInfo', null)
                 .then(async result => {
                     let changed = false;
@@ -86,7 +90,7 @@ class CheckAllConfigInvisible extends BaseField {
 
     async componentDidMount() {
         super.componentDidMount();
-        if (this.storedAlive && !this.props.data.cifsEnabled && !this.storedChecked) {
+        if (this.storedAlive && !this.storedChecked) {
             this.checkConfiguration();
         }
     }
@@ -94,7 +98,7 @@ class CheckAllConfigInvisible extends BaseField {
     renderItem() {
         if (this.storedAlive !== this.props.alive) {
             this.storedAlive = this.props.alive;
-            if (this.storedAlive && !this.props.data.cifsEnabled && !this.storedChecked) {
+            if (this.storedAlive && !this.storedChecked) {
                 this.checkConfiguration();
             }
         }
