@@ -143,7 +143,7 @@ class BackupNow extends ConfigGeneric {
 
     renderLine(line, i) {
         return <div key={i} className={this.props.classes.textLine}>
-            <div className={this.props.classes.textTime}>{line.ts}</div>
+            <div className={`${this.props.classes.textTime} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.ts}</div>
             <div className={`${this.props.classes.textLevel} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.level}</div>
             <div className={`${this.props.classes.textSource} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.source}</div>
             <div className={`${this.props.classes.text} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.text}</div>
