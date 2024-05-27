@@ -31,7 +31,7 @@
       "lg": 3
     },
     "detectNow": {
-      // Todo detect Button!!
+      "hidden": "data.ccuMulti",
       "type": "custom",
       "button": true,
       "variant": "contained",
@@ -96,6 +96,7 @@
       "help": "Delete old ccu backups with the exception of the last X pieces"
     },
     "ccuHost": {
+      "hidden": "data.ccuMulti",
       "newLine": true,
       "sm": 9,
       "md": 6,
@@ -105,6 +106,7 @@
       "help": "IP of the CCU"
     },
     "ccuUser": {
+      "hidden": "data.ccuMulti",
       "sm": 9,
       "md": 6,
       "lg": 3,
@@ -113,6 +115,7 @@
       "help": "Username of the CCU"
     },
     "ccuPassword": {
+      "hidden": "data.ccuMulti",
       "sm": 9,
       "md": 6,
       "lg": 3,

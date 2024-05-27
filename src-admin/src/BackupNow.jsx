@@ -83,6 +83,14 @@ class BackupNow extends ConfigGeneric {
                         ts: now,
                         text: parts[3],
                     });
+                } else if (state.val.startsWith('[EXIT]')) {
+                    const code = state.val.match(/^\[EXIT] ([-\d]+)/);
+                    executionLog.push({
+                        level: code[1] === '0' ? '[INFO]' : '[WARN]',
+                        source: 'gui',
+                        ts: now,
+                        text: code[1] === '0' ? 'The backup was successfully created!' : 'The backup could not be created completely!',
+                    });
                 } else {
                     executionLog.push({ text: line });
                 }
