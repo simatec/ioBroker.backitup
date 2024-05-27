@@ -817,7 +817,7 @@ function initConfig(secret) {
         dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir,                    // directory on FTP server
         dirMinimal: adapter.config.ftpMinimalDir,
         user: adapter.config.ftpUser,                                                               // username for FTP Server
-        pass: adapter.config.ftpPassword ? decrypt(secret, adapter.config.ftpPassword) : '',        // password for FTP Server
+        pass: adapter.config.ftpPassword || '',                                                     // password for FTP Server
         port: adapter.config.ftpPort || 21,                                                         // FTP port
         secure: adapter.config.ftpSecure || false,                                                  // secure FTP connection
         signedCertificates: adapter.config.ftpSignedCertificates || true,
@@ -861,7 +861,7 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.webdavDeleteOldBackup,                                      // Delete old Backups from webdav
         username: adapter.config.webdavUsername,
-        pass: adapter.config.webdavPassword ? decrypt(secret, adapter.config.webdavPassword) : '',  // webdav password
+        pass: adapter.config.webdavPassword || '',                                                  // webdav password
         url: adapter.config.webdavURL,
         ownDir: adapter.config.webdavOwnDir,
         bkpType: adapter.config.restoreType,
@@ -910,8 +910,7 @@ function initConfig(secret) {
         dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                  // specify if CIFS mount should be used
         dirMinimal: adapter.config.cifsMinimalDir,
         user: adapter.config.cifsUser,                                                              // specify if CIFS mount should be used
-        //pass: adapter.config.cifsPassword ? decrypt(secret, adapter.config.cifsPassword) : '',      // password for NAS Server
-        pass: adapter.config.cifsPassword,      // password for NAS Server
+        pass: adapter.config.cifsPassword || '',                                                    // password for NAS Server
         expertMount: adapter.config.expertMount,
         ignoreErrors: adapter.config.ignoreErrors
     };
@@ -953,7 +952,7 @@ function initConfig(secret) {
             mysqlSingleTransaction: adapter.config.mysqlSingleTransaction,
             dbName: adapter.config.mySqlName,                                                       // database name
             user: adapter.config.mySqlUser,                                                         // database user
-            pass: adapter.config.mySqlPassword ? decrypt(secret, adapter.config.mySqlPassword) : '',// database password
+            pass: adapter.config.mySqlPassword || '',                                               // database password
             deleteBackupAfter: adapter.config.mySqlDeleteAfter,                                     // delete old backupfiles after x days
             host: adapter.config.mySqlHost,                                                         // database host
             port: adapter.config.mySqlPort,                                                         // database port
@@ -1020,7 +1019,7 @@ function initConfig(secret) {
             hostType: adapter.config.hostType,
             dbName: adapter.config.pgSqlName,                                                       // database name
             user: adapter.config.pgSqlUser,                                                         // database user
-            pass: adapter.config.pgSqlPassword ? decrypt(secret, adapter.config.pgSqlPassword) : '',// database password
+            pass: adapter.config.pgSqlPassword || '',                                               // database password
             deleteBackupAfter: adapter.config.pgSqlDeleteAfter,                                     // delete old backupfiles after x days
             host: adapter.config.pgSqlHost,                                                         // database host
             port: adapter.config.pgSqlPort,                                                         // database port
@@ -1047,7 +1046,7 @@ function initConfig(secret) {
             host: adapter.config.redisHost,                                                         // Host for Remote Backup
             port: adapter.config.redisPort,                                                         // Port for Remote Backup
             user: adapter.config.redisUser,                                                         // User for Remote Backup
-            pass: adapter.config.redisPassword ? decrypt(secret, adapter.config.redisPassword) : '',// Password for Remote Backup
+            pass: adapter.config.redisPassword || '',                                               // Password for Remote Backup
             ignoreErrors: adapter.config.ignoreErrors
         },
         historyDB: {
@@ -1182,7 +1181,7 @@ function initConfig(secret) {
             port: adapter.config.grafanaPort,                                                       // database port
             protocol: adapter.config.grafanaProtocol,                                               // database protocol
             username: adapter.config.grafanaUsername,
-            pass: adapter.config.grafanaPassword ? decrypt(secret, adapter.config.grafanaPassword) : '',
+            pass: adapter.config.grafanaPassword || '',                                             // database password
             apiKey: adapter.config.grafanaApiKey,
             nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                  // names addition, appended to the file name
             slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
@@ -1237,7 +1236,7 @@ function initConfig(secret) {
         host: adapter.config.ccuHost,                                                               // IP-address CCU
         user: adapter.config.ccuUser,                                                               // username CCU
         usehttps: adapter.config.ccuUsehttps,                                                       // Use https for CCU Connect
-        pass: adapter.config.ccuPassword ? decrypt(secret, adapter.config.ccuPassword) : '',        // password der CCU
+        pass: adapter.config.ccuPassword || '',                                                     // password der CCU
         ccuEvents: adapter.config.ccuEvents,
         ccuMulti: adapter.config.ccuMulti,
     };
