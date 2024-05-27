@@ -142,7 +142,7 @@ const GetBackups = props => {
                 fontWeight: 400,
                 fontSize: 16,
                 padding: '0px 24px',
-                flex: '0 0 auto'
+                flex: '0 0 auto',
             }}
         >
             {I18n.t('Please select a backup from the list!').toUpperCase()}
