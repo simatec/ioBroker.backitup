@@ -523,7 +523,24 @@
     "zigbeeEnabled": false
   },
   "encryptedNative": [
-    "cifsPassword"
+    "cifsPassword",
+    "mySqlPassword",
+    "ccuPassword",
+    "ftpPassword",
+    "grafanaPassword",
+    "pgSqlPassword",
+    "redisPassword",
+    "webdavPassword"
+  ],
+  "protectedNative": [
+    "cifsPassword",
+    "mySqlPassword",
+    "ccuPassword",
+    "ftpPassword",
+    "grafanaPassword",
+    "pgSqlPassword",
+    "redisPassword",
+    "webdavPassword"
   ],
   "instanceObjects": [
     {
