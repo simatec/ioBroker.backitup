@@ -63,5 +63,8 @@
     "[Restart]": "[Перезапуск]",
     "[Finish]": "[Законченный]",
     "[Starting]": "[Начало]",
-    "The ioBroker is currently being restored": "ioBroker в настоящее время восстанавливается"
+    "The ioBroker is currently being restored": "ioBroker в настоящее время восстанавливается",
+    "The backup was successfully created!": "Резервная копия успешно создана!",
+    "The backup could not be created completely!": "Резервную копию невозможно создать полностью!",
+    "starting Backup...": "запуск резервного копирования..."
 }

@@ -91,5 +91,8 @@
     "Restore completed successfully!! Starting iobroker... Please wait!": "Przywracanie zakończone pomyślnie!! Uruchamianie iobrokera... Proszę czekać!",
     "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "Przywracanie zostało anulowane!! Jeśli ioBroker nie uruchomi się automatycznie, uruchom go ręcznie",
     "[Starting]": "[Startowy]",
-    "The ioBroker is currently being restored": "Obecnie trwa przywracanie ioBroker"
+    "The ioBroker is currently being restored": "Obecnie trwa przywracanie ioBroker",
+    "The backup was successfully created!": "Kopia zapasowa została pomyślnie utworzona!",
+    "The backup could not be created completely!": "Nie udało się całkowicie utworzyć kopii zapasowej!",
+    "starting Backup...": "uruchamianie kopii zapasowej..."
 }

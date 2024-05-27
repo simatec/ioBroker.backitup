@@ -91,5 +91,8 @@
     "Restore completed successfully!! Starting iobroker... Please wait!": "Herstel succesvol voltooid!! Iobroker starten... Even geduld a.u.b.!",
     "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "Herstellen is geannuleerd!! Als ioBroker niet automatisch start, start het dan handmatig",
     "[Starting]": "[Beginnend]",
-    "The ioBroker is currently being restored": "De ioBroker wordt momenteel hersteld"
+    "The ioBroker is currently being restored": "De ioBroker wordt momenteel hersteld",
+    "The backup was successfully created!": "De back-up is succesvol gemaakt!",
+    "The backup could not be created completely!": "De back-up kon niet volledig worden gemaakt!",
+    "starting Backup...": "Back-up starten..."
 }

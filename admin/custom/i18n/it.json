@@ -63,5 +63,8 @@
     "[Restart]": "[Riavvio]",
     "[Finish]": "[Finito]",
     "[Starting]": "[Di partenza]",
-    "The ioBroker is currently being restored": "IoBroker è attualmente in fase di ripristino"
+    "The ioBroker is currently being restored": "IoBroker è attualmente in fase di ripristino",
+    "The backup was successfully created!": "Il backup è stato creato con successo!",
+    "The backup could not be created completely!": "Impossibile creare completamente il backup!",
+    "starting Backup...": "avvio del backup..."
 }

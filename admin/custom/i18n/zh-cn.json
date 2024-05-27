@@ -63,5 +63,8 @@
     "[Restart]": "[重启]",
     "[Finish]": "[完成的]",
     "[Starting]": "[开始]",
-    "The ioBroker is currently being restored": "ioBroker 目前正在恢复中"
+    "The ioBroker is currently being restored": "ioBroker 目前正在恢复中",
+    "The backup was successfully created!": "备份创建成功！",
+    "The backup could not be created completely!": "无法完全创建备份！",
+    "starting Backup...": "开始备份..."
 }

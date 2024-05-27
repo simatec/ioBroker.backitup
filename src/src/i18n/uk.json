@@ -91,5 +91,8 @@
     "Restore completed successfully!! Starting iobroker... Please wait!": "Відновлення успішно завершено!! Запуск iobroker... Будь ласка, зачекайте!",
     "Restore was canceled!! If ioBroker does not start automatically, please start it manually": "Відновлення скасовано!! Якщо ioBroker не запускається автоматично, запустіть його вручну",
     "[Starting]": "[Початок]",
-    "The ioBroker is currently being restored": "Зараз ioBroker відновлюється"
+    "The ioBroker is currently being restored": "Зараз ioBroker відновлюється",
+    "The backup was successfully created!": "Резервну копію успішно створено!",
+    "The backup could not be created completely!": "Не вдалося повністю створити резервну копію!",
+    "starting Backup...": "запуск резервного копіювання..."
 }

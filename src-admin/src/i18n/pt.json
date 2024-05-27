@@ -63,5 +63,8 @@
     "[Restart]": "[Reiniciando]",
     "[Finish]": "[Finalizado]",
     "[Starting]": "[Iniciando]",
-    "The ioBroker is currently being restored": "O ioBroker está sendo restaurado"
+    "The ioBroker is currently being restored": "O ioBroker está sendo restaurado",
+    "The backup was successfully created!": "O backup foi criado com sucesso!",
+    "The backup could not be created completely!": "O backup não pôde ser criado completamente!",
+    "starting Backup...": "iniciando o backup..."
 }
