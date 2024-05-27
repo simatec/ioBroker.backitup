@@ -146,7 +146,8 @@ const GetBackups = props => {
             }}
         >
             {I18n.t('Please select a backup from the list!').toUpperCase()}
-        </span>        <DialogContent>
+        </span>
+        <DialogContent>
             {backups ? Object.keys(backups.data).map(location =>
                 <Accordion
                     key={location}
