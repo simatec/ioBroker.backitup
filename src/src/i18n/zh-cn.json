@@ -94,5 +94,6 @@
     "The ioBroker is currently being restored": "ioBroker 目前正在恢复中",
     "The backup was successfully created!": "备份创建成功！",
     "The backup could not be created completely!": "无法完全创建备份！",
-    "starting Backup...": "开始备份..."
+    "starting Backup...": "开始备份...",
+    "Please select a backup from the list!": "请从列表中选择一个备份！"
 }

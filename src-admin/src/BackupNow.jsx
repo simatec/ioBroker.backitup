@@ -32,6 +32,9 @@ const styles = {
     'textLevel-WARN': {
         color: 'orange',
     },
+    'textLevel-INFO': {
+        color: '#00b204',
+    },
     textSource: {
         display: 'inline-block',
         width: 100,
@@ -142,8 +145,8 @@ class BackupNow extends ConfigGeneric {
         return <div key={i} className={this.props.classes.textLine}>
             <div className={this.props.classes.textTime}>{line.ts}</div>
             <div className={`${this.props.classes.textLevel} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.level}</div>
-            <div className={this.props.classes.textSource}>{line.source}</div>
-            <div className={this.props.classes.text}>{line.text}</div>
+            <div className={`${this.props.classes.textSource} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.source}</div>
+            <div className={`${this.props.classes.text} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.text}</div>
         </div>;
     }
 

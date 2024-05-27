@@ -137,7 +137,7 @@ const GetBackups = props => {
         maxWidth="lg"
     >
         <DialogTitle>{I18n.t('Backup history')}</DialogTitle>
-        <span style={{ fontWeight: 400, fontSize: 16 }}>{I18n.t('Please select a backup from the list!').toUpperCase()}</span>
+        <span style={{ fontWeight: 400, fontSize: 16, padding: '0px 24px', flex: '0 0 auto' }}>{I18n.t('Please select a backup from the list!').toUpperCase()}</span>
         <DialogContent>
             {backups ? Object.keys(backups.data).map(location =>
                 <Accordion

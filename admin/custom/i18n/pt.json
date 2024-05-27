@@ -66,5 +66,6 @@
     "The ioBroker is currently being restored": "O ioBroker está sendo restaurado",
     "The backup was successfully created!": "O backup foi criado com sucesso!",
     "The backup could not be created completely!": "O backup não pôde ser criado completamente!",
-    "starting Backup...": "iniciando o backup..."
+    "starting Backup...": "iniciando o backup...",
+    "Please select a backup from the list!": "Selecione um backup da lista!"
 }

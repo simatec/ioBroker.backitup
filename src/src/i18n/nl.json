@@ -94,5 +94,6 @@
     "The ioBroker is currently being restored": "De ioBroker wordt momenteel hersteld",
     "The backup was successfully created!": "De back-up is succesvol gemaakt!",
     "The backup could not be created completely!": "De back-up kon niet volledig worden gemaakt!",
-    "starting Backup...": "Back-up starten..."
+    "starting Backup...": "Back-up starten...",
+    "Please select a backup from the list!": "Selecteer een back-up uit de lijst!"
 }
