@@ -274,5 +274,6 @@
     "Your backup was not completely created. Please check the errors!!": "您的备份尚未完全创建。请检查错误！！",
     "Delete old ccu backups with the exception of the last X pieces": "删除旧的 ccu 备份（最后 X 部分除外）",
     "Delete old ioBroker backups with the exception of the last X pieces": "删除旧的 ioBroker 备份（最后 X 部分除外）",
-    "piece": "片"
+    "piece": "片",
+    "If you like this project and would like to support its development, you are welcome to leave a donation.": "如果您喜欢这个项目并愿意支持它的发展，欢迎您留下捐款。"
 }

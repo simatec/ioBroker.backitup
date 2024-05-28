@@ -274,5 +274,6 @@
     "Your backup was not completely created. Please check the errors!!": "Votre sauvegarde n'a pas été complètement créée. S'il vous plaît vérifier les erreurs !!",
     "Delete old ccu backups with the exception of the last X pieces": "Supprimez les anciennes sauvegardes du ccu à l'exception des X dernières pièces",
     "Delete old ioBroker backups with the exception of the last X pieces": "Supprimez les anciennes sauvegardes ioBroker à l'exception des X dernières pièces",
-    "piece": "morceau"
+    "piece": "morceau",
+    "If you like this project and would like to support its development, you are welcome to leave a donation.": "Si vous aimez ce projet et souhaitez soutenir son développement, n'hésitez pas à faire un don."
 }
