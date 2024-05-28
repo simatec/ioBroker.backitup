@@ -265,7 +265,7 @@
     "Only stored locally": "Nur lokal gespeichert",
     "Onedrive: Yes": "Onedrive: Ja",
     "Backup error on: ": "Backup-Fehler bei: ",
-    "New %e Backup created on %t": "Eine neue %e-Sicherung wurde am %t erstellt",
+    "New %e Backup created on %t": "Ein neues %e Backup wurde am %t erstellt",
     ", and copied / moved via FTP to %h%d": ", und per FTP nach %h%d kopiert/verschoben",
     ", and stored under %h%d": ", und unter %h%d gespeichert",
     ", and stored in dropbox": "und in der Dropbox gespeichert",
