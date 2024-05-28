@@ -60,7 +60,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 3.0.0 (2024-05-28)
 * (simatec) jsonConfig added
 * (bluefox) Conversion to React
 * (bluefox) Added react components

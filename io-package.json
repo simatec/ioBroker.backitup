@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "2.11.0",
+    "version": "3.0.0",
     "news": {
+      "3.0.0": {
+        "en": "jsonConfig added\nConversion to React\nAdded react components\nWorking on React GUI\ndependencies updated\nFix Yahka Backup\nFix Nodered Backup\nsome bugs fixed\nNew Restore-Interface\nTranslation updated",
+        "de": "jsonConfig hinzugefügt\nUmrechnung auf React\nZugabe von Reaktionskomponenten\nArbeiten an React GUI\naktualisierte abhängigkeiten\nYahka Backup\nFix Nodered Backup\neinige fehler behoben\nNeue Restore-Interface\nÜbersetzung aktualisiert",
+        "ru": "jsonConfig добавлен\nПреобразование в React\nДобавленные компоненты\nРабота с React GUI\nобновленная информация о зависимостях\nIx Yahka Backup\nFix Nodered Backup\nнекоторые ошибки\nNew Restore-Interface\nОбновленный перевод",
+        "pt": "jsonConfig adicionado\nConversão para reagir\nComponentes de reação adicionados\nTrabalhando em React GUI\ndependências atualizadas\nCorrigir backup de Yahka\nFix Nodered Backup\nalguns bugs corrigidos\nNova loja-Interface\nTradução atualizada",
+        "nl": "jsonConfig toegevoegd\nConversie naar react\nToegevoegde reactiecomponenten\nWerken aan GUI react\nafhankelijkheden bijgewerkt\nYahka-backup herstellen\nFix Nodered Backup\nsommige bugs gerepareerd\nNieuw herstel-interface\nVertaling bijgewerkt",
+        "fr": "jsonConfig ajouté\nConversion en réaction\nÉléments de réaction ajoutés\nTravail sur la réaction de l'interface graphique\ndépendances mises à jour\nCorrection du sauvegarde Yahka\nCorrection de sauvegarde nodale\nquelques bugs corrigés\nNouvelle interface de restauration\nTraduction mise à jour",
+        "it": "jsonConfig aggiunto\nConversione a React\nComponenti di reazione aggiunti\nLavorare sulla GUI React\ndipendenze aggiornate\nRiparare Yahka Backup\nFix Nodered Backup\nalcuni bug fissi\nNuova interfaccia di ripristino\nTraduzione aggiornata",
+        "es": "jsonConfig añadido\nConversión a la reacción\nComponentes de reacción adicionales\nWorking on React GUI\ndependencias actualizadas\nArreglar Yahka Backup\nFijación Nodered Backup\nalgunos errores fijos\nNueva Restore-Interface\nTraducción actualizada",
+        "pl": "jsonConfig dodany\nPrzeliczanie do reakcji\nDodano elementy reakcji\nPrace nad React GUI\nzaktualizowane zależności\nNapraw kopię zapasową Haika\nFix Noded Backup\nniektóre błędy naprawione\nNowy interfejs restore-\nAktualizacja tłumaczeń",
+        "uk": "jsonConfig додано\nПеретворення в React\nДодано компоненти реагації\nРобота на React GUI\nоновлені залежності\nВиправлення Yahka Backup\nФіксація Nodered Backup\nдеякі помилки виправлені\nНовий Restore-Interface\nПереклад оновлений",
+        "zh-cn": "添加了 json 图形\n转换为反应\n添加反应组件\n正在研究反应图形界面\n更新依赖关系\n修复 Yahka 备份\n修复点名备份\n一些错误已修复\n新建还原界面\n翻译更新"
+      },
       "2.11.0": {
         "en": "Fix Sqlite3 Path",
         "de": "Fix Sqlite3 Pfad",
@@ -80,19 +93,6 @@
         "pl": "małe poprawki\nmały projekt Fix\nAktualizacja tłumaczeń\nName",
         "uk": "маленькі кріплення\nневеликий дизайн виправити\nПереклад оновлений\nДодано експертний монтаж",
         "zh-cn": "小修正\n小设计\n翻译更新\n添加专家山"
-      },
-      "2.10.6": {
-        "en": "Gulp deleted\nadapter-dev added\nTranslation added\nCustomised design\nHover info added to the Restore tab\nImproved mobile view\ndependencies updated",
-        "de": "Gulp gelöscht\nadapter-dev hinzugefügt\nÜbersetzung hinzugefügt\nKundenspezifisches Design\nHover-Info zum Restore Tab hinzugefügt\nVerbesserte mobile Ansicht\naktualisierte abhängigkeiten",
-        "ru": "Удалить\nадаптер-dev добавлен\nДобавлено\nНастраиваемый дизайн\nИнформация Hover добавлена на вкладку Восстановление\nУлучшенный мобильный\nобновленная информация о зависимостях",
-        "pt": "Gulp excluído\nadaptador-dev adicionado\nTradução adicionada\nDesign personalizado\nInformaÃ§Ãμes da hora adicionadas Ã guia Restaurar\nMelhor visualização móvel\ndependências atualizadas",
-        "nl": "Gulp verwijderd\nadapter-dev toegevoegd\nVertaling toegevoegd\nAangepast ontwerp\nHover info toegevoegd aan het tabblad Restore\nVerbeterde mobiele weergave\nafhankelijkheden bijgewerkt",
-        "fr": "Gulp supprimé\nadaptateur-dev ajouté\nTraduction ajoutée\nConception personnalisée\nHover info ajouté à l'onglet Restauration\nAmélioration de la vue mobile\ndépendances mises à jour",
-        "it": "Gulp cancellato\nadattatore-dev aggiunto\nTraduzione aggiunto\nDesign personalizzato\nHover info aggiunto alla scheda Ripristino\nVista mobile migliorata\ndipendenze aggiornate",
-        "es": "Gulp eliminado\nadaptador-dev añadido\nTraducción añadido\nDiseño personalizado\nInformación de Hover añadido a la pestaña Restore\nMejora de la vista móvil\ndependencias actualizadas",
-        "pl": "Gulp usunięty\nadapter -dev dodany\nTłumaczenie dodane\nKonstrukcja dostosowana\nInformacje o Hover dodane do zakładki Przywracanie\nUlepszony widok mobilny\nzaktualizowane zależności",
-        "uk": "Відхилити\nадаптер-dev додано\nПереклад додано\nІндивідуальний дизайн\nДодайте інформацію про Hover в вкладку Restore\nПокращений мобільний вигляд\nоновлені залежності",
-        "zh-cn": "Gulp 已删除\n添加适配器- dev\n增加了翻译\n自定义设计\n向恢复标签添加信息\n改进移动视图\n更新依赖关系"
       }
     },
     "titleLang": {
