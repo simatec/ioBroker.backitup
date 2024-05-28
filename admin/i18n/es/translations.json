@@ -276,5 +276,6 @@
     "Delete old ioBroker backups with the exception of the last X pieces": "Elimine las copias de seguridad antiguas de ioBroker con la excepción de las últimas X piezas",
     "piece": "pedazo",
     "If you like this project and would like to support its development, you are welcome to leave a donation.": "Si te gusta este proyecto y te gustaría apoyar su desarrollo, puedes dejar una donación.",
-    "Name suffix for the file name of the backup": "Sufijo de nombre para el nombre del archivo de la copia de seguridad"
+    "Name suffix for the file name of the backup": "Sufijo de nombre para el nombre del archivo de la copia de seguridad",
+    "Copy locally": "Copiar localmente"
 }

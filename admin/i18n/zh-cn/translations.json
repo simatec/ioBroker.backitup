@@ -276,5 +276,6 @@
     "Delete old ioBroker backups with the exception of the last X pieces": "删除旧的 ioBroker 备份（最后 X 部分除外）",
     "piece": "片",
     "If you like this project and would like to support its development, you are welcome to leave a donation.": "如果您喜欢这个项目并愿意支持它的发展，欢迎您留下捐款。",
-    "Name suffix for the file name of the backup": "备份文件名的名称后缀"
+    "Name suffix for the file name of the backup": "备份文件名的名称后缀",
+    "Copy locally": "本地复制"
 }
