@@ -274,5 +274,6 @@
   ", and stored in webdav": ", and stored in webdav",
   "Your backup was not completely created. Please check the errors!!": "Your backup was not completely created. Please check the errors!!",
   "piece": "piece",
+  "Name suffix for the file name of the backup": "Name suffix for the file name of the backup",
   "If you like this project and would like to support its development, you are welcome to leave a donation.": "If you like this project and would like to support its development, you are welcome to leave a donation."
 }

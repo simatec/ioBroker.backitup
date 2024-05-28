@@ -275,5 +275,6 @@
     "Delete old ccu backups with the exception of the last X pieces": "Exclua backups antigos do ccu, com exceção dos últimos X pedaços",
     "Delete old ioBroker backups with the exception of the last X pieces": "Exclua backups antigos do ioBroker, com exceção das últimas X peças",
     "piece": "pedaço",
-    "If you like this project and would like to support its development, you are welcome to leave a donation.": "Se você gosta deste projeto e gostaria de apoiar seu desenvolvimento, fique à vontade para deixar uma doação."
+    "If you like this project and would like to support its development, you are welcome to leave a donation.": "Se você gosta deste projeto e gostaria de apoiar seu desenvolvimento, fique à vontade para deixar uma doação.",
+    "Name suffix for the file name of the backup": "Sufixo do nome do arquivo do backup"
 }

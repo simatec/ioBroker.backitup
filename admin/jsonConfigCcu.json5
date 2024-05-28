@@ -95,6 +95,15 @@
       "label": "piece",
       "help": "Delete old ccu backups with the exception of the last X pieces"
     },
+    "ccuNameSuffix": {
+      "hidden": "data.ccuMulti",
+      "sm": 9,
+      "md": 6,
+      "lg": 3,
+      "type": "text",
+      "label": "Name suffix",
+      "help": "Name suffix for the file name of the backup"
+    },
     "ccuHost": {
       "hidden": "data.ccuMulti",
       "newLine": true,

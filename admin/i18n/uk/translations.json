@@ -275,5 +275,6 @@
     "Delete old ccu backups with the exception of the last X pieces": "Видаліть старі резервні копії ccu, за винятком останніх X частин",
     "Delete old ioBroker backups with the exception of the last X pieces": "Видаліть старі резервні копії ioBroker, за винятком останніх X частин",
     "piece": "шматок",
-    "If you like this project and would like to support its development, you are welcome to leave a donation.": "Якщо вам подобається цей проект і ви хочете підтримати його розвиток, ви можете залишити пожертву."
+    "If you like this project and would like to support its development, you are welcome to leave a donation.": "Якщо вам подобається цей проект і ви хочете підтримати його розвиток, ви можете залишити пожертву.",
+    "Name suffix for the file name of the backup": "Суфікс імені файлу резервної копії"
 }

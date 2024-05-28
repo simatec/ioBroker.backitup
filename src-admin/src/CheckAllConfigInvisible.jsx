@@ -12,7 +12,6 @@ class CheckAllConfigInvisible extends BaseField {
 
     checkConfiguration() {
         if (this.props.alive) {
-
             this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'getSystemInfo', null)
                 .then(async result => {
                     let changed = false;

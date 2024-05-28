@@ -84,6 +84,7 @@
       "lg": 3,
       "type": "text",
       "label": "Name suffix",
+      "help": "Name suffix for the file name of the backup"
     },
     "iobrokerCron": {
       "newLine": true,
