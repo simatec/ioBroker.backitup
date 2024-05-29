@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "news": {
+      "3.0.1": {
+        "en": "Fix umount callback\nFix Backup Message\nTranslations updated\nFix InfluxDB Multi Backup\nFix Restore Console\nFix Backup Console",
+        "de": "Umount-Anruf\nBackup-Nachricht aktivieren\nÜbersetzungen aktualisiert\nInfluxDB Multi Backup\nWiederherstellen Konsole\nBackup Console",
+        "ru": "Fix umount callback\nСообщение резервного копирования\nОбновленные переводы\nFix InfluxDB Многократная резервная копия\nРеставрировать Консоль\nКонсоль резервного копирования",
+        "pt": "Corrigir a chamada\nCorrigir mensagem de backup\nTraduções atualizadas\nFixo InfluxDB Multi backup\nConsola de Restauração\nConsola de backup",
+        "nl": "Fix umount callback\nBackupbericht herstellen\nVertalingen bijgewerkt\nFix InfluxDB Multi backup\nConsole herstellen herstellen\nReservekopieconsole herstellen",
+        "fr": "Correction du rappel umount\nCorrection du message de sauvegarde\nTraductions actualisées\nCorrection de l'influxDB Sauvegarde multiple\nCorrection de la console de restauration\nCorrection de la console de sauvegarde",
+        "it": "Fissare il callback umount\nRisolvi il messaggio di backup\nTraduzioni aggiornata\nFissare l'influenza Multi backup\nRisolvere la console di ripristino\nConsole di Backup",
+        "es": "Corrección de llamada umount\nMensaje de respaldo fijo\nTraducción actualizada\nInfluxDB Multi Backup\nRestaurar la consola\nConsola de respaldo fija",
+        "pl": "Fix umount callback\nPopraw wiadomość o kopii zapasowej\nAktualizacja tłumaczeń\nFix InfluxDB Multi Backup\nNapraw ponownie konsolę\nNapraw konsolę kopii zapasowej",
+        "uk": "Виправлення зворотного виклику umount\nВиправлення повідомлення Backup\nПереклади оновлені\nФіксація InfluxDB Багато резервних копій\nФіксація відновлення консолі\nВиправлення консолі резервного копіювання",
+        "zh-cn": "修复调用\n修复备份信件\n更新翻译\n修复内流数据库 多备份\n修复主控台\n修复备份控制台"
+      },
       "3.0.0": {
         "en": "jsonConfig added\nConversion to React\nAdded react components\nWorking on React GUI\ndependencies updated\nFix Yahka Backup\nFix Nodered Backup\nsome bugs fixed\nNew Restore-Interface\nTranslation updated",
         "de": "jsonConfig hinzugefügt\nUmrechnung auf React\nZugabe von Reaktionskomponenten\nArbeiten an React GUI\naktualisierte abhängigkeiten\nYahka Backup\nFix Nodered Backup\neinige fehler behoben\nNeue Restore-Interface\nÜbersetzung aktualisiert",
@@ -80,19 +93,6 @@
         "pl": "Fix Expert Mount\nAktualizacja doku\nzaktualizowane zależności",
         "uk": "Фіксований експертний монтаж\nDocu оновлений\nоновлені залежності",
         "zh-cn": "修复专家山\n更新 Docu\n更新依赖关系"
-      },
-      "2.10.7": {
-        "en": "small fixes\nsmall Design Fix\nTranslation updated\nExpert Mount added",
-        "de": "kleine fixes\nkleines Design Fix\nÜbersetzung aktualisiert\nExpert Mount hinzugefügt",
-        "ru": "небольшие исправления\nмаленький дизайн Fix\nОбновленный перевод\nЭкспертная гора добавлена",
-        "pt": "pequenas correções\npequeno Design Fix\nTradução atualizada\nExpert Mount adicionado",
-        "nl": "kleine fixes\nkleine ontwerp Fix\nVertaling bijgewerkt\nExpert Mount toegevoegd",
-        "fr": "petites corrections\npetite fixation de conception\nTraduction mise à jour\nSupport expert ajouté",
-        "it": "piccole correzioni\npiccolo Design Fix\nTraduzione aggiornata\nSupporto esperto aggiunto",
-        "es": "pequeñas fijaciones\npequeño diseño fijar\nTraducción actualizada\nExpert Mount added",
-        "pl": "małe poprawki\nmały projekt Fix\nAktualizacja tłumaczeń\nName",
-        "uk": "маленькі кріплення\nневеликий дизайн виправити\nПереклад оновлений\nДодано експертний монтаж",
-        "zh-cn": "小修正\n小设计\n翻译更新\n添加专家山"
       }
     },
     "titleLang": {

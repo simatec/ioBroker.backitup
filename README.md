@@ -60,7 +60,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 3.0.1 (2024-05-29)
 * (simatec) Fix umount callback
 * (simatec) Fix Backup Message
 * (simatec) Translations updated
