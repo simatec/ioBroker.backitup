@@ -67,5 +67,7 @@
     "The backup was successfully created!": "Kopia zapasowa została pomyślnie utworzona!",
     "The backup could not be created completely!": "Nie udało się całkowicie utworzyć kopii zapasowej!",
     "starting Backup...": "uruchamianie kopii zapasowej...",
-    "Please select a backup from the list!": "Wybierz kopię zapasową z listy!"
+    "Please select a backup from the list!": "Wybierz kopię zapasową z listy!",
+    "Local": "Lokalny",
+    "Download Backup File": "Pobierz plik kopii zapasowej"
 }

@@ -105,6 +105,21 @@ function getIcon(type) {
     return <img src={ICONS[type]} style={{ width: 24, height: 24, marginRight: 8 }} alt={type} />;
 }
 
+function getLabelByValue(value, connectType) {
+    const STORAGENAME = [
+        { label: 'Local', value: 'local' },
+        { label: `NAS${connectType ? ` (${connectType})` : ''}`, value: 'nas / copy' },
+        { label: 'FTP', value: 'ftp' },
+        { label: 'Dropbox', value: 'dropbox' },
+        { label: 'OneDrive', value: 'onedrive' },
+        { label: 'Google Drive', value: 'googledrive' },
+        { label: 'WebDAV', value: 'webdav' },
+    ];
+
+    const option = STORAGENAME.find(_option => _option.value === value);
+    return option ? option.label : value;
+}
+
 const GetBackups = props => {
     const [backups, setBackups] = useState(null);
     const [expanded, setExpanded] = useState([]);
@@ -170,7 +185,7 @@ const GetBackups = props => {
                 >
                     <AccordionSummary expandIcon={<ExpandMore />}>
                         {getIcon(location)}
-                        <span style={{ fontWeight: 'bold', fontSize: 16 }}>{I18n.t(location).toUpperCase()}</span>
+                        <span style={{ fontWeight: 'bold', fontSize: 16 }}>{I18n.t(getLabelByValue(location, props.connectType)).toUpperCase()}</span>
                     </AccordionSummary>
                     <AccordionDetails>
                         {Object.keys(backups.data[location]).map(object =>

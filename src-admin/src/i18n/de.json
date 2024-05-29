@@ -67,5 +67,7 @@
     "The backup was successfully created!": "Das Backup wurde erfolgreich erstellt!",
     "The backup could not be created completely!": "Das Backup konnte nicht vollständig erstellt werden!",
     "starting Backup...": "Backup gestartet ...",
-    "Please select a backup from the list!": "Bitte wählen Sie ein Backup aus der Liste aus!"
+    "Please select a backup from the list!": "Bitte wählen Sie ein Backup aus der Liste aus!",
+    "Local": "Lokal",
+    "Download Backup File": "Backup-Datei herunterladen"
 }

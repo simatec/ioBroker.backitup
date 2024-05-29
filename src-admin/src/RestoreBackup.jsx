@@ -48,6 +48,7 @@ class RestoreBackup extends ConfigGeneric {
         this.state = {
             ...this.state,
             backupSource: window.localStorage.getItem('BackItUp.backupSource') || 'local',
+            connectType: this.props.data.connectType,
             showGetBackups: false,
             showRestore: null,
             restoreIfWait: 5000,
@@ -90,6 +91,7 @@ class RestoreBackup extends ConfigGeneric {
                 adapterName={this.props.adapterName}
                 instance={this.props.instance}
                 backupSource={this.state.backupSource}
+                connectType={this.props.data.connectType}
                 allowDownload={this.props.schema.allowDownload}
             /> : null}
             {this.state.showRestore ? <Restore

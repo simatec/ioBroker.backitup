@@ -175,6 +175,7 @@ class App extends GenericApp {
         this.state.showRestore = null;
         this.state.showUploadBackup = false;
         this.state.backupSource = window.localStorage.getItem('BackItUp.backupSource') || 'local';
+        this.state.connectType = this.state.native.connectType;
         this.state.myAlive = false;
         this.state.restoreIfWait = 5000;
     }
@@ -629,6 +630,7 @@ class App extends GenericApp {
                     adapterName={this.adapterName}
                     instance={this.instance}
                     backupSource={this.state.backupSource}
+                    connectType={this.state.native.connectType}
                     allowDownload
                 /> : null}
                 {this.state.showUploadBackup ? <UploadBackup
