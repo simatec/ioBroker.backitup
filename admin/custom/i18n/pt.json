@@ -69,5 +69,13 @@
     "starting Backup...": "iniciando o backup...",
     "Please select a backup from the list!": "Selecione um backup da lista!",
     "Local": "Local",
-    "Download Backup File": "Baixar arquivo de backup"
+    "Download Backup File": "Baixar arquivo de backup",
+    "NAS (CIFS)": "NAS (CIFS)",
+    "NAS (Expert)": "NAS (especialista)",
+    "NAS (NFS)": "NAS (NFS)",
+    "Dropbox": "Dropbox",
+    "FTP": "FTP",
+    "Google Drive": "Google Drive",
+    "Onedrive": "Onedrive",
+    "WebDAV": "WebDAV"
 }

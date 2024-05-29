@@ -69,5 +69,13 @@
     "starting Backup...": "запуск резервного копіювання...",
     "Please select a backup from the list!": "Виберіть резервну копію зі списку!",
     "Local": "Місцевий",
-    "Download Backup File": "Завантажте файл резервної копії"
+    "Download Backup File": "Завантажте файл резервної копії",
+    "NAS (CIFS)": "NAS (CIFS)",
+    "NAS (Expert)": "NAS (експерт)",
+    "NAS (NFS)": "NAS (NFS)",
+    "Dropbox": "Dropbox",
+    "FTP": "FTP",
+    "Google Drive": "Диск Google",
+    "Onedrive": "Onedrive",
+    "WebDAV": "WebDAV"
 }

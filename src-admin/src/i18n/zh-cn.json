@@ -69,5 +69,13 @@
     "starting Backup...": "开始备份...",
     "Please select a backup from the list!": "请从列表中选择一个备份！",
     "Local": "当地的",
-    "Download Backup File": "下载备份文件"
+    "Download Backup File": "下载备份文件",
+    "NAS (CIFS)": "网络存储 (CIFS)",
+    "NAS (Expert)": "NAS（专家）",
+    "NAS (NFS)": "网络存储 (NFS)",
+    "Dropbox": "Dropbox",
+    "FTP": "文件传输协议",
+    "Google Drive": "谷歌云端硬盘",
+    "Onedrive": "一个驱动器",
+    "WebDAV": "网络DAV"
 }

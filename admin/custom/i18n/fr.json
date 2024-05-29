@@ -69,5 +69,13 @@
     "starting Backup...": "démarrage de la sauvegarde...",
     "Please select a backup from the list!": "Veuillez sélectionner une sauvegarde dans la liste !",
     "Local": "Locale",
-    "Download Backup File": "Télécharger le fichier de sauvegarde"
+    "Download Backup File": "Télécharger le fichier de sauvegarde",
+    "NAS (CIFS)": "NAS (CIFS)",
+    "NAS (Expert)": "NAS (Expert)",
+    "NAS (NFS)": "NAS (NFS)",
+    "Dropbox": "Boîte de dépôt",
+    "FTP": "FTP",
+    "Google Drive": "Google Drive",
+    "Onedrive": "Onedrive",
+    "WebDAV": "WebDAV"
 }

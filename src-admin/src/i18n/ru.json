@@ -69,5 +69,13 @@
     "starting Backup...": "запуск резервного копирования...",
     "Please select a backup from the list!": "Пожалуйста, выберите резервную копию из списка!",
     "Local": "Местный",
-    "Download Backup File": "Скачать файл резервной копии"
+    "Download Backup File": "Скачать файл резервной копии",
+    "NAS (CIFS)": "НАН (КИФС)",
+    "NAS (Expert)": "НАН (Эксперт)",
+    "NAS (NFS)": "НАН (НФС)",
+    "Dropbox": "Дропбокс",
+    "FTP": "FTP",
+    "Google Drive": "Гугл Диск",
+    "Onedrive": "Один диск",
+    "WebDAV": "ВебДАВ"
 }

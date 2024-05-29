@@ -95,5 +95,6 @@
     "The backup was successfully created!": "Резервная копия успешно создана!",
     "The backup could not be created completely!": "Резервную копию невозможно создать полностью!",
     "starting Backup...": "запуск резервного копирования...",
-    "Please select a backup from the list!": "Пожалуйста, выберите резервную копию из списка!"
+    "Please select a backup from the list!": "Пожалуйста, выберите резервную копию из списка!",
+    "NAS (Expert)": "НАН (Эксперт)"
 }

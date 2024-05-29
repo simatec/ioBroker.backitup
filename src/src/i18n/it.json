@@ -95,5 +95,6 @@
     "The backup was successfully created!": "Il backup è stato creato con successo!",
     "The backup could not be created completely!": "Impossibile creare completamente il backup!",
     "starting Backup...": "avvio del backup...",
-    "Please select a backup from the list!": "Seleziona un backup dall'elenco!"
+    "Please select a backup from the list!": "Seleziona un backup dall'elenco!",
+    "NAS (Expert)": "NAS (esperto)"
 }
