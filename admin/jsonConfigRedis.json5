@@ -17,7 +17,7 @@
 			"sm": 12,
 		},
 		"redisType": {
-			"disabled": "!data._isDockerDB",
+			"disabled": "data._nonSupportDockerDB",
 			"type": "select",
 			"label": "Host Type",
 			"sm": 12,

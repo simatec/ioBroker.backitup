@@ -15,8 +15,11 @@ class CheckAllConfigInvisible extends BaseField {
             this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'getSystemInfo', null)
                 .then(async result => {
                     let changed = false;
-                    if (result?.systemOS === 'docker' && result.dockerDB === false) {
-                        this.props.data._isDockerDB = false;
+                    if ((result?.systemOS === 'docker' && result.dockerDB === true) || result?.systemOS !== 'docker') {
+                        this.props.data._nonSupportDockerDB = false;
+                        changed = true;
+                    } else if (result?.systemOS === 'docker' && result.dockerDB === false) {
+                        this.props.data._nonSupportDockerDB = true;
 
                         if (this.props.data.influxDBEnabled) {
                             this.props.data.influxDBEnabled = false;
@@ -45,12 +48,6 @@ class CheckAllConfigInvisible extends BaseField {
                             this.props.data.redisType = 'remote';
                             changed = true;
                         }
-                        changed = true;
-                    } else if (result?.systemOS === 'docker' && result.dockerDB === true) {
-                        this.props.data._isDockerDB = true;
-                        changed = true;
-                    } else if (result?.systemOS !== 'docker') {
-                        this.props.data._isDockerDB = true;
                         changed = true;
                     }
 

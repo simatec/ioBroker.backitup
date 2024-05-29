@@ -60,6 +60,14 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Fix umount callback
+* (simatec) Fix Backup Message
+* (simatec) Translations updated
+* (simatec) Fix InfluxDB Multi Backup
+* (simatec) Fix Restore Console
+* (simatec) Fix Backup Console
+
 ### 3.0.0 (2024-05-28)
 * (simatec) jsonConfig added
 * (bluefox) Conversion to React

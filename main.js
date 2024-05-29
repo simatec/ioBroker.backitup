@@ -1354,7 +1354,7 @@ function umount() {
 
     if (fs.existsSync(`${bashDir}/.mount`)) {
         child_process.exec(`mount | grep -o "${backupDir}"`, (error, stdout, stderr) => {
-            if (stdout.indexOf(backupDir) !== -1) {
+            if (stdout.includes(backupDir)) {
                 adapter.log.debug('mount activ... umount in 2 Seconds!!');
                 timerUmount1 = setTimeout(() =>
                     child_process.exec(`${adapter.config.sudoMount ? 'sudo umount' : 'umount'} ${backupDir}`, (error, stdout, stderr) => {

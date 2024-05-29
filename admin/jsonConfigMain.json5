@@ -110,7 +110,6 @@
       "alert": "No History Instance found on this host.\nPlease check your System."
     },
     "influxDBEnabled": {
-      "disabled": "!data._isDockerDB",
       "type": "custom",
       "sm": 6,
       "md": 4,
@@ -126,7 +125,6 @@
       "alert": "No InfluxDB Instance found on this host.\nPlease check your System."
     },
     "mySqlEnabled": {
-      "disabled": "!data._isDockerDB",
       "type": "custom",
       "sm": 6,
       "md": 4,
@@ -142,7 +140,6 @@
       "alert": "No SQL Instance found on this host.\nPlease check your System."
     },
     "pgSqlEnabled": {
-      "disabled": "!data._isDockerDB",
       "type": "custom",
       "sm": 6,
       "md": 4,
@@ -158,7 +155,6 @@
       "alert": "No SQL Instance found on this host.\nPlease check your System."
     },
     "sqliteEnabled": {
-      "disabled": "!data._isDockerDB",
       "type": "custom",
       "sm": 6,
       "md": 4,
