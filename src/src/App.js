@@ -108,6 +108,11 @@ const styles = theme => ({
         boxShadow: '0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%)',
         backgroundImage: theme.palette.mode === 'dark' ? undefined : 'linear-gradient(179deg, #fff 50%, rgb(0 0 0 / 14%) 100%)',
     },
+    card: {
+        '&:hover': {
+            boxShadow: '0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19)',
+        },
+    },
     label: {
         fontWeight: 'bold',
         fontSize: '0.9em',
@@ -263,7 +268,7 @@ class App extends GenericApp {
     };
 
     renderBackupInformation() {
-        return <Card>
+        return <Card className={this.props.classes.card}>
             <CardContent className={this.props.classes.cardContent}>
                 <div className={this.props.classes.iconDiv}>
                     <Info className={this.props.classes.icon} />
@@ -304,7 +309,7 @@ class App extends GenericApp {
             { name: 'googledriveEnabled', label: 'Google Drive' },
             { name: 'webdavEnabled', label: 'WebDAV' },
         ];
-        return <Card>
+        return <Card className={this.props.classes.card}>
             <CardContent className={this.props.classes.cardContent}>
                 <div className={this.props.classes.iconDiv}>
                     <Storage className={this.props.classes.icon} />
@@ -341,7 +346,7 @@ class App extends GenericApp {
             { name: 'pgSqlEnabled', label: 'PostgreSQL Backup' },
 
         ];
-        return <Card>
+        return <Card className={this.props.classes.card}>
             <CardContent className={this.props.classes.cardContent}>
                 <div className={this.props.classes.iconDiv}>
                     <CloudUpload className={this.props.classes.icon} />
