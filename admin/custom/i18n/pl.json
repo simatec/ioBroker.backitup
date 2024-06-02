@@ -77,5 +77,6 @@
     "FTP": "FTP",
     "Google Drive": "dysk Google",
     "Onedrive": "Onedrive",
-    "WebDAV": "WebDAV"
+    "WebDAV": "WebDAV",
+    "Please enter here the code from the address line of the opened page (code=)": "Proszę wpisać tutaj kod z linii adresowej otwartej strony (kod=)"
 }

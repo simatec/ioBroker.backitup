@@ -23,7 +23,7 @@
             "variant": "contained",
             "url": "custom/customComponents.js",
             "name": "ConfigCustomBackItUpSet/Components/DetectConfig",
-            "adapter": "mysql",
+            "adapter": "mySql",
             "icon": "search",
             "label": "Detect config",
             "sm": 9,

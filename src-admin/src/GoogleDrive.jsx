@@ -39,7 +39,6 @@ class GoogleDrive extends ConfigGeneric {
                 <TextField
                     label={I18n.t('Enter the code from that page here')}
                     variant="standard"
-                    value=""
                     onChange={e => this.props.onChange({ ...this.props.data, googledriveAccessTokens: e.target.value })}
                     fullWidth
                 />

@@ -77,5 +77,6 @@
     "FTP": "FTP",
     "Google Drive": "Google Drive",
     "Onedrive": "Een schijf",
-    "WebDAV": "WebDAV"
+    "WebDAV": "WebDAV",
+    "Please enter here the code from the address line of the opened page (code=)": "Voer hier de code uit de adresregel van de geopende pagina in (code=)"
 }

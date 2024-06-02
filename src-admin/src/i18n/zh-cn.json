@@ -77,5 +77,6 @@
     "FTP": "文件传输协议",
     "Google Drive": "谷歌云端硬盘",
     "Onedrive": "一个驱动器",
-    "WebDAV": "网络DAV"
+    "WebDAV": "网络DAV",
+    "Please enter here the code from the address line of the opened page (code=)": "请在此处输入打开页面的地址行中的代码 (code=)"
 }

@@ -49,7 +49,7 @@ class Onedrive extends ConfigGeneric {
                     </a>
                 </div>
                 <TextField
-                    label={I18n.t('Enter the code from that page here')}
+                    label={I18n.t('Please enter here the code from the address line of the opened page (code=)')}
                     variant="standard"
                     onChange={e => this.setState({ code: e.target.value })}
                     fullWidth
