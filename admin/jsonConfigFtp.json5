@@ -21,7 +21,7 @@
             "md": 8,
             "lg": 4,
             "type": "text",
-            "label": "Host",
+            "label": "host",
             "help": "IP address or hostname",
             "newLine": true
         },

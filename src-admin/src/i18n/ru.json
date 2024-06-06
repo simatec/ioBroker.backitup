@@ -78,5 +78,7 @@
     "Google Drive": "Гугл Диск",
     "Onedrive": "Один диск",
     "WebDAV": "ВебДАВ",
-    "Please enter here the code from the address line of the opened page (code=)": "Введите сюда код из адресной строки открывшейся страницы (code=)"
+    "Please enter here the code from the address line of the opened page (code=)": "Введите сюда код из адресной строки открывшейся страницы (code=)",
+    "No storage path of %s is configured.\nThe default path of the history adapter has been set.": "Путь хранения %s не настроен.\nПуть по умолчанию для адаптера истории установлен.",
+    "The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!": "Путь хранения %s не должен совпадать с путем резервных копий.\nПуть по умолчанию для адаптера истории установлен.\n\nПожалуйста, измените путь в адаптере истории!"
 }

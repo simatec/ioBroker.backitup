@@ -60,7 +60,7 @@
             "md": 8,
             "lg": 4,
             "type": "text",
-            "label": "Host",
+            "label": "host",
             "help": "InfluxDB Hostname (leave blank to save locally only)",
             "newLine": true
         },
@@ -171,7 +171,7 @@
                 {
                     "attr": "host",
                     "type": "text",
-                    "title": "Host",
+                    "title": "host",
                     "hidden": "globalData.influxDBType == 'local'",
                     width: "15%"
                 },

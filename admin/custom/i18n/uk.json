@@ -78,5 +78,7 @@
     "Google Drive": "Диск Google",
     "Onedrive": "Onedrive",
     "WebDAV": "WebDAV",
-    "Please enter here the code from the address line of the opened page (code=)": "Будь ласка, введіть тут код з адресного рядка відкритої сторінки (code=)"
+    "Please enter here the code from the address line of the opened page (code=)": "Будь ласка, введіть тут код з адресного рядка відкритої сторінки (code=)",
+    "No storage path of %s is configured.\nThe default path of the history adapter has been set.": "Шлях зберігання %s не налаштовано.\nВстановлено шлях за замовчуванням адаптера історії.",
+    "The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!": "Шлях зберігання %s не має бути ідентичним шляху для резервних копій.\nВстановлено шлях за замовчуванням адаптера історії.\n\nБудь ласка, змініть шлях в адаптері історії!"
 }

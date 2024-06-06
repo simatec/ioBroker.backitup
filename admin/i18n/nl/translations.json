@@ -67,7 +67,7 @@
     "History data path": "Geschiedenisgegevenspad",
     "Homematic CCU": "Homematische CCU",
     "Homematic CCU backup": "Homematic CCU-back-up",
-    "Host": "Gastheer",
+    "host": "Gastheer",
     "Host Type": "Hosttype",
     "IP address": "IP adres",
     "IP address or hostname": "IP-adres of hostnaam",
@@ -86,7 +86,7 @@
     "Local hard disk space Limit value for warning message (MB)": "Lokale limietwaarde voor ruimte op de harde schijf voor waarschuwingsbericht (MB)",
     "Long notifications": "Lange meldingen",
     "MAC address": "Mac adres",
-    "Main settings": "Belangrijkste instellingen",
+    "main settings": "Belangrijkste instellingen",
     "Master": "Meester",
     "Matrix instance": "Matrix-instantie",
     "Mount as root": "Mounten als root (sudo)",
@@ -143,7 +143,6 @@
     "PostgreSQL username": "PostgreSQL-gebruikersnaam",
     "Protocol": "Protocol",
     "Pushover instance": "Pushover-instantie",
-    "Readme": "Leesmij",
     "Redis": "Opnieuw",
     "Redis Backup": "Redis-back-up",
     "Redis Hostname": "Redis-hostnaam",
@@ -277,5 +276,9 @@
     "piece": "deel",
     "If you like this project and would like to support its development, you are welcome to leave a donation.": "Als u dit project leuk vindt en de ontwikkeling ervan wilt ondersteunen, kunt u een donatie achterlaten.",
     "Name suffix for the file name of the backup": "Naamachtervoegsel voor de bestandsnaam van de back-up",
-    "Copy locally": "Kopieer lokaal"
+    "Copy locally": "Kopieer lokaal",
+    "Show adapter documentation": "Adapterdocumentatie tonen",
+    "NAS (CIFS)": "NAS-systeem (CIFS)",
+    "NAS (Expert)": "NAS (expert)",
+    "NAS (NFS)": "NAS-systeem (NFS)"
 }

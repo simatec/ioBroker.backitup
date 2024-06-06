@@ -133,7 +133,7 @@
                 {
                     "attr": "host",
                     "type": "text",
-                    "title": "Host",
+                    "title": "host",
                     width: "15%"
                 },
                 {

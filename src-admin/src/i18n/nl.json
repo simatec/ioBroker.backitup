@@ -78,5 +78,7 @@
     "Google Drive": "Google Drive",
     "Onedrive": "Een schijf",
     "WebDAV": "WebDAV",
-    "Please enter here the code from the address line of the opened page (code=)": "Voer hier de code uit de adresregel van de geopende pagina in (code=)"
+    "Please enter here the code from the address line of the opened page (code=)": "Voer hier de code uit de adresregel van de geopende pagina in (code=)",
+    "No storage path of %s is configured.\nThe default path of the history adapter has been set.": "Er is geen opslagpad van %s geconfigureerd.\nHet standaardpad van de geschiedenisadapter is ingesteld.",
+    "The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!": "Het opslagpad van %s mag niet identiek zijn aan het pad voor back-ups.\nHet standaardpad van de geschiedenisadapter is ingesteld.\n\nWijzig het pad in de geschiedenisadapter!"
 }

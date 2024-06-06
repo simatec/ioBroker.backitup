@@ -78,5 +78,7 @@
     "Google Drive": "谷歌云端硬盘",
     "Onedrive": "一个驱动器",
     "WebDAV": "网络DAV",
-    "Please enter here the code from the address line of the opened page (code=)": "请在此处输入打开页面的地址行中的代码 (code=)"
+    "Please enter here the code from the address line of the opened page (code=)": "请在此处输入打开页面的地址行中的代码 (code=)",
+    "No storage path of %s is configured.\nThe default path of the history adapter has been set.": "未配置 %s 的存储路径。\n历史适配器的默认路径已设置。",
+    "The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!": "%s 的存储路径不能与备份路径相同。\n历史适配器的默认路径已设置。\n\n请更改历史适配器中的路径！"
 }

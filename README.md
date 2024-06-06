@@ -60,6 +60,15 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
+### **WORK IN PROGRESS**
+* (simatec) Fix Google Drive
+* (simatec) Fix Translations
+* (simatec) Fix Onedrive
+* (simatec) Fix MySql Backup
+* (simatec) Fix Translation added
+* (simatec) Design Fix
+* (simatec) new notifications content added
+
 ### 3.0.1 (2024-05-29)
 * (simatec) Fix umount callback
 * (simatec) Fix Backup Message

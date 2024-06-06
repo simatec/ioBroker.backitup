@@ -1,7 +1,7 @@
 {
   "i18n": true,
   "type": "panel",
-  "label": "Main settings",
+  "label": "main settings",
   "items": {
     "_checkConfig": {
       // this component is not visible in the UI
@@ -298,7 +298,7 @@
       "button": true,
       "variant": "outlined",
       "icon": "info",
-      "label": "Readme",
+      "label": "Show adapter documentation",
       "href": "https://github.com/simatec/ioBroker.backitup/blob/master/README.md#iobrokerbackitup",
       "newLine": true
     },

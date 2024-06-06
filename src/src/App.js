@@ -427,7 +427,7 @@ class App extends GenericApp {
                                     <School />
                                 </Fab>
                             </Tooltip>
-                            <Tooltip size="small" title="Readme" style={{ marginRight: '0.2rem' }}>
+                            <Tooltip size="small" title="Show adapter documentation" style={{ marginRight: '0.2rem' }}>
                                 <Fab
                                     className={this.props.classes.helpButton}
                                     onClick={() => {

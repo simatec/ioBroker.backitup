@@ -67,7 +67,7 @@
     "History data path": "Шлях даних історії",
     "Homematic CCU": "Homematic CCU",
     "Homematic CCU backup": "Резервне копіювання Homematic CCU",
-    "Host": "Хост",
+    "host": "Хост",
     "Host Type": "Тип хоста",
     "IP address": "IP-адреса",
     "IP address or hostname": "IP-адреса або ім'я хоста",
@@ -86,7 +86,7 @@
     "Local hard disk space Limit value for warning message (MB)": "Обмеження на локальному жорсткому диску для повідомлення попередження (МБ)",
     "Long notifications": "Довгі повідомлення",
     "MAC address": "MAC-адреса",
-    "Main settings": "Основні налаштування",
+    "main settings": "Основні налаштування",
     "Master": "майстер",
     "Matrix instance": "Екземпляр матриці",
     "Mount as root": "Підключити як root (sudo)",
@@ -143,7 +143,6 @@
     "PostgreSQL username": "Ім'я користувача PostgreSQL",
     "Protocol": "Протокол",
     "Pushover instance": "Примірник Pushover",
-    "Readme": "Readme",
     "Redis": "Redis",
     "Redis Backup": "Резервне копіювання Redis",
     "Redis Hostname": "Ім'я хосту Redis",
@@ -277,5 +276,9 @@
     "piece": "шматок",
     "If you like this project and would like to support its development, you are welcome to leave a donation.": "Якщо вам подобається цей проект і ви хочете підтримати його розвиток, ви можете залишити пожертву.",
     "Name suffix for the file name of the backup": "Суфікс імені файлу резервної копії",
-    "Copy locally": "Копіювати локально"
+    "Copy locally": "Копіювати локально",
+    "Show adapter documentation": "Показати документацію адаптера",
+    "NAS (CIFS)": "NAS (CIFS)",
+    "NAS (Expert)": "NAS (експерт)",
+    "NAS (NFS)": "NAS (NFS)"
 }

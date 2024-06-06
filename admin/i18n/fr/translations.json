@@ -67,7 +67,7 @@
     "History data path": "Chemin des données d'historique",
     "Homematic CCU": "CCU homématique",
     "Homematic CCU backup": "Sauvegarde CCU Homematic",
-    "Host": "Hôte",
+    "host": "Hôte",
     "Host Type": "Type d'hôte",
     "IP address": "adresse IP",
     "IP address or hostname": "Adresse IP ou nom d'hôte",
@@ -86,7 +86,7 @@
     "Local hard disk space Limit value for warning message (MB)": "Valeur limite d'espace disque local pour le message d'avertissement (Mo)",
     "Long notifications": "Notifications longues",
     "MAC address": "Adresse Mac",
-    "Main settings": "Réglages principaux",
+    "main settings": "Réglages principaux",
     "Master": "Maître",
     "Matrix instance": "Instance matricielle",
     "Mount as root": "Monter en tant que root (sudo)",
@@ -143,7 +143,6 @@
     "PostgreSQL username": "Nom d'utilisateur PostgreSQL",
     "Protocol": "Protocole",
     "Pushover instance": "Instance de transfert",
-    "Readme": "Lisez-moi",
     "Redis": "Rédis",
     "Redis Backup": "Sauvegarde Redis",
     "Redis Hostname": "Nom d'hôte Redis",
@@ -277,5 +276,9 @@
     "piece": "morceau",
     "If you like this project and would like to support its development, you are welcome to leave a donation.": "Si vous aimez ce projet et souhaitez soutenir son développement, n'hésitez pas à faire un don.",
     "Name suffix for the file name of the backup": "Suffixe du nom du nom de fichier de la sauvegarde",
-    "Copy locally": "Copier localement"
+    "Copy locally": "Copier localement",
+    "Show adapter documentation": "Afficher la documentation de l'adaptateur",
+    "NAS (CIFS)": "NAS (CIFS)",
+    "NAS (Expert)": "NAS (Expert)",
+    "NAS (NFS)": "NAS (NFS)"
 }

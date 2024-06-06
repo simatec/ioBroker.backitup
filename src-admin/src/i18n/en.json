@@ -78,6 +78,8 @@
   "Google Drive": "Google Drive",
   "Onedrive": "Onedrive",
   "WebDAV": "WebDAV",
-  "Please enter here the code from the address line of the opened page (code=)": "Please enter here the code from the address line of the opened page (code=)"
+  "Please enter here the code from the address line of the opened page (code=)": "Please enter here the code from the address line of the opened page (code=)",
+  "No storage path of %s is configured.\nThe default path of the history adapter has been set.": "No storage path of %s is configured.\nThe default path of the history adapter has been set.",
+  "The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!": "The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!"
 
 }

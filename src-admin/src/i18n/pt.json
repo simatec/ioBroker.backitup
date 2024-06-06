@@ -78,5 +78,7 @@
     "Google Drive": "Google Drive",
     "Onedrive": "Onedrive",
     "WebDAV": "WebDAV",
-    "Please enter here the code from the address line of the opened page (code=)": "Por favor insira aqui o código da linha de endereço da página aberta (code=)"
+    "Please enter here the code from the address line of the opened page (code=)": "Por favor insira aqui o código da linha de endereço da página aberta (code=)",
+    "No storage path of %s is configured.\nThe default path of the history adapter has been set.": "Nenhum caminho de armazenamento de %s está configurado.\nO caminho padrão do adaptador de histórico foi configurado.",
+    "The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!": "O caminho de armazenamento de %s não deve ser idêntico ao caminho dos backups.\nO caminho padrão do adaptador de histórico foi configurado.\n\nPor favor, altere o caminho no adaptador de histórico!"
 }
