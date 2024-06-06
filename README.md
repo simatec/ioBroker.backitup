@@ -60,7 +60,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 3.0.2 (2024-06-06)
 * (simatec) Fix Google Drive
 * (simatec) Fix Translations
 * (simatec) Fix Onedrive

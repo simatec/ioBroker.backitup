@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "news": {
+      "3.0.2": {
+        "en": "Fix Google Drive\nFix Translations\nFix Onedrive\nFix MySql Backup\nFix Translation added\nDesign Fix\nnew notifications content added",
+        "de": "Google Drive reparieren\nÜbersetzungen reparieren\nOnedrive herunterladen\nMySql Backup reparieren\nFix Übersetzung hinzugefügt\nDesign Fix\nneue benachrichtigungen inhalt hinzugefügt",
+        "ru": "Ix Google Drive\nFix Translations\nFix Onedrive\nЗакрытие MySql\nДобавлен перевод\nДизайн Fix\nновый контент уведомлений",
+        "pt": "Corrigir o Google Drive\nCorrigir traduções\nCorrigir uma unidade\nFix MySql Backup\nTradução Fixa adicionada\nCorreção de Design\nnovo conteúdo de notificações adicionado",
+        "nl": "Google Drive herstellen\nVertalingen herstellen\nOnedrive herstellen\nRepareer MySql back-up\nVertaling toegevoegd\nOntwerpfix\nnieuwe inhoud toegevoegd",
+        "fr": "Correction du lecteur Google\nCorrection des traductions\nCorrection de Onedrive\nCorrection de la sauvegarde MySql\nCorrection de traduction ajoutée\nCorrection de conception\nnouveaux contenus de notifications ajoutés",
+        "it": "Fissare Google Drive\nRiparare le traduzioni\nFissare Onedrive\nRisolvere MySql Backup\nFisso Traduzione aggiunto\nDesign Fix\nnuovo contenuto di notifiche aggiunto",
+        "es": "Arreglar Google Drive\nCorregir traducciones\nFijar un goteo\nArregla MySql Backup\nTraducción fija\nDiseño fijo\nnuevo contenido de notificaciones añadido",
+        "pl": "Napraw dysk Google\nNapraw tłumaczenia\nNapraw Onedrive\nNapraw kopię zapasową MySql\nPoprawiono tłumaczenie\nPopraw projekt\ndodano nową zawartość powiadomień",
+        "uk": "Налаштування Google Диску\nВиправлення перекладів\nВиправлення одного диска\nВиправлення MySql Backup\nВиправлення перекладу додано\nФіксація дизайну\nдодано новий вміст повідомлень",
+        "zh-cn": "修复谷歌驱动器\n修正翻译\n修整单程\n修复 MySql 备份\n添加了翻译\n设计\n新增通知内容"
+      },
       "3.0.1": {
         "en": "Fix umount callback\nFix Backup Message\nTranslations updated\nFix InfluxDB Multi Backup\nFix Restore Console\nFix Backup Console",
         "de": "Umount-Anruf\nBackup-Nachricht aktivieren\nÜbersetzungen aktualisiert\nInfluxDB Multi Backup\nWiederherstellen Konsole\nBackup Console",
@@ -80,19 +93,6 @@
         "pl": "Napraw tłumaczenie",
         "uk": "Виправлення перекладу",
         "zh-cn": "修正翻译"
-      },
-      "2.10.8": {
-        "en": "Fix Expert Mount\nDocu updated\ndependencies updated",
-        "de": "Fix Expert Mount\nDocu aktualisiert\naktualisierte abhängigkeiten",
-        "ru": "Экспедиторская гора\nDocu\nобновленная информация о зависимостях",
-        "pt": "Fix Expert Mount\nDocu atualizado\ndependências atualizadas",
-        "nl": "Fix Expert Mount\nDocu bijgewerkt\nafhankelijkheden bijgewerkt",
-        "fr": "Correction du montage expert\nDocu mis à jour\ndépendances mises à jour",
-        "it": "Fissare il supporto esperto\nDocu aggiornato\ndipendenze aggiornate",
-        "es": "Fix Expert Mount\nDocu actualizado\ndependencias actualizadas",
-        "pl": "Fix Expert Mount\nAktualizacja doku\nzaktualizowane zależności",
-        "uk": "Фіксований експертний монтаж\nDocu оновлений\nоновлені залежності",
-        "zh-cn": "修复专家山\n更新 Docu\n更新依赖关系"
       }
     },
     "titleLang": {
