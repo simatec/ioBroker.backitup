@@ -1886,7 +1886,7 @@ async function renewOnedriveToken() {
 async function main(adapter) {
     createBashScripts();
     readLogFile();
-
+    //adapter.registerNotification('backitup', 'backupError', 'test notification');
     if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) createBackupDir();
     if (fs.existsSync(bashDir + '/.redis.info')) deleteHideFiles();
     if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) delTmp();

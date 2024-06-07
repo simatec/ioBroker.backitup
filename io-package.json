@@ -312,6 +312,71 @@
       }
     ]
   },
+  "notifications": [
+    {
+      "scope": "backitup",
+      "name": {
+        "en": "Backitup",
+        "de": "Backitup",
+        "ru": "Backitup",
+        "pt": "Backitup",
+        "nl": "Backitup",
+        "fr": "Backitup",
+        "it": "Backitup",
+        "es": "Backitup",
+        "pl": "Backitup",
+        "uk": "Backitup",
+        "zh-cn": "Backitup"
+      },
+      "description": {
+        "en": "These notifications report errors when creating backups",
+        "de": "Diese Benachrichtigungen melden Fehler bei der Erstellung von Backups",
+        "ru": "Эти уведомления сообщают об ошибках при создании резервных копий",
+        "pt": "Estas notificações relatam erros ao criar backups",
+        "nl": "Deze meldingen rapporteren fouten bij het aanmaken van back-ups",
+        "fr": "Ces notifications signalent des erreurs lors de la création de sauvegardes",
+        "it": "Queste notifiche segnalano errori durante la creazione di backup",
+        "es": "Estas notificaciones reportan errores al crear copias de seguridad",
+        "pl": "Te powiadomienia zgłaszają błędy podczas tworzenia kopii zapasowych",
+        "uk": "Ці помилки звіту про повідомлення при створенні резервних копій",
+        "zh-cn": "这些通知在创建备份时报告错误"
+      },
+      "categories": [
+        {
+          "category": "backupError",
+          "name": {
+            "en": "Error during backup creation",
+            "de": "Fehler bei der Backup-Erstellung",
+            "ru": "Ошибка при создании резервного копирования",
+            "pt": "Erro durante a criação de backup",
+            "nl": "Fout tijdens aanmaken van reservekopie",
+            "fr": "Erreur lors de la création de sauvegarde",
+            "it": "Errore durante la creazione di backup",
+            "es": "Error durante la creación de respaldo",
+            "pl": "Błąd podczas tworzenia kopii zapasowej",
+            "uk": "Помилка при створенні резервних копій",
+            "zh-cn": "备份创建时出错"
+          },
+          "severity": "alert",
+          "description": {
+            "en": "Backitup has problems with the creation of backups. Please check the configuration and the debug log of the Backitup Adapter",
+            "de": "Backitup hat Probleme mit der Erstellung von Backups. Bitte überprüfen Sie die Konfiguration und das Debug-Log des Backitup Adapters",
+            "ru": "Backitup имеет проблемы с созданием резервных копий. Пожалуйста, проверьте конфигурацию и журнал отладки адаптера резервного копирования",
+            "pt": "Backitup tem problemas com a criação de backups. Por favor, verifique a configuração e o log de depuração do Adaptador Backitup",
+            "nl": "Backitup heeft problemen met het creëren van back-ups. Controleer de configuratie en het debuglog van de backitup-adapter",
+            "fr": "Backitup a des problèmes avec la création de sauvegardes. Veuillez vérifier la configuration et le journal de débogage de l'adaptateur de sauvegarde",
+            "it": "Backitup ha problemi con la creazione di backup. Si prega di controllare la configurazione e il registro debug dell'adattatore Backitup",
+            "es": "El respaldo tiene problemas con la creación de copias de seguridad. Por favor, compruebe la configuración y el registro de depuración del adaptador de copia de seguridad",
+            "pl": "Kopiowanie ma problemy z tworzeniem kopii zapasowych. Proszę sprawdzić konfigurację i dziennik debugowania adaptera Backitup",
+            "uk": "Backitup має проблеми з створенням резервних копій. Будь ласка, перевірте конфігурацію та дебюговий журнал адаптера Backitup",
+            "zh-cn": "备份在创建备份方面有问题. 请检查备份适配器的配置和调试日志"
+          },
+          "regex": [],
+          "limit": 1
+        }
+      ]
+    }
+  ],
   "native": {
     "cacheLoose": false,
     "ccuCron": false,
