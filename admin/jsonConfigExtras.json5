@@ -35,22 +35,14 @@
         },
         "debugLevel": {
             "type": "checkbox",
-            "label": "Enable debug",
-            "value": false,
-            "sm": 12,
-            "md": 8,
-            "lg": 4
-        },
-        "sentry_enable": {
-            "newLine": true,
-            "type": "checkbox",
-            "label": "Send analysis data",
+            "label": "extended log output",
             "value": false,
             "sm": 12,
             "md": 8,
             "lg": 4
         },
         "ignoreErrors": {
+            "newLine": true,
             "type": "checkbox",
             "label": "Ignore backup errors",
             "value": false,

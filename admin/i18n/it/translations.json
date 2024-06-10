@@ -280,5 +280,6 @@
     "Show adapter documentation": "Mostra la documentazione dell'adattatore",
     "NAS (CIFS)": "NAS (CIFS)",
     "NAS (Expert)": "NAS (esperto)",
-    "NAS (NFS)": "NAS (NFS)"
+    "NAS (NFS)": "NAS (NFS)",
+    "extended log output": "output del registro esteso"
 }

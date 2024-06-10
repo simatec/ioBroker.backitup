@@ -373,6 +373,38 @@
           },
           "regex": [],
           "limit": 1
+        },
+        {
+          "category": "onedriveWarn",
+          "name": {
+            "en": "Error when creating the RefreshToken",
+            "de": "Fehler beim Erstellen des RefreshToken",
+            "ru": "Ошибка при создании RefreshToken",
+            "pt": "Erro ao criar o RefreshToken",
+            "nl": "Fout bij het aanmaken van de RefreshToken",
+            "fr": "Erreur lors de la création du RefreshToken",
+            "it": "Errore durante la creazione di RefreshToken",
+            "es": "Error al crear el RefreshToken",
+            "pl": "Błąd podczas tworzenia RefreshToken",
+            "uk": "Помилка при створенні RefreshToken",
+            "zh-cn": "创建刷新工具时出错"
+          },
+          "severity": "alert",
+          "description": {
+            "en": "The OneDrive RefreshToken could not be updated. Please try to refresh the token manually.",
+            "de": "Der OneDrive RefreshToken konnte nicht aktualisiert werden. Bitte versuchen Sie, den Token manuell zu aktualisieren.",
+            "ru": "OneDrive RefreshToken не мог быть обновлен. Пожалуйста, попробуйте обновить токен вручную.",
+            "pt": "O OneDrive RefreshToken não pode ser atualizado. Por favor, tente atualizar o token manualmente.",
+            "nl": "De OneDrive RefreshToken kon niet worden bijgewerkt. Probeer het token handmatig te vernieuwen.",
+            "fr": "Le OneDrive RefreshToken n'a pas pu être mis à jour. Veuillez essayer de rafraîchir le jeton manuellement.",
+            "it": "Il OneDrive RefreshToken non poteva essere aggiornato. Si prega di cercare di aggiornare manualmente il token.",
+            "es": "El OneDrive RefreshToken no puede ser actualizado. Por favor, intenta refrescar la ficha manualmente.",
+            "pl": "Nie można było zaktualizować OneDrive RefreshToken. Proszę spróbować odświeżać token ręcznie.",
+            "uk": "OneDrive RefreshToken не може бути оновлено. Будь ласка, спробуйте оновити токени вручну.",
+            "zh-cn": "无法更新 OneDrive 刷新托肯 。 请尝试手动刷新符号 ."
+          },
+          "regex": [],
+          "limit": 1
         }
       ]
     }
@@ -544,7 +576,6 @@
     "redisUser": "default",
     "restoreSource": "local",
     "restoreTab": false,
-    "sentry_enable": true,
     "signalInstance": "signal-cmb.0",
     "signalNoticeType": "longSignalNotice",
     "signalOnlyError": false,

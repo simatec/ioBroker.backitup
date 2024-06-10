@@ -65,28 +65,6 @@ function startBackup(config, cb) {
     }
 }
 
-/**
- * Change the external Sentry Logging. After changing the Logging
- * the adapter restarts once
- * @param {*} value : adapter.config.sentry_enable for example
- */
-async function setSentryLogging(value) {
-    try {
-        value = value === true;
-        let idSentry = `system.adapter.${adapter.namespace}.plugins.sentry.enabled`;
-        let stateSentry = await adapter.getForeignStateAsync(idSentry);
-        if (stateSentry && stateSentry.val !== value) {
-            await adapter.setForeignStateAsync(idSentry, value);
-            adapter.log.info('Restarting Adapter because of changed Sentry settings');
-            adapter.restart();
-            return true;
-        }
-    } catch (error) {
-        return false;
-    }
-    return false;
-}
-
 function startAdapter(options) {
     options = options || {};
     Object.assign(options, { name: adapterName });
@@ -154,9 +132,6 @@ function startAdapter(options) {
 
     adapter.on('ready', async () => {
         try {
-            if (await setSentryLogging(adapter.config.sentry_enable)) {
-                return;
-            }
             await main(adapter);
         } catch (e) {
             //ignore errors
@@ -789,6 +764,12 @@ function initConfig(secret) {
         systemLang
     };
 
+    const notification = {
+        type: 'message',
+        ignoreErrors: adapter.config.ignoreErrors,
+        systemLang
+    };
+
     const historyHTML = {
         enabled: true,
         type: 'message',
@@ -1199,6 +1180,7 @@ function initConfig(secret) {
         signal,
         matrix,
         discord,
+        notification,
     };
 
     // Configurations for CCU / pivCCU / RaspberryMatic backup
@@ -1232,6 +1214,7 @@ function initConfig(secret) {
         signal,
         matrix,
         discord,
+        notification,
 
         host: adapter.config.ccuHost,                                                               // IP-address CCU
         user: adapter.config.ccuUser,                                                               // username CCU
@@ -1877,7 +1860,10 @@ async function renewOnedriveToken() {
                     }
                 });
             })
-            .catch(err => adapter.log.error(err));
+            .catch(err => {
+                adapter.log.error(err);
+                adapter.registerNotification('backitup', 'onedriveWarn', err);
+            });
     } else {
         adapter.log.debug(`Renew Onedrive Refresh-Token in ${30 - diffDays} days`);
     }
@@ -1886,7 +1872,7 @@ async function renewOnedriveToken() {
 async function main(adapter) {
     createBashScripts();
     readLogFile();
-    //adapter.registerNotification('backitup', 'backupError', 'test notification');
+
     if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) createBackupDir();
     if (fs.existsSync(bashDir + '/.redis.info')) deleteHideFiles();
     if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) delTmp();

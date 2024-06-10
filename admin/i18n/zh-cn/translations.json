@@ -280,5 +280,6 @@
     "Show adapter documentation": "显示适配器文档",
     "NAS (CIFS)": "网络存储 (CIFS)",
     "NAS (Expert)": "NAS（专家）",
-    "NAS (NFS)": "网络存储 (NFS)"
+    "NAS (NFS)": "网络存储 (NFS)",
+    "extended log output": "扩展日志输出"
 }

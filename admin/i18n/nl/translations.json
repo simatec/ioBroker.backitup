@@ -280,5 +280,6 @@
     "Show adapter documentation": "Adapterdocumentatie tonen",
     "NAS (CIFS)": "NAS-systeem (CIFS)",
     "NAS (Expert)": "NAS (expert)",
-    "NAS (NFS)": "NAS-systeem (NFS)"
+    "NAS (NFS)": "NAS-systeem (NFS)",
+    "extended log output": "uitgebreide loguitvoer"
 }
