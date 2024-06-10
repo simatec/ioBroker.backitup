@@ -60,7 +60,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ## Changelog
 <!-- ### **WORK IN PROGRESS** -->
-### **WORK IN PROGRESS**
+### 3.0.3 (2024-06-10)
 * (simatec) Fix WebDav
 * (simatec) Admin Notification for Backup erros added
 * (simatec) Remove Sentry Config

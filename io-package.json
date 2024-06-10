@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.2",
+    "version": "3.0.3",
     "news": {
+      "3.0.3": {
+        "en": "Fix WebDav\nAdmin Notification for Backup erros added\nRemove Sentry Config\nTranslations updated\nError handling optimized\ndependencies updated",
+        "de": "WebDav aktivieren\nAdmin-Benachrichtigung für Backup-Erros hinzugefügt\nEntfernen Sentry Config\nÜbersetzungen aktualisiert\nFehlerbehebung optimiert\naktualisierte abhängigkeiten",
+        "ru": "Ix WebDav\nУведомление о резервном копировании добавлено\nУдалить SentryConfig\nОбновленные переводы\nОптимизация обработки ошибок\nобновленная информация о зависимостях",
+        "pt": "Corrigir WebDav\nNotificação de administrador para erros de backup adicionados\nRemover Sentry Config\nTraduções atualizadas\nManuseio de erros otimizado\ndependências atualizadas",
+        "nl": "WebDav herstellen\nAdmin-notificatie voor back-uperros toegevoegd\nSchermconfiguratie verwijderen\nVertalingen bijgewerkt\nFout bij het hanteren geoptimaliseerd\nafhankelijkheden bijgewerkt",
+        "fr": "Correction de WebDav\nNotification Admin pour les erros de sauvegarde ajoutés\nSupprimer Sentry Config\nTraductions actualisées\nGestion des erreurs optimisée\ndépendances mises à jour",
+        "it": "Fissare WebDav\nAdmin Notifica per Backup erros aggiunto\nRimuovere Sentry Config\nTraduzioni aggiornata\nGestione degli errori ottimizzata\ndipendenze aggiornate",
+        "es": "Corregir WebDav\nAdmin Notification for Backup erros added\nQuitar Configmento de Sentry\nTraducción actualizada\nManejo de errores optimizado\ndependencias actualizadas",
+        "pl": "Napraw WebDav\nAdmin Notification for Backup erros added\nUsuń konfigurację zapisu\nAktualizacja tłumaczeń\nZoptymalizowana obsługa błędów\nzaktualizowane zależności",
+        "uk": "Виправлення WebDav\nПовідомлення адміністратора для резервного копіювання erros\nВидалити Конфігурація Sentry\nПереклади оновлені\nОптимізоване використання помилок\nоновлені залежності",
+        "zh-cn": "修复 WebDav\n添加备份错误的管理通知\n删除哨兵配置\n更新翻译\n处理优化出错\n更新依赖关系"
+      },
       "3.0.2": {
         "en": "Fix Google Drive\nFix Translations\nFix Onedrive\nFix MySql Backup\nFix Translation added\nDesign Fix\nnew notifications content added",
         "de": "Google Drive reparieren\nÜbersetzungen reparieren\nOnedrive herunterladen\nMySql Backup reparieren\nFix Übersetzung hinzugefügt\nDesign Fix\nneue benachrichtigungen inhalt hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "mały projekt Fix",
         "uk": "невеликий дизайн виправити",
         "zh-cn": "小设计"
-      },
-      "2.10.9": {
-        "en": "Fix Translation",
-        "de": "Über uns",
-        "ru": "Перевод",
-        "pt": "Tradução de Fixação",
-        "nl": "Vertaling herstellen",
-        "fr": "Correction de la traduction",
-        "it": "Fisso di traduzione",
-        "es": "Traducción fija",
-        "pl": "Napraw tłumaczenie",
-        "uk": "Виправлення перекладу",
-        "zh-cn": "修正翻译"
       }
     },
     "titleLang": {
