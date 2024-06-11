@@ -7,7 +7,7 @@ import {
     CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle,
 } from '@mui/material';
 
-import { Close, FolderZip, Upload } from '@mui/icons-material';
+import { Close, FolderZip, UploadOutlined } from '@mui/icons-material';
 
 import { I18n, Utils } from '@iobroker/adapter-react-v5';
 
@@ -132,7 +132,7 @@ const UploadBackup = props => {
                 }}
                 color="primary"
                 variant="contained"
-                startIcon={<Upload />}
+                startIcon={<UploadOutlined />}
             >
                 {I18n.t('Backup Upload')}
             </Button>}

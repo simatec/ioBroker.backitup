@@ -6,7 +6,7 @@ import { ConfigGeneric, I18n } from '@iobroker/adapter-react-v5';
 import {
     Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, LinearProgress,
 } from '@mui/material';
-import { CloudUpload } from '@mui/icons-material';
+import { CloudUploadOutlined } from '@mui/icons-material';
 
 const styles = {
     paper: {
@@ -232,7 +232,7 @@ class BackupNow extends ConfigGeneric {
                 color={this.props.color}
                 variant="contained"
                 style={this.props.style}
-                endIcon={<CloudUpload />}
+                endIcon={<CloudUploadOutlined />}
             >
                 {this.props.schema.label ? I18n.t(this.props.schema.label) : I18n.t('Backup now')}
             </Button>

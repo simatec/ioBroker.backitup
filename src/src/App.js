@@ -11,9 +11,10 @@ import {
 import GenericApp from '@iobroker/adapter-react-v5/GenericApp';
 import { I18n, Loader, AdminConnection } from '@iobroker/adapter-react-v5';
 import {
-    CloudUpload, FormatListBulleted,
-    Info, Search, SettingsBackupRestore,
-    Upload, Storage, Help, School, Favorite,
+    CloudUploadOutlined, FormatListBulleted,
+    InfoOutlined, Search, SettingsBackupRestore,
+    UploadOutlined, StorageOutlined, Help, School, Favorite,
+    History, Alarm,
 } from '@mui/icons-material';
 
 import logo from './assets/backitup.png';
@@ -81,13 +82,20 @@ const styles = theme => ({
         float: 'left',
         margin: '0 10px 0 5px',
     },
+    historyIcon: {
+        height: 24,
+        width: 24,
+        fontSize: 24,
+        float: 'left',
+        margin: '5px 10px 0 -25px',
+    },
     icon: {
-        height: 80,
-        width: 100,
+        height: 70,
+        width: 80,
         margin: 4,
         marginTop: '1.5rem',
         color: '#3399CC !important',
-        fontSize: '80px',
+        fontSize: '70px',
     },
     iconDiv: {
         display: 'inline-block',
@@ -119,6 +127,7 @@ const styles = theme => ({
     },
     value: {
         fontSize: '0.9em',
+        marginBottom: '0.5rem',
     },
     footer: {
         fontSize: '0.8rem',
@@ -271,26 +280,30 @@ class App extends GenericApp {
         return <Card className={this.props.classes.card}>
             <CardContent className={this.props.classes.cardContent}>
                 <div className={this.props.classes.iconDiv}>
-                    <Info className={this.props.classes.icon} />
+                    <InfoOutlined className={this.props.classes.icon} />
                 </div>
                 <div className={this.props.classes.textDiv}>
                     <div className={this.props.classes.cardHeader}>
                         {I18n.t('Backup Information')}
                     </div>
-                    <ul>
+                    <ul style={{ maxHeight: 210, overflow: 'auto', listStyleType: 'none' }}>
                         {this.state.native.minimalEnabled && <li>
+                            <History className={this.props.classes.historyIcon} />
                             <div className={this.props.classes.label}>{I18n.t('Last ioBroker backup:')}</div>
                             <div className={this.props.classes.value}>{this.state.iobrokerLastTime}</div>
                         </li>}
-                        {this.state.native.ccuEnabled && <li>
-                            <div className={this.props.classes.label}>{I18n.t('Last CCU backup:')}</div>
-                            <div className={this.props.classes.value}>{this.state.ccuLastTime}</div>
-                        </li>}
                         {this.state.native.minimalEnabled && <li>
+                            <Alarm className={this.props.classes.historyIcon} />
                             <div className={this.props.classes.label}>{I18n.t('Next ioBroker backup:')}</div>
                             <div className={this.props.classes.value}>{this.state.iobrokerNextTime}</div>
                         </li>}
                         {this.state.native.ccuEnabled && <li>
+                            <History className={this.props.classes.historyIcon} />
+                            <div className={this.props.classes.label}>{I18n.t('Last CCU backup:')}</div>
+                            <div className={this.props.classes.value}>{this.state.ccuLastTime}</div>
+                        </li>}
+                        {this.state.native.ccuEnabled && <li>
+                            <Alarm className={this.props.classes.historyIcon} />
                             <div className={this.props.classes.label}>{I18n.t('Next CCU backup:')}</div>
                             <div className={this.props.classes.value}>{this.state.ccuNextTime}</div>
                         </li>}
@@ -312,13 +325,13 @@ class App extends GenericApp {
         return <Card className={this.props.classes.card}>
             <CardContent className={this.props.classes.cardContent}>
                 <div className={this.props.classes.iconDiv}>
-                    <Storage className={this.props.classes.icon} />
+                    <StorageOutlined className={this.props.classes.icon} />
                 </div>
                 <div className={this.props.classes.textDiv}>
                     <div className={this.props.classes.cardHeader}>
                         {I18n.t('Activated storage options')}
                     </div>
-                    <ul>
+                    <ul style={{ maxHeight: 210, overflow: 'auto', listStyleType: 'disclosure-closed' }}>
                         {options.map(option => this.state.native[option.name] && <li key={option.name}>{I18n.t(option.label)}</li>)}
                     </ul>
                 </div>
@@ -349,13 +362,13 @@ class App extends GenericApp {
         return <Card className={this.props.classes.card}>
             <CardContent className={this.props.classes.cardContent}>
                 <div className={this.props.classes.iconDiv}>
-                    <CloudUpload className={this.props.classes.icon} />
+                    <CloudUploadOutlined className={this.props.classes.icon} />
                 </div>
                 <div className={this.props.classes.textDiv}>
                     <div className={this.props.classes.cardHeader}>
                         {I18n.t('Activated backup options')}
                     </div>
-                    <ul style={{ maxHeight: 150, overflow: 'auto' }}>
+                    <ul style={{ maxHeight: 210, overflow: 'auto', listStyleType: 'disclosure-closed' }}>
                         {options.map(option => this.state.native[option.name] &&
                             <li key={option.name}>{I18n.t(option.label)}</li>)}
                     </ul>
@@ -448,7 +461,7 @@ class App extends GenericApp {
                         }}
                     >
                         <div className={this.props.classes.header} style={{ margin: '0.2rem 0 1.5rem 0' }}>
-                            <Info className={this.props.classes.headerIcon} />
+                            <InfoOutlined className={this.props.classes.headerIcon} />
                             <span>{I18n.t('Backup Information')}</span>
                         </div>
                         <div
@@ -464,7 +477,7 @@ class App extends GenericApp {
                             {this.renderActivatedBackupOptions()}
                         </div>
                         <div className={this.props.classes.header} style={{ margin: '1.5rem 0 1.5rem 0' }}>
-                            <CloudUpload className={this.props.classes.headerIcon} />
+                            <CloudUploadOutlined className={this.props.classes.headerIcon} />
                             <span>{I18n.t('System backup')}</span>
                         </div>
                         <div
@@ -488,7 +501,7 @@ class App extends GenericApp {
                                 alive
                                 socket={this.socket}
                                 themeType={this.state.themeType}
-                                endIcon={<CloudUpload />}
+                                endIcon={<CloudUploadOutlined />}
                                 schema={{
                                     backUpType: 'iobroker',
                                     label: 'ioBroker start backup',
@@ -498,7 +511,7 @@ class App extends GenericApp {
                                 disabled
                                 color="grey"
                                 variant="contained"
-                                endIcon={<CloudUpload />}
+                                endIcon={<CloudUploadOutlined />}
                             >
                                 {I18n.t('ioBroker start backup')}
                             </Button>}
@@ -512,7 +525,7 @@ class App extends GenericApp {
                                 alive
                                 socket={this.socket}
                                 themeType={this.state.themeType}
-                                endIcon={<CloudUpload />}
+                                endIcon={<CloudUploadOutlined />}
                                 schema={{
                                     backUpType: 'ccu',
                                     label: 'Homematic start backup',
@@ -522,7 +535,7 @@ class App extends GenericApp {
                                 disabled
                                 color="grey"
                                 variant="contained"
-                                endIcon={<CloudUpload />}
+                                endIcon={<CloudUploadOutlined />}
                             >
                                 {I18n.t('Homematic start backup')}
                             </Button>}
@@ -555,7 +568,7 @@ class App extends GenericApp {
                                     const now = new Date();
                                     saveAs(blob, `${now.getFullYear()}_${(now.getMonth() + 1).toString().padStart(2, '0')}_${now.getDate().toString().padStart(2, '0')}-${this.adapterName}.${this.instance}.json`);
                                 }}
-                                endIcon={<CloudUpload />}
+                                endIcon={<CloudUploadOutlined />}
                             >
                                 {I18n.t('Save BackItUp settings')}
                             </Button>
@@ -598,7 +611,7 @@ class App extends GenericApp {
                                 onClick={() => this.setState({ showUploadBackup: true })}
                                 variant="contained"
                                 color="grey"
-                                endIcon={<Upload />}
+                                endIcon={<UploadOutlined />}
                             >
                                 {I18n.t('Upload Backup File')}
                             </Button>
