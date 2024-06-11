@@ -46,7 +46,7 @@ const BackupHistory = props => {
                         <TableCell>{entry.date}</TableCell>
                         <TableCell>{entry.type}</TableCell>
                         <TableCell>{entry.name}</TableCell>
-                        <TableCell>{entry.storage.join(', ')}</TableCell>
+                        <TableCell>{typeof entry.storage === 'object' ? entry.storage.join(', ') : entry.storage}</TableCell>
                         <TableCell>{entry.filesize}</TableCell>
                     </TableRow>)}
                 </TableBody>
