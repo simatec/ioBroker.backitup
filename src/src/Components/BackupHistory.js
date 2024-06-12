@@ -8,10 +8,9 @@ import {
     DialogActions, Button, TableBody,
 } from '@mui/material';
 
-import { Close } from '@mui/icons-material';
+import { Close, FormatListBulleted } from '@mui/icons-material';
 
 import { I18n } from '@iobroker/adapter-react-v5';
-import { FormatListBulleted } from '@mui/icons-material';
 
 const BackupHistory = props => {
     const [backupHistory, setBackupHistory] = useState([]);
@@ -30,7 +29,10 @@ const BackupHistory = props => {
         fullWidth
         maxWidth="lg"
     >
-        <DialogTitle><FormatListBulleted style={{width: 24, height: 24, margin: '0 10px -4px 0'}}/>{I18n.t('Backup history')}</DialogTitle>
+        <DialogTitle>
+            <FormatListBulleted style={{ width: 24, height: 24, margin: '0 10px -4px 0' }} />
+            {I18n.t('Backup history')}
+        </DialogTitle>
         <DialogContent>
             <Table size="small">
                 <TableHead>

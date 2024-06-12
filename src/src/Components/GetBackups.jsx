@@ -153,7 +153,7 @@ const GetBackups = props => {
         maxWidth="lg"
     >
         <DialogTitle>
-            <FormatListBulleted style={{width: 24, height: 24, margin: '0 10px -4px 0'}}/>
+            <FormatListBulleted style={{ width: 24, height: 24, margin: '0 10px -4px 0' }} />
             {I18n.t('Backup history')}
         </DialogTitle>
         <span

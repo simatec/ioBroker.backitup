@@ -7,7 +7,7 @@ import {
     Button, Checkbox, Dialog, DialogActions, DialogContent,
     DialogTitle, FormControlLabel, LinearProgress,
 } from '@mui/material';
-import { Close, SettingsBackupRestore, } from '@mui/icons-material';
+import { Close, SettingsBackupRestore } from '@mui/icons-material';
 
 const styles = {
     paper: {
@@ -294,7 +294,7 @@ class Restore extends Component {
             <DialogTitle
                 style={{ color: this.state.restoreProcess.statusColor }}
             >
-                <SettingsBackupRestore style={{width: 24, height: 24, margin: '0 10px -4px 0'}}/>
+                <SettingsBackupRestore style={{ width: 24, height: 24, margin: '0 10px -4px 0' }} />
                 {I18n.t(this.state.restoreProcess.startFinish)}
                 {this.state.restoreProcess.restoreStatus ? <span style={{ marginLeft: 10, marginRight: 10 }}>-</span> : null}
                 {I18n.t(this.state.restoreProcess.restoreStatus) || '...'}
@@ -392,7 +392,7 @@ class Restore extends Component {
             classes={{ paper: this.props.classes.paper }}
         >
             <DialogTitle>
-                <SettingsBackupRestore style={{width: 24, height: 24, margin: '0 10px -4px 0'}}/>
+                <SettingsBackupRestore style={{ width: 24, height: 24, margin: '0 10px -4px 0' }} />
                 {I18n.t('BackItUp restore execution')}
             </DialogTitle>
             <DialogContent style={{ position: 'relative' }}>

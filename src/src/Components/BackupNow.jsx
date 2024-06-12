@@ -159,7 +159,7 @@ class BackupNow extends ConfigGeneric {
             classes={{ paper: this.props.classes.paper }}
         >
             <DialogTitle>
-                <CloudUploadOutlined style={{width: 24, height: 24, margin: '0 10px -4px 0'}}/>
+                <CloudUploadOutlined style={{ width: 24, height: 24, margin: '0 10px -4px 0' }} />
                 {I18n.t('BackItUp execution:')}
             </DialogTitle>
             <DialogContent style={{ position: 'relative' }}>
