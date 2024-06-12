@@ -12,6 +12,7 @@ import {
     History,
     ExpandMore,
     Save,
+    FormatListBulleted,
 } from '@mui/icons-material';
 
 import {
@@ -151,7 +152,10 @@ const GetBackups = props => {
         fullWidth
         maxWidth="lg"
     >
-        <DialogTitle>{I18n.t('Backup history')}</DialogTitle>
+        <DialogTitle>
+            <FormatListBulleted style={{width: 24, height: 24, margin: '0 10px -4px 0'}}/>
+            {I18n.t('Backup history')}
+        </DialogTitle>
         <span
             style={{
                 fontWeight: 400,

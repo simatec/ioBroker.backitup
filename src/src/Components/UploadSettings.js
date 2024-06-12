@@ -64,7 +64,7 @@ const UploadSettings = props => {
         fullWidth
         maxWidth="lg"
     >
-        <DialogTitle>{I18n.t('Upload settings')}</DialogTitle>
+        <DialogTitle>{I18n.t('Restore BackItUp settings')}</DialogTitle>
         <DialogContent>
             <div
                 {...getRootProps()}

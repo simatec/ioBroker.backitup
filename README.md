@@ -64,6 +64,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
 * (simatec) History Gui Fix
+* (simatec) Tab GUI modified
 
 ### 3.0.3 (2024-06-10)
 * (simatec) Fix WebDav

@@ -62,6 +62,19 @@ const styles = theme => ({
         backgroundImage: 'linear-gradient(179deg, #3399CC 0%, #174475 60%) !important',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
     },
+    headerLight: {
+        fontSize: '0.9rem',
+        fontWeight: 400,
+        lineHeight: '110%',
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: theme.palette.secondary.main,
+        padding: '0.3rem',
+        borderRadius: 4,
+        color: '#000 !important',
+        backgroundImage: 'linear-gradient(179deg, rgb(245, 245, 245) 0%, #fff 60%) !important',
+        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
+    },
     subHeader: {
         fontSize: 16,
         fontWeight: 'bold',
@@ -94,7 +107,7 @@ const styles = theme => ({
         width: 80,
         margin: 4,
         marginTop: '1.5rem',
-        color: '#3399CC !important',
+        color: 'rgb(245, 245, 245) !important',
         fontSize: '70px',
     },
     iconDiv: {
@@ -140,10 +153,26 @@ const styles = theme => ({
         width: '100%',
         overflow: 'overlay',
         zIndex: 997,
-        backgroundColor: theme.palette.secondary.main,
         backgroundImage: 'linear-gradient(179deg, #3399CC 0%, #174475 60%) !important',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
         color: '#FFF !important',
+        padding: '5px 0 5px 0',
+        margin: '0 0 0 -8px',
+    },
+    footerLight: {
+        fontSize: '0.8rem',
+        fontWeight: 400,
+        lineHeight: '110%',
+        textAlign: 'center',
+        marginTop: 8,
+        position: 'fixed',
+        bottom: 0,
+        width: '100%',
+        overflow: 'overlay',
+        zIndex: 997,
+        backgroundImage: 'linear-gradient(179deg, rgb(245, 245, 245) 0%, #fff 60%) !important',
+        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
+        color: '#000 !important',
         padding: '5px 0 5px 0',
         margin: '0 0 0 -8px',
     },
@@ -460,7 +489,7 @@ class App extends GenericApp {
                             padding: 8,
                         }}
                     >
-                        <div className={this.props.classes.header} style={{ margin: '0.2rem 0 1.5rem 0' }}>
+                        <div className={this.state.themeName === 'light' ? this.props.classes.headerLight : this.props.classes.header} style={{ margin: '0.2rem 0 1.5rem 0' }}>
                             <InfoOutlined className={this.props.classes.headerIcon} />
                             <span>{I18n.t('Backup Information')}</span>
                         </div>
@@ -476,7 +505,7 @@ class App extends GenericApp {
                             {this.renderActivatedStorageOptions()}
                             {this.renderActivatedBackupOptions()}
                         </div>
-                        <div className={this.props.classes.header} style={{ margin: '1.5rem 0 1.5rem 0' }}>
+                        <div className={this.state.themeName === 'light' ? this.props.classes.headerLight : this.props.classes.header} style={{ margin: '1.5rem 0 1.5rem 0' }}>
                             <CloudUploadOutlined className={this.props.classes.headerIcon} />
                             <span>{I18n.t('System backup')}</span>
                         </div>
@@ -573,7 +602,7 @@ class App extends GenericApp {
                                 {I18n.t('Save BackItUp settings')}
                             </Button>
                         </div>
-                        <div className={this.props.classes.header} style={{ margin: '1.5rem 0px 1.0rem 0px' }}>
+                        <div className={this.state.themeName === 'light' ? this.props.classes.headerLight : this.props.classes.header} style={{ margin: '1.5rem 0px 1.0rem 0px' }}>
                             <SettingsBackupRestore className={this.props.classes.headerIcon} />
                             <span>{I18n.t('Restore')}</span>
                         </div>
@@ -627,7 +656,7 @@ class App extends GenericApp {
                         </div>
                         {this.renderError()}
                         <div
-                            className={this.props.classes.footer}
+                            className={this.state.themeName === 'light' ? this.props.classes.footerLight : this.props.classes.footer}
                         >
                             {I18n.t('All backup settings can be changed in the adapter configuration of BackItUp.')}
                         </div>

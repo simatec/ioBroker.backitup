@@ -176,7 +176,7 @@
     ],
     "adminUI": {
       "config": "json",
-      "tab": "materialize"
+      "tab": "html"
     },
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/simatec/ioBroker.backitup/master/admin/backitup.png",
