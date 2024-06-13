@@ -5,7 +5,8 @@ import { withStyles } from '@mui/styles';
 import { Button, Checkbox, FormControlLabel } from '@mui/material';
 import { Search } from '@mui/icons-material';
 
-import { ConfigGeneric, I18n } from '@iobroker/adapter-react-v5';
+import { I18n } from '@iobroker/adapter-react-v5';
+import { ConfigGeneric } from '@iobroker/json-config';
 
 import GetBackups from './Components/GetBackups';
 import SourceSelector from './Components/SourceSelector';

@@ -59,37 +59,38 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 
 **************************************************************************************************************
+<!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-<!-- ### **WORK IN PROGRESS** -->
 ### **WORK IN PROGRESS**
 * (simatec) History Gui Fix
 * (simatec) Tab GUI modified
+* (bluefox) Added support for Admin 7
 
 ### 3.0.3 (2024-06-10)
-* (simatec) Fix WebDav
-* (simatec) Admin Notification for Backup erros added
+* (simatec) Fixed WebDav
+* (simatec) Admin Notification for Backup errors added
 * (simatec) Remove Sentry Config
 * (simatec) Translations updated
 * (simatec) Error handling optimized
 * (simatec) dependencies updated
 
 ### 3.0.2 (2024-06-06)
-* (simatec) Fix Google Drive
-* (simatec) Fix Translations
-* (simatec) Fix Onedrive
-* (simatec) Fix MySql Backup
-* (simatec) Fix Translation added
+* (simatec) Fixed Google Drive
+* (simatec) Fixed Translations
+* (simatec) Fixed Onedrive
+* (simatec) Fixed MySql Backup
+* (simatec) Fixed Translation added
 * (simatec) Design Fix
 * (simatec) new notifications content added
 
 ### 3.0.1 (2024-05-29)
-* (simatec) Fix umount callback
-* (simatec) Fix Backup Message
+* (simatec) Fixed umount callback
+* (simatec) Fixed Backup Message
 * (simatec) Translations updated
-* (simatec) Fix InfluxDB Multi Backup
-* (simatec) Fix Restore Console
-* (simatec) Fix Backup Console
+* (simatec) Fixed InfluxDB Multi Backup
+* (simatec) Fixed Restore Console
+* (simatec) Fixed Backup Console
 
 ### 3.0.0 (2024-05-28)
 * (simatec) jsonConfig added
@@ -97,14 +98,14 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (bluefox) Added react components
 * (bluefox/simatec) Working on React GUI
 * (simatec) dependencies updated
-* (simatec) Fix Yahka Backup
-* (simatec) Fix Nodered Backup
+* (simatec) Fixed Yahka Backup
+* (simatec) Fixed Nodered Backup
 * (simatec) some bugs fixed
 * (bluefox/simatec) New Restore-Interface
 * (simatec) Translation updated
 
 ### 2.11.0 (2024-03-04)
-* (simatec) Fix Sqlite3 Path
+* (simatec) Fixed Sqlite3 Path
 
 ### 2.10.11 (2024-02-14)
 * (simatec) Design Fix
@@ -114,10 +115,10 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) small Design Fix
 
 ### 2.10.9 (2024-02-01)
-* (simatec) Fix Translation
+* (simatec) Fixed Translation
 
 ### 2.10.8 (2024-01-30)
-* (simatec) Fix Expert Mount
+* (simatec) Fixed Expert Mount
 * (simatec) Docu updated
 * (simatec) dependencies updated
 
@@ -137,10 +138,10 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) dependencies updated
 
 ### 2.10.5 (2024-01-22)
-* (simatec) Fix CCU Backup with selfsigned Certificates
+* (simatec) Fixed CCU Backup with selfsigned Certificates
 
 ### 2.10.4 (2024-01-21)
-* (simatec) Fix CCU Backup
+* (simatec) Fixed CCU Backup
 
 ### 2.10.3 (2024-01-19)
 * (simatec) CCU backup switched from request to axios
@@ -163,7 +164,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) Breaking Changes for Docker mapping ports
 
 ### 2.9.10 (2023-12-29)
-* (simatec) Fix node-red restore
+* (simatec) Fixed node-red restore
 * (simatec) auto install after restore for node-red added
 
 ### 2.9.9 (2023-12-29)
@@ -176,7 +177,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ### 2.9.7 (2023-12-12)
 * (simatec) URL Update
-* (simatec) Fix redis Password
+* (simatec) Fixed redis Password
 
 ### 2.9.6 (2023-12-10)
 * (simatec) Gotify Notication added
@@ -185,17 +186,17 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ### 2.9.5 (2023-11-29)
 * (simatec) dependencies updated
-* (simatec) Fix redis Password
+* (simatec) Fixed redis Password
 
 ### 2.9.4 (2023-11-20)
 * (simatec) dependencies updated
-* (simatec) Fix CIFS Password
-* (simatec) Fix mySql Password
-* (simatec) Fix pgSql Password
-* (simatec) Fix redis Password
+* (simatec) Fixed CIFS Password
+* (simatec) Fixed mySql Password
+* (simatec) Fixed pgSql Password
+* (simatec) Fixed redis Password
 
 ### 2.9.3 (2023-11-11)
-* (simatec) Fix Port for Filerserver
+* (simatec) Fixed Port for Filerserver
 * (simatec) Docu updated
 
 ### 2.9.2 (2023-11-10)
@@ -217,26 +218,26 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (buanet) fix restore in docker v9
 
 ### 2.8.6 (2023-10-13)
-* (simatec) Fix node-red restore
+* (simatec) Fixed node-red restore
 * (simatec) dependencies updated
 
 ### 2.8.5 (2023-10-13)
-* (simatec) Fix mount errors
+* (simatec) Fixed mount errors
 
 ### 2.8.4 (2023-10-11)
-* (simatec) Fix mysql Backup
-* (simatec) Fix pgsql Backup
-* (simatec) Fix InfluxDB Backup
+* (simatec) Fixed mysql Backup
+* (simatec) Fixed pgsql Backup
+* (simatec) Fixed InfluxDB Backup
 
 ### 2.8.3 (2023-10-10)
 * (simatec) Wake on LAN Advanced Settings added
 * (simatec) dependencies updated
 
 ### 2.8.2 (2023-09-28)
-* (simatec) Fix redis backup
+* (simatec) Fixed redis backup
 
 ### 2.8.1 (2023-09-12)
-* (simatec) Fix roles
+* (simatec) Fixed roles
 * (simatec) help-links added
 
 ### 2.8.0 (2023-09-11)
@@ -245,13 +246,13 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) Docu & Wiki updated
 * (simatec) Translation updated
 * (simatec) dependencies updated
-* (simatec) Fix Webdav
+* (simatec) Fixed Webdav
 * (simatec) WOL Address & Port added
 * (simatec) Restore for Backitup Config added
 
 ### 2.7.0 (2023-08-14)
 * (simatec) dependencies updated
-* (simatec) Fix error Messages
+* (simatec) Fixed error Messages
 * (simatec) edit automatic name addition added
 * (simatec) Docu & Wiki updated
 * (simatec) small bug fixes
@@ -259,18 +260,18 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (crycode-de) Add support for sending notifications via discord (requires ioBroker.discord >= 2.1)
 
 ### 2.6.23 (2023-05-25)
-* (simatec) Fix Influx Restore for MultiDB
+* (simatec) Fixed Influx Restore for MultiDB
 * (simatec) Token renew for Onedrive added
-* (simatec) Fix PSQL Restore
+* (simatec) Fixed PSQL Restore
 
 ### 2.6.22 (2023-05-24)
-* (simatec) Fix Influx Restore for MultiDB
+* (simatec) Fixed Influx Restore for MultiDB
 * (simatec) Default Ports for InfluxDB added
 
 ### 2.6.21 (2023-05-19)
 * (simatec) small Sentry fixes
-* (simatec) Fix Influx Restore
-* (simatec) Fix Onedrive Download
+* (simatec) Fixed Influx Restore
+* (simatec) Fixed Onedrive Download
 * (simatec) dependencies updated
 
 ### 2.6.20 (2023-05-02)
@@ -286,7 +287,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) Error notifications optimized
 
 ### 2.6.17 (2023-04-13)
-* (simatec) Fix delete InfluxDB tmp dir
+* (simatec) Fixed delete InfluxDB tmp dir
 * (simatec) small Sentry fixes
 
 ### 2.6.16 (2023-03-30)
@@ -302,35 +303,35 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) Bug Fix History JSON
 
 ### 2.6.13 (2023-03-22)
-* (simatec) Fix Zigbee2mqtt Restore
-* (simatec) Fix Grafana Backup
+* (simatec) Fixed Zigbee2mqtt Restore
+* (simatec) Fixed Grafana Backup
 * (simatec) Backup notifications optimized
 * (simatec) Error notifications optimized
 * (simatec) history data optimized
 * (simatec) small bug fixes
 
 ### 2.6.12 (2023-03-16)
-* (simatec) Fix Zigbee2mqtt Backup & Restore
+* (simatec) Fixed Zigbee2mqtt Backup & Restore
 * (simatec) Node-Red Backup optimized
 * (simatec) Grafana Backup optimized
 * (simatec) InfluxDB Backup optimized
 * (simatec) Docu & Wiki updated
 
 ### 2.6.11 (2023-03-11)
-* (simatec) Fix Zigbee2mqtt Backup & Restore
+* (simatec) Fixed Zigbee2mqtt Backup & Restore
 
 ### 2.6.10 (2023-03-10)
 * (simatec) Design Fix
 * (simatec) node 14 set as minimum requirement
 * (simatec) cleaning status log added
-* (simatec) Fix Node-Red Backup & Restore
+* (simatec) Fixed Node-Red Backup & Restore
 
 ### 2.6.9 (2023-03-08)
 * (simatec) Dropbox session upload optimized
 * (simatec) Error handling optimized
 
 ### 2.6.8 (2023-03-07)
-* (simatec) Fix Dropbox session upload
+* (simatec) Fixed Dropbox session upload
 
 ### 2.6.7 (2023-03-06)
 * (simatec) Dropbox session upload optimized
@@ -339,19 +340,19 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) Dropbox file upload up to 350 GB added
 
 ### 2.6.5 (2023-03-03)
-* (simatec) Fix cifs Password
-* (simatec) Fix InfluxDB-Backup
+* (simatec) Fixed cifs Password
+* (simatec) Fixed InfluxDB-Backup
 
 ### 2.6.4 (2023-02-26)
 * (simatec) Design optimized
 * (simatec) Onedrive Upload Session added
 
 ### 2.6.3 (2023-02-24)
-* (simatec) Fix SQLite3 Backup
-* (simatec) Fix Matrix Message
+* (simatec) Fixed SQLite3 Backup
+* (simatec) Fixed Matrix Message
 
 ### 2.6.2 (2023-02-23)
-* (simatec) Fix SQLite3 Backup
+* (simatec) Fixed SQLite3 Backup
 
 ### 2.6.1 (2023-02-20)
 * (simatec) igonore temp-files for redis added
@@ -370,26 +371,26 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) many small Fixes
 
 ### 2.5.12 (2023-01-19)
-* (simatec) Fix Windows ioBroker-Restore
+* (simatec) Fixed Windows ioBroker-Restore
 
 ### 2.5.11 (2023-01-18)
-* (simatec) Fix Windows ioBroker-Restore
+* (simatec) Fixed Windows ioBroker-Restore
 
 ### 2.5.10 (2023-01-03)
-* (simatec) Fix Docker Restore
-* (simatec) Fix Link Design
+* (simatec) Fixed Docker Restore
+* (simatec) Fixed Link Design
 * (simatec) dependencies updated
-* (Grothesk242) Fix CIFS Mount
+* (Grothesk242) Fixed CIFS Mount
 
 ### 2.5.9 (2022-12-05)
 * (simatec) dependencies dropbox-v2-api updated
-* (simatec) Fix Zigbee Restore
-* (simatec) Fix Yahka Restore
-* (simatec) Fix Javascript Restore
-* (simatec) Fix Dropbox Error Messages
+* (simatec) Fixed Zigbee Restore
+* (simatec) Fixed Yahka Restore
+* (simatec) Fixed Javascript Restore
+* (simatec) Fixed Dropbox Error Messages
 
 ### 2.5.8 (2022-12-03)
-* (simatec) Fix iobroker Backup
+* (simatec) Fixed iobroker Backup
 * (simatec) dependencies updated
 
 ### 2.5.7 (2022-11-27)
@@ -397,8 +398,8 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (bluefox) Added ukrainian language
 
 ### 2.5.6 (2022-11-14)
-* (simatec) Fix Grafana Backup
-* (simatec) Fix Downloadserver
+* (simatec) Fixed Grafana Backup
+* (simatec) Fixed Downloadserver
 * (simatec) Translation updated
 
 ### 2.5.5 (2022-11-13)
@@ -406,9 +407,9 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) Docker DB Support added
 
 ### 2.5.4 (2022-11-02)
-* (simatec) Fix maxBuffer for DB-Backups
+* (simatec) Fixed maxBuffer for DB-Backups
 * (simatec) Docu updated
-* (simatec) Fix Dropbox error messages
+* (simatec) Fixed Dropbox error messages
 * (simatec) Grafana self signed Certificates added
 
 ### 2.5.3 (2022-11-01)
@@ -436,25 +437,25 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ### 2.4.13 (2022-09-28)
 * (simatec) dependencies updated
-* (simatec) Fix Grafana Backup
+* (simatec) Fixed Grafana Backup
 * (simatec) Appveyor testing removed
-* (simatec) Fix Test & Release
+* (simatec) Fixed Test & Release
 
 ### 2.4.12 (2022-08-11)
-* (simatec) Fix WebDav Error Handling
+* (simatec) Fixed WebDav Error Handling
 
 ### 2.4.11 (2022-08-10)
 * (simatec) Filesize Check added
 * (simatec) dependencies updated
-* (simatec) Fix mySql Backup
-* (simatec) Fix pgSql Backup
+* (simatec) Fixed mySql Backup
+* (simatec) Fixed pgSql Backup
 
 ### 2.4.10 (2022-07-05)
 * (simatec) Code cleaning
 * (simatec) dependencies updated
 * (simatec) Disclaimer added
 * (simatec) Travis Support removed
-* (simatec) Fix backup-download with ssl
+* (simatec) Fixed backup-download with ssl
 
 ### 2.4.9 (2022-05-25)
 * (simatec) German Wiki added
@@ -462,12 +463,12 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) ignore .tar.gz files for zigbee Backups
 
 ### 2.4.8 (2022-05-18)
-* (simatec) Fix restore from local Mount path
+* (simatec) Fixed restore from local Mount path
 
 ### 2.4.7 (2022-05-16)
 * (simatec) dependencies updated
 * (simatec) many small bugfixes
-* (simatec) Fix Sentry Error Messages
+* (simatec) Fixed Sentry Error Messages
 * (simatec) Default SMB Version 3.1.1
 
 ### 2.4.6 (2022-04-06)
@@ -516,7 +517,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ### 2.3.2 (2022-02-13)
 * (simatec) Bugfix Restore Interface for http
-* (simatec) Fix json history
+* (simatec) Fixed json history
 
 ### 2.3.1 (2022-02-12)
 * (simatec) Bugfix Grafana
@@ -540,15 +541,15 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ### 2.2.4 (2022-01-27)
 * (simatec) Restore backup of different controller version added
-* (simatec) Fix YAHKA Backup for more Instances
+* (simatec) Fixed YAHKA Backup for more Instances
 
 ### 2.2.3 (2022-01-10)
 * (simatec) Bugfix Error Message
 * (simatec) dependencies updated
 
 ### 2.2.2 (06.11.2021)
-* (simatec) Fix CCU option to use self-signed certificates
-* (simatec) Fix Config Menu
+* (simatec) Fixed CCU option to use self-signed certificates
+* (simatec) Fixed Config Menu
 * (simatec) dependabot added
 * (simatec) small Bugfixes
 
@@ -839,13 +840,13 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) Bugfix CIFS Domain
 
 ### 1.4.4 (23.03.2020)
-* (simatec) Fix history error
+* (simatec) Fixed history error
 
 ### 1.4.3 (21.03.2020)
-* (simatec) Fix for autochecker
+* (simatec) Fixed for autochecker
 
 ### 1.4.2 (21.03.2020)
-* (simatec) Fix start after restore
+* (simatec) Fixed start after restore
 * (simatec) update dependencies
 
 ### 1.4.1 (02.03.2020)
@@ -859,18 +860,18 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) added json historystate
 
 ### 1.3.6 (18.12.2019)
-* (simatec) Fix historyList for compact-mode
+* (simatec) Fixed historyList for compact-mode
 * (simatec) Added ack for history states
 
 ### 1.3.5 (17.12.2019)
-* (simatec) Fix compact-mode for history
+* (simatec) Fixed compact-mode for history
 
 ### 1.3.4 (15.12.2019)
-* (simatec) Fix hide passwords
+* (simatec) Fixed hide passwords
 
 ### 1.3.3 (14.12.2019)
-* (simatec) Fix Webinterface for Restore
-* (simatec) Fix MySql Backup
+* (simatec) Fixed Webinterface for Restore
+* (simatec) Fixed MySql Backup
 * (simatec) Added some debug logs for Restore
 * (simatec) some Bug Fix
 * (simatec) Messagebox for restore list
@@ -878,7 +879,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) Added password hiding
 * (simatec) Clean Code
 * (simatec) detected history path
-* (simatec) Fix deteced
+* (simatec) Fix detected
 
 ### 1.3.2 (04.12.2019)
 * (simatec) Add Webinterface for Restore
@@ -888,7 +889,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (bluefox) Added information about latest backup
 * (simatec) some Bug fix
 * (simatec) add new translation
-* (simatec) Fix translation
+* (simatec) Fixed translation
 * (simatec) Default backup renamed to ioBroker backup
 * (simatec) delete old objects
 
@@ -906,10 +907,10 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) fixed some small bugs
 
 ### 1.2.2 (20.10.2019)
-* (simatec) Fix update process
+* (simatec) Fixed update process
 
 ### 1.2.1 (19.10.2019)
-* (simatec) Fix CIFS password with special characters
+* (simatec) Fixed CIFS password with special characters
 
 ### 1.2.0 (02.07.2019)
 * (bluefox) Google Drive was added
@@ -928,10 +929,10 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ### 1.1.2 (21.02.2019)
 * (simatec) exec Start for iobroker
-* (simatec) Fix umount before Restore
+* (simatec) Fixed umount before Restore
 
 ### 1.1.1 (12.02.2019)
-* (simatec) Fix iobroker-stop for total backup
+* (simatec) Fixed iobroker-stop for total backup
 
 ### 1.1.0 (10.02.2019)
 * (simatec) stable Release
@@ -945,17 +946,17 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 ### 1.0.8 (26.01.2019)
 * (simatec) modification for new installer
 * (simatec) WOL-waittime adjustable
-* (simatec) Fix History settings
+* (simatec) Fixed History settings
 
 ### 1.0.7 (17.01.2019)
 * (simatec) better start/stop Handling for backup and restore
 
 ### 1.0.6 (16.01.2019)
-* (simatec) Fix Start/Stop for new iobroker-installer
+* (simatec) Fixed Start/Stop for new iobroker-installer
 
 ### 1.0.5 (14.01.2019)
-* (simatec) Fix compact mode
-* (simatec) Fix total backup
+* (simatec) Fixed compact mode
+* (simatec) Fixed total backup
 * (simatec) better history handling for html
 * (simatec) better history handling
 * (simatec) error Message for telegram
@@ -969,24 +970,24 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) Bugfix
 
 ### 1.0.2 (05.01.2019)
-* (simatec) Fix start/stop for new iobroker-Installer
+* (simatec) Fixed start/stop for new iobroker-Installer
 
 ### 1.0.1 (30.12.2018)
-* (simatec) Fix delete old Files
-* (simatec) Add wake on LAN for CIFS and NFS
+* (simatec) Fixed delete old Files
+* (simatec) Add a wake on LAN for CIFS and NFS
 
 ### 1.0.0 (24.12.2018)
 * (simatec) Stable Release
 
 ### 0.4.4 (19.12.2018)
-* (simatec) Fix cifs-mount User
+* (simatec) Fixed cifs-mount User
 
 ### 0.4.3 (17.12.2018)
 * (simatec) Add device ID for pushover
 
 ### 0.4.2 (10.12.2018)
-* (simatec) Fix mount / umount
-* (simatec) Fix Readme
+* (simatec) Fixed mount / umount
+* (simatec) Fixed Readme
 
 ### 0.4.1 (07.12.2018)
 * (simatec) Added boolean for backup Success
@@ -997,45 +998,45 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) Added Pushover Notification
 
 ### 0.3.9 (03.12.2018)
-* (simatec) Fix cifs/nfs mount and umount
+* (simatec) Fixed cifs/nfs mount and umount
 
 ### 0.3.8 (08.11.2018)
-* (simatec) Fix notifications format
-* (simatec) Fix Telegram User
+* (simatec) Fixed notifications format
+* (simatec) Fixed Telegram User
 
 ### 0.3.7 (07.11.2018)
 * (simatec) Added e-mail notification
 * (simatec) Create backup directory on first boot
 * (simatec) many small changes
-* (peoples) Fix Telegram SilentNotice
+* (peoples) Fixed Telegram SilentNotice
 * (peoples) Added Possibility to select a Telegram Receiver
 * (peoples) Added Possibility to select a Telegram Notification length
 * (peoples) Some Translations
 
 ### 0.3.6 (16.10.2018)
-* (simatec) Fix Dropbox Backup
-* (simatec) Fix Restore path for ownDir
-* (simatec) Fix FTP and NAS path
-* (simatec) Fix Access Token for dropbox
+* (simatec) Fixed Dropbox Backup
+* (simatec) Fixed Restore path for ownDir
+* (simatec) Fixed FTP and NAS path
+* (simatec) Fixed Access Token for dropbox
 
 ### 0.3.5 (03.10.2018)
-* (simatec) Fix Translation
-* (simatec) Fix Filename Suffix for Restore
+* (simatec) Fixed Translation
+* (simatec) Fixed Filename Suffix for Restore
 * (peoples) Bugfix Title for Backup deletion
 
 ### 0.3.4 (01.10.2018)
-* (simatec) Fix Restart after total-backup
+* (simatec) Fixed Restart after total-backup
 
 ### 0.3.3 (27.09.2018)
-* (simatec) Fix Backup-Directoy for dropbox
-* (simatec) Fix Restart after total-backup
-* (simatec) Fix error Log on cifs
+* (simatec) Fixed Backup-Directoy for dropbox
+* (simatec) Fixed Restart after total-backup
+* (simatec) Fixed error Log on cifs
 
 ### 0.3.2 (25.09.2018)
-* (simatec) Fix Filename for ccu backup
+* (simatec) Fixed Filename for ccu backup
 
 ### 0.3.1 (25.09.2018)
-* (simatec) Fix FTP Directory
+* (simatec) Fixed FTP Directory
 * (simatec) delete old Files
 
 ### 0.3.0 (24.09.2018)
@@ -1047,19 +1048,19 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (bluefox/simatec) Restore added via NAS/FTP/Local/Dropbox (Beta)
 * (simatec) NFS support added
 * (bluefox) Dropbox Support added
-* (bluefox) Fix History
+* (bluefox) Fixed History
 * (peoples) Added silent mode for telegram
 * (simatec) Redis/mysql added with standard backup
 * (simatec) translations added
 * (simatec) Docs adapted
 
 ### 0.2.7 (29.07.2018)
-* (simatec) Fix Delete old Files
+* (simatec) Fixed Delete old Files
 
 ### 0.2.6 (27.07.2018)
 * (bluefox) Configurable redis path was added
 * (simatec) Translations Script
-* (simatec) Fix FTP Upload
+* (simatec) Fixed FTP Upload
 
 ### 0.2.5 (26.07.2018)
 * (simatec) Check for dependencies

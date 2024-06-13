@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@mui/styles';
 
-import { ConfigGeneric, I18n } from '@iobroker/adapter-react-v5';
+import { I18n } from '@iobroker/adapter-react-v5';
+import { ConfigGeneric } from '@iobroker/json-config';
 import {
     Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, LinearProgress,
 } from '@mui/material';

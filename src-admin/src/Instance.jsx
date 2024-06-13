@@ -6,7 +6,8 @@ import {
     MenuItem, Select, TextField,
 } from '@mui/material';
 
-import { I18n, ConfigGeneric } from '@iobroker/adapter-react-v5';
+import { I18n } from '@iobroker/adapter-react-v5';
+import { ConfigGeneric } from '@iobroker/json-config';
 
 import BaseField from './BaseField';
 

@@ -1,4 +1,5 @@
-import { ConfigGeneric, I18n, Message } from '@iobroker/adapter-react-v5';
+import { I18n, Message } from '@iobroker/adapter-react-v5';
+import { ConfigGeneric } from '@iobroker/json-config';
 import { Info, Warning } from '@mui/icons-material';
 import { Alert } from '@mui/material';
 
