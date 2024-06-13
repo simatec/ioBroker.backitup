@@ -76,7 +76,7 @@ class CheckAllConfigInvisible extends BaseField {
                             if (result.diskState === 'warn' && result.storage === 'local') {
                                 this.showMessage(I18n.t('On the host only %s MB free space is available! Please check your system!', result.diskFree), I18n.t('BackItUp Information!'));
                             } else if (result.diskState === 'error' && result.storage === 'local') {
-                                this.showMessage(I18n.t('On the host only %s MB free space is available! Local backups are currently not possible.\n\nPlease check your system!', result.diskFree), I18n.t('BackItUp Information!'), 'warning');
+                                this.showMessage(I18n.t('On the host only %s MB free space is available! Local backups are currently not possible. Please check your system!', result.diskFree), I18n.t('BackItUp Information!'), 'warning');
                             }
                         }
                     });

@@ -38,7 +38,7 @@
     "Source type": "Bron Type",
     "The JavaScript Adapter scripts are already saved in the ioBroker backup.  This option is just an additional option to be able to restore the scripts individually if necessary.": "De JavaScript Adapter-scripts zijn al opgeslagen in de ioBroker-back-up.\n\nDeze optie is slechts een extra optie om de scripts indien nodig afzonderlijk te kunnen herstellen.",
     "On the host only %s MB free space is available! Please check your system!": "Op de host is slechts %s MB vrije ruimte beschikbaar! Controleer uw systeem!",
-    "On the host only %s MB free space is available! Local backups are currently not possible.  Please check your system!": "Op de host is slechts %s MB vrije ruimte beschikbaar! Lokale back-ups zijn momenteel niet mogelijk.\n\nControleer uw systeem!",
+    "On the host only %s MB free space is available! Local backups are currently not possible. Please check your system!": "Op de host is slechts %s MB vrije ruimte beschikbaar! Lokale back-ups zijn momenteel niet mogelijk.\n\nControleer uw systeem!",
     "Config found in %s, but nothing changed": "Configuratie gevonden in %s, maar er is niets veranderd",
     "Dropbox refresh token:": "Dropbox-vernieuwingstoken:",
     "Present": "Cadeau",

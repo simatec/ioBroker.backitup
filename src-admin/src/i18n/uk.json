@@ -38,7 +38,7 @@
     "Source type": "Тип джерела",
     "The JavaScript Adapter scripts are already saved in the ioBroker backup.  This option is just an additional option to be able to restore the scripts individually if necessary.": "Сценарії адаптера JavaScript уже збережено в резервній копії ioBroker.\n\nЦей параметр є лише додатковим параметром, щоб мати можливість відновити сценарії окремо, якщо це необхідно.",
     "On the host only %s MB free space is available! Please check your system!": "На хості доступно лише %s МБ вільного місця! Будь ласка, перевірте свою систему!",
-    "On the host only %s MB free space is available! Local backups are currently not possible.  Please check your system!": "На хості доступно лише %s МБ вільного місця! Локальні резервні копії наразі неможливі.\n\nБудь ласка, перевірте свою систему!",
+    "On the host only %s MB free space is available! Local backups are currently not possible. Please check your system!": "На хості доступно лише %s МБ вільного місця! Локальні резервні копії наразі неможливі.\n\nБудь ласка, перевірте свою систему!",
     "Config found in %s, but nothing changed": "Конфігурацію знайдено в %s, але нічого не змінилося",
     "Dropbox refresh token:": "Маркер оновлення Dropbox:",
     "Present": "присутній",

@@ -21,9 +21,7 @@ class AdapterExist extends BaseField {
                                 this.checkAdapterInstall(this.props.schema.adapter, this.props.schema.allHosts)
                                     .catch(err => console.error(err));
                             } else if (this.props.schema.alert) {
-                                const text = I18n.t(this.props.schema.alert);
-                                const lines = text.split('\n').map(line => <div key={line} style={{ minHeight: 24 }}>{line}</div>);
-                                this.setState({ message: { text: lines, title: I18n.t(this.props.schema.title) } });
+                                this.setState({ message: { text: I18n.t(this.props.schema.alert), title: I18n.t(this.props.schema.title) } });
                             }
                         }
                         this.props.onChange({ ...this.props.data, [this.props.attr]: e.target.checked });

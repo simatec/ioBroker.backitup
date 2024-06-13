@@ -394,9 +394,16 @@ class BaseField extends ConfigGeneric {
     };
 
     renderMessage() {
+        if (!this.state.message) {
+            return null;
+        }
+
+        const lines = this.state.message.text.split('\n')
+            .map(line => <div key={line} style={{ minHeight: 24 }}>{line}</div>);
+
         return this.state.message ? <Message
             title={this.state.message.title}
-            text={this.state.message.text}
+            text={lines}
             icon={this.state.message.level === 'info' ? <Info /> :
                 (this.state.message.level === 'warning' ? <Warning style={{ color: 'orange' }} /> :
                     (this.state.message.level === 'error' ? <Alert style={{ color: 'red' }} /> : null))}

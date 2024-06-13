@@ -38,7 +38,7 @@
     "Source type": "Type de Source",
     "The JavaScript Adapter scripts are already saved in the ioBroker backup.  This option is just an additional option to be able to restore the scripts individually if necessary.": "Les scripts de l'adaptateur JavaScript sont déjà enregistrés dans la sauvegarde ioBroker.\n\nCette option n'est qu'une option supplémentaire pour pouvoir restaurer les scripts individuellement si nécessaire.",
     "On the host only %s MB free space is available! Please check your system!": "Sur l'hôte, seul %s Mo d'espace libre est disponible ! Veuillez vérifier votre système !",
-    "On the host only %s MB free space is available! Local backups are currently not possible.  Please check your system!": "Sur l'hôte, seul %s Mo d'espace libre est disponible ! Les sauvegardes locales ne sont actuellement pas possibles.\n\nVeuillez vérifier votre système !",
+    "On the host only %s MB free space is available! Local backups are currently not possible. Please check your system!": "Sur l'hôte, seul %s Mo d'espace libre est disponible ! Les sauvegardes locales ne sont actuellement pas possibles.\n\nVeuillez vérifier votre système !",
     "Config found in %s, but nothing changed": "Configuration trouvée dans %s, mais rien n'a changé",
     "Dropbox refresh token:": "Jeton d'actualisation Dropbox :",
     "Present": "Présent",
