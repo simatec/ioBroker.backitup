@@ -233,7 +233,7 @@
   "If the tab does not open, please deactivate your popup blocker.": "If the tab does not open, please deactivate your popup blocker.",
   "KiB": "KiB",
   "MiB": "MiB",
-  "No %s Instance found on this host. Please check your System": "No %s Instance found on this host. Please check your System",
+  "No %s Instance found on this host.\nPlease check your System": "No %s Instance found on this host.\nPlease check your System",
   "No config found": "No config found",
   "Not present": "Not present",
   "On the host only %s MB free space is available! Local backups are currently not possible.  Please check your system!": "On the host only %s MB free space is available! Local backups are currently not possible.  Please check your system!",

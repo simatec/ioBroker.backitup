@@ -8,7 +8,7 @@
     "Config taken from %s": "配置取自 %s",
     "BackItUp Warning!": "备份警告！",
     "No config found": "没有找到配置",
-    "No %s Instance found on this host. Please check your System": "在此主机上找不到 %s 实例。请检查您的系统",
+    "No %s Instance found on this host.\nPlease check your System": "在此主机上找不到 %s 实例。请检查您的系统",
     "Detect config": "检测配置",
     "Authorize this app by visiting": "通过访问授权此应用程序",
     "Enter the code from that page here": "在此输入该页面的代码",

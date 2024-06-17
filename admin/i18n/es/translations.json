@@ -232,7 +232,7 @@
     "If the tab does not open, please deactivate your popup blocker.": "Si la pestaña no se abre, desactive su bloqueador de ventanas emergentes.",
     "KiB": "Kib",
     "MiB": "MiB",
-    "No %s Instance found on this host. Please check your System": "No se encontró ninguna instancia %s en este host. Por favor revisa tu sistema",
+    "No %s Instance found on this host.\nPlease check your System": "No se encontró ninguna instancia %s en este host. Por favor revisa tu sistema",
     "No config found": "No se encontró ninguna configuración",
     "Not present": "No presente",
     "On the host only %s MB free space is available! Local backups are currently not possible.  Please check your system!": "¡En el host solo hay %s MB de espacio libre disponible! Actualmente no es posible realizar copias de seguridad locales. ¡Por favor revise su sistema!",

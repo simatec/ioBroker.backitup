@@ -232,7 +232,7 @@
     "If the tab does not open, please deactivate your popup blocker.": "Als het tabblad niet wordt geopend, schakel dan uw pop-upblokkering uit.",
     "KiB": "KiB",
     "MiB": "MiB",
-    "No %s Instance found on this host. Please check your System": "Geen %s exemplaar gevonden op deze host. Controleer uw systeem",
+    "No %s Instance found on this host.\nPlease check your System": "Geen %s exemplaar gevonden op deze host. Controleer uw systeem",
     "No config found": "Geen configuratie gevonden",
     "Not present": "Niet aanwezig",
     "On the host only %s MB free space is available! Local backups are currently not possible.  Please check your system!": "Op de host is slechts %s MB vrije ruimte beschikbaar! Lokale back-ups zijn momenteel niet mogelijk. Controleer uw systeem!",

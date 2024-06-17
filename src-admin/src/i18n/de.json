@@ -11,7 +11,7 @@
     "Detect config": "Konfiguration ermitteln",
     "Enter the code from that page here": "Geben Sie den Code von dieser Seite hier ein",
     "Get google drive access": "Erhalten Sie Zugriff auf Google Drive",
-    "No %s Instance found on this host. Please check your System": "Auf diesem Host wurde keine %s-Instanz gefunden. Bitte überprüfen Sie Ihr System",
+    "No %s Instance found on this host.\nPlease check your System": "Auf diesem Host wurde keine %s-Instanz gefunden.\nBitte überprüfen Sie Ihr System",
     "No config found": "Keine Konfiguration gefunden",
     "Renew google drive access": "Google Drive-Zugriff erneuern",
     "ra_Close": "Schließen",

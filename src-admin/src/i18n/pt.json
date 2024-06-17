@@ -8,7 +8,7 @@
     "Config taken from %s": "Configuração retirada de %s",
     "BackItUp Warning!": "Aviso de BackItUp!",
     "No config found": "Nenhuma configuração encontrada",
-    "No %s Instance found on this host. Please check your System": "Nenhuma instância %s encontrada neste host. Por favor, verifique seu sistema",
+    "No %s Instance found on this host.\nPlease check your System": "Nenhuma instância %s encontrada neste host. Por favor, verifique seu sistema",
     "Detect config": "Detectar configuração",
     "Authorize this app by visiting": "Autorize este aplicativo visitando",
     "Enter the code from that page here": "Digite o código dessa página aqui",

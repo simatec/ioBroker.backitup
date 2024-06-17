@@ -375,16 +375,10 @@ class BaseField extends ConfigGeneric {
                     }
                 }
                 if (!found && SHOW_MESSAGE_FOR.includes(adapterName)) {
-                    this.showMessage(
-                        I18n.t('BackItUp Warning!'),
-                        I18n.t('No "%s" Instance found on this host. Please check your system', adapterName),
-                    );
+                    this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('No %s Instance found on this host.\nPlease check your System', adapterName), 'warning');
                 }
             } else if (SHOW_MESSAGE_FOR.includes(adapterName)) {
-                this.showMessage(
-                    I18n.t('BackItUp Warning!'),
-                    I18n.t('No "%s" Instance found. Please check your system', adapterName),
-                );
+                this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('No %s Instance found on this host.\nPlease check your System', adapterName), 'warning');
             }
         }
     };

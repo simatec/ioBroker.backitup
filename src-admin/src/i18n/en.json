@@ -8,7 +8,7 @@
   "Config taken from %s": "Config taken from %s",
   "BackItUp Warning!": "Backitup Warning!",
   "No config found": "No config found",
-  "No %s Instance found on this host. Please check your System": "No %s Instance found on this host. Please check your System",
+  "No %s Instance found on this host.\nPlease check your System": "No %s Instance found on this host.\nPlease check your System",
   "Detect config": "Detect config",
   "Authorize this app by visiting": "Authorize this app by visiting",
   "Enter the code from that page here": "Enter the code from that page here",
@@ -80,6 +80,7 @@
   "WebDAV": "WebDAV",
   "Please enter here the code from the address line of the opened page (code=)": "Please enter here the code from the address line of the opened page (code=)",
   "No storage path of %s is configured.\nThe default path of the history adapter has been set.": "No storage path of %s is configured.\nThe default path of the history adapter has been set.",
-  "The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!": "The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!"
+  "The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!": "The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!",
+  "Unknown config type %s": "Unknown config type %s"
 
 }

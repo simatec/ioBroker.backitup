@@ -232,7 +232,7 @@
     "If the tab does not open, please deactivate your popup blocker.": "Если вкладка не открывается, отключите блокировку всплывающих окон.",
     "KiB": "КиБ",
     "MiB": "МиБ",
-    "No %s Instance found on this host. Please check your System": "На этом хосте не найден экземпляр %s. Пожалуйста, проверьте вашу систему",
+    "No %s Instance found on this host.\nPlease check your System": "На этом хосте не найден экземпляр %s. Пожалуйста, проверьте вашу систему",
     "No config found": "Конфигурация не найдена",
     "Not present": "Нет",
     "On the host only %s MB free space is available! Local backups are currently not possible.  Please check your system!": "На хосте доступно только %s МБ свободного места! Локальное резервное копирование в настоящее время невозможно. Пожалуйста, проверьте вашу систему!",

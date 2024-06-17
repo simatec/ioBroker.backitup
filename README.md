@@ -66,6 +66,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) History Gui Fix
 * (simatec) Tab GUI modified
 * (bluefox) Added support for Admin 7
+* (simatec) Onedrive ready for School/Business Accounts
 
 ### 3.0.3 (2024-06-10)
 * (simatec) Fixed WebDav

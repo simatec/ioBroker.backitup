@@ -232,7 +232,7 @@
     "If the tab does not open, please deactivate your popup blocker.": "如果该选项卡未打开，请停用弹出窗口阻止程序。",
     "KiB": "基布",
     "MiB": "米布",
-    "No %s Instance found on this host. Please check your System": "在此主机上找不到 %s 实例。请检查您的系统",
+    "No %s Instance found on this host.\nPlease check your System": "在此主机上找不到 %s 实例。请检查您的系统",
     "No config found": "没有找到配置",
     "Not present": "不存在",
     "On the host only %s MB free space is available! Local backups are currently not possible.  Please check your system!": "主机上只有 %s MB 可用空间！目前无法进行本地备份。请检查您的系统！",

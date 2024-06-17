@@ -8,7 +8,7 @@
     "Config taken from %s": "Конфигурация взята из %s",
     "BackItUp Warning!": "BackItUp Внимание!",
     "No config found": "Конфигурация не найдена",
-    "No %s Instance found on this host. Please check your System": "На этом хосте не найден экземпляр %s. Пожалуйста, проверьте вашу систему",
+    "No %s Instance found on this host.\nPlease check your System": "На этом хосте не найден экземпляр %s. Пожалуйста, проверьте вашу систему",
     "Detect config": "Определить конфигурацию",
     "Authorize this app by visiting": "Авторизуйте это приложение, посетив",
     "Enter the code from that page here": "Введите код с этой страницы здесь",
