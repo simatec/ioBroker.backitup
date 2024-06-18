@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.4",
+    "version": "3.0.5",
     "news": {
+      "3.0.5": {
+        "en": "Fix Build",
+        "de": "Bebauen Sie sich",
+        "ru": "Fix Build",
+        "pt": "Construção de Fix",
+        "nl": "Bouwen herstellen",
+        "fr": "Correction de la construction",
+        "it": "Risolvere la costruzione",
+        "es": "Construido fijo",
+        "pl": "Fix Build",
+        "uk": "Налаштування",
+        "zh-cn": "修补构建"
+      },
       "3.0.4": {
         "en": "History Gui Fix\nTab GUI modified\nAdded support for Admin 7\nOnedrive ready for School/Business Accounts",
         "de": "Geschichte Gui Fix\nTab GUI modifiziert\nUnterstützung für Admin 7 hinzugefügt\nOnedrive bereit für Schul-/Geschäftskonten",
@@ -80,19 +93,6 @@
         "pl": "Fix Sqlite3 Ścieżka",
         "uk": "Фіксація Sqlite3 Шлях",
         "zh-cn": "修正 Sqlite3 路径"
-      },
-      "2.10.11": {
-        "en": "Design Fix\ndependencies updated",
-        "de": "Design Fix\naktualisierte abhängigkeiten",
-        "ru": "Дизайн Fix\nобновленная информация о зависимостях",
-        "pt": "Correção de Design\ndependências atualizadas",
-        "nl": "Ontwerpfix\nafhankelijkheden bijgewerkt",
-        "fr": "Correction de conception\ndépendances mises à jour",
-        "it": "Design Fix\ndipendenze aggiornate",
-        "es": "Diseño fijo\ndependencias actualizadas",
-        "pl": "Popraw projekt\nzaktualizowane zależności",
-        "uk": "Фіксація дизайну\nоновлені залежності",
-        "zh-cn": "设计\n更新依赖关系"
       }
     },
     "titleLang": {
