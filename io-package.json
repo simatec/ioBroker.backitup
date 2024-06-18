@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.3",
+    "version": "3.0.4",
     "news": {
+      "3.0.4": {
+        "en": "History Gui Fix\nTab GUI modified\nAdded support for Admin 7\nOnedrive ready for School/Business Accounts",
+        "de": "Geschichte Gui Fix\nTab GUI modifiziert\nUnterstützung für Admin 7 hinzugefügt\nOnedrive bereit für Schul-/Geschäftskonten",
+        "ru": "История Ги Дик\nВстроенный графический интерфейс\nПоддержка Админ 7\nOnedrive готов для счетов школы/бизнеса",
+        "pt": "Histórico Gui Fix\nGUI de guia modificado\nAdicionado suporte para Admin 7\nOnedrive pronto para contas de escola / negócios",
+        "nl": "Geschiedenis Gui Fix\nTab GUI gewijzigd\nOndersteuning toegevoegd voor Admin 7\nOnedrive klaar voor School/Business Accounts",
+        "fr": "Historique Gui Correction\nTab GUI modifié\nAjout du soutien pour Admin 7\nOnedrive prêt pour les comptes scolaires/d'affaires",
+        "it": "Storia Gui Fix\nScheda GUI modificata\nAggiunto il supporto per Admin 7\nOnedrive pronto per la scuola/conti aziendali",
+        "es": "Historia Gui fijar\nTab GUI modified\nApoyo añadido para el Admin 7\nOnedrive listo para Cuentas Escolares / de Negocios",
+        "pl": "Historia Gui Fix\nZmodyfikowany GUI tab\nDodano wsparcie dla Admin 7\nJeden dysk gotowy do konta szkolnego / biznesowego",
+        "uk": "Історія Gui Fix\nВкладка GUI модифікований\nДодано підтримку для Admin 7\nOnedrive готовий до бізнес-акаунтів",
+        "zh-cn": "历史 桂修\n标签图形界面已修改\n添加对管理员 7 的支持\n为学校/商业账户准备一辆车"
+      },
       "3.0.3": {
         "en": "Fix WebDav\nAdmin Notification for Backup erros added\nRemove Sentry Config\nTranslations updated\nError handling optimized\ndependencies updated",
         "de": "WebDav aktivieren\nAdmin-Benachrichtigung für Backup-Erros hinzugefügt\nEntfernen Sentry Config\nÜbersetzungen aktualisiert\nFehlerbehebung optimiert\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "Popraw projekt\nzaktualizowane zależności",
         "uk": "Фіксація дизайну\nоновлені залежності",
         "zh-cn": "设计\n更新依赖关系"
-      },
-      "2.10.10": {
-        "en": "small Design Fix",
-        "de": "kleines Design Fix",
-        "ru": "маленький дизайн Fix",
-        "pt": "pequeno Design Fix",
-        "nl": "kleine ontwerp Fix",
-        "fr": "petite fixation de conception",
-        "it": "piccolo Design Fix",
-        "es": "pequeño diseño fijar",
-        "pl": "mały projekt Fix",
-        "uk": "невеликий дизайн виправити",
-        "zh-cn": "小设计"
       }
     },
     "titleLang": {
