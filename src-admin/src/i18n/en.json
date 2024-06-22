@@ -81,6 +81,6 @@
   "Please enter here the code from the address line of the opened page (code=)": "Please enter here the code from the address line of the opened page (code=)",
   "No storage path of %s is configured.\nThe default path of the history adapter has been set.": "No storage path of %s is configured.\nThe default path of the history adapter has been set.",
   "The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!": "The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!",
-  "Unknown config type %s": "Unknown config type %s"
-
+  "Unknown config type %s": "Unknown config type %s",
+  "After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.": "After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again."
 }

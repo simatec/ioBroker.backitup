@@ -96,5 +96,6 @@
     "The backup was successfully created!": "Das Backup wurde erfolgreich erstellt!",
     "The backup could not be created completely!": "Das Backup konnte nicht vollständig erstellt werden!",
     "starting Backup...": "Backup gestartet ...",
-    "Please select a backup from the list!": "Bitte wählen Sie ein Backup aus der Liste aus!"
+    "Please select a backup from the list!": "Bitte wählen Sie ein Backup aus der Liste aus!",
+    "After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.": "Nach dem Neustart werden alle Adapter installiert. Bitte haben Sie etwas Geduld.\nEs kann je nach System einige Zeit dauern, bis alle Adapter wieder verfügbar sind."
 }

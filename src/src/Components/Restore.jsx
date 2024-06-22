@@ -228,7 +228,7 @@ class Restore extends Component {
                         level: code[1] === '0' ? 'INFO' : 'ERROR',
                         source: 'gui',
                         ts: now,
-                        text: code[1] === '0' ? I18n.t('Restore completed successfully!') : I18n.t('Restore was canceled!'),
+                        text: code[1] === '0' ? `${I18n.t('Restore completed successfully!')}\n${I18n.t('After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.')}` : I18n.t('Restore was canceled!'),
                     });
                 } else {
                     executionLog.push({ text: line });
