@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@mui/styles';
 
-import { I18n, Message } from '@iobroker/adapter-react-v5';
 import {
     Button, Checkbox, Dialog, DialogActions, DialogContent,
     DialogTitle, FormControlLabel, LinearProgress,
 } from '@mui/material';
+
 import { Close, SettingsBackupRestore } from '@mui/icons-material';
+
+import { I18n, Message } from '@iobroker/adapter-react-v5';
 
 const styles = {
     paper: {
         height: 'calc(100% - 64px)',
-    },
-    fullHeight: {
-        height: '100%',
-        '& .MuiInputBase-root': {
-            height: '100%',
-        },
     },
     textTime: {
         display: 'inline-block',
@@ -265,18 +260,18 @@ class Restore extends Component {
         this.closeTimeout = null;
     }
 
-    renderLine(line, i) {
-        return <div key={i} className={this.props.classes.textLine}>
-            <div className={`${this.props.classes.textTime} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.ts}</div>
-            <div className={`${this.props.classes.textLevel} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.level}</div>
-            <div className={`${this.props.classes.textSource} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.source}</div>
-            <div className={`${this.props.classes.text} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.text}</div>
+    static renderLine(line, i) {
+        return <div key={i} style={styles.textLine}>
+            <div style={{ ...styles.textTime, ...(line.level ? (styles[`textLevel-${line.level}`] || {}) : {}) }}>{line.ts}</div>
+            <div style={{ ...styles.textLevel, ...(line.level ? (styles[`textLevel-${line.level}`] || {}) : {}) }}>{line.level}</div>
+            <div style={{ ...styles.textSource, ...(line.level ? (styles[`textLevel-${line.level}`] || {}) : {}) }}>{line.source}</div>
+            <div style={{ ...styles.text, ...(line.level ? (styles[`textLevel-${line.level}`] || {}) : {}) }}>{line.text}</div>
         </div>;
     }
 
-    renderRestoreLine(line, i) {
-        return <div key={i} className={this.props.classes.textLine}>
-            <div className={this.props.classes.text} style={{ color: line.startsWith('[ERROR]') ? '#FF0000' : undefined }}>{line}</div>
+    static renderRestoreLine(line, i) {
+        return <div key={i} style={styles.textLine}>
+            <div style={{ ...styles.text, color: line.startsWith('[ERROR]') ? '#FF0000' : undefined }}>{line}</div>
         </div>;
     }
 
@@ -289,7 +284,7 @@ class Restore extends Component {
             onClose={() => { this.state.restoreProcess.done && this.setState({ showRestoreDialog: false }); }}
             maxWidth="lg"
             fullWidth
-            classes={{ paper: this.props.classes.paper }}
+            sx={{ '& .MuiDialog-paper': styles.paper }}
         >
             <DialogTitle
                 style={{ color: this.state.restoreProcess.statusColor }}
@@ -325,7 +320,7 @@ class Restore extends Component {
                     }}
                     ref={this.textRefRestore}
                 >
-                    {this.state.restoreProcess.log.map((line, i) => this.renderRestoreLine(line, i))}
+                    {this.state.restoreProcess.log.map((line, i) => Restore.renderRestoreLine(line, i))}
                 </div>
             </DialogContent>
             <DialogActions>
@@ -389,7 +384,7 @@ class Restore extends Component {
             onClose={() => !this.state.executing && this.props.onClose()}
             maxWidth="lg"
             fullWidth
-            classes={{ paper: this.props.classes.paper }}
+            sx={{ '& .MuiDialog-paper': styles.paper }}
         >
             <DialogTitle>
                 <SettingsBackupRestore style={{ width: 24, height: 24, margin: '0 10px -4px 0' }} />
@@ -421,7 +416,7 @@ class Restore extends Component {
                     }}
                     ref={this.textRef}
                 >
-                    {this.state.executionLog.map((line, i) => this.renderLine(line, i))}
+                    {this.state.executionLog.map((line, i) => Restore.renderLine(line, i))}
                 </div> : null}
                 {!this.state.executing && !this.state.done ? <div>
                     <ul>
@@ -480,4 +475,4 @@ Restore.propTypes = {
     location: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(Restore);
+export default Restore;

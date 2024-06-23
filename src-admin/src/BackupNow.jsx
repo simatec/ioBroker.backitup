@@ -1,23 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@mui/styles';
 
-import { I18n } from '@iobroker/adapter-react-v5';
-import { ConfigGeneric } from '@iobroker/json-config';
 import {
     Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, LinearProgress,
 } from '@mui/material';
 import { CloudUploadOutlined } from '@mui/icons-material';
 
+import { I18n } from '@iobroker/adapter-react-v5';
+
+import { ConfigGeneric } from '@iobroker/json-config';
+
 const styles = {
     paper: {
         height: 'calc(100% - 64px)',
-    },
-    fullHeight: {
-        height: '100%',
-        '& .MuiInputBase-root': {
-            height: '100%',
-        },
     },
     textTime: {
         display: 'inline-block',
@@ -143,11 +138,11 @@ class BackupNow extends ConfigGeneric {
     }
 
     renderLine(line, i) {
-        return <div key={i} className={this.props.classes.textLine}>
-            <div className={`${this.props.classes.textTime} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.ts}</div>
-            <div className={`${this.props.classes.textLevel} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.level}</div>
-            <div className={`${this.props.classes.textSource} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.source}</div>
-            <div className={`${this.props.classes.text} ${line.level ? (this.props.classes[`textLevel-${line.level}`] || '') : ''}`}>{line.text}</div>
+        return <div key={i} style={styles.textLine}>
+            <div style={{ ...styles.textTime, ...(line.level ? styles[`textLevel-${line.level}`] : undefined) }}>{line.ts}</div>
+            <div style={{ ...styles.textLevel, ...(line.level ? styles[`textLevel-${line.level}`] : undefined) }}>{line.level}</div>
+            <div style={{ ...styles.textSource, ...(line.level ? styles[`textLevel-${line.level}`] : undefined) }}>{line.source}</div>
+            <div style={{ ...styles.text, ...(line.level ? styles[`textLevel-${line.level}`] : undefined) }}>{line.text}</div>
         </div>;
     }
 
@@ -157,7 +152,7 @@ class BackupNow extends ConfigGeneric {
             onClose={() => this.setState({ executionDialog: false })}
             maxWidth="lg"
             fullWidth
-            classes={{ paper: this.props.classes.paper }}
+            sx={{ '& .MuiDialog-paper': styles.paper }}
         >
             <DialogTitle>
                 <CloudUploadOutlined style={{ width: 24, height: 24, margin: '0 10px -4px 0' }} />
@@ -247,8 +242,9 @@ BackupNow.propTypes = {
     socket: PropTypes.object.isRequired,
     themeType: PropTypes.string,
     style: PropTypes.object,
+    className: PropTypes.string,
     schema: PropTypes.object,
     onError: PropTypes.func,
 };
 
-export default withStyles(styles)(BackupNow);
+export default BackupNow;

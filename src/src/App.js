@@ -1,5 +1,4 @@
 import React from 'react';
-import { withStyles } from '@mui/styles';
 import { saveAs } from 'file-saver';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
@@ -8,14 +7,18 @@ import {
     AppBar, Toolbar, Tooltip, Fab,
 } from '@mui/material';
 
-import GenericApp from '@iobroker/adapter-react-v5/GenericApp';
-import { I18n, Loader, AdminConnection } from '@iobroker/adapter-react-v5';
 import {
     CloudUploadOutlined, FormatListBulleted,
     InfoOutlined, Search, SettingsBackupRestore,
     UploadOutlined, StorageOutlined, Help, School, Favorite,
     History, Alarm,
 } from '@mui/icons-material';
+
+import {
+    GenericApp, I18n,
+    Loader,
+    AdminConnection, Utils,
+} from '@iobroker/adapter-react-v5';
 
 import logo from './assets/backitup.png';
 
@@ -46,7 +49,7 @@ const styles = theme => ({
         backgroundColor: theme.palette.mode === 'dark' ? theme.palette.secondary.main : '#FFF',
     },
     headerArea: {
-        backgroundImage: 'linear-gradient(135deg, #174475 0%, #3399CC 30%)',
+        backgroundImage: 'linear-gradient(135deg, #164477 0%, #3399CC 30%)',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
     },
     header: {
@@ -58,20 +61,14 @@ const styles = theme => ({
         backgroundColor: theme.palette.mode === 'dark' ? undefined : theme.palette.secondary.main,
         padding: '0.3rem',
         borderRadius: 4,
-        color: '#FFF !important',
-        backgroundImage: theme.palette.mode === 'dark' ? 'linear-gradient(179deg, rgb(25 25 25) 0%, rgba(255, 255, 255, 0.12) 60%) !important' : 'linear-gradient(179deg, #3399CC 0%, #174475 60%) !important',
+        color: '#FFFFFF',
+        backgroundImage: theme.palette.mode === 'dark' ?
+            'linear-gradient(179deg, rgb(25 25 25) 0%, rgba(255, 255, 255, 0.12) 60%) !important' :
+            'linear-gradient(179deg, #3399CC 0%, #174475 60%) !important',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
     },
     headerLight: {
-        fontSize: '0.9rem',
-        fontWeight: 400,
-        lineHeight: '110%',
-        display: 'flex',
-        alignItems: 'center',
         backgroundColor: theme.palette.secondary.main,
-        padding: '0.3rem',
-        borderRadius: 4,
-        color: '#000 !important',
         backgroundImage: 'linear-gradient(179deg, rgb(245, 245, 245) 0%, #fff 60%) !important',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
     },
@@ -183,6 +180,7 @@ const styles = theme => ({
     helpButton: {
         width: 36,
         height: 36,
+        marginLeft: 8,
     },
 });
 
@@ -307,35 +305,35 @@ class App extends GenericApp {
     };
 
     renderBackupInformation() {
-        return <Card className={this.props.classes.card}>
-            <CardContent className={this.props.classes.cardContent}>
-                <div className={this.props.classes.iconDiv}>
-                    <InfoOutlined className={this.props.classes.icon} />
+        return <Card style={this.styles.card}>
+            <CardContent style={this.styles.cardContent}>
+                <div style={this.styles.iconDiv}>
+                    <InfoOutlined style={this.styles.icon} />
                 </div>
-                <div className={this.props.classes.textDiv}>
-                    <div className={this.props.classes.cardHeader}>
+                <div style={this.styles.textDiv}>
+                    <div style={this.styles.cardHeader}>
                         {I18n.t('Backup Information')}
                     </div>
                     <ul style={{ maxHeight: 210, overflow: 'auto', listStyleType: 'none' }}>
                         {this.state.native.minimalEnabled && <li>
-                            <History className={this.props.classes.historyIcon} />
-                            <div className={this.props.classes.label}>{I18n.t('Last ioBroker backup:')}</div>
-                            <div className={this.props.classes.value}>{this.state.iobrokerLastTime}</div>
+                            <History style={this.styles.historyIcon} />
+                            <div style={this.styles.label}>{I18n.t('Last ioBroker backup:')}</div>
+                            <div style={this.styles.value}>{this.state.iobrokerLastTime}</div>
                         </li>}
                         {this.state.native.minimalEnabled && <li>
-                            <Alarm className={this.props.classes.historyIcon} />
-                            <div className={this.props.classes.label}>{I18n.t('Next ioBroker backup:')}</div>
-                            <div className={this.props.classes.value}>{this.state.iobrokerNextTime}</div>
+                            <Alarm style={this.styles.historyIcon} />
+                            <div style={this.styles.label}>{I18n.t('Next ioBroker backup:')}</div>
+                            <div style={this.styles.value}>{this.state.iobrokerNextTime}</div>
                         </li>}
                         {this.state.native.ccuEnabled && <li>
-                            <History className={this.props.classes.historyIcon} />
-                            <div className={this.props.classes.label}>{I18n.t('Last CCU backup:')}</div>
-                            <div className={this.props.classes.value}>{this.state.ccuLastTime}</div>
+                            <History style={this.styles.historyIcon} />
+                            <div style={this.styles.label}>{I18n.t('Last CCU backup:')}</div>
+                            <div style={this.styles.value}>{this.state.ccuLastTime}</div>
                         </li>}
                         {this.state.native.ccuEnabled && <li>
-                            <Alarm className={this.props.classes.historyIcon} />
-                            <div className={this.props.classes.label}>{I18n.t('Next CCU backup:')}</div>
-                            <div className={this.props.classes.value}>{this.state.ccuNextTime}</div>
+                            <Alarm style={this.styles.historyIcon} />
+                            <div style={this.styles.label}>{I18n.t('Next CCU backup:')}</div>
+                            <div style={this.styles.value}>{this.state.ccuNextTime}</div>
                         </li>}
                     </ul>
                 </div>
@@ -352,13 +350,13 @@ class App extends GenericApp {
             { name: 'googledriveEnabled', label: 'Google Drive' },
             { name: 'webdavEnabled', label: 'WebDAV' },
         ];
-        return <Card className={this.props.classes.card}>
-            <CardContent className={this.props.classes.cardContent}>
-                <div className={this.props.classes.iconDiv}>
-                    <StorageOutlined className={this.props.classes.icon} />
+        return <Card style={this.styles.card}>
+            <CardContent style={this.styles.cardContent}>
+                <div style={this.styles.iconDiv}>
+                    <StorageOutlined style={this.styles.icon} />
                 </div>
-                <div className={this.props.classes.textDiv}>
-                    <div className={this.props.classes.cardHeader}>
+                <div style={this.styles.textDiv}>
+                    <div style={this.styles.cardHeader}>
                         {I18n.t('Activated storage options')}
                     </div>
                     <ul style={{ maxHeight: 210, overflow: 'auto', listStyleType: 'disclosure-closed' }}>
@@ -389,13 +387,13 @@ class App extends GenericApp {
             { name: 'pgSqlEnabled', label: 'PostgreSQL Backup' },
 
         ];
-        return <Card className={this.props.classes.card}>
-            <CardContent className={this.props.classes.cardContent}>
-                <div className={this.props.classes.iconDiv}>
-                    <CloudUploadOutlined className={this.props.classes.icon} />
+        return <Card style={this.styles.card}>
+            <CardContent style={this.styles.cardContent}>
+                <div style={this.styles.iconDiv}>
+                    <CloudUploadOutlined style={this.styles.icon} />
                 </div>
-                <div className={this.props.classes.textDiv}>
-                    <div className={this.props.classes.cardHeader}>
+                <div style={this.styles.textDiv}>
+                    <div style={this.styles.cardHeader}>
                         {I18n.t('Activated backup options')}
                     </div>
                     <ul style={{ maxHeight: 210, overflow: 'auto', listStyleType: 'disclosure-closed' }}>
@@ -421,6 +419,11 @@ class App extends GenericApp {
     }
 
     render() {
+        if (this.styleTheme !== this.state.themeType) {
+            this.styles = Utils.getStyle(this.state.theme, styles);
+            this.styleTheme = this.state.themeType;
+        }
+
         if (!this.state.loaded) {
             return <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={this.state.theme}>
@@ -438,7 +441,7 @@ class App extends GenericApp {
                         color: this.state.theme.palette.text.primary,
                     }}
                 >
-                    <AppBar className={this.props.classes.headerArea} position="static" enableColorOnDark>
+                    <AppBar style={this.styles.headerArea} position="static" enableColorOnDark>
                         <Toolbar>
                             <img src={logo} alt="logo" style={{ height: 48, marginRight: 16 }} />
                             <div>
@@ -446,13 +449,14 @@ class App extends GenericApp {
                                 <div style={{ color: '#fff', fontStyle: 'italic' }}>{I18n.t('Backup your System …')}</div>
                             </div>
                         </Toolbar>
-                        <div style={{
-                            display: 'inline-block', position: 'absolute', right: 10, top: 13,
-                        }}
+                        <div
+                            style={{
+                                display: 'inline-block', position: 'absolute', right: 10, top: 13,
+                            }}
                         >
                             <Tooltip size="small" title="PayPal.Me" style={{ marginRight: '0.2rem' }}>
                                 <Fab
-                                    className={this.props.classes.helpButton}
+                                    style={this.styles.helpButton}
                                     onClick={() => {
                                         window.open('https://paypal.me/mk1676', '_blank');
                                     }}
@@ -462,7 +466,7 @@ class App extends GenericApp {
                             </Tooltip>
                             <Tooltip size="small" title="Wiki" style={{ marginRight: '0.2rem' }}>
                                 <Fab
-                                    className={this.props.classes.helpButton}
+                                    style={this.styles.helpButton}
                                     onClick={() => {
                                         window.open('https://github.com/simatec/ioBroker.backitup/wiki', '_blank');
                                     }}
@@ -472,7 +476,7 @@ class App extends GenericApp {
                             </Tooltip>
                             <Tooltip size="small" title="Show adapter documentation" style={{ marginRight: '0.2rem' }}>
                                 <Fab
-                                    className={this.props.classes.helpButton}
+                                    style={this.styles.helpButton}
                                     onClick={() => {
                                         window.open('https://github.com/simatec/ioBroker.backitup/blob/master/README.md', '_blank');
                                     }}
@@ -490,8 +494,8 @@ class App extends GenericApp {
                             padding: 8,
                         }}
                     >
-                        <div className={this.state.themeName === 'light' ? this.props.classes.headerLight : this.props.classes.header} style={{ margin: '0.2rem 0 1.5rem 0' }}>
-                            <InfoOutlined className={this.props.classes.headerIcon} />
+                        <div style={{ margin: '0.2rem 0 1.5rem 0', ...this.styles.header, ...(this.state.themeName === 'light' ? this.styles.headerLight : {}) }}>
+                            <InfoOutlined style={this.styles.headerIcon} />
                             <span>{I18n.t('Backup Information')}</span>
                         </div>
                         <div
@@ -506,8 +510,8 @@ class App extends GenericApp {
                             {this.renderActivatedStorageOptions()}
                             {this.renderActivatedBackupOptions()}
                         </div>
-                        <div className={this.state.themeName === 'light' ? this.props.classes.headerLight : this.props.classes.header} style={{ margin: '1.5rem 0 1.5rem 0' }}>
-                            <CloudUploadOutlined className={this.props.classes.headerIcon} />
+                        <div style={{ margin: '1.5rem 0 1.5rem 0', ...this.styles.header, ...(this.state.themeName === 'light' ? this.styles.headerLight : {}) }}>
+                            <CloudUploadOutlined style={this.styles.headerIcon} />
                             <span>{I18n.t('System backup')}</span>
                         </div>
                         <div
@@ -522,8 +526,7 @@ class App extends GenericApp {
                             }}
                         >
                             {this.state.myAlive && this.state.native.minimalEnabled ? <BackupNow
-                                className={this.props.classes.buttonWidth}
-                                style={{ width: '100%' }}
+                                style={{ ...this.styles.buttonWidth, width: '100%' }}
                                 variant="contained"
                                 color="grey"
                                 adapterName={this.adapterName}
@@ -546,8 +549,7 @@ class App extends GenericApp {
                                 {I18n.t('ioBroker start backup')}
                             </Button>}
                             {this.state.myAlive && this.state.native.ccuEnabled ? <BackupNow
-                                className={this.props.classes.buttonWidth}
-                                style={{ width: '100% !important' }}
+                                style={{ ...this.styles.buttonWidth, width: '100% !important' }}
                                 variant="contained"
                                 adapterName={this.adapterName}
                                 instance={this.instance}
@@ -603,8 +605,8 @@ class App extends GenericApp {
                                 {I18n.t('Save BackItUp settings')}
                             </Button>
                         </div>
-                        <div className={this.state.themeName === 'light' ? this.props.classes.headerLight : this.props.classes.header} style={{ margin: '1.5rem 0px 1.0rem 0px' }}>
-                            <SettingsBackupRestore className={this.props.classes.headerIcon} />
+                        <div style={{ ...this.styles.header, ...(this.state.themeName === 'light' ? this.styles.headerLight : {}), margin: '1.5rem 0px 1.0rem 0px' }}>
+                            <SettingsBackupRestore style={this.styles.headerIcon} />
                             <span>{I18n.t('Restore')}</span>
                         </div>
                         <div style={{
@@ -657,7 +659,7 @@ class App extends GenericApp {
                         </div>
                         {this.renderError()}
                         <div
-                            className={this.state.themeName === 'light' ? this.props.classes.footerLight : this.props.classes.footer}
+                            style={this.state.themeName === 'light' ? this.styles.footerLight : this.styles.footer}
                         >
                             {I18n.t('All backup settings can be changed in the adapter configuration of BackItUp.')}
                         </div>
@@ -706,4 +708,4 @@ class App extends GenericApp {
     }
 }
 
-export default withStyles(styles)(App);
+export default App;

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@mui/styles';
 
 import { Button, Checkbox, FormControlLabel } from '@mui/material';
 import { Search } from '@mui/icons-material';
@@ -11,37 +10,6 @@ import { ConfigGeneric } from '@iobroker/json-config';
 import GetBackups from './Components/GetBackups';
 import SourceSelector from './Components/SourceSelector';
 import Restore from './Components/Restore';
-
-const styles = {
-    paper: {
-        height: 'calc(100% - 64px)',
-    },
-    fullHeight: {
-        height: '100%',
-        '& .MuiInputBase-root': {
-            height: '100%',
-        },
-    },
-    textLevel: {
-        display: 'inline-block',
-        width: 40,
-    },
-    'textLevel-ERROR': {
-        color: 'red',
-    },
-    'textLevel-WARN': {
-        color: 'orange',
-    },
-    textSource: {
-        display: 'inline-block',
-        width: 70,
-        marginRight: 8,
-        textAlign: 'right',
-    },
-    text: {
-        display: 'inline-block',
-    },
-};
 
 class RestoreBackup extends ConfigGeneric {
     constructor(props) {
@@ -118,4 +86,4 @@ RestoreBackup.propTypes = {
     onError: PropTypes.func,
 };
 
-export default withStyles(styles)(RestoreBackup);
+export default RestoreBackup;

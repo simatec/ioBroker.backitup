@@ -1,7 +1,9 @@
+import { Alert } from '@mui/material';
+
+import { Info, Warning } from '@mui/icons-material';
+
 import { I18n, Message } from '@iobroker/adapter-react-v5';
 import { ConfigGeneric } from '@iobroker/json-config';
-import { Info, Warning } from '@mui/icons-material';
-import { Alert } from '@mui/material';
 
 class BaseField extends ConfigGeneric {
     constructor(props) {

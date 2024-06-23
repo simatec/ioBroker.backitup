@@ -4,11 +4,11 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
-import Utils from '@iobroker/adapter-react-v5/Components/Utils';
+import { Utils } from '@iobroker/adapter-react-v5';
 import App from './App';
 import theme from './theme';
 
-window.adapterName = 'adapter-component-template';
+window.adapterName = 'adapter-component-backitup';
 let themeName = Utils.getThemeName();
 
 function build() {

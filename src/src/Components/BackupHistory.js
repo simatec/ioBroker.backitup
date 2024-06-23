@@ -14,6 +14,7 @@ import { I18n } from '@iobroker/adapter-react-v5';
 
 const BackupHistory = props => {
     const [backupHistory, setBackupHistory] = useState([]);
+
     useEffect(() => {
         props.socket.getState(`${props.adapterName}.${props.instance}.history.json`)
             .then(state => {

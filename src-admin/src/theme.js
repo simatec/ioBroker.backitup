@@ -1,5 +1,5 @@
 // this file used only for simulation and not used in end build
-import Theme from '@iobroker/adapter-react-v5/Theme';
+import { Theme } from '@iobroker/adapter-react-v5';
 
 export default type => {
     const danger = '#dd5325';
