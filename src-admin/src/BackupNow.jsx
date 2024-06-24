@@ -53,7 +53,7 @@ class BackupNow extends ConfigGeneric {
             executionDialog: false,
             executionLog: [],
             closeOnReady: false,
-            styles: styles,
+            styles,
         };
         this.lastExecutionLine = '';
         this.textRef = React.createRef();
