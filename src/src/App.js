@@ -62,12 +62,18 @@ const styles = theme => ({
         padding: '0.3rem',
         borderRadius: 4,
         color: '#FFFFFF',
-        backgroundImage: theme.palette.mode === 'dark' ?
-            'linear-gradient(179deg, rgb(25 25 25) 0%, rgba(255, 255, 255, 0.12) 60%) !important' :
-            'linear-gradient(179deg, #3399CC 0%, #174475 60%) !important',
+        backgroundImage: theme.palette.mode === 'dark' ? 'linear-gradient(179deg, rgb(25 25 25) 0%, rgba(255, 255, 255, 0.12) 60%) !important' : 'linear-gradient(179deg, #3399CC 0%, #174475 60%) !important',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
     },
     headerLight: {
+        fontSize: '0.9rem',
+        fontWeight: 400,
+        lineHeight: '110%',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0.3rem',
+        borderRadius: 4,
+        color: '#000 !important',
         backgroundColor: theme.palette.secondary.main,
         backgroundImage: 'linear-gradient(179deg, rgb(245, 245, 245) 0%, #fff 60%) !important',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
@@ -100,12 +106,12 @@ const styles = theme => ({
         margin: '5px 10px 0 -25px',
     },
     icon: {
+        color: '#f5f5f5 !important',
         height: 70,
         width: 80,
         margin: 4,
         marginTop: '1.5rem',
-        color: 'rgb(245, 245, 245) !important',
-        fontSize: '70px',
+        fontSize: 70,
         filter: 'drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2))',
     },
     iconDiv: {
@@ -494,7 +500,7 @@ class App extends GenericApp {
                             padding: 8,
                         }}
                     >
-                        <div style={{ margin: '0.2rem 0 1.5rem 0', ...this.styles.header, ...(this.state.themeName === 'light' ? this.styles.headerLight : {}) }}>
+                        <div style={{ margin: '0.2rem 0 1.5rem 0', ...(this.state.theme.name === 'light' ? this.styles.headerLight : this.styles.header) }}>
                             <InfoOutlined style={this.styles.headerIcon} />
                             <span>{I18n.t('Backup Information')}</span>
                         </div>
@@ -510,7 +516,7 @@ class App extends GenericApp {
                             {this.renderActivatedStorageOptions()}
                             {this.renderActivatedBackupOptions()}
                         </div>
-                        <div style={{ margin: '1.5rem 0 1.5rem 0', ...this.styles.header, ...(this.state.themeName === 'light' ? this.styles.headerLight : {}) }}>
+                        <div style={{ margin: '1.5rem 0 1.5rem 0', ...(this.state.theme.name === 'light' ? this.styles.headerLight : this.styles.header) }}>
                             <CloudUploadOutlined style={this.styles.headerIcon} />
                             <span>{I18n.t('System backup')}</span>
                         </div>
@@ -605,7 +611,7 @@ class App extends GenericApp {
                                 {I18n.t('Save BackItUp settings')}
                             </Button>
                         </div>
-                        <div style={{ ...this.styles.header, ...(this.state.themeName === 'light' ? this.styles.headerLight : {}), margin: '1.5rem 0px 1.0rem 0px' }}>
+                        <div style={{ ...(this.state.theme.name === 'light' ? this.styles.headerLight : this.styles.header), margin: '1.5rem 0px 1.0rem 0px' }}>
                             <SettingsBackupRestore style={this.styles.headerIcon} />
                             <span>{I18n.t('Restore')}</span>
                         </div>
@@ -659,7 +665,7 @@ class App extends GenericApp {
                         </div>
                         {this.renderError()}
                         <div
-                            style={this.state.themeName === 'light' ? this.styles.footerLight : this.styles.footer}
+                            style={this.state.theme.name === 'light' ? this.styles.footerLight : this.styles.footer}
                         >
                             {I18n.t('All backup settings can be changed in the adapter configuration of BackItUp.')}
                         </div>
