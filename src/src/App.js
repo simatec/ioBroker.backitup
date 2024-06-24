@@ -43,7 +43,7 @@ const styles = theme => ({
         overflow: 'auto',
     },
     selected: {
-        color: theme.palette.mode === 'dark' ? undefined : '#FFF !important',
+        color: theme.palette.mode === 'dark' ? undefined : '#FFF',
     },
     indicator: {
         backgroundColor: theme.palette.mode === 'dark' ? theme.palette.secondary.main : '#FFF',
@@ -62,7 +62,7 @@ const styles = theme => ({
         padding: '0.3rem',
         borderRadius: 4,
         color: '#FFFFFF',
-        backgroundImage: theme.palette.mode === 'dark' ? 'linear-gradient(179deg, rgb(25 25 25) 0%, rgba(255, 255, 255, 0.12) 60%) !important' : 'linear-gradient(179deg, #3399CC 0%, #174475 60%) !important',
+        backgroundImage: theme.palette.mode === 'dark' ? 'linear-gradient(179deg, rgb(25 25 25) 0%, rgba(255, 255, 255, 0.12) 60%)' : 'linear-gradient(179deg, #3399CC 0%, #174475 60%)',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
     },
     headerLight: {
@@ -73,28 +73,28 @@ const styles = theme => ({
         alignItems: 'center',
         padding: '0.3rem',
         borderRadius: 4,
-        color: '#000 !important',
+        color: '#000',
         backgroundColor: theme.palette.secondary.main,
-        backgroundImage: 'linear-gradient(179deg, rgb(245, 245, 245) 0%, #fff 60%) !important',
+        backgroundImage: 'linear-gradient(179deg, rgb(245, 245, 245) 0%, #fff 60%)',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
     },
     subHeader: {
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 8,
-        color: '#FFF !important',
+        color: '#FFF',
     },
     cardHeader: {
         fontSize: '1.64rem',
         lineHeight: '110%',
         fontWeight: '400',
         marginBottom: 8,
-        padding: '16px',
+        padding: 16,
     },
     headerIcon: {
         height: 24,
         width: 24,
-        fontSize: '24px',
+        fontSize: 24,
         float: 'left',
         margin: '0 10px 0 5px',
     },
@@ -106,7 +106,7 @@ const styles = theme => ({
         margin: '5px 10px 0 -25px',
     },
     icon: {
-        color: '#f5f5f5 !important',
+        color: '#f5f5f5',
         height: 70,
         width: 80,
         margin: 4,
@@ -128,7 +128,7 @@ const styles = theme => ({
         display: 'inline-block',
     },
     cardContent: {
-        padding: '0px',
+        padding: 0,
         height: '100%',
         boxShadow: '0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%)',
         backgroundImage: theme.palette.mode === 'dark' ? undefined : 'linear-gradient(179deg, #fff 50%, rgb(0 0 0 / 14%) 100%)',
@@ -157,9 +157,9 @@ const styles = theme => ({
         width: '100%',
         overflow: 'overlay',
         zIndex: 997,
-        backgroundImage: theme.palette.mode === 'dark' ? 'linear-gradient(179deg, rgb(25 25 25) 0%, rgba(255, 255, 255, 0.12) 60%) !important' : 'linear-gradient(179deg, #3399CC 0%, #174475 60%) !important',
+        backgroundImage: theme.palette.mode === 'dark' ? 'linear-gradient(179deg, rgb(25 25 25) 0%, rgba(255, 255, 255, 0.12) 60%)' : 'linear-gradient(179deg, #3399CC 0%, #174475 60%)',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
-        color: '#FFF !important',
+        color: '#FFF',
         padding: '5px 0 5px 0',
         margin: '0 0 0 -8px',
     },
@@ -174,14 +174,14 @@ const styles = theme => ({
         width: '100%',
         overflow: 'overlay',
         zIndex: 997,
-        backgroundImage: 'linear-gradient(179deg, rgb(245, 245, 245) 0%, #fff 60%) !important',
+        backgroundImage: 'linear-gradient(179deg, rgb(245, 245, 245) 0%, #fff 60%)',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
-        color: '#000 !important',
+        color: '#000',
         padding: '5px 0 5px 0',
         margin: '0 0 0 -8px',
     },
     buttonWidth: {
-        width: '100% !important',
+        width: '100%',
     },
     helpButton: {
         width: 36,
@@ -555,7 +555,7 @@ class App extends GenericApp {
                                 {I18n.t('ioBroker start backup')}
                             </Button>}
                             {this.state.myAlive && this.state.native.ccuEnabled ? <BackupNow
-                                style={{ ...this.styles.buttonWidth, width: '100% !important' }}
+                                style={{ ...this.styles.buttonWidth, width: '100%' }}
                                 variant="contained"
                                 adapterName={this.adapterName}
                                 instance={this.instance}
