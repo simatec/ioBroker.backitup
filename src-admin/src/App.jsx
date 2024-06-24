@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import { Box } from '@mui/material';
 
 import { I18n, Loader, GenericApp } from '@iobroker/adapter-react-v5';
 
