@@ -63,7 +63,7 @@ class BackupNow extends ConfigGeneric {
         return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}.${date.getMilliseconds().toString().padStart(3, '0')}`;
     }
 
-    onOutput = (id, state)  => {
+    onOutput = (id, state) => {
         if (state && state.val && state.val !== this.lastExecutionLine) {
             this.lastExecutionLine = state.val;
             const executionLog = [...this.state.executionLog];
@@ -138,11 +138,42 @@ class BackupNow extends ConfigGeneric {
     }
 
     renderLine(line, i) {
-        return <div key={i} style={styles.textLine}>
-            <div style={{ ...styles.textTime, ...(line.level ? styles[`textLevel-${line.level}`] : undefined) }}>{line.ts}</div>
-            <div style={{ ...styles.textLevel, ...(line.level ? styles[`textLevel-${line.level}`] : undefined) }}>{line.level}</div>
-            <div style={{ ...styles.textSource, ...(line.level ? styles[`textLevel-${line.level}`] : undefined) }}>{line.source}</div>
-            <div style={{ ...styles.text, ...(line.level ? styles[`textLevel-${line.level}`] : undefined) }}>{line.text}</div>
+        return <div
+            key={i}
+            style={styles.textLine}
+        >
+            <div
+                style={{
+                    ...styles.textTime,
+                    ...(line.level ? styles[`textLevel-${line.level}`] : undefined)
+                }}
+            >
+                {line.ts}
+            </div>
+            <div
+                style={{
+                    ...styles.textLevel,
+                    ...(line.level ? styles[`textLevel-${line.level}`] : undefined)
+                }}
+            >
+                {line.level}
+            </div>
+            <div
+                style={{
+                    ...styles.textSource,
+                    ...(line.level ? styles[`textLevel-${line.level}`] : undefined)
+                }}
+            >
+                {line.source}
+            </div>
+            <div
+                style={{
+                    ...styles.text,
+                    ...(line.level ? styles[`textLevel-${line.level}`] : undefined)
+                }}
+            >
+                {line.text}
+            </div>
         </div>;
     }
 
