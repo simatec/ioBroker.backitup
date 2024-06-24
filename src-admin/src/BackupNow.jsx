@@ -53,6 +53,7 @@ class BackupNow extends ConfigGeneric {
             executionDialog: false,
             executionLog: [],
             closeOnReady: false,
+            styles: styles,
         };
         this.lastExecutionLine = '';
         this.textRef = React.createRef();
@@ -138,42 +139,11 @@ class BackupNow extends ConfigGeneric {
     }
 
     renderLine(line, i) {
-        return <div
-            key={i}
-            style={styles.textLine}
-        >
-            <div
-                style={{
-                    ...styles.textTime,
-                    ...(line.level ? styles[`textLevel-${line.level}`] : undefined)
-                }}
-            >
-                {line.ts}
-            </div>
-            <div
-                style={{
-                    ...styles.textLevel,
-                    ...(line.level ? styles[`textLevel-${line.level}`] : undefined)
-                }}
-            >
-                {line.level}
-            </div>
-            <div
-                style={{
-                    ...styles.textSource,
-                    ...(line.level ? styles[`textLevel-${line.level}`] : undefined)
-                }}
-            >
-                {line.source}
-            </div>
-            <div
-                style={{
-                    ...styles.text,
-                    ...(line.level ? styles[`textLevel-${line.level}`] : undefined)
-                }}
-            >
-                {line.text}
-            </div>
+        return <div key={i} style={this.state.styles.textLine}>
+            <div style={{ ...this.state.styles.textTime, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.ts}</div>
+            <div style={{ ...this.state.styles.textLevel, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.level}</div>
+            <div style={{ ...this.state.styles.textSource, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.source}</div>
+            <div style={{ ...this.state.styles.text, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.text}</div>
         </div>;
     }
 
@@ -183,7 +153,7 @@ class BackupNow extends ConfigGeneric {
             onClose={() => this.setState({ executionDialog: false })}
             maxWidth="lg"
             fullWidth
-            sx={{ '& .MuiDialog-paper': styles.paper }}
+            sx={{ '& .MuiDialog-paper': this.state.styles.paper }}
         >
             <DialogTitle>
                 <CloudUploadOutlined style={{ width: 24, height: 24, margin: '0 10px -4px 0' }} />
