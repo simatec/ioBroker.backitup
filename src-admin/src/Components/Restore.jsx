@@ -271,16 +271,16 @@ class Restore extends Component {
 
     static renderRestoreLine(line, i) {
         return <div key={i} style={styles.textLine}>
-            <div style={{ ...styles.text, color: line.startsWith('[ERROR]') ? '#FF0000' : undefined }}>{line}</div>
-            {line.includes('Restore completed successfully') ?
+            {!line.includes('Restore completed successfully!!') ?
+                <div style={{ ...styles.text, color: line.startsWith('[ERROR]') ? '#FF0000' : line.includes('Restore completed successfully') ? '#00b204' : undefined }}>{line}</div> :
                 <div
                     style={{
                         ...styles.text,
-                        color: line.includes('Restore completed successfully') ? '#00b204' : undefined,
+                        color: line.includes('Restore completed successfully!!') ? '#00b204' : undefined,
                     }}
                 >
-                    {`${I18n.t('Restore completed successfully!')}\n${I18n.t('After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.')}`}
-                </div> : null}
+                    {I18n.t('After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.')}
+                </div>}
         </div>;
     }
 
