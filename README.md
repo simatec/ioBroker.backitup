@@ -64,6 +64,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 ## Changelog
 ### **WORK IN PROGRESS**
 * (simatec) Restore Information added
+* (simatec) Fix Formaterrors
 
 ### 3.0.5 (2024-06-18)
 * (simatec) Fix Build
