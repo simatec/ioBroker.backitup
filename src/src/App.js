@@ -54,18 +54,20 @@ const styles = {
         alignItems: 'center',
         p: '0.3rem',
         borderRadius: '4px',
+        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
+    },
+    headerColored: {
+        color: '#FFFFFF',
+        backgroundImage: 'linear-gradient(179deg, #3399CC 0%, #174475 60%)',
     },
     headerDark: {
         color: '#FFFFFF',
         backgroundImage: 'linear-gradient(179deg, rgb(25 25 25) 0%, rgba(255, 255, 255, 0.12) 60%)',
-        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
     },
-    headerLight: theme => ({
+    headerLight: {
         color: '#000',
-        backgroundColor: theme.palette.secondary.main,
         backgroundImage: 'linear-gradient(179deg, rgb(245, 245, 245) 0%, #fff 60%)',
-        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
-    }),
+    },
     subHeader: {
         fontSize: 16,
         fontWeight: 'bold',
@@ -135,7 +137,7 @@ const styles = {
         marginBottom: '0.5rem',
     },
     footer: {
-        fontSize: '0.8rem',
+        fontSize: '0.9rem',
         fontWeight: 400,
         lineHeight: '110%',
         textAlign: 'center',
@@ -147,15 +149,18 @@ const styles = {
         zIndex: 997,
         padding: '5px 0 5px 0',
         margin: '0 0 0 -8px',
+        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
+    },
+    footerColored: {
+        color: '#FFF',
+        backgroundImage: 'linear-gradient(179deg, #3399CC 0%, #174475 60%)',
     },
     footerDark: {
         backgroundImage: 'linear-gradient(179deg, rgb(25 25 25) 0%, rgba(255, 255, 255, 0.12) 60%)',
-        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
         color: '#FFF',
     },
     footerLight: {
         backgroundImage: 'linear-gradient(179deg, rgb(245, 245, 245) 0%, #fff 60%)',
-        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
         color: '#000',
     },
     buttonWidth: {
@@ -403,6 +408,7 @@ class App extends GenericApp {
     }
 
     render() {
+        //console.log(`Theme-Name: ${this.state.theme.name} | Theme-Type: ${this.state.themeType}`);
         if (!this.state.loaded) {
             return <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={this.state.theme}>
@@ -478,7 +484,9 @@ class App extends GenericApp {
                             sx={{
                                 m: '0.2rem 0 1.5rem 0',
                                 ...styles.header,
-                                ...(this.state.theme.name === 'light' ? styles.headerLight : styles.headerDark),
+                                ...(this.state.theme.name === 'light' ? styles.headerLight : undefined),
+                                ...(this.state.theme.name === 'colored' ? styles.headerColored : undefined),
+                                ...(this.state.themeType === 'dark' ? styles.headerDark : undefined),
                             }}
                         >
                             <InfoOutlined style={styles.headerIcon} />
@@ -496,10 +504,19 @@ class App extends GenericApp {
                             {this.renderActivatedStorageOptions()}
                             {this.renderActivatedBackupOptions()}
                         </div>
-                        <div style={{ margin: '1.5rem 0 1.5rem 0', ...(this.state.theme.name === 'light' ? styles.headerLight : styles.header) }}>
+                        <Box
+                            component="div"
+                            sx={{
+                                m: '1.5rem 0 1.5rem 0',
+                                ...styles.header,
+                                ...(this.state.theme.name === 'light' ? styles.headerLight : undefined),
+                                ...(this.state.theme.name === 'colored' ? styles.headerColored : undefined),
+                                ...(this.state.themeType === 'dark' ? styles.headerDark : undefined),
+                            }}
+                        >
                             <CloudUploadOutlined style={styles.headerIcon} />
                             <span>{I18n.t('System backup')}</span>
-                        </div>
+                        </Box>
                         <div
                             style={{
                                 display: 'grid',
@@ -591,10 +608,19 @@ class App extends GenericApp {
                                 {I18n.t('Save BackItUp settings')}
                             </Button>
                         </div>
-                        <div style={{ ...(this.state.theme.name === 'light' ? styles.headerLight : styles.header), margin: '1.5rem 0px 1.0rem 0px' }}>
+                        <Box
+                            component="div"
+                            sx={{
+                                m: '1.5rem 0px 1.0rem 0px',
+                                ...styles.header,
+                                ...(this.state.theme.name === 'light' ? styles.headerLight : undefined),
+                                ...(this.state.theme.name === 'colored' ? styles.headerColored : undefined),
+                                ...(this.state.themeType === 'dark' ? styles.headerDark : undefined),
+                            }}
+                        >
                             <SettingsBackupRestore style={styles.headerIcon} />
                             <span>{I18n.t('Restore')}</span>
-                        </div>
+                        </Box>
                         <div style={{
                             width: '100%',
                             display: 'grid',
@@ -645,7 +671,12 @@ class App extends GenericApp {
                         </div>
                         {this.renderError()}
                         <div
-                            style={{ ...styles.footer, ...(this.state.theme.name === 'light' ? styles.footerLight : styles.footerDark) }}
+                            style={{
+                                ...styles.footer,
+                                ...(this.state.theme.name === 'light' ? styles.footerLight : undefined),
+                                ...(this.state.theme.name === 'colored' ? styles.footerColored : undefined),
+                                ...(this.state.themeType === 'dark' ? styles.footerDark : undefined),
+                            }}
                         >
                             {I18n.t('All backup settings can be changed in the adapter configuration of BackItUp.')}
                         </div>
