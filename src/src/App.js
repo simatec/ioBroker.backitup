@@ -4,7 +4,7 @@ import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
 import {
     Card, CardContent, Button,
-    AppBar, Toolbar, Tooltip, Fab,
+    AppBar, Toolbar, Tooltip, Fab, Box,
 } from '@mui/material';
 
 import {
@@ -17,7 +17,7 @@ import {
 import {
     GenericApp, I18n,
     Loader,
-    AdminConnection, Utils,
+    AdminConnection,
 } from '@iobroker/adapter-react-v5';
 
 import logo from './assets/backitup.png';
@@ -30,7 +30,7 @@ import BackupNow from './Components/BackupNow';
 import SourceSelector from './Components/SourceSelector';
 import Restore from './Components/Restore';
 
-const styles = theme => ({
+const styles = {
     root: {},
     tabContent: {
         padding: 10,
@@ -42,12 +42,6 @@ const styles = theme => ({
         height: 'calc(100% - 64px - 48px - 20px - 38px)',
         overflow: 'auto',
     },
-    selected: {
-        color: theme.palette.mode === 'dark' ? undefined : '#FFF',
-    },
-    indicator: {
-        backgroundColor: theme.palette.mode === 'dark' ? theme.palette.secondary.main : '#FFF',
-    },
     headerArea: {
         backgroundImage: 'linear-gradient(135deg, #164477 0%, #3399CC 30%)',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
@@ -58,26 +52,20 @@ const styles = theme => ({
         lineHeight: '110%',
         display: 'flex',
         alignItems: 'center',
-        backgroundColor: theme.palette.mode === 'dark' ? undefined : theme.palette.secondary.main,
-        padding: '0.3rem',
-        borderRadius: 4,
+        p: '0.3rem',
+        borderRadius: '4px',
+    },
+    headerDark: {
         color: '#FFFFFF',
-        backgroundImage: theme.palette.mode === 'dark' ? 'linear-gradient(179deg, rgb(25 25 25) 0%, rgba(255, 255, 255, 0.12) 60%)' : 'linear-gradient(179deg, #3399CC 0%, #174475 60%)',
+        backgroundImage: 'linear-gradient(179deg, rgb(25 25 25) 0%, rgba(255, 255, 255, 0.12) 60%)',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
     },
-    headerLight: {
-        fontSize: '0.9rem',
-        fontWeight: 400,
-        lineHeight: '110%',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0.3rem',
-        borderRadius: 4,
+    headerLight: theme => ({
         color: '#000',
         backgroundColor: theme.palette.secondary.main,
         backgroundImage: 'linear-gradient(179deg, rgb(245, 245, 245) 0%, #fff 60%)',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
-    },
+    }),
     subHeader: {
         fontSize: 16,
         fontWeight: 'bold',
@@ -127,12 +115,12 @@ const styles = theme => ({
         width: 'calc(100% - 120px)',
         display: 'inline-block',
     },
-    cardContent: {
+    cardContent: theme => ({
         padding: 0,
         height: '100%',
         boxShadow: '0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%)',
         backgroundImage: theme.palette.mode === 'dark' ? undefined : 'linear-gradient(179deg, #fff 50%, rgb(0 0 0 / 14%) 100%)',
-    },
+    }),
     card: {
         '&:hover': {
             boxShadow: '0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19)',
@@ -157,28 +145,18 @@ const styles = theme => ({
         width: '100%',
         overflow: 'overlay',
         zIndex: 997,
-        backgroundImage: theme.palette.mode === 'dark' ? 'linear-gradient(179deg, rgb(25 25 25) 0%, rgba(255, 255, 255, 0.12) 60%)' : 'linear-gradient(179deg, #3399CC 0%, #174475 60%)',
-        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
-        color: '#FFF',
         padding: '5px 0 5px 0',
         margin: '0 0 0 -8px',
     },
+    footerDark: {
+        backgroundImage: 'linear-gradient(179deg, rgb(25 25 25) 0%, rgba(255, 255, 255, 0.12) 60%)',
+        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
+        color: '#FFF',
+    },
     footerLight: {
-        fontSize: '0.8rem',
-        fontWeight: 400,
-        lineHeight: '110%',
-        textAlign: 'center',
-        marginTop: 8,
-        position: 'fixed',
-        bottom: 0,
-        width: '100%',
-        overflow: 'overlay',
-        zIndex: 997,
         backgroundImage: 'linear-gradient(179deg, rgb(245, 245, 245) 0%, #fff 60%)',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
         color: '#000',
-        padding: '5px 0 5px 0',
-        margin: '0 0 0 -8px',
     },
     buttonWidth: {
         width: '100%',
@@ -188,7 +166,7 @@ const styles = theme => ({
         height: 36,
         marginLeft: 8,
     },
-});
+};
 
 class App extends GenericApp {
     constructor(props) {
@@ -311,35 +289,35 @@ class App extends GenericApp {
     };
 
     renderBackupInformation() {
-        return <Card style={this.styles.card}>
-            <CardContent style={this.styles.cardContent}>
-                <div style={this.styles.iconDiv}>
-                    <InfoOutlined style={this.styles.icon} />
+        return <Card sx={styles.card}>
+            <CardContent sx={styles.cardContent}>
+                <div style={styles.iconDiv}>
+                    <InfoOutlined style={styles.icon} />
                 </div>
-                <div style={this.styles.textDiv}>
-                    <div style={this.styles.cardHeader}>
+                <div style={styles.textDiv}>
+                    <div style={styles.cardHeader}>
                         {I18n.t('Backup Information')}
                     </div>
                     <ul style={{ maxHeight: 210, overflow: 'auto', listStyleType: 'none' }}>
                         {this.state.native.minimalEnabled && <li>
-                            <History style={this.styles.historyIcon} />
-                            <div style={this.styles.label}>{I18n.t('Last ioBroker backup:')}</div>
-                            <div style={this.styles.value}>{this.state.iobrokerLastTime}</div>
+                            <History style={styles.historyIcon} />
+                            <div style={styles.label}>{I18n.t('Last ioBroker backup:')}</div>
+                            <div style={styles.value}>{this.state.iobrokerLastTime}</div>
                         </li>}
                         {this.state.native.minimalEnabled && <li>
-                            <Alarm style={this.styles.historyIcon} />
-                            <div style={this.styles.label}>{I18n.t('Next ioBroker backup:')}</div>
-                            <div style={this.styles.value}>{this.state.iobrokerNextTime}</div>
+                            <Alarm style={styles.historyIcon} />
+                            <div style={styles.label}>{I18n.t('Next ioBroker backup:')}</div>
+                            <div style={styles.value}>{this.state.iobrokerNextTime}</div>
                         </li>}
                         {this.state.native.ccuEnabled && <li>
-                            <History style={this.styles.historyIcon} />
-                            <div style={this.styles.label}>{I18n.t('Last CCU backup:')}</div>
-                            <div style={this.styles.value}>{this.state.ccuLastTime}</div>
+                            <History style={styles.historyIcon} />
+                            <div style={styles.label}>{I18n.t('Last CCU backup:')}</div>
+                            <div style={styles.value}>{this.state.ccuLastTime}</div>
                         </li>}
                         {this.state.native.ccuEnabled && <li>
-                            <Alarm style={this.styles.historyIcon} />
-                            <div style={this.styles.label}>{I18n.t('Next CCU backup:')}</div>
-                            <div style={this.styles.value}>{this.state.ccuNextTime}</div>
+                            <Alarm style={styles.historyIcon} />
+                            <div style={styles.label}>{I18n.t('Next CCU backup:')}</div>
+                            <div style={styles.value}>{this.state.ccuNextTime}</div>
                         </li>}
                     </ul>
                 </div>
@@ -356,13 +334,13 @@ class App extends GenericApp {
             { name: 'googledriveEnabled', label: 'Google Drive' },
             { name: 'webdavEnabled', label: 'WebDAV' },
         ];
-        return <Card style={this.styles.card}>
-            <CardContent style={this.styles.cardContent}>
-                <div style={this.styles.iconDiv}>
-                    <StorageOutlined style={this.styles.icon} />
+        return <Card sx={styles.card}>
+            <CardContent sx={styles.cardContent}>
+                <div style={styles.iconDiv}>
+                    <StorageOutlined style={styles.icon} />
                 </div>
-                <div style={this.styles.textDiv}>
-                    <div style={this.styles.cardHeader}>
+                <div style={styles.textDiv}>
+                    <div style={styles.cardHeader}>
                         {I18n.t('Activated storage options')}
                     </div>
                     <ul style={{ maxHeight: 210, overflow: 'auto', listStyleType: 'disclosure-closed' }}>
@@ -393,13 +371,13 @@ class App extends GenericApp {
             { name: 'pgSqlEnabled', label: 'PostgreSQL Backup' },
 
         ];
-        return <Card style={this.styles.card}>
-            <CardContent style={this.styles.cardContent}>
-                <div style={this.styles.iconDiv}>
-                    <CloudUploadOutlined style={this.styles.icon} />
+        return <Card sx={styles.card}>
+            <CardContent sx={styles.cardContent}>
+                <div style={styles.iconDiv}>
+                    <CloudUploadOutlined style={styles.icon} />
                 </div>
-                <div style={this.styles.textDiv}>
-                    <div style={this.styles.cardHeader}>
+                <div style={styles.textDiv}>
+                    <div style={styles.cardHeader}>
                         {I18n.t('Activated backup options')}
                     </div>
                     <ul style={{ maxHeight: 210, overflow: 'auto', listStyleType: 'disclosure-closed' }}>
@@ -425,11 +403,6 @@ class App extends GenericApp {
     }
 
     render() {
-        if (this.styleTheme !== this.state.themeType) {
-            this.styles = Utils.getStyle(this.state.theme, styles);
-            this.styleTheme = this.state.themeType;
-        }
-
         if (!this.state.loaded) {
             return <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={this.state.theme}>
@@ -447,7 +420,7 @@ class App extends GenericApp {
                         color: this.state.theme.palette.text.primary,
                     }}
                 >
-                    <AppBar style={this.styles.headerArea} position="static" enableColorOnDark>
+                    <AppBar style={styles.headerArea} position="static" enableColorOnDark>
                         <Toolbar>
                             <img src={logo} alt="logo" style={{ height: 48, marginRight: 16 }} />
                             <div>
@@ -462,7 +435,7 @@ class App extends GenericApp {
                         >
                             <Tooltip size="small" title="PayPal.Me" style={{ marginRight: '0.2rem' }}>
                                 <Fab
-                                    style={this.styles.helpButton}
+                                    style={styles.helpButton}
                                     onClick={() => {
                                         window.open('https://paypal.me/mk1676', '_blank');
                                     }}
@@ -472,7 +445,7 @@ class App extends GenericApp {
                             </Tooltip>
                             <Tooltip size="small" title="Wiki" style={{ marginRight: '0.2rem' }}>
                                 <Fab
-                                    style={this.styles.helpButton}
+                                    style={styles.helpButton}
                                     onClick={() => {
                                         window.open('https://github.com/simatec/ioBroker.backitup/wiki', '_blank');
                                     }}
@@ -482,7 +455,7 @@ class App extends GenericApp {
                             </Tooltip>
                             <Tooltip size="small" title="Show adapter documentation" style={{ marginRight: '0.2rem' }}>
                                 <Fab
-                                    style={this.styles.helpButton}
+                                    style={styles.helpButton}
                                     onClick={() => {
                                         window.open('https://github.com/simatec/ioBroker.backitup/blob/master/README.md', '_blank');
                                     }}
@@ -500,10 +473,17 @@ class App extends GenericApp {
                             padding: 8,
                         }}
                     >
-                        <div style={{ margin: '0.2rem 0 1.5rem 0', ...(this.state.theme.name === 'light' ? this.styles.headerLight : this.styles.header) }}>
-                            <InfoOutlined style={this.styles.headerIcon} />
+                        <Box
+                            component="div"
+                            sx={{
+                                m: '0.2rem 0 1.5rem 0',
+                                ...styles.header,
+                                ...(this.state.theme.name === 'light' ? styles.headerLight : styles.headerDark),
+                            }}
+                        >
+                            <InfoOutlined style={styles.headerIcon} />
                             <span>{I18n.t('Backup Information')}</span>
-                        </div>
+                        </Box>
                         <div
                             style={{
                                 display: 'grid',
@@ -516,8 +496,8 @@ class App extends GenericApp {
                             {this.renderActivatedStorageOptions()}
                             {this.renderActivatedBackupOptions()}
                         </div>
-                        <div style={{ margin: '1.5rem 0 1.5rem 0', ...(this.state.theme.name === 'light' ? this.styles.headerLight : this.styles.header) }}>
-                            <CloudUploadOutlined style={this.styles.headerIcon} />
+                        <div style={{ margin: '1.5rem 0 1.5rem 0', ...(this.state.theme.name === 'light' ? styles.headerLight : styles.header) }}>
+                            <CloudUploadOutlined style={styles.headerIcon} />
                             <span>{I18n.t('System backup')}</span>
                         </div>
                         <div
@@ -532,7 +512,7 @@ class App extends GenericApp {
                             }}
                         >
                             {this.state.myAlive && this.state.native.minimalEnabled ? <BackupNow
-                                style={{ ...this.styles.buttonWidth, width: '100%' }}
+                                style={{ ...styles.buttonWidth, width: '100%' }}
                                 variant="contained"
                                 color="grey"
                                 adapterName={this.adapterName}
@@ -555,7 +535,7 @@ class App extends GenericApp {
                                 {I18n.t('ioBroker start backup')}
                             </Button>}
                             {this.state.myAlive && this.state.native.ccuEnabled ? <BackupNow
-                                style={{ ...this.styles.buttonWidth, width: '100%' }}
+                                style={{ ...styles.buttonWidth, width: '100%' }}
                                 variant="contained"
                                 adapterName={this.adapterName}
                                 instance={this.instance}
@@ -611,8 +591,8 @@ class App extends GenericApp {
                                 {I18n.t('Save BackItUp settings')}
                             </Button>
                         </div>
-                        <div style={{ ...(this.state.theme.name === 'light' ? this.styles.headerLight : this.styles.header), margin: '1.5rem 0px 1.0rem 0px' }}>
-                            <SettingsBackupRestore style={this.styles.headerIcon} />
+                        <div style={{ ...(this.state.theme.name === 'light' ? styles.headerLight : styles.header), margin: '1.5rem 0px 1.0rem 0px' }}>
+                            <SettingsBackupRestore style={styles.headerIcon} />
                             <span>{I18n.t('Restore')}</span>
                         </div>
                         <div style={{
@@ -665,7 +645,7 @@ class App extends GenericApp {
                         </div>
                         {this.renderError()}
                         <div
-                            style={this.state.theme.name === 'light' ? this.styles.footerLight : this.styles.footer}
+                            style={{ ...styles.footer, ...(this.state.theme.name === 'light' ? styles.footerLight : styles.footerDark) }}
                         >
                             {I18n.t('All backup settings can be changed in the adapter configuration of BackItUp.')}
                         </div>
