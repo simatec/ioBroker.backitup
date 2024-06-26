@@ -14,3 +14,7 @@ admin/i18n/*/flat.txt
 .DS_Store
 /src-admin/package-lock.json
 /src/package-lock.json
+
+
+# ioBroker dev-server
+.dev-server/
