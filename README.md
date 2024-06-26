@@ -62,6 +62,12 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (simatec) Restore Information added
+* (simatec) Fix Formaterrors
+* (bluefox) Fixing the problems with styles
+* (simatec) Fix iobroker Backup Error
+
 ### 3.0.6 (2024-06-26)
 * (simatec) Restore Information added
 * (simatec) Fix Formaterrors
