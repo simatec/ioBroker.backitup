@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.6",
+    "version": "3.0.7",
     "news": {
+      "3.0.7": {
+        "en": "(simatec) Restore Information added\n(simatec) Fix Formaterrors\n(bluefox) Fixing the problems with styles\n(simatec) Fix iobroker Backup Error",
+        "de": "(simatec) Restore Informationen hinzugefügt\n(simatec) Formatierer reparieren\n(Bluefox) Probleme mit Stilen beheben\n(simatec) iobroker Backup Fehler beheben",
+        "ru": "(simatec) Восстановление добавленной информации\nFix Formaterrors\n(bluefox) Исправление проблем со стилями\n(simatec) Fix iobroker Backup Error",
+        "pt": "(simatec) Restaurar informações adicionadas\n(simatec) Fix Formaterrors\n(bluefox) Corrigindo os problemas com estilos\n(simatec) Corrigir erro de backup iobroker",
+        "nl": "(simatec) Informatie toegevoegd herstellen\nFix Formaterrors\n(Bluefox) Problemen oplossen met stijlen\nFout bij het herstellen van de back-up van iobroker",
+        "fr": "(simatec) Restaurer les informations ajoutées\n(simatec) Correction des erreurs de format\n(Bluefox) Correction des problèmes avec les styles\n(simatec) Correction de l'erreur de sauvegarde iobroker",
+        "it": "(simatec) Recuperare informazioni aggiunto\n(simatec) Fix Formaterrors\n(blufox) Fissare i problemi con gli stili\n(simatec) Corretto errore di backup dello iobroker",
+        "es": "(simatec) Información adicional\n(simatec) Fix Formaterrors\n(bluefox) Arreglar los problemas con estilos\n(simatec) Corregir error de copia de seguridad de iobroker",
+        "pl": "(simatec) Przywracanie informacji\nNapraw Formalności\n(bluefox) Naprawianie problemów stylami\n(simatec) Naprawiono błąd kopii zapasowej iobrokera",
+        "uk": "(Simatec) Додана інформація\nФорматори\n(синійфокс) Виправлення проблем з стилями\n(simatec) Виправлення помилки iobroker Backup",
+        "zh-cn": "(静音) 恢复已添加的信息\n(simatec) 固定格式化器\n(布鲁福克斯) 用样式解决问题\n(simatec) Fix io经纪人备份错误"
+      },
       "3.0.6": {
         "en": "(simatec) Restore Information added\n(simatec) Fix Formaterrors\n(bluefox) Fixing the problems with styles\n(simatec) Fix iobroker Backup Error",
         "de": "(simatec) Restore Informationen hinzugefügt\n(simatec) Formatierer reparieren\n(Bluefox) Probleme mit Stilen beheben\n(simatec) iobroker Backup Fehler beheben",
@@ -80,19 +93,6 @@
         "pl": "Fix umount callback\nPopraw wiadomość o kopii zapasowej\nAktualizacja tłumaczeń\nFix InfluxDB Multi Backup\nNapraw ponownie konsolę\nNapraw konsolę kopii zapasowej",
         "uk": "Виправлення зворотного виклику umount\nВиправлення повідомлення Backup\nПереклади оновлені\nФіксація InfluxDB Багато резервних копій\nФіксація відновлення консолі\nВиправлення консолі резервного копіювання",
         "zh-cn": "修复调用\n修复备份信件\n更新翻译\n修复内流数据库 多备份\n修复主控台\n修复备份控制台"
-      },
-      "3.0.0": {
-        "en": "jsonConfig added\nConversion to React\nAdded react components\nWorking on React GUI\ndependencies updated\nFix Yahka Backup\nFix Nodered Backup\nsome bugs fixed\nNew Restore-Interface\nTranslation updated",
-        "de": "jsonConfig hinzugefügt\nUmrechnung auf React\nZugabe von Reaktionskomponenten\nArbeiten an React GUI\naktualisierte abhängigkeiten\nYahka Backup\nFix Nodered Backup\neinige fehler behoben\nNeue Restore-Interface\nÜbersetzung aktualisiert",
-        "ru": "jsonConfig добавлен\nПреобразование в React\nДобавленные компоненты\nРабота с React GUI\nобновленная информация о зависимостях\nIx Yahka Backup\nFix Nodered Backup\nнекоторые ошибки\nNew Restore-Interface\nОбновленный перевод",
-        "pt": "jsonConfig adicionado\nConversão para reagir\nComponentes de reação adicionados\nTrabalhando em React GUI\ndependências atualizadas\nCorrigir backup de Yahka\nFix Nodered Backup\nalguns bugs corrigidos\nNova loja-Interface\nTradução atualizada",
-        "nl": "jsonConfig toegevoegd\nConversie naar react\nToegevoegde reactiecomponenten\nWerken aan GUI react\nafhankelijkheden bijgewerkt\nYahka-backup herstellen\nFix Nodered Backup\nsommige bugs gerepareerd\nNieuw herstel-interface\nVertaling bijgewerkt",
-        "fr": "jsonConfig ajouté\nConversion en réaction\nÉléments de réaction ajoutés\nTravail sur la réaction de l'interface graphique\ndépendances mises à jour\nCorrection du sauvegarde Yahka\nCorrection de sauvegarde nodale\nquelques bugs corrigés\nNouvelle interface de restauration\nTraduction mise à jour",
-        "it": "jsonConfig aggiunto\nConversione a React\nComponenti di reazione aggiunti\nLavorare sulla GUI React\ndipendenze aggiornate\nRiparare Yahka Backup\nFix Nodered Backup\nalcuni bug fissi\nNuova interfaccia di ripristino\nTraduzione aggiornata",
-        "es": "jsonConfig añadido\nConversión a la reacción\nComponentes de reacción adicionales\nWorking on React GUI\ndependencias actualizadas\nArreglar Yahka Backup\nFijación Nodered Backup\nalgunos errores fijos\nNueva Restore-Interface\nTraducción actualizada",
-        "pl": "jsonConfig dodany\nPrzeliczanie do reakcji\nDodano elementy reakcji\nPrace nad React GUI\nzaktualizowane zależności\nNapraw kopię zapasową Haika\nFix Noded Backup\nniektóre błędy naprawione\nNowy interfejs restore-\nAktualizacja tłumaczeń",
-        "uk": "jsonConfig додано\nПеретворення в React\nДодано компоненти реагації\nРобота на React GUI\nоновлені залежності\nВиправлення Yahka Backup\nФіксація Nodered Backup\nдеякі помилки виправлені\nНовий Restore-Interface\nПереклад оновлений",
-        "zh-cn": "添加了 json 图形\n转换为反应\n添加反应组件\n正在研究反应图形界面\n更新依赖关系\n修复 Yahka 备份\n修复点名备份\n一些错误已修复\n新建还原界面\n翻译更新"
       }
     },
     "titleLang": {
