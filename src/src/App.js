@@ -408,7 +408,7 @@ class App extends GenericApp {
     }
 
     render() {
-        //console.log(`Theme-Name: ${this.state.theme.name} | Theme-Type: ${this.state.themeType}`);
+        // console.log(`Theme-Name: ${this.state.theme.name} | Theme-Type: ${this.state.themeType}`);
         if (!this.state.loaded) {
             return <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={this.state.theme}>

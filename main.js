@@ -646,7 +646,8 @@ function initConfig(secret) {
     let ioPath;
 
     try {
-        ioPath = `${ioCommon.tools.getControllerDir()}/iobroker.js`;
+        //ioPath = `${ioCommon.tools.getControllerDir()}/iobroker.js`; Todo: Error by iob Backup (no such file or directory, uv_cwd)
+        ioPath = require.resolve('iobroker.js-controller/iobroker.js');
     } catch (e) {
         adapter.log.error(`Unable to read iobroker path: +${e}`);
     }
