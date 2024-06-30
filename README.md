@@ -62,6 +62,10 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (Grothesk242/simatec) foreceuid and forcegid added
+* (simatec) dependencies updated
+
 ### 3.0.7 (2024-06-26)
 * (simatec) Restore Information added
 * (simatec) Fix Formaterrors
