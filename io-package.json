@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.7",
+    "version": "3.0.8",
     "news": {
+      "3.0.8": {
+        "en": "forceuid and forcegid added\ndependencies updated\nsmall fix",
+        "de": "zwang und zwang hinzugefügt\naktualisierte abhängigkeiten\nkleine fix",
+        "ru": "forceuid and forcegid added\nобновленная информация о зависимостях\nнебольшое исправление",
+        "pt": "força e força adicionada\ndependências atualizadas\npequena correção",
+        "nl": "forceuid en forcegid toegevoegd\nafhankelijkheden bijgewerkt\nkleine fix",
+        "fr": "forceuid et forcegid ajoutés\ndépendances mises à jour\npetite fixation",
+        "it": "forceuid e forcegid aggiunto\ndipendenze aggiornate\npiccola correzione",
+        "es": "forceuid and forcegid added\ndependencias actualizadas\npequeño",
+        "pl": "forceuid i forcegid\nzaktualizowane zależności\nmały fix",
+        "uk": "додано\nоновлені залежності\nневелика фіксація",
+        "zh-cn": "添加强制和强制\n更新依赖关系\n小修补"
+      },
       "3.0.7": {
         "en": "(simatec) Restore Information added\n(simatec) Fix Formaterrors\n(bluefox) Fixing the problems with styles\n(simatec) Fix iobroker Backup Error",
         "de": "(simatec) Restore Informationen hinzugefügt\n(simatec) Formatierer reparieren\n(Bluefox) Probleme mit Stilen beheben\n(simatec) iobroker Backup Fehler beheben",
@@ -80,19 +93,6 @@
         "pl": "Napraw dysk Google\nNapraw tłumaczenia\nNapraw Onedrive\nNapraw kopię zapasową MySql\nPoprawiono tłumaczenie\nPopraw projekt\ndodano nową zawartość powiadomień",
         "uk": "Налаштування Google Диску\nВиправлення перекладів\nВиправлення одного диска\nВиправлення MySql Backup\nВиправлення перекладу додано\nФіксація дизайну\nдодано новий вміст повідомлень",
         "zh-cn": "修复谷歌驱动器\n修正翻译\n修整单程\n修复 MySql 备份\n添加了翻译\n设计\n新增通知内容"
-      },
-      "3.0.1": {
-        "en": "Fix umount callback\nFix Backup Message\nTranslations updated\nFix InfluxDB Multi Backup\nFix Restore Console\nFix Backup Console",
-        "de": "Umount-Anruf\nBackup-Nachricht aktivieren\nÜbersetzungen aktualisiert\nInfluxDB Multi Backup\nWiederherstellen Konsole\nBackup Console",
-        "ru": "Fix umount callback\nСообщение резервного копирования\nОбновленные переводы\nFix InfluxDB Многократная резервная копия\nРеставрировать Консоль\nКонсоль резервного копирования",
-        "pt": "Corrigir a chamada\nCorrigir mensagem de backup\nTraduções atualizadas\nFixo InfluxDB Multi backup\nConsola de Restauração\nConsola de backup",
-        "nl": "Fix umount callback\nBackupbericht herstellen\nVertalingen bijgewerkt\nFix InfluxDB Multi backup\nConsole herstellen herstellen\nReservekopieconsole herstellen",
-        "fr": "Correction du rappel umount\nCorrection du message de sauvegarde\nTraductions actualisées\nCorrection de l'influxDB Sauvegarde multiple\nCorrection de la console de restauration\nCorrection de la console de sauvegarde",
-        "it": "Fissare il callback umount\nRisolvi il messaggio di backup\nTraduzioni aggiornata\nFissare l'influenza Multi backup\nRisolvere la console di ripristino\nConsole di Backup",
-        "es": "Corrección de llamada umount\nMensaje de respaldo fijo\nTraducción actualizada\nInfluxDB Multi Backup\nRestaurar la consola\nConsola de respaldo fija",
-        "pl": "Fix umount callback\nPopraw wiadomość o kopii zapasowej\nAktualizacja tłumaczeń\nFix InfluxDB Multi Backup\nNapraw ponownie konsolę\nNapraw konsolę kopii zapasowej",
-        "uk": "Виправлення зворотного виклику umount\nВиправлення повідомлення Backup\nПереклади оновлені\nФіксація InfluxDB Багато резервних копій\nФіксація відновлення консолі\nВиправлення консолі резервного копіювання",
-        "zh-cn": "修复调用\n修复备份信件\n更新翻译\n修复内流数据库 多备份\n修复主控台\n修复备份控制台"
       }
     },
     "titleLang": {

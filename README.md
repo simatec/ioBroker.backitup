@@ -62,7 +62,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.0.8 (2024-07-01)
 * (Grothesk242/simatec) forceuid and forcegid added
 * (simatec) dependencies updated
 * (simatec) small fix

@@ -1,6 +1,6 @@
 {
   "name": "iobroker.backitup",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "engines": {
     "node": ">=18.0.0"
   },
@@ -105,7 +105,7 @@
     "update-packages": "ncu --upgrade && cd src && ncu --upgrade && cd ../src-admin && ncu --upgrade",
     "npm": "npm i && cd src && npm i -f && cd ../src-admin && npm i -f",
     "dev-server-run": "dev-server run backitup",
-    "dev-server-watch": "dev-server watch -x backitup" 
+    "dev-server-watch": "dev-server watch -x backitup"
   },
   "bugs": {
     "url": "https://github.com/simatec/ioBroker.backitup/issues"
