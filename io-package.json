@@ -459,7 +459,7 @@
     "emailSender": "xxx@xxx.com",
     "emailWaitToSend": 0,
     "esphomeEnabled": false,
-    "expertMount": "sudo mount -t cifs -o username=<username>,password=\"<password>\",noserverino,cache=loose,rw,foreceuid,uid=iobroker,forcegid,gid=iobroker,file_mode=0777,dir_mode=0777,vers=3.1.1 //192.168.0.1/NAS/BACKUP /opt/iobroker/backups",
+    "expertMount": "sudo mount -t cifs -o username=<username>,password=\"<password>\",noserverino,cache=loose,rw,forceuid,uid=iobroker,forcegid,gid=iobroker,file_mode=0777,dir_mode=0777,vers=3.1.1 //192.168.0.1/NAS/BACKUP /opt/iobroker/backups",
     "fileSizeError": 512,
     "fileSizeWarning": 1024,
     "ftpCcuDir": "/backupDir/ccu",
