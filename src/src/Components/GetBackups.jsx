@@ -71,7 +71,7 @@ function parseName(name) {
 
 const ICONS = {
     local: Save,
-    cifs: FaDropbox,
+    cifs: FaNetworkWired,
     dropbox: FaDropbox,
     ftp: FaNetworkWired,
     googledrive: FaGoogleDrive,
