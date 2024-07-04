@@ -139,6 +139,10 @@ The operation of the Restore tab is as follows.
 
 ![adminTabInfo](img/backitup_history.png)
 
+
+![backitupConfig](img/backitup_config.png)
+
+
 _[Back to top](#documentation-and-instructions-for-iobrokerbackitup)_
 
 ---
@@ -552,7 +556,14 @@ All states and objects as well as the user files such as VIS are backed up here 
 The restore is also completely identical to the CLI command `iobroker restore <backupname>` of the js-controller.
 
 With a restore, all states, objects and user data are restored by Backup.
+
+![adminByRestore](img/backitup_restore1.png)
+
+
 After the restore, your ioBroker restarts and from there the js-controller takes over the installation of missing adapters again.
+
+![adminAfterRestore](img/backitup_restore2.png)
+
 
 `ioBroker.backitup` has no effect whatsoever on the recovery after the ioBroker has started. This all happens in the background, and the js-controller takes over based on the restored information in the States and Objects.
 
@@ -567,7 +578,6 @@ On Linux systems this folder is located under the following path: `/opt/iobroker
 
 With the backup types "ioBroker" and "redis", the ioBroker is stopped during the restore and then restarted automatically.
 
-After stopping the ioBroker, a new browser tab opens showing the progress of the restore.
 
 ***If this tab does not open, the browser settings for block popups must be checked.***
 

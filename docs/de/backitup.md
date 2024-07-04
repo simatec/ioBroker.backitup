@@ -610,8 +610,6 @@ Auf Linuxsystemen befindet sich dieser Ordner unter folgenden Pfad: `/opt/iobrok
 
 Bei den Backuptypen "ioBroker" und "redis" wird beim Restore der ioBroker gestoppt und im Anschluss automatisch wieder gestartet.
 
-Nach dem Stop des iobrokers öffnet sich ein neuer Browser-Tab, in dem der Verlauf des Restores zu sehen ist.
-
 
 ***Falls dieser Tab nicht öffnet, müssen die Browser-Einstellungen für Popups blockieren kontrolliert werden.***
 
