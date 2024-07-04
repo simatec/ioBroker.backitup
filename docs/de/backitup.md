@@ -133,6 +133,9 @@ Die Bedienung des Restore Tabs sieht wie folgt aus.
 
 ![adminTabInfo](img/backitup_history.png)
 
+
+![backitupConfig](img/backitup_config.png)
+
 _[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
 ---
@@ -585,7 +588,12 @@ Es werden hier identisch dem Standard Backup des js-controllers alle States und 
 Auch der Restore ist vollkommen identisch dem CLI Befehl des js-controllers.
 
 Bei einem Restore werden alle States, Objects und Nutzerdaten von `ioBroker.backitup` wiederhergestellt.
+
+![adminByRestore](img/backitup_restore1.png)
+
 Nach dem Restore startet euer ioBroker neu und ab da übernimmt die Installation fehlender Adapter dann wieder der js-controller.
+
+![adminAfterRestore](img/backitup_restore2.png)
 
 `ioBroker.backitup` hat nach dem Start des iobrokers keinerlei Einfluss auf die Wiederherstellung. Dies  übernimmt der js-controller im Hintergrund anhand der wiederhergestellten Informationen in den States und Objects.
 
