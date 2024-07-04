@@ -579,8 +579,6 @@ On Linux systems this folder is located under the following path: `/opt/iobroker
 With the backup types "ioBroker" and "redis", the ioBroker is stopped during the restore and then restarted automatically.
 
 
-***If this tab does not open, the browser settings for block popups must be checked.***
-
 **ioBroker is not stopped with all other backup types. Here only the affected adapters are temporarily stopped.**
 
 If you prefer to restore your backups manually, you should do the following:
