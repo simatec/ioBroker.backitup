@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.8",
+    "version": "3.0.9",
     "news": {
+      "3.0.9": {
+        "en": "Tab Icons added\nsmall fix\nDocu updated",
+        "de": "Tab Icons hinzugefügt\nkleine fix\nDocu aktualisiert",
+        "ru": "Добавлен значок\nнебольшое исправление\nDocu",
+        "pt": "Tab Icons adicionado\npequena correção\nDocu atualizado",
+        "nl": "Tab-pictogrammen toegevoegd\nkleine fix\nDocu bijgewerkt",
+        "fr": "Icônes de l'onglet ajouté\npetite fixation\nDocu mis à jour",
+        "it": "Scheda Icone aggiunto\npiccola correzione\nDocu aggiornato",
+        "es": "Tab Icons añadido\npequeño\nDocu actualizado",
+        "pl": "Dodano ikony tab\nmały fix\nAktualizacja doku",
+        "uk": "Вкладка іконок додано\nневелика фіксація\nDocu оновлений",
+        "zh-cn": "添加标签图标\n小修补\n更新 Docu"
+      },
       "3.0.8": {
         "en": "forceuid and forcegid added\ndependencies updated\nsmall fix",
         "de": "zwang und zwang hinzugefügt\naktualisierte abhängigkeiten\nkleine fix",
@@ -80,19 +93,6 @@
         "pl": "Napraw WebDav\nAdmin Notification for Backup erros added\nUsuń konfigurację zapisu\nAktualizacja tłumaczeń\nZoptymalizowana obsługa błędów\nzaktualizowane zależności",
         "uk": "Виправлення WebDav\nПовідомлення адміністратора для резервного копіювання erros\nВидалити Конфігурація Sentry\nПереклади оновлені\nОптимізоване використання помилок\nоновлені залежності",
         "zh-cn": "修复 WebDav\n添加备份错误的管理通知\n删除哨兵配置\n更新翻译\n处理优化出错\n更新依赖关系"
-      },
-      "3.0.2": {
-        "en": "Fix Google Drive\nFix Translations\nFix Onedrive\nFix MySql Backup\nFix Translation added\nDesign Fix\nnew notifications content added",
-        "de": "Google Drive reparieren\nÜbersetzungen reparieren\nOnedrive herunterladen\nMySql Backup reparieren\nFix Übersetzung hinzugefügt\nDesign Fix\nneue benachrichtigungen inhalt hinzugefügt",
-        "ru": "Ix Google Drive\nFix Translations\nFix Onedrive\nЗакрытие MySql\nДобавлен перевод\nДизайн Fix\nновый контент уведомлений",
-        "pt": "Corrigir o Google Drive\nCorrigir traduções\nCorrigir uma unidade\nFix MySql Backup\nTradução Fixa adicionada\nCorreção de Design\nnovo conteúdo de notificações adicionado",
-        "nl": "Google Drive herstellen\nVertalingen herstellen\nOnedrive herstellen\nRepareer MySql back-up\nVertaling toegevoegd\nOntwerpfix\nnieuwe inhoud toegevoegd",
-        "fr": "Correction du lecteur Google\nCorrection des traductions\nCorrection de Onedrive\nCorrection de la sauvegarde MySql\nCorrection de traduction ajoutée\nCorrection de conception\nnouveaux contenus de notifications ajoutés",
-        "it": "Fissare Google Drive\nRiparare le traduzioni\nFissare Onedrive\nRisolvere MySql Backup\nFisso Traduzione aggiunto\nDesign Fix\nnuovo contenuto di notifiche aggiunto",
-        "es": "Arreglar Google Drive\nCorregir traducciones\nFijar un goteo\nArregla MySql Backup\nTraducción fija\nDiseño fijo\nnuevo contenido de notificaciones añadido",
-        "pl": "Napraw dysk Google\nNapraw tłumaczenia\nNapraw Onedrive\nNapraw kopię zapasową MySql\nPoprawiono tłumaczenie\nPopraw projekt\ndodano nową zawartość powiadomień",
-        "uk": "Налаштування Google Диску\nВиправлення перекладів\nВиправлення одного диска\nВиправлення MySql Backup\nВиправлення перекладу додано\nФіксація дизайну\nдодано новий вміст повідомлень",
-        "zh-cn": "修复谷歌驱动器\n修正翻译\n修整单程\n修复 MySql 备份\n添加了翻译\n设计\n新增通知内容"
       }
     },
     "titleLang": {
