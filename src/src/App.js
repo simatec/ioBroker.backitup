@@ -106,8 +106,6 @@ const styles = {
     },
     iconDiv: {
         display: 'inline-block',
-        background: '#e2e2e2',
-        backgroundImage: 'linear-gradient(179deg, #e2e2e2 40%, #474747 180%)',
         maxWidth: '30%',
         height: '100%',
         marginRight: 8,
