@@ -300,7 +300,7 @@ class App extends GenericApp {
     renderBackupInformation() {
         return <Card sx={styles.card}>
             <CardContent sx={styles.cardContent}>
-                <div style={{...styles.iconDiv, ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight)}}>
+                <div style={{ ...styles.iconDiv, ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight) }}>
                     <InfoOutlined style={styles.icon} />
                 </div>
                 <div style={styles.textDiv}>
@@ -345,7 +345,7 @@ class App extends GenericApp {
         ];
         return <Card sx={styles.card}>
             <CardContent sx={styles.cardContent}>
-                <div style={{...styles.iconDiv, ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight)}}>
+                <div style={{ ...styles.iconDiv, ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight) }}>
                     <StorageOutlined style={styles.icon} />
                 </div>
                 <div style={styles.textDiv}>
@@ -382,7 +382,7 @@ class App extends GenericApp {
         ];
         return <Card sx={styles.card}>
             <CardContent sx={styles.cardContent}>
-                <div style={{...styles.iconDiv, ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight)}}>
+                <div style={{ ...styles.iconDiv, ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight) }}>
                     <CloudUploadOutlined style={styles.icon} />
                 </div>
                 <div style={styles.textDiv}>
