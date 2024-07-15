@@ -113,6 +113,12 @@ const styles = {
         marginRight: 8,
         verticalAlign: 'top',
     },
+    iconDivLight: {
+        backgroundImage: 'linear-gradient(179deg, #e2e2e2 40%, #474747 180%)',
+    },
+    iconDivDark: {
+        backgroundImage: 'linear-gradient(179deg, #535353 40%, #e2e2e2 180%)',
+    },
     textDiv: {
         width: 'calc(100% - 120px)',
         display: 'inline-block',
@@ -296,7 +302,7 @@ class App extends GenericApp {
     renderBackupInformation() {
         return <Card sx={styles.card}>
             <CardContent sx={styles.cardContent}>
-                <div style={styles.iconDiv}>
+                <div style={{...styles.iconDiv, ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight)}}>
                     <InfoOutlined style={styles.icon} />
                 </div>
                 <div style={styles.textDiv}>
@@ -341,7 +347,7 @@ class App extends GenericApp {
         ];
         return <Card sx={styles.card}>
             <CardContent sx={styles.cardContent}>
-                <div style={styles.iconDiv}>
+                <div style={{...styles.iconDiv, ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight)}}>
                     <StorageOutlined style={styles.icon} />
                 </div>
                 <div style={styles.textDiv}>
@@ -378,7 +384,7 @@ class App extends GenericApp {
         ];
         return <Card sx={styles.card}>
             <CardContent sx={styles.cardContent}>
-                <div style={styles.iconDiv}>
+                <div style={{...styles.iconDiv, ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight)}}>
                     <CloudUploadOutlined style={styles.icon} />
                 </div>
                 <div style={styles.textDiv}>
