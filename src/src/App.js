@@ -104,15 +104,15 @@ const styles = {
         fontSize: 70,
         filter: 'drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2))',
     },
-    iconDiv: theme => ({
+    iconDiv: {
         display: 'inline-block',
         background: '#e2e2e2',
-        backgroundImage: theme.palette.mode === 'dark' ? 'linear-gradient(179deg, rgb(83, 83, 83) 40%, rgb(226, 226, 226) 180%)' : 'linear-gradient(179deg, #e2e2e2 40%, #474747 180%)',
+        backgroundImage: 'linear-gradient(179deg, #e2e2e2 40%, #474747 180%)',
         maxWidth: '30%',
         height: '100%',
         marginRight: 8,
         verticalAlign: 'top',
-    }),
+    },
     textDiv: {
         width: 'calc(100% - 120px)',
         display: 'inline-block',
