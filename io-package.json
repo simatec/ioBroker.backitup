@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.9",
+    "version": "3.0.10",
     "news": {
+      "3.0.10": {
+        "en": "Design Fix for Dark Mode\ndependencies updated",
+        "de": "Design Fix für dunklen Modus\naktualisierte abhängigkeiten",
+        "ru": "Дизайн Fix для темного режима\nобновленная информация о зависимостях",
+        "pt": "Design Fix para modo escuro\ndependências atualizadas",
+        "nl": "Ontwerp Fix voor donkere modus\nafhankelijkheden bijgewerkt",
+        "fr": "Correction de conception pour le mode sombre\ndépendances mises à jour",
+        "it": "Design Fix per la modalità oscura\ndipendenze aggiornate",
+        "es": "Diseño fijo para el modo oscuro\ndependencias actualizadas",
+        "pl": "Design Fix dla trybu ciemnego\nzaktualizowane zależności",
+        "uk": "Налаштування дизайну для темного режиму\nоновлені залежності",
+        "zh-cn": "暗模式的设计修正\n更新依赖关系"
+      },
       "3.0.9": {
         "en": "Tab Icons added\nsmall fix\nDocu updated",
         "de": "Tab Icons hinzugefügt\nkleine fix\nDocu aktualisiert",
@@ -80,19 +93,6 @@
         "pl": "Historia Gui Fix\nZmodyfikowany GUI tab\nDodano wsparcie dla Admin 7\nJeden dysk gotowy do konta szkolnego / biznesowego",
         "uk": "Історія Gui Fix\nВкладка GUI модифікований\nДодано підтримку для Admin 7\nOnedrive готовий до бізнес-акаунтів",
         "zh-cn": "历史 桂修\n标签图形界面已修改\n添加对管理员 7 的支持\n为学校/商业账户准备一辆车"
-      },
-      "3.0.3": {
-        "en": "Fix WebDav\nAdmin Notification for Backup erros added\nRemove Sentry Config\nTranslations updated\nError handling optimized\ndependencies updated",
-        "de": "WebDav aktivieren\nAdmin-Benachrichtigung für Backup-Erros hinzugefügt\nEntfernen Sentry Config\nÜbersetzungen aktualisiert\nFehlerbehebung optimiert\naktualisierte abhängigkeiten",
-        "ru": "Ix WebDav\nУведомление о резервном копировании добавлено\nУдалить SentryConfig\nОбновленные переводы\nОптимизация обработки ошибок\nобновленная информация о зависимостях",
-        "pt": "Corrigir WebDav\nNotificação de administrador para erros de backup adicionados\nRemover Sentry Config\nTraduções atualizadas\nManuseio de erros otimizado\ndependências atualizadas",
-        "nl": "WebDav herstellen\nAdmin-notificatie voor back-uperros toegevoegd\nSchermconfiguratie verwijderen\nVertalingen bijgewerkt\nFout bij het hanteren geoptimaliseerd\nafhankelijkheden bijgewerkt",
-        "fr": "Correction de WebDav\nNotification Admin pour les erros de sauvegarde ajoutés\nSupprimer Sentry Config\nTraductions actualisées\nGestion des erreurs optimisée\ndépendances mises à jour",
-        "it": "Fissare WebDav\nAdmin Notifica per Backup erros aggiunto\nRimuovere Sentry Config\nTraduzioni aggiornata\nGestione degli errori ottimizzata\ndipendenze aggiornate",
-        "es": "Corregir WebDav\nAdmin Notification for Backup erros added\nQuitar Configmento de Sentry\nTraducción actualizada\nManejo de errores optimizado\ndependencias actualizadas",
-        "pl": "Napraw WebDav\nAdmin Notification for Backup erros added\nUsuń konfigurację zapisu\nAktualizacja tłumaczeń\nZoptymalizowana obsługa błędów\nzaktualizowane zależności",
-        "uk": "Виправлення WebDav\nПовідомлення адміністратора для резервного копіювання erros\nВидалити Конфігурація Sentry\nПереклади оновлені\nОптимізоване використання помилок\nоновлені залежності",
-        "zh-cn": "修复 WebDav\n添加备份错误的管理通知\n删除哨兵配置\n更新翻译\n处理优化出错\n更新依赖关系"
       }
     },
     "titleLang": {
