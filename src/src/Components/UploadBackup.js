@@ -139,7 +139,7 @@ const UploadBackup = props => {
             <Button
                 disabled={working}
                 onClick={props.onClose}
-                color="grey"
+                color={props.themeType === 'dark' ? 'primary' : 'grey'}
                 variant="contained"
                 startIcon={<Close />}
             >

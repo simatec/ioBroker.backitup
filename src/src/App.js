@@ -535,7 +535,7 @@ class App extends GenericApp {
                             {this.state.myAlive && this.state.native.minimalEnabled ? <BackupNow
                                 style={{ ...styles.buttonWidth, width: '100%' }}
                                 variant="contained"
-                                color="grey"
+                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                 adapterName={this.adapterName}
                                 instance={this.instance}
                                 alive
@@ -549,7 +549,7 @@ class App extends GenericApp {
                             /> : <Button
                                 style={{ width: '100%' }}
                                 disabled
-                                color="grey"
+                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                 variant="contained"
                                 endIcon={<CloudUploadOutlined />}
                             >
@@ -560,7 +560,7 @@ class App extends GenericApp {
                                 variant="contained"
                                 adapterName={this.adapterName}
                                 instance={this.instance}
-                                color="grey"
+                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                 alive
                                 socket={this.socket}
                                 themeType={this.state.themeType}
@@ -571,8 +571,9 @@ class App extends GenericApp {
                                 }}
                             /> : <Button
                                 style={{ width: '100%' }}
+                                themeType={this.state.themeType}
                                 disabled
-                                color="grey"
+                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                 variant="contained"
                                 endIcon={<CloudUploadOutlined />}
                             >
@@ -582,7 +583,7 @@ class App extends GenericApp {
                                 style={{ width: '100%' }}
                                 onClick={() => this.setState({ showBackupHistory: true })}
                                 variant="contained"
-                                color="grey"
+                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                 endIcon={<FormatListBulleted />}
                             >
                                 {I18n.t('Backup history')}
@@ -590,7 +591,7 @@ class App extends GenericApp {
                             <Button
                                 style={{ width: '100%' }}
                                 variant="contained"
-                                color="grey"
+                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                 onClick={async () => {
                                     const obj = await this.socket.getObject(`system.adapter.${this.adapterName}.${this.instance}`);
 
@@ -646,27 +647,30 @@ class App extends GenericApp {
                             />
                             <Button
                                 style={{ width: '100%', marginTop: '0.5rem' }}
+                                themeType={this.state.themeType}
                                 onClick={() => this.setState({ showGetBackups: true })}
                                 disabled={!this.state.myAlive}
                                 variant="contained"
-                                color="grey"
+                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                 endIcon={<Search />}
                             >
                                 {I18n.t('Get list')}
                             </Button>
                             <Button
                                 style={{ width: '100%', marginTop: '0.5rem' }}
+                                themeType={this.state.themeType}
                                 onClick={() => this.setState({ showUploadBackup: true })}
                                 variant="contained"
-                                color="grey"
+                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                 endIcon={<UploadOutlined />}
                             >
                                 {I18n.t('Upload Backup File')}
                             </Button>
                             <Button
                                 style={{ width: '100%', marginTop: '0.5rem' }}
+                                themeType={this.state.themeType}
                                 variant="contained"
-                                color="grey"
+                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                 onClick={() => this.setState({ showUploadSettings: true })}
                                 endIcon={<SettingsBackupRestore />}
                             >

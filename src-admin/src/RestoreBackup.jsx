@@ -39,7 +39,7 @@ class RestoreBackup extends ConfigGeneric {
                 onClick={() => this.setState({ showGetBackups: true })}
                 disabled={!this.props.alive}
                 variant="contained"
-                color="grey"
+                color="primary"
                 endIcon={<Search />}
             >
                 {I18n.t('Get list')}

@@ -61,7 +61,7 @@ const BackupHistory = props => {
                 onClick={props.onClose}
                 startIcon={<Close />}
                 variant="contained"
-                color="grey"
+                color={props.themeType === 'dark' ? 'primary' : 'grey'}
             >
                 {I18n.t('Close')}
             </Button>

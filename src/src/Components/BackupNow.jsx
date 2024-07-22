@@ -201,6 +201,7 @@ class BackupNow extends ConfigGeneric {
                 />
                 <Button
                     variant="contained"
+                    color={this.props.color}
                     onClick={() => this.setState({ executionDialog: false })}
                 >
                     {I18n.t('Close')}

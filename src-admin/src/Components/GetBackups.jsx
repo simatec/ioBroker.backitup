@@ -229,6 +229,7 @@ const GetBackups = props => {
                                                         {props.allowDownload ? <Tooltip title={I18n.t('Download Backup File')}>
                                                             <Fab
                                                                 size="small"
+                                                                color={props.themeType === 'dark' ? 'primary' : 'grey'}
                                                                 onClick={async () => {
                                                                     const data = await props.socket.sendTo(
                                                                         `${props.adapterName}.${props.instance}`,
@@ -243,7 +244,7 @@ const GetBackups = props => {
                                                             </Fab>
                                                         </Tooltip> : null}
                                                         <Tooltip title={I18n.t('Restore Backup File')}>
-                                                            <Fab size="small" onClick={() => props.onRestore(location, object, backup.path)}>
+                                                            <Fab size="small" color={props.themeType === 'dark' ? 'primary' : 'grey'} onClick={() => props.onRestore(location, object, backup.path)}>
                                                                 <History />
                                                             </Fab>
                                                         </Tooltip>
@@ -262,7 +263,7 @@ const GetBackups = props => {
                 onClick={props.onClose}
                 startIcon={<Close />}
                 variant="contained"
-                color="grey"
+                color="primary"
             >
                 {I18n.t('Close')}
             </Button>

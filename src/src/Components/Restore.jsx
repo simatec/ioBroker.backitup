@@ -342,7 +342,7 @@ class Restore extends Component {
                         // maybe to reload here, as the version of admin could change
                     }}
                     startIcon={<Close />}
-                    color="primary"
+                    color={this.props.themeType === 'dark' ? 'primary' : 'grey'}
                 >
                     {I18n.t('Close')}
                 </Button>
@@ -456,12 +456,12 @@ class Restore extends Component {
                             source: 'gui',
                         }],
                     }, () => this.doRestore())}
-                    color="primary"
+                    color={this.props.themeType === 'dark' ? 'primary' : 'grey'}
                 >
                     {I18n.t('Restore')}
                 </Button>
                 <Button
-                    color="grey"
+                    color={this.props.themeType === 'dark' ? 'primary' : 'grey'}
                     variant="contained"
                     disabled={this.state.executing}
                     onClick={() => this.props.onClose()}

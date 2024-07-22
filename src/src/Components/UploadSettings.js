@@ -131,7 +131,7 @@ const UploadSettings = props => {
             </Button>}
             <Button
                 onClick={props.onClose}
-                color="grey"
+                color={props.themeType === 'dark' ? 'primary' : 'grey'}
                 variant="contained"
                 startIcon={<Close />}
             >
