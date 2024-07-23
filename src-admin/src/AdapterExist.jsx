@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { I18n } from '@iobroker/adapter-react-v5';
 import { Checkbox, FormControlLabel } from '@mui/material';
+
+import { I18n } from '@iobroker/adapter-react-v5';
+
 import BaseField from './BaseField';
 
 class AdapterExist extends BaseField {

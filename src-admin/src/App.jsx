@@ -63,7 +63,7 @@ class App extends GenericApp {
         if (!this.state.loaded) {
             return <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={this.state.theme}>
-                    <Loader theme={this.state.themeType} />
+                    <Loader themeType={this.state.themeType} />
                 </ThemeProvider>
             </StyledEngineProvider>;
         }
