@@ -61,6 +61,9 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 **************************************************************************************************************
 <!-- ### **WORK IN PROGRESS** -->
 ## Changelog
+### **WORK IN PROGRESS**
+* (simatec) Added separate selection for deleting FTP backups
+
 ### 3.0.11 (2024-07-28)
 * (simatec) Design Fix
 * (simatec) dependencies updated

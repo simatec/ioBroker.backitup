@@ -795,6 +795,7 @@ function initConfig(secret) {
         host: adapter.config.ftpHost,                                                               // ftp-host
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.ftpDeleteOldBackup,                                         // Delete old Backups from FTP
+        ftpDeleteAfter: adapter.config.ftpDeleteAfter,
         ownDir: adapter.config.ftpOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir,                    // directory on FTP server

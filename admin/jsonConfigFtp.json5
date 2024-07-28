@@ -58,6 +58,17 @@
             "lg": 4,
             "newLine": true
         },
+        "ftpDeleteAfter": {
+            "hidden": "!data.ftpDeleteOldBackup",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "min": 1,
+            "max": 100,
+            "type": "number",
+            "label": "piece",
+            "help": "Delete old ioBroker backups with the exception of the last X pieces"
+        },
         "ftpSecure": {
             "type": "checkbox",
             "label": "Secure FTP connection (explicit TLS)",
