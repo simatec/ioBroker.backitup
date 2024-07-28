@@ -64,6 +64,9 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 ### **WORK IN PROGRESS**
 * (simatec) Added separate selection for deleting FTP backups
 * (simatec) Added separate selection for deleting Onedrive backups
+* (simatec) Added separate selection for deleting Webdav backups
+* (simatec) Added separate selection for deleting Dropbox backups
+* (simatec) Added separate selection for deleting Googledrive backups
 
 ### 3.0.11 (2024-07-28)
 * (simatec) Design Fix

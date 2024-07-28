@@ -58,7 +58,15 @@
             "lg": 4,
             "newLine": true
         },
+        "ftpSecure": {
+            "type": "checkbox",
+            "label": "Secure FTP connection (explicit TLS)",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+        },
         "ftpDeleteAfter": {
+            "newLine": true,
             "hidden": "!data.ftpDeleteOldBackup",
             "sm": 12,
             "md": 8,
@@ -68,13 +76,6 @@
             "type": "number",
             "label": "piece",
             "help": "Delete old ioBroker backups with the exception of the last X pieces"
-        },
-        "ftpSecure": {
-            "type": "checkbox",
-            "label": "Secure FTP connection (explicit TLS)",
-            "sm": 12,
-            "md": 8,
-            "lg": 4,
         },
         "ftpOwnDir": {
             "type": "checkbox",

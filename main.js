@@ -814,6 +814,7 @@ function initConfig(secret) {
         source: adapter.config.restoreSource,
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.dropboxDeleteOldBackup,                                     // Delete old Backups from Dropbox
+        dropboxDeleteAfter: adapter.config.dropboxDeleteAfter,
         accessToken: adapter.config.dropboxAccessToken ? adapter.config.dropboxAccessToken : '',
         dropboxAccessJson: adapter.config.dropboxAccessJson,
         dropboxTokenType: adapter.config.dropboxTokenType,
@@ -845,6 +846,7 @@ function initConfig(secret) {
         source: adapter.config.restoreSource,
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.webdavDeleteOldBackup,                                      // Delete old Backups from webdav
+        webdavDeleteAfter: adapter.config.webdavDeleteAfter,
         username: adapter.config.webdavUsername,
         pass: adapter.config.webdavPassword || '',                                                  // webdav password
         url: adapter.config.webdavURL,
@@ -862,6 +864,7 @@ function initConfig(secret) {
         source: adapter.config.restoreSource,
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.googledriveDeleteOldBackup,                                 // Delete old Backups from google drive
+        googledriveDeleteAfter: adapter.config.googledriveDeleteAfter,
         accessJson: adapter.config.googledriveAccessTokens || adapter.config.googledriveAccessJson,
         newToken: !!adapter.config.googledriveAccessTokens,
         ownDir: adapter.config.googledriveOwnDir,

@@ -69,6 +69,18 @@
             "md": 8,
             "lg": 4
         },
+        "dropboxDeleteAfter": {
+            "newLine": true,
+            "hidden": "!data.dropboxDeleteOldBackup",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "min": 1,
+            "max": 100,
+            "type": "number",
+            "label": "piece",
+            "help": "Delete old ioBroker backups with the exception of the last X pieces"
+        },
         "dropboxMinimalDir": {
             "hidden": "!data.dropboxOwnDir",
             "sm": 12,
