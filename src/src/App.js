@@ -367,12 +367,12 @@ class App extends GenericApp {
             { name: 'ccuEnabled', label: 'Homematic CCU backup' },
             { name: 'redisEnabled', label: 'Save Redis state' },
             { name: 'javascriptsEnabled', label: 'Javascripts backup' },
-            { name: 'zigbeeEnabled', label: 'Save Zigbee database' },
+            { name: 'zigbeeEnabled', label: 'Zigbee Backup' },
             { name: 'esphomeEnabled', label: 'ESPHome' },
             { name: 'zigbee2mqttEnabled', label: 'Zigbee2MQTT' },
             { name: 'noderedEnabled', label: 'Node-Red backup' },
             { name: 'yahkaEnabled', label: 'Yahka (Homekit) backup' },
-            { name: 'historyEnabled', label: 'Save History Data' },
+            { name: 'historyEnabled', label: 'History Backup' },
             { name: 'influxDBEnabled', label: 'InfluxDB backup' },
             { name: 'mySqlEnabled', label: 'MySql backup' },
             { name: 'sqliteEnabled', label: 'SQLite backup' },
@@ -548,6 +548,7 @@ class App extends GenericApp {
                                 }}
                             /> : <Button
                                 style={{ width: '100%' }}
+                                themeType={this.state.themeType}
                                 disabled
                                 color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                 variant="contained"

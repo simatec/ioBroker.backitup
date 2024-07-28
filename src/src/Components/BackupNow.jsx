@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-    Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, LinearProgress,
+    Button, Checkbox, Dialog,
+    DialogActions, DialogContent,
+    DialogTitle, FormControlLabel, LinearProgress,
 } from '@mui/material';
 import { CloudUploadOutlined } from '@mui/icons-material';
 
@@ -237,6 +239,10 @@ class BackupNow extends ConfigGeneric {
             </Button>
             {this.renderExecutionDialog()}
         </>;
+    }
+
+    render() {
+        return this.renderItem();
     }
 }
 
