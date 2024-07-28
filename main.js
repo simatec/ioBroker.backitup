@@ -830,6 +830,7 @@ function initConfig(secret) {
         source: adapter.config.restoreSource,
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.onedriveDeleteOldBackup,                                    // Delete old Backups from Onedrive
+        onedriveDeleteAfter: adapter.config.onedriveDeleteAfter,
         onedriveAccessJson: adapter.config.onedriveAccessJson,
         ownDir: adapter.config.onedriveOwnDir,
         bkpType: adapter.config.restoreType,

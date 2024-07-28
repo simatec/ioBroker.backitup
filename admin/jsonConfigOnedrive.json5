@@ -33,6 +33,17 @@
             "lg": 4,
             "newLine": true
         },
+        "onedriveDeleteAfter": {
+            "hidden": "!data.onedriveDeleteOldBackup",
+            "sm": 12,
+            "md": 8,
+            "lg": 4,
+            "min": 1,
+            "max": 100,
+            "type": "number",
+            "label": "piece",
+            "help": "Delete old ioBroker backups with the exception of the last X pieces"
+        },
         "onedriveOwnDir": {
             "type": "checkbox",
             "label": "Extra path for backup types",

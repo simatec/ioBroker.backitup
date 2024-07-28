@@ -544,6 +544,7 @@
     "notificationsType": "Telegram",
     "onedriveAccessJson": "",
     "onedriveCcuDir": "backupDir/ccu",
+    "onedriveDeleteAfter": 0,
     "onedriveDeleteOldBackup": false,
     "onedriveDir": "backupDir",
     "onedriveEnabled": false,
