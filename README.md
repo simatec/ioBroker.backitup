@@ -61,6 +61,10 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 **************************************************************************************************************
 <!-- ### **WORK IN PROGRESS** -->
 ## Changelog
+### **WORK IN PROGRESS**
+* (simatec) Design Fix
+* (simatec) dependencies updated
+
 ### 3.0.10 (2024-07-22)
 * (simatec) Design Fix for Dark Mode
 * (bluefox) dependencies updated
