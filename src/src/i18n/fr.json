@@ -96,5 +96,10 @@
     "The backup could not be created completely!": "La sauvegarde n'a pas pu être créée complètement !",
     "starting Backup...": "démarrage de la sauvegarde...",
     "Please select a backup from the list!": "Veuillez sélectionner une sauvegarde dans la liste !",
-    "NAS (Expert)": "NAS (Expert)"
+    "NAS (Expert)": "NAS (Expert)",
+    "After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.": "Après le redémarrage, tous les adaptateurs sont installés. S'il vous plaît soyez patient.\nSelon le système, cela peut prendre un certain temps avant que tous les adaptateurs soient à nouveau disponibles.",
+    "Backup Logs": "Journaux de sauvegarde",
+    "Open Backup Log": "Ouvrir le journal de sauvegarde",
+    "Log": "Enregistrer",
+    "No log is available for this backup": "Aucun journal n'est disponible pour cette sauvegarde"
 }

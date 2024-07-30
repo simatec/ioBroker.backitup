@@ -281,5 +281,7 @@
     "NAS (CIFS)": "NAS (CIFS)",
     "NAS (Expert)": "NAS (especialista)",
     "NAS (NFS)": "NAS (NFS)",
-    "extended log output": "saída de log estendida"
+    "extended log output": "saída de log estendida",
+    "No log is available for this backup": "Nenhum registro está disponível para este backup",
+    "Advanced delete functions for external storage": "Funções avançadas de exclusão para armazenamento externo"
 }

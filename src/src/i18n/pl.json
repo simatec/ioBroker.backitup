@@ -96,5 +96,10 @@
     "The backup could not be created completely!": "Nie udało się całkowicie utworzyć kopii zapasowej!",
     "starting Backup...": "uruchamianie kopii zapasowej...",
     "Please select a backup from the list!": "Wybierz kopię zapasową z listy!",
-    "NAS (Expert)": "NAS (ekspert)"
+    "NAS (Expert)": "NAS (ekspert)",
+    "After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.": "Po ponownym uruchomieniu wszystkie adaptery zostaną zainstalowane. Proszę być cierpliwym.\nW zależności od systemu może minąć trochę czasu, zanim wszystkie adaptery będą ponownie dostępne.",
+    "Backup Logs": "Dzienniki kopii zapasowych",
+    "Open Backup Log": "Otwórz dziennik kopii zapasowych",
+    "Log": "Dziennik",
+    "No log is available for this backup": "Dla tej kopii zapasowej nie jest dostępny żaden dziennik"
 }

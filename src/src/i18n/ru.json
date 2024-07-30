@@ -96,5 +96,10 @@
     "The backup could not be created completely!": "Резервную копию невозможно создать полностью!",
     "starting Backup...": "запуск резервного копирования...",
     "Please select a backup from the list!": "Пожалуйста, выберите резервную копию из списка!",
-    "NAS (Expert)": "НАН (Эксперт)"
+    "NAS (Expert)": "НАН (Эксперт)",
+    "After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.": "После перезагрузки все адаптеры будут установлены. Пожалуйста, будьте терпеливы.\nВ зависимости от системы может пройти некоторое время, прежде чем все адаптеры снова станут доступны.",
+    "Backup Logs": "Резервное копирование журналов",
+    "Open Backup Log": "Открыть журнал резервного копирования",
+    "Log": "Бревно",
+    "No log is available for this backup": "Для этой резервной копии журнал недоступен."
 }

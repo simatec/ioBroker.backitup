@@ -518,6 +518,27 @@ function startAdapter(options) {
                         adapter.sendTo(obj.from, obj.command, resultInstances, obj.callback);
                     }
                     break;
+                case 'getLog':
+                    const logName = path.join(bashDir, `${adapter.namespace}.log`).replace(/\\/g, '/');
+
+                    if (fs.existsSync(logName) && obj?.message.backupName) {
+                        const data = fs.readFileSync(logName, 'utf8');
+                        const backupLog = JSON.parse(data);
+                        const backupName = obj?.message.backupName;
+                        let found = false;
+
+                        backupLog.forEach((item, index) => {
+                            if (item.hasOwnProperty(backupName)) {
+                                found = true;
+                                adapter.log.debug(`Printing logs of previous backup`);
+                                adapter.sendTo(obj.from, obj.command, item[backupName], obj.callback);
+                            } else if ((backupLog.length - 1) == index && !found) {
+                                adapter.log.debug(`No Backuplogs found`);
+                                adapter.sendTo(obj.from, obj.command, tools._('No log is available for this backup', systemLang), obj.callback);
+                            }
+                        });
+                    }
+                    break;
             }
         }
     });
@@ -769,6 +790,8 @@ function initConfig(secret) {
     const notification = {
         type: 'message',
         ignoreErrors: adapter.config.ignoreErrors,
+        bashDir: bashDir,
+        entriesNumber: adapter.config.historyEntriesNumber,
         systemLang
     };
 
@@ -796,6 +819,7 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.ftpDeleteOldBackup,                                         // Delete old Backups from FTP
         ftpDeleteAfter: adapter.config.ftpDeleteAfter,
+        advancedDelete: adapter.config.advancedDelete,
         ownDir: adapter.config.ftpOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir,                    // directory on FTP server
@@ -815,6 +839,7 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.dropboxDeleteOldBackup,                                     // Delete old Backups from Dropbox
         dropboxDeleteAfter: adapter.config.dropboxDeleteAfter,
+        advancedDelete: adapter.config.advancedDelete,
         accessToken: adapter.config.dropboxAccessToken ? adapter.config.dropboxAccessToken : '',
         dropboxAccessJson: adapter.config.dropboxAccessJson,
         dropboxTokenType: adapter.config.dropboxTokenType,
@@ -832,6 +857,7 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.onedriveDeleteOldBackup,                                    // Delete old Backups from Onedrive
         onedriveDeleteAfter: adapter.config.onedriveDeleteAfter,
+        advancedDelete: adapter.config.advancedDelete,
         onedriveAccessJson: adapter.config.onedriveAccessJson,
         ownDir: adapter.config.onedriveOwnDir,
         bkpType: adapter.config.restoreType,
@@ -847,6 +873,7 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.webdavDeleteOldBackup,                                      // Delete old Backups from webdav
         webdavDeleteAfter: adapter.config.webdavDeleteAfter,
+        advancedDelete: adapter.config.advancedDelete,
         username: adapter.config.webdavUsername,
         pass: adapter.config.webdavPassword || '',                                                  // webdav password
         url: adapter.config.webdavURL,
@@ -865,6 +892,7 @@ function initConfig(secret) {
         debugging: adapter.config.debugLevel,
         deleteOldBackup: adapter.config.googledriveDeleteOldBackup,                                 // Delete old Backups from google drive
         googledriveDeleteAfter: adapter.config.googledriveDeleteAfter,
+        advancedDelete: adapter.config.advancedDelete,
         accessJson: adapter.config.googledriveAccessTokens || adapter.config.googledriveAccessJson,
         newToken: !!adapter.config.googledriveAccessTokens,
         ownDir: adapter.config.googledriveOwnDir,
@@ -1265,6 +1293,10 @@ function createBashScripts() {
     if (!fs.existsSync(bashDir)) {
         fs.mkdirSync(bashDir);
         adapter.log.debug('BackItUp data-directory created');
+    }
+    const logFile = path.join(bashDir, `${adapter.namespace}.log`);
+    if (!fs.existsSync(logFile)) {
+        fs.writeFileSync(logFile, '[]');
     }
     if (isWin) {
         adapter.log.debug(`BackItUp has recognized a ${process.platform} system`);

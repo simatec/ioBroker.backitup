@@ -71,7 +71,7 @@
         },
         "dropboxDeleteAfter": {
             "newLine": true,
-            "hidden": "!data.dropboxDeleteOldBackup",
+            "hidden": "!data.dropboxDeleteOldBackup || !data.advancedDelete",
             "sm": 12,
             "md": 8,
             "lg": 4,

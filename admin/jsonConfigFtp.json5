@@ -67,7 +67,7 @@
         },
         "ftpDeleteAfter": {
             "newLine": true,
-            "hidden": "!data.ftpDeleteOldBackup",
+            "hidden": "!data.ftpDeleteOldBackup || !data.advancedDelete",
             "sm": 12,
             "md": 8,
             "lg": 4,

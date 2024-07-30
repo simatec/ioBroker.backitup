@@ -62,6 +62,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 ## Changelog
 ### **WORK IN PROGRESS**
+* (simatec) Backup Log for History added
 * (simatec) Added separate selection for deleting FTP backups
 * (simatec) Added separate selection for deleting Onedrive backups
 * (simatec) Added separate selection for deleting Webdav backups

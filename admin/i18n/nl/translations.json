@@ -281,5 +281,7 @@
     "NAS (CIFS)": "NAS-systeem (CIFS)",
     "NAS (Expert)": "NAS (expert)",
     "NAS (NFS)": "NAS-systeem (NFS)",
-    "extended log output": "uitgebreide loguitvoer"
+    "extended log output": "uitgebreide loguitvoer",
+    "No log is available for this backup": "Er is geen log beschikbaar voor deze back-up",
+    "Advanced delete functions for external storage": "Geavanceerde verwijderfuncties voor externe opslag"
 }

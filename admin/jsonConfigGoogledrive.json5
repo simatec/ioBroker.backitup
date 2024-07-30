@@ -42,7 +42,7 @@
     },
     "googledriveDeleteAfter": {
       "newLine": true,
-      "hidden": "!data.googledriveDeleteOldBackup",
+      "hidden": "!data.googledriveDeleteOldBackup || !data.advancedDelete",
       "sm": 12,
       "md": 8,
       "lg": 4,

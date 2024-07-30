@@ -281,5 +281,7 @@
     "NAS (CIFS)": "NAS (CIFS)",
     "NAS (Expert)": "NAS (експерт)",
     "NAS (NFS)": "NAS (NFS)",
-    "extended log output": "розширений вихід журналу"
+    "extended log output": "розширений вихід журналу",
+    "No log is available for this backup": "Немає журналу для цієї резервної копії",
+    "Advanced delete functions for external storage": "Розширені функції видалення для зовнішньої пам’яті"
 }

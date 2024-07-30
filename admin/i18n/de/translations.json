@@ -271,5 +271,7 @@
     "Your backup was not completely created. Please check the errors!!": "Ihr Backup wurde nicht vollständig erstellt. Bitte überprüfen Sie die Fehler!!",
     "piece": "Stück",
     "Name suffix for the file name of the backup": "Namenszusatz für den Dateinamen des Backups",
-    "If you like this project and would like to support its development, you are welcome to leave a donation.": "Wenn dir dieses Projekt gefällt und du dieses Projekt in der Entwicklung unterstützen möchtest, kannst du gerne eine Spende hinterlassen."
+    "If you like this project and would like to support its development, you are welcome to leave a donation.": "Wenn dir dieses Projekt gefällt und du dieses Projekt in der Entwicklung unterstützen möchtest, kannst du gerne eine Spende hinterlassen.",
+    "No log is available for this backup": "Für dieses Backup ist kein Protokoll verfügbar",
+    "Advanced delete functions for external storage": "Erweiterte Löschfunktionen für externe Speichermedien"
 }

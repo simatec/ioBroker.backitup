@@ -50,6 +50,14 @@
             "md": 8,
             "lg": 4
         },
+        "advancedDelete": {
+            "type": "checkbox",
+            "label": "Advanced delete functions for external storage",
+            "value": false,
+            "sm": 12,
+            "md": 8,
+            "lg": 4
+        },
         "historyEntriesNumber": {
             "newLine": true,
             "sm": 12,

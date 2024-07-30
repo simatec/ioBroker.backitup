@@ -96,5 +96,10 @@
     "The backup could not be created completely!": "De back-up kon niet volledig worden gemaakt!",
     "starting Backup...": "Back-up starten...",
     "Please select a backup from the list!": "Selecteer een back-up uit de lijst!",
-    "NAS (Expert)": "NAS (expert)"
+    "NAS (Expert)": "NAS (expert)",
+    "After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.": "Na de herstart zijn alle adapters geïnstalleerd. Wees alstublieft geduldig.\nAfhankelijk van het systeem kan het enige tijd duren voordat alle adapters weer beschikbaar zijn.",
+    "Backup Logs": "Back-uplogboeken",
+    "Open Backup Log": "Open Back-uplogboek",
+    "Log": "Logboek",
+    "No log is available for this backup": "Er is geen log beschikbaar voor deze back-up"
 }

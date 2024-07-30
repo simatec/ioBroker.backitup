@@ -97,5 +97,9 @@
   "The backup could not be created completely!": "The backup could not be created completely!",
   "starting Backup...": "starting Backup...",
   "Please select a backup from the list!": "Please select a backup from the list!",
-  "After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.": "After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again."
+  "After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.": "After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.",
+  "Backup Logs": "Backup Logs",
+  "Open Backup Log": "Open Backup Log",
+  "Log": "Log",
+  "No log is available for this backup": "No log is available for this backup"
 }

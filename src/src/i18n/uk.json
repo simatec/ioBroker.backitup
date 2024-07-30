@@ -96,5 +96,10 @@
     "The backup could not be created completely!": "Не вдалося повністю створити резервну копію!",
     "starting Backup...": "запуск резервного копіювання...",
     "Please select a backup from the list!": "Виберіть резервну копію зі списку!",
-    "NAS (Expert)": "NAS (експерт)"
+    "NAS (Expert)": "NAS (експерт)",
+    "After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.": "Після перезавантаження всі адаптери встановлені. Будь ласка, будьте терплячі.\nЗалежно від системи може знадобитися деякий час, доки всі адаптери знову стануть доступними.",
+    "Backup Logs": "Журнали резервного копіювання",
+    "Open Backup Log": "Відкрийте журнал резервного копіювання",
+    "Log": "Журнал",
+    "No log is available for this backup": "Немає журналу для цієї резервної копії"
 }

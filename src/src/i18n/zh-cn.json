@@ -96,5 +96,10 @@
     "The backup could not be created completely!": "无法完全创建备份！",
     "starting Backup...": "开始备份...",
     "Please select a backup from the list!": "请从列表中选择一个备份！",
-    "NAS (Expert)": "NAS（专家）"
+    "NAS (Expert)": "NAS（专家）",
+    "After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.": "重新启动后，所有适配器均已安装。请耐心等待。\n根据系统的不同，所有适配器可能需要一些时间才能再次可用。",
+    "Backup Logs": "备份日志",
+    "Open Backup Log": "打开备份日志",
+    "Log": "日志",
+    "No log is available for this backup": "此备份没有可用的日志"
 }

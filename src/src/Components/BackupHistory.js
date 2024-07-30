@@ -5,10 +5,11 @@ import {
     DialogContent,
     DialogTitle,
     Table, TableCell, TableHead, TableRow,
-    DialogActions, Button, TableBody,
+    DialogActions, Button, TableBody, Fab,
+    Tooltip,
 } from '@mui/material';
 
-import { Close, FormatListBulleted } from '@mui/icons-material';
+import { Close, FormatListBulleted, BugReport } from '@mui/icons-material';
 
 import { I18n } from '@iobroker/adapter-react-v5';
 
@@ -43,6 +44,7 @@ const BackupHistory = props => {
                         <TableCell>{I18n.t('Name')}</TableCell>
                         <TableCell>{I18n.t('Source type')}</TableCell>
                         <TableCell>{I18n.t('File size')}</TableCell>
+                        <TableCell>{I18n.t('Log')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -52,6 +54,13 @@ const BackupHistory = props => {
                         <TableCell>{entry.name}</TableCell>
                         <TableCell>{typeof entry.storage === 'object' ? entry.storage.join(', ') : entry.storage}</TableCell>
                         <TableCell>{entry.filesize}</TableCell>
+                        <TableCell>
+                            <Tooltip title={I18n.t('Open Backup Log')}>
+                                <Fab size="small" color={props.themeType === 'dark' ? 'primary' : 'grey'} onClick={() => props.onLogs(entry.name)} >
+                                    <BugReport />
+                                </Fab>
+                            </Tooltip>
+                        </TableCell>
                     </TableRow>)}
                 </TableBody>
             </Table>

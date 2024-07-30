@@ -281,5 +281,7 @@
     "NAS (CIFS)": "网络存储 (CIFS)",
     "NAS (Expert)": "NAS（专家）",
     "NAS (NFS)": "网络存储 (NFS)",
-    "extended log output": "扩展日志输出"
+    "extended log output": "扩展日志输出",
+    "No log is available for this backup": "此备份没有可用的日志",
+    "Advanced delete functions for external storage": "外部存储的高级删除功能"
 }

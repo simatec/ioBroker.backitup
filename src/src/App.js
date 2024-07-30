@@ -24,6 +24,7 @@ import logo from './assets/backitup.png';
 
 import BackupHistory from './Components/BackupHistory';
 import GetBackups from './Components/GetBackups';
+import GetLogs from './Components/GetLogs';
 import UploadBackup from './Components/UploadBackup';
 import UploadSettings from './Components/UploadSettings';
 import BackupNow from './Components/BackupNow';
@@ -693,6 +694,7 @@ class App extends GenericApp {
                 </div>
                 {this.state.showBackupHistory ? <BackupHistory
                     onClose={() => this.setState({ showBackupHistory: false })}
+                    onLogs={(fileName) => this.setState({ showLogs: { fileName }})}
                     socket={this.socket}
                     themeType={this.state.themeType}
                     adapterName={this.adapterName}
@@ -708,6 +710,15 @@ class App extends GenericApp {
                     backupSource={this.state.backupSource}
                     connectType={this.state.native.connectType}
                     allowDownload
+                /> : null}
+                {this.state.showLogs ? <GetLogs
+                    onClose={() => this.setState({ showLogs: null })}
+                    onLogs={(fileName) => this.setState({ showLogs: fileName })}
+                    backupLog={this.state.showLogs}
+                    socket={this.socket}
+                    themeType={this.state.themeType}
+                    adapterName={this.adapterName}
+                    instance={this.instance}
                 /> : null}
                 {this.state.showUploadBackup ? <UploadBackup
                     alive={this.state.myAlive}

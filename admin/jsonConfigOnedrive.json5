@@ -42,7 +42,7 @@
         },
         "onedriveDeleteAfter": {
             "newLine": true,
-            "hidden": "!data.onedriveDeleteOldBackup",
+            "hidden": "!data.onedriveDeleteOldBackup || !data.advancedDelete",
             "sm": 12,
             "md": 8,
             "lg": 4,
