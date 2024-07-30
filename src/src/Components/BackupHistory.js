@@ -56,7 +56,7 @@ const BackupHistory = props => {
                         <TableCell>{entry.filesize}</TableCell>
                         <TableCell>
                             <Tooltip title={I18n.t('Open Backup Log')}>
-                                <Fab size="small" color={props.themeType === 'dark' ? 'primary' : 'grey'} onClick={() => props.onLogs(entry.name)} >
+                                <Fab size="small" color={props.themeType === 'dark' ? 'primary' : 'grey'} onClick={() => props.onLogs(entry.name)}>
                                     <BugReport />
                                 </Fab>
                             </Tooltip>

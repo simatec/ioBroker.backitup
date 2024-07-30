@@ -4,7 +4,8 @@ import {
     Dialog,
     DialogContent,
     DialogTitle,
-    DialogActions, Button
+    DialogActions,
+    Button,
 } from '@mui/material';
 
 import { Close, BugReport } from '@mui/icons-material';
@@ -83,7 +84,7 @@ const GetLogs = props => {
                 {I18n.t('Close')}
             </Button>
         </DialogActions>
-    </Dialog>
+    </Dialog>;
 };
 
 export default GetLogs;

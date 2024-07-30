@@ -694,7 +694,7 @@ class App extends GenericApp {
                 </div>
                 {this.state.showBackupHistory ? <BackupHistory
                     onClose={() => this.setState({ showBackupHistory: false })}
-                    onLogs={(fileName) => this.setState({ showLogs: { fileName }})}
+                    onLogs={fileName => this.setState({ showLogs: { fileName } })}
                     socket={this.socket}
                     themeType={this.state.themeType}
                     adapterName={this.adapterName}
@@ -713,7 +713,7 @@ class App extends GenericApp {
                 /> : null}
                 {this.state.showLogs ? <GetLogs
                     onClose={() => this.setState({ showLogs: null })}
-                    onLogs={(fileName) => this.setState({ showLogs: fileName })}
+                    onLogs={fileName => this.setState({ showLogs: fileName })}
                     backupLog={this.state.showLogs}
                     socket={this.socket}
                     themeType={this.state.themeType}
