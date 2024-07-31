@@ -59,8 +59,6 @@ class BackupNow extends ConfigGeneric {
         };
         this.lastExecutionLine = '';
         this.textRef = React.createRef();
-        this.queue = [];
-        this.processing = false;
     }
 
     static getTime() {
@@ -68,25 +66,7 @@ class BackupNow extends ConfigGeneric {
         return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}.${date.getMilliseconds().toString().padStart(3, '0')}`;
     }
 
-    enqueueMessage(id, state) {
-        this.queue.push({ id, state });
-        if (!this.processing) {
-            this.processQueue();
-        }
-    }
-
-    async processQueue() {
-        if (this.queue.length === 0) {
-            this.processing = false;
-            return;
-        }
-        this.processing = true;
-        const { id, state } = this.queue.shift();
-        await this.handleMessage(id, state);
-        this.processQueue();
-    }
-
-    async handleMessage(id, state) {
+    onOutput = (id, state) => {
         if (state && state.val && state.val !== this.lastExecutionLine) {
             this.lastExecutionLine = state.val;
             const executionLog = [...this.state.executionLog];
@@ -137,10 +117,6 @@ class BackupNow extends ConfigGeneric {
             }
         }
     };
-
-    onOutput = (id, state) => {
-        this.enqueueMessage(id, state);
-    }
 
     async componentDidMount() {
         super.componentDidMount();
