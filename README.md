@@ -68,6 +68,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) Added separate selection for deleting Webdav backups
 * (simatec) Added separate selection for deleting Dropbox backups
 * (simatec) Added separate selection for deleting Googledrive backups
+* (simatec) Improved log outputs
 
 ### 3.0.11 (2024-07-28)
 * (simatec) Design Fix
