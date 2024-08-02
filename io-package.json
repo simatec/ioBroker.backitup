@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.13",
+    "version": "3.0.14",
     "news": {
+      "3.0.14": {
+        "en": "dependencies updated",
+        "de": "aktualisierte abhängigkeiten",
+        "ru": "обновленная информация о зависимостях",
+        "pt": "dependências atualizadas",
+        "nl": "afhankelijkheden bijgewerkt",
+        "fr": "dépendances mises à jour",
+        "it": "dipendenze aggiornate",
+        "es": "dependencias actualizadas",
+        "pl": "zaktualizowane zależności",
+        "uk": "оновлені залежності",
+        "zh-cn": "更新依赖关系"
+      },
       "3.0.13": {
         "en": "Improved log outputs",
         "de": "Verbesserte Protokollausgänge",
@@ -80,19 +93,6 @@
         "pl": "forceuid i forcegid\nzaktualizowane zależności\nmały fix",
         "uk": "додано\nоновлені залежності\nневелика фіксація",
         "zh-cn": "添加强制和强制\n更新依赖关系\n小修补"
-      },
-      "3.0.7": {
-        "en": "(simatec) Restore Information added\n(simatec) Fix Formaterrors\n(bluefox) Fixing the problems with styles\n(simatec) Fix iobroker Backup Error",
-        "de": "(simatec) Restore Informationen hinzugefügt\n(simatec) Formatierer reparieren\n(Bluefox) Probleme mit Stilen beheben\n(simatec) iobroker Backup Fehler beheben",
-        "ru": "(simatec) Восстановление добавленной информации\nFix Formaterrors\n(bluefox) Исправление проблем со стилями\n(simatec) Fix iobroker Backup Error",
-        "pt": "(simatec) Restaurar informações adicionadas\n(simatec) Fix Formaterrors\n(bluefox) Corrigindo os problemas com estilos\n(simatec) Corrigir erro de backup iobroker",
-        "nl": "(simatec) Informatie toegevoegd herstellen\nFix Formaterrors\n(Bluefox) Problemen oplossen met stijlen\nFout bij het herstellen van de back-up van iobroker",
-        "fr": "(simatec) Restaurer les informations ajoutées\n(simatec) Correction des erreurs de format\n(Bluefox) Correction des problèmes avec les styles\n(simatec) Correction de l'erreur de sauvegarde iobroker",
-        "it": "(simatec) Recuperare informazioni aggiunto\n(simatec) Fix Formaterrors\n(blufox) Fissare i problemi con gli stili\n(simatec) Corretto errore di backup dello iobroker",
-        "es": "(simatec) Información adicional\n(simatec) Fix Formaterrors\n(bluefox) Arreglar los problemas con estilos\n(simatec) Corregir error de copia de seguridad de iobroker",
-        "pl": "(simatec) Przywracanie informacji\nNapraw Formalności\n(bluefox) Naprawianie problemów stylami\n(simatec) Naprawiono błąd kopii zapasowej iobrokera",
-        "uk": "(Simatec) Додана інформація\nФорматори\n(синійфокс) Виправлення проблем з стилями\n(simatec) Виправлення помилки iobroker Backup",
-        "zh-cn": "(静音) 恢复已添加的信息\n(simatec) 固定格式化器\n(布鲁福克斯) 用样式解决问题\n(simatec) Fix io经纪人备份错误"
       }
     },
     "titleLang": {
