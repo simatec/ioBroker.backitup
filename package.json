@@ -55,7 +55,7 @@
   "dependencies": {
     "@googleapis/drive": "^8.11.0",
     "@iobroker/adapter-core": "^3.1.6",
-    "axios": "^1.7.2",
+    "axios": "^1.7.3",
     "cors": "^2.8.5",
     "cron-parser": "^4.9.0",
     "dropbox-v2-api": "^2.5.11",
@@ -68,7 +68,7 @@
     "node-wol": "^0.1.1",
     "onedrive-api": "^1.1.1",
     "tar-fs": "^3.0.6",
-    "webdav": "^5.6.0"
+    "webdav": "^5.7.0"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^3.8.0",

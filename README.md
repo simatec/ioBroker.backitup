@@ -60,7 +60,11 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 **************************************************************************************************************
 <!-- ### **WORK IN PROGRESS** -->
+
 ## Changelog
+### **WORK IN PROGRESS**
+* (simatec) dependencies updated
+
 ### 3.0.13 (2024-08-02)
 * (simatec) Improved log outputs
 
