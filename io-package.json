@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.14",
+    "version": "3.0.15",
     "news": {
+      "3.0.15": {
+        "en": "fix dependencies",
+        "de": "behebung der abhängigkeiten",
+        "ru": "фиксация зависимостей",
+        "pt": "corrigir dependências",
+        "nl": "afhankelijkheden herstellen",
+        "fr": "fixer les dépendances",
+        "it": "risolvere le dipendenze",
+        "es": "dependencias fijas",
+        "pl": "naprawić zależności",
+        "uk": "фіксація залежностей",
+        "zh-cn": "固定依赖关系"
+      },
       "3.0.14": {
         "en": "dependencies updated",
         "de": "aktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "Dodano ikony tab\nmały fix\nAktualizacja doku",
         "uk": "Вкладка іконок додано\nневелика фіксація\nDocu оновлений",
         "zh-cn": "添加标签图标\n小修补\n更新 Docu"
-      },
-      "3.0.8": {
-        "en": "forceuid and forcegid added\ndependencies updated\nsmall fix",
-        "de": "zwang und zwang hinzugefügt\naktualisierte abhängigkeiten\nkleine fix",
-        "ru": "forceuid and forcegid added\nобновленная информация о зависимостях\nнебольшое исправление",
-        "pt": "força e força adicionada\ndependências atualizadas\npequena correção",
-        "nl": "forceuid en forcegid toegevoegd\nafhankelijkheden bijgewerkt\nkleine fix",
-        "fr": "forceuid et forcegid ajoutés\ndépendances mises à jour\npetite fixation",
-        "it": "forceuid e forcegid aggiunto\ndipendenze aggiornate\npiccola correzione",
-        "es": "forceuid and forcegid added\ndependencias actualizadas\npequeño",
-        "pl": "forceuid i forcegid\nzaktualizowane zależności\nmały fix",
-        "uk": "додано\nоновлені залежності\nневелика фіксація",
-        "zh-cn": "添加强制和强制\n更新依赖关系\n小修补"
       }
     },
     "titleLang": {
