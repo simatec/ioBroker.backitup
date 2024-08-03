@@ -68,7 +68,7 @@
     "node-wol": "^0.1.1",
     "onedrive-api": "^1.1.1",
     "tar-fs": "^3.0.6",
-    "webdav": "^5.7.0"
+    "webdav": "5.6.0"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^3.8.0",
