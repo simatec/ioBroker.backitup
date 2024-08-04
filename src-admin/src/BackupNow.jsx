@@ -240,10 +240,6 @@ class BackupNow extends ConfigGeneric {
             {this.renderExecutionDialog()}
         </>;
     }
-
-    render() {
-        return this.renderItem();
-    }
 }
 
 BackupNow.propTypes = {

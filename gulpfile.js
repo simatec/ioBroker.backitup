@@ -83,7 +83,7 @@ function build() {
 }
 
 function sync() {
-    sync2files(`${__dirname}/src-admin/src/BackupNow.jsx`, `${__dirname}/src/src/Components/BackupNow.jsx`);
+    // sync2files(`${__dirname}/src-admin/src/BackupNow.jsx`, `${__dirname}/src/src/Components/BackupNow.jsx`);
     sync2files(`${__dirname}/src-admin/src/Components/SourceSelector.jsx`, `${__dirname}/src/src/Components/SourceSelector.jsx`);
     sync2files(`${__dirname}/src-admin/src/Components/Restore.jsx`, `${__dirname}/src/src/Components/Restore.jsx`);
 }
