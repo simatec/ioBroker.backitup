@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.15",
+    "version": "3.0.16",
     "news": {
+      "3.0.16": {
+        "en": "dependencies updated\nRename json5 Files",
+        "de": "aktualisierte abhängigkeiten\nUmname json5 Dateien",
+        "ru": "обновленная информация о зависимостях\nRename json5 Files",
+        "pt": "dependências atualizadas\nRenomear arquivos json5",
+        "nl": "afhankelijkheden bijgewerkt\nJson5-bestanden hernoemen",
+        "fr": "dépendances mises à jour\nRenommer les fichiers json5",
+        "it": "dipendenze aggiornate\nRinomina file json5",
+        "es": "dependencias actualizadas\nRename json5 Files",
+        "pl": "zaktualizowane zależności\nZmień nazwę plików json5",
+        "uk": "оновлені залежності\nRename json5 Файли",
+        "zh-cn": "更新依赖关系\n重命名 json5 文件"
+      },
       "3.0.15": {
         "en": "fix dependencies",
         "de": "behebung der abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "Design Fix dla trybu ciemnego\nzaktualizowane zależności",
         "uk": "Налаштування дизайну для темного режиму\nоновлені залежності",
         "zh-cn": "暗模式的设计修正\n更新依赖关系"
-      },
-      "3.0.9": {
-        "en": "Tab Icons added\nsmall fix\nDocu updated",
-        "de": "Tab Icons hinzugefügt\nkleine fix\nDocu aktualisiert",
-        "ru": "Добавлен значок\nнебольшое исправление\nDocu",
-        "pt": "Tab Icons adicionado\npequena correção\nDocu atualizado",
-        "nl": "Tab-pictogrammen toegevoegd\nkleine fix\nDocu bijgewerkt",
-        "fr": "Icônes de l'onglet ajouté\npetite fixation\nDocu mis à jour",
-        "it": "Scheda Icone aggiunto\npiccola correzione\nDocu aggiornato",
-        "es": "Tab Icons añadido\npequeño\nDocu actualizado",
-        "pl": "Dodano ikony tab\nmały fix\nAktualizacja doku",
-        "uk": "Вкладка іконок додано\nневелика фіксація\nDocu оновлений",
-        "zh-cn": "添加标签图标\n小修补\n更新 Docu"
       }
     },
     "titleLang": {
