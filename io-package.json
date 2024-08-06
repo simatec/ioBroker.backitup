@@ -42,19 +42,6 @@
         "uk": "оновлені залежності",
         "zh-cn": "更新依赖关系"
       },
-      "3.0.13": {
-        "en": "Improved log outputs",
-        "de": "Verbesserte Protokollausgänge",
-        "ru": "Улучшенные результаты",
-        "pt": "Saídas de log melhoradas",
-        "nl": "Verbeterde loguitvoer",
-        "fr": "Amélioration des résultats du journal",
-        "it": "Uscite di registro migliorate",
-        "es": "Mejora de los productos de registro",
-        "pl": "Ulepszone wyjścia dziennika",
-        "uk": "Покращуються вихідні колоди",
-        "zh-cn": "改进日志产出"
-      },
       "3.0.12": {
         "en": "Backup Log for History added\nAdded separate selection for deleting FTP backups\nAdded separate selection for deleting Onedrive backups\nAdded separate selection for deleting Webdav backups\nAdded separate selection for deleting Dropbox backups\nAdded separate selection for deleting Googledrive backups\nImproved log outputs\nSource code cleaned up\ndependencies updated",
         "de": "Backup Log for History hinzugefügt\nHinzugefügt separate Auswahl für das Löschen von FTP-Backups\nHinzugefügt separate Auswahl für das Löschen von Onedrive Backups\nHinzugefügt separate Auswahl für das Löschen von Webdav Backups\nSeparate Auswahl zum Löschen von Dropbox-Backups hinzugefügt\nHinzugefügt separate Auswahl für das Löschen von Googledrive Backups\nVerbesserte Protokollausgänge\nQuellcode aufgeräumt\naktualisierte abhängigkeiten",
@@ -139,13 +126,11 @@
     "mode": "daemon",
     "compact": true,
     "icon": "backitup.png",
-    "materialize": true,
     "messagebox": true,
     "stopBeforeUpdate": true,
     "connectionType": "local",
     "dataSource": "assumption",
     "tier": 2,
-    "materializeTab": true,
     "adminTab": {
       "name": {
         "en": "Backup",
