@@ -80,7 +80,7 @@
     "@iobroker/vis-2-widgets-react-dev": "^3.0.7",
     "chai": "^4.5.0",
     "gulp": "^4.0.2",
-    "mocha": "^10.7.0"
+    "mocha": "^10.7.3"
   },
   "main": "main.js",
   "files": [

@@ -65,6 +65,8 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 ### **WORK IN PROGRESS**
 * (simatec) Fix io-package for Release
 * (simatec) manual-review added
+* (simatec) Fix Slave Backup
+* (simatec) dependencies updated
 
 ### 3.0.16 (2024-08-05)
 * (bluefox) dependencies updated
