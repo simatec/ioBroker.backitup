@@ -62,7 +62,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.0.17 (2024-08-12)
 * (simatec) Fix io-package for Release
 * (simatec) manual-review added
 * (simatec) Fix Slave Backup

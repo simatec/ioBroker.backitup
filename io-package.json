@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.16",
+    "version": "3.0.17",
     "news": {
+      "3.0.17": {
+        "en": "Fix io-package for Release\nmanual-review added\nFix Slave Backup\ndependencies updated",
+        "de": "Fix io-Paket für Release\nhandbuch hinzugefügt\nSlave Backup reparieren\naktualisierte abhängigkeiten",
+        "ru": "Fix io-package для выхода\nдобавлен ручный обзор\nФикс-Слава\nобновленная информация о зависимостях",
+        "pt": "Fix io-package for Release\nmanual-review adicionado\nFix Slave Backup\ndependências atualizadas",
+        "nl": "Bevestig io-package for Release\nhandmatige weergave toegevoegd\nHerstel Slave Backup\nafhankelijkheden bijgewerkt",
+        "fr": "Réparez io-package pour la libération\nrévision manuelle ajoutée\nCorrection du sauvegarde des esclaves\ndépendances mises à jour",
+        "it": "Fissare il pacchetto io per il rilascio\nmanuale-review aggiunto\nFissare il backup degli schiavi\ndipendenze aggiornate",
+        "es": "Arreglar io-paquete para la liberación\nmanual-revisión añadido\nCorrección de esclavos\ndependencias actualizadas",
+        "pl": "Napraw pakiet jo- do wydania\nmanual- review dodany\nNapraw kopię zapasową niewolnika\nzaktualizowane zależności",
+        "uk": "Виправлення io-package для релізу\nдодано ручний перегляд\nФіксація слов'янського резервного копіювання\nоновлені залежності",
+        "zh-cn": "用于释放的固定电离包\n添加了手动审查\n修复奴隶备份\n更新依赖关系"
+      },
       "3.0.16": {
         "en": "dependencies updated\nRename json5 Files",
         "de": "aktualisierte abhängigkeiten\nUmname json5 Dateien",
