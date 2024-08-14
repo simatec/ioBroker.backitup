@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.17",
+    "version": "3.0.18",
     "news": {
+      "3.0.18": {
+        "en": "Package optimisation\nFix the warning when opening the configuration\ndependencies updated",
+        "de": "Optimierung des Pakets\nFestlegen der Warnung beim Öffnen der Konfiguration\naktualisierte abhängigkeiten",
+        "ru": "Оптимизация пакета\nИсправить предупреждение при открытии конфигурации\nобновленная информация о зависимостях",
+        "pt": "Otimização de pacotes\nCorrigir o aviso ao abrir a configuração\ndependências atualizadas",
+        "nl": "Pakketoptimalisatie\nHerstel de waarschuwing bij het openen van de configuratie\nafhankelijkheden bijgewerkt",
+        "fr": "Optimisation des paquets\nCorrection de l'avertissement lors de l'ouverture de la configuration\ndépendances mises à jour",
+        "it": "Ottimizzazione dei pacchetti\nFissare l'avvertimento quando si apre la configurazione\ndipendenze aggiornate",
+        "es": "Optimización del paquete\nArregla la advertencia al abrir la configuración\ndependencias actualizadas",
+        "pl": "Optymalizacja pakietu\nNapraw ostrzeżenie podczas otwierania konfiguracji\nzaktualizowane zależności",
+        "uk": "Оптимізація пакету\nВиправлення попередження при відкритті конфігурації\nоновлені залежності",
+        "zh-cn": "软件包优化\n打开配置时修改警告\n更新依赖关系"
+      },
       "3.0.17": {
         "en": "Fix io-package for Release\nmanual-review added\nFix Slave Backup\ndependencies updated",
         "de": "Fix io-Paket für Release\nhandbuch hinzugefügt\nSlave Backup reparieren\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "Popraw projekt\nzaktualizowane zależności",
         "uk": "Фіксація дизайну\nоновлені залежності",
         "zh-cn": "设计\n更新依赖关系"
-      },
-      "3.0.10": {
-        "en": "Design Fix for Dark Mode\ndependencies updated",
-        "de": "Design Fix für dunklen Modus\naktualisierte abhängigkeiten",
-        "ru": "Дизайн Fix для темного режима\nобновленная информация о зависимостях",
-        "pt": "Design Fix para modo escuro\ndependências atualizadas",
-        "nl": "Ontwerp Fix voor donkere modus\nafhankelijkheden bijgewerkt",
-        "fr": "Correction de conception pour le mode sombre\ndépendances mises à jour",
-        "it": "Design Fix per la modalità oscura\ndipendenze aggiornate",
-        "es": "Diseño fijo para el modo oscuro\ndependencias actualizadas",
-        "pl": "Design Fix dla trybu ciemnego\nzaktualizowane zależności",
-        "uk": "Налаштування дизайну для темного режиму\nоновлені залежності",
-        "zh-cn": "暗模式的设计修正\n更新依赖关系"
       }
     },
     "titleLang": {

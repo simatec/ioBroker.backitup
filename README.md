@@ -62,7 +62,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.0.18 (2024-08-14)
 * (simatec) Package optimisation
 * (simatec) Fix the warning when opening the configuration
 * (simatec) dependencies updated
