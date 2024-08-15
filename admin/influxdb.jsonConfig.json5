@@ -142,7 +142,7 @@
             "type": "password",
             "visible": true,
             "label": "InfluxDB database token",
-            "validator": "data.ip && data.influxDBVersion == '2.x'",
+            "validator": "data.influxDBToken || data.influxDBVersion == '1.x'",
 			"validatorNoSaveOnError": true,
             "newLine": true
         },
