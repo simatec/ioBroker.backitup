@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.18",
+    "version": "3.0.19",
     "news": {
+      "3.0.19": {
+        "en": "Fix CCU Backup\nFix InfluxDB Backup Config\nFix Backup-Log for Slave Instanz",
+        "de": "CCU Backup\nInfluxDB Backup Config\nBackup-Log für Slave Instanz",
+        "ru": "Fix CCU Назад\nFix InfluxDB Настройка резервного копирования\nFix Backup-Log для Slave Instanz",
+        "pt": "Corrigir CCU Backup\nFixo InfluxDB Configação de backup\nFix Backup-Log para Slave Instanz",
+        "nl": "CCU repareren Reservekopie\nFix InfluxDB Reservekopie instellen\nFix Backup-Log voor Slave Instanz",
+        "fr": "Correction du CCU Sauvegarde\nCorrection de l'influxDB Config de sauvegarde\nFix Backup-Log pour Slave Instanz",
+        "it": "Riparare CCU Backup\nFissare l'influenza Configurazione di backup\nFix Backup-Log per Slave Instanz",
+        "es": "CCU fijar Copia de seguridad\nInfluxDB Copia de seguridad\nArreglar Backup-Log para Slave Instanz",
+        "pl": "Napraw CCU Kopia zapasowa\nFix InfluxDB Konfiguracja kopii zapasowej\nFix Backup- Log dla Slave Instanz",
+        "uk": "Фіксація CCU Зареєструватися\nФіксація InfluxDB Налаштування резервного копіювання\nВиправлення Backup-Log для раба Instanz",
+        "zh-cn": "修复 CCU 备份\n修复内流数据库 备份配置\n修复奴隶因斯坦茨备份日志"
+      },
       "3.0.18": {
         "en": "Package optimisation\nFix the warning when opening the configuration\ndependencies updated",
         "de": "Optimierung des Pakets\nFestlegen der Warnung beim Öffnen der Konfiguration\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "Backup Log for History dodany\nDodano oddzielny wybór do usuwania kopii zapasowych FTP\nDodano oddzielny wybór do usuwania kopii zapasowych Onedrive\nDodano oddzielny wybór do usuwania kopii zapasowych Webdav\nDodano oddzielny wybór do usuwania kopii zapasowych Dropbox\nDodano oddzielny wybór do usuwania kopii zapasowych dysku Google\nUlepszone wyjścia dziennika\nKod źródłowy oczyszczony\nzaktualizowane zależności",
         "uk": "Журнал Backup для історії\nДодано окремий вибір для видалення резервних копій FTP\nДодано окремий вибір для видалення резервних копій Onedrive\nДодано окремий вибір для видалення резервних копій Webdav\nДодано окремий вибір для видалення резервних копій Dropbox\nДодано окремий вибір для видалення резервних копій Googledrive\nПокращуються вихідні колоди\nКод джерела очищення\nоновлені залежності",
         "zh-cn": "添加历史备份日志\n为删除 FTP 备份而添加的单独选择\n添加删除 Onedrive 备份的单独选择\n添加删除 Webdav 备份的单独选择\n为删除 Dropbox 备份添加了单独的选择\n添加删除 Google 驱动备份的单独选择\n改进日志产出\n源代码已清理\n更新依赖关系"
-      },
-      "3.0.11": {
-        "en": "Design Fix\ndependencies updated",
-        "de": "Design Fix\naktualisierte abhängigkeiten",
-        "ru": "Дизайн Fix\nобновленная информация о зависимостях",
-        "pt": "Correção de Design\ndependências atualizadas",
-        "nl": "Ontwerpfix\nafhankelijkheden bijgewerkt",
-        "fr": "Correction de conception\ndépendances mises à jour",
-        "it": "Design Fix\ndipendenze aggiornate",
-        "es": "Diseño fijo\ndependencias actualizadas",
-        "pl": "Popraw projekt\nzaktualizowane zależności",
-        "uk": "Фіксація дизайну\nоновлені залежності",
-        "zh-cn": "设计\n更新依赖关系"
       }
     },
     "titleLang": {

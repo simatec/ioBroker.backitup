@@ -62,7 +62,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.0.19 (2024-08-15)
 * (simatec) Fix CCU Backup
 * (simatec) Fix InfluxDB Backup Config
 * (simatec) Fix Backup-Log for Slave Instanz
