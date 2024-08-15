@@ -55,17 +55,19 @@
             "newLine": true
         },
         "influxDBHost": {
-            "hidden": "data.influxDBMulti",
+            "hidden": "data.influxDBMulti || data.influxDBType == 'local'",
             "sm": 12,
             "md": 8,
             "lg": 4,
             "type": "text",
             "label": "host",
             "help": "InfluxDB Hostname (leave blank to save locally only)",
+            "validator": "data.influxDBHost && data.influxDBType == 'remote'",
+			"validatorNoSaveOnError": true,
             "newLine": true
         },
         "influxDBPort": {
-            "hidden": "data.influxDBMulti",
+            "hidden": "data.influxDBMulti || data.influxDBType == 'local'",
             "sm": 12,
             "md": 8,
             "lg": 4,
@@ -73,10 +75,12 @@
             "max": 65535,
             "type": "number",
             "label": "InfluxDB port",
+            "validator": "data.influxDBPort && data.influxDBType == 'remote'",
+			"validatorNoSaveOnError": true,
             "help": "default: 8088"
         },
         "influxDBProtocol": {
-            "hidden": "data.influxDBMulti",
+            "hidden": "data.influxDBMulti || data.influxDBType == 'local'",
             "type": "select",
             "label": "Protocol",
             "sm": 12,
@@ -121,6 +125,8 @@
             "lg": 4,
             "type": "text",
             "label": "InfluxDB database name",
+            "validator": "data.influxDBName",
+			"validatorNoSaveOnError": true,
         },
         "influxDBDumpExe": {
             "sm": 12,
@@ -131,11 +137,13 @@
             "help": "Path with filename to InfluxDB executable (leave empty to use default)",
         },
         "influxDBToken": {
-            "hidden": "data.influxDBMulti",
+            "hidden": "data.influxDBMulti || data.influxDBVersion == '1.x'",
             "sm": 12,
             "type": "password",
             "visible": true,
             "label": "InfluxDB database token",
+            "validator": "data.ip && data.influxDBVersion == '2.x'",
+			"validatorNoSaveOnError": true,
             "newLine": true
         },
         "influxDBMulti": {
@@ -173,6 +181,8 @@
                     "type": "text",
                     "title": "host",
                     "hidden": "globalData.influxDBType == 'local'",
+                    "validator": "data.host && globalData.influxDBType == 'remote'",
+			        "validatorNoSaveOnError": true,
                     width: "15%"
                 },
                 {
@@ -181,12 +191,16 @@
                     "title": "Port",
                     "hidden": "globalData.influxDBType == 'local'",
                     default: 8088,
+                    "validator": "data.port && globalData.influxDBType == 'remote'",
+			        "validatorNoSaveOnError": true,
                     width: "7%"
                 },
                 {
                     "attr": "dbName",
                     "type": "text",
                     "title": "Database name",
+                    "validator": "data.dbName",
+			        "validatorNoSaveOnError": true,
                     width: "15%"
                 },
                 {
@@ -200,6 +214,8 @@
                     "type": "password",
                     "title": "Token (only for v2.x)",
                     "disabled": "data.dbversion == '1.x'",
+                    "validator": "data.token || data.dbversion == '1.x'",
+			        "validatorNoSaveOnError": true,
                     width: "25%"
                 },
                 {
@@ -218,6 +234,7 @@
                         }
                     ],
                     "title": "Protocol",
+                    "hidden": "globalData.influxDBType == 'local'",
                     width: "10%"
                 },
                 {

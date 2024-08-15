@@ -521,14 +521,19 @@ function startAdapter(options) {
                 case 'getLog':
                     const logName = path.join(bashDir, `${adapter.namespace}.log`).replace(/\\/g, '/');
 
-                    if (fs.existsSync(logName) && obj?.message.backupName) {
+                    if (fs.existsSync(logName) && (obj?.message.backupName || obj?.message.timestamp)) {
                         const data = fs.readFileSync(logName, 'utf8');
                         const backupLog = JSON.parse(data);
-                        const backupName = obj?.message.backupName;
+                        const backupName = obj?.message.backupName ? obj.message.backupName : null;
+                        const timestamp = obj?.message.timestamp;
                         let found = false;
 
                         backupLog.forEach((item, index) => {
-                            if (item.hasOwnProperty(backupName)) {
+                            if (item.hasOwnProperty(timestamp)) {
+                                found = true;
+                                adapter.log.debug(`Printing logs of previous backup`);
+                                adapter.sendTo(obj.from, obj.command, item[timestamp], obj.callback);
+                            } else if (backupName !== null && item.hasOwnProperty(backupName)) {
                                 found = true;
                                 adapter.log.debug(`Printing logs of previous backup`);
                                 adapter.sendTo(obj.from, obj.command, item[backupName], obj.callback);

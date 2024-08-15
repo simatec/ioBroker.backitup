@@ -34,7 +34,7 @@ const GetLogs = props => {
     const [backupLog, setBackupLog] = useState([]);
 
     useEffect(() => {
-        props.socket.sendTo(`${props.adapterName}.${props.instance}`, 'getLog', { backupName: props.backupLog.fileName, index: props.backupLog.index })
+        props.socket.sendTo(`${props.adapterName}.${props.instance}`, 'getLog', { backupName: props.backupLog.fileName, timestamp: props.backupLog.timestamp, index: props.backupLog.index })
             .then(result => {
                 if (result) {
                     setBackupLog(result.split('\n'));

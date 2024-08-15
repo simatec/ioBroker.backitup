@@ -137,7 +137,25 @@
       "newLine": true,
       "type": "checkbox",
       "label": "Create your own CRON job (for experts only)",
-      "sm": 12
+      "sm": 9,
+      "md": 6,
+      "lg": 3
+    },
+    "ccuUsehttps": {
+      "hidden": "data.ccuMulti",
+      "type": "checkbox",
+      "label": "Use https",
+      "sm": 9,
+      "md": 6,
+      "lg": 3
+    },
+    "ccuSignedCertificates": {
+      "hidden": "data.ccuMulti || !data.ccuUsehttps",
+      "type": "checkbox",
+      "label": "Allow only signed certificates",
+      "sm": 9,
+      "md": 6,
+      "lg": 3
     },
     "ccuMulti": {
       "newLine": true,
