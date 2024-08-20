@@ -500,9 +500,10 @@ class App extends GenericApp {
                         <div
                             style={{
                                 display: 'grid',
-                                gridTemplateColumns: '1fr 1fr 1fr',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
                                 gap: 12,
-                                height: 300,
+                                minHeight: 300,
+                                gridAutoRows: '1fr',
                             }}
                         >
                             {this.renderBackupInformation()}
@@ -525,12 +526,12 @@ class App extends GenericApp {
                         <div
                             style={{
                                 display: 'grid',
-                                gridTemplateColumns: '1fr 1fr 1fr 1fr',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
                                 gap: 12,
                                 justifyContent: 'space-evenly',
                                 alignContent: 'center',
                                 justifyItems: 'stretch',
-                                alignItems: 'stretch',
+                                gridAutoRows: '1fr',
                             }}
                         >
                             {this.state.myAlive && this.state.native.minimalEnabled ? <BackupNow
@@ -585,6 +586,7 @@ class App extends GenericApp {
                                 style={{ width: '100%' }}
                                 onClick={() => this.setState({ showBackupHistory: true })}
                                 variant="contained"
+                                themeBreakpoints={this.state.theme.breakpoints.down}
                                 color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                 endIcon={<FormatListBulleted />}
                             >
@@ -631,12 +633,13 @@ class App extends GenericApp {
                         <div style={{
                             width: '100%',
                             display: 'grid',
-                            gridTemplateColumns: '1fr 1fr 1fr 1fr',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
                             gap: 12,
                             justifyItems: 'stretch',
                             justifyContent: 'space-evenly',
                             alignContent: 'center',
                             alignItems: 'stretch',
+                            gridAutoRows: '1fr',
                         }}
                         >
                             <SourceSelector
@@ -697,6 +700,7 @@ class App extends GenericApp {
                     onLogs={(fileName, timestamp, index) => this.setState({ showLogs: { fileName, timestamp, index } })}
                     socket={this.socket}
                     themeType={this.state.themeType}
+                    themeBreakpoints={this.state.theme.breakpoints.down}
                     adapterName={this.adapterName}
                     instance={this.instance}
                 /> : null}
@@ -718,6 +722,7 @@ class App extends GenericApp {
                     socket={this.socket}
                     themeType={this.state.themeType}
                     adapterName={this.adapterName}
+                    themeBreakpoints={this.state.theme.breakpoints.down}
                     instance={this.instance}
                 /> : null}
                 {this.state.showUploadBackup ? <UploadBackup

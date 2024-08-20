@@ -6,6 +6,7 @@ import {
     DialogTitle,
     DialogActions,
     Button,
+    useMediaQuery,
 } from '@mui/material';
 
 import { Close, BugReport } from '@mui/icons-material';
@@ -22,15 +23,26 @@ const styles = {
     textLine: {
         whiteSpace: 'nowrap',
     },
+    responseTextLine: {
+        whiteSpace: 'pre-wrap'
+    },
+    responseContent: {
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px',
+    }
 };
 
-function renderLine(line, i) {
-    return <div key={i} style={styles.textLine}>
+function renderLine(line, i, fullScreen) {
+    console.log('Fullscreen: ' + fullScreen);
+    return <div key={i} style={{ ...fullScreen ? styles.responseTextLine : styles.textLine }}>
         <div style={{ ...styles.text, color: line.startsWith('[ERROR]') ? '#FF0000' : line.startsWith('[WARN]') ? '#ff9100' : undefined }}>{line}</div>
     </div>;
 }
 
 const GetLogs = props => {
+    const fullScreen = useMediaQuery(props.themeBreakpoints('sm'));
     const [backupLog, setBackupLog] = useState([]);
 
     useEffect(() => {
@@ -49,6 +61,7 @@ const GetLogs = props => {
         onClose={props.onClose}
         maxWidth="lg"
         fullWidth
+        fullScreen={fullScreen}
         sx={{ '& .MuiDialog-paper': styles.paper }}
     >
         <DialogTitle>
@@ -69,9 +82,10 @@ const GetLogs = props => {
                     overflow: 'auto',
                     backgroundColor: props.themeType === 'dark' ? '#111' : '#EEE',
                     boxSizing: 'border-box',
+                    ...(fullScreen ? styles.responseContent : undefined),
                 }}
             >
-                {backupLog.map((line, i) => renderLine(line, i))}
+                {backupLog.map((line, i) => renderLine(line, i, fullScreen))}
             </div>
         </DialogContent>
         <DialogActions>
