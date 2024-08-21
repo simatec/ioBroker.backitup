@@ -229,8 +229,8 @@ const GetBackups = props => {
                                                     :
                                                     <span style={{ marginLeft: 8 }}>{parseSize(backup.size)}</span>
                                                 </TableCell>
-                                                <TableCell style={{ width: fullScreen ? '100%' : 88, borderBottom: fullScreen ? '1px outset rgb(224, 224, 224)' : '1px solid rgb(224, 224, 224)', padding: '6px 0', }}>
-                                                    <div style={{ display: 'flex', gap: 8, justifyContent: fullScreen ? 'center' : 'normal'}}>
+                                                <TableCell style={{ width: fullScreen ? '100%' : 88, borderBottom: fullScreen ? '1px outset rgb(224, 224, 224)' : '1px solid rgb(224, 224, 224)', padding: '6px 0' }}>
+                                                    <div style={{ display: 'flex', gap: 8, justifyContent: fullScreen ? 'center' : 'normal' }}>
                                                         {props.allowDownload ? <Tooltip title={I18n.t('Download Backup File')}>
                                                             <Fab
                                                                 size="small"

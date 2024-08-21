@@ -181,12 +181,21 @@ class BackupNow extends ConfigGeneric {
         const isFullScreen = window.matchMedia('(max-width: 600px)').matches;
         this.setState({ isFullScreen });
     };
+
     renderLine(line, i) {
         return <div key={i} style={{ ...this.state.isFullScreen ? this.state.styles.responseTextLine : this.state.styles.textLine }}>
-            <div style={{ ...this.state.styles.textTime, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.ts} </div>
-            <div style={{ ...this.state.styles.textLevel, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.level} </div>
-            <div style={{ ...this.state.styles.textSource, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.source} </div>
-            <div style={{ ...(this.state.isFullScreen ? this.state.styles.responseText : this.state.styles.text), ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.text}</div>
+            <div style={{ ...this.state.styles.textTime, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>
+                {line.ts}
+            </div>
+            <div style={{ ...this.state.styles.textLevel, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>
+                {line.level}
+            </div>
+            <div style={{ ...this.state.styles.textSource, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>
+                {line.source}
+            </div>
+            <div style={{ ...(this.state.isFullScreen ? this.state.styles.responseText : this.state.styles.text), ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>
+                {line.text}
+            </div>
         </div>;
     }
 
@@ -249,29 +258,19 @@ class BackupNow extends ConfigGeneric {
             <>
                 <Button
                     disabled={!this.props.alive || this.state.executing}
-                    onClick={() =>
-                        this.setState(
-                            {
-                                executionDialog: true,
-                                executionLog: [
-                                    {
-                                        ts: BackupNow.getTime(),
-                                        level: 'INFO',
-                                        text: I18n.t('starting Backup...'),
-                                        source: 'gui',
-                                    },
-                                ],
-                                executing: true,
-                            },
-                            async () => {
-                                this.lastExecutionLine = '';
-                                await this.props.socket.setState(
-                                    `${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`,
-                                    true
-                                );
-                            }
-                        )
-                    }
+                    onClick={() => this.setState({
+                        executionDialog: true,
+                        executionLog: [{
+                            ts: BackupNow.getTime(),
+                            level: 'INFO',
+                            text: I18n.t('starting Backup...'),
+                            source: 'gui',
+                        }],
+                        executing: true,
+                    }, async () => {
+                        this.lastExecutionLine = '';
+                        await this.props.socket.setState(`${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`, true);
+                    })}
                     className={this.props.className}
                     color={this.props.color}
                     variant="contained"
