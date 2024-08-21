@@ -80,7 +80,8 @@ const BackupHistory = props => {
                             <TableCell style={ResponsiveTableCell}>
                                 <strong>
                                     {`${I18n.t('Backup time')}: `}
-                                </strong>{entry.date}
+                                </strong>
+                                {entry.date}
                             </TableCell>
                             <TableCell style={ResponsiveTableCell}>
                                 <strong>
