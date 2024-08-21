@@ -24,18 +24,17 @@ const styles = {
         whiteSpace: 'nowrap',
     },
     responseTextLine: {
-        whiteSpace: 'pre-wrap'
+        whiteSpace: 'pre-wrap',
     },
     responseContent: {
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
         gap: '8px',
-    }
+    },
 };
 
 function renderLine(line, i, fullScreen) {
-    console.log('Fullscreen: ' + fullScreen);
     return <div key={i} style={{ ...fullScreen ? styles.responseTextLine : styles.textLine }}>
         <div style={{ ...styles.text, color: line.startsWith('[ERROR]') ? '#FF0000' : line.startsWith('[WARN]') ? '#ff9100' : undefined }}>{line}</div>
     </div>;

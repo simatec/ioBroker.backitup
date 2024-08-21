@@ -77,12 +77,36 @@ const BackupHistory = props => {
                 </TableBody> :
                     <TableBody>
                         {backupHistory.map((entry, index) => <TableRow key={index}>
-                            <TableCell style={ResponsiveTableCell}><strong>{I18n.t('Backup time')}: </strong>{entry.date}</TableCell>
-                            <TableCell style={ResponsiveTableCell}><strong>{I18n.t('Type')}: </strong>{entry.type}</TableCell>
-                            <TableCell style={ResponsiveTableCell}><strong>{I18n.t('Name')}: </strong>{entry.name}</TableCell>
-                            <TableCell style={ResponsiveTableCell}><strong>{I18n.t('Source type')}: </strong>{typeof entry.storage === 'object' ? entry.storage.join(', ') : entry.storage}</TableCell>
-                            <TableCell style={ResponsiveTableCell}><strong>{I18n.t('File size')}: </strong>{entry.filesize}</TableCell>
-                            <TableCell style={{ ...ResponsiveTableCell, borderBottom: '2px outset rgb(221, 221, 221)' }}><strong>{I18n.t('Log')}: </strong>
+                            <TableCell style={ResponsiveTableCell}>
+                                <strong>
+                                    {`${I18n.t('Backup time')}: `}
+                                </strong>{entry.date}
+                            </TableCell>
+                            <TableCell style={ResponsiveTableCell}>
+                                <strong>
+                                    {`${I18n.t('Type')}: `}
+                                </strong>
+                                {entry.type}
+                            </TableCell>
+                            <TableCell style={ResponsiveTableCell}>
+                                <strong>
+                                    {`${I18n.t('Name')}: `}
+                                </strong>
+                                {entry.name}
+                            </TableCell>
+                            <TableCell style={ResponsiveTableCell}>
+                                <strong>
+                                    {`${I18n.t('Source type')}: `}
+                                </strong>
+                                {typeof entry.storage === 'object' ? entry.storage.join(', ') : entry.storage}
+                            </TableCell>
+                            <TableCell style={ResponsiveTableCell}>
+                                <strong>
+                                    {`${I18n.t('File size')}: `}
+                                </strong>
+                                {entry.filesize}
+                            </TableCell>
+                            <TableCell style={{ ...ResponsiveTableCell, borderBottom: '2px outset rgb(221, 221, 221)' }}>
                                 <Tooltip title={I18n.t('Open Backup Log')}>
                                     <Fab size="small" color={props.themeType === 'dark' ? 'primary' : 'grey'} onClick={() => props.onLogs(entry.name, entry.timestamp, index)}>
                                         <BugReport />
