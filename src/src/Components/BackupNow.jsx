@@ -20,6 +20,10 @@ const styles = {
         display: 'inline-block',
         width: 95,
     },
+    responseTextTime: {
+        display: 'inline-block',
+        width: 70,
+    },
     textLevel: {
         display: 'inline-block',
         width: 50,
@@ -41,8 +45,37 @@ const styles = {
     text: {
         display: 'inline-block',
     },
+    responseText: {
+        display: 'inline-block',
+        wordWrap: 'break-word',
+    },
     textLine: {
         whiteSpace: 'nowrap',
+    },
+    responseTextLine: {
+        whiteSpace: 'normal',
+    },
+    dialogContent: {
+        position: 'relative',
+        padding: 16,
+    },
+    logContainer: {
+        fontSize: 12,
+        fontFamily: 'monospace',
+        padding: 8,
+        border: '1px solid grey',
+        borderRadius: 5,
+        overflow: 'auto',
+        backgroundColor: '#EEE',
+        boxSizing: 'border-box',
+        height: 'calc(100% - 16px - 4px)',
+        width: 'calc(100% - 16px)',
+    },
+    responseLogContainer: {
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 15,
     },
 };
 
@@ -56,6 +89,7 @@ class BackupNow extends ConfigGeneric {
             executionLog: [],
             closeOnReady: false,
             styles,
+            isFullScreen: false,
         };
         this.lastExecutionLine = '';
         this.textRef = React.createRef();
@@ -122,6 +156,8 @@ class BackupNow extends ConfigGeneric {
         super.componentDidMount();
         await this.props.socket.subscribeState(`${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`, this.onEnabled);
         await this.props.socket.subscribeState(`${this.props.adapterName}.${this.props.instance}.output.line`, this.onOutput);
+        this.updateFullScreenMode();
+        window.addEventListener('resize', this.updateFullScreenMode);
     }
 
     onEnabled = (id, state) => {
@@ -138,107 +174,115 @@ class BackupNow extends ConfigGeneric {
         this.props.socket.unsubscribeState(`${this.props.adapterName}.${this.props.instance}.output.line`, this.onOutput);
         this.closeTimeout && clearTimeout(this.closeTimeout);
         this.closeTimeout = null;
+        window.removeEventListener('resize', this.updateFullScreenMode);
     }
 
+    updateFullScreenMode = () => {
+        const isFullScreen = window.matchMedia('(max-width: 600px)').matches;
+        this.setState({ isFullScreen });
+    };
     renderLine(line, i) {
-        return <div key={i} style={this.state.styles.textLine}>
-            <div style={{ ...this.state.styles.textTime, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.ts}</div>
-            <div style={{ ...this.state.styles.textLevel, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.level}</div>
-            <div style={{ ...this.state.styles.textSource, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.source}</div>
-            <div style={{ ...this.state.styles.text, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.text}</div>
+        return <div key={i} style={{ ...this.state.isFullScreen ? this.state.styles.responseTextLine : this.state.styles.textLine }}>
+            <div style={{ ...this.state.styles.textTime, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.ts} </div>
+            <div style={{ ...this.state.styles.textLevel, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.level} </div>
+            <div style={{ ...this.state.styles.textSource, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.source} </div>
+            <div style={{ ...(this.state.isFullScreen ? this.state.styles.responseText : this.state.styles.text), ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>{line.text}</div>
         </div>;
     }
 
     renderExecutionDialog() {
-        return this.state.executionDialog ? <Dialog
-            open={!0}
-            onClose={() => this.setState({ executionDialog: false })}
-            maxWidth="lg"
-            fullWidth
-            sx={{ '& .MuiDialog-paper': this.state.styles.paper }}
-        >
-            <DialogTitle>
-                <CloudUploadOutlined style={{ width: 24, height: 24, margin: '0 10px -4px 0' }} />
-                {I18n.t('BackItUp execution:')}
-            </DialogTitle>
-            <DialogContent style={{ position: 'relative' }}>
-                {this.state.executing ?
-                    <LinearProgress
-                        style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 24,
-                            width: 'calc(100% - 64px)',
-                        }}
-                    /> : <div style={{ height: 4, width: 'calc(100% - 64px)' }} />}
-                <div
-                    style={{
-                        height: 'calc(100% - 16px - 4px)',
-                        width: 'calc(100% - 16px)',
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        marginTop: 4,
-                        padding: 8,
-                        border: '1px solid grey',
-                        borderRadius: 5,
-                        overflow: 'auto',
-                        backgroundColor: this.props.themeType === 'dark' ? '#111' : '#EEE',
-                        boxSizing: 'border-box',
-                    }}
-                    ref={this.textRef}
-                >
-                    {this.state.executionLog.map((line, i) => this.renderLine(line, i))}
-                </div>
-            </DialogContent>
-            <DialogActions>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            disabled={!this.state.executing}
-                            checked={this.state.closeOnReady}
-                            onChange={e => this.setState({ closeOnReady: e.target.checked })}
+        return this.state.executionDialog ? (
+            <Dialog
+                open={!0}
+                onClose={() => this.setState({ executionDialog: false })}
+                maxWidth="lg"
+                fullWidth
+                fullScreen={this.state.isFullScreen}
+                sx={{ '& .MuiDialog-paper': this.state.styles.paper }}
+            >
+                <DialogTitle>
+                    <CloudUploadOutlined style={{ width: 24, height: 24, margin: '0 10px -4px 0' }} />
+                    {I18n.t('BackItUp execution:')}
+                </DialogTitle>
+                <DialogContent style={this.state.styles.dialogContent}>
+                    {this.state.executing ? (
+                        <LinearProgress
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 24,
+                                width: 'calc(100% - 64px)',
+                            }}
                         />
-                    }
-                    label={I18n.t('Close on ready')}
-                />
-                <Button
-                    variant="contained"
-                    color={this.props.color}
-                    onClick={() => this.setState({ executionDialog: false })}
-                >
-                    {I18n.t('Close')}
-                </Button>
-            </DialogActions>
-        </Dialog> : null;
+                    ) : (
+                        <div style={{ height: 4, width: 'calc(100% - 64px)' }} />
+                    )}
+                    <div style={{ ...this.state.styles.logContainer, ...(this.state.isFullScreen ? this.state.styles.responseLogContainer : undefined) }} ref={this.textRef}>
+                        {this.state.executionLog.map((line, i) => this.renderLine(line, i))}
+                    </div>
+                </DialogContent>
+                <DialogActions>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                disabled={!this.state.executing}
+                                checked={this.state.closeOnReady}
+                                onChange={e => this.setState({ closeOnReady: e.target.checked })}
+                            />
+                        }
+                        label={I18n.t('Close on ready')}
+                    />
+                    <Button
+                        variant="contained"
+                        color={this.props.color}
+                        onClick={() => this.setState({ executionDialog: false })}
+                    >
+                        {I18n.t('Close')}
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        ) : null;
     }
 
     renderItem() {
-        return <>
-            <Button
-                disabled={!this.props.alive || this.state.executing}
-                onClick={() => this.setState({
-                    executionDialog: true,
-                    executionLog: [{
-                        ts: BackupNow.getTime(),
-                        level: 'INFO',
-                        text: I18n.t('starting Backup...'),
-                        source: 'gui',
-                    }],
-                    executing: true,
-                }, async () => {
-                    this.lastExecutionLine = '';
-                    await this.props.socket.setState(`${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`, true);
-                })}
-                className={this.props.className}
-                color={this.props.color}
-                variant="contained"
-                style={this.props.style}
-                endIcon={<CloudUploadOutlined />}
-            >
-                {this.props.schema.label ? I18n.t(this.props.schema.label) : I18n.t('Backup now')}
-            </Button>
-            {this.renderExecutionDialog()}
-        </>;
+        return (
+            <>
+                <Button
+                    disabled={!this.props.alive || this.state.executing}
+                    onClick={() =>
+                        this.setState(
+                            {
+                                executionDialog: true,
+                                executionLog: [
+                                    {
+                                        ts: BackupNow.getTime(),
+                                        level: 'INFO',
+                                        text: I18n.t('starting Backup...'),
+                                        source: 'gui',
+                                    },
+                                ],
+                                executing: true,
+                            },
+                            async () => {
+                                this.lastExecutionLine = '';
+                                await this.props.socket.setState(
+                                    `${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`,
+                                    true
+                                );
+                            }
+                        )
+                    }
+                    className={this.props.className}
+                    color={this.props.color}
+                    variant="contained"
+                    style={this.props.style}
+                    endIcon={<CloudUploadOutlined />}
+                >
+                    {this.props.schema.label ? I18n.t(this.props.schema.label) : I18n.t('Backup now')}
+                </Button>
+                {this.renderExecutionDialog()}
+            </>
+        );
     }
 
     render() {

@@ -4,7 +4,7 @@ import {
     Accordion, AccordionDetails, AccordionSummary, Dialog,
     DialogContent, DialogTitle, Fab, Table,
     TableCell, TableRow, Tooltip,
-    DialogActions, Button, LinearProgress, TableBody,
+    DialogActions, Button, LinearProgress, TableBody, useMediaQuery,
 } from '@mui/material';
 import {
     Close,
@@ -122,6 +122,7 @@ function getLabelByValue(value, connectType) {
 }
 
 const GetBackups = props => {
+    const fullScreen = useMediaQuery(props.themeBreakpoints('sm'));
     const [backups, setBackups] = useState(null);
     const [expanded, setExpanded] = useState([]);
 
@@ -150,6 +151,7 @@ const GetBackups = props => {
         open={!0}
         onClose={props.onClose}
         fullWidth
+        fullScreen={fullScreen}
         maxWidth="lg"
     >
         <DialogTitle>

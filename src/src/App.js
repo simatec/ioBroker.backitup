@@ -709,6 +709,7 @@ class App extends GenericApp {
                     onRestore={(location, object, fileName) => this.setState({ showRestore: { location, object, fileName }, showGetBackups: false })}
                     socket={this.socket}
                     themeType={this.state.themeType}
+                    themeBreakpoints={this.state.theme.breakpoints.down}
                     adapterName={this.adapterName}
                     instance={this.instance}
                     backupSource={this.state.backupSource}
