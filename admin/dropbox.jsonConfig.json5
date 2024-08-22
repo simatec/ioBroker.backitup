@@ -19,8 +19,9 @@
         "dropboxTokenType": {
             "type": "select",
             "label": "Dropbox-API Type",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "options": [
                 {
@@ -42,11 +43,17 @@
             "url": "custom/customComponents.js",
             "name": "ConfigCustomBackItUpSet/Components/Dropbox",
             "value": false,
-            "sm": 12
+            "xs": 12,
+            "sm": 12,
+            "md": 12,
+            "lg": 12
         },
         "dropboxAccessToken": {
             "hidden": "data.dropboxTokenType == 'default'",
+            "xs": 12,
             "sm": 12,
+            "md": 12,
+            "lg": 12,
             "type": "password",
             "visible": true,
             "label": "Access token",
@@ -57,23 +64,26 @@
         "dropboxDeleteOldBackup": {
             "type": "checkbox",
             "label": "Delete old Dropbox-Backups",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "newLine": true
         },
         "dropboxOwnDir": {
             "type": "checkbox",
             "label": "Extra path for backup types",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4
         },
         "dropboxDeleteAfter": {
             "newLine": true,
             "hidden": "!data.dropboxDeleteOldBackup || !data.advancedDelete",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "min": 1,
             "max": 100,
@@ -83,8 +93,9 @@
         },
         "dropboxMinimalDir": {
             "hidden": "!data.dropboxOwnDir",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "type": "text",
             "label": "Dropbox Path for ioBroker backup",
@@ -92,16 +103,18 @@
         },
         "dropboxCcuDir": {
             "hidden": "!data.dropboxOwnDir",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "type": "text",
             "label": "Dropbox Path for CCU backup",
         },
         "dropboxDir": {
             "hidden": "data.dropboxOwnDir",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "type": "text",
             "label": "Path",

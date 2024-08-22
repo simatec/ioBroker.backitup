@@ -24,8 +24,9 @@
             "name": "ConfigCustomBackItUpSet/Components/RestoreBackup",
             "allowDownload": true,
             "value": false,
-            "sm": 12,
-            "md": 12,
+            "xs": 12,
+            "sm": 9,
+            "md": 9,
             "lg": 9,
         },
     }

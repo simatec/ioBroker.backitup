@@ -18,6 +18,10 @@ const styles = {
         display: 'inline-block',
         width: 95,
     },
+    responseTextTime: {
+        display: 'inline-block',
+        width: 70,
+    },
     textLevel: {
         display: 'inline-block',
         width: 50,
@@ -39,8 +43,41 @@ const styles = {
     text: {
         display: 'inline-block',
     },
+    responseText: {
+        display: 'inline-block',
+        wordWrap: 'break-word',
+    },
     textLine: {
         whiteSpace: 'nowrap',
+    },
+    responseTextLine: {
+        whiteSpace: 'normal',
+    },
+    dialogContent: {
+        position: 'relative',
+        padding: 16,
+    },
+    logContainer: {
+        fontSize: 12,
+        fontFamily: 'monospace',
+        padding: 8,
+        border: '1px solid grey',
+        borderRadius: 5,
+        overflow: 'auto',
+        boxSizing: 'border-box',
+        height: 'calc(100% - 16px - 4px)',
+        width: 'calc(100% - 16px)',
+    },
+    responseLogContainer: {
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 15,
+    },
+    dialogActions: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'stretch',
     },
 };
 
@@ -94,6 +131,7 @@ class Restore extends Component {
             executionLog: [],
             closeOnReady: false,
             isStopped,
+            isFullScreen: false,
             messages,
             showRestoreDialog: false,
             restoreProcess: {
@@ -252,30 +290,38 @@ class Restore extends Component {
 
     async componentDidMount() {
         await this.props.socket.subscribeState(`${this.props.adapterName}.${this.props.instance}.output.line`, this.onOutput);
+        this.updateFullScreenMode();
+        window.addEventListener('resize', this.updateFullScreenMode);
     }
 
     componentWillUnmount() {
         this.props.socket.unsubscribeState(`${this.props.adapterName}.${this.props.instance}.output.line`, this.onOutput);
         this.closeTimeout && clearTimeout(this.closeTimeout);
         this.closeTimeout = null;
+        window.removeEventListener('resize', this.updateFullScreenMode);
     }
 
-    static renderLine(line, i) {
-        return <div key={i} style={styles.textLine}>
+    updateFullScreenMode = () => {
+        const isFullScreen = window.matchMedia('(max-width: 600px)').matches;
+        this.setState({ isFullScreen });
+    };
+
+    static renderLine(line, i, isFullScreen) {
+        return <div key={i} style={{ ...isFullScreen ? styles.responseTextLine : styles.textLine }}>
             <div style={{ ...styles.textTime, ...(line.level ? (styles[`textLevel-${line.level}`] || {}) : {}) }}>{line.ts}</div>
             <div style={{ ...styles.textLevel, ...(line.level ? (styles[`textLevel-${line.level}`] || {}) : {}) }}>{line.level}</div>
             <div style={{ ...styles.textSource, ...(line.level ? (styles[`textLevel-${line.level}`] || {}) : {}) }}>{line.source}</div>
-            <div style={{ ...styles.text, ...(line.level ? (styles[`textLevel-${line.level}`] || {}) : {}) }}>{line.text}</div>
+            <div style={{ ...(isFullScreen ? styles.responseText : styles.text), ...(line.level ? (styles[`textLevel-${line.level}`] || {}) : {}) }}>{line.text}</div>
         </div>;
     }
 
-    static renderRestoreLine(line, i) {
-        return <div key={i} style={styles.textLine}>
+    static renderRestoreLine(line, i, isFullScreen) {
+        return <div key={i} style={{ ...isFullScreen ? styles.responseTextLine : styles.textLine }}>
             {!line.includes('Restore completed successfully!!') ?
-                <div style={{ ...styles.text, color: line.startsWith('[ERROR]') ? '#FF0000' : line.includes('Restore completed successfully') ? '#00b204' : undefined }}>{line}</div> :
+                <div style={{ ...(isFullScreen ? styles.responseText : styles.text), color: line.startsWith('[ERROR]') ? '#FF0000' : line.includes('Restore completed successfully') ? '#00b204' : undefined }}>{line}</div> :
                 <div
                     style={{
-                        ...styles.text,
+                        ...(isFullScreen ? styles.responseText : styles.text),
                         color: line.includes('Restore completed successfully!!') ? '#00b204' : undefined,
                     }}
                 >
@@ -293,6 +339,7 @@ class Restore extends Component {
             onClose={() => { this.state.restoreProcess.done && this.setState({ showRestoreDialog: false }); }}
             maxWidth="lg"
             fullWidth
+            fullScreen={this.state.isFullScreen}
             sx={{ '& .MuiDialog-paper': styles.paper }}
         >
             <DialogTitle
@@ -303,7 +350,7 @@ class Restore extends Component {
                 {this.state.restoreProcess.restoreStatus ? <span style={{ marginLeft: 10, marginRight: 10 }}>-</span> : null}
                 {I18n.t(this.state.restoreProcess.restoreStatus) || '...'}
             </DialogTitle>
-            <DialogContent style={{ position: 'relative' }}>
+            <DialogContent style={styles.dialogContent}>
                 {!this.state.restoreProcess.done ?
                     <LinearProgress
                         style={{
@@ -315,24 +362,16 @@ class Restore extends Component {
                     /> : <div style={{ height: 4, width: 'calc(100% - 64px)' }} />}
                 <div
                     style={{
-                        height: 'calc(100% - 16px - 4px)',
-                        width: 'calc(100% - 16px)',
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        marginTop: 4,
-                        padding: 8,
-                        border: '1px solid grey',
-                        borderRadius: 5,
-                        overflow: 'auto',
+                        ...styles.logContainer,
+                        ...(this.state.isFullScreen ? styles.responseLogContainer : undefined),
                         backgroundColor: this.props.themeType === 'dark' ? '#111' : '#EEE',
-                        boxSizing: 'border-box',
                     }}
                     ref={this.textRefRestore}
                 >
-                    {this.state.restoreProcess.log.map((line, i) => Restore.renderRestoreLine(line, i))}
+                    {this.state.restoreProcess.log.map((line, i) => Restore.renderRestoreLine(line, i, this.state.isFullScreen))}
                 </div>
             </DialogContent>
-            <DialogActions>
+            <DialogActions style={{ ...(this.state.isFullScreen ? styles.dialogActions : undefined) }}>
                 <Button
                     disabled={!this.state.restoreProcess.done}
                     variant="contained"
@@ -393,13 +432,14 @@ class Restore extends Component {
             onClose={() => !this.state.executing && this.props.onClose()}
             maxWidth="lg"
             fullWidth
+            fullScreen={this.state.isFullScreen}
             sx={{ '& .MuiDialog-paper': styles.paper }}
         >
             <DialogTitle>
                 <SettingsBackupRestore style={{ width: 24, height: 24, margin: '0 10px -4px 0' }} />
                 {I18n.t('BackItUp restore execution')}
             </DialogTitle>
-            <DialogContent style={{ position: 'relative' }}>
+            <DialogContent style={styles.dialogContent}>
                 {this.state.executing ?
                     <LinearProgress
                         style={{
@@ -411,21 +451,13 @@ class Restore extends Component {
                     /> : <div style={{ height: 4, width: 'calc(100% - 64px)' }} />}
                 {this.state.executing || this.state.done ? <div
                     style={{
-                        height: 'calc(100% - 16px - 4px)',
-                        width: 'calc(100% - 16px)',
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        marginTop: 4,
-                        padding: 8,
-                        border: '1px solid grey',
-                        borderRadius: 5,
-                        overflow: 'auto',
+                        ...styles.logContainer,
+                        ...(this.state.isFullScreen ? styles.responseLogContainer : undefined),
                         backgroundColor: this.props.themeType === 'dark' ? '#111' : '#EEE',
-                        boxSizing: 'border-box',
                     }}
                     ref={this.textRef}
                 >
-                    {this.state.executionLog.map((line, i) => Restore.renderLine(line, i))}
+                    {this.state.executionLog.map((line, i) => Restore.renderLine(line, i, this.state.isFullScreen))}
                 </div> : null}
                 {!this.state.executing && !this.state.done ? <div>
                     <ul>
@@ -436,7 +468,7 @@ class Restore extends Component {
                     </ul>
                 </div> : null}
             </DialogContent>
-            <DialogActions>
+            <DialogActions style={{ ...(this.state.isFullScreen ? styles.dialogActions : undefined) }}>
                 <FormControlLabel
                     control={<Checkbox
                         disabled={this.state.done}
@@ -446,6 +478,7 @@ class Restore extends Component {
                     label={I18n.t('Close on ready')}
                 />
                 <Button
+                    style={{ marginTop: this.state.isFullScreen ? 10 : 0 }}
                     variant="contained"
                     disabled={this.state.executing || this.state.done}
                     onClick={() => this.setState({
@@ -461,6 +494,7 @@ class Restore extends Component {
                     {I18n.t('Restore')}
                 </Button>
                 <Button
+                    style={{ marginTop: this.state.isFullScreen ? 10 : 0 }}
                     color={this.props.themeType === 'dark' ? 'primary' : 'grey'}
                     variant="contained"
                     disabled={this.state.executing}

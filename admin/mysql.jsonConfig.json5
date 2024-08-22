@@ -26,6 +26,7 @@
             "adapter": "mySql",
             "icon": "search",
             "label": "Detect config",
+            "xs":12,
             "sm": 9,
             "md": 6,
             "lg": 3
@@ -38,7 +39,8 @@
         },
         "mySqlHost": {
             "hidden": "data.mySqlMulti",
-            "sm": 12,
+            "xs": 12,
+            "sm": 9,
             "md": 8,
             "lg": 4,
             "type": "text",
@@ -47,7 +49,8 @@
         },
         "mySqlPort": {
             "hidden": "data.mySqlMulti",
-            "sm": 12,
+            "xs": 12,
+            "sm": 9,
             "md": 8,
             "lg": 4,
             "min": 1,
@@ -57,7 +60,8 @@
         },
         "mySqlName": {
             "hidden": "data.mySqlMulti",
-            "sm": 12,
+            "xs": 12,
+            "sm": 9,
             "md": 8,
             "lg": 4,
             "type": "text",
@@ -65,7 +69,8 @@
         },
         "mySqlUser": {
             "hidden": "data.mySqlMulti",
-            "sm": 12,
+            "xs": 12,
+            "sm": 9,
             "md": 8,
             "lg": 4,
             "type": "text",
@@ -74,7 +79,8 @@
         },
         "mySqlPassword": {
             "hidden": "data.mySqlMulti",
-            "sm": 12,
+            "xs": 12,
+            "sm": 9,
             "md": 8,
             "lg": 4,
             "type": "password",
@@ -83,7 +89,8 @@
         },
         "mySqlDumpExe": {
             "hidden": "data.mySqlMulti",
-            "sm": 12,
+            "xs": 12,
+            "sm": 9,
             "md": 8,
             "lg": 4,
             "type": "text",
@@ -93,7 +100,8 @@
         "mysqlQuick": {
             "type": "checkbox",
             "label": "Retrieve tables row by row",
-            "sm": 12,
+            "xs": 12,
+            "sm": 9,
             "md": 8,
             "lg": 4,
             "newLine": true
@@ -101,14 +109,16 @@
         "mysqlSingleTransaction": {
             "type": "checkbox",
             "label": "BEGIN instruction before backup",
-            "sm": 12,
+            "xs": 12,
+            "sm": 9,
             "md": 8,
             "lg": 4,
         },
         "mySqlMulti": {
             "type": "checkbox",
             "label": "Backup of several systems",
-            "sm": 12,
+            "xs": 12,
+            "sm": 9,
             "md": 8,
             "lg": 4,
             "newLine": true
@@ -122,7 +132,10 @@
         "mySqlEvents": {
             "newLine": true,
             "type": "table",
+            "xs": 12,
             "sm": 12,
+            "md": 12,
+            "lg": 12,
             "label": "MySQL hosts",
             "hidden": "!data.mySqlMulti",
             "encryptedAttributes": [

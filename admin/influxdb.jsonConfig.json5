@@ -26,6 +26,7 @@
             "adapter": "influxDB",
             "icon": "search",
             "label": "Detect config",
+            "xs": 12,
             "sm": 9,
             "md": 6,
             "lg": 3
@@ -39,8 +40,9 @@
         "influxDBType": {
             "type": "select",
             "label": "Source type",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "options": [
                 {
@@ -56,8 +58,9 @@
         },
         "influxDBHost": {
             "hidden": "data.influxDBMulti || data.influxDBType == 'local'",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "type": "text",
             "label": "host",
@@ -68,8 +71,9 @@
         },
         "influxDBPort": {
             "hidden": "data.influxDBMulti || data.influxDBType == 'local'",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "min": 1,
             "max": 65535,
@@ -83,8 +87,9 @@
             "hidden": "data.influxDBMulti || data.influxDBType == 'local'",
             "type": "select",
             "label": "Protocol",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "noTranslations": true,
             "options": [
@@ -102,8 +107,9 @@
             "hidden": "data.influxDBMulti",
             "type": "select",
             "label": "Database version",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "noTranslations": true,
             "options": [
@@ -120,8 +126,9 @@
         },
         "influxDBName": {
             "hidden": "data.influxDBMulti",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "type": "text",
             "label": "InfluxDB database name",
@@ -129,8 +136,9 @@
 			"validatorNoSaveOnError": true,
         },
         "influxDBDumpExe": {
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "type": "text",
             "label": "Full path",
@@ -138,7 +146,10 @@
         },
         "influxDBToken": {
             "hidden": "data.influxDBMulti || data.influxDBVersion == '1.x'",
+            "xs": 12,
             "sm": 12,
+            "md": 12,
+            "lg": 12,
             "type": "password",
             "visible": true,
             "label": "InfluxDB database token",
@@ -149,8 +160,9 @@
         "influxDBMulti": {
             "type": "checkbox",
             "label": "Backup of several systems",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "newLine": true
         },
@@ -158,8 +170,9 @@
             "hidden": "data.influxDBType == 'remote'",
             "type": "checkbox",
             "label": "Automatically delete old Influx-database before restore",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
         },
         "_helpLine2": {
@@ -171,7 +184,10 @@
         "influxDBEvents": {
             "newLine": true,
             "type": "table",
+            "xs": 12,
             "sm": 12,
+            "md": 12,
+            "lg": 12,
             "label": "InfluxDB hosts",
             "hidden": "!data.influxDBMulti",
             "labelsInHeader": true,
@@ -270,7 +286,11 @@
             "icon": "info",
             "label": "*** Open InfluxDB Documentation ***",
             "href": "https://docs.influxdata.com/influxdb/v1.8/administration/backup_and_restore/#configuring-remote-connections",
-            "newLine": true
+            "newLine": true,
+            "xs": 12,
+            "sm": 12,
+            "md": 12,
+            "lg": 12,
         }
     }
 }

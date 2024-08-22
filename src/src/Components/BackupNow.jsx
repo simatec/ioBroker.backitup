@@ -66,7 +66,6 @@ const styles = {
         border: '1px solid grey',
         borderRadius: 5,
         overflow: 'auto',
-        backgroundColor: '#EEE',
         boxSizing: 'border-box',
         height: 'calc(100% - 16px - 4px)',
         width: 'calc(100% - 16px)',
@@ -76,6 +75,11 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         gap: 15,
+    },
+    dialogActions: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'stretch',
     },
 };
 
@@ -226,11 +230,18 @@ class BackupNow extends ConfigGeneric {
                     ) : (
                         <div style={{ height: 4, width: 'calc(100% - 64px)' }} />
                     )}
-                    <div style={{ ...this.state.styles.logContainer, ...(this.state.isFullScreen ? this.state.styles.responseLogContainer : undefined) }} ref={this.textRef}>
+                    <div
+                        style={{
+                            ...this.state.styles.logContainer,
+                            ...(this.state.isFullScreen ? this.state.styles.responseLogContainer : undefined),
+                            backgroundColor: this.props.themeType === 'dark' ? '#111' : '#EEE',
+                        }}
+                        ref={this.textRef}
+                    >
                         {this.state.executionLog.map((line, i) => this.renderLine(line, i))}
                     </div>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions style={{ ...(this.state.isFullScreen ? this.state.styles.dialogActions : undefined) }}>
                     <FormControlLabel
                         control={
                             <Checkbox

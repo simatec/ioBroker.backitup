@@ -63,7 +63,9 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ## Changelog
 ### **WORK IN PROGRESS**
-* (simatec) Responsive Design added
+* (simatec) Responsive Design for Tab added
+* (simatec) Responsive Design for jsonConfig added
+* (simatec) dependencies updated
 
 ### 3.0.19 (2024-08-15)
 * (simatec) Fix CCU Backup

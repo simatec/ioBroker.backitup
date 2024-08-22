@@ -21,46 +21,52 @@
             "type": "checkbox",
             "label": "Enable notifications",
             "value": false,
-            "sm": 12,
-            "md": 8,
-            "lg": 4
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
+            "lg": 4,
         },
         "restoreTab": {
             "type": "checkbox",
             "label": "Show restore tab",
             "value": false,
-            "sm": 12,
-            "md": 8,
-            "lg": 4
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
+            "lg": 4,
         },
         "debugLevel": {
             "type": "checkbox",
             "label": "extended log output",
             "value": false,
-            "sm": 12,
-            "md": 8,
-            "lg": 4
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
+            "lg": 4,
         },
         "ignoreErrors": {
             "newLine": true,
             "type": "checkbox",
             "label": "Ignore backup errors",
             "value": false,
-            "sm": 12,
-            "md": 8,
-            "lg": 4
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
+            "lg": 4,
         },
         "advancedDelete": {
             "type": "checkbox",
             "label": "Advanced delete functions for external storage",
             "value": false,
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4
         },
         "historyEntriesNumber": {
             "newLine": true,
-            "sm": 12,
+            "xs": 12,
+            "sm": 9,
             "md": 6,
             "lg": 4,
             "min": 1,
@@ -69,7 +75,8 @@
             "label": "Number of history entries"
         },
         "fileSizeWarning": {
-            "sm": 12,
+            "xs": 12,
+            "sm": 9,
             "md": 6,
             "lg": 4,
             "min": 1,
@@ -78,7 +85,8 @@
             "label": "Local hard disk space Limit value for warning message (MB)"
         },
         "fileSizeError": {
-            "sm": 12,
+            "xs": 12,
+            "sm": 9,
             "md": 6,
             "lg": 4,
             "min": 1,
@@ -95,8 +103,9 @@
         "hostType": {
             "type": "select",
             "label": "Host Type",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "options": [
                 {
@@ -123,8 +132,9 @@
             "noTranslation": true,
             "hidden": "data.hostType !== 'Master'",
             "label": "Slave instances",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
             "options": [
             ],
@@ -133,8 +143,9 @@
             "hidden": "data.hostType !== 'Slave'",
             "type": "text",
             "label": "Slave name suffix",
-            "sm": 12,
-            "md": 8,
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
             "lg": 4,
         },
         "stopSlaveAfter": {
@@ -142,9 +153,10 @@
             "type": "checkbox",
             "label": "Slave Instances stopping after backup",
             "value": false,
-            "sm": 12,
-            "md": 8,
-            "lg": 4
+            "xs": 12,
+            "sm": 9,
+            "md": 6,
+            "lg": 4,
         },
     }
 }

@@ -25,6 +25,7 @@
       "adapter": "history",
       "icon": "search",
       "label": "Detect config",
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3
@@ -35,6 +36,7 @@
       "color": "primary"
     },
     "historyPath": {
+      "xs": 12,
       "sm": 12,
       "md": 9,
       "lg": 6,

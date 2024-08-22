@@ -4,7 +4,7 @@ import {
     Accordion, AccordionDetails, AccordionSummary, Dialog,
     DialogContent, DialogTitle, Fab, Table,
     TableCell, TableRow, Tooltip,
-    DialogActions, Button, LinearProgress, TableBody,
+    DialogActions, Button, LinearProgress, TableBody, useMediaQuery,
 } from '@mui/material';
 import {
     Close,
@@ -121,6 +121,7 @@ function getLabelByValue(value, connectType) {
 }
 
 const GetBackups = props => {
+    const fullScreen = useMediaQuery(props.themeBreakpoints('sm'));
     const [backups, setBackups] = useState(null);
     const [expanded, setExpanded] = useState([]);
 
@@ -149,6 +150,7 @@ const GetBackups = props => {
         open={!0}
         onClose={props.onClose}
         fullWidth
+        fullScreen={fullScreen}
         maxWidth="lg"
     >
         <DialogTitle>{I18n.t('Backup history')}</DialogTitle>
@@ -212,20 +214,19 @@ const GetBackups = props => {
                                 <AccordionDetails>
                                     <Table size="small">
                                         <TableBody>
-                                            {backups.data[location][object].map((backup, index) => <TableRow key={index}>
-                                                <TableCell style={{ width: 200, whiteSpace: 'nowrap', paddingRight: 0 }}>
+                                            {backups.data[location][object].map((backup, index) => <TableRow key={index} style={{ display: 'flex', flexDirection: fullScreen ? 'column' : 'row' }}>
+                                                <TableCell style={{ width: fullScreen ? '100%' : 220, whiteSpace: 'nowrap', padding: fullScreen ? '6px 0' : '16px 16px' }}>
                                                     {I18n.t('Backup time')}
                                                     :
                                                     <span style={{ marginLeft: 8 }}>{parseName(backup.name)}</span>
                                                 </TableCell>
-                                                <TableCell style={{ width: 'calc(100% - 320px)', whiteSpace: 'nowrap', paddingleft: 0 }}>
-                                                    <span style={{ marginRight: 8 }}>|</span>
+                                                <TableCell style={{ width: fullScreen ? '100%' : 'calc(100% - 320px)', whiteSpace: 'nowrap', padding: fullScreen ? '6px 0' : '16px 16px' }}>
                                                     {I18n.t('File size')}
                                                     :
                                                     <span style={{ marginLeft: 8 }}>{parseSize(backup.size)}</span>
                                                 </TableCell>
-                                                <TableCell style={{ width: 88 }}>
-                                                    <div style={{ display: 'flex', gap: 8 }}>
+                                                <TableCell style={{ width: fullScreen ? '100%' : 88, borderBottom: fullScreen ? '1px outset rgb(224, 224, 224)' : '1px solid rgb(224, 224, 224)', padding: '6px 0' }}>
+                                                    <div style={{ display: 'flex', gap: 8, justifyContent: fullScreen ? 'center' : 'normal' }}>
                                                         {props.allowDownload ? <Tooltip title={I18n.t('Download Backup File')}>
                                                             <Fab
                                                                 size="small"

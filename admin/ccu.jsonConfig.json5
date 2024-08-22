@@ -26,6 +26,7 @@
       "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIj4NCiAgICA8cGF0aCBkPSJNMTkuMzUgMTAuMDRDMTguNjcgNi41OSAxNS42NCA0IDEyIDQgOS4xMSA0IDYuNiA1LjY0IDUuMzUgOC4wNCAyLjM0IDguMzYgMCAxMC45MSAwIDE0YzAgMy4zMSAyLjY5IDYgNiA2aDEzYzIuNzYgMCA1LTIuMjQgNS01IDAtMi42NC0yLjA1LTQuNzgtNC42NS00Ljk2ek0xNCAxM3Y0aC00di00SDdsNS01IDUgNWgtM3oiLz4NCjwvc3ZnPg0K",
       "label": "Backup now",
       "newLine": true,
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3
@@ -40,6 +41,7 @@
       "adapter": "hm-rpc",
       "icon": "search",
       "label": "Detect config",
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3
@@ -58,6 +60,7 @@
       "format": "HH:mm",
       "views": ['hours', 'minutes'],
       "returnFormat": "HH:mm",
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3
@@ -69,13 +72,15 @@
       "label": "Backup CRON job",
       "help": "Backup time as CRON job",
       "complex": true,
-      "sm": 9,
-      "md": 6,
-      "lg": 3
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12
     },
     "ccuEveryXDays": {
       "newLine": true,
       "hidden": "data.ccuCron",
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3,
@@ -86,6 +91,7 @@
       "help": "Backup will run every X days"
     },
     "ccuDeleteAfter": {
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3,
@@ -97,6 +103,7 @@
     },
     "ccuNameSuffix": {
       "hidden": "data.ccuMulti",
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3,
@@ -107,6 +114,7 @@
     "ccuHost": {
       "hidden": "data.ccuMulti",
       "newLine": true,
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3,
@@ -116,6 +124,7 @@
     },
     "ccuUser": {
       "hidden": "data.ccuMulti",
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3,
@@ -125,6 +134,7 @@
     },
     "ccuPassword": {
       "hidden": "data.ccuMulti",
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3,
@@ -137,6 +147,7 @@
       "newLine": true,
       "type": "checkbox",
       "label": "Create your own CRON job (for experts only)",
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3
@@ -145,6 +156,7 @@
       "hidden": "data.ccuMulti",
       "type": "checkbox",
       "label": "Use https",
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3
@@ -153,6 +165,7 @@
       "hidden": "data.ccuMulti || !data.ccuUsehttps",
       "type": "checkbox",
       "label": "Allow only signed certificates",
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3
@@ -166,7 +179,10 @@
     "ccuEvents": {
       "newLine": true,
       "type": "table",
+      "xs": 12,
       "sm": 12,
+      "md": 12,
+      "lg": 12,
       "label": "CCU hosts",
       "hidden": "!data.ccuMulti",
       "encryptedAttributes": ["pass"],

@@ -18,6 +18,7 @@
     },
     "zigbee2mqttPath": {
       "newLine": true,
+      "xs": 12,
       "sm": 12,
       "md": 6,
       "lg": 4,

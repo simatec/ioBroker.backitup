@@ -25,7 +25,11 @@
       "backUpType": "iobroker",
       "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIj4NCiAgICA8cGF0aCBkPSJNMTkuMzUgMTAuMDRDMTguNjcgNi41OSAxNS42NCA0IDEyIDQgOS4xMSA0IDYuNiA1LjY0IDUuMzUgOC4wNCAyLjM0IDguMzYgMCAxMC45MSAwIDE0YzAgMy4zMSAyLjY5IDYgNiA2aDEzYzIuNzYgMCA1LTIuMjQgNS01IDAtMi42NC0yLjA1LTQuNzgtNC42NS00Ljk2ek0xNCAxM3Y0aC00di00SDdsNS01IDUgNWgtM3oiLz4NCjwvc3ZnPg0K",
       "label": "Backup now",
-      "newLine": true
+      "newLine": true,
+      "xs": 12,
+      "sm": 9,
+      "md": 6,
+      "lg": 3,
     },
     "_helpLine1": {
       "newLine": true,
@@ -42,6 +46,7 @@
       "views": ['hours', 'minutes'],
       "timeSteps": { hours: 1, minutes: 1 },
       "returnFormat": "HH:mm",
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3
@@ -52,6 +57,7 @@
       "type": "cron",
       "label": "Backup CRON job",
       "complex": true,
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3
@@ -59,6 +65,7 @@
     "minimalEveryXDays": {
       "hidden": "data.iobrokerCron",
       "newLine": true,
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3,
@@ -69,6 +76,7 @@
       "help": "Backup will run every X days"
     },
     "minimalDeleteAfter": {
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3,
@@ -79,6 +87,7 @@
       "help": "Delete old ioBroker backups with the exception of the last X pieces"
     },
     "minimalNameSuffix": {
+      "xs": 12,
       "sm": 9,
       "md": 6,
       "lg": 3,
@@ -90,7 +99,10 @@
       "newLine": true,
       "type": "checkbox",
       "label": "Create your own CRON job (for experts only)",
-      "sm": 12
+      "xs": 12,
+      "sm": 9,
+      "md": 6,
+      "lg": 3
     },
   }
 }

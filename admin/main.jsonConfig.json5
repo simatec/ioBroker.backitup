@@ -19,6 +19,7 @@
     },
     "minimalEnabled": {
       "type": "custom",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -30,6 +31,7 @@
     },
     "ccuEnabled": {
       "type": "custom",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -42,6 +44,7 @@
     "redisEnabled": {
       // todo: check if object or states use redis and hide if not
       "type": "checkbox",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -50,6 +53,7 @@
     "javascriptsEnabled": {
       "disabled": "data.hostType === 'Slave'",
       "type": "custom",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -65,6 +69,7 @@
     },
     "zigbee2mqttEnabled": {
       "type": "custom",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -80,6 +85,7 @@
     },
     "zigbeeEnabled": {
       "type": "custom",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -96,6 +102,7 @@
     "historyEnabled": {
       "newLine": true,
       "type": "custom",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -111,6 +118,7 @@
     },
     "influxDBEnabled": {
       "type": "custom",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -126,6 +134,7 @@
     },
     "mySqlEnabled": {
       "type": "custom",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -141,6 +150,7 @@
     },
     "pgSqlEnabled": {
       "type": "custom",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -156,6 +166,7 @@
     },
     "sqliteEnabled": {
       "type": "custom",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -171,6 +182,7 @@
     },
     "grafanaEnabled": {
       "type": "checkbox",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -179,6 +191,7 @@
     "noderedEnabled": {
       "newLine": true,
       "type": "custom",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -194,6 +207,7 @@
     },
     "yahkaEnabled": {
       "type": "custom",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -209,6 +223,7 @@
     },
     "jarvisEnabled": {
       "type": "custom",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -224,6 +239,7 @@
     },
     "esphomeEnabled": {
       "type": "custom",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -247,6 +263,7 @@
     "cifsEnabled": {
       "newLine": true,
       "type": "checkbox",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -254,6 +271,7 @@
     },
     "ftpEnabled": {
       "type": "checkbox",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -261,6 +279,7 @@
     },
     "dropboxEnabled": {
       "type": "checkbox",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -268,6 +287,7 @@
     },
     "googledriveEnabled": {
       "type": "checkbox",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -275,6 +295,7 @@
     },
     "webdavEnabled": {
       "type": "checkbox",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -282,6 +303,7 @@
     },
     "onedriveEnabled": {
       "type": "checkbox",
+      "xs": 12,
       "sm": 6,
       "md": 4,
       "lg": 2,
@@ -300,7 +322,9 @@
       "icon": "info",
       "label": "Show adapter documentation",
       "href": "https://github.com/simatec/ioBroker.backitup/blob/master/README.md#iobrokerbackitup",
-      "newLine": true
+      "newLine": true,
+      "xs": 12,
+      "sm": 12
     },
     "_helpLine2": {
       "newLine": true,

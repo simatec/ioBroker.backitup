@@ -25,7 +25,17 @@ class RestoreBackup extends ConfigGeneric {
     }
 
     renderItem() {
-        return <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+        return <div
+            style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: 12,
+                justifyContent: 'space-evenly',
+                alignContent: 'center',
+                justifyItems: 'stretch',
+                gridAutoRows: '1fr',
+            }}
+        >
             <SourceSelector
                 value={this.state.backupSource}
                 data={this.props.data}
@@ -57,6 +67,7 @@ class RestoreBackup extends ConfigGeneric {
                 onRestore={(location, object, fileName) => this.setState({ showRestore: { location, object, fileName }, showGetBackups: false })}
                 socket={this.props.socket}
                 themeType={this.props.themeType}
+                themeBreakpoints={this.props.theme.breakpoints.down}
                 adapterName={this.props.adapterName}
                 instance={this.props.instance}
                 backupSource={this.state.backupSource}
