@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.19",
+    "version": "3.0.20",
     "news": {
+      "3.0.20": {
+        "en": "Responsive Design for Tab added\nResponsive Design for jsonConfig added\ndependencies updated",
+        "de": "Responsive Design für Tab hinzugefügt\nResponsive Design für jsonConfig hinzugefügt\naktualisierte abhängigkeiten",
+        "ru": "Responsive Design for Tab added\nReponsive Design для jsonConfig добавлен\nобновленная информация о зависимостях",
+        "pt": "Design responsivo para Tab adicionado\nDesign responsivo para jsonConfig adicionado\ndependências atualizadas",
+        "nl": "Responsief ontwerp voor tab toegevoegd\nResponsive Design voor jsonConfig toegevoegd\nafhankelijkheden bijgewerkt",
+        "fr": "Conception sensible pour Tab ajouté\nDesign sensible pour jsonConfig ajouté\ndépendances mises à jour",
+        "it": "Responsive Design per scheda aggiunto\nResponsive Design per jsonConfig aggiunto\ndipendenze aggiornate",
+        "es": "Diseño responsable para Tab añadido\nDiseño responsable para jsonConfig añadido\ndependencias actualizadas",
+        "pl": "Responsive Design for Tab dodano\nResponsive Design for jsonConfig dodany\nzaktualizowane zależności",
+        "uk": "Відповідальний дизайн для вкладу\nВідповідальний дизайн для jsonConfig\nоновлені залежності",
+        "zh-cn": "添加标签的响应设计\n添加了 jsonConfig 的响应设计\n更新依赖关系"
+      },
       "3.0.19": {
         "en": "Fix CCU Backup\nFix InfluxDB Backup Config\nFix Backup-Log for Slave Instanz",
         "de": "CCU Backup\nInfluxDB Backup Config\nBackup-Log für Slave Instanz",
@@ -80,19 +93,6 @@
         "pl": "zaktualizowane zależności",
         "uk": "оновлені залежності",
         "zh-cn": "更新依赖关系"
-      },
-      "3.0.12": {
-        "en": "Backup Log for History added\nAdded separate selection for deleting FTP backups\nAdded separate selection for deleting Onedrive backups\nAdded separate selection for deleting Webdav backups\nAdded separate selection for deleting Dropbox backups\nAdded separate selection for deleting Googledrive backups\nImproved log outputs\nSource code cleaned up\ndependencies updated",
-        "de": "Backup Log for History hinzugefügt\nHinzugefügt separate Auswahl für das Löschen von FTP-Backups\nHinzugefügt separate Auswahl für das Löschen von Onedrive Backups\nHinzugefügt separate Auswahl für das Löschen von Webdav Backups\nSeparate Auswahl zum Löschen von Dropbox-Backups hinzugefügt\nHinzugefügt separate Auswahl für das Löschen von Googledrive Backups\nVerbesserte Protokollausgänge\nQuellcode aufgeräumt\naktualisierte abhängigkeiten",
-        "ru": "Журнал резервного копирования для истории добавлен\nДобавлен отдельный выбор для удаления резервных копий FTP\nДобавлен отдельный выбор для удаления резервных копий Onedrive\nДобавлен отдельный выбор для удаления резервных копий Webdav\nДобавлен отдельный выбор для удаления резервных копий Dropbox\nДобавлен отдельный выбор для удаления резервных копий Googledrive\nУлучшенные результаты\nКод источника очищен\nобновленная информация о зависимостях",
-        "pt": "Backup Log para História adicionado\nAdicionado seleção separada para excluir backups FTP\nAdicionado seleção separada para excluir backups de Onedrive\nAdicionado seleção separada para excluir backups Webdav\nSeleção separada adicionada para excluir backups do Dropbox\nAdicionado seleção separada para excluir backups do Googledrive\nSaídas de log melhoradas\nCódigo de fonte limpo\ndependências atualizadas",
-        "nl": "Reservekopielogboek voor geschiedenis toegevoegd\nAfzonderlijke selectie toegevoegd om FTP-backups te verwijderen\nAfzonderlijke selectie toegevoegd om Onedrive-backups te verwijderen\nAfzonderlijke selectie toegevoegd voor het verwijderen van Webdav-backups\nAfzonderlijke selectie toegevoegd voor het verwijderen van Dropbox-backups\nAfzonderlijke selectie toegevoegd voor het verwijderen van Googledrive-backups\nVerbeterde loguitvoer\nBroncode opgeschoond\nafhankelijkheden bijgewerkt",
-        "fr": "Connexion de sauvegarde pour l'historique ajouté\nAjout d'une sélection séparée pour supprimer les sauvegardes FTP\nAjout d'une sélection séparée pour supprimer les sauvegardes Onedrive\nAjout d'une sélection séparée pour supprimer les sauvegardes Webdav\nAjout d'une sélection séparée pour supprimer les sauvegardes Dropbox\nAjout d'une sélection séparée pour supprimer les sauvegardes GoogleDrive\nAmélioration des résultats du journal\nCode source nettoyé\ndépendances mises à jour",
-        "it": "Backup Log per Storia aggiunto\nAggiunta selezione separata per cancellare i backup FTP\nAggiunta selezione separata per cancellare Onedrive backup\nAggiunta selezione separata per cancellare backup Webdav\nAggiunta selezione separata per cancellare backup Dropbox\nAggiunta selezione separata per la cancellazione di backup Googledrive\nUscite di registro migliorate\nCodice sorgente ripulito\ndipendenze aggiornate",
-        "es": "Backup Log for History añadido\nSe agregó una selección separada para eliminar copias de seguridad FTP\nSe agregó una selección separada para eliminar copias de seguridad Onedrive\nSe agregó una selección separada para eliminar copias de seguridad de Webdav\nSe agregó una selección separada para eliminar copias de seguridad de Dropbox\nSe agregó una selección separada para eliminar las copias de seguridad de Googledrive\nMejora de los productos de registro\nCódigo fuente limpiado\ndependencias actualizadas",
-        "pl": "Backup Log for History dodany\nDodano oddzielny wybór do usuwania kopii zapasowych FTP\nDodano oddzielny wybór do usuwania kopii zapasowych Onedrive\nDodano oddzielny wybór do usuwania kopii zapasowych Webdav\nDodano oddzielny wybór do usuwania kopii zapasowych Dropbox\nDodano oddzielny wybór do usuwania kopii zapasowych dysku Google\nUlepszone wyjścia dziennika\nKod źródłowy oczyszczony\nzaktualizowane zależności",
-        "uk": "Журнал Backup для історії\nДодано окремий вибір для видалення резервних копій FTP\nДодано окремий вибір для видалення резервних копій Onedrive\nДодано окремий вибір для видалення резервних копій Webdav\nДодано окремий вибір для видалення резервних копій Dropbox\nДодано окремий вибір для видалення резервних копій Googledrive\nПокращуються вихідні колоди\nКод джерела очищення\nоновлені залежності",
-        "zh-cn": "添加历史备份日志\n为删除 FTP 备份而添加的单独选择\n添加删除 Onedrive 备份的单独选择\n添加删除 Webdav 备份的单独选择\n为删除 Dropbox 备份添加了单独的选择\n添加删除 Google 驱动备份的单独选择\n改进日志产出\n源代码已清理\n更新依赖关系"
       }
     },
     "titleLang": {

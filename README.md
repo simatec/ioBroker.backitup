@@ -62,7 +62,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.0.20 (2024-08-22)
 * (simatec) Responsive Design for Tab added
 * (simatec) Responsive Design for jsonConfig added
 * (simatec) dependencies updated
