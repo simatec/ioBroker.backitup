@@ -22,12 +22,12 @@ jobs:
 
       - name: Clone wiki repository
         run: |
-          git clone https://github.com/${{ github.repository }}.wiki.git ./wiki
+          git clone https://github.com/${{ github.repository }}/wiki.git ./wiki
 
       - name: Configure git remote with token
         run: |
           cd wiki
-          git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git
+          git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}/wiki.git
 
       - name: Copy files to Wiki
         run: |
@@ -35,11 +35,17 @@ jobs:
           cp docs/en/backitup.md ./wiki/ioBroker.backitup-Wiki-English.md
           cp -r docs/de/img ./wiki/
 
-      - name: Commit and push changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+      #- name: Commit and push changes
+       # env:
+        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #run: |
+         # cd wiki
+          #git add .
+          #git commit -m "Sync documentation to Wiki"
+          #git push
+      - name: Debug Git Remote
         run: |
           cd wiki
-          git add .
-          git commit -m "Sync documentation to Wiki"
-          git push
+          git remote -v
+          git config --get remote.origin.url
+          GIT_TRACE=1 GIT_CURL_VERBOSE=1 git push
