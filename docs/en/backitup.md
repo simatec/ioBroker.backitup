@@ -599,6 +599,22 @@ Detailed instructions for restoring with Backup and also for manual restoring ca
     - Execute the command: “reboot“ on the RaspberryMatic to restart the PI
     - Alternatively, the backup can of course also be restored as usual via the web interface.
 
+
+### Restoring an InfluxDB database
+
+When restoring an InfluxDB backup, please note that the InfluxDB adapter must be stopped beforehand and the database must not exist. 
+
+> [!NOTE]
+> If the database does exist, it must be deleted before the restore.
+
+The InfluxDB Adapter may only be restarted after the restore, as it will always attempt to create the database.
+
+Furthermore, to restore from an InfluxDB 2.x database, the operator token must be configured in the ioBroker.backitup menu before the restore.
+
+> [!NOTE]
+> No restore is possible without the correct operator token.
+
+
 _[Back to top](#documentation-and-instructions-for-iobrokerbackitup)_
 
 ---
