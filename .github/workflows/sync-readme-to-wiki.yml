@@ -35,4 +35,5 @@ jobs:
           cd wiki
           git add .
           git commit -m "Sync documentation to Wiki"
-          git push
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git
+
