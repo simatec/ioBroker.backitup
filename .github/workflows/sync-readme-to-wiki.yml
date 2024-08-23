@@ -22,9 +22,9 @@ jobs:
 
       - name: Clone wiki repository
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git clone https://x-access-token:${{ secrets.NPM_TOKEN }}@github.com/${{ github.repository }}.wiki.git ./wiki
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git ./wiki
 
       - name: Copy README.md to Wiki
         run: |
@@ -34,9 +34,9 @@ jobs:
 
       - name: Commit and push changes
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd wiki
           git add .
           git commit -m "Sync README.md to Wiki"
-          git push https://x-access-token:${{ secrets.NPM_TOKEN }}@github.com/${{ github.repository }}.wiki.git
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git
