@@ -19,35 +19,25 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global credential.helper store
 
       - name: Clone wiki repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git clone https://github.com/${{ github.repository }}.wiki.git ./wiki
+          git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git ./wiki
 
-      - name: Configure git remote with token
+      - name: Copy README.md to Wiki
+        run: |
+          cp docs/de/backitup.md ./wiki/ioBroker.backitup-Wiki-Deutsch.md
+          cp docs/en/backitup.md ./wiki/ioBroker.backitup-Wiki-English.md
+          cp docs/en/img/* ./wiki/img/
+
+      - name: Commit and push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd wiki
-          git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git
-
-      - name: Copy files to Wiki
-        run: |
-          cp docs/de/backitup.md ./wiki/ioBroker.backitup-Wiki-Deutsch.md
-          cp docs/en/backitup.md ./wiki/ioBroker.backitup-Wiki-English.md
-          cp -r docs/de/img ./wiki/
-
-      #- name: Commit and push changes
-       # env:
-        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #run: |
-         # cd wiki
-          #git add .
-          #git commit -m "Sync documentation to Wiki"
-          #git push
-      - name: Debug Git Remote
-        run: |
-          cd wiki
-          git remote -v
-          git config --get remote.origin.url
-          GIT_TRACE=1 GIT_CURL_VERBOSE=1 git push
+          git add .
+          git commit -m "Sync README.md to Wiki"
+          git push https://$GITHUB_TOKEN@github.com/${{ github.repository }}.wiki.git
