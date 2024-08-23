@@ -11,11 +11,12 @@ jobs:
   sync-wiki:
     runs-on: ubuntu-latest
     
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Git
         run: |
@@ -24,7 +25,7 @@ jobs:
 
       - name: Clone wiki repository
         run: |
-          git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git ./wiki
+          git clone https://$GITHUB_TOKEN@github.com/${{ github.repository }}.wiki.git ./wiki
 
       - name: Copy files to Wiki
         run: |
@@ -32,14 +33,9 @@ jobs:
           cp docs/en/backitup.md ./wiki/ioBroker.backitup-Wiki-English.md
           cp -r docs/de/img ./wiki/
 
-      - name: Set up remote with token
-        run: |
-          cd wiki
-          git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git
-
       - name: Commit and push changes
         run: |
           cd wiki
           git add .
           git commit -m "Sync documentation to Wiki"
-          git push origin master
+          git push https://$GITHUB_TOKEN@github.com/${{ github.repository }}.wiki.git

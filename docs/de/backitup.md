@@ -636,7 +636,9 @@ Eine detailierte Anleitung zum Restore mit `ioBroker.backitup` und auch zum manu
 ### Restore einer InfluxDB Datenbank
 
 Bei dem Restore eine InfluxDB Sicherung ist zu beachten, dass im Vorfeld der InfluxDB Adapter gestoppt sein muss und die Datenbank nicht existieren darf. 
-Sollte die Datenbank existieren, muss diese vor dem Restore gelöscht werden.
+
+> [!NOTE]
+> Sollte die Datenbank existieren, muss diese vor dem Restore gelöscht werden.
 
 Der InfluxDB Adapter darf erst nach dem Restore wieder gestartet werden, da dieser immer versuchen wird, die Datenbank zu erstellen.
 
