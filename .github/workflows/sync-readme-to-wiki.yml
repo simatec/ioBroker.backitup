@@ -22,12 +22,14 @@ jobs:
 
       - name: Clone wiki repository
         run: |
-          git clone https://github.com/${{ github.repository }}/wiki.git ./wiki
+          git clone https://github.com/${{ github.repository }}.wiki.git ./wiki
 
       - name: Configure git remote with token
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd wiki
-          git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}/wiki.git
+          git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git
 
       - name: Copy files to Wiki
         run: |
