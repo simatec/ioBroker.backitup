@@ -647,6 +647,8 @@ Des Weiteren ist für den Restore von einer InfluxDB 2.x Datenbank der Operator-
 > [!NOTE]
 > Ohne den richtigen Operator-Token ist kein Restore möglich.
 
+
+
 _[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
 ---
