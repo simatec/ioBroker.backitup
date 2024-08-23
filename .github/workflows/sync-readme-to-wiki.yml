@@ -1,0 +1,38 @@
+name: Sync README to Wiki
+
+on:
+  push:
+    paths:
+      - 'docs/de/backitup.md'
+      - 'docs/en/backitup.md'
+      - 'docs/de/img/*'
+
+jobs:
+  sync-wiki:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Clone wiki repository
+        run: |
+          git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git ./wiki
+
+      - name: Copy files to Wiki
+        run: |
+          cp docs/de/backitup.md ./wiki/ioBroker.backitup-Wiki-Deutsch.md
+          cp docs/en/backitup.md ./wiki/ioBroker.backitup-Wiki-English.md
+          cp -r docs/de/img ./wiki/
+
+      - name: Commit and push changes
+        run: |
+          cd wiki
+          git add .
+          git commit -m "Sync documentation to Wiki"
+          git push
