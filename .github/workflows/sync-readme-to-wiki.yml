@@ -39,5 +39,5 @@ jobs:
           cd wiki
           git add .
           git commit -m "Sync README.md to Wiki"
-          git remote set-url origin https://$GITHUB_TOKEN@github.com/${{ github.repository }}.wiki.git
+          git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git
           git push origin master
