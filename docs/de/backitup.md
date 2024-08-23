@@ -642,7 +642,8 @@ Der InfluxDB Adapter darf erst nach dem Restore wieder gestartet werden, da dies
 
 Des Weiteren ist für den Restore von einer InfluxDB 2.x Datenbank der Operator-Token vor dem Restore im Menü von ioBroker.backitup zu konfigurieren.
 
-Ohne den richtigen Operator-Token ist kein Restore möglich.
+> [!NOTE]
+> Ohne den richtigen Operator-Token ist kein Restore möglich.
 
 _[Zurück zum Anfang](#dokumentation-und-anleitung-für-iobrokerbackitup)_
 
