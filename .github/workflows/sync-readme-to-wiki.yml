@@ -11,9 +11,6 @@ jobs:
   sync-wiki:
     runs-on: ubuntu-latest
     
-    env:
-      GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,8 +21,10 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Clone wiki repository
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          git clone https://${GITHUB_TOKEN}@github.com/${{ github.repository }}.wiki.git ./wiki
+          git clone https://github-actions[bot]:$NPM_TOKEN@github.com/${{ github.repository }}.wiki.git ./wiki
 
       - name: Copy README.md to Wiki
         run: |
@@ -34,9 +33,10 @@ jobs:
           cp docs/en/img/* ./wiki/img/
 
       - name: Commit and push changes
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           cd wiki
           git add .
           git commit -m "Sync README.md to Wiki"
-          git remote set-url origin https://${GITHUB_TOKEN}@github.com/${{ github.repository }}.wiki.git
-          git push origin master
+          git push https://github-actions[bot]:$NPM_TOKEN@github.com/${{ github.repository }}.wiki.git
