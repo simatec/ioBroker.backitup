@@ -31,8 +31,8 @@ jobs:
 
       - name: Copy files to Wiki
         run: |
-          cp ../docs/de/backitup.md ./wiki/ioBroker.backitup-Wiki-Deutsch.md
-          cp ../docs/en/backitup.md ./wiki/ioBroker.backitup-Wiki-English.md
+          cp docs/de/backitup.md ./wiki/ioBroker.backitup-Wiki-Deutsch.md
+          cp docs/en/backitup.md ./wiki/ioBroker.backitup-Wiki-English.md
           cp -r ../docs/de/img ./wiki/
 
       - name: Commit and push changes
