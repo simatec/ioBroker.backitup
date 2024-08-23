@@ -1,4 +1,4 @@
-name: Sync README to Wiki
+name: Sync Docu to Wiki
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
         run: |
           git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git ./wiki
 
-      - name: Copy README.md to Wiki
+      - name: Copy Docu to Wiki
         run: |
           cp docs/de/backitup.md ./wiki/ioBroker.backitup-Wiki-Deutsch.md
           cp docs/en/backitup.md ./wiki/ioBroker.backitup-Wiki-English.md
@@ -38,5 +38,5 @@ jobs:
         run: |
           cd wiki
           git add .
-          git commit -m "Sync README.md to Wiki"
+          git commit -m "Sync Docu to Wiki"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git

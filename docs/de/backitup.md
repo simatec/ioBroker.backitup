@@ -118,6 +118,7 @@ Hier eine kurze Erklärung der Optionen im Tab Menü
 | 13. | Öffnet ein neuen Tab und zeigt die Readme von `ioBroker.backitup` an.                                                                                                                                               |
 
 
+
 ![adminTabRestore](img/backitup_restore.png)
 
 Die Bedienung des Restore Tabs sieht wie folgt aus.
