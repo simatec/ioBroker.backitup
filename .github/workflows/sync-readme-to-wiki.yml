@@ -19,7 +19,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global credential.helper store
 
       - name: Clone wiki repository
         env:
@@ -35,9 +34,10 @@ jobs:
 
       - name: Commit and push changes
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd wiki
           git add .
           git commit -m "Sync README.md to Wiki"
-          git push https://$GITHUB_TOKEN@github.com/${{ github.repository }}.wiki.git
+          git remote set-url origin https://$GITHUB_TOKEN@github.com/${{ github.repository }}.wiki.git
+          git push origin master
