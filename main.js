@@ -1905,8 +1905,8 @@ async function renewOnedriveToken() {
                 });
             })
             .catch(err => {
-                adapter.log.error(err);
-                adapter.registerNotification('backitup', 'onedriveWarn', err);
+                adapter.log.error(err ? JSON.stringify(err) : 'An update of the Onedrive refresh token has failed. Please check your system!');
+                adapter.registerNotification('backitup', 'onedriveWarn', err ? JSON.stringify(err) : 'An update of the Onedrive refresh token has failed. Please check your system!');
             });
     } else {
         adapter.log.debug(`Renew Onedrive Refresh-Token in ${30 - diffDays} days`);
