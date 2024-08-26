@@ -64,6 +64,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 ## Changelog
 ### **WORK IN PROGRESS**
 * (simatec) Fix Onedrive Notification
+* (simatec) Fix Zigbee2MQTT Backup
 
 ### 3.0.20 (2024-08-22)
 * (simatec) Responsive Design for Tab added
