@@ -5,10 +5,10 @@
     "dependencies": {
         "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
         "@iobroker/adapter-react-v5": "^6.1.9",
-        "@iobroker/json-config": "^7.0.24",
+        "@iobroker/json-config": "^7.0.25",
         "@mui/icons-material": "^5.16.7",
         "@mui/material": "^5.16.7",
-        "@sentry/browser": "^8.26.0",
+        "@sentry/browser": "^8.27.0",
         "babel-eslint": "^10.1.0",
         "eslint": "^8.57.0",
         "eslint-config-airbnb": "^19.0.4",
