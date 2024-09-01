@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.20",
+    "version": "3.0.21",
     "news": {
+      "3.0.21": {
+        "en": "Fix Onedrive Notification\nFix Zigbee2MQTT Backup\ndependencies updated",
+        "de": "Fix Onedrive Benachrichtigung\nZigbee2MQTT Backup\naktualisierte abhängigkeiten",
+        "ru": "Уведомление об одном приводе\nFix Zigbee2MQTT Назад\nобновленная информация о зависимостях",
+        "pt": "Corrigir uma notificação de unidade\nFix Zigbee2MQTT Backup\ndependências atualizadas",
+        "nl": "Onedrive notificatie herstellen\nZigbee2MQTT repareren Reservekopie\nafhankelijkheden bijgewerkt",
+        "fr": "Correction de la notification Onedrive\nCorrection Zigbee2MQTT Sauvegarde\ndépendances mises à jour",
+        "it": "Fissare la notifica di Onedrive\nFissare Zigbee2MQTT Backup\ndipendenze aggiornate",
+        "es": "Notificación de un solo goteo\nFijar Zigbee2MQTT Copia de seguridad\ndependencias actualizadas",
+        "pl": "Napraw powiadomienie o napędzie Onedrive\nFix Zigbee2MQTT Kopia zapasowa\nzaktualizowane zależności",
+        "uk": "Виправлення одного диска\nФіксація Zigbee2MQTT Зареєструватися\nоновлені залежності",
+        "zh-cn": "修正一次性通知\n修复 Zigbee2MQTT 备份\n更新依赖关系"
+      },
       "3.0.20": {
         "en": "Responsive Design for Tab added\nResponsive Design for jsonConfig added\ndependencies updated",
         "de": "Responsive Design für Tab hinzugefügt\nResponsive Design für jsonConfig hinzugefügt\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "naprawić zależności",
         "uk": "фіксація залежностей",
         "zh-cn": "固定依赖关系"
-      },
-      "3.0.14": {
-        "en": "dependencies updated",
-        "de": "aktualisierte abhängigkeiten",
-        "ru": "обновленная информация о зависимостях",
-        "pt": "dependências atualizadas",
-        "nl": "afhankelijkheden bijgewerkt",
-        "fr": "dépendances mises à jour",
-        "it": "dipendenze aggiornate",
-        "es": "dependencias actualizadas",
-        "pl": "zaktualizowane zależności",
-        "uk": "оновлені залежності",
-        "zh-cn": "更新依赖关系"
       }
     },
     "titleLang": {
