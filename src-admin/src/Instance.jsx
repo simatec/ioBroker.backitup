@@ -98,8 +98,18 @@ class Instance extends BaseField {
         const itemInstance = this.state.instances?.find(it => it.value === (this.state.instance || ''));
         const itemTarget = this.state.targets?.find(it => it.value === (this.state.target || ''));
 
-        return <div style={{ width: '100%' }}>
-            {this.state.instances ? <FormControl style={this.props.schema.adapter === 'telegram' || this.props.schema.adapter === 'discord' ? { width: 'calc(50% - 5px)', marginRight: 10 } : { width: '100%', marginRight: 10 }} variant="standard">
+        return <div
+            style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: 12,
+                justifyContent: 'space-evenly',
+                alignContent: 'center',
+                justifyItems: 'stretch',
+                gridAutoRows: '1fr',
+            }}
+        >
+            {this.state.instances ? <FormControl style={{ width: '100%', marginRight: 10 }} variant="standard">
                 <InputLabel>{I18n.t(this.props.schema.label)}</InputLabel>
                 <Select
                     variant="standard"
@@ -107,7 +117,7 @@ class Instance extends BaseField {
                     renderValue={() => this.getText(itemInstance?.label, itemInstance?.label !== 'none')}
                     onChange={e => this.setState({ instance: e.target.value === '_' ? '' : e.target.value }, () => {
                         this.readTargets();
-                        this.onChange(this.props.attr, this.state.value);
+                        this.onChange(this.props.attr, this.state.instance);
                     })}
                 >
                     {this.state.instances.map((it, i) => <MenuItem key={i} value={it.value}>
@@ -117,7 +127,7 @@ class Instance extends BaseField {
                 {this.props.schema.help ? <FormHelperText>{this.renderHelp(this.props.schema.help, this.props.schema.helpLink, this.props.schema.noTranslation)}</FormHelperText> : null}
             </FormControl> : null}
 
-            {this.state.targets && (this.props.schema.adapter === 'telegram' || this.props.schema.adapter === 'discord') ? <FormControl style={{ width: 'calc(50% - 5px)' }} variant="standard">
+            {this.state.targets && (this.props.schema.adapter === 'telegram' || this.props.schema.adapter === 'discord') ? <FormControl variant="standard">
                 <InputLabel>{I18n.t(this.props.schema.adapter === 'telegram' ? 'Telegram receiver' : 'Discord receiver')}</InputLabel>
                 <Select
                     disabled={!this.state.instance}
@@ -133,7 +143,6 @@ class Instance extends BaseField {
                 </Select>
                 {this.props.schema.help ? <FormHelperText>{this.renderHelp(this.props.schema.help, this.props.schema.helpLink, this.props.schema.noTranslation)}</FormHelperText> : null}
             </FormControl> : this.props.schema.adapter === 'telegram' || this.props.schema.adapter === 'discord' ? <TextField
-                style={{ width: 'calc(50% - 5px)' }}
                 variant="standard"
                 disabled={!this.state.instance}
                 label={I18n.t(this.props.schema.adapter === 'telegram' ? 'Telegram receiver' : 'Discord receiver')}

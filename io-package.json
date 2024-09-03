@@ -437,7 +437,7 @@
     "debugLevel": false,
     "deleteOldDataBase": false,
     "discordInstance": "discord.0",
-    "discordNoticeType": "longWhatsappNotice",
+    "discordNoticeType": "longDiscordNotice",
     "discordOnlyError": false,
     "discordTarget": "",
     "discordWaitToSend": 0,
