@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.21",
+    "version": "3.0.22",
     "news": {
+      "3.0.22": {
+        "en": "Fix Notification Instance\nFix Notification Design\nFix Default Settings",
+        "de": "Rechtsbehelf\nBeschreiben Sie das Design\nDefault-Einstellungen beheben",
+        "ru": "Исход уведомления\nДизайн уведомления\nПараметры по умолчанию",
+        "pt": "Corrigir instância de notificação\nDesign de Notificação Fix\nCorrigir configurações padrão",
+        "nl": "Fix Notification Instance\nFix Notification ontwerp\nStandaardinstellingen herstellen",
+        "fr": "Correction de l'instance de notification\nCorrection de la conception des notifications\nCorrection des paramètres par défaut",
+        "it": "Fisso di notifica\nFissare la progettazione di notifica\nImpostazioni di default",
+        "es": "Instance de notificación fija\nDiseño de notificación fija\nAjustes predeterminados",
+        "pl": "Fix Notification Instance\nPopraw projekt powiadomienia\nUstaw domyślne ustawienia",
+        "uk": "Виправлення повідомлень\nФіксований дизайн повідомлень\nНалаштування за замовчуванням",
+        "zh-cn": "修复通知实例\n固定通知设计\n修复默认设置"
+      },
       "3.0.21": {
         "en": "Fix Onedrive Notification\nFix Zigbee2MQTT Backup\ndependencies updated",
         "de": "Fix Onedrive Benachrichtigung\nZigbee2MQTT Backup\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "zaktualizowane zależności\nZmień nazwę plików json5",
         "uk": "оновлені залежності\nRename json5 Файли",
         "zh-cn": "更新依赖关系\n重命名 json5 文件"
-      },
-      "3.0.15": {
-        "en": "fix dependencies",
-        "de": "behebung der abhängigkeiten",
-        "ru": "фиксация зависимостей",
-        "pt": "corrigir dependências",
-        "nl": "afhankelijkheden herstellen",
-        "fr": "fixer les dépendances",
-        "it": "risolvere le dipendenze",
-        "es": "dependencias fijas",
-        "pl": "naprawić zależności",
-        "uk": "фіксація залежностей",
-        "zh-cn": "固定依赖关系"
       }
     },
     "titleLang": {
