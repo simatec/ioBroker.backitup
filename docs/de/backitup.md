@@ -121,6 +121,7 @@ Hier eine kurze Erklärung der Optionen im Tab Menü
 
 ![adminTabRestore](img/backitup_restore.png)
 
+
 Die Bedienung des Restore Tabs sieht wie folgt aus.
 
 

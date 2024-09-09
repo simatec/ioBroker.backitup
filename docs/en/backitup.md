@@ -126,6 +126,7 @@ Here is a brief explanation of the options in the Menu tab
 
 ![adminTabRestore](img/backitup_restore.png)
 
+
 The operation of the Restore tab is as follows.
 
 
