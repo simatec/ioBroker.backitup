@@ -154,6 +154,7 @@ const styles = {
         zIndex: 997,
         padding: '5px 0 5px 0',
         margin: '0 0 0 -8px',
+        cursor: 'pointer',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
     },
     footerColored: {
@@ -689,6 +690,13 @@ class App extends GenericApp {
                                 ...(this.state.theme.name === 'light' ? styles.footerLight : undefined),
                                 ...(this.state.theme.name === 'colored' ? styles.footerColored : undefined),
                                 ...(this.state.themeType === 'dark' ? styles.footerDark : undefined),
+                            }}
+                            onClick={() => {
+                                try {
+                                    window.parent.postMessage(`goto:tab-instances/config/system.adapter.backitup.${this.instance}`, '*');
+                                } catch {
+                                    // ignore
+                                }
                             }}
                         >
                             {I18n.t('All backup settings can be changed in the adapter configuration of BackItUp.')}
