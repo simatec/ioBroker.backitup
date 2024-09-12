@@ -6,7 +6,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
-const ioCommon = require('@iobroker/js-controller-common'); // Get common adapter utils
+// const ioCommon = require('@iobroker/js-controller-common'); // Get common adapter utils
 const schedule = require('node-schedule');
 const tools = require('./lib/tools');
 const executeScripts = require('./lib/execute');
@@ -198,13 +198,7 @@ function startAdapter(options) {
                 case 'authGoogleDrive':
                     const GoogleDrive = require('./lib/googleDriveLib');
 
-                    if (obj.message && obj.message.code) {
-                        // BF(2022_10_18): following code is unused because of the new Google auth
-                        const google = new GoogleDrive();
-                        google.getToken(obj.message.code)
-                            .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json: JSON.stringify(json) }, obj.callback))
-                            .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
-                    } else if (obj.callback) {
+                    if (obj.callback) {
                         const google = new GoogleDrive();
                         google.getAuthorizeUrl()
                             .then(url =>
