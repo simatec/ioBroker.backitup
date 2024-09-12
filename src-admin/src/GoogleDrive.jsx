@@ -20,6 +20,9 @@ class GoogleDrive extends ConfigGeneric {
 
     onMessage = (event) => {
         console.log(event);
+        if (event.origin !== 'https://googleauth.iobroker.in') {
+            return;
+        }
         if ((typeof event.data === 'string' && event.data.startsWith('google-authentication:')) ||
             (typeof event.message === 'string' && event.message.startsWith('google-authentication:'))
         ) {
