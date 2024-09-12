@@ -39,10 +39,10 @@ function cleanAdmin() {
 function copyAllAdminFiles() {
     copyFiles(['src-admin/build/static/css/*.css', '!src-admin/build/static/css/src_bootstrap_*.css'], 'admin/custom/static/css');
     copyFiles(['src-admin/build/static/js/*.js'], 'admin/custom/static/js');
-    copyFiles(['src-admin/build/static/js/*.map', '!src-admin/build/static/js/vendors*.map', '!src-admin/build/static/js/node_modules*.map'], 'admin/custom/static/js');
+    //copyFiles(['src-admin/build/static/js/*.map', '!src-admin/build/static/js/vendors*.map', '!src-admin/build/static/js/node_modules*.map'], 'admin/custom/static/js');
     copyFiles(['src-admin/build/static/media/*.png'], 'admin/custom/static/media');
     copyFiles(['src-admin/build/customComponents.js'], 'admin/custom');
-    copyFiles(['src-admin/build/customComponents.js.map'], 'admin/custom');
+    //copyFiles(['src-admin/build/customComponents.js.map'], 'admin/custom');
     copyFiles(['src-admin/src/i18n/*.json'], 'admin/custom/i18n');
 }
 
@@ -64,6 +64,7 @@ function clean() {
         'tab_m.js',
         'words.js',
         'translations.json',
+        'i18n'
     ]);
 }
 
@@ -71,6 +72,7 @@ function copyAllFiles() {
     copyFiles([
         'src/build/*',
         `!src/build/index.html`,
+        `!src/build/static/js/*.map`,
 
     ], 'admin/');
 }
