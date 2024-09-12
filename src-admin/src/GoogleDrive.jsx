@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, TextField } from '@mui/material';
 import { CloudUpload } from '@mui/icons-material';
 
-import { i18n as I18n } from '@iobroker/adapter-react-v5';
+import { I18n } from '@iobroker/adapter-react-v5';
 import { ConfigGeneric } from '@iobroker/json-config';
 
 class GoogleDrive extends ConfigGeneric {

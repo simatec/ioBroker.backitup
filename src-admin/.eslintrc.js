@@ -37,6 +37,7 @@ module.exports = {
         'react/prefer-stateless-function': 'off',
         'react/self-closing-comp': 'off',
         'react/jsx-filename-extension': 'off',
+        'react/no-is-mounted': 'off',
         'no-nested-ternary': 'off',
         'react/no-array-index-key': 'off',
         'react/jsx-props-no-spreading': 'off',

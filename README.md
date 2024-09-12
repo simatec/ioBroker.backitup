@@ -59,9 +59,12 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 
 **************************************************************************************************************
-<!-- ### **WORK IN PROGRESS** -->
+<!-- -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (bluefox) Removed gulp from a build process
+
 ### 3.0.22 (2024-09-03)
 * (simatec) Fix Notification Instance
 * (simatec) Fix Notification Design
