@@ -18,7 +18,7 @@ const {OAuth2Client} = require('google-auth-library');
 const CLIENT_ID = process.env.CLIENT_ID; // Google oAuth2 APP client ID
 const CLIENT_SECRET = process.env.CLIENT_SECRET; // Google oAuth2 APP client secret
 const REDIRECT_URL = ['urn:ietf:wg:oauth:2.0:oob'];
-const SCOPES = ['https://www.googleapis.com/auth/drive'];
+const SCOPES = ['https://www.googleapis.com/auth/drive.file'];
 
 const oAuth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
