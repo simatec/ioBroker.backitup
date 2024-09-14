@@ -221,7 +221,7 @@ function startAdapter(options) {
 
                         dropbox.getAuthorizeUrl(adapter.log)
                             .then(url => auth_url = url)
-                            .then(() => dropbox.getCodeChallage(adapter.log, adapter.config.dropboxCodeChallenge))
+                            .then(() => dropbox.getCodeChallenge(adapter.log, adapter.config.dropboxCodeChallenge))
                             .then(code_challenge => adapter.sendTo(obj.from, obj.command, { url: auth_url, code_challenge: code_challenge }, obj.callback))
                             .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
                     }
