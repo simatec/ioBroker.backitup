@@ -18,7 +18,7 @@ class GoogleDrive extends ConfigGeneric {
         (window.removeEventListener || window.detachEvent)(window.removeEventListener ? 'message' : 'onmessage', this.onMessage, false);
     }
 
-    onMessage = (event) => {
+    onMessage = event => {
         if (event.origin !== 'https://googleauth.iobroker.in') {
             return;
         }
@@ -36,7 +36,7 @@ class GoogleDrive extends ConfigGeneric {
                 this.props.onError && this.props.onError(parts[2]);
             }
         }
-    }
+    };
 
     onOpenUrl() {
         this.googleAuthWindow = window.open(this.state.googleDriveUrl, 'ioBrokerGoogleAuth');
@@ -70,11 +70,25 @@ class GoogleDrive extends ConfigGeneric {
                     {I18n.t('Successfully authorized. Now please be sure, the configuration is saved.')}
                 </div> : null}
             {this.state.success && this.props.originalData?.googledriveAccessTokens === this.state.googledriveAccessTokens ?
-                <div style={{ color: 'green', fontWeight: 'bold', fontSize: 16, marginTop: 20 }}>
+                <div
+                    style={{
+                        color: 'green',
+                        fontWeight: 'bold',
+                        fontSize: 16,
+                        marginTop: 20
+                    }}
+                >
                     {I18n.t('Successfully authorized!')}
                 </div> : null}
             {!this.state.success && this.props.data.googledriveAccessTokens ?
-                <div style={{ color: 'green', fontWeight: 'bold', fontSize: 16, marginTop: 20 }}>
+                <div
+                    style={{
+                        color: 'green',
+                        fontWeight: 'bold',
+                        fontSize: 16,
+                        marginTop: 20
+                    }}
+                >
                     {I18n.t('Authorization token exists')}
                 </div> : null}
             {this.state.googleDriveUrl ? <>
