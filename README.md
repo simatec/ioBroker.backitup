@@ -58,11 +58,11 @@ When the adapter crashes or another Code error happens, this error message that 
 When you allow iobroker GmbH to collect diagnostic data, then also your installation ID (this is just a unique ID **without** any additional infos about you, email, name or such) is included. This allows Sentry to group errors and show how many unique users are affected by such an error. All of this helps me to provide error-free adapters that basically never crash.
 
 **************************************************************************************************************
-<!-- **WORK IN PROGRESS** -->
+<!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
 
-**WORK IN PROGRESS**
+### **WORK IN PROGRESS**
 * (bluefox) Improvement of Google Drive authentication workflow
 * (bluefox) Removed gulp from a build process
 * (simatec) small Design Fix
