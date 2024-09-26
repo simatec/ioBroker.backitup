@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.22",
+    "version": "3.0.23",
     "news": {
+      "3.0.23": {
+        "en": "Improvement of Google Drive authentication workflow\nRemoved gulp from a build process\nsmall Design Fix\nFix for Admin 7.1.5",
+        "de": "Verbesserung des Google Drive Authentifizierungs-Workflows\nAus einem Build-Prozess entfernt\nkleines Design Fix\nFix für Admin 7.1.5",
+        "ru": "Совершенствование рабочего процесса проверки подлинности Google Drive\nУдаленный глоток из строительного процесса\nмаленький дизайн Fix\n7.1.5",
+        "pt": "Melhoria do fluxo de trabalho de autenticação do Google Drive\nGulp removido de um processo de compilação\npequeno Design Fix\nFix para Admin 7.1.5",
+        "nl": "Verbetering van Google Drive authenticatie workflow\nGulp uit een bouwproces verwijderd\nkleine ontwerp Fix\nFix voor Admin 7.1.5",
+        "fr": "Amélioration du flux de travail d'authentification Google Drive\nSupprimé gulp d'un processus de construction\npetite fixation de conception\nCorrection pour Admin 7.1.5",
+        "it": "Miglioramento del flusso di lavoro di autenticazione di Google Drive\nGolp rimosso da un processo di costruzione\npiccolo Design Fix\nFissare per Admin 7.1.5",
+        "es": "Mejora del flujo de trabajo de autenticación de Google Drive\nGolp eliminado de un proceso de construcción\npequeño diseño fijar\nCorrección para Admin 7.1.5",
+        "pl": "Poprawa procesu uwierzytelniania dysku Google\nUsunięto przełyk z procesu budowania\nmały projekt Fix\nNaprawiono dla Admin 7.1.5",
+        "uk": "Удосконалення автентифікації Google Диску\nЗняти ковпачок з процесу будівництва\nневеликий дизайн виправити\nВиправлення для адміністратора 7.1.5",
+        "zh-cn": "改进谷歌驱动认证工作流程\n从构建过程中移除 gulp\n小设计\n7.1.5 管理员的固定"
+      },
       "3.0.22": {
         "en": "Fix Notification Instance\nFix Notification Design\nFix Default Settings",
         "de": "Rechtsbehelf\nBeschreiben Sie das Design\nDefault-Einstellungen beheben",
@@ -80,19 +93,6 @@
         "pl": "Napraw pakiet jo- do wydania\nmanual- review dodany\nNapraw kopię zapasową niewolnika\nzaktualizowane zależności",
         "uk": "Виправлення io-package для релізу\nдодано ручний перегляд\nФіксація слов'янського резервного копіювання\nоновлені залежності",
         "zh-cn": "用于释放的固定电离包\n添加了手动审查\n修复奴隶备份\n更新依赖关系"
-      },
-      "3.0.16": {
-        "en": "dependencies updated\nRename json5 Files",
-        "de": "aktualisierte abhängigkeiten\nUmname json5 Dateien",
-        "ru": "обновленная информация о зависимостях\nRename json5 Files",
-        "pt": "dependências atualizadas\nRenomear arquivos json5",
-        "nl": "afhankelijkheden bijgewerkt\nJson5-bestanden hernoemen",
-        "fr": "dépendances mises à jour\nRenommer les fichiers json5",
-        "it": "dipendenze aggiornate\nRinomina file json5",
-        "es": "dependencias actualizadas\nRename json5 Files",
-        "pl": "zaktualizowane zależności\nZmień nazwę plików json5",
-        "uk": "оновлені залежності\nRename json5 Файли",
-        "zh-cn": "更新依赖关系\n重命名 json5 文件"
       }
     },
     "titleLang": {
