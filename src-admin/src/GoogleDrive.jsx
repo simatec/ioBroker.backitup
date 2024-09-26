@@ -75,7 +75,7 @@ class GoogleDrive extends ConfigGeneric {
                         color: 'green',
                         fontWeight: 'bold',
                         fontSize: 16,
-                        marginTop: 20
+                        marginTop: 20,
                     }}
                 >
                     {I18n.t('Successfully authorized!')}
@@ -86,7 +86,7 @@ class GoogleDrive extends ConfigGeneric {
                         color: 'green',
                         fontWeight: 'bold',
                         fontSize: 16,
-                        marginTop: 20
+                        marginTop: 20,
                     }}
                 >
                     {I18n.t('Authorization token exists')}
