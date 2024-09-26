@@ -113,7 +113,7 @@
     "test:package": "mocha test/package --exit",
     "test:unit": "mocha test/unit --exit",
     "test:integration": "mocha test/integration --exit",
-    "prepublishOnly": "gulp --gulpfile tasks.js default",
+    "prepublishOnly": "npm run build",
     "release": "release-script",
     "release-patch": "release-script patch --yes",
     "release-minor": "release-script minor --yes",

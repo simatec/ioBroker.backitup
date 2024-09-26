@@ -61,6 +61,9 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- **WORK IN PROGRESS** -->
 
 ## Changelog
+**WORK IN PROGRESS**
+* (simatec) Fix Test & Release
+
 ### 3.0.23 (2024-09-26)
 * (bluefox) Improvement of Google Drive authentication workflow
 * (bluefox) Removed gulp from a build process
