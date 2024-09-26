@@ -1,0 +1,7 @@
+chore: release v3.0.23
+
+* (bluefox) Improvement of Google Drive authentication workflow
+* (bluefox) Removed gulp from a build process
+* (simatec) small Design Fix
+* (simatec) Fix for Admin 7.1.5
+* (simatec) Fix Test & Release
