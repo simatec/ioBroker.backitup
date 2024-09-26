@@ -65,6 +65,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (bluefox) Improvement of Google Drive authentication workflow
 * (bluefox) Removed gulp from a build process
 * (simatec) small Design Fix
+* (simatec) Fix for Admin 7.1.5
 
 ### 3.0.22 (2024-09-03)
 * (simatec) Fix Notification Instance

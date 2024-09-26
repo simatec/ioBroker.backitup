@@ -342,14 +342,22 @@
       "noTranslation": true,
       "href": "https://paypal.me/mk1676",
       "src": "https://img.shields.io/badge/paypal-donate%20%7C%20spenden-blue.svg",
-      "newLine": true
+      "newLine": true,
+      "xs": 7,
+			"sm": 3,
+			"md": 3,
+			"lg": 1.2
     },
     "_githubSponsor": {
       "type": "staticImage",
       "tooltip": "GitHub Sponsors",
       "noTranslation": true,
       "href": "https://github.com/sponsors/simatec",
-      "src": "https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86"
+      "src": "https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86",
+      "xs": 5,
+			"sm": 2,
+			"md": 2,
+			"lg": 0.8
     }
   }
 }
