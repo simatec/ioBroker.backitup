@@ -263,7 +263,7 @@
     "Google Drive: Yes": "Google Drive: Ja",
     "Only stored locally": "Nur lokal gespeichert",
     "Onedrive: Yes": "Onedrive: Ja",
-    "Backup error on: ": "Backup-Fehler bei: ",
+    "Backup error on: ": "Backup-Fehler bei:",
     "New %e Backup created on %t": "Ein neues %e Backup wurde am %t erstellt",
     "NAS (CIFS)": "NAS (CIFS)",
     "NAS (Expert)": "NAS (Experte)",
