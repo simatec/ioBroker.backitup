@@ -8,7 +8,7 @@ import {
 
 import { Close, SettingsBackupRestore } from '@mui/icons-material';
 
-import { I18n, Message } from '@iobroker/adapter-react-v5';
+import { I18n, DialogError } from '@iobroker/adapter-react-v5';
 
 const styles = {
     paper: {
@@ -419,7 +419,7 @@ class Restore extends Component {
         if (!this.state.error) {
             return null;
         }
-        return <Message
+        return <DialogError
             text={this.state.error}
             title={I18n.t('Error')}
             onClose={() => this.setState({ error: '' })}

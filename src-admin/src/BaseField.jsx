@@ -2,7 +2,7 @@ import { Alert } from '@mui/material';
 
 import { Info, Warning } from '@mui/icons-material';
 
-import { I18n, Message } from '@iobroker/adapter-react-v5';
+import { I18n, DialogMessage } from '@iobroker/adapter-react-v5';
 import { ConfigGeneric } from '@iobroker/json-config';
 
 class BaseField extends ConfigGeneric {
@@ -397,7 +397,7 @@ class BaseField extends ConfigGeneric {
         const lines = this.state.message.text.split('\n')
             .map(line => <div key={line} style={{ minHeight: 24 }}>{line}</div>);
 
-        return this.state.message ? <Message
+        return this.state.message ? <DialogMessage
             title={this.state.message.title}
             text={lines}
             icon={this.state.message.level === 'info' ? <Info /> :

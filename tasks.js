@@ -73,8 +73,11 @@ function copyAllFiles() {
         'src/build/*',
         `!src/build/index.html`,
         `!src/build/static/js/*.map`,
-
     ], 'admin/');
+    copyFiles(['src/build/static/js/*.js'], 'admin/static/js');
+    copyFiles(['src/build/static/js/*.txt'], 'admin/static/js');
+    copyFiles(['src/build/static/css/*.css'], 'admin/static/css');
+    copyFiles(['src/build/static/media/*'], 'admin/static/media');
 }
 
 function patchFiles() {
