@@ -1,6 +1,6 @@
 {
     "name": "backitup-admin",
-    "version": "3.0.25",
+    "version": "3.0.26",
     "private": true,
     "dependencies": {
         "@babel/plugin-proposal-private-property-in-object": "^7.21.11",

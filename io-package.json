@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.25",
+    "version": "3.0.26",
     "news": {
+      "3.0.26": {
+        "en": "Fix FTP Connections\ndependencies updated\nIssue Workflow added",
+        "de": "FTP Verbindungen\naktualisierte abhängigkeiten\nAusgabe Workflow hinzugefügt",
+        "ru": "FTP Соединения\nобновленная информация о зависимостях\nДобавлен рабочий процесс",
+        "pt": "Corrigir FTP Conexões\ndependências atualizadas\nFluxo de trabalho adicionado",
+        "nl": "FTP herstellen Verbindingen\nafhankelijkheden bijgewerkt\nWerkstroom toegevoegd",
+        "fr": "Correction FTP Connexions\ndépendances mises à jour\nEnjeu Flux de travail ajouté",
+        "it": "Riparare FTP Collegamenti\ndipendenze aggiornate\nEmissione Flusso di lavoro aggiunto",
+        "es": "Fijar FTP Conexión\ndependencias actualizadas\nNúmero de flujo de trabajo añadido",
+        "pl": "Napraw FTP Połączenia\nzaktualizowane zależności\nDodany przepływ pracy",
+        "uk": "Фіксація FTP Підключення\nоновлені залежності\nДодана дата роботи",
+        "zh-cn": "修复 FTP 连接\n更新依赖关系\n增加的工作流程"
+      },
       "3.0.25": {
         "en": "Improvement of Google Drive authentication workflow\nRemoved gulp from a build process\nsmall Design Fix\nFix for Admin 7.1.5\nFix Test & Release\nFix ESlint errors",
         "de": "Verbesserung des Google Drive Authentifizierungs-Workflows\nAus einem Build-Prozess entfernt\nkleines Design Fix\nFix für Admin 7.1.5\nTest und Release\nESlint Fehler beheben",
@@ -80,19 +93,6 @@
         "pl": "Optymalizacja pakietu\nNapraw ostrzeżenie podczas otwierania konfiguracji\nzaktualizowane zależności",
         "uk": "Оптимізація пакету\nВиправлення попередження при відкритті конфігурації\nоновлені залежності",
         "zh-cn": "软件包优化\n打开配置时修改警告\n更新依赖关系"
-      },
-      "3.0.17": {
-        "en": "Fix io-package for Release\nmanual-review added\nFix Slave Backup\ndependencies updated",
-        "de": "Fix io-Paket für Release\nhandbuch hinzugefügt\nSlave Backup reparieren\naktualisierte abhängigkeiten",
-        "ru": "Fix io-package для выхода\nдобавлен ручный обзор\nФикс-Слава\nобновленная информация о зависимостях",
-        "pt": "Fix io-package for Release\nmanual-review adicionado\nFix Slave Backup\ndependências atualizadas",
-        "nl": "Bevestig io-package for Release\nhandmatige weergave toegevoegd\nHerstel Slave Backup\nafhankelijkheden bijgewerkt",
-        "fr": "Réparez io-package pour la libération\nrévision manuelle ajoutée\nCorrection du sauvegarde des esclaves\ndépendances mises à jour",
-        "it": "Fissare il pacchetto io per il rilascio\nmanuale-review aggiunto\nFissare il backup degli schiavi\ndipendenze aggiornate",
-        "es": "Arreglar io-paquete para la liberación\nmanual-revisión añadido\nCorrección de esclavos\ndependencias actualizadas",
-        "pl": "Napraw pakiet jo- do wydania\nmanual- review dodany\nNapraw kopię zapasową niewolnika\nzaktualizowane zależności",
-        "uk": "Виправлення io-package для релізу\nдодано ручний перегляд\nФіксація слов'янського резервного копіювання\nоновлені залежності",
-        "zh-cn": "用于释放的固定电离包\n添加了手动审查\n修复奴隶备份\n更新依赖关系"
       }
     },
     "titleLang": {
