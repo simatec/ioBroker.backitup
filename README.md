@@ -64,6 +64,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 ### **WORK IN PROGRESS**
 * (simatec) Fix FTP Connections
 * (simatec) dependencies updated
+* (simatec) Issue Workflow added
 
 ### 3.0.25 (2024-09-26)
 * (bluefox) Improvement of Google Drive authentication workflow
