@@ -80,7 +80,7 @@
     "@iobroker/testing": "^5.0.0",
     "@iobroker/vis-2-widgets-react-dev": "^4.0.3",
     "chai": "^4.5.0",
-    "mocha": "^10.7.3"
+    "mocha": "^10.8.2"
   },
   "main": "main.js",
   "files": [
