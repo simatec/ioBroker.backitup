@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.26",
+    "version": "3.0.27",
     "news": {
+      "3.0.27": {
+        "en": "dependencies updated\nDesign Fix",
+        "de": "aktualisierte abhängigkeiten\nDesign Fix",
+        "ru": "обновленная информация о зависимостях\nДизайн Fix",
+        "pt": "dependências atualizadas\nCorreção de Design",
+        "nl": "afhankelijkheden bijgewerkt\nOntwerpfix",
+        "fr": "dépendances mises à jour\nCorrection de conception",
+        "it": "dipendenze aggiornate\nDesign Fix",
+        "es": "dependencias actualizadas\nDiseño fijo",
+        "pl": "zaktualizowane zależności\nPopraw projekt",
+        "uk": "оновлені залежності\nФіксація дизайну",
+        "zh-cn": "更新依赖关系\n设计"
+      },
       "3.0.26": {
         "en": "Fix FTP Connections\ndependencies updated\nIssue Workflow added",
         "de": "FTP Verbindungen\naktualisierte abhängigkeiten\nAusgabe Workflow hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "Napraw CCU Kopia zapasowa\nFix InfluxDB Konfiguracja kopii zapasowej\nFix Backup- Log dla Slave Instanz",
         "uk": "Фіксація CCU Зареєструватися\nФіксація InfluxDB Налаштування резервного копіювання\nВиправлення Backup-Log для раба Instanz",
         "zh-cn": "修复 CCU 备份\n修复内流数据库 备份配置\n修复奴隶因斯坦茨备份日志"
-      },
-      "3.0.18": {
-        "en": "Package optimisation\nFix the warning when opening the configuration\ndependencies updated",
-        "de": "Optimierung des Pakets\nFestlegen der Warnung beim Öffnen der Konfiguration\naktualisierte abhängigkeiten",
-        "ru": "Оптимизация пакета\nИсправить предупреждение при открытии конфигурации\nобновленная информация о зависимостях",
-        "pt": "Otimização de pacotes\nCorrigir o aviso ao abrir a configuração\ndependências atualizadas",
-        "nl": "Pakketoptimalisatie\nHerstel de waarschuwing bij het openen van de configuratie\nafhankelijkheden bijgewerkt",
-        "fr": "Optimisation des paquets\nCorrection de l'avertissement lors de l'ouverture de la configuration\ndépendances mises à jour",
-        "it": "Ottimizzazione dei pacchetti\nFissare l'avvertimento quando si apre la configurazione\ndipendenze aggiornate",
-        "es": "Optimización del paquete\nArregla la advertencia al abrir la configuración\ndependencias actualizadas",
-        "pl": "Optymalizacja pakietu\nNapraw ostrzeżenie podczas otwierania konfiguracji\nzaktualizowane zależności",
-        "uk": "Оптимізація пакету\nВиправлення попередження при відкритті конфігурації\nоновлені залежності",
-        "zh-cn": "软件包优化\n打开配置时修改警告\n更新依赖关系"
       }
     },
     "titleLang": {
