@@ -138,7 +138,7 @@ const styles = {
         fontSize: '0.9em',
     },
     value: {
-        fontSize: '0.9em',
+        fontSize: 'clamp(0.7em, 0.5em + 0.6vw, 0.9em)',
         marginBottom: '0.5rem',
     },
     footer: {
@@ -156,6 +156,7 @@ const styles = {
         margin: '0 0 0 -8px',
         cursor: 'pointer',
         boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
+        textDecoration: 'underline',
     },
     footerColored: {
         color: '#FFF',
@@ -167,7 +168,7 @@ const styles = {
     },
     footerLight: {
         backgroundImage: 'linear-gradient(179deg, rgb(245, 245, 245) 0%, #fff 60%)',
-        color: '#000',
+        color: '#0000EE',
     },
     buttonWidth: {
         width: '100%',
@@ -414,7 +415,6 @@ class App extends GenericApp {
     }
 
     render() {
-        // console.log(`Theme-Name: ${this.state.theme.name} | Theme-Type: ${this.state.themeType}`);
         if (!this.state.loaded) {
             return <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={this.state.theme}>
@@ -436,8 +436,8 @@ class App extends GenericApp {
                         <Toolbar>
                             <img src={logo} alt="logo" style={{ height: 48, marginRight: 16 }} />
                             <div>
-                                <div style={{ fontWeight: 'bold', fontSize: 20, color: '#fff' }}>BackItUp</div>
-                                <div style={{ color: '#fff', fontStyle: 'italic' }}>{I18n.t('Backup your System …')}</div>
+                                <div style={{ fontWeight: 'bold', fontSize: 20, color: '#fff' }}>Backitup</div>
+                                <div style={{ color: '#fff', fontStyle: 'italic', fontSize: 'clamp(0.7em, 0.7em + 0.6vw, 1em)' }}>{I18n.t('Backup your System …')}</div>
                             </div>
                         </Toolbar>
                         <div
@@ -641,6 +641,7 @@ class App extends GenericApp {
                             alignContent: 'center',
                             alignItems: 'stretch',
                             gridAutoRows: '1fr',
+                            marginBottom: '1rem',
                         }}
                         >
                             <SourceSelector

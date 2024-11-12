@@ -63,6 +63,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 ## Changelog
 ### **WORK IN PROGRESS**
 * (simatec) dependencies updated
+* (simatec) Design Fix
 
 ### 3.0.26 (2024-10-16)
 * (simatec) Fix FTP Connections
