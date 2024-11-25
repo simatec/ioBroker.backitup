@@ -309,7 +309,12 @@ Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Back
 > Um ein Grafana-Backup erstellen zu können, wird der Benutzername (Admin) und das Passwort von Grafana benötigt.
 > Des Weiteren muss in der Grafana-Weboberfläche ein API-Key bzw. Service Token erzeugt werden, um Zugriff auf die Dashboards zu bekommen.
 
-Der Api-Key kann unter ***"Configuration → API Keys bzw. Service Token"*** erstellt werden und muss die vollen Admin-Rechte besitzen.
+Bis zur Grafana Version 8.x kann der Api-Key unter ***"Configuration → API Keys bzw. Service Token"*** erstellt werden und muss die vollen Admin-Rechte besitzen.
+
+Ab Version 9.0 wird zunächst ein Service Account unter ***"Configuration → Administration
+Users and access → Service accounts"*** erstellt. Ist der Account erstellt, kann mit ***"Add service account token"*** ein Token hinzugefügt werden.
+
+
 
 ### Yahka-Backup
 Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.
