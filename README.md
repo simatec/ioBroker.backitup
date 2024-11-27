@@ -61,6 +61,12 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (simatec) Dependencies updated
+* (simatec) eslint-config added
+* (bluefox) Allow to store files for up to ca 3 years
+* (Marc-Berg) Grafana Docu updated
+
 ### 3.0.27 (2024-11-12)
 * (simatec) dependencies updated
 * (simatec) Design Fix

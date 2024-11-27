@@ -4,8 +4,15 @@ const cracoModuleFederation = require('@iobroker/adapter-react-v5/craco-module-f
 
 module.exports = {
     plugins: [
-        { plugin: CracoEsbuildPlugin },
-        { plugin: cracoModuleFederation, options: { useNamedChunkIds: true } }
+        {
+            plugin: CracoEsbuildPlugin,
+        },
+        {
+            plugin: cracoModuleFederation,
+            options: {
+                useNamedChunkIds: true,
+            },
+        },
     ],
     devServer: {
         proxy: {
