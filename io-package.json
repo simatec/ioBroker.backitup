@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.27",
+    "version": "3.0.28",
     "news": {
+      "3.0.28": {
+        "en": "Dependencies updated\neslint-config added\nAllow to store files for up to ca 3 years\nGrafana Docu updated",
+        "de": "Ausgaben aktualisiert\neslint-config hinzugefügt\nLassen Sie Dateien für bis zu ca 3 Jahre speichern\nGrafana Docu aktualisiert",
+        "ru": "Обновленные данные о зависимостях\nдобавлена eslint-config\nПозволить хранить файлы на срок до 3 лет\nGrafana Docu",
+        "pt": "Dependências atualizadas\neslint-config adicionado\nPermitir armazenar arquivos para até ca 3 anos\nGrafana Docu Atualizado",
+        "nl": "Afhankelijkheden bijgewerkt\neslint-config toegevoegd\nSta toe om bestanden tot ca 3 jaar op te slaan\nGrafana Docu bijgewerkt",
+        "fr": "Dépendances actualisées\neslint-config ajouté\nPermettre de stocker des fichiers jusqu'à 3 ans\nGrafana Docu mis à jour",
+        "it": "Dipendenze aggiornate\neslint-config aggiunto\nConsentire di memorizzare i file fino a ca 3 anni\nGrafana Docu aggiornato",
+        "es": "Actualización de las dependencias\neslint-config añadido\nPermitir almacenar archivos por hasta ca 3 años\nGrafana Docu actualizado",
+        "pl": "Aktualizacja zależności\neslint- config dodany\nPozwolić na przechowywanie plików do ok. 3 lat\nAktualizacja programu Grafana Docu",
+        "uk": "Залежність оновлено\neslint-config додано\nДозвольте зберігати файли до кабіни 3 роки\nGrafana Документ оновлено",
+        "zh-cn": "更新的依赖关系\n添加埃斯林特配置\n允许存储文件最多3年\n更新了 Grafana Docu"
+      },
       "3.0.27": {
         "en": "dependencies updated\nDesign Fix",
         "de": "aktualisierte abhängigkeiten\nDesign Fix",
@@ -80,19 +93,6 @@
         "pl": "Responsive Design for Tab dodano\nResponsive Design for jsonConfig dodany\nzaktualizowane zależności",
         "uk": "Відповідальний дизайн для вкладу\nВідповідальний дизайн для jsonConfig\nоновлені залежності",
         "zh-cn": "添加标签的响应设计\n添加了 jsonConfig 的响应设计\n更新依赖关系"
-      },
-      "3.0.19": {
-        "en": "Fix CCU Backup\nFix InfluxDB Backup Config\nFix Backup-Log for Slave Instanz",
-        "de": "CCU Backup\nInfluxDB Backup Config\nBackup-Log für Slave Instanz",
-        "ru": "Fix CCU Назад\nFix InfluxDB Настройка резервного копирования\nFix Backup-Log для Slave Instanz",
-        "pt": "Corrigir CCU Backup\nFixo InfluxDB Configação de backup\nFix Backup-Log para Slave Instanz",
-        "nl": "CCU repareren Reservekopie\nFix InfluxDB Reservekopie instellen\nFix Backup-Log voor Slave Instanz",
-        "fr": "Correction du CCU Sauvegarde\nCorrection de l'influxDB Config de sauvegarde\nFix Backup-Log pour Slave Instanz",
-        "it": "Riparare CCU Backup\nFissare l'influenza Configurazione di backup\nFix Backup-Log per Slave Instanz",
-        "es": "CCU fijar Copia de seguridad\nInfluxDB Copia de seguridad\nArreglar Backup-Log para Slave Instanz",
-        "pl": "Napraw CCU Kopia zapasowa\nFix InfluxDB Konfiguracja kopii zapasowej\nFix Backup- Log dla Slave Instanz",
-        "uk": "Фіксація CCU Зареєструватися\nФіксація InfluxDB Налаштування резервного копіювання\nВиправлення Backup-Log для раба Instanz",
-        "zh-cn": "修复 CCU 备份\n修复内流数据库 备份配置\n修复奴隶因斯坦茨备份日志"
       }
     },
     "titleLang": {
