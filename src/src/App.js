@@ -2,23 +2,24 @@ import React from 'react';
 import { saveAs } from 'file-saver';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
-import {
-    Card, CardContent, Button,
-    AppBar, Toolbar, Tooltip, Fab, Box,
-} from '@mui/material';
+import { Card, CardContent, Button, AppBar, Toolbar, Tooltip, Fab, Box } from '@mui/material';
 
 import {
-    CloudUploadOutlined, FormatListBulleted,
-    InfoOutlined, Search, SettingsBackupRestore,
-    UploadOutlined, StorageOutlined, Help, School, Favorite,
-    History, Alarm,
+    CloudUploadOutlined,
+    FormatListBulleted,
+    InfoOutlined,
+    Search,
+    SettingsBackupRestore,
+    UploadOutlined,
+    StorageOutlined,
+    Help,
+    School,
+    Favorite,
+    History,
+    Alarm,
 } from '@mui/icons-material';
 
-import {
-    GenericApp, I18n,
-    Loader,
-    AdminConnection,
-} from '@iobroker/adapter-react-v5';
+import { GenericApp, I18n, Loader, AdminConnection } from '@iobroker/adapter-react-v5';
 
 import logo from './assets/backitup.png';
 
@@ -45,7 +46,8 @@ const styles = {
     },
     headerArea: {
         backgroundImage: 'linear-gradient(135deg, #164477 0%, #3399CC 30%)',
-        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
+        boxShadow:
+            '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
     },
     header: {
         fontSize: '0.9rem',
@@ -55,7 +57,8 @@ const styles = {
         alignItems: 'center',
         p: '0.3rem',
         borderRadius: '4px',
-        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
+        boxShadow:
+            '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
     },
     headerColored: {
         color: '#FFFFFF',
@@ -126,7 +129,8 @@ const styles = {
         padding: 0,
         height: '100%',
         boxShadow: '0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%)',
-        backgroundImage: theme.palette.mode === 'dark' ? undefined : 'linear-gradient(179deg, #fff 50%, rgb(0 0 0 / 14%) 100%)',
+        backgroundImage:
+            theme.palette.mode === 'dark' ? undefined : 'linear-gradient(179deg, #fff 50%, rgb(0 0 0 / 14%) 100%)',
     }),
     card: {
         '&:hover': {
@@ -155,7 +159,8 @@ const styles = {
         padding: '5px 0 5px 0',
         margin: '0 0 0 -8px',
         cursor: 'pointer',
-        boxShadow: '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
+        boxShadow:
+            '0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)',
         textDecoration: 'underline',
     },
     footerColored: {
@@ -236,8 +241,12 @@ class App extends GenericApp {
         const newState = { myAlive: !!myAlive?.val };
 
         if (this.state.native.minimalEnabled) {
-            const iobrokerLastTime = await this.socket.getState(`${this.adapterName}.${this.instance}.history.iobrokerLastTime`);
-            const iobrokerNextTime = await this.socket.getState(`${this.adapterName}.${this.instance}.info.iobrokerNextTime`);
+            const iobrokerLastTime = await this.socket.getState(
+                `${this.adapterName}.${this.instance}.history.iobrokerLastTime`,
+            );
+            const iobrokerNextTime = await this.socket.getState(
+                `${this.adapterName}.${this.instance}.info.iobrokerNextTime`,
+            );
             newState.iobrokerNextTime = App.translateTime(iobrokerNextTime.val);
             newState.iobrokerLastTime = App.translateTime(iobrokerLastTime.val);
         }
@@ -251,14 +260,26 @@ class App extends GenericApp {
 
         await this.socket.subscribeState(`system.adapter.${this.adapterName}.${this.instance}.alive`, this.onAlive);
         await this.socket.subscribeObject(`system.adapter.${this.adapterName}.${this.instance}`, this.onSettings);
-        await this.socket.subscribeState(`${this.adapterName}.${this.instance}.history.iobrokerLastTime`, this.onHistory);
+        await this.socket.subscribeState(
+            `${this.adapterName}.${this.instance}.history.iobrokerLastTime`,
+            this.onHistory,
+        );
         await this.socket.subscribeState(`${this.adapterName}.${this.instance}.info.iobrokerNextTime`, this.onHistory);
         await this.socket.subscribeState(`${this.adapterName}.${this.instance}.history.ccuLastTime`, this.onHistory);
         await this.socket.subscribeState(`${this.adapterName}.${this.instance}.info.ccuNextTime`, this.onHistory);
 
         if (myAlive) {
-            newState.systemInfo = await this.socket.sendTo(`${this.adapterName}.${this.instance}`, 'getSystemInfo', null);
-            newState.restoreIfWait = newState.systemInfo?.systemOS === 'docker' ? 10000 : (newState.systemInfo?.systemOS === 'win' ? 18000 : 5000);
+            newState.systemInfo = await this.socket.sendTo(
+                `${this.adapterName}.${this.instance}`,
+                'getSystemInfo',
+                null,
+            );
+            newState.restoreIfWait =
+                newState.systemInfo?.systemOS === 'docker'
+                    ? 10000
+                    : newState.systemInfo?.systemOS === 'win'
+                      ? 18000
+                      : 5000;
         }
 
         this.setState(newState);
@@ -271,13 +292,25 @@ class App extends GenericApp {
     };
 
     onHistory = (id, state) => {
-        if (id === `${this.adapterName}.${this.instance}.history.iobrokerLastTime` && state.val !== this.state.iobrokerLastTime) {
+        if (
+            id === `${this.adapterName}.${this.instance}.history.iobrokerLastTime` &&
+            state.val !== this.state.iobrokerLastTime
+        ) {
             this.setState({ iobrokerLastTime: App.translateTime(state.val) });
-        } else if (id === `${this.adapterName}.${this.instance}.history.iobrokerNextTime` && state.val !== this.state.iobrokerNextTime) {
+        } else if (
+            id === `${this.adapterName}.${this.instance}.history.iobrokerNextTime` &&
+            state.val !== this.state.iobrokerNextTime
+        ) {
             this.setState({ iobrokerNextTime: App.translateTime(state.val) });
-        } else if (id === `${this.adapterName}.${this.instance}.history.ccuLastTime` && state.val !== this.state.ccuLastTime) {
+        } else if (
+            id === `${this.adapterName}.${this.instance}.history.ccuLastTime` &&
+            state.val !== this.state.ccuLastTime
+        ) {
             this.setState({ ccuLastTime: App.translateTime(state.val) });
-        } else if (id === `${this.adapterName}.${this.instance}.history.ccuNextTime` && state.val !== this.state.ccuNextTime) {
+        } else if (
+            id === `${this.adapterName}.${this.instance}.history.ccuNextTime` &&
+            state.val !== this.state.ccuNextTime
+        ) {
             this.setState({ ccuNextTime: App.translateTime(state.val) });
         }
     };
@@ -301,40 +334,53 @@ class App extends GenericApp {
     };
 
     renderBackupInformation() {
-        return <Card sx={styles.card}>
-            <CardContent sx={styles.cardContent}>
-                <div style={{ ...styles.iconDiv, ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight) }}>
-                    <InfoOutlined style={styles.icon} />
-                </div>
-                <div style={styles.textDiv}>
-                    <div style={styles.cardHeader}>
-                        {I18n.t('Backup Information')}
+        return (
+            <Card sx={styles.card}>
+                <CardContent sx={styles.cardContent}>
+                    <div
+                        style={{
+                            ...styles.iconDiv,
+                            ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight),
+                        }}
+                    >
+                        <InfoOutlined style={styles.icon} />
                     </div>
-                    <ul style={{ maxHeight: 210, overflow: 'auto', listStyleType: 'none' }}>
-                        {this.state.native.minimalEnabled && <li>
-                            <History style={styles.historyIcon} />
-                            <div style={styles.label}>{I18n.t('Last ioBroker backup:')}</div>
-                            <div style={styles.value}>{this.state.iobrokerLastTime}</div>
-                        </li>}
-                        {this.state.native.minimalEnabled && <li>
-                            <Alarm style={styles.historyIcon} />
-                            <div style={styles.label}>{I18n.t('Next ioBroker backup:')}</div>
-                            <div style={styles.value}>{this.state.iobrokerNextTime}</div>
-                        </li>}
-                        {this.state.native.ccuEnabled && <li>
-                            <History style={styles.historyIcon} />
-                            <div style={styles.label}>{I18n.t('Last CCU backup:')}</div>
-                            <div style={styles.value}>{this.state.ccuLastTime}</div>
-                        </li>}
-                        {this.state.native.ccuEnabled && <li>
-                            <Alarm style={styles.historyIcon} />
-                            <div style={styles.label}>{I18n.t('Next CCU backup:')}</div>
-                            <div style={styles.value}>{this.state.ccuNextTime}</div>
-                        </li>}
-                    </ul>
-                </div>
-            </CardContent>
-        </Card>;
+                    <div style={styles.textDiv}>
+                        <div style={styles.cardHeader}>{I18n.t('Backup Information')}</div>
+                        <ul style={{ maxHeight: 210, overflow: 'auto', listStyleType: 'none' }}>
+                            {this.state.native.minimalEnabled && (
+                                <li>
+                                    <History style={styles.historyIcon} />
+                                    <div style={styles.label}>{I18n.t('Last ioBroker backup:')}</div>
+                                    <div style={styles.value}>{this.state.iobrokerLastTime}</div>
+                                </li>
+                            )}
+                            {this.state.native.minimalEnabled && (
+                                <li>
+                                    <Alarm style={styles.historyIcon} />
+                                    <div style={styles.label}>{I18n.t('Next ioBroker backup:')}</div>
+                                    <div style={styles.value}>{this.state.iobrokerNextTime}</div>
+                                </li>
+                            )}
+                            {this.state.native.ccuEnabled && (
+                                <li>
+                                    <History style={styles.historyIcon} />
+                                    <div style={styles.label}>{I18n.t('Last CCU backup:')}</div>
+                                    <div style={styles.value}>{this.state.ccuLastTime}</div>
+                                </li>
+                            )}
+                            {this.state.native.ccuEnabled && (
+                                <li>
+                                    <Alarm style={styles.historyIcon} />
+                                    <div style={styles.label}>{I18n.t('Next CCU backup:')}</div>
+                                    <div style={styles.value}>{this.state.ccuNextTime}</div>
+                                </li>
+                            )}
+                        </ul>
+                    </div>
+                </CardContent>
+            </Card>
+        );
     }
 
     renderActivatedStorageOptions() {
@@ -346,21 +392,29 @@ class App extends GenericApp {
             { name: 'googledriveEnabled', label: 'Google Drive' },
             { name: 'webdavEnabled', label: 'WebDAV' },
         ];
-        return <Card sx={styles.card}>
-            <CardContent sx={styles.cardContent}>
-                <div style={{ ...styles.iconDiv, ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight) }}>
-                    <StorageOutlined style={styles.icon} />
-                </div>
-                <div style={styles.textDiv}>
-                    <div style={styles.cardHeader}>
-                        {I18n.t('Activated storage options')}
+        return (
+            <Card sx={styles.card}>
+                <CardContent sx={styles.cardContent}>
+                    <div
+                        style={{
+                            ...styles.iconDiv,
+                            ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight),
+                        }}
+                    >
+                        <StorageOutlined style={styles.icon} />
                     </div>
-                    <ul style={{ maxHeight: 210, overflow: 'auto', listStyleType: 'disclosure-closed' }}>
-                        {options.map(option => this.state.native[option.name] && <li key={option.name}>{I18n.t(option.label)}</li>)}
-                    </ul>
-                </div>
-            </CardContent>
-        </Card>;
+                    <div style={styles.textDiv}>
+                        <div style={styles.cardHeader}>{I18n.t('Activated storage options')}</div>
+                        <ul style={{ maxHeight: 210, overflow: 'auto', listStyleType: 'disclosure-closed' }}>
+                            {options.map(
+                                option =>
+                                    this.state.native[option.name] && <li key={option.name}>{I18n.t(option.label)}</li>,
+                            )}
+                        </ul>
+                    </div>
+                </CardContent>
+            </Card>
+        );
     }
 
     renderActivatedBackupOptions() {
@@ -381,382 +435,463 @@ class App extends GenericApp {
             { name: 'sqliteEnabled', label: 'SQLite backup' },
             { name: 'grafanaEnabled', label: 'Grafana backup' },
             { name: 'pgSqlEnabled', label: 'PostgreSQL Backup' },
-
         ];
-        return <Card sx={styles.card}>
-            <CardContent sx={styles.cardContent}>
-                <div style={{ ...styles.iconDiv, ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight) }}>
-                    <CloudUploadOutlined style={styles.icon} />
-                </div>
-                <div style={styles.textDiv}>
-                    <div style={styles.cardHeader}>
-                        {I18n.t('Activated backup options')}
+        return (
+            <Card sx={styles.card}>
+                <CardContent sx={styles.cardContent}>
+                    <div
+                        style={{
+                            ...styles.iconDiv,
+                            ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight),
+                        }}
+                    >
+                        <CloudUploadOutlined style={styles.icon} />
                     </div>
-                    <ul style={{ maxHeight: 210, overflow: 'auto', listStyleType: 'disclosure-closed' }}>
-                        {options.map(option => this.state.native[option.name] &&
-                            <li key={option.name}>{I18n.t(option.label)}</li>)}
-                    </ul>
-                </div>
-            </CardContent>
-        </Card>;
+                    <div style={styles.textDiv}>
+                        <div style={styles.cardHeader}>{I18n.t('Activated backup options')}</div>
+                        <ul style={{ maxHeight: 210, overflow: 'auto', listStyleType: 'disclosure-closed' }}>
+                            {options.map(
+                                option =>
+                                    this.state.native[option.name] && <li key={option.name}>{I18n.t(option.label)}</li>,
+                            )}
+                        </ul>
+                    </div>
+                </CardContent>
+            </Card>
+        );
     }
 
     renderUploadSettingsDialog() {
         if (!this.state.showUploadSettings) {
             return null;
         }
-        return <UploadSettings
-            onClose={() => this.setState({ showUploadSettings: false })}
-            socket={this.socket}
-            themeType={this.state.themeType}
-            adapterName={this.adapterName}
-            instance={this.instance}
-        />;
+        return (
+            <UploadSettings
+                onClose={() => this.setState({ showUploadSettings: false })}
+                socket={this.socket}
+                themeType={this.state.themeType}
+                adapterName={this.adapterName}
+                instance={this.instance}
+            />
+        );
     }
 
     render() {
         if (!this.state.loaded) {
-            return <StyledEngineProvider injectFirst>
-                <ThemeProvider theme={this.state.theme}>
-                    <Loader themeType={this.state.themeType} />
-                </ThemeProvider>
-            </StyledEngineProvider>;
+            return (
+                <StyledEngineProvider injectFirst>
+                    <ThemeProvider theme={this.state.theme}>
+                        <Loader themeType={this.state.themeType} />
+                    </ThemeProvider>
+                </StyledEngineProvider>
+            );
         }
 
-        return <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={this.state.theme}>
-                <div
-                    className="App"
-                    style={{
-                        background: this.state.theme.palette.background.default,
-                        color: this.state.theme.palette.text.primary,
-                    }}
-                >
-                    <AppBar style={styles.headerArea} position="static" enableColorOnDark>
-                        <Toolbar>
-                            <img src={logo} alt="logo" style={{ height: 48, marginRight: 16 }} />
-                            <div>
-                                <div style={{ fontWeight: 'bold', fontSize: 20, color: '#fff' }}>Backitup</div>
-                                <div style={{ color: '#fff', fontStyle: 'italic', fontSize: 'clamp(0.7em, 0.7em + 0.6vw, 1em)' }}>{I18n.t('Backup your System …')}</div>
-                            </div>
-                        </Toolbar>
-                        <div
-                            style={{
-                                display: 'inline-block', position: 'absolute', right: 10, top: 13,
-                            }}
-                        >
-                            <Tooltip size="small" title="PayPal.Me" style={{ marginRight: '0.2rem' }}>
-                                <Fab
-                                    style={styles.helpButton}
-                                    onClick={() => {
-                                        window.open('https://paypal.me/mk1676', '_blank');
-                                    }}
-                                >
-                                    <Favorite />
-                                </Fab>
-                            </Tooltip>
-                            <Tooltip size="small" title="Wiki" style={{ marginRight: '0.2rem' }}>
-                                <Fab
-                                    style={styles.helpButton}
-                                    onClick={() => {
-                                        window.open('https://github.com/simatec/ioBroker.backitup/wiki', '_blank');
-                                    }}
-                                >
-                                    <School />
-                                </Fab>
-                            </Tooltip>
-                            <Tooltip size="small" title="Show adapter documentation" style={{ marginRight: '0.2rem' }}>
-                                <Fab
-                                    style={styles.helpButton}
-                                    onClick={() => {
-                                        window.open('https://github.com/simatec/ioBroker.backitup/blob/master/README.md', '_blank');
-                                    }}
-                                >
-                                    <Help />
-                                </Fab>
-                            </Tooltip>
-                        </div>
-                    </AppBar>
+        return (
+            <StyledEngineProvider injectFirst>
+                <ThemeProvider theme={this.state.theme}>
                     <div
+                        className="App"
                         style={{
-                            width: 'calc(100% - 16px)',
-                            height: 'calc(100% - 104px)',
-                            overflow: 'auto',
-                            padding: 8,
+                            background: this.state.theme.palette.background.default,
+                            color: this.state.theme.palette.text.primary,
                         }}
                     >
-                        <Box
-                            component="div"
-                            sx={{
-                                m: '0.2rem 0 1.5rem 0',
-                                ...styles.header,
-                                ...(this.state.theme.name === 'light' ? styles.headerLight : undefined),
-                                ...(this.state.theme.name === 'colored' ? styles.headerColored : undefined),
-                                ...(this.state.themeType === 'dark' ? styles.headerDark : undefined),
-                            }}
+                        <AppBar
+                            style={styles.headerArea}
+                            position="static"
+                            enableColorOnDark
                         >
-                            <InfoOutlined style={styles.headerIcon} />
-                            <span>{I18n.t('Backup Information')}</span>
-                        </Box>
+                            <Toolbar>
+                                <img
+                                    src={logo}
+                                    alt="logo"
+                                    style={{ height: 48, marginRight: 16 }}
+                                />
+                                <div>
+                                    <div style={{ fontWeight: 'bold', fontSize: 20, color: '#fff' }}>Backitup</div>
+                                    <div
+                                        style={{
+                                            color: '#fff',
+                                            fontStyle: 'italic',
+                                            fontSize: 'clamp(0.7em, 0.7em + 0.6vw, 1em)',
+                                        }}
+                                    >
+                                        {I18n.t('Backup your System …')}
+                                    </div>
+                                </div>
+                            </Toolbar>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    position: 'absolute',
+                                    right: 10,
+                                    top: 13,
+                                }}
+                            >
+                                <Tooltip
+                                    size="small"
+                                    title="PayPal.Me"
+                                    style={{ marginRight: '0.2rem' }}
+                                >
+                                    <Fab
+                                        style={styles.helpButton}
+                                        onClick={() => {
+                                            window.open('https://paypal.me/mk1676', '_blank');
+                                        }}
+                                    >
+                                        <Favorite />
+                                    </Fab>
+                                </Tooltip>
+                                <Tooltip
+                                    size="small"
+                                    title="Wiki"
+                                    style={{ marginRight: '0.2rem' }}
+                                >
+                                    <Fab
+                                        style={styles.helpButton}
+                                        onClick={() => {
+                                            window.open('https://github.com/simatec/ioBroker.backitup/wiki', '_blank');
+                                        }}
+                                    >
+                                        <School />
+                                    </Fab>
+                                </Tooltip>
+                                <Tooltip
+                                    size="small"
+                                    title="Show adapter documentation"
+                                    style={{ marginRight: '0.2rem' }}
+                                >
+                                    <Fab
+                                        style={styles.helpButton}
+                                        onClick={() => {
+                                            window.open(
+                                                'https://github.com/simatec/ioBroker.backitup/blob/master/README.md',
+                                                '_blank',
+                                            );
+                                        }}
+                                    >
+                                        <Help />
+                                    </Fab>
+                                </Tooltip>
+                            </div>
+                        </AppBar>
                         <div
                             style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-                                gap: 12,
-                                minHeight: 300,
-                                gridAutoRows: '1fr',
+                                width: 'calc(100% - 16px)',
+                                height: 'calc(100% - 104px)',
+                                overflow: 'auto',
+                                padding: 8,
                             }}
                         >
-                            {this.renderBackupInformation()}
-                            {this.renderActivatedStorageOptions()}
-                            {this.renderActivatedBackupOptions()}
-                        </div>
-                        <Box
-                            component="div"
-                            sx={{
-                                m: '1.5rem 0 1.5rem 0',
-                                ...styles.header,
-                                ...(this.state.theme.name === 'light' ? styles.headerLight : undefined),
-                                ...(this.state.theme.name === 'colored' ? styles.headerColored : undefined),
-                                ...(this.state.themeType === 'dark' ? styles.headerDark : undefined),
-                            }}
-                        >
-                            <CloudUploadOutlined style={styles.headerIcon} />
-                            <span>{I18n.t('System backup')}</span>
-                        </Box>
-                        <div
-                            style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-                                gap: 12,
-                                justifyContent: 'space-evenly',
-                                alignContent: 'center',
-                                justifyItems: 'stretch',
-                                gridAutoRows: '1fr',
-                            }}
-                        >
-                            {this.state.myAlive && this.state.native.minimalEnabled ? <BackupNow
-                                style={{ ...styles.buttonWidth, width: '100%' }}
-                                variant="contained"
-                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
-                                adapterName={this.adapterName}
-                                instance={this.instance}
-                                alive
-                                socket={this.socket}
-                                themeType={this.state.themeType}
-                                endIcon={<CloudUploadOutlined />}
-                                schema={{
-                                    backUpType: 'iobroker',
-                                    label: 'ioBroker start backup',
+                            <Box
+                                component="div"
+                                sx={{
+                                    m: '0.2rem 0 1.5rem 0',
+                                    ...styles.header,
+                                    ...(this.state.theme.name === 'light' ? styles.headerLight : undefined),
+                                    ...(this.state.theme.name === 'colored' ? styles.headerColored : undefined),
+                                    ...(this.state.themeType === 'dark' ? styles.headerDark : undefined),
                                 }}
-                            /> : <Button
-                                style={{ width: '100%' }}
-                                themeType={this.state.themeType}
-                                disabled
-                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
-                                variant="contained"
-                                endIcon={<CloudUploadOutlined />}
                             >
-                                {I18n.t('ioBroker start backup')}
-                            </Button>}
-                            {this.state.myAlive && this.state.native.ccuEnabled ? <BackupNow
-                                style={{ ...styles.buttonWidth, width: '100%' }}
-                                variant="contained"
-                                adapterName={this.adapterName}
-                                instance={this.instance}
-                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
-                                alive
-                                socket={this.socket}
-                                themeType={this.state.themeType}
-                                endIcon={<CloudUploadOutlined />}
-                                schema={{
-                                    backUpType: 'ccu',
-                                    label: 'Homematic start backup',
+                                <InfoOutlined style={styles.headerIcon} />
+                                <span>{I18n.t('Backup Information')}</span>
+                            </Box>
+                            <div
+                                style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+                                    gap: 12,
+                                    minHeight: 300,
+                                    gridAutoRows: '1fr',
                                 }}
-                            /> : <Button
-                                style={{ width: '100%' }}
-                                themeType={this.state.themeType}
-                                disabled
-                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
-                                variant="contained"
-                                endIcon={<CloudUploadOutlined />}
                             >
-                                {I18n.t('Homematic start backup')}
-                            </Button>}
-                            <Button
-                                style={{ width: '100%' }}
-                                onClick={() => this.setState({ showBackupHistory: true })}
-                                variant="contained"
-                                themeBreakpoints={this.state.theme.breakpoints.down}
-                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
-                                endIcon={<FormatListBulleted />}
+                                {this.renderBackupInformation()}
+                                {this.renderActivatedStorageOptions()}
+                                {this.renderActivatedBackupOptions()}
+                            </div>
+                            <Box
+                                component="div"
+                                sx={{
+                                    m: '1.5rem 0 1.5rem 0',
+                                    ...styles.header,
+                                    ...(this.state.theme.name === 'light' ? styles.headerLight : undefined),
+                                    ...(this.state.theme.name === 'colored' ? styles.headerColored : undefined),
+                                    ...(this.state.themeType === 'dark' ? styles.headerDark : undefined),
+                                }}
                             >
-                                {I18n.t('Backup history')}
-                            </Button>
-                            <Button
-                                style={{ width: '100%' }}
-                                variant="contained"
-                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
-                                onClick={async () => {
-                                    const obj = await this.socket.getObject(`system.adapter.${this.adapterName}.${this.instance}`);
+                                <CloudUploadOutlined style={styles.headerIcon} />
+                                <span>{I18n.t('System backup')}</span>
+                            </Box>
+                            <div
+                                style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+                                    gap: 12,
+                                    justifyContent: 'space-evenly',
+                                    alignContent: 'center',
+                                    justifyItems: 'stretch',
+                                    gridAutoRows: '1fr',
+                                }}
+                            >
+                                {this.state.myAlive && this.state.native.minimalEnabled ? (
+                                    <BackupNow
+                                        style={{ ...styles.buttonWidth, width: '100%' }}
+                                        variant="contained"
+                                        color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                        adapterName={this.adapterName}
+                                        instance={this.instance}
+                                        alive
+                                        socket={this.socket}
+                                        themeType={this.state.themeType}
+                                        endIcon={<CloudUploadOutlined />}
+                                        schema={{
+                                            backUpType: 'iobroker',
+                                            label: 'ioBroker start backup',
+                                        }}
+                                    />
+                                ) : (
+                                    <Button
+                                        style={{ width: '100%' }}
+                                        themeType={this.state.themeType}
+                                        disabled
+                                        color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                        variant="contained"
+                                        endIcon={<CloudUploadOutlined />}
+                                    >
+                                        {I18n.t('ioBroker start backup')}
+                                    </Button>
+                                )}
+                                {this.state.myAlive && this.state.native.ccuEnabled ? (
+                                    <BackupNow
+                                        style={{ ...styles.buttonWidth, width: '100%' }}
+                                        variant="contained"
+                                        adapterName={this.adapterName}
+                                        instance={this.instance}
+                                        color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                        alive
+                                        socket={this.socket}
+                                        themeType={this.state.themeType}
+                                        endIcon={<CloudUploadOutlined />}
+                                        schema={{
+                                            backUpType: 'ccu',
+                                            label: 'Homematic start backup',
+                                        }}
+                                    />
+                                ) : (
+                                    <Button
+                                        style={{ width: '100%' }}
+                                        themeType={this.state.themeType}
+                                        disabled
+                                        color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                        variant="contained"
+                                        endIcon={<CloudUploadOutlined />}
+                                    >
+                                        {I18n.t('Homematic start backup')}
+                                    </Button>
+                                )}
+                                <Button
+                                    style={{ width: '100%' }}
+                                    onClick={() => this.setState({ showBackupHistory: true })}
+                                    variant="contained"
+                                    themeBreakpoints={this.state.theme.breakpoints.down}
+                                    color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                    endIcon={<FormatListBulleted />}
+                                >
+                                    {I18n.t('Backup history')}
+                                </Button>
+                                <Button
+                                    style={{ width: '100%' }}
+                                    variant="contained"
+                                    color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                    onClick={async () => {
+                                        const obj = await this.socket.getObject(
+                                            `system.adapter.${this.adapterName}.${this.instance}`,
+                                        );
 
-                                    if (obj && obj.common && obj.common.news) {
-                                        delete obj.common.news;
-                                    }
-                                    if (obj && obj.common && obj.common.titleLang) {
-                                        delete obj.common.titleLang;
-                                    }
-                                    if (obj && obj.common && obj.common.desc) {
-                                        delete obj.common.desc;
-                                    }
-                                    const blob = new Blob([JSON.stringify(obj)], { type: 'application/json;charset=utf-8' });
-                                    const now = new Date();
-                                    saveAs(blob, `${now.getFullYear()}_${(now.getMonth() + 1).toString().padStart(2, '0')}_${now.getDate().toString().padStart(2, '0')}-${this.adapterName}.${this.instance}.json`);
+                                        if (obj && obj.common && obj.common.news) {
+                                            delete obj.common.news;
+                                        }
+                                        if (obj && obj.common && obj.common.titleLang) {
+                                            delete obj.common.titleLang;
+                                        }
+                                        if (obj && obj.common && obj.common.desc) {
+                                            delete obj.common.desc;
+                                        }
+                                        const blob = new Blob([JSON.stringify(obj)], {
+                                            type: 'application/json;charset=utf-8',
+                                        });
+                                        const now = new Date();
+                                        saveAs(
+                                            blob,
+                                            `${now.getFullYear()}_${(now.getMonth() + 1).toString().padStart(2, '0')}_${now.getDate().toString().padStart(2, '0')}-${this.adapterName}.${this.instance}.json`,
+                                        );
+                                    }}
+                                    endIcon={<CloudUploadOutlined />}
+                                >
+                                    {I18n.t('Save BackItUp settings')}
+                                </Button>
+                            </div>
+                            <Box
+                                component="div"
+                                sx={{
+                                    m: '1.5rem 0px 1.0rem 0px',
+                                    ...styles.header,
+                                    ...(this.state.theme.name === 'light' ? styles.headerLight : undefined),
+                                    ...(this.state.theme.name === 'colored' ? styles.headerColored : undefined),
+                                    ...(this.state.themeType === 'dark' ? styles.headerDark : undefined),
                                 }}
-                                endIcon={<CloudUploadOutlined />}
                             >
-                                {I18n.t('Save BackItUp settings')}
-                            </Button>
-                        </div>
-                        <Box
-                            component="div"
-                            sx={{
-                                m: '1.5rem 0px 1.0rem 0px',
-                                ...styles.header,
-                                ...(this.state.theme.name === 'light' ? styles.headerLight : undefined),
-                                ...(this.state.theme.name === 'colored' ? styles.headerColored : undefined),
-                                ...(this.state.themeType === 'dark' ? styles.headerDark : undefined),
-                            }}
-                        >
-                            <SettingsBackupRestore style={styles.headerIcon} />
-                            <span>{I18n.t('Restore')}</span>
-                        </Box>
-                        <div style={{
-                            width: '100%',
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-                            gap: 12,
-                            justifyItems: 'stretch',
-                            justifyContent: 'space-evenly',
-                            alignContent: 'center',
-                            alignItems: 'stretch',
-                            gridAutoRows: '1fr',
-                            marginBottom: '1rem',
-                        }}
-                        >
-                            <SourceSelector
-                                value={this.state.backupSource}
-                                data={this.state.native}
-                                onChange={backupSource => {
-                                    window.localStorage.setItem('BackItUp.backupSource', backupSource);
-                                    this.setState({ backupSource });
+                                <SettingsBackupRestore style={styles.headerIcon} />
+                                <span>{I18n.t('Restore')}</span>
+                            </Box>
+                            <div
+                                style={{
+                                    width: '100%',
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+                                    gap: 12,
+                                    justifyItems: 'stretch',
+                                    justifyContent: 'space-evenly',
+                                    alignContent: 'center',
+                                    alignItems: 'stretch',
+                                    gridAutoRows: '1fr',
+                                    marginBottom: '1rem',
                                 }}
-                            />
-                            <Button
-                                style={{ width: '100%', marginTop: '0.5rem' }}
-                                themeType={this.state.themeType}
-                                onClick={() => this.setState({ showGetBackups: true })}
-                                disabled={!this.state.myAlive}
-                                variant="contained"
-                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
-                                endIcon={<Search />}
                             >
-                                {I18n.t('Get list')}
-                            </Button>
-                            <Button
-                                style={{ width: '100%', marginTop: '0.5rem' }}
-                                themeType={this.state.themeType}
-                                onClick={() => this.setState({ showUploadBackup: true })}
-                                variant="contained"
-                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
-                                endIcon={<UploadOutlined />}
+                                <SourceSelector
+                                    value={this.state.backupSource}
+                                    data={this.state.native}
+                                    onChange={backupSource => {
+                                        window.localStorage.setItem('BackItUp.backupSource', backupSource);
+                                        this.setState({ backupSource });
+                                    }}
+                                />
+                                <Button
+                                    style={{ width: '100%', marginTop: '0.5rem' }}
+                                    themeType={this.state.themeType}
+                                    onClick={() => this.setState({ showGetBackups: true })}
+                                    disabled={!this.state.myAlive}
+                                    variant="contained"
+                                    color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                    endIcon={<Search />}
+                                >
+                                    {I18n.t('Get list')}
+                                </Button>
+                                <Button
+                                    style={{ width: '100%', marginTop: '0.5rem' }}
+                                    themeType={this.state.themeType}
+                                    onClick={() => this.setState({ showUploadBackup: true })}
+                                    variant="contained"
+                                    color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                    endIcon={<UploadOutlined />}
+                                >
+                                    {I18n.t('Upload Backup File')}
+                                </Button>
+                                <Button
+                                    style={{ width: '100%', marginTop: '0.5rem' }}
+                                    themeType={this.state.themeType}
+                                    variant="contained"
+                                    color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                    onClick={() => this.setState({ showUploadSettings: true })}
+                                    endIcon={<SettingsBackupRestore />}
+                                >
+                                    {I18n.t('Restore BackItUp settings')}
+                                </Button>
+                            </div>
+                            {this.renderError()}
+                            <div
+                                style={{
+                                    ...styles.footer,
+                                    ...(this.state.theme.name === 'light' ? styles.footerLight : undefined),
+                                    ...(this.state.theme.name === 'colored' ? styles.footerColored : undefined),
+                                    ...(this.state.themeType === 'dark' ? styles.footerDark : undefined),
+                                }}
+                                onClick={() => {
+                                    try {
+                                        window.parent.postMessage(
+                                            `goto:tab-instances/config/system.adapter.backitup.${this.instance}`,
+                                            '*',
+                                        );
+                                    } catch {
+                                        // ignore
+                                    }
+                                }}
                             >
-                                {I18n.t('Upload Backup File')}
-                            </Button>
-                            <Button
-                                style={{ width: '100%', marginTop: '0.5rem' }}
-                                themeType={this.state.themeType}
-                                variant="contained"
-                                color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
-                                onClick={() => this.setState({ showUploadSettings: true })}
-                                endIcon={<SettingsBackupRestore />}
-                            >
-                                {I18n.t('Restore BackItUp settings')}
-                            </Button>
-                        </div>
-                        {this.renderError()}
-                        <div
-                            style={{
-                                ...styles.footer,
-                                ...(this.state.theme.name === 'light' ? styles.footerLight : undefined),
-                                ...(this.state.theme.name === 'colored' ? styles.footerColored : undefined),
-                                ...(this.state.themeType === 'dark' ? styles.footerDark : undefined),
-                            }}
-                            onClick={() => {
-                                try {
-                                    window.parent.postMessage(`goto:tab-instances/config/system.adapter.backitup.${this.instance}`, '*');
-                                } catch {
-                                    // ignore
-                                }
-                            }}
-                        >
-                            {I18n.t('All backup settings can be changed in the adapter configuration of BackItUp.')}
+                                {I18n.t('All backup settings can be changed in the adapter configuration of BackItUp.')}
+                            </div>
                         </div>
                     </div>
-                </div>
-                {this.state.showBackupHistory ? <BackupHistory
-                    onClose={() => this.setState({ showBackupHistory: false })}
-                    onLogs={(fileName, timestamp, index) => this.setState({ showLogs: { fileName, timestamp, index } })}
-                    socket={this.socket}
-                    themeType={this.state.themeType}
-                    themeBreakpoints={this.state.theme.breakpoints.down}
-                    adapterName={this.adapterName}
-                    instance={this.instance}
-                /> : null}
-                {this.state.showGetBackups ? <GetBackups
-                    onClose={() => this.setState({ showGetBackups: false })}
-                    onRestore={(location, object, fileName) => this.setState({ showRestore: { location, object, fileName }, showGetBackups: false })}
-                    socket={this.socket}
-                    themeType={this.state.themeType}
-                    themeBreakpoints={this.state.theme.breakpoints.down}
-                    adapterName={this.adapterName}
-                    instance={this.instance}
-                    backupSource={this.state.backupSource}
-                    connectType={this.state.native.connectType}
-                    allowDownload
-                /> : null}
-                {this.state.showLogs ? <GetLogs
-                    onClose={() => this.setState({ showLogs: null })}
-                    onLogs={(fileName, timestamp, index) => this.setState({ showLogs: fileName, timestamp, index })}
-                    backupLog={this.state.showLogs}
-                    socket={this.socket}
-                    themeType={this.state.themeType}
-                    adapterName={this.adapterName}
-                    themeBreakpoints={this.state.theme.breakpoints.down}
-                    instance={this.instance}
-                /> : null}
-                {this.state.showUploadBackup ? <UploadBackup
-                    alive={this.state.myAlive}
-                    onClose={() => this.setState({ showUploadBackup: false })}
-                    socket={this.socket}
-                    themeType={this.state.themeType}
-                    adapterName={this.adapterName}
-                    instance={this.instance}
-                /> : null}
-                {this.state.showRestore ? <Restore
-                    alive={this.state.myAlive}
-                    location={this.state.showRestore.location}
-                    fileName={this.state.showRestore.fileName}
-                    onClose={() => this.setState({ showRestore: null })}
-                    socket={this.socket}
-                    themeType={this.state.themeType}
-                    adapterName={this.adapterName}
-                    instance={this.instance}
-                    restoreIfWait={this.state.restoreIfWait}
-                /> : null}
-                {this.renderUploadSettingsDialog()}
-            </ThemeProvider>
-        </StyledEngineProvider>;
+                    {this.state.showBackupHistory ? (
+                        <BackupHistory
+                            onClose={() => this.setState({ showBackupHistory: false })}
+                            onLogs={(fileName, timestamp, index) =>
+                                this.setState({ showLogs: { fileName, timestamp, index } })
+                            }
+                            socket={this.socket}
+                            themeType={this.state.themeType}
+                            themeBreakpoints={this.state.theme.breakpoints.down}
+                            adapterName={this.adapterName}
+                            instance={this.instance}
+                        />
+                    ) : null}
+                    {this.state.showGetBackups ? (
+                        <GetBackups
+                            onClose={() => this.setState({ showGetBackups: false })}
+                            onRestore={(location, object, fileName) =>
+                                this.setState({ showRestore: { location, object, fileName }, showGetBackups: false })
+                            }
+                            socket={this.socket}
+                            themeType={this.state.themeType}
+                            themeBreakpoints={this.state.theme.breakpoints.down}
+                            adapterName={this.adapterName}
+                            instance={this.instance}
+                            backupSource={this.state.backupSource}
+                            connectType={this.state.native.connectType}
+                            allowDownload
+                        />
+                    ) : null}
+                    {this.state.showLogs ? (
+                        <GetLogs
+                            onClose={() => this.setState({ showLogs: null })}
+                            onLogs={(fileName, timestamp, index) =>
+                                this.setState({ showLogs: fileName, timestamp, index })
+                            }
+                            backupLog={this.state.showLogs}
+                            socket={this.socket}
+                            themeType={this.state.themeType}
+                            adapterName={this.adapterName}
+                            themeBreakpoints={this.state.theme.breakpoints.down}
+                            instance={this.instance}
+                        />
+                    ) : null}
+                    {this.state.showUploadBackup ? (
+                        <UploadBackup
+                            alive={this.state.myAlive}
+                            onClose={() => this.setState({ showUploadBackup: false })}
+                            socket={this.socket}
+                            themeType={this.state.themeType}
+                            adapterName={this.adapterName}
+                            instance={this.instance}
+                        />
+                    ) : null}
+                    {this.state.showRestore ? (
+                        <Restore
+                            alive={this.state.myAlive}
+                            location={this.state.showRestore.location}
+                            fileName={this.state.showRestore.fileName}
+                            onClose={() => this.setState({ showRestore: null })}
+                            socket={this.socket}
+                            themeType={this.state.themeType}
+                            adapterName={this.adapterName}
+                            instance={this.instance}
+                            restoreIfWait={this.state.restoreIfWait}
+                        />
+                    ) : null}
+                    {this.renderUploadSettingsDialog()}
+                </ThemeProvider>
+            </StyledEngineProvider>
+        );
     }
 }
 

@@ -2,12 +2,7 @@ import PropTypes from 'prop-types';
 import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-import {
-    Button,
-    CircularProgress, Dialog, DialogActions,
-    DialogContent,
-    DialogTitle,
-} from '@mui/material';
+import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 
 import { Check, Close, Source } from '@mui/icons-material';
 
@@ -58,87 +53,105 @@ const UploadSettings = props => {
         },
     });
 
-    return <Dialog
-        open={!0}
-        onClose={props.onClose}
-        fullWidth
-        maxWidth="lg"
-    >
-        <DialogTitle>{I18n.t('Restore BackItUp settings')}</DialogTitle>
-        <DialogContent>
-            <div
-                {...getRootProps()}
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '100%',
-                    height: 200,
-                    borderRadius: 4,
-                    boxSizing: 'border-box',
-                    borderStyle: 'dashed',
-                    borderWidth: 1,
-                    borderColor: isDragActive ? (props.themeType === 'dark' ? 'lightgreen' : 'green') : 'inherit',
-                }}
-            >
-                {error ? <div style={{ color: '#a90000' }}>{error}</div> : null}
-                {uploaded ? <div style={{ color: 'green' }}>{I18n.t('Configuration restored successfully. The popup will close automatically')}</div> : null}
-                {props.disabled || working ? null : <input {...getInputProps()} />}
-                {working ? <CircularProgress /> :
-                    <p
-                        style={{
-                            textAlign: 'center',
-                            color: isDragActive ? (props.themeType === 'dark' ? 'lightgreen' : 'green') : 'inherit',
+    return (
+        <Dialog
+            open={!0}
+            onClose={props.onClose}
+            fullWidth
+            maxWidth="lg"
+        >
+            <DialogTitle>{I18n.t('Restore BackItUp settings')}</DialogTitle>
+            <DialogContent>
+                <div
+                    {...getRootProps()}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '100%',
+                        height: 200,
+                        borderRadius: 4,
+                        boxSizing: 'border-box',
+                        borderStyle: 'dashed',
+                        borderWidth: 1,
+                        borderColor: isDragActive ? (props.themeType === 'dark' ? 'lightgreen' : 'green') : 'inherit',
+                    }}
+                >
+                    {error ? <div style={{ color: '#a90000' }}>{error}</div> : null}
+                    {uploaded ? (
+                        <div style={{ color: 'green' }}>
+                            {I18n.t('Configuration restored successfully. The popup will close automatically')}
+                        </div>
+                    ) : null}
+                    {props.disabled || working ? null : <input {...getInputProps()} />}
+                    {working ? (
+                        <CircularProgress />
+                    ) : (
+                        <p
+                            style={{
+                                textAlign: 'center',
+                                color: isDragActive ? (props.themeType === 'dark' ? 'lightgreen' : 'green') : 'inherit',
+                            }}
+                        >
+                            {fileName ? (
+                                <>
+                                    <div>{fileName}</div>
+                                    {fileName.endsWith('.json') ? <Source /> : null}
+                                    {fileData ? (
+                                        <div style={{ fontSize: 10, opacity: 0.5 }}>
+                                            ({Utils.formatBytes(fileData.length)})
+                                        </div>
+                                    ) : null}
+                                </>
+                            ) : (
+                                props.instruction ||
+                                `${I18n.t('Drop the file here ...')} ${props.maxSize ? I18n.t('(Maximal file size is %s)', Utils.formatBytes(props.maxSize)) : ''}`
+                            )}
+                        </p>
+                    )}
+                </div>
+            </DialogContent>
+            <DialogActions>
+                {fileData && (
+                    <Button
+                        onClick={async () => {
+                            try {
+                                const obj = await props.socket.getObject(
+                                    `system.adapter.${props.adapterName}.${props.instance}`,
+                                );
+                                try {
+                                    const newObj = JSON.parse(fileData);
+                                    obj.native = newObj.native;
+                                    props.socket.setObject(obj._id, obj);
+                                    setUploaded(true);
+                                    setTimeout(props.onClose, 3000);
+                                } catch (e) {
+                                    setError(I18n.t('Cannot parse JSON'));
+                                    setTimeout(() => error && setError(''), 5000);
+                                }
+                            } catch (e) {
+                                setError(e);
+                                setTimeout(props.onClose, 5000);
+                            }
                         }}
+                        color="primary"
+                        variant="contained"
+                        startIcon={<Check />}
                     >
-                        {fileName ? <>
-                            <div>{fileName}</div>
-                            {fileName.endsWith('.json') ? <Source /> : null}
-                            {fileData ? <div style={{ fontSize: 10, opacity: 0.5 }}>
-                        (
-                                {Utils.formatBytes(fileData.length)}
-                        )
-                            </div> : null}
-                        </> : (props.instruction || `${I18n.t('Drop the file here ...')} ${props.maxSize ? I18n.t('(Maximal file size is %s)', Utils.formatBytes(props.maxSize)) : ''}`)}
-                    </p>}
-            </div>
-        </DialogContent>
-        <DialogActions>
-            {fileData && <Button
-                onClick={async () => {
-                    try {
-                        const obj = await props.socket.getObject(`system.adapter.${props.adapterName}.${props.instance}`);
-                        try {
-                            const newObj = JSON.parse(fileData);
-                            obj.native = newObj.native;
-                            props.socket.setObject(obj._id, obj);
-                            setUploaded(true);
-                            setTimeout(props.onClose, 3000);
-                        } catch (e) {
-                            setError(I18n.t('Cannot parse JSON'));
-                            setTimeout(() => error && setError(''), 5000);
-                        }
-                    } catch (e) {
-                        setError(e);
-                        setTimeout(props.onClose, 5000);
-                    }
-                }}
-                color="primary"
-                variant="contained"
-                startIcon={<Check />}
-            >
-                {I18n.t('Apply')}
-            </Button>}
-            <Button
-                onClick={props.onClose}
-                color={props.themeType === 'dark' ? 'primary' : 'grey'}
-                variant="contained"
-                startIcon={<Close />}
-            >
-                {I18n.t('Cancel')}
-            </Button>
-        </DialogActions>
-    </Dialog>;
+                        {I18n.t('Apply')}
+                    </Button>
+                )}
+                <Button
+                    onClick={props.onClose}
+                    color={props.themeType === 'dark' ? 'primary' : 'grey'}
+                    variant="contained"
+                    startIcon={<Close />}
+                >
+                    {I18n.t('Cancel')}
+                </Button>
+            </DialogActions>
+        </Dialog>
+    );
 };
 
 UploadSettings.propTypes = {

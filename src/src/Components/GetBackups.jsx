@@ -145,7 +145,7 @@ const GetBackups = props => {
 
                 setBackups(result);
             });
-    });
+    }, [props.socket, props.adapterName, props.instance, props.backupSource]);
 
     return <Dialog
         open={!0}
