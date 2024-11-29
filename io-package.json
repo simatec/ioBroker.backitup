@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.28",
+    "version": "3.0.29",
     "news": {
+      "3.0.29": {
+        "en": "Fix Tab Menu",
+        "de": "Registerkarte Menü",
+        "ru": "Fix Tab Menu",
+        "pt": "Corrigir menu de separador",
+        "nl": "Tab-menu herstellen",
+        "fr": "Correction du menu de l'onglet",
+        "it": "Fissare il menu della scheda",
+        "es": "Menú de pestaña fija",
+        "pl": "Napraw menu Tab",
+        "uk": "Виправлення меню вкладок",
+        "zh-cn": "修正标签菜单"
+      },
       "3.0.28": {
         "en": "Dependencies updated\neslint-config added\nAllow to store files for up to ca 3 years\nGrafana Docu updated",
         "de": "Ausgaben aktualisiert\neslint-config hinzugefügt\nLassen Sie Dateien für bis zu ca 3 Jahre speichern\nGrafana Docu aktualisiert",
@@ -80,19 +93,6 @@
         "pl": "Napraw powiadomienie o napędzie Onedrive\nFix Zigbee2MQTT Kopia zapasowa\nzaktualizowane zależności",
         "uk": "Виправлення одного диска\nФіксація Zigbee2MQTT Зареєструватися\nоновлені залежності",
         "zh-cn": "修正一次性通知\n修复 Zigbee2MQTT 备份\n更新依赖关系"
-      },
-      "3.0.20": {
-        "en": "Responsive Design for Tab added\nResponsive Design for jsonConfig added\ndependencies updated",
-        "de": "Responsive Design für Tab hinzugefügt\nResponsive Design für jsonConfig hinzugefügt\naktualisierte abhängigkeiten",
-        "ru": "Responsive Design for Tab added\nReponsive Design для jsonConfig добавлен\nобновленная информация о зависимостях",
-        "pt": "Design responsivo para Tab adicionado\nDesign responsivo para jsonConfig adicionado\ndependências atualizadas",
-        "nl": "Responsief ontwerp voor tab toegevoegd\nResponsive Design voor jsonConfig toegevoegd\nafhankelijkheden bijgewerkt",
-        "fr": "Conception sensible pour Tab ajouté\nDesign sensible pour jsonConfig ajouté\ndépendances mises à jour",
-        "it": "Responsive Design per scheda aggiunto\nResponsive Design per jsonConfig aggiunto\ndipendenze aggiornate",
-        "es": "Diseño responsable para Tab añadido\nDiseño responsable para jsonConfig añadido\ndependencias actualizadas",
-        "pl": "Responsive Design for Tab dodano\nResponsive Design for jsonConfig dodany\nzaktualizowane zależności",
-        "uk": "Відповідальний дизайн для вкладу\nВідповідальний дизайн для jsonConfig\nоновлені залежності",
-        "zh-cn": "添加标签的响应设计\n添加了 jsonConfig 的响应设计\n更新依赖关系"
       }
     },
     "titleLang": {
