@@ -34,7 +34,7 @@ const BackupHistory = props => {
                     setBackupHistory(JSON.parse(state.val));
                 }
             });
-    }, []);
+    });
 
     return <Dialog
         open={!0}

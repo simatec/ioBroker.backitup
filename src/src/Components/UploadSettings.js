@@ -47,7 +47,7 @@ const UploadSettings = props => {
                 setTimeout(() => error && setError(''), 3000);
             });
         }
-    }, []);
+    });
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,

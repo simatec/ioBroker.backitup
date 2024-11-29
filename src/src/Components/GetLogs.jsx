@@ -53,7 +53,7 @@ const GetLogs = props => {
                     setBackupLog(I18n.t('No log is available for this backup'));
                 }
             });
-    }, []);
+    });
 
     return <Dialog
         open={!0}

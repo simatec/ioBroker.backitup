@@ -145,7 +145,7 @@ const GetBackups = props => {
 
                 setBackups(result);
             });
-    }, []);
+    });
 
     return <Dialog
         open={!0}
