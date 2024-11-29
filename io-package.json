@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.29",
+    "version": "3.0.30",
     "news": {
+      "3.0.30": {
+        "en": "Fix Tab Menu",
+        "de": "Registerkarte Menü",
+        "ru": "Fix Tab Menu",
+        "pt": "Corrigir menu de separador",
+        "nl": "Tab-menu herstellen",
+        "fr": "Correction du menu de l'onglet",
+        "it": "Fissare il menu della scheda",
+        "es": "Menú de pestaña fija",
+        "pl": "Napraw menu Tab",
+        "uk": "Виправлення меню вкладок",
+        "zh-cn": "修正标签菜单"
+      },
       "3.0.29": {
         "en": "Fix Tab Menu",
         "de": "Registerkarte Menü",
@@ -80,19 +93,6 @@
         "pl": "Fix Notification Instance\nPopraw projekt powiadomienia\nUstaw domyślne ustawienia",
         "uk": "Виправлення повідомлень\nФіксований дизайн повідомлень\nНалаштування за замовчуванням",
         "zh-cn": "修复通知实例\n固定通知设计\n修复默认设置"
-      },
-      "3.0.21": {
-        "en": "Fix Onedrive Notification\nFix Zigbee2MQTT Backup\ndependencies updated",
-        "de": "Fix Onedrive Benachrichtigung\nZigbee2MQTT Backup\naktualisierte abhängigkeiten",
-        "ru": "Уведомление об одном приводе\nFix Zigbee2MQTT Назад\nобновленная информация о зависимостях",
-        "pt": "Corrigir uma notificação de unidade\nFix Zigbee2MQTT Backup\ndependências atualizadas",
-        "nl": "Onedrive notificatie herstellen\nZigbee2MQTT repareren Reservekopie\nafhankelijkheden bijgewerkt",
-        "fr": "Correction de la notification Onedrive\nCorrection Zigbee2MQTT Sauvegarde\ndépendances mises à jour",
-        "it": "Fissare la notifica di Onedrive\nFissare Zigbee2MQTT Backup\ndipendenze aggiornate",
-        "es": "Notificación de un solo goteo\nFijar Zigbee2MQTT Copia de seguridad\ndependencias actualizadas",
-        "pl": "Napraw powiadomienie o napędzie Onedrive\nFix Zigbee2MQTT Kopia zapasowa\nzaktualizowane zależności",
-        "uk": "Виправлення одного диска\nФіксація Zigbee2MQTT Зареєструватися\nоновлені залежності",
-        "zh-cn": "修正一次性通知\n修复 Zigbee2MQTT 备份\n更新依赖关系"
       }
     },
     "titleLang": {
