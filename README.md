@@ -61,7 +61,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.0.31 (2024-11-30)
 * (simatec) Fix Tab Menu
 
 ### 3.0.30 (2024-11-29)

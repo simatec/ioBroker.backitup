@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.30",
+    "version": "3.0.31",
     "news": {
+      "3.0.31": {
+        "en": "Fix Tab Menu",
+        "de": "Registerkarte Menü",
+        "ru": "Fix Tab Menu",
+        "pt": "Corrigir menu de separador",
+        "nl": "Tab-menu herstellen",
+        "fr": "Correction du menu de l'onglet",
+        "it": "Fissare il menu della scheda",
+        "es": "Menú de pestaña fija",
+        "pl": "Napraw menu Tab",
+        "uk": "Виправлення меню вкладок",
+        "zh-cn": "修正标签菜单"
+      },
       "3.0.30": {
         "en": "Fix Tab Menu",
         "de": "Registerkarte Menü",
@@ -80,19 +93,6 @@
         "pl": "Poprawa procesu uwierzytelniania dysku Google\nUsunięto przełyk z procesu budowania\nmały projekt Fix\nNaprawiono dla Admin 7.1.5\nNapraw test i wydaj\nNaprawiono błędy ESlint",
         "uk": "Удосконалення автентифікації Google Диску\nЗняти ковпачок з процесу будівництва\nневеликий дизайн виправити\nВиправлення для адміністратора 7.1.5\nТестування та реліз\nВиправлення помилок ESlint",
         "zh-cn": "改进谷歌驱动认证工作流程\n从构建过程中移除 gulp\n小设计\n7.1.5 管理员的固定\n修复测试和释放\n修正 Eslint 错误"
-      },
-      "3.0.22": {
-        "en": "Fix Notification Instance\nFix Notification Design\nFix Default Settings",
-        "de": "Rechtsbehelf\nBeschreiben Sie das Design\nDefault-Einstellungen beheben",
-        "ru": "Исход уведомления\nДизайн уведомления\nПараметры по умолчанию",
-        "pt": "Corrigir instância de notificação\nDesign de Notificação Fix\nCorrigir configurações padrão",
-        "nl": "Fix Notification Instance\nFix Notification ontwerp\nStandaardinstellingen herstellen",
-        "fr": "Correction de l'instance de notification\nCorrection de la conception des notifications\nCorrection des paramètres par défaut",
-        "it": "Fisso di notifica\nFissare la progettazione di notifica\nImpostazioni di default",
-        "es": "Instance de notificación fija\nDiseño de notificación fija\nAjustes predeterminados",
-        "pl": "Fix Notification Instance\nPopraw projekt powiadomienia\nUstaw domyślne ustawienia",
-        "uk": "Виправлення повідомлень\nФіксований дизайн повідомлень\nНалаштування за замовчуванням",
-        "zh-cn": "修复通知实例\n固定通知设计\n修复默认设置"
       }
     },
     "titleLang": {
