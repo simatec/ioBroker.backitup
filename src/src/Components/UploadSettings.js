@@ -15,34 +15,37 @@ const UploadSettings = props => {
     const [error, setError] = useState('');
     const [uploaded, setUploaded] = useState(false);
 
-    const onDrop = useCallback((acceptedFiles, fileRejections) => {
-        if (acceptedFiles?.length) {
-            setWorking(true);
-            error && setError('');
-            const reader = new FileReader();
-            setFileName(acceptedFiles[0].name);
+    const onDrop = useCallback(
+        (acceptedFiles, fileRejections) => {
+            if (acceptedFiles?.length) {
+                setWorking(true);
+                error && setError('');
+                const reader = new FileReader();
+                setFileName(acceptedFiles[0].name);
 
-            reader.onload = async evt => {
-                setWorking(false);
-                setFileData(evt.target.result);
-            };
+                reader.onload = async evt => {
+                    setWorking(false);
+                    setFileData(evt.target.result);
+                };
 
-            reader.readAsText(acceptedFiles[0]);
-        }
-        if (fileRejections?.length) {
-            fileRejections[0].errors.forEach(err => {
-                if (err.code === 'file-too-large') {
-                    setError(I18n.t('File too large'));
-                } else if (err.code === 'file-invalid-type') {
-                    setError(I18n.t('Invalid file type'));
-                } else {
-                    setError(`Error: ${err.message}`);
-                }
-                // hide error after 3 seconds
-                setTimeout(() => error && setError(''), 3000);
-            });
-        }
-    });
+                reader.readAsText(acceptedFiles[0]);
+            }
+            if (fileRejections?.length) {
+                fileRejections[0].errors.forEach(err => {
+                    if (err.code === 'file-too-large') {
+                        setError(I18n.t('File too large'));
+                    } else if (err.code === 'file-invalid-type') {
+                        setError(I18n.t('Invalid file type'));
+                    } else {
+                        setError(`Error: ${err.message}`);
+                    }
+                    // hide error after 3 seconds
+                    setTimeout(() => error && setError(''), 3000);
+                });
+            }
+        },
+        [error],
+    );
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
