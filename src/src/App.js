@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { saveAs } from 'file-saver';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';

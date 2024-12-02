@@ -129,7 +129,7 @@ const UploadSettings = props => {
                                     setUploaded(true);
                                     setTimeout(props.onClose, 3000);
                                 } catch (e) {
-                                    setError(I18n.t('Cannot parse JSON'));
+                                    setError(`${I18n.t('Cannot parse JSON')}: ${e}`);
                                     setTimeout(() => error && setError(''), 5000);
                                 }
                             } catch (e) {

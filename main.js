@@ -33,6 +33,7 @@ const backupConfig = {};
 const backupTimeSchedules = [];     // Array for Backup Times
 let taskRunning = false;
 
+// @ts-ignore
 const bashDir = path.join(utils.getAbsoluteDefaultDataDir(), adapterName).replace(/\\/g, '/');
 
 /**
@@ -265,6 +266,7 @@ function startAdapter(options) {
                             res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback),
                         );
                     } else if (obj.callback) {
+                        // @ts-ignore
                         obj.callback({ error: 'Invalid parameters' });
                     }
                     break;
@@ -291,6 +293,7 @@ function startAdapter(options) {
                             adapter.sendTo(obj.from, obj.command, { e }, obj.callback);
                         }
                     } else if (obj.callback) {
+                        // @ts-ignore
                         obj.callback({ error: 'Invalid parameters' });
                     }
                     break;
@@ -337,6 +340,7 @@ function startAdapter(options) {
                             }
                         }
                     } else if (obj.callback) {
+                        // @ts-ignore
                         obj.callback({ error: 'Invalid parameters' });
                     }
                     break;
@@ -349,6 +353,7 @@ function startAdapter(options) {
                         adapter.log.debug('Upload finished...');
                         adapter.sendTo(obj.from, obj.command, { serverClose: true }, obj.callback);
                     } else if (obj.callback) {
+                        // @ts-ignore
                         obj.callback({ error: 'Invalid parameters' });
                     }
                     break;
@@ -376,6 +381,7 @@ function startAdapter(options) {
                         let dbInfo = false;
 
                         if (fs.existsSync('/opt/scripts/.docker_config/.thisisdocker')) { // Docker Image Support >= 5.2.0
+                            // @ts-ignore
                             systemInfo = 'docker';
 
                             if (fs.existsSync('/opt/scripts/.docker_config/.backitup')) {
@@ -385,6 +391,7 @@ function startAdapter(options) {
                             const isWin = process.platform.startsWith('win');
 
                             if (isWin) {
+                                // @ts-ignore
                                 systemInfo = 'win';
                             }
                         }
@@ -415,7 +422,7 @@ function startAdapter(options) {
                     if (obj.message) {
                         //const { createClient } = require('webdav');
                         const { createClient } = await import('webdav');
-                        const agent = require('node:https').Agent({ rejectUnauthorized: obj.message.config.signedCertificates });
+                        const agent = new (require('node:https').Agent)({ rejectUnauthorized: obj.message.config.signedCertificates });
 
                         const client = createClient(
                             obj.message.config.host,
@@ -631,7 +638,7 @@ function createBackupSchedule() {
                                 }
                             }), 500);
                         nextBackup(false, type);
-                        adapter.setState('oneClick.' + type, false, true);
+                        adapter.setState(`oneClick.${type}`, false, true);
 
                         if (adapter.config.slaveInstance && type === 'iobroker' && adapter.config.hostType === 'Master') {
                             adapter.log.debug('Slave backup from BackItUp-Master is started ...');
@@ -1307,14 +1314,14 @@ function createBashScripts() {
         }
 
         try {
-            fs.writeFileSync(bashDir + '/external.bat', `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 15\nif exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-stop\n)\nif exist "${path.join(bashDir, '.redis.info')}" (\ncd "${path.join(__dirname, 'lib')}"\n) else (\ncd "${path.join(bashDir)}"\n)\nnode restore.js`);
-            fs.chmodSync(bashDir + '/external.bat', 508);
+            fs.writeFileSync(`${bashDir}/external.bat`, `cd "${path.join(tools.getIobDir())}"\ncall iobroker stop\ntimeout /T 15\nif exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-stop\n)\nif exist "${path.join(bashDir, '.redis.info')}" (\ncd "${path.join(__dirname, 'lib')}"\n) else (\ncd "${path.join(bashDir)}"\n)\nnode restore.js`);
+            fs.chmodSync(`${bashDir}/external.bat`, 508);
         } catch (e) {
-            adapter.log.error('cannot create external.sh: ' + e + 'Please run "iobroker fix"');
+            adapter.log.error(`cannot create external.sh: ${e}Please run "iobroker fix"`);
         }
 
         try {
-            fs.writeFileSync(bashDir + '/startIOB.bat', `if exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker host this\ncall iobroker start\nif exist "${path.join(bashDir, '.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
+            fs.writeFileSync(`${bashDir}/startIOB.bat`, `if exist "${path.join(bashDir, '.redis.info')}" (\nredis-server --service-start\n)\ncd "${path.join(tools.getIobDir())}"\ncall iobroker host this\ncall iobroker start\nif exist "${path.join(bashDir, '.startAll')}" (\ncd "${path.join(tools.getIobDir(), 'node_modules/iobroker.js-controller')}"\nnode iobroker.js start all\n)`);
         } catch (e) {
             adapter.log.error(`cannot create startIOB.bat: ${e}Please run "iobroker fix"`);
         }
@@ -1322,8 +1329,8 @@ function createBashScripts() {
         adapter.log.debug(`BackItUp has recognized a Docker system`);
 
         try {
-            fs.writeFileSync(bashDir + '/stopIOB.sh', `#!/bin/bash\n# iobroker stop for restore\nbash ${bashDir}/external.sh`);
-            fs.chmodSync(bashDir + '/stopIOB.sh', 508);
+            fs.writeFileSync(`${bashDir}/stopIOB.sh`, `#!/bin/bash\n# iobroker stop for restore\nbash ${bashDir}/external.sh`);
+            fs.chmodSync(`${bashDir}/stopIOB.sh`, 508);
         } catch (e) {
             adapter.log.error(`cannot create stopIOB.sh: ${e}Please run "iobroker fix"`);
         }
@@ -1336,8 +1343,8 @@ function createBashScripts() {
         }
 
         try {
-            fs.writeFileSync(bashDir + '/external.sh', `#!/bin/bash\n# restore\nbash /opt/scripts/maintenance.sh on -y -kbn\nsleep 3\nif [ -f ${bashDir}/.redis.info ]; then\ncd "${path.join(__dirname, 'lib')}"\nelse\ncd "${bashDir}"\nfi\nnode restore.js`);
-            fs.chmodSync(bashDir + '/external.sh', 508);
+            fs.writeFileSync(`${bashDir}/external.sh`, `#!/bin/bash\n# restore\nbash /opt/scripts/maintenance.sh on -y -kbn\nsleep 3\nif [ -f ${bashDir}/.redis.info ]; then\ncd "${path.join(__dirname, 'lib')}"\nelse\ncd "${bashDir}"\nfi\nnode restore.js`);
+            fs.chmodSync(`${bashDir}/external.sh`, 508);
         } catch (e) {
             adapter.log.error(`cannot create external.sh: ${e}Please run "iobroker fix"`);
         }
@@ -1417,13 +1424,13 @@ function createBackupDir() {
             fs.mkdirSync(path.join(tools.getIobDir(), 'backups'));
             adapter.log.debug('Created BackupDir');
         } catch (e) {
-            adapter.log.warn('Backup folder not created: ' + e + 'Please run "iobroker fix" and try again or create the backup folder manually!!');
+            adapter.log.warn(`Backup folder not created: ${e}! Please run "iobroker fix" and try again or create the backup folder manually!!`);
         }
     }
 }
 // delete Hide Files after restore
 function deleteHideFiles() {
-    fs.existsSync(bashDir + '/.redis.info') && fs.unlinkSync(bashDir + '/.redis.info');
+    fs.existsSync(`${bashDir}/.redis.info`) && fs.unlinkSync(`${bashDir}/.redis.info`);
 }
 // delete temp dir after restore
 function delTmp() {
@@ -1438,16 +1445,16 @@ function delTmp() {
 }
 // set start Options after restore
 function setStartAll() {
-    if (adapter.config.startAllRestore && !fs.existsSync(bashDir + '/.startAll')) {
+    if (adapter.config.startAllRestore && !fs.existsSync(`${bashDir}/.startAll`)) {
         try {
-            fs.writeFileSync(bashDir + '/.startAll', 'Start all Adapter after Restore');
+            fs.writeFileSync(`${bashDir}/.startAll`, 'Start all Adapter after Restore');
             adapter.log.debug('Start all Adapter after Restore enabled');
         } catch (e) {
             adapter.log.warn(`can not create startAll files: ${e}Please run "iobroker fix" and try again`);
         }
-    } else if (!adapter.config.startAllRestore && fs.existsSync(bashDir + '/.startAll')) {
+    } else if (!adapter.config.startAllRestore && fs.existsSync(`${bashDir}/.startAll`)) {
         try {
-            fs.unlinkSync(bashDir + '/.startAll');
+            fs.unlinkSync(`${bashDir}/.startAll`);
             adapter.log.debug('Start all Adapter after Restore disabled');
         } catch (e) {
             adapter.log.warn(`can not delete startAll file: ${e}Please run "iobroker fix" and try again`);
@@ -1503,6 +1510,7 @@ function detectLatestBackupFile(adapter) {
                                 .forEach(f => {
                                     filenumbers++;
                                     const date = getName(f.name, filenumbers, storage);
+                                    // @ts-ignore
                                     if (!file || file.date < date) {
                                         file = f;
                                         file.date = date;
@@ -1521,14 +1529,17 @@ function detectLatestBackupFile(adapter) {
 
 
         // find the newest file between storages
+        // @ts-ignore
         Promise.all(promises)
             .then(results => {
                 results = results.filter(f => f);
                 let file;
                 if (results.length) {
                     results.sort((a, b) => {
+                        // @ts-ignore
                         if (a.date > b.date) {
                             return 1;
+                            // @ts-ignore
                         } else if (a.date < b.date) {
                             return -1;
                         } else {
@@ -1536,11 +1547,13 @@ function detectLatestBackupFile(adapter) {
                         }
                     });
                     file = results[0];
+                    // @ts-ignore
                     if (file.date !== undefined) {
                         try {
+                            // @ts-ignore
                             file.date = file.date.toISOString();
                         } catch (e) {
-                            adapter.log.warn('No backup file date was found: ' + e);
+                            adapter.log.warn(`No backup file date was found: ${e}`);
                         }
                     }
                 } else {
@@ -1548,11 +1561,14 @@ function detectLatestBackupFile(adapter) {
                 }
                 // this information will be used by admin at the first start if some backup was detected and we can restore from it instead of new configuration
                 adapter.setState('info.latestBackup', file ? JSON.stringify(file) : '', true);
-                adapter.log.debug(file ? 'detect last backup file: ' + file.name : 'No backup file was found');
+                // @ts-ignore
+                adapter.log.debug(file ? `detect last backup file: ${file.name}` : 'No backup file was found');
 
+                // @ts-ignore
                 results = null;
             });
         promises = null;
+        // @ts-ignore
         stores = null;
 
     } catch (e) {
@@ -1625,7 +1641,7 @@ async function startSlaveBackup(slaveInstance, num) {
                 if (sendToSlave) {
                     adapter.log.debug(`Slave Backup from ${slaveInstance} is finish with result: ${sendToSlave}`);
                 } else {
-                    adapter.log.debug(`Slave Backup error from ${slaveInstance}: ${error}`);
+                    adapter.log.debug(`Slave Backup error from ${slaveInstance}`);
                 }
 
                 if (adapter.config.stopSlaveAfter) {
@@ -1883,9 +1899,11 @@ async function renewOnedriveToken() {
     if (adapter.config.onedriveLastTokenRenew != '') {
         const lastRenew = new Date(adapter.config.onedriveLastTokenRenew);
 
+        // @ts-ignore
         diffDays = parseInt((currentDay - lastRenew) / (1000 * 60 * 60 * 24)); //day difference
     }
 
+    // @ts-ignore
     if (diffDays >= 30 || adapter.config.onedriveLastTokenRenew == '') {
         adapter.log.debug('Renew Onedrive Refresh-Token');
 
@@ -1894,7 +1912,7 @@ async function renewOnedriveToken() {
                 adapter.extendForeignObject(`system.adapter.${adapter.namespace}`, {
                     native: {
                         onedriveAccessJson: refreshToken,
-                        onedriveLastTokenRenew: ('0' + (currentDay.getMonth() + 1)).slice(-2) + '/' + ('0' + currentDay.getDate()).slice(-2) + '/' + currentDay.getFullYear()
+                        onedriveLastTokenRenew: `${(`0${currentDay.getMonth() + 1}`).slice(-2)}/${(`0${currentDay.getDate()}`).slice(-2)}/${currentDay.getFullYear()}`
                     }
                 });
             })
@@ -1903,6 +1921,7 @@ async function renewOnedriveToken() {
                 adapter.registerNotification('backitup', 'onedriveWarn', err ? JSON.stringify(err) : 'An update of the Onedrive refresh token has failed. Please check your system!');
             });
     } else {
+        // @ts-ignore
         adapter.log.debug(`Renew Onedrive Refresh-Token in ${30 - diffDays} days`);
     }
 }
@@ -1912,15 +1931,15 @@ async function main(adapter) {
     readLogFile();
 
     if (!fs.existsSync(path.join(tools.getIobDir(), 'backups'))) createBackupDir();
-    if (fs.existsSync(bashDir + '/.redis.info')) deleteHideFiles();
+    if (fs.existsSync(`${bashDir}/.redis.info`)) deleteHideFiles();
     if (fs.existsSync(path.join(tools.getIobDir(), 'backups/tmp'))) delTmp();
     clearBashDir();
 
     timerMain = setTimeout(function () {
-        if (fs.existsSync(bashDir + '/.mount')) {
+        if (fs.existsSync(`${bashDir}/.mount`)) {
             umount();
         }
-        if (adapter.config.startAllRestore && !fs.existsSync(bashDir + '/.startAll')) {
+        if (adapter.config.startAllRestore && !fs.existsSync(`${bashDir}/.startAll`)) {
             setStartAll();
         }
     }, 10000);
@@ -1945,6 +1964,7 @@ async function main(adapter) {
     adapter.subscribeStates('oneClick.*');
 }
 // If started as allInOne/compact mode => return function to create instance
+// @ts-ignore
 if (module && module.parent) {
     module.exports = startAdapter;
 } else {

@@ -26,6 +26,7 @@ export default [
             'jsdoc/require-jsdoc': 'off',
             'jsdoc/require-param': 'off',
             '@/no-duplicate-imports': 'error',
+            'react/react-in-jsx-scope': 'off',
         },
     },
     {

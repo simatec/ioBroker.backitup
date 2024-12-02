@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import PropTypes from 'prop-types';
 import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
