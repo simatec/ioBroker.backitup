@@ -35,9 +35,6 @@ export default [
         // as this improves maintainability. jsdoc warnings will not block buiuld process.
         rules: {
             'jsdoc/require-jsdoc': 'off',
-            'jsdoc/require-param': 'off',
-            '@typescript-eslint/ban-ts-comment': 'off',
-            '@typescript-eslint/no-require-imports': 'off',
             'no-async-promise-executor': 'off',
             'prettier/prettier': 'off',
             '@typescript-eslint/no-unused-vars': 'off',
@@ -45,10 +42,13 @@ export default [
             'curly': 'off',
             'jsdoc/require-returns-description': 'off',
             'no-else-return': 'off',
-            'jsdoc/no-types': 'off',
             'no-case-declarations': 'off',
-            'jsdoc/tag-lines': 'off',
             'no-useless-escape': 'off',
+            //'jsdoc/require-param': 'off',
+            //'@typescript-eslint/ban-ts-comment': 'off',
+            //'@typescript-eslint/no-require-imports': 'off',
+            //'jsdoc/no-types': 'off',
+            //'jsdoc/tag-lines': 'off',
         },
     },
 ];

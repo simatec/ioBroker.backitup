@@ -33,14 +33,15 @@ const backupConfig = {};
 const backupTimeSchedules = [];     // Array for Backup Times
 let taskRunning = false;
 
-// @ts-ignore
+
 const bashDir = path.join(utils.getAbsoluteDefaultDataDir(), adapterName).replace(/\\/g, '/');
 
 /**
  * Decrypt the password/value with given key
- * @param {string} key - Secret key
- * @param {string} value - value to decrypt
- * @returns {string}
+ *
+ * @param key - Secret key
+ * @param value - value to decrypt
+ * @returns
  */
 function decrypt(key, value) {
     let result = '';
@@ -266,7 +267,7 @@ function startAdapter(options) {
                             res => obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback),
                         );
                     } else if (obj.callback) {
-                        // @ts-ignore
+
                         obj.callback({ error: 'Invalid parameters' });
                     }
                     break;
@@ -293,7 +294,7 @@ function startAdapter(options) {
                             adapter.sendTo(obj.from, obj.command, { e }, obj.callback);
                         }
                     } else if (obj.callback) {
-                        // @ts-ignore
+
                         obj.callback({ error: 'Invalid parameters' });
                     }
                     break;
@@ -340,7 +341,7 @@ function startAdapter(options) {
                             }
                         }
                     } else if (obj.callback) {
-                        // @ts-ignore
+
                         obj.callback({ error: 'Invalid parameters' });
                     }
                     break;
@@ -353,7 +354,7 @@ function startAdapter(options) {
                         adapter.log.debug('Upload finished...');
                         adapter.sendTo(obj.from, obj.command, { serverClose: true }, obj.callback);
                     } else if (obj.callback) {
-                        // @ts-ignore
+
                         obj.callback({ error: 'Invalid parameters' });
                     }
                     break;
@@ -381,7 +382,7 @@ function startAdapter(options) {
                         let dbInfo = false;
 
                         if (fs.existsSync('/opt/scripts/.docker_config/.thisisdocker')) { // Docker Image Support >= 5.2.0
-                            // @ts-ignore
+
                             systemInfo = 'docker';
 
                             if (fs.existsSync('/opt/scripts/.docker_config/.backitup')) {
@@ -391,7 +392,7 @@ function startAdapter(options) {
                             const isWin = process.platform.startsWith('win');
 
                             if (isWin) {
-                                // @ts-ignore
+
                                 systemInfo = 'win';
                             }
                         }
@@ -1510,7 +1511,7 @@ function detectLatestBackupFile(adapter) {
                                 .forEach(f => {
                                     filenumbers++;
                                     const date = getName(f.name, filenumbers, storage);
-                                    // @ts-ignore
+
                                     if (!file || file.date < date) {
                                         file = f;
                                         file.date = date;
@@ -1529,17 +1530,17 @@ function detectLatestBackupFile(adapter) {
 
 
         // find the newest file between storages
-        // @ts-ignore
+
         Promise.all(promises)
             .then(results => {
                 results = results.filter(f => f);
                 let file;
                 if (results.length) {
                     results.sort((a, b) => {
-                        // @ts-ignore
+
                         if (a.date > b.date) {
                             return 1;
-                            // @ts-ignore
+
                         } else if (a.date < b.date) {
                             return -1;
                         } else {
@@ -1547,10 +1548,10 @@ function detectLatestBackupFile(adapter) {
                         }
                     });
                     file = results[0];
-                    // @ts-ignore
+
                     if (file.date !== undefined) {
                         try {
-                            // @ts-ignore
+
                             file.date = file.date.toISOString();
                         } catch (e) {
                             adapter.log.warn(`No backup file date was found: ${e}`);
@@ -1561,14 +1562,14 @@ function detectLatestBackupFile(adapter) {
                 }
                 // this information will be used by admin at the first start if some backup was detected and we can restore from it instead of new configuration
                 adapter.setState('info.latestBackup', file ? JSON.stringify(file) : '', true);
-                // @ts-ignore
+
                 adapter.log.debug(file ? `detect last backup file: ${file.name}` : 'No backup file was found');
 
-                // @ts-ignore
+
                 results = null;
             });
         promises = null;
-        // @ts-ignore
+
         stores = null;
 
     } catch (e) {
@@ -1899,11 +1900,11 @@ async function renewOnedriveToken() {
     if (adapter.config.onedriveLastTokenRenew != '') {
         const lastRenew = new Date(adapter.config.onedriveLastTokenRenew);
 
-        // @ts-ignore
+
         diffDays = parseInt((currentDay - lastRenew) / (1000 * 60 * 60 * 24)); //day difference
     }
 
-    // @ts-ignore
+
     if (diffDays >= 30 || adapter.config.onedriveLastTokenRenew == '') {
         adapter.log.debug('Renew Onedrive Refresh-Token');
 
@@ -1921,7 +1922,7 @@ async function renewOnedriveToken() {
                 adapter.registerNotification('backitup', 'onedriveWarn', err ? JSON.stringify(err) : 'An update of the Onedrive refresh token has failed. Please check your system!');
             });
     } else {
-        // @ts-ignore
+
         adapter.log.debug(`Renew Onedrive Refresh-Token in ${30 - diffDays} days`);
     }
 }
@@ -1964,7 +1965,6 @@ async function main(adapter) {
     adapter.subscribeStates('oneClick.*');
 }
 // If started as allInOne/compact mode => return function to create instance
-// @ts-ignore
 if (module && module.parent) {
     module.exports = startAdapter;
 } else {
