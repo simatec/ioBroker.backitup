@@ -11,11 +11,11 @@
         "@craco/craco": "^7.1.0",
         "@emotion/styled": "^11.13.5",
         "@emotion/react": "^11.13.5",
-        "@iobroker/adapter-react-v5": "^7.4.2",
-        "@iobroker/json-config": "^7.4.2",
-        "@mui/icons-material": "^6.1.8",
-        "@mui/material": "^6.1.8",
-        "@mui/x-date-pickers": "^7.22.3",
+        "@iobroker/adapter-react-v5": "^7.4.4",
+        "@iobroker/json-config": "^7.4.4",
+        "@mui/icons-material": "^6.1.10",
+        "@mui/material": "^6.1.10",
+        "@mui/x-date-pickers": "^7.23.1",
         "@originjs/vite-plugin-federation": "^1.3.6",
         "@rollup/plugin-babel": "^6.0.4",
         "@rollup/plugin-commonjs": "^28.0.1",
@@ -27,12 +27,12 @@
         "craco-module-federation": "^1.1.0",
         "file-saver": "^2.0.5",
         "prop-types": "^15.8.1",
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
-        "react-refresh": "^0.14.2",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-refresh": "^0.16.0",
         "react-scripts": "^5.0.1",
         "react-qr-code": "^2.0.15",
-        "react-icons": "^5.3.0"
+        "react-icons": "^5.4.0"
     },
     "browserslist": {
         "production": [
