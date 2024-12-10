@@ -81,8 +81,9 @@
     "@iobroker/testing": "^5.0.0",
     "@iobroker/types": "^7.0.6",
     "@iobroker/vis-2-widgets-react-dev": "^4.0.4",
-    "@types/tar-fs": "^2.0.4",
+    "@types/fs-extra": "^11.0.4",
     "@types/ftp": "^0.3.36",
+    "@types/tar-fs": "^2.0.4",
     "chai": "^4.5.0",
     "mocha": "^11.0.1",
     "typescript": "^5.7.2"
