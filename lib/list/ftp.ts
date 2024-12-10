@@ -5,12 +5,11 @@ import type { BackItUpConfigStorage, BackItUpConfigStorageFtp, BackItUpWhatToSav
 
 export async function list(options: BackItUpStorageEngineOptions): Promise<BackItUpStorageEngineResult | null> {
     const config: BackItUpConfigStorageFtp = options.config as BackItUpConfigStorageFtp;
-    const ftpDir = config.dir || '/';
 
     if (config.host && (!options.restoreSource || options.restoreSource === 'ftp')) {
         const Client = await import('ftp');
 
-        let dir = ftpDir.replace(/\\/g, '/');
+        let dir = (config.dir || '/').replace(/\\/g, '/');
 
         if (config.ownDir) {
             dir = (config.dirMinimal || '').replace(/\\/g, '/');

@@ -1,6 +1,6 @@
 import type { BackItUpStorage, BackItUpConfigStorage, BackItUpWhatToSave } from '../types';
 
-export type BackItUpStorageEngineResultFile = { path: string; name: string; size: number };
+export type BackItUpStorageEngineResultFile = { path: string; name: string; size: number; id?: string };
 
 export type BackItUpStorageEngineResult = {
     iobroker?: BackItUpStorageEngineResultFile[];
