@@ -55,7 +55,7 @@
   "dependencies": {
     "@googleapis/drive": "^8.14.0",
     "@iobroker/adapter-core": "^3.2.2",
-    "axios": "^1.7.8",
+    "axios": "^1.7.9",
     "cors": "^2.8.5",
     "cron-parser": "^4.9.0",
     "dropbox-v2-api": "^2.5.11",
