@@ -1504,7 +1504,8 @@ async function main(adapter) {
         if (obj && obj.common && obj.common.language) {
             systemLang = obj.common.language;
         }
-        initConfig(obj?.native?.secret || 'Zgfr56gFe87jJOM');
+        //initConfig(obj?.native?.secret || 'Zgfr56gFe87jJOM');
+        initConfig(adapter);
 
         checkStates();
 
