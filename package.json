@@ -59,7 +59,7 @@
     "cors": "^2.8.5",
     "cron-parser": "^4.9.0",
     "dropbox-v2-api": "^2.5.11",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "fs-extra": "^11.2.0",
     "ftp": "^0.3.10",
     "google-auth-library": "^9.15.0",
