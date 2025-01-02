@@ -30,7 +30,7 @@ let http;
 let https;
 
 let systemLang = 'de'; // system language
-const backupConfig = {};
+let backupConfig = {};
 const backupTimeSchedules = []; // Array for Backup Times
 let taskRunning = false;
 
@@ -65,7 +65,7 @@ function startAdapter(options) {
 
                 const type = id.split('.').pop();
 
-                if ((sysCheck && sysCheck.ready && sysCheck.ready === true) || adapter.config.cifsEnabled === true) {
+                if (sysCheck?.ready === true || adapter.config.cifsEnabled === true) {
                     let config;
                     try {
                         config = JSON.parse(JSON.stringify(backupConfig[type]));
@@ -1500,22 +1500,26 @@ async function main(adapter) {
         }
     }, 10000);
 
-    adapter.getForeignObject('system.config', (err, obj) => {
-        if (obj && obj.common && obj.common.language) {
-            systemLang = obj.common.language;
-        }
-        //initConfig(obj?.native?.secret || 'Zgfr56gFe87jJOM');
-        initConfig(adapter);
-
-        checkStates();
-
-        if (adapter.config.hostType !== 'Slave') {
-            createBackupSchedule();
-            nextBackup(true, null);
-
-            detectLatestBackupFile(adapter);
-        }
+    const systemConfig = await adapter.getForeignObjectAsync('system.config');
+    if (systemConfig?.common?.language) {
+        systemLang = systemConfig.common.language;
+    }
+    backupConfig = initConfig({
+        config: adapter.config,
+        systemLang,
+        bashDir,
+        secret: systemConfig?.native?.secret || 'Zgfr56gFe87jJOM',
+        log: adapter.log,
     });
+
+    await checkStates();
+
+    if (adapter.config.hostType !== 'Slave') {
+        createBackupSchedule();
+        await nextBackup(true, null);
+
+        detectLatestBackupFile(adapter);
+    }
 
     // subscribe on all variables of this adapter instance with pattern "adapterName.X.memory*"
     adapter.subscribeStates('oneClick.*');

@@ -386,7 +386,7 @@ export interface BackItUpConfigComplexCreator extends BackItUpConfigSimpleCreato
     ownCron: boolean;
     debugging: boolean;
     everyXDays: number;
-    deleteBackupAfter: number; // delete old backupfiles after x days
+    deleteBackupAfter: number; // delete old backup files after x days
 
     historyHTML: BackItUpConfigMessageSimple;
     historyJSON: BackItUpConfigMessageSimple;
@@ -442,7 +442,7 @@ export interface BackItUpConfigComplexCreatorCCU extends BackItUpConfigComplexCr
 }
 
 export interface BackItUpConfigInternal {
-    iobroker: BackItUpConfigComplexCreator;
+    iobroker: BackItUpConfigComplexCreatorIoBroker;
     ccu: BackItUpConfigComplexCreatorCCU;
 }
 
@@ -741,4 +741,15 @@ export interface BackItUpAdapterOptions {
     zigbee2mqttEnabled: boolean;
     zigbee2mqttPath: string;
     zigbeeEnabled: boolean;
+}
+
+export type BackItUpExecuteContext = {
+    fileNames: string[];
+    errors: Record<string, string>;
+    done: boolean[];
+    types: string[];
+};
+
+export interface BackItUpLog {
+
 }

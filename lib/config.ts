@@ -45,6 +45,13 @@ export function decrypt(secret: string, value: string): string {
     return result;
 }
 
+function takeBoolean(value: boolean | string): boolean {
+    if (value === 'true') {
+        return true;
+    }
+    return value === true;
+}
+
 /**
  * Decode passwords in complex structures
  *
@@ -366,13 +373,13 @@ export function initConfig(options: {
         source: 'cifs',
         mount: options.config.cifsMount,
         advancedDelete: options.config.advancedDelete,
-        debugging: options.config.debugLevel,
+        debugging: takeBoolean(options.config.debugLevel),
         fileDir: options.bashDir,
-        wakeOnLAN: options.config.wakeOnLAN,
+        wakeOnLAN: takeBoolean(options.config.wakeOnLAN),
         macAd: options.config.macAd,
         wolTime: options.config.wolWait,
         wolPort: options.config.wolPort || 9,
-        wolExtra: options.config.wolExtra,
+        wolExtra: takeBoolean(options.config.wolExtra),
         smb: options.config.smbType,
         sudo: options.config.sudoMount,
         cifsDomain: options.config.cifsDomain,
