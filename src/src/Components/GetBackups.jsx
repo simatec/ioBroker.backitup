@@ -48,9 +48,11 @@ import yahkaIcon from '../assets/yahka.png';
 function parseSize(bytes) {
     if (bytes > 1024 * 1024 * 512) {
         return `${Math.round((bytes / (1024 * 1024 * 1024)) * 10) / 10}${I18n.t('GiB')}`;
-    } if (bytes > 1024 * 1024) {
+    }
+    if (bytes > 1024 * 1024) {
         return `${Math.round((bytes / (1024 * 1024)) * 10) / 10}${I18n.t('MiB')}`;
-    } if (bytes > 1024) {
+    }
+    if (bytes > 1024) {
         return `${Math.round((bytes / (1024)) * 10) / 10}${I18n.t('KiB')}`;
     }
     return `${bytes} ${I18n.t('bytes')}`;

@@ -3,26 +3,24 @@
     "version": "3.0.31",
     "private": true,
     "dependencies": {
-        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-        "@emotion/react": "^11.13.5",
-        "@emotion/styled": "^11.13.5",
-        "@iobroker/adapter-react-v5": "^7.4.2",
-        "@iobroker/json-config": "^7.4.2",
-        "@mui/icons-material": "^6.1.8",
-        "@mui/material": "^6.1.8",
-        "@sentry/browser": "^8.41.0",
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.0",
+        "@iobroker/adapter-react-v5": "^7.4.10",
+        "@iobroker/json-config": "^7.4.10",
+        "@mui/icons-material": "^6.3.0",
+        "@mui/material": "^6.3.0",
+        "@sentry/browser": "^8.47.0",
+        "@vitejs/plugin-react": "^4.3.4",
         "file-saver": "^2.0.5",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "react-dropzone": "^14.3.5",
-        "react-icons": "^5.3.0",
-        "react-qr-code": "^2.0.15",
-        "react-scripts": "^5.0.1"
+        "react-icons": "^5.4.0"
     },
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "lint": "eslint --fix --ext .js,.jsx src"
+        "start": "vite",
+        "build": "vite build",
+        "lint": "eslint -c eslint.config.mjs"
     },
     "eslintConfig": {
         "extends": "react-app"

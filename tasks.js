@@ -3,7 +3,6 @@
  * Date: 2023-02-22
  */
 const fs = require('node:fs');
-const gulpHelper = require('@iobroker/vis-2-widgets-react-dev/gulpHelper');
 const { deleteFoldersRecursive, buildReact, copyFiles, npmInstall } = require('@iobroker/build-tools');
 
 function sync2files(src, dst) {
@@ -28,7 +27,7 @@ function sync() {
 
 function buildAdmin() {
     sync();
-    return gulpHelper.buildWidgets(__dirname, `${__dirname}/src-admin/`);
+    return buildReact(`${__dirname}/src-admin/`, { craco: true, rootDir: `${__dirname}/src-admin/` });
 }
 
 function cleanAdmin() {
@@ -115,7 +114,7 @@ if (process.argv.includes('--admin-0-clean')) {
             .catch(e => console.error(e));
     }
 } else if (process.argv.includes('--2-build')) {
-    buildReact(`${__dirname}/src/`, { rootDir: __dirname })
+    buildReact(`${__dirname}/src/`, { rootDir: __dirname, vite: true })
         .catch(e => console.error(e));
 } else if (process.argv.includes('--3-copy')) {
     copyAllFiles();
@@ -130,7 +129,7 @@ if (process.argv.includes('--admin-0-clean')) {
     } else {
         installPromise = Promise.resolve();
     }
-    installPromise.then(() => buildReact(`${__dirname}/src/`, { rootDir: __dirname }))
+    installPromise.then(() => buildReact(`${__dirname}/src/`, { rootDir: __dirname, vite: true }))
         .then(() => copyAllFiles())
         .then(() => patchFiles())
         .catch(e => console.error(e));
@@ -145,7 +144,7 @@ if (process.argv.includes('--admin-0-clean')) {
                 return npmInstall(`${__dirname}/src/`);
             }
         })
-        .then(() => buildReact(`${__dirname}/src/`, { rootDir: __dirname }))
+        .then(() => buildReact(`${__dirname}/src/`, { rootDir: `${__dirname}/src/`, vite: true }))
         .then(() => copyAllFiles())
         .then(() => patchFiles())
         .catch(e => console.error(e));
