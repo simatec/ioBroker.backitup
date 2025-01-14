@@ -67,7 +67,7 @@
     "node-schedule": "^2.1.1",
     "node-wol": "^0.1.1",
     "onedrive-api": "^1.1.1",
-    "tar-fs": "^3.0.6",
+    "tar-fs": "^3.0.8",
     "webdav": "^5.7.1"
   },
   "devDependencies": {
@@ -76,7 +76,7 @@
     "@alcalzone/release-script-plugin-license": "^3.7.0",
     "@alcalzone/release-script-plugin-manual-review": "^3.7.0",
     "@iobroker/adapter-dev": "^1.3.0",
-    "@iobroker/build-tools": "^2.0.13",
+    "@iobroker/build-tools": "^2.0.14",
     "@iobroker/eslint-config": "^1.0.0",
     "@iobroker/testing": "^5.0.0",
     "@iobroker/types": "^7.0.6",
@@ -85,7 +85,7 @@
     "@types/tar-fs": "^2.0.4",
     "chai": "^4.5.0",
     "mocha": "^11.0.1",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   },
   "main": "main.js",
   "files": [
