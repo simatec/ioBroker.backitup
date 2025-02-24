@@ -164,12 +164,12 @@
     },
     "dependencies": [
       {
-        "js-controller": ">=5.0.19"
+        "js-controller": ">=6.0.11"
       }
     ],
     "globalDependencies": [
       {
-        "admin": ">=7.2.6"
+        "admin": ">=7.4.10"
       }
     ],
     "adminUI": {
