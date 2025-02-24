@@ -61,7 +61,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.0.32 (2025-02-24)
 * (simatec) Error handling for GoogleDrive fix
 * (simatec) globalDependencies updated
 * (simatec) Dependencies updated
