@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.32",
+    "version": "3.0.33",
     "news": {
+      "3.0.33": {
+        "en": "Fix cronjob\nFix Backup Console",
+        "de": "Fix Cronjob\nBackup Console",
+        "ru": "Исправь кронджоб\nИсправить Backup Console",
+        "pt": "Fixar cronjob\nConsola de backup",
+        "nl": "Cronjob herstellen\nReservekopieconsole herstellen",
+        "fr": "Réparez cronjob\nCorrection de la console de sauvegarde",
+        "it": "Fisso cronjob\nConsole di Backup",
+        "es": "Cronjob fijo\nConsola de respaldo fija",
+        "pl": "Napraw cronjob\nNapraw konsolę kopii zapasowej",
+        "uk": "Фіксація cronjob\nВиправлення консолі резервного копіювання",
+        "zh-cn": "修补工作\n修复备份控制台"
+      },
       "3.0.32": {
         "en": "Error handling for GoogleDrive fix\nglobalDependencies updated\nDependencies updated\nDesign Fix",
         "de": "Fehlerbehandlung für GoogleDrive fix\nweltweit Ausgaben aktualisiert\nAusgaben aktualisiert\nDesign Fix",
@@ -80,19 +93,6 @@
         "pl": "zaktualizowane zależności\nPopraw projekt",
         "uk": "оновлені залежності\nФіксація дизайну",
         "zh-cn": "更新依赖关系\n设计"
-      },
-      "3.0.26": {
-        "en": "Fix FTP Connections\ndependencies updated\nIssue Workflow added",
-        "de": "FTP Verbindungen\naktualisierte abhängigkeiten\nAusgabe Workflow hinzugefügt",
-        "ru": "FTP Соединения\nобновленная информация о зависимостях\nДобавлен рабочий процесс",
-        "pt": "Corrigir FTP Conexões\ndependências atualizadas\nFluxo de trabalho adicionado",
-        "nl": "FTP herstellen Verbindingen\nafhankelijkheden bijgewerkt\nWerkstroom toegevoegd",
-        "fr": "Correction FTP Connexions\ndépendances mises à jour\nEnjeu Flux de travail ajouté",
-        "it": "Riparare FTP Collegamenti\ndipendenze aggiornate\nEmissione Flusso di lavoro aggiunto",
-        "es": "Fijar FTP Conexión\ndependencias actualizadas\nNúmero de flujo de trabajo añadido",
-        "pl": "Napraw FTP Połączenia\nzaktualizowane zależności\nDodany przepływ pracy",
-        "uk": "Фіксація FTP Підключення\nоновлені залежності\nДодана дата роботи",
-        "zh-cn": "修复 FTP 连接\n更新依赖关系\n增加的工作流程"
       }
     },
     "titleLang": {
