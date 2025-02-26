@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.35",
+    "version": "3.0.36",
     "news": {
+      "3.0.36": {
+        "en": "Fix src-admin",
+        "de": "Fix src-admin",
+        "ru": "Исправить src-admin",
+        "pt": "Fix src-admin",
+        "nl": "Src-admin repareren",
+        "fr": "Réparez src-admin",
+        "it": "Fissare src-admin",
+        "es": "Fijar src-admin",
+        "pl": "Napraw src- admin",
+        "uk": "Виправлення src-адміністрування",
+        "zh-cn": "修补 src-admin 中"
+      },
       "3.0.35": {
         "en": "Fix src-admin",
         "de": "Fix src-admin",
@@ -69,19 +82,6 @@
         "zh-cn": "修正标签菜单"
       },
       "3.0.30": {
-        "en": "Fix Tab Menu",
-        "de": "Registerkarte Menü",
-        "ru": "Fix Tab Menu",
-        "pt": "Corrigir menu de separador",
-        "nl": "Tab-menu herstellen",
-        "fr": "Correction du menu de l'onglet",
-        "it": "Fissare il menu della scheda",
-        "es": "Menú de pestaña fija",
-        "pl": "Napraw menu Tab",
-        "uk": "Виправлення меню вкладок",
-        "zh-cn": "修正标签菜单"
-      },
-      "3.0.29": {
         "en": "Fix Tab Menu",
         "de": "Registerkarte Menü",
         "ru": "Fix Tab Menu",
