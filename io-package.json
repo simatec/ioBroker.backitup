@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.33",
+    "version": "3.0.34",
     "news": {
+      "3.0.34": {
+        "en": "Fix src-admin",
+        "de": "Fix src-admin",
+        "ru": "Исправить src-admin",
+        "pt": "Fix src-admin",
+        "nl": "Src-admin repareren",
+        "fr": "Réparez src-admin",
+        "it": "Fissare src-admin",
+        "es": "Fijar src-admin",
+        "pl": "Napraw src- admin",
+        "uk": "Виправлення src-адміністрування",
+        "zh-cn": "修补 src-admin 中"
+      },
       "3.0.33": {
         "en": "Fix cronjob\nFix Backup Console",
         "de": "Fix Cronjob\nBackup Console",
@@ -80,19 +93,6 @@
         "pl": "Aktualizacja zależności\neslint- config dodany\nPozwolić na przechowywanie plików do ok. 3 lat\nAktualizacja programu Grafana Docu",
         "uk": "Залежність оновлено\neslint-config додано\nДозвольте зберігати файли до кабіни 3 роки\nGrafana Документ оновлено",
         "zh-cn": "更新的依赖关系\n添加埃斯林特配置\n允许存储文件最多3年\n更新了 Grafana Docu"
-      },
-      "3.0.27": {
-        "en": "dependencies updated\nDesign Fix",
-        "de": "aktualisierte abhängigkeiten\nDesign Fix",
-        "ru": "обновленная информация о зависимостях\nДизайн Fix",
-        "pt": "dependências atualizadas\nCorreção de Design",
-        "nl": "afhankelijkheden bijgewerkt\nOntwerpfix",
-        "fr": "dépendances mises à jour\nCorrection de conception",
-        "it": "dipendenze aggiornate\nDesign Fix",
-        "es": "dependencias actualizadas\nDiseño fijo",
-        "pl": "zaktualizowane zależności\nPopraw projekt",
-        "uk": "оновлені залежності\nФіксація дизайну",
-        "zh-cn": "更新依赖关系\n设计"
       }
     },
     "titleLang": {
