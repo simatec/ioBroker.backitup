@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.34",
+    "version": "3.0.35",
     "news": {
+      "3.0.35": {
+        "en": "Fix src-admin",
+        "de": "Fix src-admin",
+        "ru": "Исправить src-admin",
+        "pt": "Fix src-admin",
+        "nl": "Src-admin repareren",
+        "fr": "Réparez src-admin",
+        "it": "Fissare src-admin",
+        "es": "Fijar src-admin",
+        "pl": "Napraw src- admin",
+        "uk": "Виправлення src-адміністрування",
+        "zh-cn": "修补 src-admin 中"
+      },
       "3.0.34": {
         "en": "Fix src-admin",
         "de": "Fix src-admin",
@@ -80,19 +93,6 @@
         "pl": "Napraw menu Tab",
         "uk": "Виправлення меню вкладок",
         "zh-cn": "修正标签菜单"
-      },
-      "3.0.28": {
-        "en": "Dependencies updated\neslint-config added\nAllow to store files for up to ca 3 years\nGrafana Docu updated",
-        "de": "Ausgaben aktualisiert\neslint-config hinzugefügt\nLassen Sie Dateien für bis zu ca 3 Jahre speichern\nGrafana Docu aktualisiert",
-        "ru": "Обновленные данные о зависимостях\nдобавлена eslint-config\nПозволить хранить файлы на срок до 3 лет\nGrafana Docu",
-        "pt": "Dependências atualizadas\neslint-config adicionado\nPermitir armazenar arquivos para até ca 3 anos\nGrafana Docu Atualizado",
-        "nl": "Afhankelijkheden bijgewerkt\neslint-config toegevoegd\nSta toe om bestanden tot ca 3 jaar op te slaan\nGrafana Docu bijgewerkt",
-        "fr": "Dépendances actualisées\neslint-config ajouté\nPermettre de stocker des fichiers jusqu'à 3 ans\nGrafana Docu mis à jour",
-        "it": "Dipendenze aggiornate\neslint-config aggiunto\nConsentire di memorizzare i file fino a ca 3 anni\nGrafana Docu aggiornato",
-        "es": "Actualización de las dependencias\neslint-config añadido\nPermitir almacenar archivos por hasta ca 3 años\nGrafana Docu actualizado",
-        "pl": "Aktualizacja zależności\neslint- config dodany\nPozwolić na przechowywanie plików do ok. 3 lat\nAktualizacja programu Grafana Docu",
-        "uk": "Залежність оновлено\neslint-config додано\nДозвольте зберігати файли до кабіни 3 роки\nGrafana Документ оновлено",
-        "zh-cn": "更新的依赖关系\n添加埃斯林特配置\n允许存储文件最多3年\n更新了 Grafana Docu"
       }
     },
     "titleLang": {
