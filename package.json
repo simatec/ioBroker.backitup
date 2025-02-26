@@ -87,6 +87,8 @@
   "main": "main.js",
   "files": [
     "admin/",
+    "admin/custom/",
+    "admin/custom/**",
     "!admin/**/*.map",
     "admin{,/!(i18n)/**}/flat.txt",
     "docs/",
