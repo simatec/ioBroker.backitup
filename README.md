@@ -61,7 +61,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.0.37 (2025-02-28)
 * (simatec) Fix CronJob
 
 ### 3.0.36 (2025-02-26)

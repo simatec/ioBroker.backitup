@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.36",
+    "version": "3.0.37",
     "news": {
+      "3.0.37": {
+        "en": "Fix CronJob",
+        "de": "Fix CronJob",
+        "ru": "Исправить CronJob",
+        "pt": "Corrigir CronJob",
+        "nl": "CronJob repareren",
+        "fr": "Réparez CronJob",
+        "it": "Fissare CronJob",
+        "es": "Fix CronJob",
+        "pl": "Napraw CronJob",
+        "uk": "Фіксація CronJob",
+        "zh-cn": "修复 CronJob"
+      },
       "3.0.36": {
         "en": "Fix src-admin",
         "de": "Fix src-admin",
@@ -69,19 +82,6 @@
         "zh-cn": "GoogleDrive 修正处理错误\n全球 更新的依赖关系\n更新的依赖关系\n设计"
       },
       "3.0.31": {
-        "en": "Fix Tab Menu",
-        "de": "Registerkarte Menü",
-        "ru": "Fix Tab Menu",
-        "pt": "Corrigir menu de separador",
-        "nl": "Tab-menu herstellen",
-        "fr": "Correction du menu de l'onglet",
-        "it": "Fissare il menu della scheda",
-        "es": "Menú de pestaña fija",
-        "pl": "Napraw menu Tab",
-        "uk": "Виправлення меню вкладок",
-        "zh-cn": "修正标签菜单"
-      },
-      "3.0.30": {
         "en": "Fix Tab Menu",
         "de": "Registerkarte Menü",
         "ru": "Fix Tab Menu",
