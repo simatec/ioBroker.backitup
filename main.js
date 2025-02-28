@@ -1585,7 +1585,11 @@ async function nextBackup(setMain, type) {
         const cron = adapter.config.ccuCron ? time : `00 ${time[1]} ${time[0]} */${adapter.config.ccuEveryXDays} * *`;
 
         try {
-            const interval = CronExpressionParser.parse(cron);
+            const cronOptions = {
+                currentDate: new Date()
+            };
+
+            const interval = CronExpressionParser.parse(cron, cronOptions);
             const nextScheduledDate = interval.next();
 
             await adapter.setStateAsync(`info.ccuNextTime`, tools.getNextTimeString(systemLang, nextScheduledDate), true);
@@ -1601,7 +1605,11 @@ async function nextBackup(setMain, type) {
         const cron = adapter.config.iobrokerCron ? time : `00 ${time[1]} ${time[0]} */${adapter.config.minimalEveryXDays} * *`;
 
         try {
-            const interval = CronExpressionParser.parse(cron);
+            const cronOptions = {
+                currentDate: new Date()
+            };
+
+            const interval = CronExpressionParser.parse(cron, cronOptions);
             const nextScheduledDate = interval.next();
 
             await adapter.setStateAsync(`info.iobrokerNextTime`, tools.getNextTimeString(systemLang, nextScheduledDate), true);
