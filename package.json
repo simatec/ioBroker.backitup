@@ -80,7 +80,7 @@
     "@iobroker/eslint-config": "^1.0.0",
     "@iobroker/testing": "^5.0.3",
     "@iobroker/vis-2-widgets-react-dev": "^4.0.4",
-    "chai": "^4.5.0",
+    "chai": "^5.2.0",
     "mocha": "^11.1.0",
     "typescript": "^5.7.3"
   },
