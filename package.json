@@ -53,7 +53,7 @@
     "url": "https://github.com/simatec/ioBroker.backitup"
   },
   "dependencies": {
-    "@googleapis/drive": "^8.14.0",
+    "@googleapis/drive": "^8.16.0",
     "@iobroker/adapter-core": "^3.2.3",
     "axios": "^1.7.9",
     "cors": "^2.8.5",
