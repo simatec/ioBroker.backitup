@@ -14,7 +14,11 @@
       "type": "header",
       "size": 2,
       "text": "ioBroker backup",
+      "xs": 12,
       "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     },
     "backupNow": {
       "type": "custom",
@@ -30,6 +34,7 @@
       "sm": 9,
       "md": 6,
       "lg": 6,
+      "xl": 6
     },
     "_helpLine1": {
       "newLine": true,
@@ -49,7 +54,8 @@
       "xs": 12,
       "sm": 9,
       "md": 6,
-      "lg": 3
+      "lg": 3,
+      "xl": 3
     },
     "iobrokerCronJob": {
       "hidden": "!data.iobrokerCron",
@@ -60,7 +66,8 @@
       "xs": 12,
       "sm": 9,
       "md": 6,
-      "lg": 3
+      "lg": 3,
+      "xl": 3
     },
     "minimalEveryXDays": {
       "hidden": "data.iobrokerCron",
@@ -69,6 +76,7 @@
       "sm": 9,
       "md": 6,
       "lg": 3,
+      "xl": 3,
       "min": 1,
       "max": 100,
       "type": "number",
@@ -80,6 +88,7 @@
       "sm": 9,
       "md": 6,
       "lg": 3,
+      "xl": 3,
       "min": 1,
       "max": 100,
       "type": "number",
@@ -91,6 +100,7 @@
       "sm": 9,
       "md": 6,
       "lg": 3,
+      "xl": 3,
       "type": "text",
       "label": "Name suffix",
       "help": "Name suffix for the file name of the backup"
@@ -102,7 +112,8 @@
       "xs": 12,
       "sm": 9,
       "md": 6,
-      "lg": 3
+      "lg": 3,
+      "xl": 3
     },
   }
 }

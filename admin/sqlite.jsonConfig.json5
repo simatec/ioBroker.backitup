@@ -14,7 +14,11 @@
       "type": "header",
       "size": 2,
       "text": "SQLite3 backup",
+      "xs": 12,
       "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     },
     "detectNow": {
       "type": "custom",
@@ -29,6 +33,7 @@
       "sm": 9,
       "md": 6,
       "lg": 6,
+      "xl": 6
     },
     "_helpLine1": {
       "newLine": true,
@@ -40,6 +45,7 @@
       "sm": 12,
       "md": 9,
       "lg": 6,
+      "xl": 6,
       "type": "text",
       "label": "SQLite3 file path",
       "newLine": true
@@ -49,6 +55,7 @@
       "sm": 12,
       "md": 9,
       "lg": 6,
+      "xl": 6,
       "type": "text",
       "label": "Full path",
       "help": "Path with filename to SQLite3 executable (leave empty to use default)",

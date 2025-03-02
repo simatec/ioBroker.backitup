@@ -14,7 +14,11 @@
             "type": "header",
             "size": 2,
             "text": "MySQL Backup",
+            "xs": 12,
             "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xl": 12
         },
         "detectNow": {
             "type": "custom",
@@ -29,7 +33,8 @@
             "xs":12,
             "sm": 9,
             "md": 6,
-            "lg": 6
+            "lg": 6,
+            "xl": 6
         },
         "_helpLine1": {
             "hidden": "data.mySqlMulti",
@@ -43,9 +48,12 @@
             "sm": 9,
             "md": 8,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "MySQL Hostname",
-            "newLine": true
+            "newLine": true,
+            "validator": "data.mySqlHost",
+			"validatorNoSaveOnError": true
         },
         "mySqlPort": {
             "hidden": "data.mySqlMulti",
@@ -53,10 +61,13 @@
             "sm": 9,
             "md": 8,
             "lg": 4,
+            "xl": 4,
             "min": 1,
             "max": 65535,
             "type": "number",
             "label": "MySQL port",
+            "validator": "data.mySqlPort",
+			"validatorNoSaveOnError": true
         },
         "mySqlName": {
             "hidden": "data.mySqlMulti",
@@ -64,8 +75,11 @@
             "sm": 9,
             "md": 8,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "MySQL database name",
+            "validator": "data.mySqlName",
+			"validatorNoSaveOnError": true
         },
         "mySqlUser": {
             "hidden": "data.mySqlMulti",
@@ -73,9 +87,12 @@
             "sm": 9,
             "md": 8,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "MySQL username",
-            "newLine": true
+            "newLine": true,
+            "validator": "data.mySqlUser",
+			"validatorNoSaveOnError": true
         },
         "mySqlPassword": {
             "hidden": "data.mySqlMulti",
@@ -83,9 +100,12 @@
             "sm": 9,
             "md": 8,
             "lg": 4,
+            "xl": 4,
             "type": "password",
             "visible": true,
             "label": "MySQL password",
+            "validator": "data.mySqlPassword",
+			"validatorNoSaveOnError": true
         },
         "mySqlDumpExe": {
             "hidden": "data.mySqlMulti",
@@ -93,6 +113,7 @@
             "sm": 9,
             "md": 8,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "Full path",
             "help": "Path with filename to mysqldump executable (leave empty to use default)",
@@ -104,6 +125,7 @@
             "sm": 9,
             "md": 8,
             "lg": 4,
+            "xl": 4,
             "newLine": true
         },
         "mysqlSingleTransaction": {
@@ -113,6 +135,7 @@
             "sm": 9,
             "md": 8,
             "lg": 4,
+            "xl": 4
         },
         "mySqlMulti": {
             "type": "checkbox",
@@ -121,6 +144,7 @@
             "sm": 9,
             "md": 8,
             "lg": 4,
+            "xl": 4,
             "newLine": true
         },
         "_helpLine2": {
@@ -136,6 +160,7 @@
             "sm": 12,
             "md": 12,
             "lg": 12,
+            "xl": 12,
             "label": "MySQL hosts",
             "hidden": "!data.mySqlMulti",
             "encryptedAttributes": [

@@ -14,7 +14,11 @@
             "type": "header",
             "size": 2,
             "text": "PostgreSQL Backup",
+            "xs": 12,
             "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xl": 12
         },
         "detectNow": {
             "type": "custom",
@@ -29,7 +33,8 @@
             "xs": 12,
             "sm": 9,
             "md": 6,
-            "lg": 6
+            "lg": 6,
+            "xl": 6
         },
         "_helpLine1": {
             "hidden": "data.pgSqlMulti",
@@ -43,9 +48,12 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "PostgreSQL Hostname",
-            "newLine": true
+            "newLine": true,
+            "validator": "data.pgSqlHost",
+			"validatorNoSaveOnError": true
         },
         "pgSqlPort": {
             "hidden": "data.pgSqlMulti",
@@ -53,10 +61,13 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "min": 1,
             "max": 65535,
             "type": "number",
             "label": "PostgreSQL port",
+            "validator": "data.pgSqlPort",
+			"validatorNoSaveOnError": true
         },
         "pgSqlName": {
             "hidden": "data.pgSqlMulti",
@@ -64,8 +75,11 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "PostgreSQL database name",
+            "validator": "data.pgSqlName",
+			"validatorNoSaveOnError": true
         },
         "pgSqlUser": {
             "hidden": "data.pgSqlMulti",
@@ -73,9 +87,12 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "PostgreSQL username",
-            "newLine": true
+            "newLine": true,
+            "validator": "data.pgSqlUser",
+			"validatorNoSaveOnError": true
         },
         "pgSqlPassword": {
             "hidden": "data.pgSqlMulti",
@@ -83,9 +100,12 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "password",
             "visible": true,
             "label": "PostgreSQL password",
+            "validator": "data.pgSqlPassword",
+			"validatorNoSaveOnError": true
         },
         "pgSqlDumpExe": {
             "hidden": "data.pgSqlMulti",
@@ -93,6 +113,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "Full path",
             "help": "Path with filename to postgresql executable (leave empty to use default)",
@@ -104,6 +125,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "newLine": true
         },
         "_helpLine2": {
@@ -119,6 +141,7 @@
             "sm": 12,
             "md": 12,
             "lg": 12,
+            "xl": 12,
             "label": "PostgreSQL hosts",
             "hidden": "!data.pgSqlMulti",
             "encryptedAttributes": [

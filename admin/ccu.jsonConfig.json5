@@ -33,8 +33,8 @@
       "xs": 12,
       "sm": 9,
       "md": 6,
-      "lg": 3,
-      "xl": 3
+      "lg": 6,
+      "xl": 6
     },
     "detectNow": {
       "hidden": "data.ccuMulti",
@@ -49,8 +49,8 @@
       "xs": 12,
       "sm": 9,
       "md": 6,
-      "lg": 3,
-      "xl": 3
+      "lg": 6,
+      "xl": 6
     },
     "_helpLine1": {
       "newLine": true,
