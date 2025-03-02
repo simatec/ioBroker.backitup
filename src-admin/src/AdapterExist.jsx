@@ -29,6 +29,11 @@ class AdapterExist extends BaseField {
                         this.props.onChange({ ...this.props.data, [this.props.attr]: e.target.checked });
                     }}
                 />}
+                sx={{
+                    '& .MuiFormControlLabel-label': {
+                        whiteSpace: 'nowrap',
+                    }
+                }}
                 label={I18n.t(this.props.schema.label || this.props.schema.adapter)}
             />
             {this.renderMessage()}
