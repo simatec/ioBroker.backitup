@@ -14,7 +14,11 @@
             "type": "header",
             "size": 2,
             "text": "NAS / Copy",
+            "xs": 12,
             "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xl": 12,
         },
         "connectType": {
             "type": "select",
@@ -23,6 +27,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "options": [
                 {
                     "label": "CIFS",
@@ -54,10 +59,13 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "host",
             "help": "IP address or hostname",
-            "newLine": true
+            "newLine": true,
+            "validator": "data.cifsMount",
+			"validatorNoSaveOnError": true
         },
         "cifsDomain": {
             "hidden": "data.connectType !== 'NFS' && data.connectType !== 'CIFS'",
@@ -65,6 +73,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "Domain name (optional)"
         },
@@ -76,6 +85,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "noTranslations": true,
             "options": [
                 {
@@ -106,9 +116,12 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "Username",
-            "newLine": true
+            "newLine": true,
+            "validator": "data.cifsUser",
+			"validatorNoSaveOnError": true
         },
         "cifsPassword": {
             "hidden": "data.connectType !== 'CIFS'",
@@ -116,9 +129,12 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "password",
             "visible": true,
-            "label": "Password"
+            "label": "Password",
+            "validator": "data.cifsPassword",
+			"validatorNoSaveOnError": true
         },
         "noserverino": {
             "type": "checkbox",
@@ -127,7 +143,8 @@
             "xs": 12,
             "sm": 6,
             "md": 4,
-            "lg": 2
+            "lg": 2,
+            "xl": 2
         },
         "cacheLoose": {
             "type": "checkbox",
@@ -136,7 +153,8 @@
             "xs": 12,
             "sm": 6,
             "md": 4,
-            "lg": 2
+            "lg": 2,
+            "xl": 2
         },
         "sudoMount": {
             "type": "checkbox",
@@ -146,6 +164,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "newLine": true
         },
         "cifsDeleteOldBackup": {
@@ -154,7 +173,8 @@
             "xs": 12,
             "sm": 9,
             "md": 6,
-            "lg": 4
+            "lg": 4,
+            "xl": 4
         },
         "cifsOwnDir": {
             "hidden": "data.connectType == 'Expert'",
@@ -163,7 +183,8 @@
             "xs": 12,
             "sm": 9,
             "md": 6,
-            "lg": 4
+            "lg": 4,
+            "xl": 4
         },
         "wakeOnLAN": {
             "hidden": "data.connectType == 'Copy'",
@@ -173,6 +194,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "newLine": true
         },
         "macAd": {
@@ -181,6 +203,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "MAC address"
         },
@@ -190,6 +213,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "min": 0,
             "max": 180,
             "type": "number",
@@ -204,6 +228,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "newLine": true
         },
         "wolPort": {
@@ -212,6 +237,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "min": 1,
             "max": 65535,
             "type": "number",
@@ -223,6 +249,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "Path for ioBroker backup",
             "newLine": true
@@ -233,6 +260,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "Path for CCU backup"
         },
@@ -242,6 +270,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "Path",
             "newLine": true
@@ -252,9 +281,12 @@
             "sm": 12,
             "md": 12,
             "lg": 12,
+            "xl": 12,
             "type": "text",
             "label": "Mount command (expert)",
-            "newLine": true
+            "newLine": true,
+            "validator": "data.expertMount",
+			"validatorNoSaveOnError": true
         },
     }
 }

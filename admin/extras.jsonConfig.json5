@@ -14,7 +14,11 @@
             "type": "header",
             "size": 2,
             "text": "Additional setting",
+            "xs": 12,
             "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xl": 12
         },
         "notificationEnabled": {
             "newLine": true,
@@ -25,6 +29,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4
         },
         "restoreTab": {
             "type": "checkbox",
@@ -34,6 +39,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4
         },
         "debugLevel": {
             "type": "checkbox",
@@ -43,6 +49,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4
         },
         "ignoreErrors": {
             "newLine": true,
@@ -53,6 +60,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4
         },
         "advancedDelete": {
             "type": "checkbox",
@@ -61,7 +69,8 @@
             "xs": 12,
             "sm": 9,
             "md": 6,
-            "lg": 4
+            "lg": 4,
+            "xl": 4
         },
         "historyEntriesNumber": {
             "newLine": true,
@@ -69,6 +78,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "min": 1,
             "max": 50,
             "type": "number",
@@ -79,6 +89,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "min": 1,
             "max": 5000,
             "type": "number",
@@ -89,6 +100,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "min": 1,
             "max": 5000,
             "type": "number",
@@ -98,7 +110,11 @@
             "type": "header",
             "size": 2,
             "text": "Multihost settings",
+            "xs": 12,
             "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xl": 12
         },
         "hostType": {
             "type": "select",
@@ -107,6 +123,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "options": [
                 {
                     "label": "Single",
@@ -136,6 +153,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "options": [
             ],
         },
@@ -147,6 +165,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4
         },
         "stopSlaveAfter": {
             "hidden": "data.hostType !== 'Master'",
@@ -157,6 +176,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4
         },
     }
 }

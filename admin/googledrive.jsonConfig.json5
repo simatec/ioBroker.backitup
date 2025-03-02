@@ -14,7 +14,11 @@
       "type": "header",
       "size": 2,
       "text": "Google Drive",
+      "xs": 12,
       "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     },
     "_googleDrive": {
       "newLine": true,
@@ -27,6 +31,7 @@
       "sm": 12,
       "md": 12,
       "lg": 12,
+      "xl": 12
     },
     "googledriveDeleteOldBackup": {
       "type": "checkbox",
@@ -35,6 +40,7 @@
       "sm": 9,
       "md": 6,
       "lg": 4,
+      "xl": 4,
       "newLine": true
     },
     "googledriveOwnDir": {
@@ -44,6 +50,7 @@
       "sm": 9,
       "md": 6,
       "lg": 4,
+      "xl": 4
     },
     "googledriveDeleteAfter": {
       "newLine": true,
@@ -52,6 +59,7 @@
       "sm": 9,
       "md": 6,
       "lg": 4,
+      "xl": 4,
       "min": 1,
       "max": 1000,
       "type": "number",
@@ -64,6 +72,7 @@
       "sm": 9,
       "md": 6,
       "lg": 4,
+      "xl": 4,
       "type": "text",
       "label": "Google Drive Path for ioBroker backup",
       "newLine": true
@@ -74,6 +83,7 @@
       "sm": 9,
       "md": 6,
       "lg": 4,
+      "xl": 4,
       "type": "text",
       "label": "Google Drive Path for CCU backup",
     },
@@ -83,6 +93,7 @@
       "sm": 9,
       "md": 6,
       "lg": 4,
+      "xl": 4,
       "type": "text",
       "label": "Google Drive path",
       "newLine": true

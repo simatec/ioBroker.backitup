@@ -14,7 +14,11 @@
       "type": "header",
       "size": 2,
       "text": "Homematic CCU backup",
+      "xs": 12,
       "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     },
     "backupNow": {
       "type": "custom",
@@ -29,7 +33,8 @@
       "xs": 12,
       "sm": 9,
       "md": 6,
-      "lg": 6
+      "lg": 3,
+      "xl": 3
     },
     "detectNow": {
       "hidden": "data.ccuMulti",
@@ -44,7 +49,8 @@
       "xs": 12,
       "sm": 9,
       "md": 6,
-      "lg": 6
+      "lg": 3,
+      "xl": 3
     },
     "_helpLine1": {
       "newLine": true,
@@ -63,7 +69,8 @@
       "xs": 12,
       "sm": 9,
       "md": 6,
-      "lg": 3
+      "lg": 3,
+      "xl": 3
     },
     "ccuCronJob": {
       "hidden": "!data.ccuCron",
@@ -75,7 +82,8 @@
       "xs": 12,
       "sm": 12,
       "md": 12,
-      "lg": 12
+      "lg": 12,
+      "xl": 12
     },
     "ccuEveryXDays": {
       "newLine": true,
@@ -84,6 +92,7 @@
       "sm": 9,
       "md": 6,
       "lg": 3,
+      "xl": 3,
       "min": 1,
       "max": 100,
       "type": "number",
@@ -95,6 +104,7 @@
       "sm": 9,
       "md": 6,
       "lg": 3,
+      "xl": 3,
       "min": 1,
       "max": 100,
       "type": "number",
@@ -107,6 +117,7 @@
       "sm": 9,
       "md": 6,
       "lg": 3,
+      "xl": 3,
       "type": "text",
       "label": "Name suffix",
       "help": "Name suffix for the file name of the backup"
@@ -118,9 +129,12 @@
       "sm": 9,
       "md": 6,
       "lg": 3,
+      "xl": 3,
       "type": "text",
       "label": "IP address",
-      "help": "IP of the CCU"
+      "help": "IP of the CCU",
+      "validator": "data.ccuHost",
+			"validatorNoSaveOnError": true
     },
     "ccuUser": {
       "hidden": "data.ccuMulti",
@@ -128,9 +142,12 @@
       "sm": 9,
       "md": 6,
       "lg": 3,
+      "xl": 3,
       "type": "text",
       "label": "Username",
-      "help": "Username of the CCU"
+      "help": "Username of the CCU",
+      "validator": "data.ccuUser",
+			"validatorNoSaveOnError": true
     },
     "ccuPassword": {
       "hidden": "data.ccuMulti",
@@ -138,10 +155,13 @@
       "sm": 9,
       "md": 6,
       "lg": 3,
+      "xl": 3,
       "type": "password",
 			"visible": true,
       "label": "Password",
-      "help": "Password of the CCU"
+      "help": "Password of the CCU",
+      "validator": "data.ccuPassword",
+			"validatorNoSaveOnError": true
     },
     "ccuCron": {
       "newLine": true,
@@ -150,7 +170,8 @@
       "xs": 12,
       "sm": 9,
       "md": 6,
-      "lg": 3
+      "lg": 3,
+      "xl": 3
     },
     "ccuUsehttps": {
       "hidden": "data.ccuMulti",
@@ -159,7 +180,8 @@
       "xs": 12,
       "sm": 9,
       "md": 6,
-      "lg": 3
+      "lg": 3,
+      "xl": 3
     },
     "ccuSignedCertificates": {
       "hidden": "data.ccuMulti || !data.ccuUsehttps",
@@ -168,13 +190,18 @@
       "xs": 12,
       "sm": 9,
       "md": 6,
-      "lg": 3
+      "lg": 3,
+      "xl": 3
     },
     "ccuMulti": {
       "newLine": true,
       "type": "checkbox",
       "label": "Backup of several systems",
-      "sm": 12
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     },
     "ccuEvents": {
       "newLine": true,
@@ -183,6 +210,7 @@
       "sm": 12,
       "md": 12,
       "lg": 12,
+      "xl": 12,
       "label": "CCU hosts",
       "hidden": "!data.ccuMulti",
       "encryptedAttributes": ["pass"],
