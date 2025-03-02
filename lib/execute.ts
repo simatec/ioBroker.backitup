@@ -1,43 +1,75 @@
-const path = require('node:path');
-const fs = require('node:fs');
-const tools = require('./tools');
+import {BackItUpConfigComplexCreator, BackItUpConfigComplexCreatorCCU, BackItUpLog} from './types';
+
+import { join } from 'node:path';
+import { existsSync, readdirSync, readFileSync, appendFileSync, writeFileSync, mkdirSync, chmodSync } from 'node:fs';
+import { getIobDir } from './tools';
 
 let timerCleanFiles;
 let tmpLog = '';
 
-function loadScripts(callback) {
-    const scripts = {};
+async function loadScripts(): Promise<{
+    [scriptName: string]: {
+        command:
+            | ((options: any, log: BackItUpLog) => Promise<number>)
+            | ((
+                  options: any,
+                  log: BackItUpLog,
+                  callback: (err: Error | null, errorLog?: string | null, code?: number) => void,
+              ) => void);
+        ignoreErrors?: boolean;
+        isAsync?: boolean;
+        afterBackup?: boolean;
+    };
+}> {
+    const scripts: {
+        [scriptName: string]: {
+            command:
+                | ((options: any, log: BackItUpLog) => Promise<number>)
+                | ((
+                      options: any,
+                      log: BackItUpLog,
+                      callback: (err: Error | null, errorLog?: string | null, code?: number) => void,
+                  ) => void);
+            ignoreErrors?: boolean;
+            isAsync?: boolean;
+            afterBackup?: boolean;
+        };
+    } = {};
     let files;
     try {
-        files = fs.readdirSync(`${__dirname}/scripts`);
-        files.forEach(file => {
+        files = readdirSync(`${__dirname}/scripts`);
+        for (const file of files) {
             if (file.endsWith('.js')) {
-                scripts[file.substring(3, file.length - 3)] = require(`${__dirname}/scripts/${file}`);
+                const name = file.substring(3, file.length - 3);
+                scripts[name] = await import(`${__dirname}/scripts/${file}`);
+                if (existsSync(`${__dirname}/scripts/${file.replace(/\.js$/, '.ts')}`)) {
+                    scripts[name].isAsync = true;
+                }
             }
-        });
+        }
     } catch (e) {
-        callback(`error on backup: ${e} Please run "iobroker fix" and reinstall BackItUp`);
+        throw new Error(`error on backup: ${e} Please run "iobroker fix" and reinstall BackItUp`);
     }
     return scripts;
 }
 
-function writeIntoFile(fileName, text) {
+function writeIntoFile(fileName: string, text: string): void {
     if (text) {
         console.log(text);
         try {
-            fs.appendFileSync(fileName, `${text}\n`);
+            appendFileSync(fileName, `${text}\n`);
         } catch (e) {
             // ignore
         }
     }
 }
 
-function createBackupLog(config, adapter) {
+function createBackupLog(config, adapter: ioBroker.Adapter): void {
     // Create Backup Logs for History
-    const logFile = path.join(config.notification.bashDir, `${adapter.namespace}.log`);
+    const logFile = join(config.notification.bashDir, `${adapter.namespace}.log`);
 
-    if (fs.existsSync(logFile)) {
-        const data = fs.readFileSync(logFile, 'utf8');
+    if (existsSync(logFile)) {
+        const data = readFileSync(logFile, 'utf8');
         const backupLog = JSON.parse(data);
         const timestamp = config.timestamp;
 
@@ -51,31 +83,29 @@ function createBackupLog(config, adapter) {
             backupLog.splice(config.notification.entriesNumber, backupLog.length - config.notification.entriesNumber);
         }
 
-        fs.writeFileSync(logFile, JSON.stringify(backupLog));
+        writeFileSync(logFile, JSON.stringify(backupLog));
         tmpLog = '';
     }
 }
 
-function executeScripts(adapter, config, callback, scripts, code) {
-    if (!scripts) {
-        scripts = loadScripts(callback);
-        config.backupDir = path.join(tools.getIobDir(), 'backups').replace(/\\/g, '/');
-        config.timestamp = new Date().getTime(),
-            config.context = { fileNames: [], errors: {}, done: [], types: [] }; // common variables between scripts
+async function executeScripts(adapter: ioBroker.Adapter, config: BackItUpConfigComplexCreator | BackItUpConfigComplexCreatorCCU): Promise<void> {
+    const scripts = await loadScripts();
+    config.backupDir = join(getIobDir(), 'backups').replace(/\\/g, '/');
+    config.timestamp = new Date().getTime();
+    config.context = { fileNames: [], errors: {}, done: [], types: [] }; // common variables between scripts
 
-        if (!fs.existsSync(config.backupDir)) {
-            try {
-                fs.mkdirSync(config.backupDir);
-                fs.chmodSync(config.backupDir, '0775');
-            } catch (e) {
-                callback(`Backup directory cannot created: ${e} Please reinstall BackItUp and run "iobroker fix"!!`);
-            }
-        } else if ((!config.cifs.enabled) || (config.cifs.enabled && config.cifs.mountType === 'Copy')) {
-            try {
-                fs.chmodSync(config.backupDir, '0775');
-            } catch (e) {
-                callback(`chmod for Backup directory could not be completed: ${e} Please run "iobroker fix"!!`);
-            }
+    if (!existsSync(config.backupDir)) {
+        try {
+            mkdirSync(config.backupDir);
+            chmodSync(config.backupDir, '0775');
+        } catch (e) {
+            throw new Error(`Backup directory cannot created: ${e} Please reinstall BackItUp and run "iobroker fix"!!`);
+        }
+    } else if (!config.cifs.enabled || (config.cifs.enabled && config.cifs.mountType === 'Copy')) {
+        try {
+            chmodSync(config.backupDir, '0775');
+        } catch (e) {
+            throw new Error(`chmod for Backup directory could not be completed: ${e} Please run "iobroker fix"!!`);
         }
     }
 
@@ -84,7 +114,7 @@ function executeScripts(adapter, config, callback, scripts, code) {
             let func;
             let options;
             switch (name) {
-                // Mount tasks
+                // Mount tas ks
                 case 'mount':
                     if (config.cifs?.enabled && config.cifs.mount) {
                         func = scripts[name];
@@ -102,7 +132,11 @@ function executeScripts(adapter, config, callback, scripts, code) {
                 // Copy/delete tasks
                 case 'clean':
                     func = scripts[name];
-                    options = { name: config.name, deleteBackupAfter: config.deleteBackupAfter, ignoreErrors: config.ignoreErrors };
+                    options = {
+                        name: config.name,
+                        deleteBackupAfter: config.deleteBackupAfter,
+                        ignoreErrors: config.ignoreErrors,
+                    };
                     break;
 
                 case 'cifs':
@@ -113,7 +147,10 @@ function executeScripts(adapter, config, callback, scripts, code) {
                 case 'ftp':
                     if (config[name] && config[name].enabled) {
                         func = scripts[name];
-                        options = Object.assign({}, config[name], { name: config.name, deleteBackupAfter: config.deleteBackupAfter });
+                        options = Object.assign({}, config[name], {
+                            name: config.name,
+                            deleteBackupAfter: config.deleteBackupAfter,
+                        });
                     }
                     break;
 
@@ -140,7 +177,7 @@ function executeScripts(adapter, config, callback, scripts, code) {
                     break;
 
                 case 'redis':
-                    if ((config.name === 'iobroker' && config[name] && config[name].enabled)) {
+                    if (config.name === 'iobroker' && config[name] && config[name].enabled) {
                         func = scripts[name];
                         options = Object.assign({}, config[name]);
                     }
@@ -353,21 +390,40 @@ function executeScripts(adapter, config, callback, scripts, code) {
                     break;
             }
 
+            // Mark script as executed
             scripts[name] = null;
 
             if (func) {
                 try {
                     const _options = JSON.parse(JSON.stringify(options));
 
-                    if (_options.ftp && !_options.ftp.enabled) delete _options.ftp;
-                    if (_options.cifs && !_options.cifs.enabled) delete _options.cifs;
-                    if (_options.telegram && !_options.telegram.enabled) delete _options.telegram;
-                    if (_options.pushover && !_options.pushover.enabled) delete _options.pushover;
-                    if (_options.email && !_options.email.enabled) delete _options.email;
-                    if (_options.whatsapp && !_options.whatsapp.enabled) delete _options.whatsapp;
-                    if (_options.gotify && !_options.gotify.enabled) delete _options.gotify;
-                    if (_options.discord && !_options.discord.enabled) delete _options.discord;
-                    if (_options.dropbox && !_options.dropbox.enabled) delete _options.dropbox;
+                    if (_options.ftp && !_options.ftp.enabled) {
+                        delete _options.ftp;
+                    }
+                    if (_options.cifs && !_options.cifs.enabled) {
+                        delete _options.cifs;
+                    }
+                    if (_options.telegram && !_options.telegram.enabled) {
+                        delete _options.telegram;
+                    }
+                    if (_options.pushover && !_options.pushover.enabled) {
+                        delete _options.pushover;
+                    }
+                    if (_options.email && !_options.email.enabled) {
+                        delete _options.email;
+                    }
+                    if (_options.whatsapp && !_options.whatsapp.enabled) {
+                        delete _options.whatsapp;
+                    }
+                    if (_options.gotify && !_options.gotify.enabled) {
+                        delete _options.gotify;
+                    }
+                    if (_options.discord && !_options.discord.enabled) {
+                        delete _options.discord;
+                    }
+                    if (_options.dropbox && !_options.dropbox.enabled) {
+                        delete _options.dropbox;
+                    }
                     if (_options.onedrive && !_options.onedrive.enabled) delete _options.onedrive;
                     if (_options.webdav && !_options.webdav.enabled) delete _options.webdav;
                     if (_options.googledrive && !_options.googledrive.enabled) delete _options.googledrive;
@@ -391,17 +447,21 @@ function executeScripts(adapter, config, callback, scripts, code) {
                     if (_options.mysql && _options.mysql.backupDir !== undefined) delete _options.mysql.backupDir;
                     if (_options.sqlite && _options.sqlite.backupDir !== undefined) delete _options.sqlite.backupDir;
                     if (_options.pgsql && _options.pgsql.backupDir !== undefined) delete _options.pgsql.backupDir;
-                    if (_options.influxDB && _options.influxDB.backupDir !== undefined) delete _options.influxDB.backupDir;
+                    if (_options.influxDB && _options.influxDB.backupDir !== undefined)
+                        delete _options.influxDB.backupDir;
                     if (_options.grafana && _options.grafana.backupDir !== undefined) delete _options.grafana.backupDir;
                     if (_options.jarvis && _options.jarvis.backupDir !== undefined) delete _options.jarvis.backupDir;
                     if (_options.zigbee && _options.zigbee.backupDir !== undefined) delete _options.zigbee.backupDir;
                     if (_options.esphome && _options.esphome.backupDir !== undefined) delete _options.esphome.backupDir;
-                    if (_options.zigbee2mqtt && _options.zigbee2mqtt.backupDir !== undefined) delete _options.zigbee2mqtt.backupDir;
+                    if (_options.zigbee2mqtt && _options.zigbee2mqtt.backupDir !== undefined)
+                        delete _options.zigbee2mqtt.backupDir;
                     if (_options.nodered && _options.nodered.backupDir !== undefined) delete _options.nodered.backupDir;
                     if (_options.yahka && _options.yahka.backupDir !== undefined) delete _options.yahka.backupDir;
-                    if (_options.javascripts && _options.javascripts.backupDir !== undefined) delete _options.javascripts.backupDir;
+                    if (_options.javascripts && _options.javascripts.backupDir !== undefined)
+                        delete _options.javascripts.backupDir;
                     if (_options.redis && _options.redis.backupDir !== undefined) delete _options.redis.backupDir;
-                    if (_options.historyDB && _options.historyDB.backupDir !== undefined) delete _options.historyDB.backupDir;
+                    if (_options.historyDB && _options.historyDB.backupDir !== undefined)
+                        delete _options.historyDB.backupDir;
                     if (!_options.nameSuffix && _options.nameSuffix !== undefined) delete _options.nameSuffix;
 
                     if (_options.enabled !== undefined) delete _options.enabled;
@@ -411,48 +471,88 @@ function executeScripts(adapter, config, callback, scripts, code) {
                     if (_options.ftp && _options.ftp.pass !== undefined) _options.ftp.pass = '****';
                     if (_options.cifs && _options.cifs.pass !== undefined) _options.cifs.pass = '****';
                     if (_options.mysql && _options.mysql.pass !== undefined) _options.mysql.pass = '****';
-                    if (_options.dropbox && _options.dropbox.onedriveAccessJson !== undefined) _options.dropbox.onedriveAccessJson = '****';
-                    if (_options.onedrive && _options.onedrive.accessToken !== undefined) _options.onedrive.accessToken = '****';
-                    if (_options.googledrive && _options.googledrive.accessJson !== undefined) _options.googledrive.accessJson = '****';
+                    if (_options.dropbox && _options.dropbox.onedriveAccessJson !== undefined)
+                        _options.dropbox.onedriveAccessJson = '****';
+                    if (_options.onedrive && _options.onedrive.accessToken !== undefined)
+                        _options.onedrive.accessToken = '****';
+                    if (_options.googledrive && _options.googledrive.accessJson !== undefined)
+                        _options.googledrive.accessJson = '****';
                     if (_options.webdav && _options.webdav.pass !== undefined) _options.webdav.pass = '****';
                     if (_options.grafana && _options.grafana.apiKey !== undefined) _options.grafana.apiKey = '****';
                     if (_options.grafana && _options.grafana.pass !== undefined) _options.grafana.pass = '****';
 
-                    if (_options.accessToken !== undefined) _options.accessToken = '****';
-                    if (_options.pass !== undefined) _options.pass = '****';
-                    if (_options.adapter !== undefined) delete _options.adapter;
-                    if (_options.accessJson !== undefined) _options.accessJson = '****';
-                    if (_options.apiKey !== undefined) _options.apiKey = '****';
+                    if (_options.accessToken !== undefined) {
+                        _options.accessToken = '****';
+                    }
+                    if (_options.pass !== undefined) {
+                        _options.pass = '****';
+                    }
+                    if (_options.adapter !== undefined) {
+                        delete _options.adapter;
+                    }
+                    if (_options.accessJson !== undefined) {
+                        _options.accessJson = '****';
+                    }
+                    if (_options.apiKey !== undefined) {
+                        _options.apiKey = '****';
+                    }
 
                     for (const i in _options) {
-                        if (_options[i] !== null && _options[i].dropbox && _options[i].dropbox !== undefined) _options[i].dropbox.accessToken = '****';
-                        if (_options[i] !== null && _options[i].onedrive && _options[i].onedrive !== undefined) _options[i].onedrive.onedriveAccessJson = '****';
-                        if (_options[i] !== null && _options[i].cifs && _options[i].cifs !== undefined) _options[i].cifs.pass = '****';
-                        if (_options[i] !== null && _options[i].ftp && _options[i].ftp !== undefined) _options[i].ftp.pass = '****';
-                        if (_options[i] !== null && _options[i].googledrive && _options[i].googledrive !== undefined) _options[i].googledrive.accessJson = '****';
-                        if (_options[i] !== null && _options[i].mysql && _options[i].mysql !== undefined) _options[i].mysql.pass = '****';
-                        if (_options[i] !== null && _options[i].ccu && _options[i].ccu !== undefined) _options[i].ccu.pass = '****';
-                        if (_options[i] !== null && _options[i].webdav && _options[i].webdav !== undefined) _options[i].webdav.pass = '****';
-                        if (_options[i] !== null && _options[i].grafana && _options[i].grafana !== undefined) _options[i].grafana.pass = '****';
-                        if (_options[i] !== null && _options[i].grafana && _options[i].grafana !== undefined) _options[i].grafana.apiKey = '****';
-
+                        if (_options[i] !== null && _options[i].dropbox && _options[i].dropbox !== undefined) {
+                            _options[i].dropbox.accessToken = '****';
+                        }
+                        if (_options[i] !== null && _options[i].onedrive && _options[i].onedrive !== undefined) {
+                            _options[i].onedrive.onedriveAccessJson = '****';
+                        }
+                        if (_options[i] !== null && _options[i].cifs && _options[i].cifs !== undefined) {
+                            _options[i].cifs.pass = '****';
+                        }
+                        if (_options[i] !== null && _options[i].ftp && _options[i].ftp !== undefined) {
+                            _options[i].ftp.pass = '****';
+                        }
+                        if (_options[i] !== null && _options[i].googledrive && _options[i].googledrive !== undefined) {
+                            _options[i].googledrive.accessJson = '****';
+                        }
+                        if (_options[i] !== null && _options[i].mysql && _options[i].mysql !== undefined) {
+                            _options[i].mysql.pass = '****';
+                        }
+                        if (_options[i] !== null && _options[i].ccu && _options[i].ccu !== undefined) {
+                            _options[i].ccu.pass = '****';
+                        }
+                        if (_options[i] !== null && _options[i].webdav && _options[i].webdav !== undefined) {
+                            _options[i].webdav.pass = '****';
+                        }
+                        if (_options[i] !== null && _options[i].grafana && _options[i].grafana !== undefined) {
+                            _options[i].grafana.pass = '****';
+                        }
+                        if (_options[i] !== null && _options[i].grafana && _options[i].grafana !== undefined) {
+                            _options[i].grafana.apiKey = '****';
+                        }
                     }
-                    if (_options.debugging == true) {
-                        setTimeout(function () {
-                            adapter && adapter.setState('output.line', `[DEBUG] [${name}] start with ${JSON.stringify(_options)}`, true);
+                    if (_options.debugging) {
+                        setTimeout(() => {
+                            adapter?.setState(
+                                'output.line',
+                                `[DEBUG] [${name}] start with ${JSON.stringify(_options)}`,
+                                true,
+                            );
                         }, 200);
                     }
                 } catch (e) {
-                    callback(`error on backup process: Script "${name}" ${e} Please check the config of BackItUp and execute "iobroker fix"`);
-                    timerCleanFiles = setTimeout(function () {
+                    callback(
+                        `error on backup process: Script "${name}" ${e} Please check the config of BackItUp and execute "iobroker fix"`,
+                    );
+                    timerCleanFiles = setTimeout(() => {
                         setImmediate(executeScripts, adapter, config, callback, scripts, code);
                     }, 150);
                     return;
                 }
 
                 if (!options) {
-                    callback(`error on backup process: No valid options for "${name}" Please check the config of BackItUp and execute "iobroker fix"`);
-                    timerCleanFiles = setTimeout(function () {
+                    callback(
+                        `error on backup process: No valid options for "${name}" Please check the config of BackItUp and execute "iobroker fix"`,
+                    );
+                    timerCleanFiles = setTimeout(() => {
                         setImmediate(executeScripts, adapter, config, callback, scripts, code);
                     }, 150);
 
@@ -465,20 +565,35 @@ function executeScripts(adapter, config, callback, scripts, code) {
                 options.adapter = adapter;
 
                 // for delete on Multi-Backup
-                if (config.influxDB && config.influxDB.influxDBMulti) options.influxDBMulti = config.influxDB.influxDBMulti;
-                if (config.influxDB && config.influxDB.influxDBEvents) options.influxDBEvents = config.influxDB.influxDBEvents;
-                if (config.mysql && config.mysql.mySqlMulti) options.mySqlMulti = config.mysql.mySqlMulti;
-                if (config.mysql && config.mysql.mySqlEvents) options.mySqlEvents = config.mysql.mySqlEvents;
-                if (config.pgsql && config.pgsql.pgSqlMulti) options.pgSqlMulti = config.pgsql.pgSqlMulti;
-                if (config.pgsql && config.pgsql.pgSqlEvents) options.pgSqlEvents = config.pgsql.pgSqlEvents;
-                if (config.ccuMulti) options.ccuMulti = config.ccuMulti;
-                if (config.ccuEvents) options.ccuEvents = config.ccuEvents;
-
+                if (config.influxDB && config.influxDB.influxDBMulti) {
+                    options.influxDBMulti = config.influxDB.influxDBMulti;
+                }
+                if (config.influxDB && config.influxDB.influxDBEvents) {
+                    options.influxDBEvents = config.influxDB.influxDBEvents;
+                }
+                if (config.mysql && config.mysql.mySqlMulti) {
+                    options.mySqlMulti = config.mysql.mySqlMulti;
+                }
+                if (config.mysql && config.mysql.mySqlEvents) {
+                    options.mySqlEvents = config.mysql.mySqlEvents;
+                }
+                if (config.pgsql && config.pgsql.pgSqlMulti) {
+                    options.pgSqlMulti = config.pgsql.pgSqlMulti;
+                }
+                if (config.pgsql && config.pgsql.pgSqlEvents) {
+                    options.pgSqlEvents = config.pgsql.pgSqlEvents;
+                }
+                if (config.ccuMulti) {
+                    options.ccuMulti = config.ccuMulti;
+                }
+                if (config.ccuEvents) {
+                    options.ccuEvents = config.ccuEvents;
+                }
 
                 const fileName = path.join(config.backupDir, 'logs.txt');
 
                 const log = {
-                    debug: function (text) {
+                    debug: text => {
                         let lines;
                         if (typeof text !== 'string') {
                             text = text.toString();
@@ -493,17 +608,22 @@ function executeScripts(adapter, config, callback, scripts, code) {
                         tmpLog += `[DEBUG] [${name}] ${text}${text.endsWith('\n') ? '' : '\n'}`;
                         adapter && adapter.setState('output.line', `[DEBUG] [${name}] - ${text}`, true);
                     },
-                    warn: function (warning) {
+                    warn: warning => {
                         const lines = (warning || '').toString().split('\n');
                         lines.forEach(line => {
                             line = line.replace(/\r/g, ' ').trim();
-                            line && adapter && adapter.log.warn(`[${config.name}/${name}] ${line}`);
-                            line && !adapter && writeIntoFile(fileName, `[WARN] [${config.name}/${name}] ${line}`);
+                            if (line) {
+                                if (adapter) {
+                                    adapter.log.warn(`[${config.name}/${name}] ${line}`);
+                                } else {
+                                    writeIntoFile(fileName, `[WARN] [${config.name}/${name}] ${line}`);
+                                }
+                            }
                         });
                         tmpLog += `[WARN] [${name}] ${warning}${warning.endsWith('\n') ? '' : '\n'}`;
                         adapter && adapter.setState('output.line', `[WARN] [${name}] - ${warning}`, true);
                     },
-                    error: function (err) {
+                    error: err => {
                         const lines = (err || '').toString().split('\n');
                         lines.forEach(line => {
                             line = line.replace(/\r/g, ' ').trim();
@@ -512,16 +632,16 @@ function executeScripts(adapter, config, callback, scripts, code) {
                         });
                         tmpLog += `[ERROR] [${name}] ${err}\n`;
                         adapter && adapter.setState('output.line', `[ERROR] [${name}] - ${err}`, true);
-                    }
+                    },
                 };
 
                 try {
-                    // generic Error handling for all synchron errors in backup scripts
+                    // generic Error handling for all synchrony errors in backup scripts
                     func.command(options, log, (err, output, _code) => {
                         options.adapter = null;
 
                         if (_code !== undefined) {
-                            code = _code
+                            code = _code;
                         }
                         if (err) {
                             //if (func.ignoreErrors) {
@@ -542,26 +662,25 @@ function executeScripts(adapter, config, callback, scripts, code) {
                         }
                     });
                 } catch (e) {
-                    callback(`error on backup process: Error when executing script "${name}": ${e} Please check the config of BackItUp and execute "iobroker fix"`);
-                    timerCleanFiles = setTimeout(function () {
-                        setImmediate(executeScripts, adapter, config, callback, scripts, code);
-                    }, 150);
+                    callback(
+                        `error on backup process: Error when executing script "${name}": ${e} Please check the config of BackItUp and execute "iobroker fix"`,
+                    );
+                    timerCleanFiles = setTimeout(
+                        () => setImmediate(executeScripts, adapter, config, callback, scripts, code),
+                        150,
+                    );
                 }
             } else {
-                timerCleanFiles = setTimeout(function () {
-                    setImmediate(executeScripts, adapter, config, callback, scripts, code);
-                }, 150);
+                timerCleanFiles = setTimeout(
+                    () => setImmediate(executeScripts, adapter, config, callback, scripts, code),
+                    150,
+                );
             }
             return;
         }
     }
 
-    adapter && adapter.setState('output.line', `[EXIT] ${code || 0}`, true);
+    adapter?.setState('output.line', `[EXIT] ${code || 0}`, true);
     createBackupLog(config, adapter);
     clearTimeout(timerCleanFiles);
-    callback && callback();
-}
-
-if (typeof module !== 'undefined' && module.parent) {
-    module.exports = executeScripts;
 }
