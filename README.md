@@ -61,7 +61,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.1.0 (2025-03-02)
 * (Bluefox) Dependencies updated
 * (Bluefox) Vite added
 * (simatec) jsonConfig updated

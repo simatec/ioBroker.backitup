@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.0.37",
+    "version": "3.1.0",
     "news": {
+      "3.1.0": {
+        "en": "Dependencies updated\nVite added\njsonConfig updated\nFix month for history",
+        "de": "Ausgaben aktualisiert\nVite hinzugefügt\njsonConfig aktualisiert\nMonat für Geschichte",
+        "ru": "Обновленные зависимости\nВит добавил\nобновленный JasonConfig\nМесяц для истории",
+        "pt": "Dependências atualizadas\nVite adicionado\njsonConfig Atualizado\nCorrigir mês para a história",
+        "nl": "Afhankelijkheden bijgewerkt\nVite toegevoegd\njsonConfig bijgewerkt\nFix maand voor geschiedenis",
+        "fr": "Dépendances actualisées\nVitalité ajoutée\njsonConfig mise à jour\nCorrection du mois pour l'historique",
+        "it": "Dipendenze aggiornate\nVite aggiunto\njsonConfig aggiornato\nFisso mese per la storia",
+        "es": "Actualización de las dependencias\nVite añadido\njsonConfig actualizado\nMes fijo para la historia",
+        "pl": "Aktualizacja zależności\nVite added\njsonConfig zaktualizowany\nNapraw miesiąc dla historii",
+        "uk": "Залежність оновлено\nВайт додано\njsonConfig оновлений\nВиправлення місяця для історії",
+        "zh-cn": "更新的依赖关系\n视频添加\njson 压缩更新\n历史的固定月份"
+      },
       "3.0.37": {
         "en": "Fix CronJob",
         "de": "Fix CronJob",
@@ -80,19 +93,6 @@
         "pl": "Błąd obsługi dla GoogleDrive fix\nglobalny Aktualizacja zależności\nAktualizacja zależności\nPopraw projekt",
         "uk": "Обробка помилок для GoogleDrive виправити\nглобальний Залежність оновлено\nЗалежність оновлено\nФіксація дизайну",
         "zh-cn": "GoogleDrive 修正处理错误\n全球 更新的依赖关系\n更新的依赖关系\n设计"
-      },
-      "3.0.31": {
-        "en": "Fix Tab Menu",
-        "de": "Registerkarte Menü",
-        "ru": "Fix Tab Menu",
-        "pt": "Corrigir menu de separador",
-        "nl": "Tab-menu herstellen",
-        "fr": "Correction du menu de l'onglet",
-        "it": "Fissare il menu della scheda",
-        "es": "Menú de pestaña fija",
-        "pl": "Napraw menu Tab",
-        "uk": "Виправлення меню вкладок",
-        "zh-cn": "修正标签菜单"
       }
     },
     "titleLang": {
