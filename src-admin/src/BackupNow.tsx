@@ -10,7 +10,8 @@ import { CloudUploadOutlined } from '@mui/icons-material';
 
 import { I18n } from '@iobroker/adapter-react-v5';
 
-import { ConfigGeneric } from '@iobroker/json-config';
+import { ConfigGeneric, ConfigGenericProps, ConfigGenericState, ConfigItemCustom } from '@iobroker/json-config';
+import { ExecutionLine } from './Components/types';
 
 const styles = {
     paper: {
@@ -83,8 +84,21 @@ const styles = {
     },
 };
 
-class BackupNow extends ConfigGeneric {
-    constructor(props) {
+type BackupNowState = ConfigGenericState & {
+    executing: boolean;
+    executionDialog: boolean;
+    executionLog: ExecutionLine[];
+    closeOnReady: boolean;
+    styles: Record<string, any>;
+    isFullScreen: boolean;
+}
+
+class BackupNow extends ConfigGeneric<ConfigGenericProps, BackupNowState> {
+    lastExecutionLine: string;
+    textRef: React.RefObject<HTMLDivElement>;
+    closeTimeout?: ReturnType<typeof setTimeout> | null;
+
+    constructor(props: ConfigGenericProps) {
         super(props);
         this.state = {
             ...this.state,
@@ -104,9 +118,9 @@ class BackupNow extends ConfigGeneric {
         return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}.${date.getMilliseconds().toString().padStart(3, '0')}`;
     }
 
-    onOutput = (id, state) => {
+    onOutput = (id: string, state: ioBroker.State | null | undefined) => {
         if (state && state.val && state.val !== this.lastExecutionLine) {
-            this.lastExecutionLine = state.val;
+            this.lastExecutionLine = state.val as string;
             const executionLog = [...this.state.executionLog];
             const lines = (state.val || '').toString().replace(/\n$/, '').split('\n');
             const now = BackupNow.getTime();
@@ -123,13 +137,13 @@ class BackupNow extends ConfigGeneric {
                         ts: now,
                         text: parts[3],
                     });
-                } else if (state.val.startsWith('[EXIT]')) {
-                    const code = state.val.match(/^\[EXIT] ([-\d]+)/);
+                } else if ((state.val as string).startsWith('[EXIT]')) {
+                    const code = (state.val as string).match(/^\[EXIT] ([-\d]+)/);
                     executionLog.push({
-                        level: code[1] === '0' ? 'INFO' : 'WARN',
+                        level: code![1] === '0' ? 'INFO' : 'WARN',
                         source: 'gui',
                         ts: now,
-                        text: code[1] === '0' ? I18n.t('The backup was successfully created!') : I18n.t('The backup could not be created completely!'),
+                        text: code![1] === '0' ? I18n.t('The backup was successfully created!') : I18n.t('The backup could not be created completely!'),
                     });
                 } else {
                     executionLog.push({ text: line });
@@ -138,14 +152,14 @@ class BackupNow extends ConfigGeneric {
 
             // scroll down
             if (this.textRef.current && this.textRef.current.scrollTop + this.textRef.current.clientHeight >= this.textRef.current.scrollHeight) {
-                setTimeout(() => this.textRef.current.scrollTop = this.textRef.current.scrollHeight, 100);
+                setTimeout(() => this.textRef.current!.scrollTop = this.textRef.current!.scrollHeight, 100);
             }
 
             this.setState({ executionLog });
 
-            if (state.val.startsWith('[EXIT]')) {
+            if ((state.val as string).startsWith('[EXIT]')) {
                 this.setState({ executing: false });
-                const code = state.val.match(/^\[EXIT] ([-\d]+)/);
+                const code = (state.val as string).match(/^\[EXIT] ([-\d]+)/);
                 if (this.state.closeOnReady && (!code || code[1] === '0')) {
                     this.closeTimeout = this.closeTimeout || setTimeout(() => {
                         this.closeTimeout = null;
@@ -158,14 +172,14 @@ class BackupNow extends ConfigGeneric {
 
     async componentDidMount() {
         super.componentDidMount();
-        await this.props.socket.subscribeState(`${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`, this.onEnabled);
-        await this.props.socket.subscribeState(`${this.props.adapterName}.${this.props.instance}.output.line`, this.onOutput);
+        await this.props.oContext.socket.subscribeState(`${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`, this.onEnabled);
+        await this.props.oContext.socket.subscribeState(`${this.props.oContext.adapterName}.${this.props.oContext.instance}.output.line`, this.onOutput);
         this.updateFullScreenMode();
         window.addEventListener('resize', this.updateFullScreenMode);
     }
 
-    onEnabled = (id, state) => {
-        if (id === `${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`) {
+    onEnabled = (id: string, state: ioBroker.State | null | undefined) => {
+        if (id === `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`) {
             if (!!state?.val !== this.state.executing) {
                 this.setState({ executing: !!state?.val });
             }
@@ -174,8 +188,8 @@ class BackupNow extends ConfigGeneric {
 
     componentWillUnmount() {
         super.componentWillUnmount();
-        this.props.socket.unsubscribeState(`${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`, this.onEnabled);
-        this.props.socket.unsubscribeState(`${this.props.adapterName}.${this.props.instance}.output.line`, this.onOutput);
+        this.props.oContext.socket.unsubscribeState(`${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`, this.onEnabled);
+        this.props.oContext.socket.unsubscribeState(`${this.props.oContext.adapterName}.${this.props.oContext.instance}.output.line`, this.onOutput);
         this.closeTimeout && clearTimeout(this.closeTimeout);
         this.closeTimeout = null;
         window.removeEventListener('resize', this.updateFullScreenMode);
@@ -186,7 +200,7 @@ class BackupNow extends ConfigGeneric {
         this.setState({ isFullScreen });
     };
 
-    renderLine(line, i) {
+    renderLine(line: ExecutionLine, i: number) {
         return <div key={i} style={{ ...this.state.isFullScreen ? this.state.styles.responseTextLine : this.state.styles.textLine }}>
             <div style={{ ...this.state.styles.textTime, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>
                 {line.ts}
@@ -234,7 +248,7 @@ class BackupNow extends ConfigGeneric {
                         style={{
                             ...this.state.styles.logContainer,
                             ...(this.state.isFullScreen ? this.state.styles.responseLogContainer : undefined),
-                            backgroundColor: this.props.themeType === 'dark' ? '#111' : '#EEE',
+                            backgroundColor: this.props.oContext.themeType === 'dark' ? '#111' : '#EEE',
                         }}
                         ref={this.textRef}
                     >
@@ -254,7 +268,7 @@ class BackupNow extends ConfigGeneric {
                     />
                     <Button
                         variant="contained"
-                        color={this.props.color}
+                        color={(this.props as any).color}
                         onClick={() => this.setState({ executionDialog: false })}
                     >
                         {I18n.t('Close')}
@@ -280,29 +294,20 @@ class BackupNow extends ConfigGeneric {
                         executing: true,
                     }, async () => {
                         this.lastExecutionLine = '';
-                        await this.props.socket.setState(`${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`, true);
+                        await this.props.oContext.socket.setState(`${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`, true);
                     })}
                     className={this.props.className}
-                    color={this.props.color}
+                    color={(this.props as any).color}
                     variant="contained"
                     style={this.props.style}
                     endIcon={<CloudUploadOutlined />}
                 >
-                    {this.props.schema.label ? I18n.t(this.props.schema.label) : I18n.t('Backup now')}
+                    {(this.props.schema as ConfigItemCustom).label ? I18n.t((this.props.schema as ConfigItemCustom).label as string) : I18n.t('Backup now')}
                 </Button>
                 {this.renderExecutionDialog()}
             </>
         );
     }
 }
-
-BackupNow.propTypes = {
-    socket: PropTypes.object.isRequired,
-    themeType: PropTypes.string,
-    style: PropTypes.object,
-    className: PropTypes.string,
-    schema: PropTypes.object,
-    onError: PropTypes.func,
-};
 
 export default BackupNow;

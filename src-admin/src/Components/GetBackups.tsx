@@ -5,6 +5,7 @@ import {
     DialogContent, DialogTitle, Fab, Table,
     TableCell, TableRow, Tooltip,
     DialogActions, Button, LinearProgress, TableBody, useMediaQuery,
+    Breakpoints,
 } from '@mui/material';
 import {
     Close,
@@ -34,7 +35,7 @@ import {
     SiInfluxdb,
     SiNextcloud,
 } from 'react-icons/si';
-import { I18n } from '@iobroker/adapter-react-v5';
+import { AdminConnection, I18n } from '@iobroker/adapter-react-v5';
 
 import CCU from '../assets/ccu.png';
 import ioBrokerIcon from '../assets/iobroker.png';
@@ -44,7 +45,7 @@ import javascriptIcon from '../assets/javascript.png';
 import jarvisIcon from '../assets/jarvis.png';
 import yahkaIcon from '../assets/yahka.png';
 
-function parseSize(bytes) {
+function parseSize(bytes: number) {
     if (bytes > 1024 * 1024 * 512) {
         return `${Math.round((bytes / (1024 * 1024 * 1024)) * 10) / 10}${I18n.t('GiB')}`;
     } if (bytes > 1024 * 1024) {
@@ -54,13 +55,13 @@ function parseSize(bytes) {
     }
     return `${bytes} ${I18n.t('bytes')}`;
 }
-function parseName(name) {
+function parseName(name: string) {
     const parts = name.split('_');
     if (parseInt(parts[0], 10).toString() !== parts[0]) {
         parts.shift();
     }
     return new Date(
-        parts[0],
+        parseInt(parts[0], 10),
         parseInt(parts[1], 10) - 1,
         parseInt(parts[2].split('-')[0], 10),
         parseInt(parts[2].split('-')[1], 10),
@@ -68,7 +69,7 @@ function parseName(name) {
     ).toLocaleString().replace(/:00$/, '');
 }
 
-const ICONS = {
+const ICONS: Record<string, React.ComponentType> = {
     local: Save,
     cifs: FaNetworkWired,
     dropbox: FaDropbox,
@@ -94,18 +95,18 @@ const ICONS = {
     yahka: yahkaIcon,
 };
 
-function getIcon(type) {
+function getIcon(type: string) {
     if (!ICONS[type]) {
         return null;
     }
     if (typeof ICONS[type] === 'object' || typeof ICONS[type] === 'function') {
-        const OwnIcon = ICONS[type];
+        const OwnIcon: any = ICONS[type];
         return <OwnIcon style={{ width: 24, height: 24, marginRight: 8 }} />;
     }
     return <img src={ICONS[type]} style={{ width: 24, height: 24, marginRight: 8 }} alt={type} />;
 }
 
-function getLabelByValue(value, connectType) {
+function getLabelByValue(value: string, connectType: string) {
     const STORAGENAME = [
         { label: 'Local', value: 'local' },
         { label: `NAS${connectType ? ` (${connectType})` : ''}`, value: 'nas / copy' },
@@ -120,22 +121,39 @@ function getLabelByValue(value, connectType) {
     return option ? option.label : value;
 }
 
-const GetBackups = props => {
+interface GetBackupsProps {
+    themeBreakpoints: Breakpoints['down'];
+    themeType: string;
+    onClose: () => void;
+    onRestore: (location: string, object: string, fileName: string) => void;
+    allowDownload: boolean;
+    backupSource: string;
+    connectType: string;
+    instance: number;
+    adapterName: string;
+    socket: AdminConnection;
+}
+
+interface BackupResult {
+    data: Record<string, Record<string, { name: string; path: string; size: number }[]>>;
+}
+
+const GetBackups = (props: GetBackupsProps) => {
     const fullScreen = useMediaQuery(props.themeBreakpoints('sm'));
-    const [backups, setBackups] = useState(null);
-    const [expanded, setExpanded] = useState([]);
+    const [backups, setBackups] = useState<BackupResult | null>(null);
+    const [expanded, setExpanded] = useState<string[]>([]);
 
     useEffect(() => {
-        let _expanded = window.localStorage.getItem('BackupExpanded');
+        let _expanded: string | string[] = window.localStorage.getItem('BackupExpanded')!;
         try {
-            _expanded = JSON.parse(_expanded);
+            _expanded = JSON.parse(_expanded!);
         } catch {
             _expanded = [];
         }
-        setExpanded(_expanded || []);
+        setExpanded(_expanded as string[] || []);
         setBackups(null);
         props.socket.sendTo(`${props.adapterName}.${props.instance}`, 'list', props.backupSource)
-            .then(result => {
+            .then((result: BackupResult) => {
                 Object.keys(result.data)
                     .forEach(location =>
                         Object.keys(result.data[location])
@@ -208,7 +226,7 @@ const GetBackups = props => {
                                 }}
                             >
                                 <AccordionSummary expandIcon={<ExpandMore />}>
-                                    {getIcon(object.split('.').shift())}
+                                    {getIcon(object.split('.').shift()!)}
                                     <span style={{ fontWeight: 'bold', fontSize: 14 }}>{I18n.t(object).toUpperCase()}</span>
                                 </AccordionSummary>
                                 <AccordionDetails>
@@ -230,7 +248,7 @@ const GetBackups = props => {
                                                         {props.allowDownload ? <Tooltip title={I18n.t('Download Backup File')}>
                                                             <Fab
                                                                 size="small"
-                                                                color={props.themeType === 'dark' ? 'primary' : 'grey'}
+                                                                color={props.themeType === 'dark' ? 'primary' : 'grey' as any}
                                                                 onClick={async () => {
                                                                     const data = await props.socket.sendTo(
                                                                         `${props.adapterName}.${props.instance}`,
@@ -245,7 +263,7 @@ const GetBackups = props => {
                                                             </Fab>
                                                         </Tooltip> : null}
                                                         <Tooltip title={I18n.t('Restore Backup File')}>
-                                                            <Fab size="small" color={props.themeType === 'dark' ? 'primary' : 'grey'} onClick={() => props.onRestore(location, object, backup.path)}>
+                                                            <Fab size="small" color={props.themeType === 'dark' ? 'primary' : 'grey' as any} onClick={() => props.onRestore(location, object, backup.path)}>
                                                                 <History />
                                                             </Fab>
                                                         </Tooltip>

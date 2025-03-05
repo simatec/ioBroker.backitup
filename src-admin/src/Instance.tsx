@@ -7,20 +7,29 @@ import {
 } from '@mui/material';
 
 import { I18n } from '@iobroker/adapter-react-v5';
-import { ConfigGeneric } from '@iobroker/json-config';
+import { ConfigGeneric, ConfigGenericProps, ConfigItemCustom } from '@iobroker/json-config';
 
-import BaseField from './BaseField';
+import BaseField, { BaseFieldState } from './BaseField';
 
-class Instance extends BaseField {
+type InstanceState = BaseFieldState & {
+    instances: { value: string; label: string }[];
+    instance: string;
+    target: string;
+    targets: { value: string; label: string }[];
+}
+
+class Instance extends BaseField<ConfigGenericProps, InstanceState> {
+    instanceRead?: string | null;
+
     async componentDidMount() {
         super.componentDidMount();
-        const instance = ConfigGeneric.getValue(this.props.data, this.props.attr);
-        const target = ConfigGeneric.getValue(this.props.data, this.props.schema.adapter === 'telegram' ? 'telegramUser' : 'discordTarget');
-        const result = Object.values(await this.props.socket.getObjectViewCustom(
+        const instance = ConfigGeneric.getValue(this.props.data, this.props.attr!);
+        const target = ConfigGeneric.getValue(this.props.data, (this.props.schema as ConfigItemCustom).adapter === 'telegram' ? 'telegramUser' : 'discordTarget');
+        const result = Object.values(await this.props.oContext.socket.getObjectViewCustom(
             'system',
             'instance',
-            `system.adapter.${this.props.schema.adapter}.`,
-            `system.adapter.${this.props.schema.adapter}.\u9999`,
+            `system.adapter.${(this.props.schema as ConfigItemCustom).adapter}.`,
+            `system.adapter.${(this.props.schema as ConfigItemCustom).adapter}.\u9999`,
         ));
 
         const instances = result.map(item => ({ value: item._id.substring('system.adapter.'.length), label: item._id.substring('system.adapter.'.length) }));
@@ -35,12 +44,12 @@ class Instance extends BaseField {
         if (this.state.instance?.startsWith('telegram.')) {
             if (this.instanceRead !== this.state.instance) {
                 let useUserName = false;
-                const obj = await this.props.socket.getObject(`system.adapter.${this.state.instance}`);
+                const obj = await this.props.oContext.socket.getObject(`system.adapter.${this.state.instance}`);
                 if (obj && obj.native) {
                     useUserName = obj.native.useUsername;
                 }
-                const state = await this.props.socket.getState(`${this.state.instance}.communicate.users`);
-                const userListStr = state?.val;
+                const state = await this.props.oContext.socket.getState(`${this.state.instance}.communicate.users`);
+                const userListStr: string = state?.val as string;
                 const targets = [{ value: 'allTelegramUsers', label: 'All Receiver' }];
 
                 if (userListStr) {
@@ -64,9 +73,9 @@ class Instance extends BaseField {
     async fillDiscordTarget() {
         if (this.state.instance?.startsWith('discord.')) {
             if (this.instanceRead !== this.state.instance) {
-                const alive = await this.props.socket.getState(`system.adapter.${this.state.instance}.alive`);
+                const alive = await this.props.oContext.socket.getState(`system.adapter.${this.state.instance}.alive`);
                 if (alive?.val) {
-                    const targetList = await this.props.socket.sendTo(this.state.instance, 'getNotificationTargets', {});
+                    const targetList = await this.props.oContext.socket.sendTo(this.state.instance, 'getNotificationTargets', {});
                     if (Array.isArray(targetList)) {
                         this.instanceRead = this.state.instance;
                         const targets = [{ value: '_', label: 'none' }];
@@ -87,9 +96,9 @@ class Instance extends BaseField {
     }
 
     async readTargets() {
-        if (this.props.schema.adapter === 'telegram') {
+        if ((this.props.schema as ConfigItemCustom).adapter === 'telegram') {
             await this.fillTelegramUser();
-        } else if (this.props.schema.adapter === 'discord') {
+        } else if ((this.props.schema as ConfigItemCustom).adapter === 'discord') {
             await this.fillDiscordTarget();
         }
     }
@@ -110,61 +119,48 @@ class Instance extends BaseField {
             }}
         >
             {this.state.instances ? <FormControl style={{ width: '100%', marginRight: 10 }} variant="standard">
-                <InputLabel>{I18n.t(this.props.schema.label)}</InputLabel>
+                <InputLabel>{I18n.t((this.props.schema as ConfigItemCustom).label as string)}</InputLabel>
                 <Select
                     variant="standard"
                     value={this.state.instance || '_'}
-                    renderValue={() => this.getText(itemInstance?.label, itemInstance?.label !== 'none')}
+                    renderValue={() => this.getText(itemInstance?.label!, itemInstance?.label !== 'none')}
                     onChange={e => this.setState({ instance: e.target.value === '_' ? '' : e.target.value }, () => {
                         this.readTargets();
-                        this.onChange(this.props.attr, this.state.instance);
+                        this.onChange(this.props.attr!, this.state.instance);
                     })}
                 >
                     {this.state.instances.map((it, i) => <MenuItem key={i} value={it.value}>
                         {this.getText(it.label, it?.label !== 'none')}
                     </MenuItem>)}
                 </Select>
-                {this.props.schema.help ? <FormHelperText>{this.renderHelp(this.props.schema.help, this.props.schema.helpLink, this.props.schema.noTranslation)}</FormHelperText> : null}
+                {(this.props.schema as ConfigItemCustom).help ? <FormHelperText>{this.renderHelp((this.props.schema as ConfigItemCustom).help!, (this.props.schema as ConfigItemCustom).helpLink!, (this.props.schema as ConfigItemCustom).noTranslation!)}</FormHelperText> : null}
             </FormControl> : null}
 
-            {this.state.targets && (this.props.schema.adapter === 'telegram' || this.props.schema.adapter === 'discord') ? <FormControl variant="standard">
-                <InputLabel>{I18n.t(this.props.schema.adapter === 'telegram' ? 'Telegram receiver' : 'Discord receiver')}</InputLabel>
+            {this.state.targets && ((this.props.schema as ConfigItemCustom).adapter === 'telegram' || (this.props.schema as ConfigItemCustom).adapter === 'discord') ? <FormControl variant="standard">
+                <InputLabel>{I18n.t((this.props.schema as ConfigItemCustom).adapter === 'telegram' ? 'Telegram receiver' : 'Discord receiver')}</InputLabel>
                 <Select
                     disabled={!this.state.instance}
                     variant="standard"
                     value={this.state.target || '_'}
-                    renderValue={() => this.getText(itemTarget?.label, itemTarget?.label !== 'none')}
+                    renderValue={() => this.getText(itemTarget?.label!, itemTarget?.label !== 'none')}
                     onChange={e => this.setState({ target: e.target.value === '_' ? '' : e.target.value }, () =>
-                        this.onChange(this.props.schema.adapter === 'telegram' ? 'telegramUser' : 'discordTarget', this.state.target))}
+                        this.onChange((this.props.schema as ConfigItemCustom).adapter === 'telegram' ? 'telegramUser' : 'discordTarget', this.state.target))}
                 >
                     {this.state.targets.map((it, i) => <MenuItem key={i} value={it.value}>
                         {this.getText(it.label, it?.label !== 'none')}
                     </MenuItem>)}
                 </Select>
-                {this.props.schema.help ? <FormHelperText>{this.renderHelp(this.props.schema.help, this.props.schema.helpLink, this.props.schema.noTranslation)}</FormHelperText> : null}
-            </FormControl> : this.props.schema.adapter === 'telegram' || this.props.schema.adapter === 'discord' ? <TextField
+                {(this.props.schema as ConfigItemCustom).help ? <FormHelperText>{this.renderHelp((this.props.schema as ConfigItemCustom).help!, (this.props.schema as ConfigItemCustom).helpLink!, (this.props.schema as ConfigItemCustom).noTranslation!)}</FormHelperText> : null}
+            </FormControl> : (this.props.schema as ConfigItemCustom).adapter === 'telegram' || (this.props.schema as ConfigItemCustom).adapter === 'discord' ? <TextField
                 variant="standard"
                 disabled={!this.state.instance}
-                label={I18n.t(this.props.schema.adapter === 'telegram' ? 'Telegram receiver' : 'Discord receiver')}
+                label={I18n.t((this.props.schema as ConfigItemCustom).adapter === 'telegram' ? 'Telegram receiver' : 'Discord receiver')}
                 value={this.state.target}
                 onChange={e => this.setState({ target: e.target.value }, () =>
-                    this.onChange(this.props.schema.adapter === 'telegram' ? 'telegramUser' : 'discordTarget', this.state.target))}
+                    this.onChange((this.props.schema as ConfigItemCustom).adapter === 'telegram' ? 'telegramUser' : 'discordTarget', this.state.target))}
             /> : null}
         </div>;
     }
 }
-
-Instance.propTypes = {
-    socket: PropTypes.object.isRequired,
-    themeType: PropTypes.string,
-    themeName: PropTypes.string,
-    style: PropTypes.object,
-    className: PropTypes.string,
-    data: PropTypes.object.isRequired,
-    attr: PropTypes.string,
-    schema: PropTypes.object,
-    onError: PropTypes.func,
-    onChange: PropTypes.func,
-};
 
 export default Instance;

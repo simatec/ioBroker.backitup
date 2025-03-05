@@ -8,9 +8,10 @@ import {
 
 import { Close, SettingsBackupRestore } from '@mui/icons-material';
 
-import { I18n, DialogError } from '@iobroker/adapter-react-v5';
+import { I18n, DialogError, AdminConnection, ThemeType } from '@iobroker/adapter-react-v5';
+import { ExecutionLine } from './types';
 
-const styles = {
+const styles: any = {
     paper: {
         height: 'calc(100% - 64px)',
     },
@@ -81,8 +82,46 @@ const styles = {
     },
 };
 
-class Restore extends Component {
-    constructor(props) {
+interface RestoreProps {
+    alive: boolean;
+    location: string;
+    fileName: string;
+    onClose: () => void;
+    socket: AdminConnection;
+    themeType: ThemeType;
+    adapterName: string;
+    instance: number;
+    restoreIfWait: number;
+}
+
+interface RestoreState {
+    done: boolean;
+    executing: boolean;
+    executionLog: ExecutionLine[];
+    closeOnReady: boolean;
+    isStopped: boolean;
+    isFullScreen: boolean;
+    messages: { text: string; number: boolean }[];
+    showRestoreDialog: boolean;
+    restoreProcess: {
+        done: boolean;
+        log: string[];
+        startFinish: string;
+        restoreStatus: string;
+        statusColor: string;
+    };
+    error?: string;
+}
+
+class Restore extends Component<RestoreProps, RestoreState> {
+    lastExecutionLine: string;
+    textRef: React.RefObject<HTMLDivElement>;
+    textRefRestore: React.RefObject<HTMLDivElement>;
+    retries: number;
+    polling?: ReturnType<typeof setInterval> | null;
+    closeTimeout?: ReturnType<typeof setTimeout> | null;
+
+    constructor(props: RestoreProps) {
         super(props);
         const WITH_DOWNLOAD = [
             'dropbox',
@@ -165,7 +204,7 @@ class Restore extends Component {
                     restoreProcess.restoreStatus = data.restoreStatus ? I18n.t(data.restoreStatus) : '';
                     restoreProcess.statusColor = data.statusColor;
                     if (restoreProcess.startFinish === '[Finish]') {
-                        clearInterval(this.polling);
+                        clearInterval(this.polling!);
                         this.polling = null;
                         restoreProcess.done = true;
                     }
@@ -181,7 +220,7 @@ class Restore extends Component {
                     this.retries++;
                     if (this.retries > 15) {
                         console.warn(`Cannot get _status: ${e}`);
-                        clearInterval(this.polling);
+                        clearInterval(this.polling!);
                         this.polling = null;
                         this.setState({
                             restoreProcess: {
@@ -198,7 +237,7 @@ class Restore extends Component {
             console.warn(`Cannot get status: ${e}`);
             this.retries++;
             if (this.retries > 15) {
-                clearInterval(this.polling);
+                clearInterval(this.polling!);
                 this.polling = null;
                 this.setState({
                     restoreProcess: {
@@ -236,9 +275,9 @@ class Restore extends Component {
         return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}.${date.getMilliseconds().toString().padStart(3, '0')}`;
     }
 
-    onOutput = (id, state) => {
+    onOutput = (id: string, state: ioBroker.State | null | undefined) => {
         if (state && state.val && state.val !== this.lastExecutionLine) {
-            this.lastExecutionLine = state.val;
+            this.lastExecutionLine = state.val as string;
             const executionLog = [...this.state.executionLog];
             const lines = (state.val || '').toString().replace(/\n$/, '').split('\n');
             const now = Restore.getTime();
@@ -255,13 +294,13 @@ class Restore extends Component {
                         ts: now,
                         text: parts[3],
                     });
-                } else if (state.val.startsWith('[EXIT]')) {
-                    const code = state.val.match(/^\[EXIT] ([-\d]+)/);
+                } else if ((state.val as string).startsWith('[EXIT]')) {
+                    const code = (state.val as string).match(/^\[EXIT] ([-\d]+)/);
                     executionLog.push({
-                        level: code[1] === '0' ? 'INFO' : 'ERROR',
+                        level: code![1] === '0' ? 'INFO' : 'ERROR',
                         source: 'gui',
                         ts: now,
-                        text: code[1] === '0' ? I18n.t('Restore completed successfully!') : I18n.t('Restore was canceled!'),
+                        text: code![1] === '0' ? I18n.t('Restore completed successfully!') : I18n.t('Restore was canceled!'),
                     });
                 } else {
                     executionLog.push({ text: line });
@@ -270,14 +309,14 @@ class Restore extends Component {
 
             // scroll down
             if (this.textRef.current && this.textRef.current.scrollTop + this.textRef.current.clientHeight >= this.textRef.current.scrollHeight) {
-                setTimeout(() => this.textRef.current.scrollTop = this.textRef.current.scrollHeight, 100);
+                setTimeout(() => this.textRef.current!.scrollTop = this.textRef.current!.scrollHeight, 100);
             }
 
             this.setState({ executionLog });
 
-            if (state.val.startsWith('[EXIT]')) {
+            if ((state.val as string).startsWith('[EXIT]')) {
                 this.setState({ executing: false });
-                const code = state.val.match(/^\[EXIT] ([-\d]+)/);
+                const code = (state.val as string).match(/^\[EXIT] ([-\d]+)/);
                 if (this.state.closeOnReady && (!code || code[1] === '0')) {
                     this.closeTimeout = this.closeTimeout || setTimeout(() => {
                         this.closeTimeout = null;
@@ -306,7 +345,7 @@ class Restore extends Component {
         this.setState({ isFullScreen });
     };
 
-    static renderLine(line, i, isFullScreen) {
+    static renderLine(line: ExecutionLine, i: number, isFullScreen: boolean) {
         return <div key={i} style={{ ...isFullScreen ? styles.responseTextLine : styles.textLine }}>
             <div style={{ ...styles.textTime, ...(line.level ? (styles[`textLevel-${line.level}`] || {}) : {}) }}>{line.ts}</div>
             <div style={{ ...styles.textLevel, ...(line.level ? (styles[`textLevel-${line.level}`] || {}) : {}) }}>{line.level}</div>
@@ -315,7 +354,7 @@ class Restore extends Component {
         </div>;
     }
 
-    static renderRestoreLine(line, i, isFullScreen) {
+    static renderRestoreLine(line: string, i: number, isFullScreen: boolean) {
         return <div key={i} style={{ ...isFullScreen ? styles.responseTextLine : styles.textLine }}>
             {!line.includes('Restore completed successfully!!') ?
                 <div style={{ ...(isFullScreen ? styles.responseText : styles.text), color: line.startsWith('[ERROR]') ? '#FF0000' : line.includes('Restore completed successfully') ? '#00b204' : undefined }}>{line}</div> :
@@ -409,7 +448,7 @@ class Restore extends Component {
                 } else {
                     this.setState({ done: true, executing: false });
                 }
-            } catch (error) {
+            } catch (error: any) {
                 this.setState({ error: error.toString(), executing: false });
             }
         });
@@ -508,14 +547,5 @@ class Restore extends Component {
         </Dialog>;
     }
 }
-
-Restore.propTypes = {
-    socket: PropTypes.object.isRequired,
-    themeType: PropTypes.string,
-    adapterName: PropTypes.string.isRequired,
-    instance: PropTypes.number.isRequired,
-    fileName: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-};
 
 export default Restore;

@@ -3,15 +3,21 @@ import { Alert } from '@mui/material';
 import { Info, Warning } from '@mui/icons-material';
 
 import { I18n, DialogMessage } from '@iobroker/adapter-react-v5';
-import { ConfigGeneric } from '@iobroker/json-config';
+import { ConfigGeneric, ConfigGenericProps, ConfigGenericState } from '@iobroker/json-config';
+import { BackitupNative } from './Components/types';
 
-class BaseField extends ConfigGeneric {
-    constructor(props) {
+export type BaseFieldState = ConfigGenericState & {
+    message: false | { title: string; text: string; level?: string };
+}
+
+class BaseField<P extends ConfigGenericProps = ConfigGenericProps, S extends BaseFieldState = BaseFieldState>
+extends ConfigGeneric<P, S> {
+    constructor(props: P) {
         super(props);
-        this.state.message = false;
+        (this.state.message as boolean) = false;
     }
 
-    isConfigFilled(type) {
+    isConfigFilled(type: string) {
         if (type === 'ccu') {
             return !!this.props.data.ccuHost && !!this.props.data.ccuEnabled;
         }
@@ -34,7 +40,7 @@ class BaseField extends ConfigGeneric {
         return false;
     }
 
-    fetchConfig = async (type, data) => {
+    fetchConfig = async (type: string, data: BackitupNative): Promise<{ changed: boolean; found: string | boolean; message?: string }> => {
         if (type === 'ccu') {
             return this.fetchCcuConfig(data);
         }
@@ -58,10 +64,10 @@ class BaseField extends ConfigGeneric {
         return { changed: false, found: false };
     };
 
-    async fetchCcuConfig(data) {
-        const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.hm-rpc.', 'system.adapter.hm-rpc.\u9999'));
+    async fetchCcuConfig(data: BackitupNative) {
+        const result:ioBroker.Object[] = Object.values(await this.props.oContext.socket.getObjectViewCustom('system', 'instance', 'system.adapter.hm-rpc.', 'system.adapter.hm-rpc.\u9999'));
 
-        let found = false;
+        let found:(boolean | string) = false;
         let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
@@ -93,10 +99,10 @@ class BaseField extends ConfigGeneric {
         return { changed, found };
     }
 
-    async fetchMySqlConfig(data) {
-        const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
+    async fetchMySqlConfig(data: BackitupNative) {
+        const result:ioBroker.Object[] = Object.values(await this.props.oContext.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
 
-        let found = false;
+        let found:(boolean | string) = false;
         let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
@@ -149,9 +155,9 @@ class BaseField extends ConfigGeneric {
         return { changed, found };
     }
 
-    async fetchSqliteConfig(data) {
-        const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
-        let found = false;
+    async fetchSqliteConfig(data: BackitupNative) {
+        const result:ioBroker.Object[] = Object.values(await this.props.oContext.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
+        let found:(boolean | string) = false;
         let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
@@ -188,10 +194,10 @@ class BaseField extends ConfigGeneric {
         return { changed, found };
     }
 
-    async fetchPgSqlConfig(data) {
-        const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
+    async fetchPgSqlConfig(data: BackitupNative) {
+        const result:ioBroker.Object[] = Object.values(await this.props.oContext.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
 
-        let found = false;
+        let found:(boolean | string) = false;
         let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
@@ -244,9 +250,9 @@ class BaseField extends ConfigGeneric {
         return { changed, found };
     }
 
-    async fetchInfluxDBConfig(data) {
-        const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.influxdb.', 'system.adapter.influxdb.\u9999'));
-        let found = false;
+    async fetchInfluxDBConfig(data: BackitupNative) {
+        const result:ioBroker.Object[] = Object.values(await this.props.oContext.socket.getObjectViewCustom('system', 'instance', 'system.adapter.influxdb.', 'system.adapter.influxdb.\u9999'));
+        let found:(boolean | string) = false;
         let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
@@ -298,11 +304,11 @@ class BaseField extends ConfigGeneric {
         return { changed, found };
     }
 
-    async fetchHistoryConfig(data) {
-        const result = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', 'system.adapter.history.', 'system.adapter.history.\u9999'));
+    async fetchHistoryConfig(data: BackitupNative) {
+        const result:ioBroker.Object[] = Object.values(await this.props.oContext.socket.getObjectViewCustom('system', 'instance', 'system.adapter.history.', 'system.adapter.history.\u9999'));
 
         let storeDir = '';
-        let found = false;
+        let found:(boolean | string) = false;
         let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
@@ -345,7 +351,7 @@ class BaseField extends ConfigGeneric {
         return { changed, found, message };
     }
 
-    checkAdapterInstall = async (name, ignoreHosts) => {
+    checkAdapterInstall = async (name: string, ignoreHosts: boolean) => {
         const backItUpHost = this.props.common.host;
         const ignore = false;
         let adapterName = name;
@@ -365,9 +371,9 @@ class BaseField extends ConfigGeneric {
         ];
 
         if (!ignore) {
-            const res = Object.values(await this.props.socket.getObjectViewCustom('system', 'instance', `system.adapter.${adapterName}.`, `system.adapter.${adapterName}.\u9999`));
+            const res:ioBroker.Object[] = Object.values(await this.props.oContext.socket.getObjectViewCustom('system', 'instance', `system.adapter.${adapterName}.`, `system.adapter.${adapterName}.\u9999`));
             if (res?.length) {
-                let found = false;
+                let found:(boolean | string) = false;
                 for (let i = 0; i < res.length; i++) {
                     const common = res[i].common;
 
@@ -385,7 +391,7 @@ class BaseField extends ConfigGeneric {
         }
     };
 
-    showMessage = (title, text, level) => {
+    showMessage = (title: string, text: string, level?: string) => {
         this.setState({ message: { title, text, level: level || 'info' } });
     };
 
@@ -402,7 +408,7 @@ class BaseField extends ConfigGeneric {
             text={lines}
             icon={this.state.message.level === 'info' ? <Info /> :
                 (this.state.message.level === 'warning' ? <Warning style={{ color: 'orange' }} /> :
-                    (this.state.message.level === 'error' ? <Alert style={{ color: 'red' }} /> : null))}
+                    (this.state.message.level === 'error' ? <Alert style={{ color: 'red' }} /> : undefined))}
             onClose={() => this.setState({ message: false })}
         /> : null;
     }

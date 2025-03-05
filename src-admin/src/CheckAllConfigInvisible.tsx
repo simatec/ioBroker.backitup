@@ -2,9 +2,14 @@ import PropTypes from 'prop-types';
 import { I18n } from '@iobroker/adapter-react-v5';
 
 import BaseField from './BaseField';
+import { ConfigGenericProps } from '@iobroker/json-config';
+import { BackitupNative } from './Components/types';
 
 class CheckAllConfigInvisible extends BaseField {
-    constructor(props) {
+    storedAlive: boolean;
+    storedChecked: boolean;
+
+    constructor(props: ConfigGenericProps) {
         super(props);
         this.storedAlive = this.props.alive;
         this.storedChecked = false;
@@ -12,7 +17,7 @@ class CheckAllConfigInvisible extends BaseField {
 
     checkConfiguration() {
         if (this.props.alive) {
-            this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'getSystemInfo', null)
+            this.props.oContext.socket.sendTo(`${this.props.oContext.adapterName}.${this.props.oContext.instance}`, 'getSystemInfo', null)
                 .then(async result => {
                     let changed = false;
                     if ((result?.systemOS === 'docker' && result.dockerDB === true) || result?.systemOS !== 'docker') {
@@ -61,15 +66,15 @@ class CheckAllConfigInvisible extends BaseField {
                     const CONFIGS = ['ccu', 'mySql', 'sqlite', 'pgSql', 'influxDB', 'history'];
                     for (let c = 0; c < CONFIGS.length; c++) {
                         if (!this.isConfigFilled(CONFIGS[c])) {
-                            const _result = await this.fetchConfig(CONFIGS[c], this.props.data)
-                                .catch(e => this.showError(e));
-                            changed = changed || _result.changed;
+                            const _result = await this.fetchConfig(CONFIGS[c], this.props.data as BackitupNative)
+                                .catch(e => console.error(e));
+                            changed = changed || _result!.changed;
                         }
                     }
                 });
 
             if (!this.props.data.cifsEnabled && !this.storedChecked) {
-                this.props.socket.sendTo(`${this.props.adapterName}.${this.props.instance}`, 'getFileSystemInfo', null)
+                this.props.oContext.socket.sendTo(`${this.props.oContext.adapterName}.${this.props.oContext.instance}`, 'getFileSystemInfo', null)
                     .then(result => {
                         if (result?.diskState && result.storage && result.diskFree) {
                             this.storedChecked = true;
@@ -102,18 +107,5 @@ class CheckAllConfigInvisible extends BaseField {
         return this.renderMessage();
     }
 }
-
-CheckAllConfigInvisible.propTypes = {
-    socket: PropTypes.object.isRequired,
-    themeType: PropTypes.string,
-    themeName: PropTypes.string,
-    style: PropTypes.object,
-    className: PropTypes.string,
-    data: PropTypes.object.isRequired,
-    attr: PropTypes.string,
-    schema: PropTypes.object,
-    onError: PropTypes.func,
-    onChange: PropTypes.func,
-};
 
 export default CheckAllConfigInvisible;

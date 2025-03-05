@@ -5,14 +5,22 @@ import { Button, Checkbox, FormControlLabel } from '@mui/material';
 import { Search } from '@mui/icons-material';
 
 import { I18n } from '@iobroker/adapter-react-v5';
-import { ConfigGeneric } from '@iobroker/json-config';
+import { ConfigGeneric, ConfigGenericProps, ConfigGenericState, ConfigItemCustom } from '@iobroker/json-config';
 
 import GetBackups from './Components/GetBackups';
 import SourceSelector from './Components/SourceSelector';
 import Restore from './Components/Restore';
 
-class RestoreBackup extends ConfigGeneric {
-    constructor(props) {
+type RestoreBackupState = ConfigGenericState & {
+    backupSource: string;
+    connectType: string;
+    showGetBackups: boolean;
+    showRestore: { location: string; object: string; fileName: string } | null;
+    restoreIfWait: number;
+}
+
+class RestoreBackup extends ConfigGeneric<ConfigGenericProps, RestoreBackupState> {
+    constructor(props: ConfigGenericProps) {
         super(props);
         this.state = {
             ...this.state,
@@ -65,36 +73,28 @@ class RestoreBackup extends ConfigGeneric {
             {this.state.showGetBackups ? <GetBackups
                 onClose={() => this.setState({ showGetBackups: false })}
                 onRestore={(location, object, fileName) => this.setState({ showRestore: { location, object, fileName }, showGetBackups: false })}
-                socket={this.props.socket}
-                themeType={this.props.themeType}
-                themeBreakpoints={this.props.theme.breakpoints.down}
-                adapterName={this.props.adapterName}
-                instance={this.props.instance}
+                socket={this.props.oContext.socket}
+                themeType={this.props.oContext.themeType}
+                themeBreakpoints={this.props.oContext.theme.breakpoints.down}
+                adapterName={this.props.oContext.adapterName}
+                instance={this.props.oContext.instance}
                 backupSource={this.state.backupSource}
                 connectType={this.props.data.connectType}
-                allowDownload={this.props.schema.allowDownload}
+                allowDownload={(this.props.schema as ConfigItemCustom).allowDownload}
             /> : null}
             {this.state.showRestore ? <Restore
                 alive={this.props.alive}
                 location={this.state.showRestore.location}
                 fileName={this.state.showRestore.fileName}
                 onClose={() => this.setState({ showRestore: null })}
-                socket={this.props.socket}
-                themeType={this.props.themeType}
-                adapterName={this.props.adapterName}
-                instance={this.props.instance}
+                socket={this.props.oContext.socket}
+                themeType={this.props.oContext.themeType}
+                adapterName={this.props.oContext.adapterName}
+                instance={this.props.oContext.instance}
                 restoreIfWait={this.state.restoreIfWait}
             /> : null}
         </div>;
     }
 }
-
-RestoreBackup.propTypes = {
-    socket: PropTypes.object.isRequired,
-    themeType: PropTypes.string,
-    style: PropTypes.object,
-    schema: PropTypes.object,
-    onError: PropTypes.func,
-};
 
 export default RestoreBackup;
