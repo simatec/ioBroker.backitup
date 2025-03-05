@@ -1,0 +1,1 @@
+import{C as e,i as t}from"./ConfigCustomBackItUpSet__mf_v__runtimeInit__mf_v__-Cy0TQlfU.js";const{loadShare:o}=t,{initPromise:r}=e,a=r.then(_=>o("@iobroker/adapter-react-v5",{customShareInfo:{shareConfig:{singleton:!0,strictVersion:!1,requiredVersion:"*"}}})),i=await a.then(_=>_());var n=i;export{n as C};

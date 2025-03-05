@@ -1,0 +1,1 @@
+import{C as n}from"./ConfigCustomBackItUpSet__loadShare__react__loadShare__-Tf1XiuWn.js";import{T as s,f as a,w as o,a7 as r}from"./defaultTheme-DMDevamZ.js";function u(e){return Object.keys(e).length===0}function m(e=null){const t=n.useContext(s);return!t||u(t)?e:t}const c=a();function h(e=c){return m(e)}function _(){const e=h(r);return e[o]||e}export{m as a,_ as b,h as u};
