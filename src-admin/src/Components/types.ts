@@ -215,3 +215,14 @@ export interface BackitupNative {
 }
 
 export interface ExecutionLine { level?: string; source?: string; ts?: string; text: string }
+
+export interface SystemInfo {
+    systemOS: string;
+    dockerDB: boolean;
+}
+
+export interface FileSystemInfo {
+    diskState: string;
+    storage: string;
+    diskFree: string;
+}

@@ -25,7 +25,7 @@ class Instance extends BaseField<ConfigGenericProps, InstanceState> {
         super.componentDidMount();
         const instance = ConfigGeneric.getValue(this.props.data, this.props.attr!);
         const target = ConfigGeneric.getValue(this.props.data, (this.props.schema as ConfigItemCustom).adapter === 'telegram' ? 'telegramUser' : 'discordTarget');
-        const result = Object.values(await this.props.oContext.socket.getObjectViewCustom(
+        const result: ioBroker.InstanceObject[] = Object.values(await this.props.oContext.socket.getObjectViewCustom(
             'system',
             'instance',
             `system.adapter.${(this.props.schema as ConfigItemCustom).adapter}.`,

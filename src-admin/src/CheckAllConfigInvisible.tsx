@@ -3,7 +3,7 @@ import { I18n } from '@iobroker/adapter-react-v5';
 
 import BaseField from './BaseField';
 import { ConfigGenericProps } from '@iobroker/json-config';
-import { BackitupNative } from './Components/types';
+import { BackitupNative, FileSystemInfo, SystemInfo } from './Components/types';
 
 class CheckAllConfigInvisible extends BaseField {
     storedAlive: boolean;
@@ -18,7 +18,7 @@ class CheckAllConfigInvisible extends BaseField {
     checkConfiguration() {
         if (this.props.alive) {
             this.props.oContext.socket.sendTo(`${this.props.oContext.adapterName}.${this.props.oContext.instance}`, 'getSystemInfo', null)
-                .then(async result => {
+                .then(async (result: SystemInfo) => {
                     let changed = false;
                     if ((result?.systemOS === 'docker' && result.dockerDB === true) || result?.systemOS !== 'docker') {
                         this.props.data._nonSupportDockerDB = false;
@@ -75,7 +75,7 @@ class CheckAllConfigInvisible extends BaseField {
 
             if (!this.props.data.cifsEnabled && !this.storedChecked) {
                 this.props.oContext.socket.sendTo(`${this.props.oContext.adapterName}.${this.props.oContext.instance}`, 'getFileSystemInfo', null)
-                    .then(result => {
+                    .then((result: FileSystemInfo) => {
                         if (result?.diskState && result.storage && result.diskFree) {
                             this.storedChecked = true;
                             if (result.diskState === 'warn' && result.storage === 'local') {

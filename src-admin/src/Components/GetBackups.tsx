@@ -69,7 +69,7 @@ function parseName(name: string) {
     ).toLocaleString().replace(/:00$/, '');
 }
 
-const ICONS: Record<string, React.ComponentType> = {
+const ICONS: Record<string, any> = {
     local: Save,
     cifs: FaNetworkWired,
     dropbox: FaDropbox,
@@ -103,7 +103,7 @@ function getIcon(type: string) {
         const OwnIcon: any = ICONS[type];
         return <OwnIcon style={{ width: 24, height: 24, marginRight: 8 }} />;
     }
-    return <img src={ICONS[type]} style={{ width: 24, height: 24, marginRight: 8 }} alt={type} />;
+    return <img src={ICONS[type] as unknown as string} style={{ width: 24, height: 24, marginRight: 8 }} alt={type} />;
 }
 
 function getLabelByValue(value: string, connectType: string) {
