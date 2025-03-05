@@ -1,0 +1,1 @@
+import{g as t}from"./_commonjsHelpers-BosuxZz1.js";import{i as e,C as r}from"./ConfigCustomBackItUpSet__mf_v__runtimeInit__mf_v__-Cy0TQlfU.js";const{loadShare:s}=e,{initPromise:_}=r,a=_.then(o=>s("prop-types",{customShareInfo:{shareConfig:{singleton:!0,strictVersion:!1,requiredVersion:"*"}}})),n=await a.then(o=>o());var i=n;const f=t(i);export{i as C,f as P};
