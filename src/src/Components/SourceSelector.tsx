@@ -5,7 +5,15 @@ import {
 
 import { I18n } from '@iobroker/adapter-react-v5';
 
-export default class SourceSelector extends Component {
+interface SourceSelectorProps {
+    value: string;
+    onChange: (value: string) => void;
+    className?: React.ComponentProps<typeof FormControl>['classes'];
+    style?: Record<string, string>;
+    data?: Record<string, string>;
+}
+
+export default class SourceSelector extends Component<SourceSelectorProps> {
     render() {
         const options = [
             { label: 'Local', value: 'local' },

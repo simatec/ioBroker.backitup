@@ -22,13 +22,13 @@ function sync2files(src, dst) {
 
 function sync() {
     // sync2files(`${__dirname}/src-admin/src/BackupNow.jsx`, `${__dirname}/src/src/Components/BackupNow.jsx`);
-    sync2files(`${__dirname}/src-admin/src/Components/SourceSelector.jsx`, `${__dirname}/src/src/Components/SourceSelector.jsx`);
-    sync2files(`${__dirname}/src-admin/src/Components/Restore.jsx`, `${__dirname}/src/src/Components/Restore.jsx`);
+    sync2files(`${__dirname}/src-admin/src/Components/SourceSelector.tsx`, `${__dirname}/src/src/Components/SourceSelector.tsx`);
+    sync2files(`${__dirname}/src-admin/src/Components/Restore.tsx`, `${__dirname}/src/src/Components/Restore.tsx`);
 }
 
 function buildAdmin() {
     sync();
-    return gulpHelper.buildWidgets(__dirname, `${__dirname}/src-admin/`);
+    return buildReact(`${__dirname}/src-admin/`, { rootDir: `${__dirname}/src-admin/`, vite: true });
 }
 
 function cleanAdmin() {

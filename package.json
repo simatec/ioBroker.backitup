@@ -123,7 +123,7 @@
     "release-minor": "release-script minor --yes",
     "release-major": "release-script major --yes",
     "translate": "translate-adapter",
-    "update-packages": "ncu --upgrade && cd src && ncu --upgrade && cd ../src-admin && ncu --upgrade",
+    "update-packages": "npx -y npm-check-updates --upgrade && cd src && npx -y npm-check-updates --upgrade && cd ../src-admin && npx -y npm-check-updates --upgrade",
     "npm": "npm i && cd src && npm i -f && cd ../src-admin && npm i -f",
     "dev-server-run": "dev-server run backitup",
     "dev-server-watch": "dev-server watch -x backitup",
