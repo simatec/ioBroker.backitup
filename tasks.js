@@ -3,7 +3,6 @@
  * Date: 2023-02-22
  */
 const fs = require('node:fs');
-const gulpHelper = require('@iobroker/vis-2-widgets-react-dev/gulpHelper');
 const { deleteFoldersRecursive, buildReact, copyFiles, npmInstall } = require('@iobroker/build-tools');
 
 function sync2files(src, dst) {
@@ -22,13 +21,13 @@ function sync2files(src, dst) {
 
 function sync() {
     // sync2files(`${__dirname}/src-admin/src/BackupNow.jsx`, `${__dirname}/src/src/Components/BackupNow.jsx`);
-    sync2files(`${__dirname}/src-admin/src/Components/SourceSelector.jsx`, `${__dirname}/src/src/Components/SourceSelector.jsx`);
-    sync2files(`${__dirname}/src-admin/src/Components/Restore.jsx`, `${__dirname}/src/src/Components/Restore.jsx`);
+    sync2files(`${__dirname}/src-admin/src/Components/SourceSelector.tsx`, `${__dirname}/src/src/Components/SourceSelector.tsx`);
+    sync2files(`${__dirname}/src-admin/src/Components/Restore.tsx`, `${__dirname}/src/src/Components/Restore.tsx`);
 }
 
 function buildAdmin() {
     sync();
-    return gulpHelper.buildWidgets(__dirname, `${__dirname}/src-admin/`);
+    return buildReact(`${__dirname}/src-admin/`, { rootDir: `${__dirname}/src-admin/`, vite: true });
 }
 
 function cleanAdmin() {
@@ -74,10 +73,11 @@ function copyAllFiles() {
         `!src/build/index.html`,
         `!src/build/static/js/*.map`,
     ], 'admin/');
-    copyFiles(['src/build/static/js/*.js'], 'admin/static/js');
-    copyFiles(['src/build/static/js/*.txt'], 'admin/static/js');
-    copyFiles(['src/build/static/css/*.css'], 'admin/static/css');
-    copyFiles(['src/build/static/media/*'], 'admin/static/media');
+    copyFiles(['src/build/assets/*'], 'admin/assets');
+    // copyFiles(['src/build/assets/*.js'], 'admin/assets');
+    // copyFiles(['src/build/assets/*.txt'], 'admin/assets');
+    // copyFiles(['src/build/assets/*.css'], 'admin/assets');
+    // copyFiles(['src/build/assets/*.png'], 'admin/assets');
 }
 
 function patchFiles() {
@@ -115,7 +115,7 @@ if (process.argv.includes('--admin-0-clean')) {
             .catch(e => console.error(e));
     }
 } else if (process.argv.includes('--2-build')) {
-    buildReact(`${__dirname}/src/`, { rootDir: __dirname })
+    buildReact(`${__dirname}/src/`, { rootDir: __dirname, vite: true })
         .catch(e => console.error(e));
 } else if (process.argv.includes('--3-copy')) {
     copyAllFiles();
@@ -130,7 +130,7 @@ if (process.argv.includes('--admin-0-clean')) {
     } else {
         installPromise = Promise.resolve();
     }
-    installPromise.then(() => buildReact(`${__dirname}/src/`, { rootDir: __dirname }))
+    installPromise.then(() => buildReact(`${__dirname}/src/`, { rootDir: __dirname, vite: true }))
         .then(() => copyAllFiles())
         .then(() => patchFiles())
         .catch(e => console.error(e));
@@ -145,7 +145,7 @@ if (process.argv.includes('--admin-0-clean')) {
                 return npmInstall(`${__dirname}/src/`);
             }
         })
-        .then(() => buildReact(`${__dirname}/src/`, { rootDir: __dirname }))
+        .then(() => buildReact(`${__dirname}/src/`, { rootDir: __dirname, vite: true }))
         .then(() => copyAllFiles())
         .then(() => patchFiles())
         .catch(e => console.error(e));

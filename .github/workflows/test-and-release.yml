@@ -39,7 +39,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
+        run: CI=false npm run build
 
 #      - name: Perform a type check
 #        run: npm run check:ts
@@ -124,7 +124,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
+        run: CI=false npm run build
 
 #      - name: Create a clean build
 #        run: npm run build
@@ -132,7 +132,7 @@ jobs:
         run: |
           npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
           npm whoami
-          npm publish
+          CI=false npm publish
 
       - name: Create Github Release
         uses: actions/create-release@v1
