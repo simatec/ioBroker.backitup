@@ -6,6 +6,7 @@
             // this component is not visible in the UI
             // it checks the configuration
             "type": "custom",
+"bundlerType": "module",
             "i18n": true,
             "url": "custom/customComponents.js",
             "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
@@ -44,6 +45,7 @@
             "hidden": "data.dropboxTokenType == 'custom'",
             "newLine": true,
             "type": "custom",
+"bundlerType": "module",
             "i18n": true,
             "url": "custom/customComponents.js",
             "name": "ConfigCustomBackItUpSet/Components/Dropbox",

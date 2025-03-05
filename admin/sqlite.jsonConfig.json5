@@ -6,6 +6,7 @@
       // this component is not visible in the UI
       // it checks the configuration
       "type": "custom",
+"bundlerType": "module",
       "i18n": true,
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
@@ -22,6 +23,7 @@
     },
     "detectNow": {
       "type": "custom",
+"bundlerType": "module",
       "button": true,
       "variant": "contained",
       "url": "custom/customComponents.js",

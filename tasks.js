@@ -36,10 +36,10 @@ function cleanAdmin() {
 }
 
 function copyAllAdminFiles() {
-    copyFiles(['src-admin/build/static/css/*.css', '!src-admin/build/static/css/src_bootstrap_*.css'], 'admin/custom/static/css');
-    copyFiles(['src-admin/build/static/js/*.js'], 'admin/custom/static/js');
+    copyFiles(['src-admin/build/assets/*.css', '!src-admin/build/assets/src_bootstrap_*.css'], 'admin/custom/assets');
+    copyFiles(['src-admin/build/assets/*.js'], 'admin/custom/assets');
     //copyFiles(['src-admin/build/static/js/*.map', '!src-admin/build/static/js/vendors*.map', '!src-admin/build/static/js/node_modules*.map'], 'admin/custom/static/js');
-    copyFiles(['src-admin/build/static/media/*.png'], 'admin/custom/static/media');
+    copyFiles(['src-admin/build/assets/*.png'], 'admin/custom/assets');
     copyFiles(['src-admin/build/customComponents.js'], 'admin/custom');
     //copyFiles(['src-admin/build/customComponents.js.map'], 'admin/custom');
     copyFiles(['src-admin/src/i18n/*.json'], 'admin/custom/i18n');
@@ -115,7 +115,7 @@ if (process.argv.includes('--admin-0-clean')) {
             .catch(e => console.error(e));
     }
 } else if (process.argv.includes('--2-build')) {
-    buildReact(`${__dirname}/src/`, { rootDir: __dirname, vite: true })
+    buildReact(`${__dirname}/src/`, { rootDir: __dirname, vite: true, tsc: true })
         .catch(e => console.error(e));
 } else if (process.argv.includes('--3-copy')) {
     copyAllFiles();
@@ -130,7 +130,7 @@ if (process.argv.includes('--admin-0-clean')) {
     } else {
         installPromise = Promise.resolve();
     }
-    installPromise.then(() => buildReact(`${__dirname}/src/`, { rootDir: __dirname, vite: true }))
+    installPromise.then(() => buildReact(`${__dirname}/src/`, { rootDir: __dirname, vite: true, tsc: true }))
         .then(() => copyAllFiles())
         .then(() => patchFiles())
         .catch(e => console.error(e));
@@ -145,7 +145,7 @@ if (process.argv.includes('--admin-0-clean')) {
                 return npmInstall(`${__dirname}/src/`);
             }
         })
-        .then(() => buildReact(`${__dirname}/src/`, { rootDir: __dirname, vite: true }))
+        .then(() => buildReact(`${__dirname}/src/`, { rootDir: __dirname, vite: true, tsc: true }))
         .then(() => copyAllFiles())
         .then(() => patchFiles())
         .catch(e => console.error(e));
