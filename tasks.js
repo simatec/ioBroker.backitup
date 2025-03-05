@@ -3,7 +3,6 @@
  * Date: 2023-02-22
  */
 const fs = require('node:fs');
-const gulpHelper = require('@iobroker/vis-2-widgets-react-dev/gulpHelper');
 const { deleteFoldersRecursive, buildReact, copyFiles, npmInstall } = require('@iobroker/build-tools');
 
 function sync2files(src, dst) {
