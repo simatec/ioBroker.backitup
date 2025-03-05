@@ -14,7 +14,11 @@
             "type": "header",
             "size": 2,
             "text": "InfluxDB Backup",
-            "sm": 12
+            "xs": 12,
+            "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xl": 12
         },
         "detectNow": {
             "type": "custom",
@@ -29,7 +33,8 @@
             "xs": 12,
             "sm": 9,
             "md": 6,
-            "lg": 3
+            "lg": 6,
+            "xl": 6
         },
         "_helpLine1": {
             "hidden": "data.influxDBMulti",
@@ -44,6 +49,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "options": [
                 {
                     "label": "Remote",
@@ -62,6 +68,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "host",
             "help": "InfluxDB Hostname (leave blank to save locally only)",
@@ -75,6 +82,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "min": 1,
             "max": 65535,
             "type": "number",
@@ -91,6 +99,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "noTranslations": true,
             "options": [
                 {
@@ -111,6 +120,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "noTranslations": true,
             "options": [
                 {
@@ -130,6 +140,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "InfluxDB database name",
             "validator": "data.influxDBName",
@@ -140,6 +151,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "Full path",
             "help": "Path with filename to InfluxDB executable (leave empty to use default)",
@@ -150,6 +162,7 @@
             "sm": 12,
             "md": 12,
             "lg": 12,
+            "xl": 12,
             "type": "password",
             "visible": true,
             "label": "InfluxDB database token",
@@ -164,6 +177,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "newLine": true
         },
         "deleteOldDataBase": {
@@ -174,6 +188,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
         },
         "_helpLine2": {
             "hidden": "!data.influxDBMulti",
@@ -188,6 +203,7 @@
             "sm": 12,
             "md": 12,
             "lg": 12,
+            "xl": 12,
             "label": "InfluxDB hosts",
             "hidden": "!data.influxDBMulti",
             "labelsInHeader": true,
@@ -276,7 +292,11 @@
         "_helpText1": {
             "type": "staticText",
             "text": "Configuring remote connections. For detailed information please read the documentation of InfluxDB!",
+            "xs": 12,
             "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xl": 12,
             "newLine": true
         },
         "_helpLink": {
@@ -291,6 +311,7 @@
             "sm": 12,
             "md": 12,
             "lg": 12,
+            "xl": 12
         }
     }
 }

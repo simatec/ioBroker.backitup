@@ -14,7 +14,11 @@
     "_header1": {
       "type": "header",
       "text": "What to backup",
+      "xs": 12,
       "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12,
       "size": 2
     },
     "minimalEnabled": {
@@ -23,6 +27,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "i18n": true,
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
@@ -35,6 +40,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "i18n": true,
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
@@ -48,6 +54,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "label": "Redis"
     },
     "javascriptsEnabled": {
@@ -57,6 +64,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "i18n": true,
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
@@ -73,6 +81,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "i18n": true,
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
@@ -89,6 +98,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "i18n": true,
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
@@ -106,6 +116,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "i18n": true,
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
@@ -122,6 +133,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "i18n": true,
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
@@ -138,6 +150,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "i18n": true,
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
@@ -154,6 +167,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "i18n": true,
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
@@ -170,6 +184,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "i18n": true,
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
@@ -186,6 +201,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "label": "Grafana backup"
     },
     "noderedEnabled": {
@@ -195,6 +211,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "i18n": true,
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
@@ -211,6 +228,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "i18n": true,
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
@@ -227,6 +245,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "i18n": true,
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
@@ -243,6 +262,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "i18n": true,
       "url": "custom/customComponents.js",
       "name": "ConfigCustomBackItUpSet/Components/AdapterExist",
@@ -256,7 +276,11 @@
     "_header2": {
       "type": "header",
       "text": "Storage location",
+      "xs": 12,
       "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12,
       "size": 2,
       "color": "#fff"
     },
@@ -267,6 +291,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "label": "NAS / Copy",
     },
     "ftpEnabled": {
@@ -275,6 +300,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "label": "FTP",
     },
     "dropboxEnabled": {
@@ -283,6 +309,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "label": "Dropbox",
     },
     "googledriveEnabled": {
@@ -291,6 +318,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "label": "Google Drive",
     },
     "webdavEnabled": {
@@ -299,6 +327,7 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "label": "WebDAV",
     },
     "onedriveEnabled": {
@@ -307,12 +336,17 @@
       "sm": 6,
       "md": 4,
       "lg": 2,
+      "xl": 2,
       "label": "OneDrive",
     },
     "_header3": {
       "type": "header",
       "text": "Some features of BackItUp require additional adapters and tools. For detailed information please read the documentation of BackItUp!",
+      "xs": 12,
       "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12,
       "size": 3
     },
     "_helpLink": {
@@ -324,7 +358,10 @@
       "href": "https://github.com/simatec/ioBroker.backitup/blob/master/README.md#iobrokerbackitup",
       "newLine": true,
       "xs": 12,
-      "sm": 12
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     },
     "_helpLine2": {
       "newLine": true,
@@ -346,7 +383,8 @@
       "xs": 7,
 			"sm": 3,
 			"md": 3,
-			"lg": 1.2
+			"lg": 1.2,
+      "xl": 1.2
     },
     "_githubSponsor": {
       "type": "staticImage",
@@ -357,7 +395,8 @@
       "xs": 5,
 			"sm": 2,
 			"md": 2,
-			"lg": 0.8
+			"lg": 0.8,
+      "xl": 0.8
     }
   }
 }

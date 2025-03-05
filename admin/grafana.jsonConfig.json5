@@ -14,26 +14,36 @@
             "type": "header",
             "size": 2,
             "text": "Grafana backup",
+            "xs": 12,
             "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xl": 12
         },
         "grafanaHost": {
             "xs": 12,
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "Grafana Hostname",
-            "newLine": true
+            "newLine": true,
+            "validator": "data.grafanaHost",
+			"validatorNoSaveOnError": true
         },
         "grafanaPort": {
             "xs": 12,
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "min": 1,
             "max": 65535,
             "type": "number",
             "label": "Grafana port",
+            "validator": "data.grafanaPort",
+			"validatorNoSaveOnError": true
         },
         "grafanaProtocol": {
             "type": "select",
@@ -42,6 +52,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "help": "Protocol",
             "noTranslations": true,
             "options": [
@@ -60,28 +71,37 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "Grafana username",
-            "newLine": true
+            "newLine": true,
+            "validator": "data.grafanaUsername",
+			"validatorNoSaveOnError": true
         },
         "grafanaPassword": {
             "xs": 12,
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "password",
             "visible": true,
             "label": "Grafana password",
+            "validator": "data.grafanaPassword",
+			"validatorNoSaveOnError": true
         },
         "grafanaApiKey": {
             "xs": 12,
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "password",
             "visible": true,
             "label": "Grafana API-Key or Service Token",
-            "newLine": true
+            "newLine": true,
+            "validator": "data.grafanaApiKey",
+			"validatorNoSaveOnError": true
         },
         "grafanaSignedCertificates": {
             "hidden": "data.grafanaProtocol == 'http'",
@@ -91,6 +111,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "newLine": true
         }
     }

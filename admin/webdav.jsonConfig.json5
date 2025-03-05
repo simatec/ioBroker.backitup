@@ -14,7 +14,11 @@
             "type": "header",
             "size": 2,
             "text": "WebDAV",
+            "xs": 12,
             "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xl": 12
         },
         "webdavURL": {
             "newLine": true,
@@ -22,8 +26,11 @@
             "sm": 9,
             "md": 6,
             "lg": 3,
+            "xl": 3,
             "type": "text",
             "label": "WebDAV URL",
+            "validator": "data.webdavURL",
+			"validatorNoSaveOnError": true
         },
         "webdavUsername": {
             "newLine": true,
@@ -31,17 +38,23 @@
             "sm": 9,
             "md": 6,
             "lg": 3,
+            "xl": 3,
             "type": "text",
             "label": "Username",
+            "validator": "data.webdavUsername",
+			"validatorNoSaveOnError": true
         },
         "webdavPassword": {
             "xs": 12,
             "sm": 9,
             "md": 6,
             "lg": 3,
+            "xl": 3,
             "type": "password",
             "visible": true,
             "label": "Password",
+            "validator": "data.webdavPassword",
+			"validatorNoSaveOnError": true
         },
         "_testConnection": {
             "newLine": true,
@@ -65,6 +78,7 @@
             "sm": 9,
             "md": 6,
             "lg": 3,
+            "xl": 3
         },
         "webdavDeleteOldBackup": {
             "type": "checkbox",
@@ -73,6 +87,7 @@
             "sm": 9,
             "md": 6,
             "lg": 3,
+            "xl": 3
         },
         "webdavDeleteAfter": {
             "newLine": true,
@@ -81,6 +96,7 @@
             "sm": 9,
             "md": 6,
             "lg": 3,
+            "xl": 3,
             "min": 1,
             "max": 1000,
             "type": "number",
@@ -95,6 +111,7 @@
             "sm": 9,
             "md": 6,
             "lg": 3,
+            "xl": 3
         },
         "webdavMinimalDir": {
             "hidden": "!data.webdavOwnDir",
@@ -102,6 +119,7 @@
             "sm": 9,
             "md": 6,
             "lg": 3,
+            "xl": 3,
             "type": "text",
             "label": "Path for ioBroker backup",
             "newLine": true
@@ -112,6 +130,7 @@
             "sm": 9,
             "md": 6,
             "lg": 3,
+            "xl": 3,
             "type": "text",
             "label": "Path for CCU backup",
         },
@@ -121,6 +140,7 @@
             "sm": 9,
             "md": 6,
             "lg": 3,
+            "xl": 3,
             "type": "text",
             "label": "Path",
             "newLine": true

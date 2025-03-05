@@ -74,10 +74,11 @@ function copyAllFiles() {
         `!src/build/index.html`,
         `!src/build/static/js/*.map`,
     ], 'admin/');
-    copyFiles(['src/build/static/js/*.js'], 'admin/static/js');
-    copyFiles(['src/build/static/js/*.txt'], 'admin/static/js');
-    copyFiles(['src/build/static/css/*.css'], 'admin/static/css');
-    copyFiles(['src/build/static/media/*'], 'admin/static/media');
+    copyFiles(['src/build/assets/*'], 'admin/assets');
+    // copyFiles(['src/build/assets/*.js'], 'admin/assets');
+    // copyFiles(['src/build/assets/*.txt'], 'admin/assets');
+    // copyFiles(['src/build/assets/*.css'], 'admin/assets');
+    // copyFiles(['src/build/assets/*.png'], 'admin/assets');
 }
 
 function patchFiles() {
@@ -115,7 +116,7 @@ if (process.argv.includes('--admin-0-clean')) {
             .catch(e => console.error(e));
     }
 } else if (process.argv.includes('--2-build')) {
-    buildReact(`${__dirname}/src/`, { rootDir: __dirname })
+    buildReact(`${__dirname}/src/`, { rootDir: __dirname, vite: true })
         .catch(e => console.error(e));
 } else if (process.argv.includes('--3-copy')) {
     copyAllFiles();
@@ -130,7 +131,7 @@ if (process.argv.includes('--admin-0-clean')) {
     } else {
         installPromise = Promise.resolve();
     }
-    installPromise.then(() => buildReact(`${__dirname}/src/`, { rootDir: __dirname }))
+    installPromise.then(() => buildReact(`${__dirname}/src/`, { rootDir: __dirname, vite: true }))
         .then(() => copyAllFiles())
         .then(() => patchFiles())
         .catch(e => console.error(e));
@@ -145,7 +146,7 @@ if (process.argv.includes('--admin-0-clean')) {
                 return npmInstall(`${__dirname}/src/`);
             }
         })
-        .then(() => buildReact(`${__dirname}/src/`, { rootDir: __dirname }))
+        .then(() => buildReact(`${__dirname}/src/`, { rootDir: __dirname, vite: true }))
         .then(() => copyAllFiles())
         .then(() => patchFiles())
         .catch(e => console.error(e));

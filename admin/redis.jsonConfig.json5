@@ -14,7 +14,11 @@
 			"type": "header",
 			"size": 2,
 			"text": "Save Redis state",
-			"sm": 12,
+			"xs": 12,
+            "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xl": 12
 		},
 		"redisType": {
 			"disabled": "data._nonSupportDockerDB",
@@ -24,6 +28,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+			"xl": 4,
 			"help": "Source type",
 			"options": [
 				{
@@ -45,6 +50,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+			"xl": 4,
 			"newLine": true
 			},
 		"redisAOFactive": {
@@ -56,6 +62,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+			"xl": 4,
 			"newLine": true
 		},
 		"redisHost": {
@@ -66,8 +73,9 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+			"xl": 4,
 			"newLine": true
-			},
+		},
 		"redisPort": {
 			"hidden": "data.redisType == 'local'",
 			"type": "text",
@@ -76,7 +84,8 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
-			},
+			"xl": 4
+		},
 		"redisUser": {
 			"hidden": "data.redisType == 'local'",
 			"type": "text",
@@ -85,6 +94,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+			"xl": 4,
 			"newLine": true
 		},
 		"redisPassword": {
@@ -96,6 +106,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+			"xl": 4
 		},
 	}
 }

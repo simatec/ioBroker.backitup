@@ -14,7 +14,11 @@
             "type": "header",
             "size": 2,
             "text": "Dropbox",
+            "xs": 12,
             "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xl": 12
         },
         "dropboxTokenType": {
             "type": "select",
@@ -23,6 +27,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "options": [
                 {
                     "label": "Default Dropbox-API App for BackItUp",
@@ -46,7 +51,8 @@
             "xs": 12,
             "sm": 12,
             "md": 12,
-            "lg": 12
+            "lg": 12,
+            "xl": 12
         },
         "dropboxAccessToken": {
             "hidden": "data.dropboxTokenType == 'default'",
@@ -54,6 +60,7 @@
             "sm": 12,
             "md": 12,
             "lg": 12,
+            "xl": 12,
             "type": "password",
             "visible": true,
             "label": "Access token",
@@ -68,6 +75,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "newLine": true
         },
         "dropboxOwnDir": {
@@ -76,7 +84,8 @@
             "xs": 12,
             "sm": 9,
             "md": 6,
-            "lg": 4
+            "lg": 4,
+            "xl": 4
         },
         "dropboxDeleteAfter": {
             "newLine": true,
@@ -85,6 +94,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "min": 1,
             "max": 1000,
             "type": "number",
@@ -97,6 +107,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "Dropbox Path for ioBroker backup",
             "newLine": true
@@ -107,6 +118,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "Dropbox Path for CCU backup",
         },
@@ -116,6 +128,7 @@
             "sm": 9,
             "md": 6,
             "lg": 4,
+            "xl": 4,
             "type": "text",
             "label": "Path",
             "help": "Dropbox path",

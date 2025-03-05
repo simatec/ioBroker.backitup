@@ -157,7 +157,7 @@ class BackupNow extends ConfigGeneric {
     };
 
     async componentDidMount() {
-        super.componentDidMount();
+        // super.componentDidMount();
         await this.props.socket.subscribeState(`${this.props.adapterName}.${this.props.instance}.oneClick.${this.props.schema.backUpType}`, this.onEnabled);
         await this.props.socket.subscribeState(`${this.props.adapterName}.${this.props.instance}.output.line`, this.onOutput);
         this.updateFullScreenMode();

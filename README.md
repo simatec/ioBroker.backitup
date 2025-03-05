@@ -61,6 +61,34 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+### 3.1.0 (2025-03-02)
+* (Bluefox) Dependencies updated
+* (Bluefox) Vite added
+* (simatec) jsonConfig updated
+* (simatec) Fix month for history
+
+### 3.0.37 (2025-02-28)
+* (simatec) Fix CronJob
+
+### 3.0.36 (2025-02-26)
+* (simatec) Fix src-admin
+
+### 3.0.35 (2025-02-26)
+* (simatec) Fix src-admin
+
+### 3.0.34 (2025-02-26)
+* (simatec) Fix src-admin
+
+### 3.0.33 (2025-02-25)
+* (simatec) Fix cronjob
+* (simatec) Fix Backup Console
+
+### 3.0.32 (2025-02-24)
+* (simatec) Error handling for GoogleDrive fix
+* (simatec) globalDependencies updated
+* (simatec) Dependencies updated
+* (simatec) Design Fix
+
 ### 3.0.31 (2024-11-30)
 * (simatec) Fix Tab Menu
 
