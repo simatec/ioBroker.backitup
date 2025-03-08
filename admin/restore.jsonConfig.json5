@@ -1,40 +1,40 @@
 {
-    "type": "panel",
-    "label": "Restore",
-    "items": {
-        "_checkConfig": {
+    type: 'panel',
+    label: 'Restore',
+    items: {
+        _checkConfig: {
             // this component is not visible in the UI
             // it checks the configuration
-            "type": "custom",
-"bundlerType": "module",
-            "i18n": true,
-            "url": "custom/customComponents.js",
-            "name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
+            type: 'custom',
+            bundlerType: 'module',
+            i18n: true,
+            url: 'custom/customComponents.js',
+            name: 'ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible',
         },
-        "_header": {
-            "type": "header",
-            "size": 2,
-            "text": "Restore",
-            "xs": 12,
-            "sm": 12,
-            "md": 12,
-            "lg": 12,
-            "xl": 12
+        _header: {
+            type: 'header',
+            size: 2,
+            text: 'Restore',
+            xs: 12,
+            sm: 12,
+            md: 12,
+            lg: 12,
+            xl: 12,
         },
-        "_restore": {
-            "newLine": true,
-            "type": "custom",
-"bundlerType": "module",
-            "i18n": true,
-            "url": "custom/customComponents.js",
-            "name": "ConfigCustomBackItUpSet/Components/RestoreBackup",
-            "allowDownload": true,
-            "value": false,
-            "xs": 12,
-            "sm": 9,
-            "md": 9,
-            "lg": 9,
-            "xl": 9
+        _restore: {
+            newLine: true,
+            type: 'custom',
+            bundlerType: 'module',
+            i18n: true,
+            url: 'custom/customComponents.js',
+            name: 'ConfigCustomBackItUpSet/Components/RestoreBackup',
+            allowDownload: true,
+            value: false,
+            xs: 12,
+            sm: 9,
+            md: 9,
+            lg: 9,
+            xl: 9,
         },
-    }
+    },
 }

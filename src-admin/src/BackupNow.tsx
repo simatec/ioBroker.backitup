@@ -1,19 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {
-    Button, Checkbox, Dialog,
-    DialogActions, DialogContent,
-    DialogTitle, FormControlLabel, LinearProgress,
+    Button,
+    Checkbox,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    FormControlLabel,
+    LinearProgress,
 } from '@mui/material';
 import { CloudUploadOutlined } from '@mui/icons-material';
 
 import { I18n } from '@iobroker/adapter-react-v5';
 
-import { ConfigGeneric, ConfigGenericProps, ConfigGenericState, ConfigItemCustom } from '@iobroker/json-config';
-import { ExecutionLine } from './Components/types';
+import {
+    ConfigGeneric,
+    type ConfigGenericProps,
+    type ConfigGenericState,
+    type ConfigItemCustom,
+} from '@iobroker/json-config';
+import type { ExecutionLine } from './Components/types';
 
-const styles = {
+const styles: Record<string, React.CSSProperties> = {
     paper: {
         height: 'calc(100% - 64px)',
     },
@@ -91,7 +100,7 @@ type BackupNowState = ConfigGenericState & {
     closeOnReady: boolean;
     styles: Record<string, any>;
     isFullScreen: boolean;
-}
+};
 
 class BackupNow extends ConfigGeneric<ConfigGenericProps, BackupNowState> {
     lastExecutionLine: string;
@@ -113,12 +122,12 @@ class BackupNow extends ConfigGeneric<ConfigGenericProps, BackupNowState> {
         this.textRef = React.createRef();
     }
 
-    static getTime() {
+    static getTime(): string {
         const date = new Date();
         return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}.${date.getMilliseconds().toString().padStart(3, '0')}`;
     }
 
-    onOutput = (id: string, state: ioBroker.State | null | undefined) => {
+    onOutput = (_id: string, state: ioBroker.State | null | undefined): void => {
         if (state && state.val && state.val !== this.lastExecutionLine) {
             this.lastExecutionLine = state.val as string;
             const executionLog = [...this.state.executionLog];
@@ -143,7 +152,10 @@ class BackupNow extends ConfigGeneric<ConfigGenericProps, BackupNowState> {
                         level: code![1] === '0' ? 'INFO' : 'WARN',
                         source: 'gui',
                         ts: now,
-                        text: code![1] === '0' ? I18n.t('The backup was successfully created!') : I18n.t('The backup could not be created completely!'),
+                        text:
+                            code![1] === '0'
+                                ? I18n.t('The backup was successfully created!')
+                                : I18n.t('The backup could not be created completely!'),
                     });
                 } else {
                     executionLog.push({ text: line });
@@ -151,8 +163,11 @@ class BackupNow extends ConfigGeneric<ConfigGenericProps, BackupNowState> {
             });
 
             // scroll down
-            if (this.textRef.current && this.textRef.current.scrollTop + this.textRef.current.clientHeight >= this.textRef.current.scrollHeight) {
-                setTimeout(() => this.textRef.current!.scrollTop = this.textRef.current!.scrollHeight, 100);
+            if (
+                this.textRef.current &&
+                this.textRef.current.scrollTop + this.textRef.current.clientHeight >= this.textRef.current.scrollHeight
+            ) {
+                setTimeout(() => (this.textRef.current!.scrollTop = this.textRef.current!.scrollHeight), 100);
             }
 
             this.setState({ executionLog });
@@ -161,63 +176,107 @@ class BackupNow extends ConfigGeneric<ConfigGenericProps, BackupNowState> {
                 this.setState({ executing: false });
                 const code = (state.val as string).match(/^\[EXIT] ([-\d]+)/);
                 if (this.state.closeOnReady && (!code || code[1] === '0')) {
-                    this.closeTimeout = this.closeTimeout || setTimeout(() => {
-                        this.closeTimeout = null;
-                        this.setState({ executionDialog: false });
-                    }, 1500);
+                    this.closeTimeout =
+                        this.closeTimeout ||
+                        setTimeout(() => {
+                            this.closeTimeout = null;
+                            this.setState({ executionDialog: false });
+                        }, 1500);
                 }
             }
         }
     };
 
-    async componentDidMount() {
+    async componentDidMount(): Promise<void> {
         super.componentDidMount();
-        await this.props.oContext.socket.subscribeState(`${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`, this.onEnabled);
-        await this.props.oContext.socket.subscribeState(`${this.props.oContext.adapterName}.${this.props.oContext.instance}.output.line`, this.onOutput);
+        await this.props.oContext.socket.subscribeState(
+            `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`,
+            this.onEnabled,
+        );
+        await this.props.oContext.socket.subscribeState(
+            `${this.props.oContext.adapterName}.${this.props.oContext.instance}.output.line`,
+            this.onOutput,
+        );
         this.updateFullScreenMode();
         window.addEventListener('resize', this.updateFullScreenMode);
     }
 
-    onEnabled = (id: string, state: ioBroker.State | null | undefined) => {
-        if (id === `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`) {
+    onEnabled = (id: string, state: ioBroker.State | null | undefined): void => {
+        if (
+            id ===
+            `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`
+        ) {
             if (!!state?.val !== this.state.executing) {
                 this.setState({ executing: !!state?.val });
             }
         }
     };
 
-    componentWillUnmount() {
+    componentWillUnmount(): void {
         super.componentWillUnmount();
-        this.props.oContext.socket.unsubscribeState(`${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`, this.onEnabled);
-        this.props.oContext.socket.unsubscribeState(`${this.props.oContext.adapterName}.${this.props.oContext.instance}.output.line`, this.onOutput);
+        this.props.oContext.socket.unsubscribeState(
+            `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`,
+            this.onEnabled,
+        );
+        this.props.oContext.socket.unsubscribeState(
+            `${this.props.oContext.adapterName}.${this.props.oContext.instance}.output.line`,
+            this.onOutput,
+        );
         this.closeTimeout && clearTimeout(this.closeTimeout);
         this.closeTimeout = null;
         window.removeEventListener('resize', this.updateFullScreenMode);
     }
 
-    updateFullScreenMode = () => {
+    updateFullScreenMode = (): void => {
         const isFullScreen = window.matchMedia('(max-width: 600px)').matches;
         this.setState({ isFullScreen });
     };
 
-    renderLine(line: ExecutionLine, i: number) {
-        return <div key={i} style={{ ...this.state.isFullScreen ? this.state.styles.responseTextLine : this.state.styles.textLine }}>
-            <div style={{ ...this.state.styles.textTime, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>
-                {line.ts}
+    renderLine(line: ExecutionLine, i: number): React.JSX.Element {
+        return (
+            <div
+                key={i}
+                style={{
+                    ...(this.state.isFullScreen ? this.state.styles.responseTextLine : this.state.styles.textLine),
+                }}
+            >
+                <div
+                    style={{
+                        ...this.state.styles.textTime,
+                        ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined),
+                    }}
+                >
+                    {line.ts}
+                </div>
+                <div
+                    style={{
+                        ...this.state.styles.textLevel,
+                        ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined),
+                    }}
+                >
+                    {line.level}
+                </div>
+                <div
+                    style={{
+                        ...this.state.styles.textSource,
+                        ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined),
+                    }}
+                >
+                    {line.source}
+                </div>
+                <div
+                    style={{
+                        ...(this.state.isFullScreen ? this.state.styles.responseText : this.state.styles.text),
+                        ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined),
+                    }}
+                >
+                    {line.text}
+                </div>
             </div>
-            <div style={{ ...this.state.styles.textLevel, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>
-                {line.level}
-            </div>
-            <div style={{ ...this.state.styles.textSource, ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>
-                {line.source}
-            </div>
-            <div style={{ ...(this.state.isFullScreen ? this.state.styles.responseText : this.state.styles.text), ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined) }}>
-                {line.text}
-            </div>
-        </div>;
+        );
     }
 
-    renderExecutionDialog() {
+    renderExecutionDialog(): React.JSX.Element | null {
         return this.state.executionDialog ? (
             <Dialog
                 open={!0}
@@ -278,31 +337,43 @@ class BackupNow extends ConfigGeneric<ConfigGenericProps, BackupNowState> {
         ) : null;
     }
 
-    renderItem() {
+    renderItem(): React.JSX.Element {
         return (
             <>
                 <Button
                     disabled={!this.props.alive || this.state.executing}
-                    onClick={() => this.setState({
-                        executionDialog: true,
-                        executionLog: [{
-                            ts: BackupNow.getTime(),
-                            level: 'INFO',
-                            text: I18n.t('starting Backup...'),
-                            source: 'gui',
-                        }],
-                        executing: true,
-                    }, async () => {
-                        this.lastExecutionLine = '';
-                        await this.props.oContext.socket.setState(`${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`, true);
-                    })}
+                    onClick={() =>
+                        this.setState(
+                            {
+                                executionDialog: true,
+                                executionLog: [
+                                    {
+                                        ts: BackupNow.getTime(),
+                                        level: 'INFO',
+                                        text: I18n.t('starting Backup...'),
+                                        source: 'gui',
+                                    },
+                                ],
+                                executing: true,
+                            },
+                            async () => {
+                                this.lastExecutionLine = '';
+                                await this.props.oContext.socket.setState(
+                                    `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`,
+                                    true,
+                                );
+                            },
+                        )
+                    }
                     className={this.props.className}
                     color={(this.props as any).color}
                     variant="contained"
                     style={this.props.style}
                     endIcon={<CloudUploadOutlined />}
                 >
-                    {(this.props.schema as ConfigItemCustom).label ? I18n.t((this.props.schema as ConfigItemCustom).label as string) : I18n.t('Backup now')}
+                    {(this.props.schema as ConfigItemCustom).label
+                        ? I18n.t((this.props.schema as ConfigItemCustom).label as string)
+                        : I18n.t('Backup now')}
                 </Button>
                 {this.renderExecutionDialog()}
             </>

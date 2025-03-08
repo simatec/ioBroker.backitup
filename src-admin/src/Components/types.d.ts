@@ -214,7 +214,12 @@ export interface BackitupNative {
     zigbeeEnabled: boolean;
 }
 
-export interface ExecutionLine { level?: string; source?: string; ts?: string; text: string }
+export interface ExecutionLine {
+    level?: string;
+    source?: string;
+    ts?: string;
+    text: string;
+}
 
 export interface SystemInfo {
     systemOS: string;

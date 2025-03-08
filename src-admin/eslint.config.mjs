@@ -30,6 +30,6 @@ export default [
         },
     },
     {
-        ignores: ['build/**/*', 'node_modules/**/*'],
+        ignores: ['build/**/*', 'node_modules/**/*', '.__mf__temp/**/*'],
     },
 ];

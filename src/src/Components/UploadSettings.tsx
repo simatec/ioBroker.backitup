@@ -1,31 +1,43 @@
-import PropTypes from 'prop-types';
-import { useState, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
+import React, { useState, useCallback } from 'react';
+import { type FileRejection, useDropzone } from 'react-dropzone';
 
 import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 
 import { Check, Close, Source } from '@mui/icons-material';
 
-import { I18n, Utils } from '@iobroker/adapter-react-v5';
+import { type AdminConnection, I18n, type ThemeType, Utils } from '@iobroker/adapter-react-v5';
 
-const UploadSettings = props => {
+interface UploadSettingsProps {
+    onClose: () => void;
+    disabled?: boolean;
+    themeType: ThemeType;
+    instruction?: string;
+    maxSize?: number;
+    adapterName: string;
+    instance: number;
+    socket: AdminConnection;
+}
+
+export default function UploadSettings(props: UploadSettingsProps): React.JSX.Element {
     const [fileName, setFileName] = useState('');
-    const [fileData, setFileData] = useState(null);
+    const [fileData, setFileData] = useState<string | ArrayBuffer | null>(null);
     const [working, setWorking] = useState(false);
     const [error, setError] = useState('');
     const [uploaded, setUploaded] = useState(false);
 
     const onDrop = useCallback(
-        (acceptedFiles, fileRejections) => {
+        (acceptedFiles: File[], fileRejections: FileRejection[]): void => {
             if (acceptedFiles?.length) {
                 setWorking(true);
-                error && setError('');
+                if (error) {
+                    setError('');
+                }
                 const reader = new FileReader();
                 setFileName(acceptedFiles[0].name);
 
-                reader.onload = async evt => {
+                reader.onload = evt => {
                     setWorking(false);
-                    setFileData(evt.target.result);
+                    setFileData(evt.target!.result);
                 };
 
                 reader.readAsText(acceptedFiles[0]);
@@ -102,7 +114,7 @@ const UploadSettings = props => {
                                     {fileName.endsWith('.json') ? <Source /> : null}
                                     {fileData ? (
                                         <div style={{ fontSize: 10, opacity: 0.5 }}>
-                                            ({Utils.formatBytes(fileData.length)})
+                                            ({Utils.formatBytes((fileData as string).length)})
                                         </div>
                                     ) : null}
                                 </>
@@ -122,15 +134,19 @@ const UploadSettings = props => {
                                 const obj = await props.socket.getObject(
                                     `system.adapter.${props.adapterName}.${props.instance}`,
                                 );
-                                try {
-                                    const newObj = JSON.parse(fileData);
-                                    obj.native = newObj.native;
-                                    props.socket.setObject(obj._id, obj);
-                                    setUploaded(true);
-                                    setTimeout(props.onClose, 3000);
-                                } catch (e) {
-                                    setError(`${I18n.t('Cannot parse JSON')}: ${e}`);
-                                    setTimeout(() => error && setError(''), 5000);
+                                if (obj) {
+                                    try {
+                                        const newObj: ioBroker.InstanceObject = JSON.parse(
+                                            (fileData as string).toString(),
+                                        );
+                                        obj.native = newObj.native;
+                                        await props.socket.setObject(obj._id, obj);
+                                        setUploaded(true);
+                                        setTimeout(props.onClose, 3000);
+                                    } catch (e) {
+                                        setError(`${I18n.t('Cannot parse JSON')}: ${e}`);
+                                        setTimeout(() => error && setError(''), 5000);
+                                    }
                                 }
                             } catch (e) {
                                 setError(e);
@@ -155,14 +171,4 @@ const UploadSettings = props => {
             </DialogActions>
         </Dialog>
     );
-};
-
-UploadSettings.propTypes = {
-    onClose: PropTypes.func,
-    disabled: PropTypes.bool,
-    themeType: PropTypes.string,
-    instruction: PropTypes.string,
-    maxSize: PropTypes.number,
-};
-
-export default UploadSettings;
+}

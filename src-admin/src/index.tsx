@@ -1,3 +1,3 @@
 // nothing here
 
-export {}
+export {};

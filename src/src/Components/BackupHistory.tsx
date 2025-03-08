@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, type JSX } from 'react';
 
 import {
     Dialog,
@@ -18,25 +18,38 @@ import {
 
 import { Close, FormatListBulleted, BugReport } from '@mui/icons-material';
 
-import { I18n } from '@iobroker/adapter-react-v5';
+import { type AdminConnection, I18n, type ThemeType } from '@iobroker/adapter-react-v5';
+import type { Breakpoint } from '@mui/system';
 
-const BackupHistory = props => {
+interface BackupHistoryProps {
+    themeBreakpoints: (key: Breakpoint | number) => string;
+    themeType: ThemeType;
+    adapterName: string;
+    instance: number;
+    socket: AdminConnection;
+    onClose: () => void;
+    onLogs: (name: string, timestamp: number, index: number) => void;
+}
+
+const ResponsiveTableCell: React.CSSProperties = {
+    display: 'block',
+    width: '100%',
+    boxSizing: 'border-box',
+    padding: '8px 16px',
+    borderBottom: '1px solid #ddd',
+    textAlign: 'left',
+};
+
+export default function BackupHistory(props: BackupHistoryProps): JSX.Element {
     const fullScreen = useMediaQuery(props.themeBreakpoints('sm'));
-    const [backupHistory, setBackupHistory] = useState([]);
-
-    const ResponsiveTableCell = {
-        display: 'block',
-        width: '100%',
-        boxSizing: 'border-box',
-        padding: '8px 16px',
-        borderBottom: '1px solid #ddd',
-        textAlign: 'left',
-    };
+    const [backupHistory, setBackupHistory] = useState<
+        { date: string; type: string; name: string; storage: string[]; filesize: number; timestamp: number }[]
+    >([]);
 
     useEffect(() => {
-        props.socket.getState(`${props.adapterName}.${props.instance}.history.json`).then(state => {
+        void props.socket.getState(`${props.adapterName}.${props.instance}.history.json`).then(state => {
             if (state) {
-                setBackupHistory(JSON.parse(state.val));
+                setBackupHistory(JSON.parse(state.val as string));
             }
         });
     });
@@ -82,7 +95,7 @@ const BackupHistory = props => {
                                         <Tooltip title={I18n.t('Open Backup Log')}>
                                             <Fab
                                                 size="small"
-                                                color={props.themeType === 'dark' ? 'primary' : 'grey'}
+                                                color={props.themeType === 'dark' ? 'primary' : 'info'}
                                                 onClick={() => props.onLogs(entry.name, entry.timestamp, index)}
                                             >
                                                 <BugReport />
@@ -125,7 +138,7 @@ const BackupHistory = props => {
                                         <Tooltip title={I18n.t('Open Backup Log')}>
                                             <Fab
                                                 size="small"
-                                                color={props.themeType === 'dark' ? 'primary' : 'grey'}
+                                                color={props.themeType === 'dark' ? 'primary' : 'info'}
                                                 onClick={() => props.onLogs(entry.name, entry.timestamp, index)}
                                             >
                                                 <BugReport />
@@ -150,6 +163,4 @@ const BackupHistory = props => {
             </DialogActions>
         </Dialog>
     );
-};
-
-export default BackupHistory;
+}

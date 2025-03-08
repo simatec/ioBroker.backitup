@@ -32,6 +32,6 @@
         "jsx": "react",
         "types": ["@iobroker/types"]
     },
-    "include": ["./src/**/*.js", "./src/**/*.d.ts", "./src/**/*.jsx", "./src/**/*.json", "./src/**/*.css", "./*.js"],
+    "include": ["./src/**/*.js", "./src/**/*.d.ts", "./src/**/*.tsx", "./src/**/*.jsx", "./src/**/*.json", "./src/**/*.css", "./*.js"],
     "exclude": ["**/node_modules", "**/dist"]
 }

@@ -1,1 +1,0 @@
-import"./ConfigCustomBackItUpSet__loadShare__react__loadShare__-Tf1XiuWn.js";import{T as m,ac as t}from"./createSvgIcon-DElW-WeT.js";import{u as o}from"./useTheme-1YIEqcVZ.js";function a(){const e=o(t);return e[m]||e}export{a as u};

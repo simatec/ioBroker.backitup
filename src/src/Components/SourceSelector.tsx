@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
-    FormControl, InputLabel, MenuItem, Select,
-} from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 import { I18n } from '@iobroker/adapter-react-v5';
 
@@ -14,10 +12,14 @@ interface SourceSelectorProps {
 }
 
 export default class SourceSelector extends Component<SourceSelectorProps> {
-    render() {
+    render(): React.JSX.Element {
         const options = [
             { label: 'Local', value: 'local' },
-            { name: 'cifsEnabled', label: `NAS${this.props.data?.connectType ? ` (${this.props.data.connectType})` : ''}`, value: 'cifs' },
+            {
+                name: 'cifsEnabled',
+                label: `NAS${this.props.data?.connectType ? ` (${this.props.data.connectType})` : ''}`,
+                value: 'cifs',
+            },
             { name: 'ftpEnabled', label: 'FTP', value: 'ftp' },
             { name: 'dropboxEnabled', label: 'Dropbox', value: 'dropbox' },
             { name: 'onedriveEnabled', label: 'OneDrive', value: 'onedrive' },
@@ -25,27 +27,35 @@ export default class SourceSelector extends Component<SourceSelectorProps> {
             { name: 'webdavEnabled', label: 'WebDAV', value: 'webdav' },
         ];
 
-        return <FormControl
-            classes={this.props.className}
-            fullWidth
-            variant="standard"
-            style={{
-                height: 32,
-                // maxWidth: 250,
-                ...(this.props.style || {}),
-            }}
-        >
-            <InputLabel>{I18n.t('Source type')}</InputLabel>
-            <Select
+        return (
+            <FormControl
+                classes={this.props.className}
+                fullWidth
                 variant="standard"
-                value={this.props.value || 'local'}
-                onChange={e => this.props.onChange(e.target.value)}
+                style={{
+                    height: 32,
+                    // maxWidth: 250,
+                    ...(this.props.style || {}),
+                }}
             >
-                {options.map(option =>
-                    (!option.name || !this.props.data || this.props.data[option.name] ? <MenuItem key={option.value} value={option.value}>
-                        {I18n.t(option.label)}
-                    </MenuItem> : null))}
-            </Select>
-        </FormControl>;
+                <InputLabel>{I18n.t('Source type')}</InputLabel>
+                <Select
+                    variant="standard"
+                    value={this.props.value || 'local'}
+                    onChange={e => this.props.onChange(e.target.value)}
+                >
+                    {options.map(option =>
+                        !option.name || !this.props.data || this.props.data[option.name] ? (
+                            <MenuItem
+                                key={option.value}
+                                value={option.value}
+                            >
+                                {I18n.t(option.label)}
+                            </MenuItem>
+                        ) : null,
+                    )}
+                </Select>
+            </FormControl>
+        );
     }
 }

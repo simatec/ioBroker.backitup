@@ -1,113 +1,113 @@
 {
-	"type": "panel",
-	"label": "Redis",
-	"items": {
-		"_checkConfig": {
-			// this component is not visible in the UI
-			// it checks the configuration
-			"type": "custom",
-"bundlerType": "module",
-			"i18n": true,
-			"url": "custom/customComponents.js",
-			"name": "ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible"
-		},
-		"_header": {
-			"type": "header",
-			"size": 2,
-			"text": "Save Redis state",
-			"xs": 12,
-            "sm": 12,
-            "md": 12,
-            "lg": 12,
-            "xl": 12
-		},
-		"redisType": {
-			"disabled": "data._nonSupportDockerDB",
-			"type": "select",
-			"label": "Host Type",
-			"xs": 12,
-            "sm": 9,
-            "md": 6,
-            "lg": 4,
-			"xl": 4,
-			"help": "Source type",
-			"options": [
-				{
-					"label": "Local",
-					"value": "local"
-				},
-				{
-					"label": "Remote",
-					"value": "remote"
-				}
-			],
-			"newLine": true
-		},
-		"redisPath": {
-			"hidden": "data.redisType !== 'local'",
-			"type": "text",
-			"label": "Redis file path",
-			"xs": 12,
-            "sm": 9,
-            "md": 6,
-            "lg": 4,
-			"xl": 4,
-			"newLine": true
-			},
-		"redisAOFactive": {
-			"hidden": "data.redisType !== 'local'",
-			"type": "checkbox",
-			"label": "AOF activated",
-			"value": false,
-			"xs": 12,
-            "sm": 9,
-            "md": 6,
-            "lg": 4,
-			"xl": 4,
-			"newLine": true
-		},
-		"redisHost": {
-			"hidden": "data.redisType == 'local'",
-			"type": "text",
-			"label": "Redis Hostname",
-			"xs": 12,
-            "sm": 9,
-            "md": 6,
-            "lg": 4,
-			"xl": 4,
-			"newLine": true
-		},
-		"redisPort": {
-			"hidden": "data.redisType == 'local'",
-			"type": "text",
-			"label": "Port",
-			"xs": 12,
-            "sm": 9,
-            "md": 6,
-            "lg": 4,
-			"xl": 4
-		},
-		"redisUser": {
-			"hidden": "data.redisType == 'local'",
-			"type": "text",
-			"label": "Redis username",
-			"xs": 12,
-            "sm": 9,
-            "md": 6,
-            "lg": 4,
-			"xl": 4,
-			"newLine": true
-		},
-		"redisPassword": {
-			"hidden": "data.redisType == 'local'",
-			"type": "password",
-			"visible": true,
-			"label": "Redis password",
-			"xs": 12,
-            "sm": 9,
-            "md": 6,
-            "lg": 4,
-			"xl": 4
-		},
-	}
+    type: 'panel',
+    label: 'Redis',
+    items: {
+        _checkConfig: {
+            // this component is not visible in the UI
+            // it checks the configuration
+            type: 'custom',
+            bundlerType: 'module',
+            i18n: true,
+            url: 'custom/customComponents.js',
+            name: 'ConfigCustomBackItUpSet/Components/CheckAllConfigInvisible',
+        },
+        _header: {
+            type: 'header',
+            size: 2,
+            text: 'Save Redis state',
+            xs: 12,
+            sm: 12,
+            md: 12,
+            lg: 12,
+            xl: 12,
+        },
+        redisType: {
+            disabled: 'data._nonSupportDockerDB',
+            type: 'select',
+            label: 'Host Type',
+            xs: 12,
+            sm: 9,
+            md: 6,
+            lg: 4,
+            xl: 4,
+            help: 'Source type',
+            options: [
+                {
+                    label: 'Local',
+                    value: 'local',
+                },
+                {
+                    label: 'Remote',
+                    value: 'remote',
+                },
+            ],
+            newLine: true,
+        },
+        redisPath: {
+            hidden: "data.redisType !== 'local'",
+            type: 'text',
+            label: 'Redis file path',
+            xs: 12,
+            sm: 9,
+            md: 6,
+            lg: 4,
+            xl: 4,
+            newLine: true,
+        },
+        redisAOFactive: {
+            hidden: "data.redisType !== 'local'",
+            type: 'checkbox',
+            label: 'AOF activated',
+            value: false,
+            xs: 12,
+            sm: 9,
+            md: 6,
+            lg: 4,
+            xl: 4,
+            newLine: true,
+        },
+        redisHost: {
+            hidden: "data.redisType == 'local'",
+            type: 'text',
+            label: 'Redis Hostname',
+            xs: 12,
+            sm: 9,
+            md: 6,
+            lg: 4,
+            xl: 4,
+            newLine: true,
+        },
+        redisPort: {
+            hidden: "data.redisType == 'local'",
+            type: 'text',
+            label: 'Port',
+            xs: 12,
+            sm: 9,
+            md: 6,
+            lg: 4,
+            xl: 4,
+        },
+        redisUser: {
+            hidden: "data.redisType == 'local'",
+            type: 'text',
+            label: 'Redis username',
+            xs: 12,
+            sm: 9,
+            md: 6,
+            lg: 4,
+            xl: 4,
+            newLine: true,
+        },
+        redisPassword: {
+            hidden: "data.redisType == 'local'",
+            type: 'password',
+            visible: true,
+            label: 'Redis password',
+            xs: 12,
+            sm: 9,
+            md: 6,
+            lg: 4,
+            xl: 4,
+        },
+    },
 }

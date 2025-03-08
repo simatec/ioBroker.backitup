@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React from 'react';
 import { saveAs } from 'file-saver';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
@@ -20,7 +19,15 @@ import {
     Alarm,
 } from '@mui/icons-material';
 
-import { GenericApp, I18n, Loader, AdminConnection } from '@iobroker/adapter-react-v5';
+import {
+    GenericApp,
+    I18n,
+    Loader,
+    AdminConnection,
+    type IobTheme,
+    type GenericAppProps,
+    type GenericAppState,
+} from '@iobroker/adapter-react-v5';
 
 import logo from './assets/backitup.png';
 
@@ -45,7 +52,13 @@ import plLang from './i18n/pl.json';
 import ukLang from './i18n/uk.json';
 import zhCnLang from './i18n/zh-cn.json';
 
-const styles = {
+declare module '@mui/material/Button' {
+    interface ButtonPropsColorOverrides {
+        grey: true;
+    }
+}
+
+const styles: Record<string, any> = {
     root: {},
     tabContent: {
         padding: 10,
@@ -138,7 +151,7 @@ const styles = {
         width: 'calc(100% - 120px)',
         display: 'inline-block',
     },
-    cardContent: theme => ({
+    cardContent: (theme: IobTheme): React.CSSProperties => ({
         padding: 0,
         height: '100%',
         boxShadow: '0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%)',
@@ -198,10 +211,29 @@ const styles = {
     },
 };
 
-class App extends GenericApp {
-    constructor(props) {
+interface AppState extends GenericAppState {
+    showBackupHistory: boolean;
+    showGetBackups: boolean;
+    showRestore: any;
+    showUploadBackup: boolean;
+    backupSource: string;
+    connectType: string;
+    myAlive: boolean;
+    restoreIfWait: number;
+    iobrokerLastTime: string;
+    iobrokerNextTime: string;
+    ccuLastTime: string;
+    ccuNextTime: string;
+    systemInfo: { systemOS: string } | null;
+    showUploadSettings: boolean;
+    showLogs: null | { fileName: string; timestamp: number; index: number };
+}
+
+class App extends GenericApp<GenericAppProps, AppState> {
+    constructor(props: GenericAppProps) {
         const extendedProps = { ...props };
         extendedProps.encryptedFields = ['pass'];
+        // @ts-expect-error fix later
         extendedProps.Connection = AdminConnection;
         extendedProps.translations = {
             en: enLang,
@@ -226,17 +258,20 @@ class App extends GenericApp {
 
         super(props, extendedProps);
 
-        this.state.showBackupHistory = false;
-        this.state.showGetBackups = false;
-        this.state.showRestore = null;
-        this.state.showUploadBackup = false;
-        this.state.backupSource = window.localStorage.getItem('BackItUp.backupSource') || 'local';
-        this.state.connectType = this.state.native.connectType;
-        this.state.myAlive = false;
-        this.state.restoreIfWait = 5000;
+        this.state = {
+            ...this.state,
+            showBackupHistory: false,
+            showGetBackups: false,
+            showRestore: null,
+            showUploadBackup: false,
+            backupSource: window.localStorage.getItem('BackItUp.backupSource') || 'local',
+            connectType: this.state.native.connectType,
+            myAlive: false,
+            restoreIfWait: 5000,
+        };
     }
 
-    static translateTime(time) {
+    static translateTime(time: string | undefined): string {
         if (time === 'none') {
             return '--';
         }
@@ -246,29 +281,29 @@ class App extends GenericApp {
         if (typeof time === 'string' && time.startsWith('error')) {
             return time.replace('error', I18n.t('Error'));
         }
-        return time;
+        return time || '';
     }
 
-    async onConnectionReady() {
+    async onConnectionReady(): Promise<void> {
         const myAlive = await this.socket.getState(`system.adapter.${this.adapterName}.${this.instance}.alive`);
-        const newState = { myAlive: !!myAlive?.val };
+        const newState: Partial<AppState> = { myAlive: !!myAlive?.val };
 
         if (this.state.native.minimalEnabled) {
             const iobrokerLastTime = await this.socket.getState(
                 `${this.adapterName}.${this.instance}.history.iobrokerLastTime`,
             );
-            const iobrokerNextTime = await this.socket.getState(
+            const iobrokerNextTime: ioBroker.State | null | undefined = await this.socket.getState(
                 `${this.adapterName}.${this.instance}.info.iobrokerNextTime`,
             );
-            newState.iobrokerNextTime = App.translateTime(iobrokerNextTime.val);
-            newState.iobrokerLastTime = App.translateTime(iobrokerLastTime.val);
+            newState.iobrokerNextTime = App.translateTime(iobrokerNextTime?.val as string | undefined);
+            newState.iobrokerLastTime = App.translateTime(iobrokerLastTime?.val as string | undefined);
         }
 
         if (this.state.native.ccuEnabled) {
             const ccuLastTime = await this.socket.getState(`${this.adapterName}.${this.instance}.history.ccuLastTime`);
             const ccuNextTime = await this.socket.getState(`${this.adapterName}.${this.instance}.info.ccuNextTime`);
-            newState.ccuLastTime = App.translateTime(ccuLastTime.val);
-            newState.ccuNextTime = App.translateTime(ccuNextTime.val);
+            newState.ccuLastTime = App.translateTime(ccuLastTime?.val as string | undefined);
+            newState.ccuNextTime = App.translateTime(ccuNextTime?.val as string | undefined);
         }
 
         await this.socket.subscribeState(`system.adapter.${this.adapterName}.${this.instance}.alive`, this.onAlive);
@@ -295,50 +330,53 @@ class App extends GenericApp {
                       : 5000;
         }
 
-        this.setState(newState);
+        this.setState(newState as AppState);
     }
 
-    onSettings = (id, obj) => {
+    onSettings = (id: string, obj: ioBroker.InstanceObject): void => {
         if (id === `system.adapter.${this.adapterName}.${this.instance}`) {
             this.setState({ native: obj.native });
         }
     };
 
-    onHistory = (id, state) => {
+    onHistory = (id: string, state: ioBroker.State | null | undefined): void => {
+        if (!state) {
+            return;
+        }
         if (
             id === `${this.adapterName}.${this.instance}.history.iobrokerLastTime` &&
             state.val !== this.state.iobrokerLastTime
         ) {
-            this.setState({ iobrokerLastTime: App.translateTime(state.val) });
+            this.setState({ iobrokerLastTime: App.translateTime(state.val as string) });
         } else if (
             id === `${this.adapterName}.${this.instance}.history.iobrokerNextTime` &&
             state.val !== this.state.iobrokerNextTime
         ) {
-            this.setState({ iobrokerNextTime: App.translateTime(state.val) });
+            this.setState({ iobrokerNextTime: App.translateTime(state.val as string) });
         } else if (
             id === `${this.adapterName}.${this.instance}.history.ccuLastTime` &&
             state.val !== this.state.ccuLastTime
         ) {
-            this.setState({ ccuLastTime: App.translateTime(state.val) });
+            this.setState({ ccuLastTime: App.translateTime(state.val as string) });
         } else if (
             id === `${this.adapterName}.${this.instance}.history.ccuNextTime` &&
             state.val !== this.state.ccuNextTime
         ) {
-            this.setState({ ccuNextTime: App.translateTime(state.val) });
+            this.setState({ ccuNextTime: App.translateTime(state.val as string) });
         }
     };
 
-    componentWillUnmount() {
+    async componentWillUnmount(): Promise<void> {
         super.componentWillUnmount();
         this.socket.unsubscribeState(`system.adapter.${this.adapterName}.${this.instance}.alive`, this.onAlive);
-        this.socket.unsubscribeObject(`system.adapter.${this.adapterName}.${this.instance}`, this.onSettings);
+        await this.socket.unsubscribeObject(`system.adapter.${this.adapterName}.${this.instance}`, this.onSettings);
         this.socket.unsubscribeState(`${this.adapterName}.${this.instance}.history.iobrokerLastTime`, this.onHistory);
         this.socket.unsubscribeState(`${this.adapterName}.${this.instance}.info.iobrokerNextTime`, this.onHistory);
         this.socket.unsubscribeState(`${this.adapterName}.${this.instance}.history.ccuLastTime`, this.onHistory);
         this.socket.unsubscribeState(`${this.adapterName}.${this.instance}.info.ccuNextTime`, this.onHistory);
     }
 
-    onAlive = (id, state) => {
+    onAlive = (id: string, state: ioBroker.State | null | undefined): void => {
         if (id === `system.adapter.${this.adapterName}.${this.instance}.alive`) {
             if (!!state?.val !== this.state.myAlive) {
                 this.setState({ myAlive: !!state?.val });
@@ -346,7 +384,7 @@ class App extends GenericApp {
         }
     };
 
-    renderBackupInformation() {
+    renderBackupInformation(): React.JSX.Element {
         return (
             <Card sx={styles.card}>
                 <CardContent sx={styles.cardContent}>
@@ -396,7 +434,7 @@ class App extends GenericApp {
         );
     }
 
-    renderActivatedStorageOptions() {
+    renderActivatedStorageOptions(): React.JSX.Element {
         const options = [
             { name: 'cifsEnabled', label: `NAS (${this.state.native.connectType})` },
             { name: 'ftpEnabled', label: 'FTP' },
@@ -430,7 +468,7 @@ class App extends GenericApp {
         );
     }
 
-    renderActivatedBackupOptions() {
+    renderActivatedBackupOptions(): React.JSX.Element {
         const options = [
             { name: 'jarvisEnabled', label: 'Jarvis backup' },
             { name: 'minimalEnabled', label: 'ioBroker' },
@@ -474,7 +512,7 @@ class App extends GenericApp {
         );
     }
 
-    renderUploadSettingsDialog() {
+    renderUploadSettingsDialog(): React.JSX.Element | null {
         if (!this.state.showUploadSettings) {
             return null;
         }
@@ -489,7 +527,7 @@ class App extends GenericApp {
         );
     }
 
-    render() {
+    render(): React.JSX.Element {
         if (!this.state.loaded) {
             return (
                 <StyledEngineProvider injectFirst>
@@ -543,8 +581,8 @@ class App extends GenericApp {
                                 }}
                             >
                                 <Tooltip
-                                    size="small"
                                     title="PayPal.Me"
+                                    slotProps={{ popper: { sx: { pointerEvents: 'none' } } }}
                                     style={{ marginRight: '0.2rem' }}
                                 >
                                     <Fab
@@ -557,21 +595,21 @@ class App extends GenericApp {
                                     </Fab>
                                 </Tooltip>
                                 <Tooltip
-                                    size="small"
+                                    slotProps={{ popper: { sx: { pointerEvents: 'none' } } }}
                                     title="Wiki"
                                     style={{ marginRight: '0.2rem' }}
                                 >
                                     <Fab
                                         style={styles.helpButton}
-                                        onClick={() => {
-                                            window.open('https://github.com/simatec/ioBroker.backitup/wiki', '_blank');
-                                        }}
+                                        onClick={() =>
+                                            window.open('https://github.com/simatec/ioBroker.backitup/wiki', '_blank')
+                                        }
                                     >
                                         <School />
                                     </Fab>
                                 </Tooltip>
                                 <Tooltip
-                                    size="small"
+                                    slotProps={{ popper: { sx: { pointerEvents: 'none' } } }}
                                     title="Show adapter documentation"
                                     style={{ marginRight: '0.2rem' }}
                                 >
@@ -650,23 +688,43 @@ class App extends GenericApp {
                                 {this.state.myAlive && this.state.native.minimalEnabled ? (
                                     <BackupNow
                                         style={{ ...styles.buttonWidth, width: '100%' }}
-                                        variant="contained"
                                         color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
-                                        adapterName={this.adapterName}
-                                        instance={this.instance}
+                                        oContext={{
+                                            adapterName: this.adapterName,
+                                            socket: this.socket,
+                                            instance: this.instance,
+                                            themeType: this.state.themeType,
+                                            dateFormat:
+                                                this.socket.systemConfig?.common.dateFormat || 'DD.MM.YYYY HH:mm',
+                                            isFloatComma: this.socket.systemConfig?.common.isFloatComma || false,
+                                            theme: this.state.theme,
+                                            _themeName: this.state.themeName,
+                                            systemConfig:
+                                                this.socket.systemConfig?.common || ({} as ioBroker.SystemConfigCommon),
+                                            onCommandRunning: (_ignore: boolean): void => {},
+                                            forceUpdate: (): void => {},
+                                        }}
                                         alive
-                                        socket={this.socket}
-                                        themeType={this.state.themeType}
-                                        endIcon={<CloudUploadOutlined />}
+                                        onError={(): void => {}}
                                         schema={{
                                             backUpType: 'iobroker',
                                             label: 'ioBroker start backup',
+                                            i18n: false,
+                                            variant: 'contained',
+                                            type: 'custom',
+                                            url: '',
+                                            name: '',
                                         }}
+                                        changed={false}
+                                        common={this.state.common || {}}
+                                        themeName={this.state.themeName}
+                                        data={{}}
+                                        originalData={{}}
+                                        onChange={(_attr: string): void => {}}
                                     />
                                 ) : (
                                     <Button
                                         style={{ width: '100%' }}
-                                        themeType={this.state.themeType}
                                         disabled
                                         color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                         variant="contained"
@@ -678,23 +736,43 @@ class App extends GenericApp {
                                 {this.state.myAlive && this.state.native.ccuEnabled ? (
                                     <BackupNow
                                         style={{ ...styles.buttonWidth, width: '100%' }}
-                                        variant="contained"
-                                        adapterName={this.adapterName}
-                                        instance={this.instance}
+                                        oContext={{
+                                            adapterName: this.adapterName,
+                                            socket: this.socket,
+                                            instance: this.instance,
+                                            themeType: this.state.themeType,
+                                            dateFormat:
+                                                this.socket.systemConfig?.common.dateFormat || 'DD.MM.YYYY HH:mm',
+                                            isFloatComma: this.socket.systemConfig?.common.isFloatComma || false,
+                                            theme: this.state.theme,
+                                            _themeName: this.state.themeName,
+                                            systemConfig:
+                                                this.socket.systemConfig?.common || ({} as ioBroker.SystemConfigCommon),
+                                            onCommandRunning: (_ignore: boolean): void => {},
+                                            forceUpdate: (): void => {},
+                                        }}
                                         color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                         alive
-                                        socket={this.socket}
-                                        themeType={this.state.themeType}
-                                        endIcon={<CloudUploadOutlined />}
                                         schema={{
                                             backUpType: 'ccu',
                                             label: 'Homematic start backup',
+                                            i18n: false,
+                                            variant: 'contained',
+                                            type: 'custom',
+                                            url: '',
+                                            name: '',
                                         }}
+                                        onError={(): void => {}}
+                                        changed={false}
+                                        common={this.state.common || {}}
+                                        themeName={this.state.themeName}
+                                        data={{}}
+                                        originalData={{}}
+                                        onChange={(_attr: string): void => {}}
                                     />
                                 ) : (
                                     <Button
                                         style={{ width: '100%' }}
-                                        themeType={this.state.themeType}
                                         disabled
                                         color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                         variant="contained"
@@ -707,7 +785,6 @@ class App extends GenericApp {
                                     style={{ width: '100%' }}
                                     onClick={() => this.setState({ showBackupHistory: true })}
                                     variant="contained"
-                                    themeBreakpoints={this.state.theme.breakpoints.down}
                                     color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                     endIcon={<FormatListBulleted />}
                                 >
@@ -782,7 +859,6 @@ class App extends GenericApp {
                                 />
                                 <Button
                                     style={{ width: '100%', marginTop: '0.5rem' }}
-                                    themeType={this.state.themeType}
                                     onClick={() => this.setState({ showGetBackups: true })}
                                     disabled={!this.state.myAlive}
                                     variant="contained"
@@ -793,7 +869,6 @@ class App extends GenericApp {
                                 </Button>
                                 <Button
                                     style={{ width: '100%', marginTop: '0.5rem' }}
-                                    themeType={this.state.themeType}
                                     onClick={() => this.setState({ showUploadBackup: true })}
                                     variant="contained"
                                     color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
@@ -803,7 +878,6 @@ class App extends GenericApp {
                                 </Button>
                                 <Button
                                     style={{ width: '100%', marginTop: '0.5rem' }}
-                                    themeType={this.state.themeType}
                                     variant="contained"
                                     color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
                                     onClick={() => this.setState({ showUploadSettings: true })}
@@ -867,9 +941,6 @@ class App extends GenericApp {
                     {this.state.showLogs ? (
                         <GetLogs
                             onClose={() => this.setState({ showLogs: null })}
-                            onLogs={(fileName, timestamp, index) =>
-                                this.setState({ showLogs: fileName, timestamp, index })
-                            }
                             backupLog={this.state.showLogs}
                             socket={this.socket}
                             themeType={this.state.themeType}
@@ -880,7 +951,6 @@ class App extends GenericApp {
                     ) : null}
                     {this.state.showUploadBackup ? (
                         <UploadBackup
-                            alive={this.state.myAlive}
                             onClose={() => this.setState({ showUploadBackup: false })}
                             socket={this.socket}
                             themeType={this.state.themeType}

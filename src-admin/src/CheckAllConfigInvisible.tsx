@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
+import type { JSX } from 'react';
 import { I18n } from '@iobroker/adapter-react-v5';
 
 import BaseField from './BaseField';
-import { ConfigGenericProps } from '@iobroker/json-config';
-import { BackitupNative, FileSystemInfo, SystemInfo } from './Components/types';
+import type { ConfigGenericProps } from '@iobroker/json-config';
+import type { BackitupNative, FileSystemInfo, SystemInfo } from './Components/types';
 
 class CheckAllConfigInvisible extends BaseField {
-    storedAlive: boolean;
-    storedChecked: boolean;
+    private storedAlive: boolean;
+    private storedChecked: boolean;
 
     constructor(props: ConfigGenericProps) {
         super(props);
@@ -15,9 +15,10 @@ class CheckAllConfigInvisible extends BaseField {
         this.storedChecked = false;
     }
 
-    checkConfiguration() {
+    checkConfiguration(): void {
         if (this.props.alive) {
-            this.props.oContext.socket.sendTo(`${this.props.oContext.adapterName}.${this.props.oContext.instance}`, 'getSystemInfo', null)
+            void this.props.oContext.socket
+                .sendTo(`${this.props.oContext.adapterName}.${this.props.oContext.instance}`, 'getSystemInfo', null)
                 .then(async (result: SystemInfo) => {
                     let changed = false;
                     if ((result?.systemOS === 'docker' && result.dockerDB === true) || result?.systemOS !== 'docker') {
@@ -66,22 +67,41 @@ class CheckAllConfigInvisible extends BaseField {
                     const CONFIGS = ['ccu', 'mySql', 'sqlite', 'pgSql', 'influxDB', 'history'];
                     for (let c = 0; c < CONFIGS.length; c++) {
                         if (!this.isConfigFilled(CONFIGS[c])) {
-                            const _result = await this.fetchConfig(CONFIGS[c], this.props.data as BackitupNative)
-                                .catch(e => console.error(e));
+                            const _result = await this.fetchConfig(CONFIGS[c], this.props.data as BackitupNative).catch(
+                                e => console.error(e),
+                            );
                             changed = changed || _result!.changed;
                         }
                     }
                 });
 
             if (!this.props.data.cifsEnabled && !this.storedChecked) {
-                this.props.oContext.socket.sendTo(`${this.props.oContext.adapterName}.${this.props.oContext.instance}`, 'getFileSystemInfo', null)
+                void this.props.oContext.socket
+                    .sendTo(
+                        `${this.props.oContext.adapterName}.${this.props.oContext.instance}`,
+                        'getFileSystemInfo',
+                        null,
+                    )
                     .then((result: FileSystemInfo) => {
                         if (result?.diskState && result.storage && result.diskFree) {
                             this.storedChecked = true;
                             if (result.diskState === 'warn' && result.storage === 'local') {
-                                this.showMessage(I18n.t('On the host only %s MB free space is available! Please check your system!', result.diskFree), I18n.t('BackItUp Information!'));
+                                this.showMessage(
+                                    I18n.t(
+                                        'On the host only %s MB free space is available! Please check your system!',
+                                        result.diskFree,
+                                    ),
+                                    I18n.t('BackItUp Information!'),
+                                );
                             } else if (result.diskState === 'error' && result.storage === 'local') {
-                                this.showMessage(I18n.t('On the host only %s MB free space is available! Local backups are currently not possible. Please check your system!', result.diskFree), I18n.t('BackItUp Information!'), 'warning');
+                                this.showMessage(
+                                    I18n.t(
+                                        'On the host only %s MB free space is available! Local backups are currently not possible. Please check your system!',
+                                        result.diskFree,
+                                    ),
+                                    I18n.t('BackItUp Information!'),
+                                    'warning',
+                                );
                             }
                         }
                     });
@@ -89,14 +109,14 @@ class CheckAllConfigInvisible extends BaseField {
         }
     }
 
-    async componentDidMount() {
+    componentDidMount(): void {
         super.componentDidMount();
         if (this.storedAlive) {
             this.checkConfiguration();
         }
     }
 
-    renderItem() {
+    renderItem(): JSX.Element | null {
         if (this.storedAlive !== this.props.alive) {
             this.storedAlive = this.props.alive;
             if (this.storedAlive) {

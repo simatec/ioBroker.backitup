@@ -1,25 +1,36 @@
-/* eslint-disable no-undef */
-import PropTypes from 'prop-types';
-import { useState, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
+import React, { useState, useCallback } from 'react';
+import { type FileRejection, useDropzone } from 'react-dropzone';
 
 import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 
 import { Close, FolderZip, UploadOutlined } from '@mui/icons-material';
 
-import { I18n, Utils } from '@iobroker/adapter-react-v5';
+import { type AdminConnection, I18n, type ThemeType, Utils } from '@iobroker/adapter-react-v5';
 
-const UploadBackup = props => {
+interface UploadBackupProps {
+    onClose: () => void;
+    disabled?: boolean;
+    themeType: ThemeType;
+    instruction?: string;
+    maxSize?: number;
+    adapterName: string;
+    instance: number;
+    socket: AdminConnection;
+}
+
+export default function UploadBackup(props: UploadBackupProps): React.JSX.Element {
     const [fileName, setFileName] = useState('');
-    const [fileData, setFileData] = useState(null);
+    const [fileData, setFileData] = useState<File | null>(null);
     const [working, setWorking] = useState(false);
     const [error, setError] = useState('');
     const [uploaded, setUploaded] = useState(false);
 
     const onDrop = useCallback(
-        (acceptedFiles, fileRejections) => {
+        (acceptedFiles: File[], fileRejections: FileRejection[]) => {
             if (acceptedFiles?.length) {
-                error && setError('');
+                if (error) {
+                    setError('');
+                }
                 setFileName(acceptedFiles[0].name);
                 setFileData(acceptedFiles[0]);
             } else if (fileRejections?.length) {
@@ -91,7 +102,7 @@ const UploadBackup = props => {
                         >
                             {fileName ? (
                                 <>
-                                    <div>{fileName && !uploaded && !uploaded ? fileName : null}</div>
+                                    <div>{fileName && !uploaded ? fileName : null}</div>
                                     {fileName.endsWith('.tar.gz') && !uploaded ? <FolderZip /> : null}
                                     {fileData && !uploaded ? (
                                         <div style={{ fontSize: 10, opacity: 0.5 }}>
@@ -175,14 +186,4 @@ const UploadBackup = props => {
             </DialogActions>
         </Dialog>
     );
-};
-
-UploadBackup.propTypes = {
-    onClose: PropTypes.func,
-    disabled: PropTypes.bool,
-    themeType: PropTypes.string,
-    instruction: PropTypes.string,
-    maxSize: PropTypes.number,
-};
-
-export default UploadBackup;
+}

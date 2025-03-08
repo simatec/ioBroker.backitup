@@ -3,21 +3,24 @@ import { Alert } from '@mui/material';
 import { Info, Warning } from '@mui/icons-material';
 
 import { I18n, DialogMessage } from '@iobroker/adapter-react-v5';
-import { ConfigGeneric, ConfigGenericProps, ConfigGenericState } from '@iobroker/json-config';
-import { BackitupNative } from './Components/types';
+import { ConfigGeneric, type ConfigGenericProps, type ConfigGenericState } from '@iobroker/json-config';
+import type { BackitupNative } from './Components/types';
+import React from 'react';
 
 export type BaseFieldState = ConfigGenericState & {
     message: false | { title: string; text: string; level?: string };
-}
+};
 
-class BaseField<P extends ConfigGenericProps = ConfigGenericProps, S extends BaseFieldState = BaseFieldState>
-extends ConfigGeneric<P, S> {
+class BaseField<
+    P extends ConfigGenericProps = ConfigGenericProps,
+    S extends BaseFieldState = BaseFieldState,
+> extends ConfigGeneric<P, S> {
     constructor(props: P) {
         super(props);
         (this.state.message as boolean) = false;
     }
 
-    isConfigFilled(type: string) {
+    isConfigFilled(type: string): boolean {
         if (type === 'ccu') {
             return !!this.props.data.ccuHost && !!this.props.data.ccuEnabled;
         }
@@ -40,7 +43,10 @@ extends ConfigGeneric<P, S> {
         return false;
     }
 
-    fetchConfig = async (type: string, data: BackitupNative): Promise<{ changed: boolean; found: string | boolean; message?: string }> => {
+    fetchConfig = async (
+        type: string,
+        data: BackitupNative,
+    ): Promise<{ changed: boolean; found: string | boolean; message?: string }> => {
         if (type === 'ccu') {
             return this.fetchCcuConfig(data);
         }
@@ -64,10 +70,19 @@ extends ConfigGeneric<P, S> {
         return { changed: false, found: false };
     };
 
-    async fetchCcuConfig(data: BackitupNative) {
-        const result:ioBroker.Object[] = Object.values(await this.props.oContext.socket.getObjectViewCustom('system', 'instance', 'system.adapter.hm-rpc.', 'system.adapter.hm-rpc.\u9999'));
+    async fetchCcuConfig(
+        data: BackitupNative,
+    ): Promise<{ changed: boolean; found: string | boolean; message?: string }> {
+        const result: ioBroker.Object[] = Object.values(
+            await this.props.oContext.socket.getObjectViewCustom(
+                'system',
+                'instance',
+                'system.adapter.hm-rpc.',
+                'system.adapter.hm-rpc.\u9999',
+            ),
+        );
 
-        let found:(boolean | string) = false;
+        let found: boolean | string = false;
         let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
@@ -99,18 +114,28 @@ extends ConfigGeneric<P, S> {
         return { changed, found };
     }
 
-    async fetchMySqlConfig(data: BackitupNative) {
-        const result:ioBroker.Object[] = Object.values(await this.props.oContext.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
+    async fetchMySqlConfig(
+        data: BackitupNative,
+    ): Promise<{ changed: boolean; found: string | boolean; message?: string }> {
+        const result: ioBroker.Object[] = Object.values(
+            await this.props.oContext.socket.getObjectViewCustom(
+                'system',
+                'instance',
+                'system.adapter.sql.',
+                'system.adapter.sql.\u9999',
+            ),
+        );
 
-        let found:(boolean | string) = false;
+        let found: boolean | string = false;
         let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
                 const common = result[i].common;
                 const native = result[i].native;
                 if (common.enabled && native?.dbtype === 'mysql') {
-                    const port = native.port === '0' ? 3306 : (native.port || 3306);
-                    if (data.mySqlUser !== native.user ||
+                    const port = native.port === '0' ? 3306 : native.port || 3306;
+                    if (
+                        data.mySqlUser !== native.user ||
                         data.mySqlPassword !== native.password ||
                         data.mySqlHost !== native.host ||
                         data.mySqlPort !== port ||
@@ -131,8 +156,9 @@ extends ConfigGeneric<P, S> {
                 for (let i = 0; i < result.length; i++) {
                     const native = result[i].native;
                     if (native?.dbtype === 'mysql') {
-                        const port = native.port === '0' ? 3306 : (native.port || 3306);
-                        if (data.mySqlUser !== native.user ||
+                        const port = native.port === '0' ? 3306 : native.port || 3306;
+                        if (
+                            data.mySqlUser !== native.user ||
                             data.mySqlPassword !== native.password ||
                             data.mySqlHost !== native.host ||
                             data.mySqlPort !== port ||
@@ -155,9 +181,18 @@ extends ConfigGeneric<P, S> {
         return { changed, found };
     }
 
-    async fetchSqliteConfig(data: BackitupNative) {
-        const result:ioBroker.Object[] = Object.values(await this.props.oContext.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
-        let found:(boolean | string) = false;
+    async fetchSqliteConfig(
+        data: BackitupNative,
+    ): Promise<{ changed: boolean; found: string | boolean; message?: string }> {
+        const result: ioBroker.Object[] = Object.values(
+            await this.props.oContext.socket.getObjectViewCustom(
+                'system',
+                'instance',
+                'system.adapter.sql.',
+                'system.adapter.sql.\u9999',
+            ),
+        );
+        let found: boolean | string = false;
         let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
@@ -165,7 +200,8 @@ extends ConfigGeneric<P, S> {
                 const native = result[i].native;
                 if (common.enabled && native && native.dbtype === 'sqlite' && native.fileName) {
                     const pathLength = native.fileName.split('/');
-                    const sqlitePath = pathLength > 1 ? native.fileName : `/opt/iobroker/iobroker-data/sqlite/${native.fileName}`;
+                    const sqlitePath =
+                        pathLength > 1 ? native.fileName : `/opt/iobroker/iobroker-data/sqlite/${native.fileName}`;
                     if (data.sqlitePath !== sqlitePath) {
                         data.sqlitePath = sqlitePath;
                         changed = true;
@@ -179,7 +215,8 @@ extends ConfigGeneric<P, S> {
                     const native = result[i].native;
                     if (native?.dbtype === 'sqlite' && native.fileName) {
                         const pathLength = native.fileName.split('/');
-                        const sqlitePath = pathLength > 1 ? native.fileName : `/opt/iobroker/iobroker-data/sqlite/${native.fileName}`;
+                        const sqlitePath =
+                            pathLength > 1 ? native.fileName : `/opt/iobroker/iobroker-data/sqlite/${native.fileName}`;
                         if (data.sqlitePath !== sqlitePath) {
                             data.sqlitePath = sqlitePath;
                             changed = true;
@@ -194,10 +231,19 @@ extends ConfigGeneric<P, S> {
         return { changed, found };
     }
 
-    async fetchPgSqlConfig(data: BackitupNative) {
-        const result:ioBroker.Object[] = Object.values(await this.props.oContext.socket.getObjectViewCustom('system', 'instance', 'system.adapter.sql.', 'system.adapter.sql.\u9999'));
+    async fetchPgSqlConfig(
+        data: BackitupNative,
+    ): Promise<{ changed: boolean; found: string | boolean; message?: string }> {
+        const result: ioBroker.Object[] = Object.values(
+            await this.props.oContext.socket.getObjectViewCustom(
+                'system',
+                'instance',
+                'system.adapter.sql.',
+                'system.adapter.sql.\u9999',
+            ),
+        );
 
-        let found:(boolean | string) = false;
+        let found: boolean | string = false;
         let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
@@ -205,7 +251,8 @@ extends ConfigGeneric<P, S> {
                 const native = result[i].native;
                 if (common.enabled && native?.dbtype === 'postgresql') {
                     const port = native.port === '0' ? 5432 : native.port || 5432;
-                    if (data.pgSqlUser !== native.user ||
+                    if (
+                        data.pgSqlUser !== native.user ||
                         data.pgSqlPassword !== native.password ||
                         data.pgSqlHost !== native.host ||
                         data.pgSqlPort !== port ||
@@ -227,7 +274,8 @@ extends ConfigGeneric<P, S> {
                     const native = result[i].native;
                     if (native?.dbtype === 'postgresql') {
                         const port = native.port === '0' ? 5432 : native.port || 5432;
-                        if (data.pgSqlUser !== native.user ||
+                        if (
+                            data.pgSqlUser !== native.user ||
                             data.pgSqlPassword !== native.password ||
                             data.pgSqlHost !== native.host ||
                             data.pgSqlPort !== port ||
@@ -250,16 +298,26 @@ extends ConfigGeneric<P, S> {
         return { changed, found };
     }
 
-    async fetchInfluxDBConfig(data: BackitupNative) {
-        const result:ioBroker.Object[] = Object.values(await this.props.oContext.socket.getObjectViewCustom('system', 'instance', 'system.adapter.influxdb.', 'system.adapter.influxdb.\u9999'));
-        let found:(boolean | string) = false;
+    async fetchInfluxDBConfig(
+        data: BackitupNative,
+    ): Promise<{ changed: boolean; found: string | boolean; message?: string }> {
+        const result: ioBroker.Object[] = Object.values(
+            await this.props.oContext.socket.getObjectViewCustom(
+                'system',
+                'instance',
+                'system.adapter.influxdb.',
+                'system.adapter.influxdb.\u9999',
+            ),
+        );
+        let found: boolean | string = false;
         let changed = false;
         if (result && result.length) {
             for (let i = 0; i < result.length; i++) {
                 const common = result[i].common;
                 const native = result[i].native;
                 if (common.enabled) {
-                    if (data.influxDBHost !== native.host ||
+                    if (
+                        data.influxDBHost !== native.host ||
                         data.influxDBVersion !== native.dbversion ||
                         data.influxDBProtocol !== native.protocol ||
                         data.influxDBName !== native.dbname ||
@@ -281,11 +339,13 @@ extends ConfigGeneric<P, S> {
             }
             if (!found && result.length && result[0].native) {
                 const native = result[0].native;
-                if (native && (data.influxDBHost !== native.host ||
-                    data.influxDBVersion !== native.dbversion ||
-                    data.influxDBProtocol !== native.protocol ||
-                    data.influxDBName !== native.dbname ||
-                    (native.dbversion === '2.x' && data.influxDBPort !== native.port))
+                if (
+                    native &&
+                    (data.influxDBHost !== native.host ||
+                        data.influxDBVersion !== native.dbversion ||
+                        data.influxDBProtocol !== native.protocol ||
+                        data.influxDBName !== native.dbname ||
+                        (native.dbversion === '2.x' && data.influxDBPort !== native.port))
                 ) {
                     data.influxDBHost = native.host;
                     data.influxDBVersion = native.dbversion;
@@ -304,18 +364,30 @@ extends ConfigGeneric<P, S> {
         return { changed, found };
     }
 
-    async fetchHistoryConfig(data: BackitupNative) {
-        const result:ioBroker.Object[] = Object.values(await this.props.oContext.socket.getObjectViewCustom('system', 'instance', 'system.adapter.history.', 'system.adapter.history.\u9999'));
+    async fetchHistoryConfig(
+        data: BackitupNative,
+    ): Promise<{ changed: boolean; found: string | boolean; message?: string }> {
+        const result: ioBroker.Object[] = Object.values(
+            await this.props.oContext.socket.getObjectViewCustom(
+                'system',
+                'instance',
+                'system.adapter.history.',
+                'system.adapter.history.\u9999',
+            ),
+        );
 
         let storeDir = '';
-        let found:(boolean | string) = false;
+        let found: boolean | string = false;
         let changed = false;
-        if (result && result.length) {
+        if (result?.length) {
             for (let i = 0; i < result.length; i++) {
                 const common = result[i].common;
                 const native = result[i].native;
                 if (common.enabled && native) {
-                    const historyPath = native.storeDir && !native.storeDir.startsWith('/opt/iobroker/backups') ? native.storeDir : '/opt/iobroker/iobroker-data/history';
+                    const historyPath =
+                        native.storeDir && !native.storeDir.startsWith('/opt/iobroker/backups')
+                            ? native.storeDir
+                            : '/opt/iobroker/iobroker-data/history';
                     if (data.historyPath !== historyPath) {
                         data.historyPath = historyPath;
                         changed = true;
@@ -328,7 +400,10 @@ extends ConfigGeneric<P, S> {
             if (!found && result[0]) {
                 const native = result[0].native;
                 if (native) {
-                    const historyPath = native.storeDir && !native.storeDir.startsWith('/opt/iobroker/backups') ? native.storeDir : '/opt/iobroker/iobroker-data/history';
+                    const historyPath =
+                        native.storeDir && !native.storeDir.startsWith('/opt/iobroker/backups')
+                            ? native.storeDir
+                            : '/opt/iobroker/iobroker-data/history';
                     if (data.historyPath !== historyPath) {
                         data.historyPath = historyPath;
                         changed = true;
@@ -339,19 +414,25 @@ extends ConfigGeneric<P, S> {
             }
         }
 
-        let message;
+        let message: string | undefined;
         if (found) {
             if (!storeDir) {
-                message = I18n.t('No storage path of %s is configured.\nThe default path of the history adapter has been set.', found.substring('system.adapter.'.length));
+                message = I18n.t(
+                    'No storage path of %s is configured.\nThe default path of the history adapter has been set.',
+                    found.substring('system.adapter.'.length),
+                );
             } else if (storeDir?.startsWith('/opt/iobroker/backups')) {
-                message = I18n.t('The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!', found.substring('system.adapter.'.length));
+                message = I18n.t(
+                    'The storage path of %s must not be identical to the path for backups.\nThe default path of the history adapter has been set.\n\nPlease change the path in the history adapter!',
+                    found.substring('system.adapter.'.length),
+                );
             }
         }
 
         return { changed, found, message };
     }
 
-    checkAdapterInstall = async (name: string, ignoreHosts: boolean) => {
+    checkAdapterInstall = async (name: string, ignoreHosts: boolean): Promise<void> => {
         const backItUpHost = this.props.common.host;
         const ignore = false;
         let adapterName = name;
@@ -360,20 +441,19 @@ extends ConfigGeneric<P, S> {
             adapterName = 'sql';
         }
 
-        const SHOW_MESSAGE_FOR = [
-            'zigbee',
-            'esphome',
-            'zigbee2mqtt',
-            'node-red',
-            'yahka',
-            'jarvis',
-            'history',
-        ];
+        const SHOW_MESSAGE_FOR = ['zigbee', 'esphome', 'zigbee2mqtt', 'node-red', 'yahka', 'jarvis', 'history'];
 
         if (!ignore) {
-            const res:ioBroker.Object[] = Object.values(await this.props.oContext.socket.getObjectViewCustom('system', 'instance', `system.adapter.${adapterName}.`, `system.adapter.${adapterName}.\u9999`));
+            const res: ioBroker.Object[] = Object.values(
+                await this.props.oContext.socket.getObjectViewCustom(
+                    'system',
+                    'instance',
+                    `system.adapter.${adapterName}.`,
+                    `system.adapter.${adapterName}.\u9999`,
+                ),
+            );
             if (res?.length) {
-                let found:(boolean | string) = false;
+                let found: boolean | string = false;
                 for (let i = 0; i < res.length; i++) {
                     const common = res[i].common;
 
@@ -383,34 +463,56 @@ extends ConfigGeneric<P, S> {
                     }
                 }
                 if (!found && SHOW_MESSAGE_FOR.includes(adapterName)) {
-                    this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('No %s Instance found on this host.\nPlease check your System', adapterName), 'warning');
+                    this.showMessage(
+                        I18n.t('BackItUp Warning!'),
+                        I18n.t('No %s Instance found on this host.\nPlease check your System', adapterName),
+                        'warning',
+                    );
                 }
             } else if (SHOW_MESSAGE_FOR.includes(adapterName)) {
-                this.showMessage(I18n.t('BackItUp Warning!'), I18n.t('No %s Instance found on this host.\nPlease check your System', adapterName), 'warning');
+                this.showMessage(
+                    I18n.t('BackItUp Warning!'),
+                    I18n.t('No %s Instance found on this host.\nPlease check your System', adapterName),
+                    'warning',
+                );
             }
         }
     };
 
-    showMessage = (title: string, text: string, level?: string) => {
+    showMessage = (title: string, text: string, level?: string): void => {
         this.setState({ message: { title, text, level: level || 'info' } });
     };
 
-    renderMessage() {
+    renderMessage(): React.JSX.Element | null {
         if (!this.state.message) {
             return null;
         }
 
-        const lines = this.state.message.text.split('\n')
-            .map(line => <div key={line} style={{ minHeight: 24 }}>{line}</div>);
+        const lines = this.state.message.text.split('\n').map(line => (
+            <div
+                key={line}
+                style={{ minHeight: 24 }}
+            >
+                {line}
+            </div>
+        ));
 
-        return this.state.message ? <DialogMessage
-            title={this.state.message.title}
-            text={lines}
-            icon={this.state.message.level === 'info' ? <Info /> :
-                (this.state.message.level === 'warning' ? <Warning style={{ color: 'orange' }} /> :
-                    (this.state.message.level === 'error' ? <Alert style={{ color: 'red' }} /> : undefined))}
-            onClose={() => this.setState({ message: false })}
-        /> : null;
+        return this.state.message ? (
+            <DialogMessage
+                title={this.state.message.title}
+                text={lines}
+                icon={
+                    this.state.message.level === 'info' ? (
+                        <Info />
+                    ) : this.state.message.level === 'warning' ? (
+                        <Warning style={{ color: 'orange' }} />
+                    ) : this.state.message.level === 'error' ? (
+                        <Alert style={{ color: 'red' }} />
+                    ) : undefined
+                }
+                onClose={() => this.setState({ message: false })}
+            />
+        ) : null;
     }
 }
 
