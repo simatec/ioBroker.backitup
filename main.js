@@ -53,20 +53,24 @@ function decrypt(key, value) {
 
 async function updateAccessTokens(config) {
     if (dropBoxTokenRefresher) {
-        const accessToken = await dropBoxTokenRefresher.getAccessToken();
-        Object.values(config).forEach((_config) => {
-            if (_config && typeof _config === 'object') {
-                if (_config.dropbox) {
-                    _config.dropbox.accessToken = accessToken;
-                } else {
-                    Object.values(_config).forEach((_config2) => {
-                        if (_config.dropbox) {
-                            _config.dropbox.accessToken = accessToken;
-                        }
-                    });
+        try {
+            const accessToken = await dropBoxTokenRefresher.getAccessToken();
+            Object.values(config).forEach((_config) => {
+                if (_config && typeof _config === 'object') {
+                    if (_config.dropbox) {
+                        _config.dropbox.accessToken = accessToken;
+                    } else {
+                        Object.values(_config).forEach((_config2) => {
+                            if (_config.dropbox) {
+                                _config.dropbox.accessToken = accessToken;
+                            }
+                        });
+                    }
                 }
-            }
-        });
+            });
+        } catch (e) {
+            adapter.log.error(`Cannot get access tokens for DropBox: ${e}`);
+        }
     }
 }
 
@@ -856,8 +860,14 @@ async function initConfig(secret) {
         ignoreErrors: adapter.config.ignoreErrors
     };
 
+    let accessToken = '';
     if (adapter.config.dropboxEnabled) {
-        dropBoxTokenRefresher = new TokenRefresher(adapter, 'info.dropboxTokens', 'https://oauth2.iobroker.in/dropbox')
+        dropBoxTokenRefresher = new TokenRefresher(adapter, 'info.dropboxTokens', 'https://oauth2.iobroker.in/dropbox');
+        try {
+            accessToken = await dropBoxTokenRefresher.getAccessToken();
+        } catch (e) {
+            adapter.log.error(`No DropBox token found!`);
+        }
     }
 
     const dropbox = {
@@ -868,7 +878,7 @@ async function initConfig(secret) {
         deleteOldBackup: adapter.config.dropboxDeleteOldBackup,                                     // Delete old Backups from Dropbox
         dropboxDeleteAfter: adapter.config.dropboxDeleteAfter,
         advancedDelete: adapter.config.advancedDelete,
-        accessToken: adapter.config.dropboxTokenType === 'custom' ? adapter.config.dropboxAccessToken : await dropBoxTokenRefresher.getAccessToken(),
+        accessToken: adapter.config.dropboxTokenType === 'custom' ? adapter.config.dropboxAccessToken : accessToken,
         dropboxAccessJson: adapter.config.dropboxAccessJson,
         dropboxTokenType: adapter.config.dropboxTokenType,
         ownDir: adapter.config.dropboxOwnDir,
