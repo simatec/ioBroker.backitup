@@ -868,7 +868,7 @@ async function initConfig(secret) {
         deleteOldBackup: adapter.config.dropboxDeleteOldBackup,                                     // Delete old Backups from Dropbox
         dropboxDeleteAfter: adapter.config.dropboxDeleteAfter,
         advancedDelete: adapter.config.advancedDelete,
-        accessToken: adapter.config.dropboxTokenType === 'custom' ? adapter.config.dropboxAccessToken : await dropBoxTokenRefresher.getAccessToken(),
+        accessToken: adapter.config.dropboxTokenType === 'custom' ? adapter.config.dropboxAccessToken : adapter.config.dropboxEnabled === true ? await dropBoxTokenRefresher.getAccessToken() : null,
         dropboxAccessJson: adapter.config.dropboxAccessJson,
         dropboxTokenType: adapter.config.dropboxTokenType,
         ownDir: adapter.config.dropboxOwnDir,
