@@ -39,10 +39,11 @@
                     value: 'custom',
                 },
             ],
+            default: 'default',
             newLine: true,
         },
         _dropbox: {
-            hidden: "data.dropboxTokenType == 'custom'",
+            hidden: "data.dropboxTokenType === 'custom'",
             newLine: true,
             type: 'custom',
             bundlerType: 'module',
@@ -57,7 +58,7 @@
             xl: 12,
         },
         dropboxAccessToken: {
-            hidden: "data.dropboxTokenType == 'default'",
+            hidden: "data.dropboxTokenType === 'default'",
             xs: 12,
             sm: 12,
             md: 12,

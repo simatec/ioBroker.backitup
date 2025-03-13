@@ -6,11 +6,11 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
-// const ioCommon = require('@iobroker/js-controller-common'); // Get common adapter utils
 const schedule = require('node-schedule');
 const tools = require('./lib/tools');
 const executeScripts = require('./lib/execute');
 const systemCheck = require('./lib/systemCheck');
+const TokenRefresher = require('./lib/tokenRefresher');
 
 const adapterName = require('./package.json').name.split('.').pop();
 
@@ -32,7 +32,7 @@ let systemLang = 'de';              // system language
 const backupConfig = {};
 const backupTimeSchedules = [];     // Array for Backup Times
 let taskRunning = false;
-
+let dropBoxTokenRefresher = null;
 
 const bashDir = path.join(utils.getAbsoluteDefaultDataDir(), adapterName).replace(/\\/g, '/');
 
@@ -51,10 +51,31 @@ function decrypt(key, value) {
     return result;
 }
 
-function startBackup(config, cb) {
+async function updateAccessTokens(config) {
+    if (dropBoxTokenRefresher) {
+        const accessToken = await dropBoxTokenRefresher.getAccessToken();
+        Object.values(config).forEach((_config) => {
+            if (_config && typeof _config === 'object') {
+                if (_config.dropbox) {
+                    _config.dropbox.accessToken = accessToken;
+                } else {
+                    Object.values(_config).forEach((_config2) => {
+                        if (_config.dropbox) {
+                            _config.dropbox.accessToken = accessToken;
+                        }
+                    });
+                }
+            }
+        });
+    }
+}
+
+async function startBackup(config, cb) {
     if (taskRunning) {
         return setTimeout(startBackup, 10000, config, cb);
     }
+    await updateAccessTokens(config);
+
     taskRunning = true;
     try {
         executeScripts(adapter, config, err => {
@@ -63,6 +84,7 @@ function startBackup(config, cb) {
         });
         adapter.log.debug('Backup has started ...');
     } catch (e) {
+        adapter.log.warn(`Backup error: ${e.stack}`);
         adapter.log.warn(`Backup error: ${e} ... please check your config and and try again!!`);
     }
 }
@@ -74,6 +96,8 @@ function startAdapter(options) {
     adapter = new utils.Adapter(options);
 
     adapter.on('stateChange', async (id, state) => {
+        dropBoxTokenRefresher?.onStateChange(id, state);
+
         if (state && (state.val === true || state.val === 'true') && !state.ack) {
             if (id === `${adapter.namespace}.oneClick.iobroker` ||
                 id === `${adapter.namespace}.oneClick.ccu`
@@ -89,6 +113,7 @@ function startAdapter(options) {
                         config.enabled = true;
                         config.deleteBackupAfter = 0; // do not delete files by custom backup
                     } catch (e) {
+                        adapter.log.warn(`backup error: ${e.stack}`);
                         adapter.log.warn(`backup error: ${e} ... please check your config and try again!!`);
                     }
 
@@ -143,6 +168,7 @@ function startAdapter(options) {
     // is called when adapter shuts down - callback has to be called under any circumstances!
     adapter.on('unload', (callback) => {
         try {
+            dropBoxTokenRefresher?.destroy();
             adapter.log.info('cleaned everything up...');
             timerOutput2 && clearTimeout(timerOutput2);
             timerOutput && clearTimeout(timerOutput);
@@ -188,6 +214,7 @@ function startAdapter(options) {
                     try {
                         const list = require('./lib/list');
                         adapter.log.debug(`Reading backup list...`);
+                        await updateAccessTokens(backupConfig);
                         list(obj.message, backupConfig, adapter.log, res => {
                             adapter.log.debug(`Backup list was read: ${JSON.stringify(res)}`);
                             obj.callback && adapter.sendTo(obj.from, obj.command, res, obj.callback);
@@ -209,23 +236,9 @@ function startAdapter(options) {
                     break;
 
                 case 'authDropbox':
-                    const Dropbox = require('./lib/dropboxLib');
-
-                    if (obj.message && obj.message.code && obj.message.codeChallenge) {
-                        const dropbox = new Dropbox();
-
-                        dropbox.getRefreshToken(obj.message.code, obj.message.codeChallenge, adapter.log)
-                            .then(json => adapter.sendTo(obj.from, obj.command, { done: true, json }, obj.callback))
-                            .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
-                    } else if (obj.callback) {
-                        const dropbox = new Dropbox();
-                        let auth_url;
-
-                        dropbox.getAuthorizeUrl(adapter.log)
-                            .then(url => auth_url = url)
-                            .then(() => dropbox.getCodeChallage(adapter.log, adapter.config.dropboxCodeChallenge))
-                            .then(code_challenge => adapter.sendTo(obj.from, obj.command, { url: auth_url, code_challenge: code_challenge }, obj.callback))
-                            .catch(err => adapter.sendTo(obj.from, obj.command, { error: err }, obj.callback));
+                    if (obj.callback) {
+                        TokenRefresher.getAuthUrl('https://oauth2.iobroker.in/dropbox')
+                            .then(url => adapter.sendTo(obj.from, obj.command, {url}, obj.callback))
                     }
                     break;
 
@@ -253,6 +266,7 @@ function startAdapter(options) {
                             await getCerts(obj.from);
                         }
                         adapter.log.info(`DATA: ${JSON.stringify(obj.message)}`);
+                        await updateAccessTokens(backupConfig);
 
                         const _restore = require('./lib/restore');
                         _restore.restore(
@@ -321,6 +335,7 @@ function startAdapter(options) {
                             const toSaveName = path.join(backupDir, fileName);
 
                             const _getFile = require('./lib/restore');
+                            await updateAccessTokens(backupConfig);
 
                             _getFile.getFile(backupConfig, obj.message.type, obj.message.fileName, toSaveName, adapter.log, err => {
                                 if (!err && fs.existsSync(toSaveName)) {
@@ -441,7 +456,7 @@ function startAdapter(options) {
                     }
                     break;
                 case 'slaveBackup':
-                    if (obj && obj.message) {
+                    if (obj?.message) {
                         if (adapter.config.hostType === 'Slave') {
                             adapter.log.debug('Slave Backup started ...');
                             const type = 'iobroker';
@@ -599,7 +614,9 @@ async function checkStates() {
 // function to create Backup schedules (Backup time)
 function createBackupSchedule() {
     for (const type in backupConfig) {
-        if (!backupConfig.hasOwnProperty(type)) continue;
+        if (!backupConfig.hasOwnProperty(type)) {
+            continue;
+        }
 
         const config = backupConfig[type];
         if (config.enabled === true || config.enabled === 'true') {
@@ -663,7 +680,7 @@ function createBackupSchedule() {
     }
 }
 
-function initConfig(secret) {
+async function initConfig(secret) {
     // compatibility
     if (adapter.config.cifsMount === 'CIFS') {
         adapter.config.cifsMount = '';
@@ -839,6 +856,10 @@ function initConfig(secret) {
         ignoreErrors: adapter.config.ignoreErrors
     };
 
+    if (adapter.config.dropboxEnabled) {
+        dropBoxTokenRefresher = new TokenRefresher(adapter, 'info.dropboxTokens', 'https://oauth2.iobroker.in/dropbox')
+    }
+
     const dropbox = {
         enabled: adapter.config.dropboxEnabled,
         type: 'storage',
@@ -847,14 +868,14 @@ function initConfig(secret) {
         deleteOldBackup: adapter.config.dropboxDeleteOldBackup,                                     // Delete old Backups from Dropbox
         dropboxDeleteAfter: adapter.config.dropboxDeleteAfter,
         advancedDelete: adapter.config.advancedDelete,
-        accessToken: adapter.config.dropboxAccessToken ? adapter.config.dropboxAccessToken : '',
+        accessToken: adapter.config.dropboxTokenType === 'custom' ? adapter.config.dropboxAccessToken : await dropBoxTokenRefresher.getAccessToken(),
         dropboxAccessJson: adapter.config.dropboxAccessJson,
         dropboxTokenType: adapter.config.dropboxTokenType,
         ownDir: adapter.config.dropboxOwnDir,
         bkpType: adapter.config.restoreType,
         dir: (adapter.config.dropboxOwnDir === true) ? null : adapter.config.dropboxDir,
         dirMinimal: adapter.config.dropboxMinimalDir,
-        ignoreErrors: adapter.config.ignoreErrors
+        ignoreErrors: adapter.config.ignoreErrors,
     };
 
     const onedrive = {
@@ -1484,7 +1505,7 @@ function getName(name, filenumbers, storage) {
     }
 }
 
-function detectLatestBackupFile(adapter) {
+async function detectLatestBackupFile(adapter) {
     // get all 'storage' types that enabled
     try {
         let stores = Object.keys(backupConfig.iobroker)
@@ -1493,6 +1514,7 @@ function detectLatestBackupFile(adapter) {
                 backupConfig.iobroker[attr].type === 'storage' &&
                 backupConfig.iobroker[attr].enabled === true);
 
+        await updateAccessTokens(backupConfig);
         // read one time all stores to detect if some backups detected
         let promises;
         const list = require('./lib/list');
@@ -1913,7 +1935,7 @@ async function renewOnedriveToken() {
     }
 
 
-    if (diffDays >= 30 || adapter.config.onedriveLastTokenRenew == '') {
+    if (diffDays >= 30 || !adapter.config.onedriveLastTokenRenew) {
         adapter.log.debug('Renew Onedrive Refresh-Token');
 
         onedrive.renewToken(adapter.config.onedriveAccessJson, adapter.log)
@@ -1954,10 +1976,11 @@ async function main(adapter) {
     }, 10000);
 
     adapter.getForeignObject('system.config', (err, obj) => {
-        if (obj && obj.common && obj.common.language) {
+        if (obj?.common?.language) {
             systemLang = obj.common.language;
         }
-        initConfig((obj && obj.native && obj.native.secret) || 'Zgfr56gFe87jJOM');
+
+        initConfig(obj?.native?.secret || 'Zgfr56gFe87jJOM');
 
         checkStates();
 

@@ -652,6 +652,19 @@
       "native": {}
     },
     {
+      "_id": "info.dropboxTokens",
+      "type": "state",
+      "common": {
+        "role": "state",
+        "name": "DropBox access tokens",
+        "type": "json",
+        "read": true,
+        "write": false,
+        "expert": true
+      },
+      "native": {}
+    },
+    {
       "_id": "info.latestBackup",
       "type": "state",
       "common": {
