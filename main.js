@@ -242,7 +242,7 @@ function startAdapter(options) {
                 case 'authDropbox':
                     if (obj.callback) {
                         TokenRefresher.getAuthUrl('https://oauth2.iobroker.in/dropbox')
-                            .then(url => adapter.sendTo(obj.from, obj.command, {url}, obj.callback))
+                            .then(url => adapter.sendTo(obj.from, obj.command, { url }, obj.callback))
                     }
                     break;
 
@@ -685,617 +685,620 @@ function createBackupSchedule() {
 }
 
 async function initConfig(secret) {
-    // compatibility
-    if (adapter.config.cifsMount === 'CIFS') {
-        adapter.config.cifsMount = '';
-    }
-    if (adapter.config.redisEnabled === undefined) {
-        adapter.config.redisEnabled = adapter.config.backupRedis
-    }
-    let ioPath;
-
-    try {
-        // ioPath = `${ioCommon.tools.getControllerDir()}/iobroker.js`; Todo: Error by iob Backup (no such file or directory, uv_cwd)
-        // ioPath = require.resolve('iobroker.js-controller/iobroker.js');
-        ioPath = path.resolve(__dirname, '../iobroker.js-controller/iobroker.js');
-    } catch (e) {
-        adapter.log.error(`Unable to read iobroker path: +${e}`);
-    }
-
-    decryptEvents(secret);
-
-    const telegram = {
-        enabled: adapter.config.notificationEnabled,
-        notificationsType: adapter.config.notificationsType,
-        type: 'message',
-        instance: adapter.config.telegramInstance,
-        SilentNotice: adapter.config.telegramSilentNotice,
-        NoticeType: adapter.config.telegramNoticeType,
-        User: adapter.config.telegramUser,
-        onlyError: adapter.config.telegramOnlyError,
-        telegramWaiting: adapter.config.telegramWaitToSend * 1000,
-        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
-        ignoreErrors: adapter.config.ignoreErrors,
-        systemLang
-    };
-
-    const whatsapp = {
-        enabled: adapter.config.notificationEnabled,
-        notificationsType: adapter.config.notificationsType,
-        type: 'message',
-        instance: adapter.config.whatsappInstance,
-        NoticeType: adapter.config.whatsappNoticeType,
-        onlyError: adapter.config.whatsappOnlyError,
-        whatsappWaiting: adapter.config.whatsappWaitToSend * 1000,
-        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
-        ignoreErrors: adapter.config.ignoreErrors,
-        systemLang
-    };
-
-    const gotify = {
-        enabled: adapter.config.notificationEnabled,
-        notificationsType: adapter.config.notificationsType,
-        type: 'message',
-        instance: adapter.config.gotifyInstance,
-        NoticeType: adapter.config.gotifyNoticeType,
-        onlyError: adapter.config.gotifyOnlyError,
-        gotifyWaiting: adapter.config.gotifyWaitToSend * 1000,
-        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
-        ignoreErrors: adapter.config.ignoreErrors,
-        systemLang
-    };
-
-    const signal = {
-        enabled: adapter.config.notificationEnabled,
-        notificationsType: adapter.config.notificationsType,
-        type: 'message',
-        instance: adapter.config.signalInstance,
-        NoticeType: adapter.config.signalNoticeType,
-        onlyError: adapter.config.signalOnlyError,
-        signalWaiting: adapter.config.signalWaitToSend * 1000,
-        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
-        ignoreErrors: adapter.config.ignoreErrors,
-        systemLang
-    };
-
-    const matrix = {
-        enabled: adapter.config.notificationEnabled,
-        notificationsType: adapter.config.notificationsType,
-        type: 'message',
-        instance: adapter.config.matrixInstance,
-        NoticeType: adapter.config.matrixNoticeType,
-        onlyError: adapter.config.matrixOnlyError,
-        matrixWaiting: adapter.config.matrixWaitToSend * 1000,
-        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
-        ignoreErrors: adapter.config.ignoreErrors,
-        systemLang
-    };
-
-    const discord = {
-        enabled: adapter.config.notificationEnabled,
-        notificationsType: adapter.config.notificationsType,
-        type: 'message',
-        instance: adapter.config.discordInstance,
-        NoticeType: adapter.config.discordNoticeType,
-        target: adapter.config.discordTarget,
-        onlyError: adapter.config.discordOnlyError,
-        discordWaiting: adapter.config.discordWaitToSend * 1000,
-        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
-        ignoreErrors: adapter.config.ignoreErrors,
-        systemLang
-    };
-
-    const pushover = {
-        enabled: adapter.config.notificationEnabled,
-        notificationsType: adapter.config.notificationsType,
-        type: 'message',
-        instance: adapter.config.pushoverInstance,
-        SilentNotice: adapter.config.pushoverSilentNotice,
-        NoticeType: adapter.config.pushoverNoticeType,
-        deviceID: adapter.config.pushoverDeviceID,
-        onlyError: adapter.config.pushoverOnlyError,
-        pushoverWaiting: adapter.config.pushoverWaitToSend * 1000,
-        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
-        ignoreErrors: adapter.config.ignoreErrors,
-        systemLang
-    };
-
-    const email = {
-        enabled: adapter.config.notificationEnabled,
-        notificationsType: adapter.config.notificationsType,
-        type: 'message',
-        instance: adapter.config.emailInstance,
-        NoticeType: adapter.config.emailNoticeType,
-        emailReceiver: adapter.config.emailReceiver,
-        emailSender: adapter.config.emailSender,
-        onlyError: adapter.config.emailOnlyError,
-        emailWaiting: adapter.config.emailWaitToSend * 1000,
-        hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
-        ignoreErrors: adapter.config.ignoreErrors,
-        systemLang
-    };
-
-    const notification = {
-        type: 'message',
-        ignoreErrors: adapter.config.ignoreErrors,
-        bashDir: bashDir,
-        entriesNumber: adapter.config.historyEntriesNumber,
-        systemLang
-    };
-
-    const historyHTML = {
-        enabled: true,
-        type: 'message',
-        entriesNumber: adapter.config.historyEntriesNumber,
-        ignoreErrors: adapter.config.ignoreErrors,
-        systemLang
-    };
-
-    const historyJSON = {
-        enabled: true,
-        type: 'message',
-        entriesNumber: adapter.config.historyEntriesNumber,
-        ignoreErrors: adapter.config.ignoreErrors,
-        systemLang
-    };
-
-    const ftp = {
-        enabled: adapter.config.ftpEnabled,
-        type: 'storage',
-        source: adapter.config.restoreSource,
-        host: adapter.config.ftpHost,                                                               // ftp-host
-        debugging: adapter.config.debugLevel,
-        deleteOldBackup: adapter.config.ftpDeleteOldBackup,                                         // Delete old Backups from FTP
-        ftpDeleteAfter: adapter.config.ftpDeleteAfter,
-        advancedDelete: adapter.config.advancedDelete,
-        ownDir: adapter.config.ftpOwnDir,
-        bkpType: adapter.config.restoreType,
-        dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir,                    // directory on FTP server
-        dirMinimal: adapter.config.ftpMinimalDir,
-        user: adapter.config.ftpUser,                                                               // username for FTP Server
-        pass: adapter.config.ftpPassword || '',                                                     // password for FTP Server
-        port: adapter.config.ftpPort || 21,                                                         // FTP port
-        secure: adapter.config.ftpSecure || false,                                                  // secure FTP connection
-        signedCertificates: adapter.config.ftpSignedCertificates || true,
-        ignoreErrors: adapter.config.ignoreErrors
-    };
-
-    let accessToken = '';
-    if (adapter.config.dropboxEnabled) {
-        dropBoxTokenRefresher = new TokenRefresher(adapter, 'info.dropboxTokens', 'https://oauth2.iobroker.in/dropbox');
-        try {
-            accessToken = await dropBoxTokenRefresher.getAccessToken();
-        } catch (e) {
-            adapter.log.error(`No DropBox token found!`);
+    return new Promise(async (resolve) => {
+        // compatibility
+        if (adapter.config.cifsMount === 'CIFS') {
+            adapter.config.cifsMount = '';
         }
-    }
+        if (adapter.config.redisEnabled === undefined) {
+            adapter.config.redisEnabled = adapter.config.backupRedis
+        }
+        let ioPath;
 
-    const dropbox = {
-        enabled: adapter.config.dropboxEnabled,
-        type: 'storage',
-        source: adapter.config.restoreSource,
-        debugging: adapter.config.debugLevel,
-        deleteOldBackup: adapter.config.dropboxDeleteOldBackup,                                     // Delete old Backups from Dropbox
-        dropboxDeleteAfter: adapter.config.dropboxDeleteAfter,
-        advancedDelete: adapter.config.advancedDelete,
-        accessToken: adapter.config.dropboxTokenType === 'custom' ? adapter.config.dropboxAccessToken : accessToken,
-        dropboxAccessJson: adapter.config.dropboxAccessJson,
-        dropboxTokenType: adapter.config.dropboxTokenType,
-        ownDir: adapter.config.dropboxOwnDir,
-        bkpType: adapter.config.restoreType,
-        dir: (adapter.config.dropboxOwnDir === true) ? null : adapter.config.dropboxDir,
-        dirMinimal: adapter.config.dropboxMinimalDir,
-        ignoreErrors: adapter.config.ignoreErrors,
-    };
+        try {
+            // ioPath = `${ioCommon.tools.getControllerDir()}/iobroker.js`; Todo: Error by iob Backup (no such file or directory, uv_cwd)
+            // ioPath = require.resolve('iobroker.js-controller/iobroker.js');
+            ioPath = path.resolve(__dirname, '../iobroker.js-controller/iobroker.js');
+        } catch (e) {
+            adapter.log.error(`Unable to read iobroker path: +${e}`);
+        }
 
-    const onedrive = {
-        enabled: adapter.config.onedriveEnabled,
-        type: 'storage',
-        source: adapter.config.restoreSource,
-        debugging: adapter.config.debugLevel,
-        deleteOldBackup: adapter.config.onedriveDeleteOldBackup,                                    // Delete old Backups from Onedrive
-        onedriveDeleteAfter: adapter.config.onedriveDeleteAfter,
-        advancedDelete: adapter.config.advancedDelete,
-        onedriveAccessJson: adapter.config.onedriveAccessJson,
-        ownDir: adapter.config.onedriveOwnDir,
-        bkpType: adapter.config.restoreType,
-        dir: (adapter.config.onedriveOwnDir === true) ? null : adapter.config.onedriveDir,
-        dirMinimal: adapter.config.onedriveMinimalDir,
-        ignoreErrors: adapter.config.ignoreErrors
-    };
+        decryptEvents(secret);
 
-    const webdav = {
-        enabled: adapter.config.webdavEnabled,
-        type: 'storage',
-        source: adapter.config.restoreSource,
-        debugging: adapter.config.debugLevel,
-        deleteOldBackup: adapter.config.webdavDeleteOldBackup,                                      // Delete old Backups from webdav
-        webdavDeleteAfter: adapter.config.webdavDeleteAfter,
-        advancedDelete: adapter.config.advancedDelete,
-        username: adapter.config.webdavUsername,
-        pass: adapter.config.webdavPassword || '',                                                  // webdav password
-        url: adapter.config.webdavURL,
-        ownDir: adapter.config.webdavOwnDir,
-        bkpType: adapter.config.restoreType,
-        dir: (adapter.config.webdavOwnDir === true) ? null : adapter.config.webdavDir,
-        dirMinimal: adapter.config.webdavMinimalDir,
-        signedCertificates: adapter.config.webdavSignedCertificates,
-        ignoreErrors: adapter.config.ignoreErrors
-    };
-
-    const googledrive = {
-        enabled: adapter.config.googledriveEnabled,
-        type: 'storage',
-        source: adapter.config.restoreSource,
-        debugging: adapter.config.debugLevel,
-        deleteOldBackup: adapter.config.googledriveDeleteOldBackup,                                 // Delete old Backups from google drive
-        googledriveDeleteAfter: adapter.config.googledriveDeleteAfter,
-        advancedDelete: adapter.config.advancedDelete,
-        accessJson: adapter.config.googledriveAccessTokens || adapter.config.googledriveAccessJson,
-        newToken: !!adapter.config.googledriveAccessTokens,
-        ownDir: adapter.config.googledriveOwnDir,
-        bkpType: adapter.config.restoreType,
-        dir: (adapter.config.googledriveOwnDir === true) ? null : adapter.config.googledriveDir,
-        dirMinimal: adapter.config.googledriveMinimalDir,
-        ignoreErrors: adapter.config.ignoreErrors
-    };
-
-    const cifs = {
-        enabled: adapter.config.cifsEnabled,
-        mountType: adapter.config.connectType,
-        type: 'storage',
-        source: adapter.config.restoreSource,
-        mount: adapter.config.cifsMount,
-        debugging: adapter.config.debugLevel,
-        fileDir: bashDir,
-        wakeOnLAN: adapter.config.wakeOnLAN,
-        macAd: adapter.config.macAd,
-        wolTime: adapter.config.wolWait,
-        wolPort: adapter.config.wolPort || 9,
-        wolExtra: adapter.config.wolExtra,
-        smb: adapter.config.smbType,
-        sudo: adapter.config.sudoMount,
-        cifsDomain: adapter.config.cifsDomain,
-        clientInodes: adapter.config.noserverino,
-        cacheLoose: adapter.config.cacheLoose,
-        deleteOldBackup: adapter.config.cifsDeleteOldBackup,                                        //Delete old Backups from Network Disk
-        ownDir: adapter.config.cifsOwnDir,
-        bkpType: adapter.config.restoreType,
-        dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                  // specify if CIFS mount should be used
-        dirMinimal: adapter.config.cifsMinimalDir,
-        user: adapter.config.cifsUser,                                                              // specify if CIFS mount should be used
-        pass: adapter.config.cifsPassword || '',                                                    // password for NAS Server
-        expertMount: adapter.config.expertMount,
-        ignoreErrors: adapter.config.ignoreErrors
-    };
-
-    // Configurations for standard-IoBroker backup
-    backupConfig.iobroker = {
-        name: 'iobroker',
-        type: 'creator',
-        workDir: ioPath,
-        enabled: adapter.config.minimalEnabled,
-        time: adapter.config.minimalTime,
-        cronjob: adapter.config.iobrokerCronJob,
-        ownCron: adapter.config.iobrokerCron,
-        debugging: adapter.config.debugLevel,
-        slaveBackup: adapter.config.hostType,
-        everyXDays: adapter.config.minimalEveryXDays,
-        nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                       // names addition, appended to the file name
-        deleteBackupAfter: adapter.config.minimalDeleteAfter,                                       // delete old backup files after x days
-        ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-        onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
-        webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
-        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-        ignoreErrors: adapter.config.ignoreErrors,
-        mysql: {
-            enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
-            type: 'creator',
-            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
-            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
-            mysqlQuick: adapter.config.mysqlQuick,
-            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
-            hostType: adapter.config.hostType,
-            mysqlSingleTransaction: adapter.config.mysqlSingleTransaction,
-            dbName: adapter.config.mySqlName,                                                       // database name
-            user: adapter.config.mySqlUser,                                                         // database user
-            pass: adapter.config.mySqlPassword || '',                                               // database password
-            deleteBackupAfter: adapter.config.mySqlDeleteAfter,                                     // delete old backupfiles after x days
-            host: adapter.config.mySqlHost,                                                         // database host
-            port: adapter.config.mySqlPort,                                                         // database port
-            mySqlEvents: adapter.config.mySqlEvents,
-            mySqlMulti: adapter.config.mySqlMulti,
+        const telegram = {
+            enabled: adapter.config.notificationEnabled,
+            notificationsType: adapter.config.notificationsType,
+            type: 'message',
+            instance: adapter.config.telegramInstance,
+            SilentNotice: adapter.config.telegramSilentNotice,
+            NoticeType: adapter.config.telegramNoticeType,
+            User: adapter.config.telegramUser,
+            onlyError: adapter.config.telegramOnlyError,
+            telegramWaiting: adapter.config.telegramWaitToSend * 1000,
+            hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
             ignoreErrors: adapter.config.ignoreErrors,
-            exe: adapter.config.mySqlDumpExe                                                        // path to mysqldump
-        },
-        sqlite: {
-            enabled: adapter.config.sqliteEnabled === undefined ? true : adapter.config.sqliteEnabled,
-            type: 'creator',
-            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
-            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                    // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
-            hostType: adapter.config.hostType,
-            deleteBackupAfter: adapter.config.sqliteDeleteAfter,                                     // delete old backupfiles after x days
-            ignoreErrors: adapter.config.ignoreErrors,
-            filePth: adapter.config.sqlitePath,
-            exe: adapter.config.sqliteDumpExe                                                        // path to sqlitedump
-        },
-        dir: tools.getIobDir(),
-        influxDB: {
-            enabled: adapter.config.influxDBEnabled === undefined ? true : adapter.config.influxDBEnabled,
-            type: 'creator',
-            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
-            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
-            hostType: adapter.config.hostType,
-            deleteBackupAfter: adapter.config.influxDBDeleteAfter,                                  // delete old backupfiles after x days
-            dbName: adapter.config.influxDBName,                                                    // database name
-            host: adapter.config.influxDBHost,                                                      // database host
-            port: adapter.config.influxDBPort ? adapter.config.influxDBPort : adapter.config.influxDBVersion == '1.x' ? 8088 : 8086,
-            dbversion: adapter.config.influxDBVersion,                                              // dbversion from Influxdb
-            token: adapter.config.influxDBToken,                                                    // Token from Influxdb
-            protocol: adapter.config.influxDBProtocol,                                              // Protocol Type from Influxdb
-            exe: adapter.config.influxDBDumpExe,                                                    // path to influxDBdump
-            dbType: adapter.config.influxDBType,                                                    // type of influxdb Backup
-            influxDBEvents: adapter.config.influxDBEvents,
-            influxDBMulti: adapter.config.influxDBMulti,
-            ignoreErrors: adapter.config.ignoreErrors,
-            deleteDataBase: adapter.config.deleteOldDataBase                                        // delete old database for restore
-        },
-        pgsql: {
-            enabled: adapter.config.pgSqlEnabled === undefined ? true : adapter.config.pgSqlEnabled,
-            type: 'creator',
-            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
-            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
-            hostType: adapter.config.hostType,
-            dbName: adapter.config.pgSqlName,                                                       // database name
-            user: adapter.config.pgSqlUser,                                                         // database user
-            pass: adapter.config.pgSqlPassword || '',                                               // database password
-            deleteBackupAfter: adapter.config.pgSqlDeleteAfter,                                     // delete old backupfiles after x days
-            host: adapter.config.pgSqlHost,                                                         // database host
-            port: adapter.config.pgSqlPort,                                                         // database port
-            pgSqlEvents: adapter.config.pgSqlEvents,
-            pgSqlMulti: adapter.config.pgSqlMulti,
-            ignoreErrors: adapter.config.ignoreErrors,
-            exe: adapter.config.pgSqlDumpExe                                                        // path to mysqldump
-        },
-        redis: {
-            enabled: adapter.config.redisEnabled,
-            type: 'creator',
-            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
-            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            aof: adapter.config.redisAOFactive,
-            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
-            hostType: adapter.config.hostType,
-            path: adapter.config.redisPath || '/var/lib/redis',                                     // specify Redis path
-            redisType: adapter.config.redisType,                                                    // local or Remote Backup
-            host: adapter.config.redisHost,                                                         // Host for Remote Backup
-            port: adapter.config.redisPort,                                                         // Port for Remote Backup
-            user: adapter.config.redisUser,                                                         // User for Remote Backup
-            pass: adapter.config.redisPassword || '',                                               // Password for Remote Backup
-            ignoreErrors: adapter.config.ignoreErrors
-        },
-        historyDB: {
-            enabled: adapter.config.historyEnabled,
-            type: 'creator',
-            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
-            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            path: adapter.config.historyPath,
-            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                    // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
-            hostType: adapter.config.hostType,
-            ignoreErrors: adapter.config.ignoreErrors
-        },
-        zigbee: {
-            enabled: adapter.config.zigbeeEnabled,
-            type: 'creator',
-            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
-            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify zigbee path
-            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
-            hostType: adapter.config.hostType,
-            ignoreErrors: adapter.config.ignoreErrors
-        },
-        esphome: {
-            enabled: adapter.config.esphomeEnabled,
-            type: 'creator',
-            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
-            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify esphome path
-            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
-            hostType: adapter.config.hostType,
-            ignoreErrors: adapter.config.ignoreErrors
-        },
-        zigbee2mqtt: {
-            enabled: adapter.config.zigbee2mqttEnabled,
-            type: 'creator',
-            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
-            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            path: adapter.config.zigbee2mqttPath,                                                   // specify zigbee2mqtt path
-            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
-            hostType: adapter.config.hostType,
-            ignoreErrors: adapter.config.ignoreErrors
-        },
-        nodered: {
-            enabled: adapter.config.noderedEnabled,
-            type: 'creator',
-            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
-            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify Node-Red path
-            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
-            hostType: adapter.config.hostType,
-            ignoreErrors: adapter.config.ignoreErrors
-        },
-        yahka: {
-            enabled: adapter.config.yahkaEnabled,
-            type: 'creator',
-            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
-            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify yahka path
-            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
-            hostType: adapter.config.hostType,
-            ignoreErrors: adapter.config.ignoreErrors
-        },
-        jarvis: {
-            enabled: adapter.config.jarvisEnabled,
-            type: 'creator',
-            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
-            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify jarvis backup path
-            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
-            hostType: adapter.config.hostType,
-            ignoreErrors: adapter.config.ignoreErrors
-        },
-        javascripts: {
-            enabled: adapter.config.javascriptsEnabled,
-            type: 'creator',
-            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
-            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
-            hostType: adapter.config.hostType,
-            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
-            ignoreErrors: adapter.config.ignoreErrors
-        },
-        grafana: {
-            enabled: adapter.config.grafanaEnabled,
-            type: 'creator',
-            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
-            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
-            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
-            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
-            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
-            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
-            host: adapter.config.grafanaHost,                                                       // database host
-            port: adapter.config.grafanaPort,                                                       // database port
-            protocol: adapter.config.grafanaProtocol,                                               // database protocol
-            username: adapter.config.grafanaUsername,
-            pass: adapter.config.grafanaPassword || '',                                             // database password
-            apiKey: adapter.config.grafanaApiKey,
-            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                  // names addition, appended to the file name
-            slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
-            hostType: adapter.config.hostType,
-            ignoreErrors: adapter.config.ignoreErrors,
-            signedCertificates: adapter.config.grafanaProtocol == 'https' ? adapter.config.grafanaSignedCertificates : true
-        },
-        historyHTML,
-        historyJSON,
-        telegram,
-        email,
-        pushover,
-        whatsapp,
-        gotify,
-        signal,
-        matrix,
-        discord,
-        notification,
-    };
+            systemLang
+        };
 
-    // Configurations for CCU / pivCCU / RaspberryMatic backup
-    backupConfig.ccu = {
-        name: 'ccu',
-        type: 'creator',
-        enabled: adapter.config.ccuEnabled,
-        time: adapter.config.ccuTime,
-        cronjob: adapter.config.ccuCronJob,
-        ownCron: adapter.config.ccuCron,
-        debugging: adapter.config.debugLevel,
-        everyXDays: adapter.config.ccuEveryXDays,
-        nameSuffix: adapter.config.ccuNameSuffix,                                                   // names addition, appended to the file name
-        deleteBackupAfter: adapter.config.ccuDeleteAfter,                                           // delete old backupfiles after x days
-        signedCertificates: adapter.config.ccuSignedCertificates,
-        ignoreErrors: adapter.config.ignoreErrors,
+        const whatsapp = {
+            enabled: adapter.config.notificationEnabled,
+            notificationsType: adapter.config.notificationsType,
+            type: 'message',
+            instance: adapter.config.whatsappInstance,
+            NoticeType: adapter.config.whatsappNoticeType,
+            onlyError: adapter.config.whatsappOnlyError,
+            whatsappWaiting: adapter.config.whatsappWaitToSend * 1000,
+            hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
+            ignoreErrors: adapter.config.ignoreErrors,
+            systemLang
+        };
 
-        ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpCcuDir } : {}),
-        cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsCcuDir } : {}),
-        dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxCcuDir } : {}),
-        onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveCcuDir } : {}),
-        webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavCcuDir } : {}),
-        googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveCcuDir } : {}),
-        historyHTML,
-        historyJSON,
-        telegram,
-        email,
-        pushover,
-        whatsapp,
-        gotify,
-        signal,
-        matrix,
-        discord,
-        notification,
+        const gotify = {
+            enabled: adapter.config.notificationEnabled,
+            notificationsType: adapter.config.notificationsType,
+            type: 'message',
+            instance: adapter.config.gotifyInstance,
+            NoticeType: adapter.config.gotifyNoticeType,
+            onlyError: adapter.config.gotifyOnlyError,
+            gotifyWaiting: adapter.config.gotifyWaitToSend * 1000,
+            hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
+            ignoreErrors: adapter.config.ignoreErrors,
+            systemLang
+        };
 
-        host: adapter.config.ccuHost,                                                               // IP-address CCU
-        user: adapter.config.ccuUser,                                                               // username CCU
-        usehttps: adapter.config.ccuUsehttps,                                                       // Use https for CCU Connect
-        pass: adapter.config.ccuPassword || '',                                                     // password der CCU
-        ccuEvents: adapter.config.ccuEvents,
-        ccuMulti: adapter.config.ccuMulti,
-    };
+        const signal = {
+            enabled: adapter.config.notificationEnabled,
+            notificationsType: adapter.config.notificationsType,
+            type: 'message',
+            instance: adapter.config.signalInstance,
+            NoticeType: adapter.config.signalNoticeType,
+            onlyError: adapter.config.signalOnlyError,
+            signalWaiting: adapter.config.signalWaitToSend * 1000,
+            hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
+            ignoreErrors: adapter.config.ignoreErrors,
+            systemLang
+        };
+
+        const matrix = {
+            enabled: adapter.config.notificationEnabled,
+            notificationsType: adapter.config.notificationsType,
+            type: 'message',
+            instance: adapter.config.matrixInstance,
+            NoticeType: adapter.config.matrixNoticeType,
+            onlyError: adapter.config.matrixOnlyError,
+            matrixWaiting: adapter.config.matrixWaitToSend * 1000,
+            hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
+            ignoreErrors: adapter.config.ignoreErrors,
+            systemLang
+        };
+
+        const discord = {
+            enabled: adapter.config.notificationEnabled,
+            notificationsType: adapter.config.notificationsType,
+            type: 'message',
+            instance: adapter.config.discordInstance,
+            NoticeType: adapter.config.discordNoticeType,
+            target: adapter.config.discordTarget,
+            onlyError: adapter.config.discordOnlyError,
+            discordWaiting: adapter.config.discordWaitToSend * 1000,
+            hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
+            ignoreErrors: adapter.config.ignoreErrors,
+            systemLang
+        };
+
+        const pushover = {
+            enabled: adapter.config.notificationEnabled,
+            notificationsType: adapter.config.notificationsType,
+            type: 'message',
+            instance: adapter.config.pushoverInstance,
+            SilentNotice: adapter.config.pushoverSilentNotice,
+            NoticeType: adapter.config.pushoverNoticeType,
+            deviceID: adapter.config.pushoverDeviceID,
+            onlyError: adapter.config.pushoverOnlyError,
+            pushoverWaiting: adapter.config.pushoverWaitToSend * 1000,
+            hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
+            ignoreErrors: adapter.config.ignoreErrors,
+            systemLang
+        };
+
+        const email = {
+            enabled: adapter.config.notificationEnabled,
+            notificationsType: adapter.config.notificationsType,
+            type: 'message',
+            instance: adapter.config.emailInstance,
+            NoticeType: adapter.config.emailNoticeType,
+            emailReceiver: adapter.config.emailReceiver,
+            emailSender: adapter.config.emailSender,
+            onlyError: adapter.config.emailOnlyError,
+            emailWaiting: adapter.config.emailWaitToSend * 1000,
+            hostName: adapter.config.minimalNameSuffix ? adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_') : '',
+            ignoreErrors: adapter.config.ignoreErrors,
+            systemLang
+        };
+
+        const notification = {
+            type: 'message',
+            ignoreErrors: adapter.config.ignoreErrors,
+            bashDir: bashDir,
+            entriesNumber: adapter.config.historyEntriesNumber,
+            systemLang
+        };
+
+        const historyHTML = {
+            enabled: true,
+            type: 'message',
+            entriesNumber: adapter.config.historyEntriesNumber,
+            ignoreErrors: adapter.config.ignoreErrors,
+            systemLang
+        };
+
+        const historyJSON = {
+            enabled: true,
+            type: 'message',
+            entriesNumber: adapter.config.historyEntriesNumber,
+            ignoreErrors: adapter.config.ignoreErrors,
+            systemLang
+        };
+
+        const ftp = {
+            enabled: adapter.config.ftpEnabled,
+            type: 'storage',
+            source: adapter.config.restoreSource,
+            host: adapter.config.ftpHost,                                                               // ftp-host
+            debugging: adapter.config.debugLevel,
+            deleteOldBackup: adapter.config.ftpDeleteOldBackup,                                         // Delete old Backups from FTP
+            ftpDeleteAfter: adapter.config.ftpDeleteAfter,
+            advancedDelete: adapter.config.advancedDelete,
+            ownDir: adapter.config.ftpOwnDir,
+            bkpType: adapter.config.restoreType,
+            dir: (adapter.config.ftpOwnDir === true) ? null : adapter.config.ftpDir,                    // directory on FTP server
+            dirMinimal: adapter.config.ftpMinimalDir,
+            user: adapter.config.ftpUser,                                                               // username for FTP Server
+            pass: adapter.config.ftpPassword || '',                                                     // password for FTP Server
+            port: adapter.config.ftpPort || 21,                                                         // FTP port
+            secure: adapter.config.ftpSecure || false,                                                  // secure FTP connection
+            signedCertificates: adapter.config.ftpSignedCertificates || true,
+            ignoreErrors: adapter.config.ignoreErrors
+        };
+
+        let accessToken = '';
+        if (adapter.config.dropboxEnabled) {
+            dropBoxTokenRefresher = new TokenRefresher(adapter, 'info.dropboxTokens', 'https://oauth2.iobroker.in/dropbox');
+            try {
+                accessToken = await dropBoxTokenRefresher.getAccessToken();
+            } catch (e) {
+                adapter.log.error(`No DropBox token found: ${e}`);
+            }
+        }
+
+        const dropbox = {
+            enabled: adapter.config.dropboxEnabled,
+            type: 'storage',
+            source: adapter.config.restoreSource,
+            debugging: adapter.config.debugLevel,
+            deleteOldBackup: adapter.config.dropboxDeleteOldBackup,                                     // Delete old Backups from Dropbox
+            dropboxDeleteAfter: adapter.config.dropboxDeleteAfter,
+            advancedDelete: adapter.config.advancedDelete,
+            accessToken: adapter.config.dropboxTokenType === 'custom' ? adapter.config.dropboxAccessToken : accessToken,
+            dropboxAccessJson: adapter.config.dropboxAccessJson,
+            dropboxTokenType: adapter.config.dropboxTokenType,
+            ownDir: adapter.config.dropboxOwnDir,
+            bkpType: adapter.config.restoreType,
+            dir: (adapter.config.dropboxOwnDir === true) ? null : adapter.config.dropboxDir,
+            dirMinimal: adapter.config.dropboxMinimalDir,
+            ignoreErrors: adapter.config.ignoreErrors,
+        };
+
+        const onedrive = {
+            enabled: adapter.config.onedriveEnabled,
+            type: 'storage',
+            source: adapter.config.restoreSource,
+            debugging: adapter.config.debugLevel,
+            deleteOldBackup: adapter.config.onedriveDeleteOldBackup,                                    // Delete old Backups from Onedrive
+            onedriveDeleteAfter: adapter.config.onedriveDeleteAfter,
+            advancedDelete: adapter.config.advancedDelete,
+            onedriveAccessJson: adapter.config.onedriveAccessJson,
+            ownDir: adapter.config.onedriveOwnDir,
+            bkpType: adapter.config.restoreType,
+            dir: (adapter.config.onedriveOwnDir === true) ? null : adapter.config.onedriveDir,
+            dirMinimal: adapter.config.onedriveMinimalDir,
+            ignoreErrors: adapter.config.ignoreErrors
+        };
+
+        const webdav = {
+            enabled: adapter.config.webdavEnabled,
+            type: 'storage',
+            source: adapter.config.restoreSource,
+            debugging: adapter.config.debugLevel,
+            deleteOldBackup: adapter.config.webdavDeleteOldBackup,                                      // Delete old Backups from webdav
+            webdavDeleteAfter: adapter.config.webdavDeleteAfter,
+            advancedDelete: adapter.config.advancedDelete,
+            username: adapter.config.webdavUsername,
+            pass: adapter.config.webdavPassword || '',                                                  // webdav password
+            url: adapter.config.webdavURL,
+            ownDir: adapter.config.webdavOwnDir,
+            bkpType: adapter.config.restoreType,
+            dir: (adapter.config.webdavOwnDir === true) ? null : adapter.config.webdavDir,
+            dirMinimal: adapter.config.webdavMinimalDir,
+            signedCertificates: adapter.config.webdavSignedCertificates,
+            ignoreErrors: adapter.config.ignoreErrors
+        };
+
+        const googledrive = {
+            enabled: adapter.config.googledriveEnabled,
+            type: 'storage',
+            source: adapter.config.restoreSource,
+            debugging: adapter.config.debugLevel,
+            deleteOldBackup: adapter.config.googledriveDeleteOldBackup,                                 // Delete old Backups from google drive
+            googledriveDeleteAfter: adapter.config.googledriveDeleteAfter,
+            advancedDelete: adapter.config.advancedDelete,
+            accessJson: adapter.config.googledriveAccessTokens || adapter.config.googledriveAccessJson,
+            newToken: !!adapter.config.googledriveAccessTokens,
+            ownDir: adapter.config.googledriveOwnDir,
+            bkpType: adapter.config.restoreType,
+            dir: (adapter.config.googledriveOwnDir === true) ? null : adapter.config.googledriveDir,
+            dirMinimal: adapter.config.googledriveMinimalDir,
+            ignoreErrors: adapter.config.ignoreErrors
+        };
+
+        const cifs = {
+            enabled: adapter.config.cifsEnabled,
+            mountType: adapter.config.connectType,
+            type: 'storage',
+            source: adapter.config.restoreSource,
+            mount: adapter.config.cifsMount,
+            debugging: adapter.config.debugLevel,
+            fileDir: bashDir,
+            wakeOnLAN: adapter.config.wakeOnLAN,
+            macAd: adapter.config.macAd,
+            wolTime: adapter.config.wolWait,
+            wolPort: adapter.config.wolPort || 9,
+            wolExtra: adapter.config.wolExtra,
+            smb: adapter.config.smbType,
+            sudo: adapter.config.sudoMount,
+            cifsDomain: adapter.config.cifsDomain,
+            clientInodes: adapter.config.noserverino,
+            cacheLoose: adapter.config.cacheLoose,
+            deleteOldBackup: adapter.config.cifsDeleteOldBackup,                                        //Delete old Backups from Network Disk
+            ownDir: adapter.config.cifsOwnDir,
+            bkpType: adapter.config.restoreType,
+            dir: (adapter.config.cifsOwnDir === true) ? null : adapter.config.cifsDir,                  // specify if CIFS mount should be used
+            dirMinimal: adapter.config.cifsMinimalDir,
+            user: adapter.config.cifsUser,                                                              // specify if CIFS mount should be used
+            pass: adapter.config.cifsPassword || '',                                                    // password for NAS Server
+            expertMount: adapter.config.expertMount,
+            ignoreErrors: adapter.config.ignoreErrors
+        };
+
+        // Configurations for standard-IoBroker backup
+        backupConfig.iobroker = {
+            name: 'iobroker',
+            type: 'creator',
+            workDir: ioPath,
+            enabled: adapter.config.minimalEnabled,
+            time: adapter.config.minimalTime,
+            cronjob: adapter.config.iobrokerCronJob,
+            ownCron: adapter.config.iobrokerCron,
+            debugging: adapter.config.debugLevel,
+            slaveBackup: adapter.config.hostType,
+            everyXDays: adapter.config.minimalEveryXDays,
+            nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                       // names addition, appended to the file name
+            deleteBackupAfter: adapter.config.minimalDeleteAfter,                                       // delete old backup files after x days
+            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+            ignoreErrors: adapter.config.ignoreErrors,
+            mysql: {
+                enabled: adapter.config.mySqlEnabled === undefined ? true : adapter.config.mySqlEnabled,
+                type: 'creator',
+                ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+                cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+                dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+                onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+                webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+                googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+                nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
+                mysqlQuick: adapter.config.mysqlQuick,
+                slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+                hostType: adapter.config.hostType,
+                mysqlSingleTransaction: adapter.config.mysqlSingleTransaction,
+                dbName: adapter.config.mySqlName,                                                       // database name
+                user: adapter.config.mySqlUser,                                                         // database user
+                pass: adapter.config.mySqlPassword || '',                                               // database password
+                deleteBackupAfter: adapter.config.mySqlDeleteAfter,                                     // delete old backupfiles after x days
+                host: adapter.config.mySqlHost,                                                         // database host
+                port: adapter.config.mySqlPort,                                                         // database port
+                mySqlEvents: adapter.config.mySqlEvents,
+                mySqlMulti: adapter.config.mySqlMulti,
+                ignoreErrors: adapter.config.ignoreErrors,
+                exe: adapter.config.mySqlDumpExe                                                        // path to mysqldump
+            },
+            sqlite: {
+                enabled: adapter.config.sqliteEnabled === undefined ? true : adapter.config.sqliteEnabled,
+                type: 'creator',
+                ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+                cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+                dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+                onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+                webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+                googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+                nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                    // names addition, appended to the file name
+                slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+                hostType: adapter.config.hostType,
+                deleteBackupAfter: adapter.config.sqliteDeleteAfter,                                     // delete old backupfiles after x days
+                ignoreErrors: adapter.config.ignoreErrors,
+                filePth: adapter.config.sqlitePath,
+                exe: adapter.config.sqliteDumpExe                                                        // path to sqlitedump
+            },
+            dir: tools.getIobDir(),
+            influxDB: {
+                enabled: adapter.config.influxDBEnabled === undefined ? true : adapter.config.influxDBEnabled,
+                type: 'creator',
+                ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+                cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+                dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+                onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+                webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+                googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+                nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
+                slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+                hostType: adapter.config.hostType,
+                deleteBackupAfter: adapter.config.influxDBDeleteAfter,                                  // delete old backupfiles after x days
+                dbName: adapter.config.influxDBName,                                                    // database name
+                host: adapter.config.influxDBHost,                                                      // database host
+                port: adapter.config.influxDBPort ? adapter.config.influxDBPort : adapter.config.influxDBVersion == '1.x' ? 8088 : 8086,
+                dbversion: adapter.config.influxDBVersion,                                              // dbversion from Influxdb
+                token: adapter.config.influxDBToken,                                                    // Token from Influxdb
+                protocol: adapter.config.influxDBProtocol,                                              // Protocol Type from Influxdb
+                exe: adapter.config.influxDBDumpExe,                                                    // path to influxDBdump
+                dbType: adapter.config.influxDBType,                                                    // type of influxdb Backup
+                influxDBEvents: adapter.config.influxDBEvents,
+                influxDBMulti: adapter.config.influxDBMulti,
+                ignoreErrors: adapter.config.ignoreErrors,
+                deleteDataBase: adapter.config.deleteOldDataBase                                        // delete old database for restore
+            },
+            pgsql: {
+                enabled: adapter.config.pgSqlEnabled === undefined ? true : adapter.config.pgSqlEnabled,
+                type: 'creator',
+                ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+                cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+                dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+                onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+                webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+                googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+                nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
+                slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+                hostType: adapter.config.hostType,
+                dbName: adapter.config.pgSqlName,                                                       // database name
+                user: adapter.config.pgSqlUser,                                                         // database user
+                pass: adapter.config.pgSqlPassword || '',                                               // database password
+                deleteBackupAfter: adapter.config.pgSqlDeleteAfter,                                     // delete old backupfiles after x days
+                host: adapter.config.pgSqlHost,                                                         // database host
+                port: adapter.config.pgSqlPort,                                                         // database port
+                pgSqlEvents: adapter.config.pgSqlEvents,
+                pgSqlMulti: adapter.config.pgSqlMulti,
+                ignoreErrors: adapter.config.ignoreErrors,
+                exe: adapter.config.pgSqlDumpExe                                                        // path to mysqldump
+            },
+            redis: {
+                enabled: adapter.config.redisEnabled,
+                type: 'creator',
+                ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+                cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+                dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+                onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+                webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+                googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+                aof: adapter.config.redisAOFactive,
+                nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
+                slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+                hostType: adapter.config.hostType,
+                path: adapter.config.redisPath || '/var/lib/redis',                                     // specify Redis path
+                redisType: adapter.config.redisType,                                                    // local or Remote Backup
+                host: adapter.config.redisHost,                                                         // Host for Remote Backup
+                port: adapter.config.redisPort,                                                         // Port for Remote Backup
+                user: adapter.config.redisUser,                                                         // User for Remote Backup
+                pass: adapter.config.redisPassword || '',                                               // Password for Remote Backup
+                ignoreErrors: adapter.config.ignoreErrors
+            },
+            historyDB: {
+                enabled: adapter.config.historyEnabled,
+                type: 'creator',
+                ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+                cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+                dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+                onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+                webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+                googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+                path: adapter.config.historyPath,
+                nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                    // names addition, appended to the file name
+                slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+                hostType: adapter.config.hostType,
+                ignoreErrors: adapter.config.ignoreErrors
+            },
+            zigbee: {
+                enabled: adapter.config.zigbeeEnabled,
+                type: 'creator',
+                ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+                cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+                dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+                onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+                webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+                googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+                path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify zigbee path
+                nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
+                slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+                hostType: adapter.config.hostType,
+                ignoreErrors: adapter.config.ignoreErrors
+            },
+            esphome: {
+                enabled: adapter.config.esphomeEnabled,
+                type: 'creator',
+                ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+                cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+                dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+                onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+                webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+                googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+                path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify esphome path
+                nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
+                slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+                hostType: adapter.config.hostType,
+                ignoreErrors: adapter.config.ignoreErrors
+            },
+            zigbee2mqtt: {
+                enabled: adapter.config.zigbee2mqttEnabled,
+                type: 'creator',
+                ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+                cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+                dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+                onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+                webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+                googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+                path: adapter.config.zigbee2mqttPath,                                                   // specify zigbee2mqtt path
+                nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
+                slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+                hostType: adapter.config.hostType,
+                ignoreErrors: adapter.config.ignoreErrors
+            },
+            nodered: {
+                enabled: adapter.config.noderedEnabled,
+                type: 'creator',
+                ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+                cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+                dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+                onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+                webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+                googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+                path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify Node-Red path
+                nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
+                slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+                hostType: adapter.config.hostType,
+                ignoreErrors: adapter.config.ignoreErrors
+            },
+            yahka: {
+                enabled: adapter.config.yahkaEnabled,
+                type: 'creator',
+                ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+                cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+                dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+                onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+                webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+                googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+                path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify yahka path
+                nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
+                slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+                hostType: adapter.config.hostType,
+                ignoreErrors: adapter.config.ignoreErrors
+            },
+            jarvis: {
+                enabled: adapter.config.jarvisEnabled,
+                type: 'creator',
+                ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+                cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+                dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+                onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+                webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+                googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+                path: path.join(tools.getIobDir(), 'iobroker-data'),                                    // specify jarvis backup path
+                nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
+                slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+                hostType: adapter.config.hostType,
+                ignoreErrors: adapter.config.ignoreErrors
+            },
+            javascripts: {
+                enabled: adapter.config.javascriptsEnabled,
+                type: 'creator',
+                ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+                cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+                dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+                onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+                webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+                googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+                slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+                hostType: adapter.config.hostType,
+                nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
+                ignoreErrors: adapter.config.ignoreErrors
+            },
+            grafana: {
+                enabled: adapter.config.grafanaEnabled,
+                type: 'creator',
+                ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+                cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+                dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+                onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+                webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+                googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+                host: adapter.config.grafanaHost,                                                       // database host
+                port: adapter.config.grafanaPort,                                                       // database port
+                protocol: adapter.config.grafanaProtocol,                                               // database protocol
+                username: adapter.config.grafanaUsername,
+                pass: adapter.config.grafanaPassword || '',                                             // database password
+                apiKey: adapter.config.grafanaApiKey,
+                nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                  // names addition, appended to the file name
+                slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+                hostType: adapter.config.hostType,
+                ignoreErrors: adapter.config.ignoreErrors,
+                signedCertificates: adapter.config.grafanaProtocol == 'https' ? adapter.config.grafanaSignedCertificates : true
+            },
+            historyHTML,
+            historyJSON,
+            telegram,
+            email,
+            pushover,
+            whatsapp,
+            gotify,
+            signal,
+            matrix,
+            discord,
+            notification,
+        };
+
+        // Configurations for CCU / pivCCU / RaspberryMatic backup
+        backupConfig.ccu = {
+            name: 'ccu',
+            type: 'creator',
+            enabled: adapter.config.ccuEnabled,
+            time: adapter.config.ccuTime,
+            cronjob: adapter.config.ccuCronJob,
+            ownCron: adapter.config.ccuCron,
+            debugging: adapter.config.debugLevel,
+            everyXDays: adapter.config.ccuEveryXDays,
+            nameSuffix: adapter.config.ccuNameSuffix,                                                   // names addition, appended to the file name
+            deleteBackupAfter: adapter.config.ccuDeleteAfter,                                           // delete old backupfiles after x days
+            signedCertificates: adapter.config.ccuSignedCertificates,
+            ignoreErrors: adapter.config.ignoreErrors,
+
+            ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpCcuDir } : {}),
+            cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsCcuDir } : {}),
+            dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxCcuDir } : {}),
+            onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveCcuDir } : {}),
+            webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavCcuDir } : {}),
+            googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveCcuDir } : {}),
+            historyHTML,
+            historyJSON,
+            telegram,
+            email,
+            pushover,
+            whatsapp,
+            gotify,
+            signal,
+            matrix,
+            discord,
+            notification,
+
+            host: adapter.config.ccuHost,                                                               // IP-address CCU
+            user: adapter.config.ccuUser,                                                               // username CCU
+            usehttps: adapter.config.ccuUsehttps,                                                       // Use https for CCU Connect
+            pass: adapter.config.ccuPassword || '',                                                     // password der CCU
+            ccuEvents: adapter.config.ccuEvents,
+            ccuMulti: adapter.config.ccuMulti,
+        };
+        resolve();
+    });
 }
 
 function readLogFile() {
@@ -1557,7 +1560,7 @@ async function detectLatestBackupFile(adapter) {
                     resolve(file);
                 })));
         } catch (e) {
-            adapter.log.warn('No backup file was found');
+            adapter.log.warn(`No backup file was found: ${e}`);
         }
 
 
@@ -1605,7 +1608,7 @@ async function detectLatestBackupFile(adapter) {
         stores = null;
 
     } catch (e) {
-        adapter.log.warn('No backup file was found');
+        adapter.log.warn(`No backup file was found: ${e}`);
     }
 }
 
@@ -1985,12 +1988,12 @@ async function main(adapter) {
         }
     }, 10000);
 
-    adapter.getForeignObject('system.config', (err, obj) => {
+    adapter.getForeignObject('system.config', async (err, obj) => {
         if (obj?.common?.language) {
             systemLang = obj.common.language;
         }
 
-        initConfig(obj?.native?.secret || 'Zgfr56gFe87jJOM');
+        await initConfig(obj?.native?.secret || 'Zgfr56gFe87jJOM');
 
         checkStates();
 
