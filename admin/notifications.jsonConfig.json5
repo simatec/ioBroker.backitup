@@ -84,9 +84,11 @@
             i18n: true,
             url: 'custom/customComponents.js',
             name: 'ConfigCustomBackItUpSet/Components/Instance',
-            adapter: 'telegram',
             label: 'Telegram instance',
             newLine: true,
+            custom: {
+                adapter: 'telegram',
+            },
         },
         telegramNoticeType: {
             hidden: "data.notificationsType !== 'Telegram'",
@@ -155,9 +157,11 @@
             i18n: true,
             url: 'custom/customComponents.js',
             name: 'ConfigCustomBackItUpSet/Components/Instance',
-            adapter: 'whatsapp-cmb',
             label: 'WhatsApp instance',
             newLine: true,
+            custom: {
+                adapter: 'whatsapp-cmb',
+            },
         },
         whatsappNoticeType: {
             hidden: "data.notificationsType !== 'WhatsApp'",
@@ -216,9 +220,11 @@
             i18n: true,
             url: 'custom/customComponents.js',
             name: 'ConfigCustomBackItUpSet/Components/Instance',
-            adapter: 'gotify',
             label: 'Gotify instance',
             newLine: true,
+            custom: {
+                adapter: 'gotify',
+            },
         },
         gotifyNoticeType: {
             hidden: "data.notificationsType !== 'Gotify'",
@@ -278,9 +284,11 @@
             i18n: true,
             url: 'custom/customComponents.js',
             name: 'ConfigCustomBackItUpSet/Components/Instance',
-            adapter: 'signal-cmb',
             label: 'Signal instance',
             newLine: true,
+            custom: {
+                adapter: 'signal-cmb',
+            },
         },
         signalNoticeType: {
             hidden: "data.notificationsType !== 'Signal'",
@@ -340,9 +348,11 @@
             i18n: true,
             url: 'custom/customComponents.js',
             name: 'ConfigCustomBackItUpSet/Components/Instance',
-            adapter: 'matrix-org',
             label: 'Matrix instance',
             newLine: true,
+            custom: {
+                adapter: 'matrix-org',
+            },
         },
         matrixNoticeType: {
             hidden: "data.notificationsType !== 'Matrix'",
@@ -402,9 +412,11 @@
             i18n: true,
             url: 'custom/customComponents.js',
             name: 'ConfigCustomBackItUpSet/Components/Instance',
-            adapter: 'pushover',
             label: 'Pushover instance',
             newLine: true,
+            custom: {
+                adapter: 'pushover',
+            },
         },
         pushoverNoticeType: {
             hidden: "data.notificationsType !== 'Pushover'",
@@ -506,9 +518,11 @@
             i18n: true,
             url: 'custom/customComponents.js',
             name: 'ConfigCustomBackItUpSet/Components/Instance',
-            adapter: 'email',
             label: 'Email instance',
             newLine: true,
+            custom: {
+                adapter: 'email',
+            },
         },
         emailNoticeType: {
             hidden: "data.notificationsType !== 'E-Mail'",
@@ -567,9 +581,11 @@
             i18n: true,
             url: 'custom/customComponents.js',
             name: 'ConfigCustomBackItUpSet/Components/Instance',
-            adapter: 'discord',
             label: 'Discord instance',
             newLine: true,
+            custom: {
+                adapter: 'discord',
+            },
         },
         discordNoticeType: {
             hidden: "data.notificationsType !== 'Discord'",

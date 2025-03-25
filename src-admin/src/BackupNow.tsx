@@ -102,6 +102,12 @@ type BackupNowState = ConfigGenericState & {
     isFullScreen: boolean;
 };
 
+interface ConfigItemCustomBackupNow extends ConfigItemCustom {
+    custom: {
+        backUpType: 'ccu' | 'iobroker';
+    };
+}
+
 class BackupNow extends ConfigGeneric<ConfigGenericProps, BackupNowState> {
     lastExecutionLine: string;
     textRef: React.RefObject<HTMLDivElement>;
@@ -190,7 +196,7 @@ class BackupNow extends ConfigGeneric<ConfigGenericProps, BackupNowState> {
     async componentDidMount(): Promise<void> {
         super.componentDidMount();
         await this.props.oContext.socket.subscribeState(
-            `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`,
+            `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustomBackupNow).custom.backUpType}`,
             this.onEnabled,
         );
         await this.props.oContext.socket.subscribeState(
@@ -204,7 +210,7 @@ class BackupNow extends ConfigGeneric<ConfigGenericProps, BackupNowState> {
     onEnabled = (id: string, state: ioBroker.State | null | undefined): void => {
         if (
             id ===
-            `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`
+            `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustomBackupNow).custom.backUpType}`
         ) {
             if (!!state?.val !== this.state.executing) {
                 this.setState({ executing: !!state?.val });
@@ -215,7 +221,7 @@ class BackupNow extends ConfigGeneric<ConfigGenericProps, BackupNowState> {
     componentWillUnmount(): void {
         super.componentWillUnmount();
         this.props.oContext.socket.unsubscribeState(
-            `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`,
+            `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustomBackupNow).custom.backUpType}`,
             this.onEnabled,
         );
         this.props.oContext.socket.unsubscribeState(
@@ -359,7 +365,7 @@ class BackupNow extends ConfigGeneric<ConfigGenericProps, BackupNowState> {
                             async () => {
                                 this.lastExecutionLine = '';
                                 await this.props.oContext.socket.setState(
-                                    `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustom).backUpType}`,
+                                    `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${(this.props.schema as ConfigItemCustomBackupNow).custom.backUpType}`,
                                     true,
                                 );
                             },
@@ -371,8 +377,8 @@ class BackupNow extends ConfigGeneric<ConfigGenericProps, BackupNowState> {
                     style={this.props.style}
                     endIcon={<CloudUploadOutlined />}
                 >
-                    {(this.props.schema as ConfigItemCustom).label
-                        ? I18n.t((this.props.schema as ConfigItemCustom).label as string)
+                    {(this.props.schema as ConfigItemCustomBackupNow).label
+                        ? I18n.t((this.props.schema as ConfigItemCustomBackupNow).label as string)
                         : I18n.t('Backup now')}
                 </Button>
                 {this.renderExecutionDialog()}

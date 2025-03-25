@@ -24,12 +24,11 @@
         detectNow: {
             type: 'custom',
             bundlerType: 'module',
-            button: true,
-            variant: 'contained',
+            custom: {
+                adapter: 'history',
+            },
             url: 'custom/customComponents.js',
             name: 'ConfigCustomBackItUpSet/Components/DetectConfig',
-            adapter: 'history',
-            icon: 'search',
             label: 'Detect config',
             xs: 12,
             sm: 9,
