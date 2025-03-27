@@ -14,6 +14,12 @@ type InstanceState = BaseFieldState & {
     targets: { value: string; label: string }[];
 };
 
+interface ConfigItemCustomInstance extends ConfigItemCustom {
+    custom: {
+        adapter: string;
+    };
+}
+
 class Instance extends BaseField<ConfigGenericProps, InstanceState> {
     instanceRead?: string | null;
 
@@ -22,14 +28,16 @@ class Instance extends BaseField<ConfigGenericProps, InstanceState> {
         const instance = ConfigGeneric.getValue(this.props.data, this.props.attr!);
         const target = ConfigGeneric.getValue(
             this.props.data,
-            (this.props.schema as ConfigItemCustom).adapter === 'telegram' ? 'telegramUser' : 'discordTarget',
+            (this.props.schema as ConfigItemCustomInstance).custom.adapter === 'telegram'
+                ? 'telegramUser'
+                : 'discordTarget',
         );
         const result: ioBroker.InstanceObject[] = Object.values(
             await this.props.oContext.socket.getObjectViewCustom(
                 'system',
                 'instance',
-                `system.adapter.${(this.props.schema as ConfigItemCustom).adapter}.`,
-                `system.adapter.${(this.props.schema as ConfigItemCustom).adapter}.\u9999`,
+                `system.adapter.${(this.props.schema as ConfigItemCustomInstance).custom.adapter}.`,
+                `system.adapter.${(this.props.schema as ConfigItemCustomInstance).custom.adapter}.\u9999`,
             ),
         );
 
@@ -104,9 +112,9 @@ class Instance extends BaseField<ConfigGenericProps, InstanceState> {
     }
 
     async readTargets(): Promise<void> {
-        if ((this.props.schema as ConfigItemCustom).adapter === 'telegram') {
+        if ((this.props.schema as ConfigItemCustomInstance).custom.adapter === 'telegram') {
             await this.fillTelegramUser();
-        } else if ((this.props.schema as ConfigItemCustom).adapter === 'discord') {
+        } else if ((this.props.schema as ConfigItemCustomInstance).custom.adapter === 'discord') {
             await this.fillDiscordTarget();
         }
     }
@@ -132,7 +140,7 @@ class Instance extends BaseField<ConfigGenericProps, InstanceState> {
                         style={{ width: '100%', marginRight: 10 }}
                         variant="standard"
                     >
-                        <InputLabel>{I18n.t((this.props.schema as ConfigItemCustom).label as string)}</InputLabel>
+                        <InputLabel>{I18n.t((this.props.schema as ConfigItemCustomInstance).label as string)}</InputLabel>
                         <Select
                             variant="standard"
                             value={this.state.instance || '_'}
@@ -160,12 +168,12 @@ class Instance extends BaseField<ConfigGenericProps, InstanceState> {
                                 </MenuItem>
                             ))}
                         </Select>
-                        {(this.props.schema as ConfigItemCustom).help ? (
+                        {(this.props.schema as ConfigItemCustomInstance).help ? (
                             <FormHelperText>
                                 {this.renderHelp(
-                                    (this.props.schema as ConfigItemCustom).help!,
-                                    (this.props.schema as ConfigItemCustom).helpLink!,
-                                    (this.props.schema as ConfigItemCustom).noTranslation!,
+                                    (this.props.schema as ConfigItemCustomInstance).help!,
+                                    (this.props.schema as ConfigItemCustomInstance).helpLink!,
+                                    (this.props.schema as ConfigItemCustomInstance).noTranslation!,
                                 )}
                             </FormHelperText>
                         ) : null}
@@ -173,12 +181,12 @@ class Instance extends BaseField<ConfigGenericProps, InstanceState> {
                 ) : null}
 
                 {this.state.targets &&
-                ((this.props.schema as ConfigItemCustom).adapter === 'telegram' ||
-                    (this.props.schema as ConfigItemCustom).adapter === 'discord') ? (
+                ((this.props.schema as ConfigItemCustomInstance).custom.adapter === 'telegram' ||
+                    (this.props.schema as ConfigItemCustomInstance).custom.adapter === 'discord') ? (
                     <FormControl variant="standard">
                         <InputLabel>
                             {I18n.t(
-                                (this.props.schema as ConfigItemCustom).adapter === 'telegram'
+                                (this.props.schema as ConfigItemCustomInstance).custom.adapter === 'telegram'
                                     ? 'Telegram receiver'
                                     : 'Discord receiver',
                             )}
@@ -195,7 +203,7 @@ class Instance extends BaseField<ConfigGenericProps, InstanceState> {
                             onChange={e =>
                                 this.setState({ target: e.target.value === '_' ? '' : e.target.value }, () =>
                                     this.onChange(
-                                        (this.props.schema as ConfigItemCustom).adapter === 'telegram'
+                                        (this.props.schema as ConfigItemCustomInstance).custom.adapter === 'telegram'
                                             ? 'telegramUser'
                                             : 'discordTarget',
                                         this.state.target,
@@ -212,23 +220,23 @@ class Instance extends BaseField<ConfigGenericProps, InstanceState> {
                                 </MenuItem>
                             ))}
                         </Select>
-                        {(this.props.schema as ConfigItemCustom).help ? (
+                        {(this.props.schema as ConfigItemCustomInstance).help ? (
                             <FormHelperText>
                                 {this.renderHelp(
-                                    (this.props.schema as ConfigItemCustom).help!,
-                                    (this.props.schema as ConfigItemCustom).helpLink!,
-                                    (this.props.schema as ConfigItemCustom).noTranslation!,
+                                    (this.props.schema as ConfigItemCustomInstance).help!,
+                                    (this.props.schema as ConfigItemCustomInstance).helpLink!,
+                                    (this.props.schema as ConfigItemCustomInstance).noTranslation!,
                                 )}
                             </FormHelperText>
                         ) : null}
                     </FormControl>
-                ) : (this.props.schema as ConfigItemCustom).adapter === 'telegram' ||
-                  (this.props.schema as ConfigItemCustom).adapter === 'discord' ? (
+                ) : (this.props.schema as ConfigItemCustomInstance).custom.adapter === 'telegram' ||
+                  (this.props.schema as ConfigItemCustomInstance).custom.adapter === 'discord' ? (
                     <TextField
                         variant="standard"
                         disabled={!this.state.instance}
                         label={I18n.t(
-                            (this.props.schema as ConfigItemCustom).adapter === 'telegram'
+                            (this.props.schema as ConfigItemCustomInstance).custom.adapter === 'telegram'
                                 ? 'Telegram receiver'
                                 : 'Discord receiver',
                         )}
@@ -236,7 +244,7 @@ class Instance extends BaseField<ConfigGenericProps, InstanceState> {
                         onChange={e =>
                             this.setState({ target: e.target.value }, () =>
                                 this.onChange(
-                                    (this.props.schema as ConfigItemCustom).adapter === 'telegram'
+                                    (this.props.schema as ConfigItemCustomInstance).custom.adapter === 'telegram'
                                         ? 'telegramUser'
                                         : 'discordTarget',
                                     this.state.target,

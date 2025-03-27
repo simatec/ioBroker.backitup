@@ -50,7 +50,6 @@
             i18n: true,
             url: 'custom/customComponents.js',
             name: 'ConfigCustomBackItUpSet/Components/Dropbox',
-            value: false,
             xs: 12,
             sm: 12,
             md: 12,

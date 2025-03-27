@@ -10,6 +10,12 @@ import BaseField from './BaseField';
 import type { ConfigItemCustom } from '@iobroker/json-config';
 import type { BackitupNative } from './Components/types';
 
+interface ConfigItemCustomDetectConfig extends ConfigItemCustom {
+    custom: {
+        adapter: string;
+    };
+}
+
 class DetectConfig extends BaseField {
     renderItem(): React.JSX.Element {
         return (
@@ -20,7 +26,7 @@ class DetectConfig extends BaseField {
                     onClick={async () => {
                         const data = { ...this.props.data };
                         const result = await this.fetchConfig(
-                            (this.props.schema as ConfigItemCustom).adapter,
+                            (this.props.schema as ConfigItemCustomDetectConfig).custom.adapter,
                             data as BackitupNative,
                         );
                         if (result.found) {

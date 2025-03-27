@@ -23,6 +23,12 @@ type RestoreBackupState = ConfigGenericState & {
     restoreIfWait: number;
 };
 
+interface ConfigItemCustomRestoreBackup extends ConfigItemCustom {
+    custom: {
+        allowDownload: boolean;
+    };
+}
+
 class RestoreBackup extends ConfigGeneric<ConfigGenericProps, RestoreBackupState> {
     constructor(props: ConfigGenericProps) {
         super(props);
@@ -91,7 +97,7 @@ class RestoreBackup extends ConfigGeneric<ConfigGenericProps, RestoreBackupState
                         instance={this.props.oContext.instance}
                         backupSource={this.state.backupSource}
                         connectType={this.props.data.connectType}
-                        allowDownload={(this.props.schema as ConfigItemCustom).allowDownload}
+                        allowDownload={(this.props.schema as ConfigItemCustomRestoreBackup).custom.allowDownload}
                     />
                 ) : null}
                 {this.state.showRestore ? (

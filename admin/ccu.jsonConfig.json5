@@ -24,12 +24,12 @@
         backupNow: {
             type: 'custom',
             bundlerType: 'module',
-            button: true,
-            variant: 'contained',
+            custom: {
+                backUpType: 'ccu',
+                // icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIj4NCiAgICA8cGF0aCBkPSJNMTkuMzUgMTAuMDRDMTguNjcgNi41OSAxNS42NCA0IDEyIDQgOS4xMSA0IDYuNiA1LjY0IDUuMzUgOC4wNCAyLjM0IDguMzYgMCAxMC45MSAwIDE0YzAgMy4zMSAyLjY5IDYgNiA2aDEzYzIuNzYgMCA1LTIuMjQgNS01IDAtMi42NC0yLjA1LTQuNzgtNC42NS00Ljk2ek0xNCAxM3Y0aC00di00SDdsNS01IDUgNWgtM3oiLz4NCjwvc3ZnPg0K'
+            },
             url: 'custom/customComponents.js',
             name: 'ConfigCustomBackItUpSet/Components/BackupNow',
-            backUpType: 'ccu',
-            icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIj4NCiAgICA8cGF0aCBkPSJNMTkuMzUgMTAuMDRDMTguNjcgNi41OSAxNS42NCA0IDEyIDQgOS4xMSA0IDYuNiA1LjY0IDUuMzUgOC4wNCAyLjM0IDguMzYgMCAxMC45MSAwIDE0YzAgMy4zMSAyLjY5IDYgNiA2aDEzYzIuNzYgMCA1LTIuMjQgNS01IDAtMi42NC0yLjA1LTQuNzgtNC42NS00Ljk2ek0xNCAxM3Y0aC00di00SDdsNS01IDUgNWgtM3oiLz4NCjwvc3ZnPg0K',
             label: 'Backup now',
             newLine: true,
             xs: 12,
@@ -41,13 +41,12 @@
         detectNow: {
             hidden: 'data.ccuMulti',
             type: 'custom',
+            custom: {
+                adapter: 'hm-rpc',
+            },
             bundlerType: 'module',
-            button: true,
-            variant: 'contained',
             url: 'custom/customComponents.js',
             name: 'ConfigCustomBackItUpSet/Components/DetectConfig',
-            adapter: 'hm-rpc',
-            icon: 'search',
             label: 'Detect config',
             xs: 12,
             sm: 9,

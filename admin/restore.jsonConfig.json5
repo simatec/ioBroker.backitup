@@ -28,13 +28,14 @@
             i18n: true,
             url: 'custom/customComponents.js',
             name: 'ConfigCustomBackItUpSet/Components/RestoreBackup',
-            allowDownload: true,
-            value: false,
             xs: 12,
             sm: 9,
             md: 9,
             lg: 9,
             xl: 9,
+            custom: {
+                allowDownload: true,
+            },
         },
     },
 }
