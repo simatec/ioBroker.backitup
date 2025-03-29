@@ -84,10 +84,12 @@ async function updateAccessTokens(config) {
                 if (config[key] && typeof config[key] === 'object') {
                     if (config[key].dropbox) {
                         config[key].dropbox.accessToken = accessToken;
+                        adapter.log.debug(`Dropbox Token Config key: ${accessToken}`);
                     } else {
                         Object.keys(config[key]).forEach((subKey) => {
                             if (config[key][subKey] && config[key][subKey].dropbox) {
                                 config[key][subKey].dropbox.accessToken = accessToken;
+                                adapter.log.debug(`Dropbox Token Config subKey: ${accessToken}`);
                             }
                         });
                     }
