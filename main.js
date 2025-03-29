@@ -51,6 +51,7 @@ function decrypt(key, value) {
     return result;
 }
 
+/*
 async function updateAccessTokens(config) {
     if (dropBoxTokenRefresher) {
         try {
@@ -68,6 +69,31 @@ async function updateAccessTokens(config) {
                     }
                 }
             });
+        } catch (e) {
+            adapter.log.error(`Cannot get access tokens for DropBox: ${e}`);
+        }
+    }
+}
+*/
+async function updateAccessTokens(config) {
+    if (dropBoxTokenRefresher) {
+        try {
+            const accessToken = await dropBoxTokenRefresher.getAccessToken();
+
+            Object.keys(config).forEach((key) => {
+                if (config[key] && typeof config[key] === 'object') {
+                    if (config[key].dropbox) {
+                        config[key].dropbox.accessToken = accessToken;
+                    } else {
+                        Object.keys(config[key]).forEach((subKey) => {
+                            if (config[key][subKey] && config[key][subKey].dropbox) {
+                                config[key][subKey].dropbox.accessToken = accessToken;
+                            }
+                        });
+                    }
+                }
+            });
+
         } catch (e) {
             adapter.log.error(`Cannot get access tokens for DropBox: ${e}`);
         }
