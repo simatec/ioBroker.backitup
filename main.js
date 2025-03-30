@@ -130,6 +130,10 @@ function startAdapter(options) {
     adapter.on('stateChange', async (id, state) => {
         dropBoxTokenRefresher?.onStateChange(id, state);
 
+        if (id === `${adapter.namespace}.info.dropboxTokens`) {
+            await updateAccessTokens(backupConfig);
+        }
+
         if (state && (state.val === true || state.val === 'true') && !state.ack) {
             if (id === `${adapter.namespace}.oneClick.iobroker` ||
                 id === `${adapter.namespace}.oneClick.ccu`
@@ -2035,6 +2039,8 @@ async function main(adapter) {
 
     // subscribe on all variables of this adapter instance with pattern "adapterName.X.memory*"
     adapter.subscribeStates('oneClick.*');
+    adapter.subscribeStates('info.dropboxTokens');
+    
 }
 // If started as allInOne/compact mode => return function to create instance
 if (module && module.parent) {
