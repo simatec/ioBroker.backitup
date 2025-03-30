@@ -51,30 +51,6 @@ function decrypt(key, value) {
     return result;
 }
 
-/*
-async function updateAccessTokens(config) {
-    if (dropBoxTokenRefresher) {
-        try {
-            const accessToken = await dropBoxTokenRefresher.getAccessToken();
-            Object.values(config).forEach((_config) => {
-                if (_config && typeof _config === 'object') {
-                    if (_config.dropbox) {
-                        _config.dropbox.accessToken = accessToken;
-                    } else {
-                        Object.values(_config).forEach((_config2) => {
-                            if (_config.dropbox) {
-                                _config.dropbox.accessToken = accessToken;
-                            }
-                        });
-                    }
-                }
-            });
-        } catch (e) {
-            adapter.log.error(`Cannot get access tokens for DropBox: ${e}`);
-        }
-    }
-}
-*/
 async function updateAccessTokens(config) {
     if (dropBoxTokenRefresher) {
         try {
@@ -84,12 +60,10 @@ async function updateAccessTokens(config) {
                 if (config[key] && typeof config[key] === 'object') {
                     if (config[key].dropbox) {
                         config[key].dropbox.accessToken = accessToken;
-                        adapter.log.debug(`Dropbox Token Config key: ${accessToken}`);
                     } else {
                         Object.keys(config[key]).forEach((subKey) => {
                             if (config[key][subKey] && config[key][subKey].dropbox) {
                                 config[key][subKey].dropbox.accessToken = accessToken;
-                                adapter.log.debug(`Dropbox Token Config subKey: ${accessToken}`);
                             }
                         });
                     }
@@ -106,7 +80,7 @@ async function startBackup(config, cb) {
     if (taskRunning) {
         return setTimeout(startBackup, 10000, config, cb);
     }
-    await updateAccessTokens(config);
+    // await updateAccessTokens(config);
 
     taskRunning = true;
     try {
@@ -132,6 +106,7 @@ function startAdapter(options) {
 
         if (id === `${adapter.namespace}.info.dropboxTokens`) {
             await updateAccessTokens(backupConfig);
+            adapter.log.debug('Config Update for Dropbox Token');
         }
 
         if (state && (state.val === true || state.val === 'true') && !state.ack) {
