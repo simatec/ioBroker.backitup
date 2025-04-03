@@ -449,7 +449,7 @@ function startAdapter(options) {
                     if (obj.message) {
                         //const { createClient } = require('webdav');
                         const { createClient } = await import('webdav');
-                        const agent = new (require('node:https').Agent)({ rejectUnauthorized: obj.message.config.signedCertificates });
+                        const agent = new (require('node:https').Agent)({ rejectUnauthorized: Boolean(obj.message.config.signedCertificates) });
 
                         const client = createClient(
                             obj.message.config.host,
