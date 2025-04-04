@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.1.0",
+    "version": "3.2.0",
     "news": {
+      "3.2.0": {
+        "en": "json custom typescript added\nDropbox OAuth updated\nFix Webdav Certificates\nDependencies updated",
+        "de": "json custom typescript hinzugefügt\nDropbox OAuth aktualisiert\nWebdav-Zertifikate reparieren\nAusgaben aktualisiert",
+        "ru": "добавлен пользовательский typescript\nОбновлен Dropbox OAuth\nИсправьте сертификаты Webdav\nОбновленные зависимости",
+        "pt": "json personalizado typescript adicionado\nDropbox OAuth atualizado\nCorrigir Certificados Webdav\nDependências atualizadas",
+        "nl": "json aangepast typescript toegevoegd\nDropbox OAuth bijgewerkt\nWebdav-certificaten herstellen\nAfhankelijkheden bijgewerkt",
+        "fr": "json typscript personnalisé ajouté\nDropbox OAuth mise à jour\nCorrection des certificats Webdav\nDépendances actualisées",
+        "it": "json personalizzato typescript aggiunto\nDropbox OAuth aggiornato\nFissare i certificati Webdav\nDipendenze aggiornate",
+        "es": "json personalizado tiposcript añadido\nDropbox OAuth actualizado\nFijar certificados Webdav\nActualización de las dependencias",
+        "pl": "dodano niestandardowy skrypt\nDropbox OAuth zaktualizowany\nNapraw certyfikaty Webdav\nAktualizacja zależności",
+        "uk": "javascript licenses api веб-сайт\nDropbox OAuth оновлений\nВиправлення сертифікатів Webdav\nЗалежність оновлено",
+        "zh-cn": "添加了 json 自定义打字符\n已更新 Dropbox OAuth\n修复 Webdav 证书\n更新的依赖关系"
+      },
       "3.1.0": {
         "en": "Dependencies updated\nVite added\njsonConfig updated\nFix month for history",
         "de": "Ausgaben aktualisiert\nVite hinzugefügt\njsonConfig aktualisiert\nMonat für Geschichte",
@@ -80,19 +93,6 @@
         "pl": "Napraw cronjob\nNapraw konsolę kopii zapasowej",
         "uk": "Фіксація cronjob\nВиправлення консолі резервного копіювання",
         "zh-cn": "修补工作\n修复备份控制台"
-      },
-      "3.0.32": {
-        "en": "Error handling for GoogleDrive fix\nglobalDependencies updated\nDependencies updated\nDesign Fix",
-        "de": "Fehlerbehandlung für GoogleDrive fix\nweltweit Ausgaben aktualisiert\nAusgaben aktualisiert\nDesign Fix",
-        "ru": "Обработка ошибок для исправления GoogleDrive\nглобальный Обновленные зависимости\nОбновленные зависимости\nДизайнерская фиксация",
-        "pt": "Manipulação de erros para a correção do GoogleDrive\nglobal global Dependências atualizadas\nDependências atualizadas\nCorreção de Design",
-        "nl": "Fout bij het afhandelen van GoogleDrive-fix\nwereldwijd Afhankelijkheden bijgewerkt\nAfhankelijkheden bijgewerkt\nOntwerpfix",
-        "fr": "Gestion des erreurs pour la correction GoogleDrive\nmondial Dépendances actualisées\nDépendances actualisées\nCorrection de conception",
-        "it": "Gestione errori per GoogleDrive fix\nglobale Dipendenze aggiornate\nDipendenze aggiornate\nDesign Fix",
-        "es": "Manejo de errores para la solución GoogleDrive\nmundial Actualización de las dependencias\nActualización de las dependencias\nDiseño fijo",
-        "pl": "Błąd obsługi dla GoogleDrive fix\nglobalny Aktualizacja zależności\nAktualizacja zależności\nPopraw projekt",
-        "uk": "Обробка помилок для GoogleDrive виправити\nглобальний Залежність оновлено\nЗалежність оновлено\nФіксація дизайну",
-        "zh-cn": "GoogleDrive 修正处理错误\n全球 更新的依赖关系\n更新的依赖关系\n设计"
       }
     },
     "titleLang": {

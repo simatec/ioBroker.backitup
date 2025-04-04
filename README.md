@@ -61,7 +61,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.2.0 (2025-04-04)
 * (Bluefox/DileSoft) json custom typescript added
 * (Bluefox/simatec) Dropbox OAuth updated
 * (simatec) Fix Webdav Certificates
