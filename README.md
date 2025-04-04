@@ -65,6 +65,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (Bluefox/DileSoft) json custom typescript added
 * (Bluefox/simatec) Dropbox OAuth updated
 * (simatec) Fix Webdav Certificates
+* (simatec) Dependencies updated
 
 ### 3.1.0 (2025-03-02)
 * (Bluefox) Dependencies updated
