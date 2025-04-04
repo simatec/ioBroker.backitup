@@ -447,7 +447,6 @@ function startAdapter(options) {
 
                 case 'testWebDAV':
                     if (obj.message) {
-                        //const { createClient } = require('webdav');
                         const { createClient } = await import('webdav');
                         const agent = new (require('node:https').Agent)({ rejectUnauthorized: Boolean(obj.message.config.signedCertificates) });
 
@@ -2015,7 +2014,7 @@ async function main(adapter) {
     // subscribe on all variables of this adapter instance with pattern "adapterName.X.memory*"
     adapter.subscribeStates('oneClick.*');
     adapter.subscribeStates('info.dropboxTokens');
-    
+
 }
 // If started as allInOne/compact mode => return function to create instance
 if (module && module.parent) {
