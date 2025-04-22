@@ -12,7 +12,7 @@
     "Backup of all stored data of the history adapter": "Резервное копирование всех сохраненных данных адаптера истории",
     "Backup of several systems": "Резервное копирование нескольких систем",
     "Backup start time in hh:mm": "Время начала резервного копирования в чч:мм",
-    "Backup time": "Время резервного копирования",
+    "Backup time": "Резервное время",
     "Backup time as CRON job": "Время резервного копирования как задание CRON",
     "Backup will run every X days": "Резервное копирование будет выполняться каждые X дней.",
     "CCU backup": "Резервное копирование CCU",
