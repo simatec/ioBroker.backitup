@@ -53,6 +53,7 @@
     "url": "https://github.com/simatec/ioBroker.backitup"
   },
   "dependencies": {
+    "@esm2cjs/got": "^13.0.0",
     "@googleapis/drive": "^11.0.0",
     "@iobroker/adapter-core": "^3.2.3",
     "axios": "^1.8.4",
