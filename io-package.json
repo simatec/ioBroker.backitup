@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.2.0",
+    "version": "3.2.1",
     "news": {
+      "3.2.1": {
+        "en": "Fix Onedrive download\nFix Onedrive Restore",
+        "de": "Onedrive herunterladen\nOnedrive Restore reparieren",
+        "ru": "Fix Onedrive скачать\nВосстановление Onedrive",
+        "pt": "Fix Onedrive download\nRestauração de Onedrive",
+        "nl": "Onedrive-download herstellen\nOnedrive herstellen",
+        "fr": "Correction du téléchargement de Onedrive\nCorrection de la restauration Onedrive",
+        "it": "Fix Onedrive download\nRipristino di Onedrive",
+        "es": "Fix Onedrive descarga\nRestauración de Onedrive",
+        "pl": "Fix Onedrive pobierz\nFix Onedrive Restore",
+        "uk": "Fix Onedrive завантажити\nВиправлення одного диска відновлення",
+        "zh-cn": "修复单程下载\n修复单驱还原"
+      },
       "3.2.0": {
         "en": "json custom typescript added\nDropbox OAuth updated\nFix Webdav Certificates\nDependencies updated",
         "de": "json custom typescript hinzugefügt\nDropbox OAuth aktualisiert\nWebdav-Zertifikate reparieren\nAusgaben aktualisiert",
@@ -80,19 +93,6 @@
         "pl": "Napraw src- admin",
         "uk": "Виправлення src-адміністрування",
         "zh-cn": "修补 src-admin 中"
-      },
-      "3.0.33": {
-        "en": "Fix cronjob\nFix Backup Console",
-        "de": "Fix Cronjob\nBackup Console",
-        "ru": "Исправь кронджоб\nИсправить Backup Console",
-        "pt": "Fixar cronjob\nConsola de backup",
-        "nl": "Cronjob herstellen\nReservekopieconsole herstellen",
-        "fr": "Réparez cronjob\nCorrection de la console de sauvegarde",
-        "it": "Fisso cronjob\nConsole di Backup",
-        "es": "Cronjob fijo\nConsola de respaldo fija",
-        "pl": "Napraw cronjob\nNapraw konsolę kopii zapasowej",
-        "uk": "Фіксація cronjob\nВиправлення консолі резервного копіювання",
-        "zh-cn": "修补工作\n修复备份控制台"
       }
     },
     "titleLang": {
