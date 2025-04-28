@@ -81,6 +81,9 @@ _[Zurück zum Anfang](#start-of-content)_
 ---
 
 # Google Drive Tutorial
+
+**Vorwort**
+
 Leider kommt es immer mal wieder vor, dass Cloud-Anbieter ihre Richtlinien oder Berechtigungen der API's ändern.
 Auch bei Google tritt das ab und an mal auf.
 

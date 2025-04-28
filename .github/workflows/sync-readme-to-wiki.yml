@@ -5,6 +5,7 @@ on:
     paths:
       - 'docs/de/backitup.md'
       - 'docs/en/backitup.md'
+      - 'docs/guide/guide.md'
       - 'docs/de/img/*'
 
 jobs:
