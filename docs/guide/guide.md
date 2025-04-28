@@ -80,6 +80,22 @@ _[Zurück zum Anfang](#start-of-content)_
 
 ---
 
+# Google Drive Tutorial
+Leider kommt es immer mal wieder vor, dass Cloud-Anbieter ihre Richtlinien oder Berechtigungen der API's ändern.
+Auch bei Google tritt das ab und an mal auf.
+
+Solltest du Probleme haben, dass keine Backups mehr gespeichert werden, oder sich alte Backups nicht löschen lassen, gehe bitte wie folgt vor.
+
+1. Erstelle über die Konfiguration von Backitup ein neuen Token
+2. Ändere in Backitup den Speicherpfad (von z.B. `/backups/iobroker` auf `/backups-neu/iobroker`). Backitup legt diesen Pfad dann automatisch an
+3. Verschiebe in Google Drive die Backups in den neuen Speicherpfad
+
+Danach sollten alle Probleme behoben sein.
+
+
+_[Zurück zum Anfang](#start-of-content)_
+
+---
 
 # InfluxDB2 Restore
 
