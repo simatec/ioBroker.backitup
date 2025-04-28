@@ -30,6 +30,7 @@ jobs:
         run: |
           cp docs/de/backitup.md ./wiki/ioBroker.backitup-Wiki-Deutsch.md
           cp docs/en/backitup.md ./wiki/ioBroker.backitup-Wiki-English.md
+          cp docs/guide/guide.md ./wiki/Diverse-Anleitungen-für-ioBroker.backitup.md
           cp docs/en/img/* ./wiki/img/
 
       - name: Commit and push changes
