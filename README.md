@@ -61,8 +61,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 3.2.2 (2025-05-16)
 * (simatec) Grafana Folder added to Restore
 * (simatec) Grafanfa Folder uid added
 * (simatec) dependencies updated

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.2.1",
+    "version": "3.2.2",
     "news": {
+      "3.2.2": {
+        "en": "Grafana Folder added to Restore\nGrafanfa Folder uid added\ndependencies updated\nFix Mail Subject on Error",
+        "de": "Grafana Folder zur Wiederherstellung hinzugefügt\nGrafanfa Folder uid hinzugefügt\naktualisierte abhängigkeiten\nMail-Betreff auf Fehler beheben",
+        "ru": "Grafana Folder добавлена в Restore\nGrafanfa Folder добавлено\nобновленные зависимости\nFix Mail Subject on Ошибка",
+        "pt": "Pasta de Grafana adicionado à Restauração\nAdicionar ao cesto\ndependências atualizadas\nCorrigir Assunto de Correio no Erro",
+        "nl": "Grafana map toegevoegd aan herstellen\nGrafanfa map uid toegevoegd\nafhankelijkheden bijgewerkt\nE-mailonderwerp herstellen bij foutmelding",
+        "fr": "Dossier Grafana ajouté à la restauration\nDossier Grafanfa Uid ajouté\ndépendances mises à jour\nCorrection du sujet du courriel en cas d'erreur",
+        "it": "Cartella Grafana aggiunta a Ripristino\nGrafanfa Folder uid aggiunto\ndipendenze aggiornate\nRisolvere l'oggetto della posta sull'errore",
+        "es": "Carpeta de Grafana añadido a la restauración\nGrafanfa Folder uid añadido\ndependencias actualizadas\nAsunto de correo fijo en el error",
+        "pl": "Folder Grafana dodany do przywracania\nDodano folder Grafanfa\nzaktualizowane zależności\nPopraw obiekt poczty przy błędzie",
+        "uk": "Grafana Folder додано в Restore\nGrafanfa Folder uid додано\nоновлені залежності\nВиправлення суб'єкта електронної пошти на помилки",
+        "zh-cn": "添加 Grafana 文件夹以恢复\n添加 Grafanfa 文件夹 uid\n更新依赖关系\n在错误时修复邮件主题"
+      },
       "3.2.1": {
         "en": "Fix Onedrive download\nFix Onedrive Restore",
         "de": "Onedrive herunterladen\nOnedrive Restore reparieren",
@@ -69,19 +82,6 @@
         "zh-cn": "修补 src-admin 中"
       },
       "3.0.35": {
-        "en": "Fix src-admin",
-        "de": "Fix src-admin",
-        "ru": "Исправить src-admin",
-        "pt": "Fix src-admin",
-        "nl": "Src-admin repareren",
-        "fr": "Réparez src-admin",
-        "it": "Fissare src-admin",
-        "es": "Fijar src-admin",
-        "pl": "Napraw src- admin",
-        "uk": "Виправлення src-адміністрування",
-        "zh-cn": "修补 src-admin 中"
-      },
-      "3.0.34": {
         "en": "Fix src-admin",
         "de": "Fix src-admin",
         "ru": "Исправить src-admin",
