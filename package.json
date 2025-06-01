@@ -81,7 +81,7 @@
     "@iobroker/eslint-config": "^2.0.1",
     "@iobroker/testing": "^5.0.4",
     "chai": "^4.5.0",
-    "mocha": "^11.2.2",
+    "mocha": "^11.5.0",
     "typescript": "^5.8.3"
   },
   "main": "main.js",
