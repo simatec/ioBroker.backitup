@@ -64,6 +64,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 ### **WORK IN PROGRESS**
 * (simatec) Onedrive-API for Upload deleted
 * (simatec) dependencies updated
+* (simatec) z2m Remote Backup added
 
 ### 3.2.2 (2025-05-16)
 * (simatec) Grafana Folder added to Restore

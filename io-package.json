@@ -619,7 +619,12 @@
     "wolWait": 25,
     "yahkaEnabled": false,
     "zigbee2mqttEnabled": false,
+    "zigbee2mqttHost": "localhost",
     "zigbee2mqttPath": "/opt/zigbee2mqtt/data",
+    "zigbee2mqttPassword": "",
+    "zigbee2mqttPort": 1885,
+    "zigbee2mqttType": "local",
+    "zigbee2mqttUser": "",
     "zigbeeEnabled": false
   },
   "encryptedNative": [
@@ -630,7 +635,8 @@
     "grafanaPassword",
     "pgSqlPassword",
     "redisPassword",
-    "webdavPassword"
+    "webdavPassword",
+    "zigbee2mqttPassword"
   ],
   "protectedNative": [
     "cifsPassword",
@@ -640,7 +646,8 @@
     "grafanaPassword",
     "pgSqlPassword",
     "redisPassword",
-    "webdavPassword"
+    "webdavPassword",
+    "zigbee2mqttPassword"
   ],
   "instanceObjects": [
     {

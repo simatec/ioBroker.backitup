@@ -1165,6 +1165,11 @@ async function initConfig(secret) {
                 webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
                 googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
                 path: adapter.config.zigbee2mqttPath,                                                   // specify zigbee2mqtt path
+                z2mType: adapter.config.zigbee2mqttType,
+                z2mUsername: adapter.config.zigbee2mqttUser,
+                z2mPassword: adapter.config.zigbee2mqttPassword,
+                z2mUrl: adapter.config.zigbee2mqttHost,
+                z2mPort: adapter.config.zigbee2mqttPort,
                 nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
                 slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
                 hostType: adapter.config.hostType,
