@@ -618,6 +618,7 @@
     "wolPort": 9,
     "wolWait": 25,
     "yahkaEnabled": false,
+    "zigbee2mqttAuth": false,
     "zigbee2mqttEnabled": false,
     "zigbee2mqttHost": "localhost",
     "zigbee2mqttPath": "/opt/zigbee2mqtt/data",
