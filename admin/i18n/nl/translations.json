@@ -283,5 +283,11 @@
     "NAS (NFS)": "NAS-systeem (NFS)",
     "extended log output": "uitgebreide loguitvoer",
     "No log is available for this backup": "Er is geen log beschikbaar voor deze back-up",
-    "Advanced delete functions for external storage": "Geavanceerde verwijderfuncties voor externe opslag"
+    "Advanced delete functions for external storage": "Geavanceerde verwijderfuncties voor externe opslag",
+    "MQTT Password": "MQTT -wachtwoord",
+    "MQTT Username": "MQTT -gebruikersnaam",
+    "Authentication": "Authenticatie",
+    "default: 1885": "Standaard: 1885",
+    "MQTT port": "MQTT -poort",
+    "MQTT Hostname": "MQTT hostnaam"
 }

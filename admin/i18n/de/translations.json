@@ -273,5 +273,11 @@
     "Name suffix for the file name of the backup": "Namenszusatz für den Dateinamen des Backups",
     "If you like this project and would like to support its development, you are welcome to leave a donation.": "Wenn dir dieses Projekt gefällt und du dieses Projekt in der Entwicklung unterstützen möchtest, kannst du gerne eine Spende hinterlassen.",
     "No log is available for this backup": "Für dieses Backup ist kein Protokoll verfügbar",
-    "Advanced delete functions for external storage": "Erweiterte Löschfunktionen für externe Speichermedien"
+    "Advanced delete functions for external storage": "Erweiterte Löschfunktionen für externe Speichermedien",
+    "MQTT Password": "MQTT Passwort",
+    "MQTT Username": "MQTT Benutzername",
+    "Authentication": "Authentifizierung",
+    "default: 1885": "Standard: 1885",
+    "MQTT port": "MQTT Port",
+    "MQTT Hostname": "MQTT Hostname"
 }

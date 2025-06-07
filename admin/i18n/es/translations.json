@@ -283,5 +283,11 @@
     "NAS (NFS)": "NAS (NFS)",
     "extended log output": "salida de registro extendida",
     "No log is available for this backup": "No hay ningún registro disponible para esta copia de seguridad",
-    "Advanced delete functions for external storage": "Funciones avanzadas de eliminación para almacenamiento externo"
+    "Advanced delete functions for external storage": "Funciones avanzadas de eliminación para almacenamiento externo",
+    "MQTT Password": "Contraseña mqtt",
+    "MQTT Username": "Nombre de usuario mqtt",
+    "Authentication": "Autenticación",
+    "default: 1885": "Valor predeterminado: 1885",
+    "MQTT port": "Puerto MQTT",
+    "MQTT Hostname": "Nombre de host MQTT"
 }

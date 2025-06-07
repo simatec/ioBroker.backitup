@@ -283,5 +283,11 @@
     "NAS (NFS)": "НАН (НФС)",
     "extended log output": "расширенный вывод журнала",
     "No log is available for this backup": "Для этой резервной копии журнал недоступен.",
-    "Advanced delete functions for external storage": "Расширенные функции удаления для внешнего хранилища"
+    "Advanced delete functions for external storage": "Расширенные функции удаления для внешнего хранилища",
+    "MQTT Password": "MQTT пароль",
+    "MQTT Username": "MQTT имя пользователя",
+    "Authentication": "Аутентификация",
+    "default: 1885": "По умолчанию: 1885",
+    "MQTT port": "Порт MQTT",
+    "MQTT Hostname": "MQTT HOSTNAME"
 }

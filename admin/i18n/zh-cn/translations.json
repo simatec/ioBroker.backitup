@@ -283,5 +283,11 @@
     "NAS (NFS)": "网络存储 (NFS)",
     "extended log output": "扩展日志输出",
     "No log is available for this backup": "此备份没有可用的日志",
-    "Advanced delete functions for external storage": "外部存储的高级删除功能"
+    "Advanced delete functions for external storage": "外部存储的高级删除功能",
+    "MQTT Password": "MQTT密码",
+    "MQTT Username": "mqtt用户名",
+    "Authentication": "验证",
+    "default: 1885": "默认值：1885",
+    "MQTT port": "MQTT端口",
+    "MQTT Hostname": "MQTT主机名"
 }

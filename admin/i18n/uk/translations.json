@@ -283,5 +283,11 @@
     "NAS (NFS)": "NAS (NFS)",
     "extended log output": "розширений вихід журналу",
     "No log is available for this backup": "Немає журналу для цієї резервної копії",
-    "Advanced delete functions for external storage": "Розширені функції видалення для зовнішньої пам’яті"
+    "Advanced delete functions for external storage": "Розширені функції видалення для зовнішньої пам’яті",
+    "MQTT Password": "Пароль MQTT",
+    "MQTT Username": "MQTT Ім'я користувача",
+    "Authentication": "Аутентифікація",
+    "default: 1885": "За замовчуванням: 1885",
+    "MQTT port": "Порт MQTT",
+    "MQTT Hostname": "Ім'я хоста MQTT"
 }
