@@ -68,7 +68,6 @@
     "multer": "^2.0.0",
     "node-schedule": "^2.1.1",
     "node-wol": "^0.1.1",
-    "onedrive-api": "^1.1.1",
     "tar-fs": "^3.0.9",
     "webdav": "^5.8.0"
   },
