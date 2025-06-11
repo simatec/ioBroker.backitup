@@ -62,7 +62,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ## Changelog
 ### **WORK IN PROGRESS**
-* (simatec) Onedrive-API for Upload deleted
+* (simatec) local onedrive api added
 * (simatec) dependencies updated
 * (simatec) z2m Remote Backup added
 
