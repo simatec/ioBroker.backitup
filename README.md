@@ -65,6 +65,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) local onedrive api added
 * (simatec) dependencies updated
 * (simatec) z2m Remote Backup added
+* (simatec) Fix Zigbee Backup
 
 ### 3.2.2 (2025-05-16)
 * (simatec) Grafana Folder added to Restore
