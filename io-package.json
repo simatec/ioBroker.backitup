@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.2.2",
+    "version": "3.3.0",
     "news": {
+      "3.3.0": {
+        "en": "local onedrive api added\ndependencies updated\nz2m Remote Backup added\nFix Zigbee Backup",
+        "de": "lokale onedrive api hinzugefügt\naktualisierte abhängigkeiten\nz2m Remote Backup hinzugefügt\nZigbee Backup",
+        "ru": "местный onedrive api\nобновленные зависимости\nz2m удаленное резервное копирование\nСкачать Zigbee Backup",
+        "pt": "local onedrive api adicionado\ndependências atualizadas\nbackup remoto z2m adicionado\nCorrigir backup do Zigbee",
+        "nl": "lokale onedrive api toegevoegd\nafhankelijkheden bijgewerkt\nz2m remote backup toegevoegd\nZigbee-backup herstellen",
+        "fr": "local onedrive api ajouté\ndépendances mises à jour\nz2m Sauvegarde à distance ajoutée\nCorrection de sauvegarde Zigbee",
+        "it": "locale onedrive api aggiunto\ndipendenze aggiornate\nz2m Backup remoto aggiunto\nRiparare il backup Zigbee",
+        "es": "local onedrive api añadido\ndependencias actualizadas\nz2m remoto respaldo añadido\nFijación Zigbee Backup",
+        "pl": "lokalny onedrive api dodany\nzaktualizowane zależności\nz2m Dodaj zdalną kopię zapasową\nNapraw kopię zapasową Zigbee",
+        "uk": "додано локальний привід\nоновлені залежності\njavaScript licenses API Веб-сайт Go1.13.8\nФіксація Zigbee Backup",
+        "zh-cn": "添加本地一盘驱动 api\n更新依赖关系\n添加了 Z2m 远程备份\n修复 Zigbee 备份"
+      },
       "3.2.2": {
         "en": "Grafana Folder added to Restore\nGrafanfa Folder uid added\ndependencies updated\nFix Mail Subject on Error",
         "de": "Grafana Folder zur Wiederherstellung hinzugefügt\nGrafanfa Folder uid hinzugefügt\naktualisierte abhängigkeiten\nMail-Betreff auf Fehler beheben",
@@ -69,19 +82,6 @@
         "zh-cn": "修复 CronJob"
       },
       "3.0.36": {
-        "en": "Fix src-admin",
-        "de": "Fix src-admin",
-        "ru": "Исправить src-admin",
-        "pt": "Fix src-admin",
-        "nl": "Src-admin repareren",
-        "fr": "Réparez src-admin",
-        "it": "Fissare src-admin",
-        "es": "Fijar src-admin",
-        "pl": "Napraw src- admin",
-        "uk": "Виправлення src-адміністрування",
-        "zh-cn": "修补 src-admin 中"
-      },
-      "3.0.35": {
         "en": "Fix src-admin",
         "de": "Fix src-admin",
         "ru": "Исправить src-admin",
