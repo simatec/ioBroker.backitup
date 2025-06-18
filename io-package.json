@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.3.0",
+    "version": "3.3.1",
     "news": {
+      "3.3.1": {
+        "en": "Fix z2m Remote Backup",
+        "de": "Z2m Remote Backup",
+        "ru": "Исправьте z2m удаленное резервное копирование",
+        "pt": "Corrigir backup remoto z2m",
+        "nl": "Fix z2m remote backup",
+        "fr": "Correction de la sauvegarde à distance z2m",
+        "it": "Risolto il backup remoto z2m",
+        "es": "Retroceso remoto fijo z2m",
+        "pl": "Fix z2m Remote Backup",
+        "uk": "Виправлення z2m віддаленого резервного копіювання",
+        "zh-cn": "修复 Z2m 远程备份"
+      },
       "3.3.0": {
         "en": "local onedrive api added\ndependencies updated\nz2m Remote Backup added\nFix Zigbee Backup",
         "de": "lokale onedrive api hinzugefügt\naktualisierte abhängigkeiten\nz2m Remote Backup hinzugefügt\nZigbee Backup",
@@ -80,19 +93,6 @@
         "pl": "Napraw CronJob",
         "uk": "Фіксація CronJob",
         "zh-cn": "修复 CronJob"
-      },
-      "3.0.36": {
-        "en": "Fix src-admin",
-        "de": "Fix src-admin",
-        "ru": "Исправить src-admin",
-        "pt": "Fix src-admin",
-        "nl": "Src-admin repareren",
-        "fr": "Réparez src-admin",
-        "it": "Fissare src-admin",
-        "es": "Fijar src-admin",
-        "pl": "Napraw src- admin",
-        "uk": "Виправлення src-адміністрування",
-        "zh-cn": "修补 src-admin 中"
       }
     },
     "titleLang": {
