@@ -1170,6 +1170,7 @@ async function initConfig(secret) {
                 z2mPassword: adapter.config.zigbee2mqttPassword,
                 z2mUrl: adapter.config.zigbee2mqttHost,
                 z2mPort: adapter.config.zigbee2mqttPort,
+                z2mBaseTopic: adapter.config.zigbee2mqttBaseTopic,
                 z2mAuth: adapter.config.zigbee2mqttAuth,
                 nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
                 slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
