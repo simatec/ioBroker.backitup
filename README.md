@@ -61,7 +61,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.3.2 (2025-06-19)
 * (simatec) Base Topic for z2m Remote Backup added
 
 ### 3.3.1 (2025-06-18)
