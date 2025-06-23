@@ -1248,8 +1248,6 @@ async function initConfig(secret) {
                 host: adapter.config.grafanaHost,                                                       // database host
                 port: adapter.config.grafanaPort,                                                       // database port
                 protocol: adapter.config.grafanaProtocol,                                               // database protocol
-                username: adapter.config.grafanaUsername,
-                pass: adapter.config.grafanaPassword || '',                                             // database password
                 apiKey: adapter.config.grafanaApiKey,
                 nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                  // names addition, appended to the file name
                 slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
