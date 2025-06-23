@@ -289,5 +289,7 @@
     "Authentication": "Аутентифікація",
     "default: 1885": "За замовчуванням: 1885",
     "MQTT port": "Порт MQTT",
-    "MQTT Hostname": "Ім'я хоста MQTT"
+    "MQTT Hostname": "Ім'я хоста MQTT",
+    "Base Topic": "Базова тема",
+    "MQTT Base Topic": "Базова тема MQTT"
 }

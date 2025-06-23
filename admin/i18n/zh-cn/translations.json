@@ -289,5 +289,7 @@
     "Authentication": "验证",
     "default: 1885": "默认值：1885",
     "MQTT port": "MQTT端口",
-    "MQTT Hostname": "MQTT主机名"
+    "MQTT Hostname": "MQTT主机名",
+    "Base Topic": "基本主题",
+    "MQTT Base Topic": "MQTT基础主题"
 }

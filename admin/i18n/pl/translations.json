@@ -289,5 +289,7 @@
     "Authentication": "Uwierzytelnianie",
     "default: 1885": "Domyślnie: 1885",
     "MQTT port": "Port MQTT",
-    "MQTT Hostname": "Nazwa hosta MQTT"
+    "MQTT Hostname": "Nazwa hosta MQTT",
+    "Base Topic": "Temat podstawowy",
+    "MQTT Base Topic": "Temat podstawowy MQTT"
 }

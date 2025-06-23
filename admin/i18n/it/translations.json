@@ -289,5 +289,7 @@
     "Authentication": "Autenticazione",
     "default: 1885": "Predefinito: 1885",
     "MQTT port": "Porta mqtt",
-    "MQTT Hostname": "Nome host MQTT"
+    "MQTT Hostname": "Nome host MQTT",
+    "Base Topic": "Argomento di base",
+    "MQTT Base Topic": "Argomento base MQTT"
 }
