@@ -290,11 +290,14 @@ sudo reboot
 
 #### Remote Zigbee2MQTT backup
 It is possible to create a Zigbee2MQTT backup that is located on another system.
-To do this, the IP address of the MQTT server (not the IP address of Zigbee2MQTT) that Zigbee2MQTT uses must be configured in Backitup, the MQTT port and the base topic of Zigbee2MQTT. 
-If the MQTT server has active authentication, a user name and password are also required.
-The remote backup is restored directly via Zigbee2MQTT and not via Backitup.
 
-Translated with DeepL.com (free version)
+To do this, the IP address of the MQTT server (not the IP address of Zigbee2MQTT) that Zigbee2MQTT uses must be configured in Backitup, the MQTT port and the base topic of Zigbee2MQTT. 
+
+If the MQTT server has active authentication, a user name and password are also required.
+
+
+> [!IMPORTANT]
+> The remote backup is restored directly via Zigbee2MQTT and not via Backitup.
 
 
 ### Node-Red-Backup

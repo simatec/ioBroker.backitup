@@ -300,10 +300,14 @@ sudo reboot
 ```
 
 #### Remote Zigbee2MQTT Backup
-Es ist Möglich ein Zigbee2MQTT Backup zu erstellen, welches sich auf einem anderen System befindet.
-Dafür muss die IP-Adresse des MQTT Servers (nicht die IP-Adresse von Zigbee2MQTT), welchen Zigbee2MQTT nutzt in Backitup konfiguriert werden, der MQTT Port und das Base Topic von Zigbee2MQTT. 
+Es ist möglich ein Zigbee2MQTT Backup zu erstellen, welches sich auf einem anderen System befindet.
+
+Dafür muss die IP-Adresse des MQTT Servers (nicht die IP-Adresse von Zigbee2MQTT), welchen Zigbee2MQTT nutzt in Backitup konfiguriert werden, der MQTT Port und das Base Topic von Zigbee2MQTT.
+
 Sollte der MQTT-Server eine Authentifizierung aktiv haben, werden zusätzlich noch Benutzername und Passwort benötigt.
-Der Restore des Remote Backups erfolgt direkt über Zigbee2MQTT ud nicht über Backitup.
+
+> [!IMPORTANT]
+> Der Restore des Remote Backups erfolgt direkt über Zigbee2MQTT ud nicht über Backitup.
 
 ### Node-Red-Backup
 Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.
