@@ -307,7 +307,7 @@ Dafür muss die IP-Adresse des MQTT Servers (nicht die IP-Adresse von Zigbee2MQT
 Sollte der MQTT-Server eine Authentifizierung aktiv haben, werden zusätzlich noch Benutzername und Passwort benötigt.
 
 > [!IMPORTANT]
-> Der Restore des Remote Backups erfolgt direkt über Zigbee2MQTT ud nicht über Backitup.
+> Der Restore des Remote Backups erfolgt direkt über Zigbee2MQTT und nicht über Backitup.
 
 ### Node-Red-Backup
 Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.
