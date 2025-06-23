@@ -63,6 +63,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 ## Changelog
 ### **WORK IN PROGRESS**
 * (simatec) Translation updated
+* (simatec) Fix Grafana Backup & Restore
 
 ### 3.3.2 (2025-06-19)
 * (simatec) Base Topic for z2m Remote Backup added
