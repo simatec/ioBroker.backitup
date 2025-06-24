@@ -68,7 +68,7 @@
     "multer": "^2.0.1",
     "node-schedule": "^2.1.1",
     "node-wol": "^0.1.1",
-    "tar-fs": "^3.0.9",
+    "tar-fs": "^3.0.10",
     "webdav": "^5.8.0"
   },
   "devDependencies": {
@@ -81,7 +81,7 @@
     "@iobroker/eslint-config": "^2.0.2",
     "@iobroker/testing": "^5.0.4",
     "chai": "^4.5.0",
-    "mocha": "^11.6.0",
+    "mocha": "^11.7.1",
     "typescript": "^5.8.3"
   },
   "main": "main.js",
