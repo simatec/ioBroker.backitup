@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.3.2",
+    "version": "3.3.3",
     "news": {
+      "3.3.3": {
+        "en": "Translation updated\nFix Grafana Backup & Restore\nDocu updated\ndependencies updated",
+        "de": "Übersetzung aktualisiert\nGrafana Backup und Wiederherstellung\nDocu aktualisiert\naktualisierte abhängigkeiten",
+        "ru": "Перевод обновлен\nОбновление Grafana Backup & Restore\nОбновление Docu\nобновленные зависимости",
+        "pt": "Tradução actualizada\nCorrigir backup e restauração do Grafana\nDocu atualizado\ndependências atualizadas",
+        "nl": "Vertaling bijgewerkt\nGrafana-backup herstellen\nDocu bijgewerkt\nafhankelijkheden bijgewerkt",
+        "fr": "Traduction mise à jour\nCorrection de sauvegarde et restauration de Grafana\nDocu mis à jour\ndépendances mises à jour",
+        "it": "Traduzione aggiornata\nRisolvere Grafana Backup & Ripristino\nDocu aggiornato\ndipendenze aggiornate",
+        "es": "Traducción actualizada\nFijar el respaldo Grafana & Restaurar\nDocu actualizado\ndependencias actualizadas",
+        "pl": "Aktualizacja tłumaczeń\nNapraw kopię zapasową i przywróć Grafana\nAktualizacja doku\nzaktualizowane zależności",
+        "uk": "Переклад оновлений\nВиправлення Grafana Резервне копіювання & відновлення\nDocu оновлений\nоновлені залежності",
+        "zh-cn": "翻译更新\n修复 Grafana 备份并恢复\n更新 Docu\n更新依赖关系"
+      },
       "3.3.2": {
         "en": "Base Topic for z2m Remote Backup added",
         "de": "Basisthema für z2m Remote Backup hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "dodano niestandardowy skrypt\nDropbox OAuth zaktualizowany\nNapraw certyfikaty Webdav\nAktualizacja zależności",
         "uk": "javascript licenses api веб-сайт\nDropbox OAuth оновлений\nВиправлення сертифікатів Webdav\nЗалежність оновлено",
         "zh-cn": "添加了 json 自定义打字符\n已更新 Dropbox OAuth\n修复 Webdav 证书\n更新的依赖关系"
-      },
-      "3.1.0": {
-        "en": "Dependencies updated\nVite added\njsonConfig updated\nFix month for history",
-        "de": "Ausgaben aktualisiert\nVite hinzugefügt\njsonConfig aktualisiert\nMonat für Geschichte",
-        "ru": "Обновленные зависимости\nВит добавил\nобновленный JasonConfig\nМесяц для истории",
-        "pt": "Dependências atualizadas\nVite adicionado\njsonConfig Atualizado\nCorrigir mês para a história",
-        "nl": "Afhankelijkheden bijgewerkt\nVite toegevoegd\njsonConfig bijgewerkt\nFix maand voor geschiedenis",
-        "fr": "Dépendances actualisées\nVitalité ajoutée\njsonConfig mise à jour\nCorrection du mois pour l'historique",
-        "it": "Dipendenze aggiornate\nVite aggiunto\njsonConfig aggiornato\nFisso mese per la storia",
-        "es": "Actualización de las dependencias\nVite añadido\njsonConfig actualizado\nMes fijo para la historia",
-        "pl": "Aktualizacja zależności\nVite added\njsonConfig zaktualizowany\nNapraw miesiąc dla historii",
-        "uk": "Залежність оновлено\nВайт додано\njsonConfig оновлений\nВиправлення місяця для історії",
-        "zh-cn": "更新的依赖关系\n视频添加\njson 压缩更新\n历史的固定月份"
       }
     },
     "titleLang": {
