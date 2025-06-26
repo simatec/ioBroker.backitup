@@ -61,6 +61,9 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (simatec) Fix Grafana Backup & Restore
+
 ### 3.3.3 (2025-06-24)
 * (simatec) Translation updated
 * (simatec) Fix Grafana Backup & Restore
