@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.3.3",
+    "version": "3.3.4",
     "news": {
+      "3.3.4": {
+        "en": "Fix Grafana Backup & Restore",
+        "de": "Grafana Backup und Wiederherstellung",
+        "ru": "Обновление Grafana Backup & Restore",
+        "pt": "Corrigir backup e restauração do Grafana",
+        "nl": "Grafana-backup herstellen",
+        "fr": "Correction de sauvegarde et restauration de Grafana",
+        "it": "Risolvere Grafana Backup & Ripristino",
+        "es": "Fijar el respaldo Grafana & Restaurar",
+        "pl": "Napraw kopię zapasową i przywróć Grafana",
+        "uk": "Виправлення Grafana Резервне копіювання & відновлення",
+        "zh-cn": "修复 Grafana 备份并恢复"
+      },
       "3.3.3": {
         "en": "Translation updated\nFix Grafana Backup & Restore\nDocu updated\ndependencies updated",
         "de": "Übersetzung aktualisiert\nGrafana Backup und Wiederherstellung\nDocu aktualisiert\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "Fix Onedrive pobierz\nFix Onedrive Restore",
         "uk": "Fix Onedrive завантажити\nВиправлення одного диска відновлення",
         "zh-cn": "修复单程下载\n修复单驱还原"
-      },
-      "3.2.0": {
-        "en": "json custom typescript added\nDropbox OAuth updated\nFix Webdav Certificates\nDependencies updated",
-        "de": "json custom typescript hinzugefügt\nDropbox OAuth aktualisiert\nWebdav-Zertifikate reparieren\nAusgaben aktualisiert",
-        "ru": "добавлен пользовательский typescript\nОбновлен Dropbox OAuth\nИсправьте сертификаты Webdav\nОбновленные зависимости",
-        "pt": "json personalizado typescript adicionado\nDropbox OAuth atualizado\nCorrigir Certificados Webdav\nDependências atualizadas",
-        "nl": "json aangepast typescript toegevoegd\nDropbox OAuth bijgewerkt\nWebdav-certificaten herstellen\nAfhankelijkheden bijgewerkt",
-        "fr": "json typscript personnalisé ajouté\nDropbox OAuth mise à jour\nCorrection des certificats Webdav\nDépendances actualisées",
-        "it": "json personalizzato typescript aggiunto\nDropbox OAuth aggiornato\nFissare i certificati Webdav\nDipendenze aggiornate",
-        "es": "json personalizado tiposcript añadido\nDropbox OAuth actualizado\nFijar certificados Webdav\nActualización de las dependencias",
-        "pl": "dodano niestandardowy skrypt\nDropbox OAuth zaktualizowany\nNapraw certyfikaty Webdav\nAktualizacja zależności",
-        "uk": "javascript licenses api веб-сайт\nDropbox OAuth оновлений\nВиправлення сертифікатів Webdav\nЗалежність оновлено",
-        "zh-cn": "添加了 json 自定义打字符\n已更新 Dropbox OAuth\n修复 Webdav 证书\n更新的依赖关系"
       }
     },
     "titleLang": {
