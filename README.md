@@ -63,6 +63,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 ## Changelog
 ### **WORK IN PROGRESS**
 * (simatec) Fix Dropbox Token Check
+* (simatec) dependencies updated
 
 ### 3.3.4 (2025-06-26)
 * (simatec) Fix Grafana Backup & Restore
