@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.3.4",
+    "version": "3.3.5",
     "news": {
+      "3.3.5": {
+        "en": "Fix Dropbox Token Check\ndependencies updated",
+        "de": "Dropbox Token Check\naktualisierte abhängigkeiten",
+        "ru": "Скачать Dropbox Token Check\nобновленные зависимости",
+        "pt": "Corrigir a Verificação de Token do Dropbox\ndependências atualizadas",
+        "nl": "Fix Dropbox Token Check\nafhankelijkheden bijgewerkt",
+        "fr": "Correction du jeton Dropbox\ndépendances mises à jour",
+        "it": "Riparare il controllo di Dropbox Token\ndipendenze aggiornate",
+        "es": "Arregla el cheque de Dropbox Token\ndependencias actualizadas",
+        "pl": "Napraw sprawdzanie tokena Dropbox\nzaktualizowane zależności",
+        "uk": "Виправлення Dropbox Token Перевірити\nоновлені залежності",
+        "zh-cn": "修复投放箱检查\n更新依赖关系"
+      },
       "3.3.4": {
         "en": "Fix Grafana Backup & Restore",
         "de": "Grafana Backup und Wiederherstellung",
@@ -80,19 +93,6 @@
         "pl": "Folder Grafana dodany do przywracania\nDodano folder Grafanfa\nzaktualizowane zależności\nPopraw obiekt poczty przy błędzie",
         "uk": "Grafana Folder додано в Restore\nGrafanfa Folder uid додано\nоновлені залежності\nВиправлення суб'єкта електронної пошти на помилки",
         "zh-cn": "添加 Grafana 文件夹以恢复\n添加 Grafanfa 文件夹 uid\n更新依赖关系\n在错误时修复邮件主题"
-      },
-      "3.2.1": {
-        "en": "Fix Onedrive download\nFix Onedrive Restore",
-        "de": "Onedrive herunterladen\nOnedrive Restore reparieren",
-        "ru": "Fix Onedrive скачать\nВосстановление Onedrive",
-        "pt": "Fix Onedrive download\nRestauração de Onedrive",
-        "nl": "Onedrive-download herstellen\nOnedrive herstellen",
-        "fr": "Correction du téléchargement de Onedrive\nCorrection de la restauration Onedrive",
-        "it": "Fix Onedrive download\nRipristino di Onedrive",
-        "es": "Fix Onedrive descarga\nRestauración de Onedrive",
-        "pl": "Fix Onedrive pobierz\nFix Onedrive Restore",
-        "uk": "Fix Onedrive завантажити\nВиправлення одного диска відновлення",
-        "zh-cn": "修复单程下载\n修复单驱还原"
       }
     },
     "titleLang": {
