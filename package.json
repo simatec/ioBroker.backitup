@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@esm2cjs/got": "^13.0.0",
-    "@googleapis/drive": "^13.0.1",
+    "@googleapis/drive": "^14.1.0",
     "@iobroker/adapter-core": "^3.2.3",
     "axios": "^1.10.0",
     "cors": "^2.8.5",
@@ -64,7 +64,7 @@
     "fs-extra": "^11.3.0",
     "ftp": "^0.3.10",
     "google-auth-library": "^10.1.0",
-    "mqtt": "^5.13.1",
+    "mqtt": "^5.13.2",
     "multer": "^2.0.1",
     "node-schedule": "^2.1.1",
     "node-wol": "^0.1.1",
