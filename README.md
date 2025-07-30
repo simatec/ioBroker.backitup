@@ -61,6 +61,9 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (simatec) dependencies updated
+
 ### 3.3.5 (2025-07-05)
 * (simatec) Fix Dropbox Token Check
 * (simatec) dependencies updated
