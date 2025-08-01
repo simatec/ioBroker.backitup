@@ -64,7 +64,7 @@
     "fs-extra": "^11.3.0",
     "ftp": "^0.3.10",
     "google-auth-library": "^10.2.0",
-    "mqtt": "^5.13.3",
+    "mqtt": "^5.14.0",
     "multer": "^2.0.2",
     "node-schedule": "^2.1.1",
     "node-wol": "^0.1.1",
