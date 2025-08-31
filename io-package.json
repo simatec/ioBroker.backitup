@@ -432,6 +432,7 @@
     "cifsMinimalDir": "sharename/backupDir",
     "cifsMount": "",
     "cifsOwnDir": false,
+    "cifsPassword": "",
     "cifsUser": "",
     "connectType": "NFS",
     "debugLevel": false,
