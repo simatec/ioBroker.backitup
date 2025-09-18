@@ -62,6 +62,8 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (simatec) Fix ftp signed Certificates
+* (simatec) Fix Error Handling for Dropbox
 * (simatec) dependencies updated
 
 ### 3.3.6 (2025-08-31)
