@@ -63,6 +63,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 ## Changelog
 ### **WORK IN PROGRESS**
 * (simatec) Fix ftp signed Certificates
+* (simatec) Fix vscode settings
 * (simatec) Fix Error Handling for Dropbox
 * (simatec) dependencies updated
 

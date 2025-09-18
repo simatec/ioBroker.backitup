@@ -9,7 +9,7 @@ admin/i18n/*/flat.txt
 /lib/*.log
 /lib/*.sh
 /lib/restore.json
-.vscode
+.commitinfo
 .mount
 .DS_Store
 /src-admin/package-lock.json
