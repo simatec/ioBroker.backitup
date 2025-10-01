@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@esm2cjs/got": "^13.0.0",
-    "@googleapis/drive": "^17.0.0",
+    "@googleapis/drive": "^18.0.0",
     "@iobroker/adapter-core": "^3.3.2",
     "axios": "^1.12.2",
     "cors": "^2.8.5",
