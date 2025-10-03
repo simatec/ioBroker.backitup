@@ -61,6 +61,10 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (simatec) dependencies updated
+* (simatec) Fix ESPHome Backup
+
 ### 3.3.7 (2025-09-21)
 * (simatec) Fix ftp signed Certificates
 * (simatec) Fix vscode settings
