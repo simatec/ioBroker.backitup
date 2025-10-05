@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.3.7",
+    "version": "3.3.8",
     "news": {
+      "3.3.8": {
+        "en": "dependencies updated\nFix ESPHome Backup",
+        "de": "aktualisierte abhängigkeiten\nESPHome Backup",
+        "ru": "обновленные зависимости\nОбновление ESPHome Backup",
+        "pt": "dependências atualizadas\nCorrigir o backup do ESPHome",
+        "nl": "afhankelijkheden bijgewerkt\nSpHome-back-up maken",
+        "fr": "dépendances mises à jour\nCorrection de sauvegarde ESPHome",
+        "it": "dipendenze aggiornate\nFissare ESPHome Backup",
+        "es": "dependencias actualizadas\nFijación ESPHome Backup",
+        "pl": "zaktualizowane zależności\nFix ESPHome Backup",
+        "uk": "оновлені залежності\nВиправлення ESPHome Backup",
+        "zh-cn": "更新依赖关系\n修复 ESPHome 备份"
+      },
       "3.3.7": {
         "en": "Fix ftp signed Certificates\nFix vscode settings\nFix Error Handling for Dropbox\ndependencies updated",
         "de": "Beheben ftp signierte Zertifikate\nReparieren vscode Einstellungen\nFehlerbehebung für Dropbox\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "Base Topic for z2m Remote Backup dodany",
         "uk": "Базова тема для z2m Remote Backup",
         "zh-cn": "添加 z2m 远程备份的基础主题"
-      },
-      "3.3.1": {
-        "en": "Fix z2m Remote Backup",
-        "de": "Z2m Remote Backup",
-        "ru": "Исправьте z2m удаленное резервное копирование",
-        "pt": "Corrigir backup remoto z2m",
-        "nl": "Fix z2m remote backup",
-        "fr": "Correction de la sauvegarde à distance z2m",
-        "it": "Risolto il backup remoto z2m",
-        "es": "Retroceso remoto fijo z2m",
-        "pl": "Fix z2m Remote Backup",
-        "uk": "Виправлення z2m віддаленого резервного копіювання",
-        "zh-cn": "修复 Z2m 远程备份"
       }
     },
     "titleLang": {
