@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.3.8",
+    "version": "3.3.9",
     "news": {
+      "3.3.9": {
+        "en": "ESPHome Backup redesigned",
+        "de": "ESPHome Backup neu gestaltet",
+        "ru": "Редизайн ESPHome Backup",
+        "pt": "O backup do ESPHome foi redesenhado",
+        "nl": "ESPHome Backup opnieuw ontworpen",
+        "fr": "Sauvegarde ESPHome redessiné",
+        "it": "ESPHome Backup ridisegnato",
+        "es": "ESPHome Backup rediseñado",
+        "pl": "ESPHome Kopia zapasowa przeprojektowana",
+        "uk": "ESPHome Backup перероблений",
+        "zh-cn": "ESPHome 备份重新设计"
+      },
       "3.3.8": {
         "en": "dependencies updated\nFix ESPHome Backup",
         "de": "aktualisierte abhängigkeiten\nESPHome Backup",
@@ -80,19 +93,6 @@
         "pl": "Aktualizacja tłumaczeń\nNapraw kopię zapasową i przywróć Grafana\nAktualizacja doku\nzaktualizowane zależności",
         "uk": "Переклад оновлений\nВиправлення Grafana Резервне копіювання & відновлення\nDocu оновлений\nоновлені залежності",
         "zh-cn": "翻译更新\n修复 Grafana 备份并恢复\n更新 Docu\n更新依赖关系"
-      },
-      "3.3.2": {
-        "en": "Base Topic for z2m Remote Backup added",
-        "de": "Basisthema für z2m Remote Backup hinzugefügt",
-        "ru": "Базовая тема для z2m Remote Backup",
-        "pt": "Tópico base para backup remoto z2m adicionado",
-        "nl": "Basis Onderwerp voor z2m Remote Backup toegevoegd",
-        "fr": "Sujet de base pour sauvegarde à distance z2m ajouté",
-        "it": "Argomento di base per z2m Backup remoto aggiunto",
-        "es": "Tema base para z2m Remote Backup añadido",
-        "pl": "Base Topic for z2m Remote Backup dodany",
-        "uk": "Базова тема для z2m Remote Backup",
-        "zh-cn": "添加 z2m 远程备份的基础主题"
       }
     },
     "titleLang": {
