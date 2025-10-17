@@ -61,6 +61,10 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (simatec) Fix npm publish
+* (simatec) dependencies updated
+
 ### 3.3.9 (2025-10-07)
 * (simatec) ESPHome Backup redesigned
 
