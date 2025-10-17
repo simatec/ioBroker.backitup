@@ -139,7 +139,7 @@
     "build": "node tasks",
     "lint": "eslint -c eslint.config.mjs",
     "lint-frontend": "cd src-admin && eslint -c eslint.config.mjs && cd ../src && eslint -c eslint.config.mjs",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit -p tsconfig.check.json"
   },
   "bugs": {
     "url": "https://github.com/simatec/ioBroker.backitup/issues"
