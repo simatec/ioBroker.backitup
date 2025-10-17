@@ -9,6 +9,26 @@
 	"exclude": [
 		"**/build",
 		"node_modules/",
-		"widgets/"
+		"widgets/",
+        "node_modules/**",
+        "src-admin/**/*",
+        "src/**/*",
+        "admin/**/*",
+        "node_modules/**/*",
+        "test/**/*",
+        "build/**/*",
+        "tasks.js",
+        "tmp/**/*",
+        ".**/*",
+        ".dev-server/",
+        ".vscode/",
+        "*.test.js",
+        "test/**/*.js",
+        "*.config.mjs",
+        "build",
+        "admin/build",
+        "admin/words.js",
+        "admin/admin.d.ts",
+        "**/adapter-config.d.ts",
 	]
 }
