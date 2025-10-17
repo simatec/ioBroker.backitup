@@ -138,7 +138,8 @@
     "4-patch": "node tasks --4-patch",
     "build": "node tasks",
     "lint": "eslint -c eslint.config.mjs",
-    "lint-frontend": "cd src-admin && eslint -c eslint.config.mjs && cd ../src && eslint -c eslint.config.mjs"
+    "lint-frontend": "cd src-admin && eslint -c eslint.config.mjs && cd ../src && eslint -c eslint.config.mjs",
+    "check": "tsc --noEmit"
   },
   "bugs": {
     "url": "https://github.com/simatec/ioBroker.backitup/issues"
