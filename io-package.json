@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.3.9",
+    "version": "3.3.10",
     "news": {
+      "3.3.10": {
+        "en": "Fix npm publish\ndependencies updated",
+        "de": "Npm veröffentlichen\naktualisierte abhängigkeiten",
+        "ru": "Издательство Fix npm\nобновленные зависимости",
+        "pt": "Corrigir a publicação do npm\ndependências atualizadas",
+        "nl": "Fix npm publiceren\nafhankelijkheden bijgewerkt",
+        "fr": "Correction de npm publier\ndépendances mises à jour",
+        "it": "Fisso npm pubblicazione\ndipendenze aggiornate",
+        "es": "Corrección npm publicar\ndependencias actualizadas",
+        "pl": "Napraw publikację npm\nzaktualizowane zależności",
+        "uk": "Виправлення npm опублікування\nоновлені залежності",
+        "zh-cn": "修复 npm 发布\n更新依赖关系"
+      },
       "3.3.9": {
         "en": "ESPHome Backup redesigned",
         "de": "ESPHome Backup neu gestaltet",
@@ -80,19 +93,6 @@
         "pl": "Napraw kopię zapasową i przywróć Grafana",
         "uk": "Виправлення Grafana Резервне копіювання & відновлення",
         "zh-cn": "修复 Grafana 备份并恢复"
-      },
-      "3.3.3": {
-        "en": "Translation updated\nFix Grafana Backup & Restore\nDocu updated\ndependencies updated",
-        "de": "Übersetzung aktualisiert\nGrafana Backup und Wiederherstellung\nDocu aktualisiert\naktualisierte abhängigkeiten",
-        "ru": "Перевод обновлен\nОбновление Grafana Backup & Restore\nОбновление Docu\nобновленные зависимости",
-        "pt": "Tradução actualizada\nCorrigir backup e restauração do Grafana\nDocu atualizado\ndependências atualizadas",
-        "nl": "Vertaling bijgewerkt\nGrafana-backup herstellen\nDocu bijgewerkt\nafhankelijkheden bijgewerkt",
-        "fr": "Traduction mise à jour\nCorrection de sauvegarde et restauration de Grafana\nDocu mis à jour\ndépendances mises à jour",
-        "it": "Traduzione aggiornata\nRisolvere Grafana Backup & Ripristino\nDocu aggiornato\ndipendenze aggiornate",
-        "es": "Traducción actualizada\nFijar el respaldo Grafana & Restaurar\nDocu actualizado\ndependencias actualizadas",
-        "pl": "Aktualizacja tłumaczeń\nNapraw kopię zapasową i przywróć Grafana\nAktualizacja doku\nzaktualizowane zależności",
-        "uk": "Переклад оновлений\nВиправлення Grafana Резервне копіювання & відновлення\nDocu оновлений\nоновлені залежності",
-        "zh-cn": "翻译更新\n修复 Grafana 备份并恢复\n更新 Docu\n更新依赖关系"
       }
     },
     "titleLang": {
