@@ -56,7 +56,7 @@
     "@esm2cjs/got": "^13.0.0",
     "@googleapis/drive": "^18.0.0",
     "@iobroker/adapter-core": "^3.3.2",
-    "axios": "^1.12.2",
+    "axios": "^1.13.1",
     "cors": "^2.8.5",
     "cron-parser": "^5.4.0",
     "dropbox-v2-api": "^2.5.12",
