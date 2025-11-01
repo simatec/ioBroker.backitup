@@ -63,7 +63,7 @@
     "express": "^5.1.0",
     "fs-extra": "^11.3.2",
     "ftp": "^0.3.10",
-    "google-auth-library": "^10.4.1",
+    "google-auth-library": "^10.5.0",
     "mqtt": "^5.14.1",
     "multer": "^2.0.2",
     "node-schedule": "^2.1.1",
