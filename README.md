@@ -61,6 +61,10 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (simatec) Update Dependabot
+* (simatec) dependencies updated
+
 ### 3.3.10 (2025-10-17)
 * (simatec) Fix npm publish
 * (simatec) dependencies updated
