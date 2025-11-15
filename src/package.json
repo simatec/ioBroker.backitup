@@ -9,7 +9,7 @@
         "@iobroker/json-config": "^7.6.4",
         "@module-federation/runtime": "^0.11.3",
         "@mui/icons-material": "^6.4.7",
-        "@mui/material": "^6.4.7",
+        "@mui/material": "^7.3.5",
         "@sentry/browser": "^9.11.0",
         "@types/file-saver": "^2.0.7",
         "@types/react": "^18.3.18",
