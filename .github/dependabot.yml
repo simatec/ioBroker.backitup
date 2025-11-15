@@ -1,27 +1,24 @@
-# Dependabot will run on day 13 of each month at 01:06 (Europe/Berlin timezone)
+# Dependabot will run on day 10 of each month at 03:44 (Europe/Berlin timezone)
 version: 2
 updates:
-
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "cron"
       timezone: "Europe/Berlin"
-      cronjob: "6 1 13 * *"
+      cronjob: "44 3 10 * *"
     target-branch: "master"
     labels:
       - "dev dependencies"
     open-pull-requests-limit: 15
-
   - package-ecosystem: "npm"
+    directory: "/"
     schedule:
       interval: "cron"
       timezone: "Europe/Berlin"
-      cronjob: "6 1 13 * *"
+      cronjob: "44 3 10 * *"
     target-branch: "master"
     labels:
       - "dev dependencies"
     open-pull-requests-limit: 15
     versioning-strategy: "increase"
-    directories:
-      - "**/*"
