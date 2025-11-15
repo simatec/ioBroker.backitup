@@ -1,0 +1,1 @@
+import{C as e,a as o}from"./ConfigCustomBackItUpSet__mf_v__runtimeInit__mf_v__-DPTpQ1gj.js";const{loadShare:_}=o,{initPromise:r}=e,a=r.then(t=>_("@emotion/react",{customShareInfo:{shareConfig:{singleton:!0,strictVersion:!1,requiredVersion:"*"}}})),n=await a.then(t=>t());var i=n;export{i as C};
