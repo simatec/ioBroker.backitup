@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.3.10",
+    "version": "3.3.11",
     "news": {
+      "3.3.11": {
+        "en": "Update Dependabot\ndependencies updated",
+        "de": "Update Dependabot\naktualisierte abhängigkeiten",
+        "ru": "Обновление Dependabot\nобновленные зависимости",
+        "pt": "Atualizar o Dependabot\ndependências atualizadas",
+        "nl": "Dependabot bijwerken\nafhankelijkheden bijgewerkt",
+        "fr": "Mettre à jour Dependabot\ndépendances mises à jour",
+        "it": "Aggiornamento Dependabot\ndipendenze aggiornate",
+        "es": "Actualización Dependabot\ndependencias actualizadas",
+        "pl": "Aktualizacja Dependabot\nzaktualizowane zależności",
+        "uk": "Оновлення залежності\nоновлені залежності",
+        "zh-cn": "更新依附目录\n更新依赖关系"
+      },
       "3.3.10": {
         "en": "Fix npm publish\ndependencies updated",
         "de": "Npm veröffentlichen\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "Napraw sprawdzanie tokena Dropbox\nzaktualizowane zależności",
         "uk": "Виправлення Dropbox Token Перевірити\nоновлені залежності",
         "zh-cn": "修复投放箱检查\n更新依赖关系"
-      },
-      "3.3.4": {
-        "en": "Fix Grafana Backup & Restore",
-        "de": "Grafana Backup und Wiederherstellung",
-        "ru": "Обновление Grafana Backup & Restore",
-        "pt": "Corrigir backup e restauração do Grafana",
-        "nl": "Grafana-backup herstellen",
-        "fr": "Correction de sauvegarde et restauration de Grafana",
-        "it": "Risolvere Grafana Backup & Ripristino",
-        "es": "Fijar el respaldo Grafana & Restaurar",
-        "pl": "Napraw kopię zapasową i przywróć Grafana",
-        "uk": "Виправлення Grafana Резервне копіювання & відновлення",
-        "zh-cn": "修复 Grafana 备份并恢复"
       }
     },
     "titleLang": {
