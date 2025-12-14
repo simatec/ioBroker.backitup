@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.3.12",
+    "version": "3.3.13",
     "news": {
+      "3.3.13": {
+        "en": "Fix Error Log for CCU Backup",
+        "de": "Fehlersuche für CCU Backup behoben",
+        "ru": "Исправьте ошибку Log для резервного копирования CCU",
+        "pt": "Corrigir o Registo de Erros para a Cópia de Segurança da CCU",
+        "nl": "Foutlogboek voor CCU-backup herstellen",
+        "fr": "Correction du journal d'erreur pour la sauvegarde CCU",
+        "it": "Fissare il log degli errori per il backup CCU",
+        "es": "Registro de error de fijación para el respaldo de CCU",
+        "pl": "Popraw dziennik błędów dla kopii zapasowej CCU",
+        "uk": "Виправлено помилку Log для CCU Backup",
+        "zh-cn": "修复 CCU 备份错误日志"
+      },
       "3.3.12": {
         "en": "Fix Error Log for CCU Backup\ndependencies updated",
         "de": "Fehlersuche für CCU Backup behoben\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "Fix ftp podpisane certyfikaty\nNapraw ustawienia vscode\nNaprawiono błąd obsługi Dropbox\nzaktualizowane zależności",
         "uk": "Виправлення ftp підписаних Сертифікатів\nВиправлення параметрів vscode\nВиправлення помилок для Dropbox\nоновлені залежності",
         "zh-cn": "修复已签名的 ftp 证书\n修复 vscode 设置\n修复 Dropbox 处理错误\n更新依赖关系"
-      },
-      "3.3.6": {
-        "en": "dependencies updated",
-        "de": "aktualisierte abhängigkeiten",
-        "ru": "обновленные зависимости",
-        "pt": "dependências atualizadas",
-        "nl": "afhankelijkheden bijgewerkt",
-        "fr": "dépendances mises à jour",
-        "it": "dipendenze aggiornate",
-        "es": "dependencias actualizadas",
-        "pl": "zaktualizowane zależności",
-        "uk": "оновлені залежності",
-        "zh-cn": "更新依赖关系"
       }
     },
     "titleLang": {
