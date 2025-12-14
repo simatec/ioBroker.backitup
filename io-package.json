@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.3.11",
+    "version": "3.3.12",
     "news": {
+      "3.3.12": {
+        "en": "Fix Error Log for CCU Backup\ndependencies updated",
+        "de": "Fehlersuche für CCU Backup behoben\naktualisierte abhängigkeiten",
+        "ru": "Исправьте ошибку Log для резервного копирования CCU\nобновленные зависимости",
+        "pt": "Corrigir o Registo de Erros para a Cópia de Segurança da CCU\ndependências atualizadas",
+        "nl": "Foutlogboek voor CCU-backup herstellen\nafhankelijkheden bijgewerkt",
+        "fr": "Correction du journal d'erreur pour la sauvegarde CCU\ndépendances mises à jour",
+        "it": "Fissare il log degli errori per il backup CCU\ndipendenze aggiornate",
+        "es": "Registro de error de fijación para el respaldo de CCU\ndependencias actualizadas",
+        "pl": "Popraw dziennik błędów dla kopii zapasowej CCU\nzaktualizowane zależności",
+        "uk": "Виправлено помилку Log для CCU Backup\nоновлені залежності",
+        "zh-cn": "修复 CCU 备份错误日志\n更新依赖关系"
+      },
       "3.3.11": {
         "en": "Update Dependabot\ndependencies updated",
         "de": "Update Dependabot\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "zaktualizowane zależności",
         "uk": "оновлені залежності",
         "zh-cn": "更新依赖关系"
-      },
-      "3.3.5": {
-        "en": "Fix Dropbox Token Check\ndependencies updated",
-        "de": "Dropbox Token Check\naktualisierte abhängigkeiten",
-        "ru": "Скачать Dropbox Token Check\nобновленные зависимости",
-        "pt": "Corrigir a Verificação de Token do Dropbox\ndependências atualizadas",
-        "nl": "Fix Dropbox Token Check\nafhankelijkheden bijgewerkt",
-        "fr": "Correction du jeton Dropbox\ndépendances mises à jour",
-        "it": "Riparare il controllo di Dropbox Token\ndipendenze aggiornate",
-        "es": "Arregla el cheque de Dropbox Token\ndependencias actualizadas",
-        "pl": "Napraw sprawdzanie tokena Dropbox\nzaktualizowane zależności",
-        "uk": "Виправлення Dropbox Token Перевірити\nоновлені залежності",
-        "zh-cn": "修复投放箱检查\n更新依赖关系"
       }
     },
     "titleLang": {
