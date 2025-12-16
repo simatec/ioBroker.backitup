@@ -159,8 +159,7 @@
         "zh-cn": "包装"
       },
       "ignoreConfigUpdate": true,
-      "singleton": false,
-      "fa-icon": "</i><img style='width:24px;margin-bottom:-6px;' src='/adapter/backitup/backitup.svg'><i>"
+      "singleton": false
     },
     "dependencies": [
       {
