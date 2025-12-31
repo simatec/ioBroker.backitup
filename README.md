@@ -1337,7 +1337,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 The MIT License (MIT)
 
-Copyright (c) 2018-2025 simatec
+Copyright (c) 2018-2026 simatec
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
