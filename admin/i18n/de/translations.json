@@ -173,7 +173,7 @@
     "Some features of BackItUp require additional adapters and tools. For detailed information please read the documentation of BackItUp!": "Einige Funktionen von Backitup erfordern zusätzliche Adapter und Tools. Detaillierte Informationen finden Sie in der Dokumentation von Backitup!",
     "Source type": "Backup Quelle",
     "Storage location": "Speicherorte",
-    "Telegram instance": "Telegram Instanz",
+    "Telegram instance": "Telegram-Instanz",
     "Test connection": "Verbindung testen",
     "The JavaScript Adapter scripts are already saved in the ioBroker backup.\nThis option is just an additional option to be able to restore the scripts individually if necessary.": "Die Skripte des JavaScript Adapters sind bereits im ioBroker Backup gespeichert.\n\nDiese Option ist lediglich eine zusätzliche Möglichkeit, die Skripte bei Bedarf einzeln wiederherstellen zu können.",
     "Token (only for v2.x)": "Token (nur für v2.x)",
