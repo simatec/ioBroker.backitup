@@ -64,6 +64,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 ### **WORK IN PROGRESS**
 * (simatec) License updated
 * (simatec) dependencies updated
+* (simatec) Fix CCU Backup
 
 ### 3.3.13 (2025-12-14)
 * (simatec) Fix Error Log for CCU Backup
