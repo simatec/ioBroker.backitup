@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.3.13",
+    "version": "3.3.14",
     "news": {
+      "3.3.14": {
+        "en": "License updated\ndependencies updated\nFix CCU Backup\nadded SSL Skip for mysql Backup",
+        "de": "Lizenz aktualisiert\naktualisierte abhängigkeiten\nCCU Backup\nhinzugefügt SSL Skip to mysql Backup",
+        "ru": "Лицензия обновлена\nобновленные зависимости\nИсправить CCU Резервное копирование\nдобавлен SSL Скачать MySQL Backup",
+        "pt": "Licença atualizada\ndependências atualizadas\nCorrigir CCU Cópia de Segurança\nadicionado SSL Saltar para o backup do mysql",
+        "nl": "Licentie bijgewerkt\nafhankelijkheden bijgewerkt\nCCU repareren Reservekopie\nsSL toegevoegd Skip for mysql Backup",
+        "fr": "Licence mise à jour\ndépendances mises à jour\nCorrection du CCU Sauvegarde\nsSL ajouté Sauter pour monsql Sauvegarder",
+        "it": "Licenza aggiornata\ndipendenze aggiornate\nRiparare CCU Backup\naggiunto SSL Salta per mysql Backup",
+        "es": "Licencia actualizada\ndependencias actualizadas\nCCU fijar Copia de seguridad\nañadido SSL Skip for mysql Backup",
+        "pl": "Aktualizacja licencji\nzaktualizowane zależności\nNapraw CCU Kopia zapasowa\ndodany SSL Pomiń dla mysql Backup",
+        "uk": "Оновлення ліцензії\nоновлені залежності\nФіксація CCU Зареєструватися\nдодано SSL Перейти до вмісту",
+        "zh-cn": "许可证更新\n更新依赖关系\n修复 CCU 备份\n添加 SSL 跳过 mysql 备份"
+      },
       "3.3.13": {
         "en": "Fix Error Log for CCU Backup",
         "de": "Fehlersuche für CCU Backup behoben",
@@ -80,19 +93,6 @@
         "pl": "zaktualizowane zależności\nFix ESPHome Backup",
         "uk": "оновлені залежності\nВиправлення ESPHome Backup",
         "zh-cn": "更新依赖关系\n修复 ESPHome 备份"
-      },
-      "3.3.7": {
-        "en": "Fix ftp signed Certificates\nFix vscode settings\nFix Error Handling for Dropbox\ndependencies updated",
-        "de": "Beheben ftp signierte Zertifikate\nReparieren vscode Einstellungen\nFehlerbehebung für Dropbox\naktualisierte abhängigkeiten",
-        "ru": "Fix ftp подписал сертификаты\nНастройки Fix vscode\nУстранение ошибок в Dropbox\nобновленные зависимости",
-        "pt": "Corrigir certificados ftp assinados\nCorrigir configurações vscode\nCorrigir o Tratamento de Erros no Dropbox\ndependências atualizadas",
-        "nl": "Fix ftp ondertekende certificaten\nFix vscode instellingen\nFoutoplossing voor Dropbox\nafhankelijkheden bijgewerkt",
-        "fr": "Correction des certificats signés ftp\nCorrection des paramètres vscode\nCorrection de la gestion des erreurs pour Dropbox\ndépendances mises à jour",
-        "it": "Certificati firmati Fix ftp\nImpostazioni Fix vscode\nRiparare la gestione degli errori per Dropbox\ndipendenze aggiornate",
-        "es": "Fijar certificados firmados por ftp\nAjustes de código de vscode\nCorrección de errores para Dropbox\ndependencias actualizadas",
-        "pl": "Fix ftp podpisane certyfikaty\nNapraw ustawienia vscode\nNaprawiono błąd obsługi Dropbox\nzaktualizowane zależności",
-        "uk": "Виправлення ftp підписаних Сертифікатів\nВиправлення параметрів vscode\nВиправлення помилок для Dropbox\nоновлені залежності",
-        "zh-cn": "修复已签名的 ftp 证书\n修复 vscode 设置\n修复 Dropbox 处理错误\n更新依赖关系"
       }
     },
     "titleLang": {
