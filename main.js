@@ -1020,6 +1020,7 @@ async function initConfig(secret) {
                 mySqlEvents: adapter.config.mySqlEvents,
                 mySqlMulti: adapter.config.mySqlMulti,
                 ignoreErrors: adapter.config.ignoreErrors,
+                skipSSL: adapter.config.mysqlSkipSSL,
                 exe: adapter.config.mySqlDumpExe                                                        // path to mysqldump
             },
             sqlite: {

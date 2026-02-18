@@ -537,6 +537,7 @@
     "mySqlPort": "3306",
     "mysqlQuick": false,
     "mysqlSingleTransaction": false,
+    "mysqlSkipSSL": false,
     "mySqlUser": "",
     "noderedEnabled": false,
     "noserverino": false,

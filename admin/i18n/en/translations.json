@@ -281,5 +281,6 @@
     "MQTT port": "MQTT port",
     "MQTT Hostname": "MQTT Hostname",
     "Base Topic": "Base Topic",
-    "MQTT Base Topic": "MQTT Base Topic"
+    "MQTT Base Topic": "MQTT Base Topic",
+    "Skip SSL connection": "Skip SSL connection"
 }

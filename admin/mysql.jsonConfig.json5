@@ -138,6 +138,15 @@
             lg: 4,
             xl: 4,
         },
+        mysqlSkipSSL: {
+            type: 'checkbox',
+            label: 'Skip SSL connection',
+            xs: 12,
+            sm: 9,
+            md: 8,
+            lg: 4,
+            xl: 4,
+        },
         mySqlMulti: {
             type: 'checkbox',
             label: 'Backup of several systems',
