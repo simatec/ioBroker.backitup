@@ -69,7 +69,7 @@
     "node-schedule": "^2.1.1",
     "node-wol": "^0.1.1",
     "tar-fs": "^3.1.1",
-    "webdav": "^5.8.0"
+    "webdav": "^5.9.0"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^5.0.0",
