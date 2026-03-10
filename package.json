@@ -61,7 +61,7 @@
     "cron-parser": "^5.5.0",
     "dropbox-v2-api": "^2.5.12",
     "express": "^5.2.1",
-    "fs-extra": "^11.3.3",
+    "fs-extra": "^11.3.4",
     "ftp": "^0.3.10",
     "google-auth-library": "^10.5.0",
     "mqtt": "^5.15.0",
