@@ -65,7 +65,7 @@
     "ftp": "^0.3.10",
     "google-auth-library": "^10.5.0",
     "mqtt": "^5.15.0",
-    "multer": "^2.0.2",
+    "multer": "^2.1.1",
     "node-schedule": "^2.1.1",
     "node-wol": "^0.1.1",
     "tar-fs": "^3.1.2",
