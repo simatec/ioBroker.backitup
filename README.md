@@ -62,6 +62,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ## Changelog
 ### **WORK IN PROGRESS**
+- (iobroker-bot) Adapter requires node.js >= 20 now.
 * (simatec) dependencies updated
 
 ### 3.3.14 (2026-02-18)
