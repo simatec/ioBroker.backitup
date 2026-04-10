@@ -65,6 +65,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) dependencies updated
 * (simatec) Changelog old added
 * (simatec) Repository cleaned up
+* (simatec) Fix CCU Backup Timeout
 
 ### 3.3.14 (2026-02-18)
 * (simatec) License updated
