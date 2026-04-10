@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.3.14",
+    "version": "3.3.15",
     "news": {
+      "3.3.15": {
+        "en": "dependencies updated\nChangelog old added\nRepository cleaned up\nFix CCU Backup Timeout",
+        "de": "aktualisierte abhängigkeiten\nChangelog alt hinzugefügt\nRepository aufgeräumt\nCCU Backup Timeout reparieren",
+        "ru": "обновленные зависимости\nChangelog Old Добавить\nРепозиторий убрали\nСкачать CCU Backup Timeout",
+        "pt": "dependências atualizadas\nChangelog antigo adicionado\nRepositório limpo\nCorrigir o Tempo- limite de backup da CCU",
+        "nl": "afhankelijkheden bijgewerkt\nChangelog oud toegevoegd\nRepository opgeruimd\nRepareren CCU Backup Timeout",
+        "fr": "dépendances mises à jour\nChangelog ancien ajouté\nDépôt nettoyé\nCorrection du délai de sauvegarde du CCU",
+        "it": "dipendenze aggiornate\nChangelog vecchio aggiunto\nRepository ripulito\nRisolto il timeout di backup CCU",
+        "es": "dependencias actualizadas\nCambio viejo añadido\nRepositorio limpiado\nCorrección de tiempo de respaldo CCU",
+        "pl": "zaktualizowane zależności\nChangelog old added\nRepozytorium wyczyszczone\nNapraw czas kopii zapasowej CCU",
+        "uk": "оновлені залежності\nЗмінено:\nРепозиторій очищення\nВиправлення часу резервного копіювання CCU",
+        "zh-cn": "更新依赖关系\n已添加 Changelog 旧\n仓库清理完毕\n修复 CCU 备份超时"
+      },
       "3.3.14": {
         "en": "License updated\ndependencies updated\nFix CCU Backup\nadded SSL Skip for mysql Backup",
         "de": "Lizenz aktualisiert\naktualisierte abhängigkeiten\nCCU Backup\nhinzugefügt SSL Skip to mysql Backup",
@@ -80,19 +93,6 @@
         "pl": "ESPHome Kopia zapasowa przeprojektowana",
         "uk": "ESPHome Backup перероблений",
         "zh-cn": "ESPHome 备份重新设计"
-      },
-      "3.3.8": {
-        "en": "dependencies updated\nFix ESPHome Backup",
-        "de": "aktualisierte abhängigkeiten\nESPHome Backup",
-        "ru": "обновленные зависимости\nОбновление ESPHome Backup",
-        "pt": "dependências atualizadas\nCorrigir o backup do ESPHome",
-        "nl": "afhankelijkheden bijgewerkt\nSpHome-back-up maken",
-        "fr": "dépendances mises à jour\nCorrection de sauvegarde ESPHome",
-        "it": "dipendenze aggiornate\nFissare ESPHome Backup",
-        "es": "dependencias actualizadas\nFijación ESPHome Backup",
-        "pl": "zaktualizowane zależności\nFix ESPHome Backup",
-        "uk": "оновлені залежності\nВиправлення ESPHome Backup",
-        "zh-cn": "更新依赖关系\n修复 ESPHome 备份"
       }
     },
     "titleLang": {

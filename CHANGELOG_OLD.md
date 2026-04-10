@@ -1215,3 +1215,49 @@
 
 ### 0.1.0 (25.06.2018)
  * (simatec/peoples) Erste Git-Adapter-Version
+## 3.3.10 (2025-10-17)
+* (simatec) Fix npm publish
+* (simatec) dependencies updated
+
+## 3.3.9 (2025-10-07)
+* (simatec) ESPHome Backup redesigned
+
+## 3.3.8 (2025-10-05)
+* (simatec) dependencies updated
+* (simatec) Fix ESPHome Backup
+
+## 3.3.7 (2025-09-21)
+* (simatec) Fix ftp signed Certificates
+* (simatec) Fix vscode settings
+* (simatec) Fix Error Handling for Dropbox
+* (simatec) dependencies updated
+
+## 3.3.6 (2025-08-31)
+* (simatec) dependencies updated
+
+## 3.3.5 (2025-07-05)
+* (simatec) Fix Dropbox Token Check
+* (simatec) dependencies updated
+
+## 3.3.4 (2025-06-26)
+* (simatec) Fix Grafana Backup & Restore
+
+## 3.3.3 (2025-06-24)
+* (simatec) Translation updated
+* (simatec) Fix Grafana Backup & Restore
+* (simatec) Docu updated
+* (simatec) dependencies updated
+
+## 3.3.2 (2025-06-19)
+* (simatec) Base Topic for z2m Remote Backup added
+
+## 3.3.1 (2025-06-18)
+* (simatec) Fix z2m Remote Backup
+
+## 3.3.0 (2025-06-15)
+* (simatec) local onedrive api added
+* (simatec) dependencies updated
+* (simatec) z2m Remote Backup added
+* (simatec) Fix Zigbee Backup
+
+---
