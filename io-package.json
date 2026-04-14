@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.3.15",
+    "version": "3.3.16",
     "news": {
+      "3.3.16": {
+        "en": "Fix Tab Admin",
+        "de": "Tab Admin aktivieren",
+        "ru": "Скачать Tab Admin",
+        "pt": "Corrigir o Administrador da Página",
+        "nl": "Tabbladbeheer herstellen",
+        "fr": "Correction de l'administrateur de l'onglet",
+        "it": "Fissare la scheda Admin",
+        "es": "Control de pestañas fijo",
+        "pl": "Napraw Admin Tab",
+        "uk": "Виправлення адміністратора вкладки",
+        "zh-cn": "修复标签管理员"
+      },
       "3.3.15": {
         "en": "dependencies updated\nChangelog old added\nRepository cleaned up\nFix CCU Backup Timeout",
         "de": "aktualisierte abhängigkeiten\nChangelog alt hinzugefügt\nRepository aufgeräumt\nCCU Backup Timeout reparieren",
@@ -80,19 +93,6 @@
         "pl": "Napraw publikację npm\nzaktualizowane zależności",
         "uk": "Виправлення npm опублікування\nоновлені залежності",
         "zh-cn": "修复 npm 发布\n更新依赖关系"
-      },
-      "3.3.9": {
-        "en": "ESPHome Backup redesigned",
-        "de": "ESPHome Backup neu gestaltet",
-        "ru": "Редизайн ESPHome Backup",
-        "pt": "O backup do ESPHome foi redesenhado",
-        "nl": "ESPHome Backup opnieuw ontworpen",
-        "fr": "Sauvegarde ESPHome redessiné",
-        "it": "ESPHome Backup ridisegnato",
-        "es": "ESPHome Backup rediseñado",
-        "pl": "ESPHome Kopia zapasowa przeprojektowana",
-        "uk": "ESPHome Backup перероблений",
-        "zh-cn": "ESPHome 备份重新设计"
       }
     },
     "titleLang": {

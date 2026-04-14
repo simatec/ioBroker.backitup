@@ -1,4 +1,7 @@
 ## Changelog
+## 3.3.11 (2025-11-23)
+* (simatec) Update Dependabot
+* (simatec) dependencies updated
 
 ## 3.3.10 (2025-10-17)
 * (simatec) Fix npm publish
