@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "3.3.16",
+    "version": "3.3.17",
     "news": {
+      "3.3.17": {
+        "en": "Fix vite Build",
+        "de": "Reparieren vite Build",
+        "ru": "Fix vite сборка",
+        "pt": "Corrigir compilação de vite",
+        "nl": "Fix vite Build",
+        "fr": "Correction de la construction de rite",
+        "it": "Fissare vite",
+        "es": "Fix vite Build",
+        "pl": "Fix vite Build",
+        "uk": "Виправлення vite Створити",
+        "zh-cn": "修复 Vite 构建"
+      },
       "3.3.16": {
         "en": "Fix Tab Admin",
         "de": "Tab Admin aktivieren",
@@ -80,19 +93,6 @@
         "pl": "Aktualizacja Dependabot\nzaktualizowane zależności",
         "uk": "Оновлення залежності\nоновлені залежності",
         "zh-cn": "更新依附目录\n更新依赖关系"
-      },
-      "3.3.10": {
-        "en": "Fix npm publish\ndependencies updated",
-        "de": "Npm veröffentlichen\naktualisierte abhängigkeiten",
-        "ru": "Издательство Fix npm\nобновленные зависимости",
-        "pt": "Corrigir a publicação do npm\ndependências atualizadas",
-        "nl": "Fix npm publiceren\nafhankelijkheden bijgewerkt",
-        "fr": "Correction de npm publier\ndépendances mises à jour",
-        "it": "Fisso npm pubblicazione\ndipendenze aggiornate",
-        "es": "Corrección npm publicar\ndependencias actualizadas",
-        "pl": "Napraw publikację npm\nzaktualizowane zależności",
-        "uk": "Виправлення npm опублікування\nоновлені залежності",
-        "zh-cn": "修复 npm 发布\n更新依赖关系"
       }
     },
     "titleLang": {
