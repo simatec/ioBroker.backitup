@@ -61,6 +61,9 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+- (copilot) Adapter requires node.js >= 22 now
+
 ### 3.3.17 (2026-04-14)
 * (simatec) Fix vite Build
 
