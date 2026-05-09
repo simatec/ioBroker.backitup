@@ -82,6 +82,8 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 ### 3.3.13 (2025-12-14)
 * (simatec) Fix Error Log for CCU Backup
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 
 The MIT License (MIT)
