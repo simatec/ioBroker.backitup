@@ -288,7 +288,7 @@
     "ioBroker will be restarted during restore.": "ioBroker se reiniciará durante la restauración.",
     "ioBroker will not be restarted for this restore type.": "ioBroker no se reiniciará para este tipo de restauración.",
     "main settings": "Ajustes principales",
-    "optional": "opcional",
+    "optional": "Opcional",
     "path": "ruta",
     "piece": "pedazo",
     "ra_Close": "Cerrar",
