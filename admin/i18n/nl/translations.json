@@ -1,11 +1,5 @@
 {
     "*** Open InfluxDB Documentation ***": "*** Open InfluxDB-documentatie ***",
-    ", and copied / moved via FTP to %h%d": ", en gekopieerd/verplaatst via FTP naar %h%d",
-    ", and stored in dropbox": "en opgeslagen in dropbox",
-    ", and stored in google drive": "en opgeslagen in Google Drive",
-    ", and stored in onedrive": "en opgeslagen in onedrive",
-    ", and stored in webdav": "en opgeslagen in webdav",
-    ", and stored under %h%d": ", en opgeslagen onder %h%d",
     "A local backup is currently not possible. Please check your System!": "Een lokale back-up is momenteel niet mogelijk. Controleer uw systeem!",
     "AOF activated": "AOF geactiveerd",
     "Access token": "Toegangstoken",

@@ -1,11 +1,5 @@
 {
     "*** Open InfluxDB Documentation ***": "*** 打开 InfluxDB 文档 ***",
-    ", and copied / moved via FTP to %h%d": "，并通过 FTP 复制/移动到 %h%d",
-    ", and stored in dropbox": "，并存储在保管箱中",
-    ", and stored in google drive": "，并存储在谷歌驱动器中",
-    ", and stored in onedrive": "，并存储在 onedrive 中",
-    ", and stored in webdav": "，并存储在webdav中",
-    ", and stored under %h%d": "，并存储在 %h%d 下",
     "A local backup is currently not possible. Please check your System!": "目前无法进行本地备份。请检查您的系统！",
     "AOF activated": "AOF 已激活",
     "Access token": "访问令牌",

@@ -1,11 +1,5 @@
 {
     "*** Open InfluxDB Documentation ***": "*** Відкрити документацію InfluxDB ***",
-    ", and copied / moved via FTP to %h%d": ", і скопійовано/переміщено через FTP до %h%d",
-    ", and stored in dropbox": ", і зберігається в Dropbox",
-    ", and stored in google drive": ", і зберігається на Google Drive",
-    ", and stored in onedrive": ", і зберігається на onedrive",
-    ", and stored in webdav": ", і зберігається в webdav",
-    ", and stored under %h%d": "і зберігається під %h%d",
     "A local backup is currently not possible. Please check your System!": "Локальна резервна копія наразі неможлива. Будь ласка, перевірте свою систему!",
     "AOF activated": "AOF активовано",
     "Access token": "Маркер доступу",
