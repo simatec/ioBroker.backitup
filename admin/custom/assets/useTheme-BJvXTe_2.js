@@ -1,1 +1,0 @@
-import"./ConfigCustomBackItUpSet__loadShare__react__loadShare__.js-PbBEGjBn.js";import{T as m,V as t}from"./defaultTheme-007y2GZo.js";import{u as o}from"./useTheme-VSAXF632.js";function a(){const e=o(t);return e[m]||e}export{a as u};
