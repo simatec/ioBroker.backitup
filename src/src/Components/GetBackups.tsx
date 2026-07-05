@@ -18,7 +18,7 @@ import {
     TableBody,
     useMediaQuery,
 } from '@mui/material';
-import { Close, Download, History, ExpandMore, Save, FormatListBulleted, SolarPower } from '@mui/icons-material';
+import { Close, Download, History, ExpandMore, Save, FormatListBulleted } from '@mui/icons-material';
 
 import { FaDropbox, FaNetworkWired, FaGoogleDrive } from 'react-icons/fa';
 import { DiOnedrive, DiRedis, DiMysql, DiPostgresql, DiSqllite } from 'react-icons/di';
@@ -32,6 +32,7 @@ import zigbee2mqttIcon from '../assets/zigbee2mqtt.png';
 import javascriptIcon from '../assets/javascript.png';
 import jarvisIcon from '../assets/jarvis.png';
 import yahkaIcon from '../assets/yahka.png';
+import solectrusInfluxdbIcon from '../assets/solectrus-influxdb.png';
 import type { Breakpoint } from '@mui/system';
 
 function parseSize(bytes: number): string {
@@ -75,7 +76,7 @@ const ICONS: Record<string, any> = {
     historyDB: historyIcon,
     ccu: CCU,
     javascripts: javascriptIcon,
-    solectrusInfluxdb: SolarPower,
+    solectrusInfluxdb: solectrusInfluxdbIcon,
     nodered: SiNodered,
     influxDB: SiInfluxdb,
     zigbee: SiZigbee,
