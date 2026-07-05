@@ -283,6 +283,9 @@ Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Back
 
 Die komplette Konfiguration der `ioBroker.solectrus-influxdb`-Adapterinstanz wird direkt aus den Objekten gesichert. Dazu gehören die Instanzkonfiguration (Verbindungseinstellungen, Sensoren sowie die "Data-SOLECTRUS"-Einträge mit ihren Ordnern und Berechnungen/Formeln) sowie alle angelegten Ordner und Datenpunkte, sodass alles vollständig wiederhergestellt werden kann. Die Host-Zuordnung sowie der Aktiviert/Deaktiviert-Status der Instanz werden bei einer Wiederherstellung nicht überschrieben.
 
+> [!NOTE]
+> Der InfluxDB-Token wird als geschützte/verschlüsselte Einstellung gespeichert und kann aus Sicherheitsgründen von keinem anderen Adapter (auch nicht von `ioBroker.backitup`) gelesen werden - das ist eine Sicherheitsfunktion von ioBroker und keine Einschränkung dieses Backups. Nach einer Wiederherstellung muss der Token einmalig manuell in den Instanzeinstellungen von SOLECTRUS InfluxDB neu eingetragen werden. Ein vollständiges `ioBroker`-Backup enthält den Token dagegen korrekt, da es mit vollem Systemzugriff erstellt wird.
+
 ### Zigbee-Backup
 Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.
 
