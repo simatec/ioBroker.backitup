@@ -269,6 +269,11 @@ In order to be able to carry out JavaScript backups with `ioBroker.backitup` ver
 ### Jarvis backup
 If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other ioBroker backup types are set.
 
+### SOLECTRUS InfluxDB backup
+If activated, this separately adjustable backup is created with every ioBroker backup and is also deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other ioBroker backup types are set.
+
+The complete configuration of the `ioBroker.solectrus-influxdb` adapter instance is saved directly from the objects. This includes the created folders, data points and calculations (formulas) of the adapter, so that they can be fully restored again.
+
 ### Zigbee backup
 If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup, provided that the other ioBroker backup types are set.
 
@@ -456,7 +461,7 @@ The following backup options can be activated for the slave instances:
 * Node-Red
 * Zigbee2MQTT
 
-Since the automatic backups are controlled by the master in a slave instance, ioBroker backups, Javascript backups, and CCU backups cannot be selected.
+Since the automatic backups are controlled by the master in a slave instance, ioBroker backups, Javascript backups, SOLECTRUS InfluxDB backups, and CCU backups cannot be selected.
 
 The storage locations for the individual backups can be freely configured on each slave. So everyone can design their file storage system independently of the master.
 

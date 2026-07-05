@@ -177,6 +177,7 @@ export interface BackitupNative {
     slaveInstance: string;
     slaveNameSuffix: string;
     smbType: string;
+    solectrusInfluxdbEnabled: boolean;
     sqliteDumpExe: string;
     sqliteEnabled: boolean;
     sqlitePath: string;

@@ -475,6 +475,7 @@ class App extends GenericApp<GenericAppProps, AppState> {
             { name: 'ccuEnabled', label: 'Homematic CCU backup' },
             { name: 'redisEnabled', label: 'Save Redis state' },
             { name: 'javascriptsEnabled', label: 'Javascripts backup' },
+            { name: 'solectrusInfluxdbEnabled', label: 'SOLECTRUS InfluxDB backup' },
             { name: 'zigbeeEnabled', label: 'Zigbee Backup' },
             { name: 'esphomeEnabled', label: 'ESPHome' },
             { name: 'zigbee2mqttEnabled', label: 'Zigbee2MQTT' },

@@ -278,7 +278,10 @@ Um mit `ioBroker.backitup`-Versionen < 2.2.0 Javascript Sicherungen durchführen
 ### Jarvis-Backup
 Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.
 
+### SOLECTRUS InfluxDB-Backup
+Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.
 
+Die komplette Konfiguration der `ioBroker.solectrus-influxdb`-Adapterinstanz wird direkt aus den Objekten gesichert. Dazu gehören die angelegten Ordner, Datenpunkte und Berechnungen (Formeln) des Adapters, sodass diese vollständig wiederhergestellt werden können.
 
 ### Zigbee-Backup
 Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.
@@ -480,7 +483,7 @@ Für die Slave Instanzen können folgende Backup-Optionen aktiviert werden:
 * Node-Red
 * Zigbee2MQTT
 
-Da in einer Slave Instanz die automatischen Backups durch den Master geregelt werden, sind iobroker-Backups, Javascript-Backups und CCU-Backups nicht auswählbar.
+Da in einer Slave Instanz die automatischen Backups durch den Master geregelt werden, sind iobroker-Backups, Javascript-Backups, SOLECTRUS InfluxDB-Backups und CCU-Backups nicht auswählbar.
 
 
 Die Speicherorte für die einzelnen Backups können auf jedem Slave frei konfiguriert werden. So kann jeder sein Dateiablagesystem unabhängig vom Master gestalten.

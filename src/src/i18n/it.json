@@ -101,5 +101,6 @@
     "Backup Logs": "Registri di backup",
     "Open Backup Log": "Apri registro di backup",
     "Log": "Tronco d'albero",
-    "No log is available for this backup": "Nessun registro disponibile per questo backup"
+    "No log is available for this backup": "Nessun registro disponibile per questo backup",
+    "SOLECTRUS InfluxDB backup": "SOLECTRUS InfluxDB"
 }

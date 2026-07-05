@@ -18,7 +18,7 @@ import {
     TableBody,
     useMediaQuery,
 } from '@mui/material';
-import { Close, Download, History, ExpandMore, Save, FormatListBulleted } from '@mui/icons-material';
+import { Close, Download, History, ExpandMore, Save, FormatListBulleted, SolarPower } from '@mui/icons-material';
 
 import { FaDropbox, FaNetworkWired, FaGoogleDrive } from 'react-icons/fa';
 import { DiOnedrive, DiRedis, DiMysql, DiPostgresql, DiSqllite } from 'react-icons/di';
@@ -75,6 +75,7 @@ const ICONS: Record<string, any> = {
     historyDB: historyIcon,
     ccu: CCU,
     javascripts: javascriptIcon,
+    solectrusInfluxdb: SolarPower,
     nodered: SiNodered,
     influxDB: SiInfluxdb,
     zigbee: SiZigbee,

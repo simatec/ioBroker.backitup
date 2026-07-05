@@ -101,5 +101,6 @@
   "Backup Logs": "Backup Logs",
   "Open Backup Log": "Open Backup Log",
   "Log": "Log",
-  "No log is available for this backup": "No log is available for this backup"
+  "No log is available for this backup": "No log is available for this backup",
+  "SOLECTRUS InfluxDB backup": "SOLECTRUS InfluxDB"
 }

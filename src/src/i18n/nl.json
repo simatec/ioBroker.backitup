@@ -101,5 +101,6 @@
     "Backup Logs": "Back-uplogboeken",
     "Open Backup Log": "Open Back-uplogboek",
     "Log": "Logboek",
-    "No log is available for this backup": "Er is geen log beschikbaar voor deze back-up"
+    "No log is available for this backup": "Er is geen log beschikbaar voor deze back-up",
+    "SOLECTRUS InfluxDB backup": "SOLECTRUS InfluxDB"
 }

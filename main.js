@@ -1237,6 +1237,20 @@ async function initConfig(secret) {
                 nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
                 ignoreErrors: adapter.config.ignoreErrors
             },
+            solectrusInfluxdb: {
+                enabled: adapter.config.solectrusInfluxdbEnabled,
+                type: 'creator',
+                ftp: Object.assign({}, ftp, (adapter.config.ftpOwnDir === true) ? { dir: adapter.config.ftpMinimalDir } : {}),
+                cifs: Object.assign({}, cifs, (adapter.config.cifsOwnDir === true) ? { dir: adapter.config.cifsMinimalDir } : {}),
+                dropbox: Object.assign({}, dropbox, (adapter.config.dropboxOwnDir === true) ? { dir: adapter.config.dropboxMinimalDir } : {}),
+                onedrive: Object.assign({}, onedrive, (adapter.config.onedriveOwnDir === true) ? { dir: adapter.config.onedriveMinimalDir } : {}),
+                webdav: Object.assign({}, webdav, (adapter.config.webdavOwnDir === true) ? { dir: adapter.config.webdavMinimalDir } : {}),
+                googledrive: Object.assign({}, googledrive, (adapter.config.googledriveOwnDir === true) ? { dir: adapter.config.googledriveMinimalDir } : {}),
+                slaveSuffix: adapter.config.hostType === 'Slave' ? adapter.config.slaveNameSuffix : '',
+                hostType: adapter.config.hostType,
+                nameSuffix: adapter.config.minimalNameSuffix.replace(/[.;, ]/g, '_'),                   // names addition, appended to the file name
+                ignoreErrors: adapter.config.ignoreErrors
+            },
             grafana: {
                 enabled: adapter.config.grafanaEnabled,
                 type: 'creator',

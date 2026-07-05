@@ -62,6 +62,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (simatec) added SOLECTRUS InfluxDB backup
 * (simatec) dependencies updated
 * (simatec) Fix Translation
 

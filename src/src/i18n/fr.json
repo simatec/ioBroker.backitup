@@ -101,5 +101,6 @@
     "Backup Logs": "Journaux de sauvegarde",
     "Open Backup Log": "Ouvrir le journal de sauvegarde",
     "Log": "Enregistrer",
-    "No log is available for this backup": "Aucun journal n'est disponible pour cette sauvegarde"
+    "No log is available for this backup": "Aucun journal n'est disponible pour cette sauvegarde",
+    "SOLECTRUS InfluxDB backup": "SOLECTRUS InfluxDB"
 }

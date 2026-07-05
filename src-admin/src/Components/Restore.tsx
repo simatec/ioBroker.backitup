@@ -133,6 +133,7 @@ class Restore extends Component<RestoreProps, RestoreState> {
             'grafana',
             'jarvis',
             'javascripts',
+            'solectrusInfluxdb',
             'mysql',
             'sqlite',
             'influxDB',

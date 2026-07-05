@@ -585,6 +585,7 @@
     "slaveInstance": "backitup.1",
     "slaveNameSuffix": "",
     "smbType": "vers=3.1.1",
+    "solectrusInfluxdbEnabled": false,
     "sqliteDumpExe": "",
     "sqliteEnabled": false,
     "sqlitePath": "/opt/sqlite/data.db",

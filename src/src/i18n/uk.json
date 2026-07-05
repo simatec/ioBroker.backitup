@@ -101,5 +101,6 @@
     "Backup Logs": "Журнали резервного копіювання",
     "Open Backup Log": "Відкрийте журнал резервного копіювання",
     "Log": "Журнал",
-    "No log is available for this backup": "Немає журналу для цієї резервної копії"
+    "No log is available for this backup": "Немає журналу для цієї резервної копії",
+    "SOLECTRUS InfluxDB backup": "SOLECTRUS InfluxDB"
 }

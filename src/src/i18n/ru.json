@@ -101,5 +101,6 @@
     "Backup Logs": "Резервное копирование журналов",
     "Open Backup Log": "Открыть журнал резервного копирования",
     "Log": "Бревно",
-    "No log is available for this backup": "Для этой резервной копии журнал недоступен."
+    "No log is available for this backup": "Для этой резервной копии журнал недоступен.",
+    "SOLECTRUS InfluxDB backup": "SOLECTRUS InfluxDB"
 }

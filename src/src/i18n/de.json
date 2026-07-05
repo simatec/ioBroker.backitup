@@ -101,5 +101,6 @@
     "Backup Logs": "Backup Protokoll",
     "Open Backup Log": "Backup Protokoll anzeigen",
     "Log": "Protokoll",
-    "No log is available for this backup": "Für dieses Backup ist kein Protokoll verfügbar"
+    "No log is available for this backup": "Für dieses Backup ist kein Protokoll verfügbar",
+    "SOLECTRUS InfluxDB backup": "SOLECTRUS InfluxDB"
 }

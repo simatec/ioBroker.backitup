@@ -101,5 +101,6 @@
     "Backup Logs": "Dzienniki kopii zapasowych",
     "Open Backup Log": "Otwórz dziennik kopii zapasowych",
     "Log": "Dziennik",
-    "No log is available for this backup": "Dla tej kopii zapasowej nie jest dostępny żaden dziennik"
+    "No log is available for this backup": "Dla tej kopii zapasowej nie jest dostępny żaden dziennik",
+    "SOLECTRUS InfluxDB backup": "SOLECTRUS InfluxDB"
 }

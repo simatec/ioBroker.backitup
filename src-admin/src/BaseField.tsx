@@ -441,7 +441,7 @@ class BaseField<
             adapterName = 'sql';
         }
 
-        const SHOW_MESSAGE_FOR = ['zigbee', 'esphome', 'zigbee2mqtt', 'node-red', 'yahka', 'jarvis', 'history'];
+        const SHOW_MESSAGE_FOR = ['zigbee', 'esphome', 'zigbee2mqtt', 'node-red', 'yahka', 'jarvis', 'history', 'solectrus-influxdb'];
 
         if (!ignore) {
             const res: ioBroker.Object[] = Object.values(

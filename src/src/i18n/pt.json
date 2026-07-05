@@ -101,5 +101,6 @@
     "Backup Logs": "Registros de backup",
     "Open Backup Log": "Abrir registro de backup",
     "Log": "Registro",
-    "No log is available for this backup": "Nenhum registro está disponível para este backup"
+    "No log is available for this backup": "Nenhum registro está disponível para este backup",
+    "SOLECTRUS InfluxDB backup": "SOLECTRUS InfluxDB"
 }
