@@ -281,7 +281,7 @@ Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Back
 ### SOLECTRUS InfluxDB-Backup
 Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.
 
-Die komplette Konfiguration der `ioBroker.solectrus-influxdb`-Adapterinstanz wird direkt aus den Objekten gesichert. Dazu gehören die angelegten Ordner, Datenpunkte und Berechnungen (Formeln) des Adapters, sodass diese vollständig wiederhergestellt werden können.
+Die komplette Konfiguration der `ioBroker.solectrus-influxdb`-Adapterinstanz wird direkt aus den Objekten gesichert. Dazu gehören die Instanzkonfiguration (Verbindungseinstellungen, Sensoren sowie die "Data-SOLECTRUS"-Einträge mit ihren Ordnern und Berechnungen/Formeln) sowie alle angelegten Ordner und Datenpunkte, sodass alles vollständig wiederhergestellt werden kann. Die Host-Zuordnung sowie der Aktiviert/Deaktiviert-Status der Instanz werden bei einer Wiederherstellung nicht überschrieben.
 
 ### Zigbee-Backup
 Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.

@@ -272,7 +272,7 @@ If activated, this separately adjustable backup is created with every ioBroker b
 ### SOLECTRUS InfluxDB backup
 If activated, this separately adjustable backup is created with every ioBroker backup and is also deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup if the other ioBroker backup types are set.
 
-The complete configuration of the `ioBroker.solectrus-influxdb` adapter instance is saved directly from the objects. This includes the created folders, data points and calculations (formulas) of the adapter, so that they can be fully restored again.
+The complete configuration of the `ioBroker.solectrus-influxdb` adapter instance is saved directly from the objects. This includes the instance configuration (connection settings, sensors, and the "Data-SOLECTRUS" items with their folders and calculations/formulas), as well as all created folders and data points, so that everything can be fully restored again. Host assignment and the enabled/disabled state of the instance are not overwritten by a restore.
 
 ### Zigbee backup
 If activated, this separately adjustable backup is created with every ioBroker backup and deleted after the specified retention period has expired. FTP or CIFS are also valid for this backup, provided that the other ioBroker backup types are set.
