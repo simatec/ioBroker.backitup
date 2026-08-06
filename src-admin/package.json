@@ -15,7 +15,7 @@
         "@iobroker/gui-components": "^10.0.12",
         "@iobroker/json-config": "^9.0.16",
         "@module-federation/runtime": "^2.8.1",
-        "@module-federation/vite": "^1.20.1",
+        "@module-federation/vite": "^1.20.4",
         "@mui/icons-material": "^9.2.0",
         "@mui/material": "^9.2.0",
         "@mui/x-date-pickers": "^9.10.1",
