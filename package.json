@@ -89,7 +89,7 @@
     "@types/multer": "^2.2.0",
     "@types/node": "^22.20.1",
     "@types/node-schedule": "^2.1.8",
-    "typescript": "~6.0.3"
+    "typescript": "~7.0.2"
   },
   "main": "build/main.js",
   "files": [
