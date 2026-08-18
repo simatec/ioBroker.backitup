@@ -61,6 +61,10 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (simatec) Fix Backitup Tab
+* (simatec) dependencies updated
+
 ### 4.0.1 (2026-08-07)
 * (simatec) Fix Backitup Tab
 

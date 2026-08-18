@@ -59,6 +59,8 @@ declare module '@mui/material/Button' {
     }
 }
 
+const isDarkThemeName = (themeName?: string): boolean => themeName === 'modernDark' || themeName === 'dark';
+
 const styles: Record<string, any> = {
     root: {},
     tabContent: {
@@ -71,59 +73,52 @@ const styles: Record<string, any> = {
         height: 'calc(100% - 64px - 48px - 20px - 38px)',
         overflow: 'auto',
     },
-    headerArea: {
-        backgroundImage: 'linear-gradient(120deg, #0F2E5C 0%, #1B6FA8 55%, #29A8D8 100%)',
-        boxShadow: '0 4px 20px 0 rgba(15, 46, 92, 0.35)',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
-    },
+    headerArea: (theme: IobTheme): React.CSSProperties => ({
+        backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background.paper : '#FFFFFF',
+        backgroundImage: 'none',
+        boxShadow: theme.palette.mode === 'dark' ? '0 1px 2px 0 rgba(0,0,0,0.4)' : '0 1px 2px 0 rgba(15, 23, 42, 0.04)',
+        borderBottom: theme.palette.mode === 'dark' ? '1px solid rgba(255,255,255,0.08)' : '1px solid #E5E7EB',
+    }),
     header: {
-        fontSize: '0.95rem',
-        fontWeight: 600,
-        letterSpacing: '0.02em',
-        textTransform: 'uppercase',
-        lineHeight: '110%',
+        fontSize: '1.05rem',
+        fontWeight: 700,
+        letterSpacing: '-0.01em',
+        lineHeight: '130%',
         display: 'flex',
         alignItems: 'center',
-        p: '0.7rem 1rem',
-        borderRadius: '10px',
-        boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
-    },
-    headerColored: {
-        color: '#FFFFFF',
-        backgroundImage: 'linear-gradient(120deg, #1B6FA8 0%, #0F2E5C 100%)',
+        gap: '10px',
+        p: '0.35rem 0 0.6rem 0',
+        borderBottom: '2px solid #3B82F6',
     },
     headerDark: {
-        color: '#FFFFFF',
+        color: '#E2E8F0',
         backgroundImage: 'none',
-        backgroundColor: 'rgba(255,255,255,0.05)',
-        backdropFilter: 'blur(6px)',
-        border: '1px solid rgba(255,255,255,0.08)',
+        borderBottom: '2px solid #29A8D8',
     },
     headerLight: {
-        color: '#000',
+        color: '#0F2E5C',
         backgroundImage: 'none',
-        backgroundColor: '#F4F6F9',
-        border: '1px solid rgba(0,0,0,0.05)',
+        borderBottom: '2px solid #1B6FA8',
     },
     subHeader: {
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 8,
-        color: '#FFF',
+        color: '#0F2E5C',
     },
     cardHeader: {
-        fontSize: '1.2rem',
-        lineHeight: '46px',
-        fontWeight: '600',
+        fontSize: '1.15rem',
+        lineHeight: '38px',
+        fontWeight: '700',
         letterSpacing: '-0.01em',
         marginBottom: 8,
     },
     headerIcon: {
-        height: 24,
-        width: 24,
-        fontSize: 24,
+        height: 22,
+        width: 22,
+        fontSize: 22,
         float: 'left',
-        margin: '0 10px 0 5px',
+        margin: '0 10px 0 0',
     },
     historyIcon: {
         height: 20,
@@ -131,15 +126,14 @@ const styles: Record<string, any> = {
         fontSize: 20,
         marginTop: 2,
         flexShrink: 0,
-        opacity: 0.75,
+        opacity: 0.55,
     },
     icon: {
-        color: '#fff',
-        height: 46,
-        width: 46,
-        fontSize: 24,
-        padding: 12,
-        borderRadius: '50%',
+        height: 44,
+        width: 44,
+        fontSize: 22,
+        padding: 11,
+        borderRadius: '10px',
         boxSizing: 'content-box',
         filter: 'none',
     },
@@ -157,45 +151,42 @@ const styles: Record<string, any> = {
     cardInner: {
         display: 'flex',
         alignItems: 'flex-start',
-        gap: 48,
-        padding: '22px 24px',
+        gap: 20,
+        padding: '20px 22px',
         height: '100%',
         boxSizing: 'border-box',
     },
     cardContent: (theme: IobTheme): React.CSSProperties => ({
         padding: 0,
         height: '100%',
-        borderRadius: '14px',
-        boxShadow:
-            theme.palette.mode === 'dark'
-                ? '0 1px 2px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3)'
-                : '0 1px 2px rgba(20,40,80,0.06), 0 6px 16px rgba(20,40,80,0.08)',
+        borderRadius: '12px',
+        boxShadow: theme.palette.mode === 'dark' ? '0 1px 2px rgba(0,0,0,0.35)' : '0 1px 3px rgba(15, 23, 42, 0.06)',
         backgroundImage: 'none',
         backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.03)' : '#FFFFFF',
-        border: theme.palette.mode === 'dark' ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(20,40,80,0.05)',
+        border: theme.palette.mode === 'dark' ? '1px solid rgba(255,255,255,0.08)' : '1px solid #E5E7EB',
     }),
     card: {
-        borderRadius: '14px',
-        transition: 'transform 0.18s ease, box-shadow 0.18s ease',
+        borderRadius: '12px',
+        transition: 'transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease',
         '&:hover': {
             transform: 'translateY(-2px)',
-            boxShadow: '0 10px 24px 0 rgba(20,40,80,0.14)',
+            boxShadow: '0 6px 18px 0 rgba(15, 23, 42, 0.14)',
         },
     },
     label: {
         fontWeight: 600,
-        fontSize: '0.78em',
-        opacity: 0.65,
+        fontSize: '0.75em',
+        opacity: 0.55,
         textTransform: 'uppercase',
-        letterSpacing: '0.02em',
-        marginBottom: 1,
+        letterSpacing: '0.03em',
+        marginBottom: 2,
     },
     value: {
         fontSize: 'clamp(0.8em, 0.55em + 0.6vw, 0.95em)',
-        fontWeight: 500,
+        fontWeight: 600,
     },
     footer: {
-        fontSize: '0.9rem',
+        fontSize: '0.85rem',
         fontWeight: 400,
         lineHeight: '110%',
         textAlign: 'center',
@@ -205,43 +196,64 @@ const styles: Record<string, any> = {
         width: '100%',
         overflow: 'overlay',
         zIndex: 997,
-        padding: '5px 0 5px 0',
+        padding: '7px 0 7px 0',
         margin: '0 0 0 -8px',
         cursor: 'pointer',
-        boxShadow: '0 -2px 10px 0 rgba(0,0,0,0.08)',
+        borderTop: '1px solid #E5E7EB',
         textDecoration: 'none',
-        opacity: 0.85,
+        opacity: 0.9,
         transition: 'opacity 0.15s ease',
     },
-    footerColored: {
-        color: '#FFF',
-        backgroundImage: 'linear-gradient(90deg, #0F2E5C 0%, #1B6FA8 100%)',
-    },
     footerDark: {
-        backgroundColor: 'rgba(255,255,255,0.04)',
-        backdropFilter: 'blur(6px)',
-        color: '#FFF',
+        backgroundColor: 'rgba(255,255,255,0.03)',
+        color: '#E2E8F0',
+        borderTop: '1px solid rgba(255,255,255,0.08)',
     },
     footerLight: {
-        backgroundColor: '#F4F6F9',
-        color: '#1B6FA8',
+        backgroundColor: '#FFFFFF',
+        color: '#64748B',
     },
     buttonWidth: {
         width: '100%',
     },
-    helpButton: {
-        width: 38,
-        height: 38,
-        marginLeft: 8,
-        backgroundColor: 'rgba(255,255,255,0.12)',
-        color: '#fff',
-        boxShadow: 'none',
+    helpButtonGroup: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px',
+        position: 'absolute',
+        right: 10,
+        top: 9,
     },
-    button: {
-        borderRadius: '10px',
+    helpButton: (theme: IobTheme) => ({
+        width: 36,
+        height: 36,
+        boxShadow: 'none',
+        backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(15, 23, 42, 0.045)',
+        color: theme.palette.mode === 'dark' ? '#CBD5E1' : '#475569',
+        transition: 'background-color 0.15s ease, box-shadow 0.15s ease',
+        '&:hover': {
+            backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.16)' : 'rgba(15, 23, 42, 0.10)',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
+        },
+    }),
+
+    button: (theme: IobTheme) => ({
+        borderRadius: '8px',
         textTransform: 'none',
         fontWeight: 600,
-    },
+        transition: 'filter 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease',
+        '&:hover': {
+            filter: theme.palette.mode === 'dark' ? 'brightness(1.16)' : 'brightness(0.93)',
+            boxShadow: '0 4px 12px rgba(15, 23, 42, 0.20)',
+        },
+        '&:active': {
+            filter: theme.palette.mode === 'dark' ? 'brightness(1.06)' : 'brightness(0.87)',
+        },
+        '&.Mui-disabled': {
+            filter: 'none',
+            boxShadow: 'none',
+        },
+    }),
     list: {
         listStyleType: 'disc',
         padding: '0 0 0 18px',
@@ -276,6 +288,8 @@ interface AppState extends GenericAppState {
     systemInfo: { systemOS: string } | null;
     showUploadSettings: boolean;
     showLogs: null | { fileName: string; timestamp: number; index: number };
+    hoverIobrokerBackup: boolean;
+    hoverCcuBackup: boolean;
 }
 
 export default class App extends GenericApp<GenericAppProps, AppState> {
@@ -317,6 +331,48 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
             connectType: this.state.native.connectType,
             myAlive: false,
             restoreIfWait: 5000,
+            hoverIobrokerBackup: false,
+            hoverCcuBackup: false,
+        };
+    }
+
+    /**
+     * Ersetzt das veraltete this.state.themeType.
+     * Ermittelt Dark/Light konsequent aus this.state.themeName
+     * (gültige Werte: 'modernLight' | 'modernDark' | 'dark' | 'light').
+     */
+    isDark(): boolean {
+        return isDarkThemeName(this.state.themeName);
+    }
+
+    /**
+     * Für Kind-Komponenten, die weiterhin eine themeType-Prop ('dark' | 'light') erwarten.
+     * Der Wert wird jetzt aus themeName abgeleitet statt aus dem veralteten State-Feld gelesen.
+     */
+    get derivedThemeType(): 'dark' | 'light' {
+        return this.isDark() ? 'dark' : 'light';
+    }
+
+    /**
+     * Liefert exakt dasselbe visuelle Ergebnis wie styles.button (Radius, Hover-Filter, Shadow),
+     * aber als reines inline-CSSProperties-Objekt. Notwendig für BackupNow, da diese Komponente
+     * nur ein "style"-Prop (kein sx / keine echten :hover-Pseudoklassen) unterstützt.
+     * Dadurch identisches Verhalten in allen vier Themes (modernLight, modernDark, dark, light).
+     */
+    getActionButtonStyle(hovered: boolean): React.CSSProperties {
+        const dark = this.isDark();
+        return {
+            width: '100%',
+            borderRadius: '8px',
+            textTransform: 'none',
+            fontWeight: 600,
+            transition: 'filter 0.15s ease, box-shadow 0.15s ease',
+            ...(hovered
+                ? {
+                      filter: dark ? 'brightness(1.16)' : 'brightness(0.93)',
+                      boxShadow: '0 4px 12px rgba(15, 23, 42, 0.20)',
+                  }
+                : undefined),
         };
     }
 
@@ -441,12 +497,12 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                         <div
                             style={{
                                 ...styles.iconDiv,
-                                ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight),
+                                ...(this.isDark() ? styles.iconDivDark : styles.iconDivLight),
                             }}
                         >
                             <InfoOutlined
                                 style={styles.icon}
-                                sx={{ backgroundColor: 'rgba(27,111,168,0.9)' }}
+                                sx={{ backgroundColor: 'rgba(59,130,246,0.12)', color: '#2563EB' }}
                             />
                         </div>
                         <div style={styles.textDiv}>
@@ -512,12 +568,12 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                         <div
                             style={{
                                 ...styles.iconDiv,
-                                ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight),
+                                ...(this.isDark() ? styles.iconDivDark : styles.iconDivLight),
                             }}
                         >
                             <StorageOutlined
                                 style={styles.icon}
-                                sx={{ backgroundColor: 'rgba(41,168,216,0.9)' }}
+                                sx={{ backgroundColor: 'rgba(6,182,212,0.14)', color: '#0891B2' }}
                             />
                         </div>
                         <div style={styles.textDiv}>
@@ -568,12 +624,12 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                         <div
                             style={{
                                 ...styles.iconDiv,
-                                ...(this.state.themeType === 'dark' ? styles.iconDivDark : styles.iconDivLight),
+                                ...(this.isDark() ? styles.iconDivDark : styles.iconDivLight),
                             }}
                         >
                             <CloudUploadOutlined
                                 style={styles.icon}
-                                sx={{ backgroundColor: 'rgba(15,46,92,0.9)' }}
+                                sx={{ backgroundColor: 'rgba(99,102,241,0.13)', color: '#4F46E5' }}
                             />
                         </div>
                         <div style={styles.textDiv}>
@@ -606,7 +662,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
             <UploadSettings
                 onClose={() => this.setState({ showUploadSettings: false })}
                 socket={this.socket}
-                themeType={this.state.themeType}
+                themeType={this.derivedThemeType}
                 adapterName={this.adapterName}
                 instance={this.instance}
             />
@@ -618,7 +674,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
             return (
                 <StyledEngineProvider injectFirst>
                     <ThemeProvider theme={this.state.theme}>
-                        <Loader themeType={this.state.themeType} />
+                        <Loader themeType={this.derivedThemeType} />
                     </ThemeProvider>
                 </StyledEngineProvider>
             );
@@ -637,7 +693,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                         }}
                     >
                         <AppBar
-                            style={styles.headerArea}
+                            sx={styles.headerArea}
                             position="static"
                             enableColorOnDark
                         >
@@ -645,14 +701,14 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                 <img
                                     src={logo}
                                     alt="logo"
-                                    style={{ height: 48, marginRight: 16 }}
+                                    style={{ height: 42, marginRight: 16 }}
                                 />
                                 <div>
                                     <div
                                         style={{
                                             fontWeight: 700,
-                                            fontSize: 20,
-                                            color: '#fff',
+                                            fontSize: 19,
+                                            color: this.isDark() ? '#F1F5F9' : '#0F2E5C',
                                             letterSpacing: '-0.01em',
                                         }}
                                     >
@@ -660,7 +716,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                     </div>
                                     <div
                                         style={{
-                                            color: 'rgba(255,255,255,0.85)',
+                                            color: this.isDark() ? '#94A3B8' : '#64748B',
                                             fontStyle: 'normal',
                                             fontSize: 'clamp(0.7em, 0.7em + 0.6vw, 1em)',
                                         }}
@@ -669,21 +725,13 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                     </div>
                                 </div>
                             </Toolbar>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    position: 'absolute',
-                                    right: 10,
-                                    top: 12,
-                                }}
-                            >
+                            <div style={styles.helpButtonGroup}>
                                 <Tooltip
                                     title="PayPal.Me"
                                     slotProps={{ popper: { sx: { pointerEvents: 'none' } } }}
-                                    style={{ marginRight: '0.2rem' }}
                                 >
                                     <Fab
-                                        style={styles.helpButton}
+                                        sx={styles.helpButton}
                                         onClick={() => {
                                             window.open('https://paypal.me/mk1676', '_blank');
                                         }}
@@ -694,10 +742,9 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                 <Tooltip
                                     slotProps={{ popper: { sx: { pointerEvents: 'none' } } }}
                                     title="Wiki"
-                                    style={{ marginRight: '0.2rem' }}
                                 >
                                     <Fab
-                                        style={styles.helpButton}
+                                        sx={styles.helpButton}
                                         onClick={() =>
                                             window.open('https://github.com/simatec/ioBroker.backitup/wiki', '_blank')
                                         }
@@ -708,10 +755,9 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                 <Tooltip
                                     slotProps={{ popper: { sx: { pointerEvents: 'none' } } }}
                                     title="Show adapter documentation"
-                                    style={{ marginRight: '0.2rem' }}
                                 >
                                     <Fab
-                                        style={styles.helpButton}
+                                        sx={styles.helpButton}
                                         onClick={() => {
                                             window.open(
                                                 'https://github.com/simatec/ioBroker.backitup/blob/master/README.md',
@@ -737,9 +783,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                 sx={{
                                     m: '1rem 0 1.25rem 0',
                                     ...styles.header,
-                                    ...(this.state.theme.name === 'light' ? styles.headerLight : undefined),
-                                    ...(this.state.theme.name === 'colored' ? styles.headerColored : undefined),
-                                    ...(this.state.themeType === 'dark' ? styles.headerDark : undefined),
+                                    ...(this.isDark() ? styles.headerDark : styles.headerLight),
                                 }}
                             >
                                 <InfoOutlined style={styles.headerIcon} />
@@ -763,9 +807,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                 sx={{
                                     m: '1.5rem 0 1.25rem 0',
                                     ...styles.header,
-                                    ...(this.state.theme.name === 'light' ? styles.headerLight : undefined),
-                                    ...(this.state.theme.name === 'colored' ? styles.headerColored : undefined),
-                                    ...(this.state.themeType === 'dark' ? styles.headerDark : undefined),
+                                    ...(this.isDark() ? styles.headerDark : styles.headerLight),
                                 }}
                             >
                                 <CloudUploadOutlined style={styles.headerIcon} />
@@ -783,48 +825,54 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                 }}
                             >
                                 {this.state.myAlive && this.state.native.minimalEnabled ? (
-                                    <BackupNow
-                                        style={{ ...styles.buttonWidth, width: '100%', ...styles.button }}
-                                        color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
-                                        oContext={{
-                                            adapterName: this.adapterName,
-                                            socket: this.socket,
-                                            instance: this.instance,
-                                            themeType: this.state.themeType,
-                                            dateFormat:
-                                                this.socket.systemConfig?.common.dateFormat || 'DD.MM.YYYY HH:mm',
-                                            isFloatComma: this.socket.systemConfig?.common.isFloatComma || false,
-                                            theme: this.state.theme,
-                                            _themeName: this.state.themeName,
-                                            systemConfig:
-                                                this.socket.systemConfig?.common || ({} as ioBroker.SystemConfigCommon),
-                                            onCommandRunning: (_ignore: boolean): void => {},
-                                            forceUpdate: (): void => {},
-                                        }}
-                                        alive
-                                        onError={(): void => {}}
-                                        schema={{
-                                            backUpType: 'iobroker',
-                                            label: 'ioBroker start backup',
-                                            i18n: false,
-                                            variant: 'contained',
-                                            type: 'custom',
-                                            url: '',
-                                            name: '',
-                                        }}
-                                        changed={false}
-                                        common={this.state.common || {}}
-                                        themeName={this.state.themeName}
-                                        data={{}}
-                                        originalData={{}}
-                                        onChange={(): void => {}}
-                                    />
+                                    <div
+                                        onMouseEnter={() => this.setState({ hoverIobrokerBackup: true })}
+                                        onMouseLeave={() => this.setState({ hoverIobrokerBackup: false })}
+                                    >
+                                        <BackupNow
+                                            style={this.getActionButtonStyle(this.state.hoverIobrokerBackup)}
+                                            color={this.isDark() ? 'primary' : 'grey'}
+                                            oContext={{
+                                                adapterName: this.adapterName,
+                                                socket: this.socket,
+                                                instance: this.instance,
+                                                themeType: this.derivedThemeType,
+                                                dateFormat:
+                                                    this.socket.systemConfig?.common.dateFormat || 'DD.MM.YYYY HH:mm',
+                                                isFloatComma: this.socket.systemConfig?.common.isFloatComma || false,
+                                                theme: this.state.theme,
+                                                _themeName: this.state.themeName,
+                                                systemConfig:
+                                                    this.socket.systemConfig?.common ||
+                                                    ({} as ioBroker.SystemConfigCommon),
+                                                onCommandRunning: (_ignore: boolean): void => {},
+                                                forceUpdate: (): void => {},
+                                            }}
+                                            alive
+                                            onError={(): void => {}}
+                                            schema={{
+                                                backUpType: 'iobroker',
+                                                label: 'ioBroker start backup',
+                                                i18n: false,
+                                                variant: 'contained',
+                                                type: 'custom',
+                                                url: '',
+                                                name: '',
+                                            }}
+                                            changed={false}
+                                            common={this.state.common || {}}
+                                            themeName={this.state.themeName}
+                                            data={{}}
+                                            originalData={{}}
+                                            onChange={(): void => {}}
+                                        />
+                                    </div>
                                 ) : (
                                     <Button
                                         style={{ width: '100%' }}
                                         sx={styles.button}
                                         disabled
-                                        color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                        color={this.isDark() ? 'primary' : 'grey'}
                                         variant="contained"
                                         endIcon={<CloudUploadOutlined />}
                                     >
@@ -832,48 +880,54 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                     </Button>
                                 )}
                                 {this.state.myAlive && this.state.native.ccuEnabled ? (
-                                    <BackupNow
-                                        style={{ ...styles.buttonWidth, width: '100%', ...styles.button }}
-                                        oContext={{
-                                            adapterName: this.adapterName,
-                                            socket: this.socket,
-                                            instance: this.instance,
-                                            themeType: this.state.themeType,
-                                            dateFormat:
-                                                this.socket.systemConfig?.common.dateFormat || 'DD.MM.YYYY HH:mm',
-                                            isFloatComma: this.socket.systemConfig?.common.isFloatComma || false,
-                                            theme: this.state.theme,
-                                            _themeName: this.state.themeName,
-                                            systemConfig:
-                                                this.socket.systemConfig?.common || ({} as ioBroker.SystemConfigCommon),
-                                            onCommandRunning: (_ignore: boolean): void => {},
-                                            forceUpdate: (): void => {},
-                                        }}
-                                        color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
-                                        alive
-                                        schema={{
-                                            backUpType: 'ccu',
-                                            label: 'Homematic start backup',
-                                            i18n: false,
-                                            variant: 'contained',
-                                            type: 'custom',
-                                            url: '',
-                                            name: '',
-                                        }}
-                                        onError={(): void => {}}
-                                        changed={false}
-                                        common={this.state.common || {}}
-                                        themeName={this.state.themeName}
-                                        data={{}}
-                                        originalData={{}}
-                                        onChange={(): void => {}}
-                                    />
+                                    <div
+                                        onMouseEnter={() => this.setState({ hoverCcuBackup: true })}
+                                        onMouseLeave={() => this.setState({ hoverCcuBackup: false })}
+                                    >
+                                        <BackupNow
+                                            style={this.getActionButtonStyle(this.state.hoverCcuBackup)}
+                                            oContext={{
+                                                adapterName: this.adapterName,
+                                                socket: this.socket,
+                                                instance: this.instance,
+                                                themeType: this.derivedThemeType,
+                                                dateFormat:
+                                                    this.socket.systemConfig?.common.dateFormat || 'DD.MM.YYYY HH:mm',
+                                                isFloatComma: this.socket.systemConfig?.common.isFloatComma || false,
+                                                theme: this.state.theme,
+                                                _themeName: this.state.themeName,
+                                                systemConfig:
+                                                    this.socket.systemConfig?.common ||
+                                                    ({} as ioBroker.SystemConfigCommon),
+                                                onCommandRunning: (_ignore: boolean): void => {},
+                                                forceUpdate: (): void => {},
+                                            }}
+                                            color={this.isDark() ? 'primary' : 'grey'}
+                                            alive
+                                            schema={{
+                                                backUpType: 'ccu',
+                                                label: 'Homematic start backup',
+                                                i18n: false,
+                                                variant: 'contained',
+                                                type: 'custom',
+                                                url: '',
+                                                name: '',
+                                            }}
+                                            onError={(): void => {}}
+                                            changed={false}
+                                            common={this.state.common || {}}
+                                            themeName={this.state.themeName}
+                                            data={{}}
+                                            originalData={{}}
+                                            onChange={(): void => {}}
+                                        />
+                                    </div>
                                 ) : (
                                     <Button
                                         style={{ width: '100%' }}
                                         sx={styles.button}
                                         disabled
-                                        color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                        color={this.isDark() ? 'primary' : 'grey'}
                                         variant="contained"
                                         endIcon={<CloudUploadOutlined />}
                                     >
@@ -885,7 +939,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                     sx={styles.button}
                                     onClick={() => this.setState({ showBackupHistory: true })}
                                     variant="contained"
-                                    color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                    color={this.isDark() ? 'primary' : 'grey'}
                                     endIcon={<FormatListBulleted />}
                                 >
                                     {I18n.t('Backup history')}
@@ -894,7 +948,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                     style={{ width: '100%' }}
                                     sx={styles.button}
                                     variant="contained"
-                                    color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                    color={this.isDark() ? 'primary' : 'grey'}
                                     onClick={async () => {
                                         const obj = await this.socket.getObject(
                                             `system.adapter.${this.adapterName}.${this.instance}`,
@@ -928,9 +982,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                 sx={{
                                     m: '1.5rem 0px 1rem 0px',
                                     ...styles.header,
-                                    ...(this.state.theme.name === 'light' ? styles.headerLight : undefined),
-                                    ...(this.state.theme.name === 'colored' ? styles.headerColored : undefined),
-                                    ...(this.state.themeType === 'dark' ? styles.headerDark : undefined),
+                                    ...(this.isDark() ? styles.headerDark : styles.headerLight),
                                 }}
                             >
                                 <SettingsBackupRestore style={styles.headerIcon} />
@@ -964,7 +1016,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                     onClick={() => this.setState({ showGetBackups: true })}
                                     disabled={!this.state.myAlive}
                                     variant="contained"
-                                    color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                    color={this.isDark() ? 'primary' : 'grey'}
                                     endIcon={<Search />}
                                 >
                                     {I18n.t('Get list')}
@@ -974,7 +1026,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                     sx={styles.button}
                                     onClick={() => this.setState({ showUploadBackup: true })}
                                     variant="contained"
-                                    color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                    color={this.isDark() ? 'primary' : 'grey'}
                                     endIcon={<UploadOutlined />}
                                 >
                                     {I18n.t('Upload Backup File')}
@@ -983,7 +1035,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                     style={{ width: '100%', marginTop: '0.5rem' }}
                                     sx={styles.button}
                                     variant="contained"
-                                    color={this.state.themeType === 'dark' ? 'primary' : 'grey'}
+                                    color={this.isDark() ? 'primary' : 'grey'}
                                     onClick={() => this.setState({ showUploadSettings: true })}
                                     endIcon={<SettingsBackupRestore />}
                                 >
@@ -994,9 +1046,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                             <div
                                 style={{
                                     ...styles.footer,
-                                    ...(this.state.theme.name === 'light' ? styles.footerLight : undefined),
-                                    ...(this.state.theme.name === 'colored' ? styles.footerColored : undefined),
-                                    ...(this.state.themeType === 'dark' ? styles.footerDark : undefined),
+                                    ...(this.isDark() ? styles.footerDark : styles.footerLight),
                                 }}
                                 onClick={() => {
                                     try {
@@ -1020,7 +1070,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                 this.setState({ showLogs: { fileName, timestamp, index } })
                             }
                             socket={this.socket}
-                            themeType={this.state.themeType}
+                            themeType={this.derivedThemeType}
                             themeBreakpoints={this.state.theme.breakpoints.down}
                             adapterName={this.adapterName}
                             instance={this.instance}
@@ -1033,7 +1083,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                 this.setState({ showRestore: { location, object, fileName }, showGetBackups: false })
                             }
                             socket={this.socket}
-                            themeType={this.state.themeType}
+                            themeType={this.derivedThemeType}
                             themeBreakpoints={this.state.theme.breakpoints.down}
                             adapterName={this.adapterName}
                             instance={this.instance}
@@ -1047,7 +1097,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                             onClose={() => this.setState({ showLogs: null })}
                             backupLog={this.state.showLogs}
                             socket={this.socket}
-                            themeType={this.state.themeType}
+                            themeType={this.derivedThemeType}
                             adapterName={this.adapterName}
                             themeBreakpoints={this.state.theme.breakpoints.down}
                             instance={this.instance}
@@ -1057,7 +1107,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                         <UploadBackup
                             onClose={() => this.setState({ showUploadBackup: false })}
                             socket={this.socket}
-                            themeType={this.state.themeType}
+                            themeType={this.derivedThemeType}
                             adapterName={this.adapterName}
                             instance={this.instance}
                         />
@@ -1069,7 +1119,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                             fileName={this.state.showRestore.fileName}
                             onClose={() => this.setState({ showRestore: null })}
                             socket={this.socket}
-                            themeType={this.state.themeType}
+                            themeType={this.derivedThemeType}
                             adapterName={this.adapterName}
                             instance={this.instance}
                             restoreIfWait={this.state.restoreIfWait}
