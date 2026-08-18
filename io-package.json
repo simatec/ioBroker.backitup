@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "4.0.1",
+    "version": "4.0.2",
     "news": {
+      "4.0.2": {
+        "en": "Fix Backitup Tab\ndependencies updated",
+        "de": "Backup-Registerkarte reparieren\nAbhängigkeiten aktualisiert",
+        "ru": "Исправить вкладку «Резервное копирование»\nЗависимости обновлены",
+        "pt": "Corrigir guia do Backitup\ndependências atualizadas",
+        "nl": "Het Backitup-tabblad repareren\nafhankelijkheden bijgewerkt",
+        "fr": "Correction de l'onglet Backitup\ndépendances mises à jour",
+        "it": "Risolvi la scheda di backup\ndipendenze aggiornate",
+        "es": "Reparar la pestaña de copia de seguridad\ndependencias actualizadas",
+        "pl": "Napraw kartę kopii zapasowej\nzależności zaktualizowane",
+        "uk": "Виправити вкладку резервного копіювання\nзалежності оновлено",
+        "zh-cn": "修复备份选项卡\n依赖项已更新"
+      },
       "4.0.1": {
         "en": "Fix Backitup Tab",
         "de": "Fix Backitup Tab",
@@ -80,19 +93,6 @@
         "pl": "Aktualizacja licencji\nzaktualizowane zależności\nNapraw CCU Kopia zapasowa\ndodany SSL Pomiń dla mysql Backup",
         "uk": "Оновлення ліцензії\nоновлені залежності\nФіксація CCU Зареєструватися\nдодано SSL Перейти до вмісту",
         "zh-cn": "许可证更新\n更新依赖关系\n修复 CCU 备份\n添加 SSL 跳过 mysql 备份"
-      },
-      "3.3.13": {
-        "en": "Fix Error Log for CCU Backup",
-        "de": "Fehlersuche für CCU Backup behoben",
-        "ru": "Исправьте ошибку Log для резервного копирования CCU",
-        "pt": "Corrigir o Registo de Erros para a Cópia de Segurança da CCU",
-        "nl": "Foutlogboek voor CCU-backup herstellen",
-        "fr": "Correction du journal d'erreur pour la sauvegarde CCU",
-        "it": "Fissare il log degli errori per il backup CCU",
-        "es": "Registro de error de fijación para el respaldo de CCU",
-        "pl": "Popraw dziennik błędów dla kopii zapasowej CCU",
-        "uk": "Виправлено помилку Log для CCU Backup",
-        "zh-cn": "修复 CCU 备份错误日志"
       }
     },
     "titleLang": {
