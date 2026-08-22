@@ -61,8 +61,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 4.0.3 (2026-08-22)
 * (simatec) Fix signed FTP Certificates
 * (simatec) Fix Backup Timeout
 * (simatec) Fix lint check
@@ -87,9 +86,6 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ### 3.3.17 (2026-04-14)
 * (simatec) Fix vite Build
-
-### 3.3.16 (2026-04-14)
-* (simatec) Fix Tab Admin
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

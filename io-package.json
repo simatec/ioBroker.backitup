@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "4.0.2",
+    "version": "4.0.3",
     "news": {
+      "4.0.3": {
+        "en": "Fix signed FTP Certificates\nFix Backup Timeout\nFix lint check",
+        "de": "Reparieren Sie signierte FTP-Zertifikate\nBackup-Timeout beheben\nLint-Prüfung reparieren",
+        "ru": "Исправить подписанные FTP-сертификаты\nУстранить ошибку таймаута резервного копирования\nИсправить проверку кода",
+        "pt": "Corrigir certificados FTP assinados\nCorrigir tempo limite de backup\nCorrigir verificação de fiapos",
+        "nl": "Ondertekende FTP-certificaten repareren\nHet probleem met de back-uptime-out oplossen\nControleer de lint-test.",
+        "fr": "Correction des certificats FTP signés\nCorrection du délai d'expiration de la sauvegarde\nCorrection de la vérification de l'encre",
+        "it": "Correggere i certificati FTP firmati\nRisolvi il problema di timeout del backup.\nCorreggi il controllo della lanugine",
+        "es": "Corregir certificados FTP firmados\nSolucionar el tiempo de espera de la copia de seguridad\nCorregir la comprobación de lint",
+        "pl": "Napraw podpisane certyfikaty FTP\nNapraw przekroczenie limitu czasu kopii zapasowej\nNaprawa kłaczków",
+        "uk": "Виправлення підписаних FTP-сертифікатів\nВиправити час очікування резервного копіювання\nВиправити перевірку ворсу",
+        "zh-cn": "修复已签名的FTP证书\n修复备份超时问题\n修复棉絮检查"
+      },
       "4.0.2": {
         "en": "Fix Backitup Tab\ndependencies updated",
         "de": "Backup-Registerkarte reparieren\nAbhängigkeiten aktualisiert",
@@ -80,19 +93,6 @@
         "pl": "zaktualizowane zależności\nChangelog old added\nRepozytorium wyczyszczone\nNapraw czas kopii zapasowej CCU",
         "uk": "оновлені залежності\nЗмінено:\nРепозиторій очищення\nВиправлення часу резервного копіювання CCU",
         "zh-cn": "更新依赖关系\n已添加 Changelog 旧\n仓库清理完毕\n修复 CCU 备份超时"
-      },
-      "3.3.14": {
-        "en": "License updated\ndependencies updated\nFix CCU Backup\nadded SSL Skip for mysql Backup",
-        "de": "Lizenz aktualisiert\naktualisierte abhängigkeiten\nCCU Backup\nhinzugefügt SSL Skip to mysql Backup",
-        "ru": "Лицензия обновлена\nобновленные зависимости\nИсправить CCU Резервное копирование\nдобавлен SSL Скачать MySQL Backup",
-        "pt": "Licença atualizada\ndependências atualizadas\nCorrigir CCU Cópia de Segurança\nadicionado SSL Saltar para o backup do mysql",
-        "nl": "Licentie bijgewerkt\nafhankelijkheden bijgewerkt\nCCU repareren Reservekopie\nsSL toegevoegd Skip for mysql Backup",
-        "fr": "Licence mise à jour\ndépendances mises à jour\nCorrection du CCU Sauvegarde\nsSL ajouté Sauter pour monsql Sauvegarder",
-        "it": "Licenza aggiornata\ndipendenze aggiornate\nRiparare CCU Backup\naggiunto SSL Salta per mysql Backup",
-        "es": "Licencia actualizada\ndependencias actualizadas\nCCU fijar Copia de seguridad\nañadido SSL Skip for mysql Backup",
-        "pl": "Aktualizacja licencji\nzaktualizowane zależności\nNapraw CCU Kopia zapasowa\ndodany SSL Pomiń dla mysql Backup",
-        "uk": "Оновлення ліцензії\nоновлені залежності\nФіксація CCU Зареєструватися\nдодано SSL Перейти до вмісту",
-        "zh-cn": "许可证更新\n更新依赖关系\n修复 CCU 备份\n添加 SSL 跳过 mysql 备份"
       }
     },
     "titleLang": {
