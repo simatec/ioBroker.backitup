@@ -242,10 +242,9 @@ export async function run(props: BackItUpProps<FtpUploadOptions>): Promise<void>
             host: options.host,
             port: (options.port as number) || 21,
             secure: !!options.secure || false,
-            // As in lib/list/ftp: `!!x || true` is always true, so the "allow only signed
-            // certificates" setting has never had any effect here. Left as found - making the flag
-            // work would silently switch off certificate checking for everyone who unticked it.
-            secureOptions: { rejectUnauthorized: !!options.signedCertificates || true },
+            // `!!x || true` was always true, so "allow only signed certificates" had no effect.
+            // Fixed: default true (strict) if unset, otherwise honor the setting.
+            secureOptions: { rejectUnauthorized: options.signedCertificates !== false },
             user: options.user,
             password: options.pass,
         });

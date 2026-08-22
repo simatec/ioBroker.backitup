@@ -61,6 +61,12 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+* (simatec) Fix signed FTP Certificates
+* (simatec) Fix Backup Timeout
+* (simatec) Fix lint check
+
 ### 4.0.2 (2026-08-18)
 * (simatec) Fix Backitup Tab
 * (simatec) dependencies updated

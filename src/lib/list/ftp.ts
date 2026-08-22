@@ -112,11 +112,12 @@ function targetDir(dir: string, ownDir: boolean, dirMinimal: string): string {
 /**
  * Builds the connection options.
  *
- * Careful with `rejectUnauthorized`: `!!x || true` is `true` for every input, so the
- * "allow only signed certificates" setting has never had any effect here and the certificate is
- * always verified. Left exactly as it was - making the flag work would silently switch off
- * certificate checking for everyone who unticked it.
- *
+ * `cfg.signedCertificates` is already resolved by `settings()` (default `true` if unset), so it
+ * is passed straight through here. Previously this was `!!cfg.signedCertificates || true`, which
+ * is `true` for every input - the "allow only signed certificates" setting had no effect and the
+ * certificate was always verified, even when the user explicitly unticked it for a self-signed
+ * server. Fixed.
+ * 
  * @param cfg resolved storage settings
  */
 function connectOptions(cfg: FtpSettings): Client.Options {
@@ -124,7 +125,7 @@ function connectOptions(cfg: FtpSettings): Client.Options {
         host: cfg.host,
         port: (cfg.port as number) || 21,
         secure: cfg.secure || false,
-        secureOptions: { rejectUnauthorized: !!cfg.signedCertificates || true },
+        secureOptions: { rejectUnauthorized: !!cfg.signedCertificates },
         user: cfg.user,
         password: cfg.pass,
     };

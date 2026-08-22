@@ -117,7 +117,7 @@ interface LoadedScript {
     afterBackup?: boolean;
 }
 
-let timerCleanFiles: NodeJS.Timeout | undefined;
+let timerCleanFiles: ioBroker.Timeout | undefined;
 let tmpLog = '';
 
 /**
@@ -428,7 +428,7 @@ function executeScripts(
                         }
                     }
                     if (_options.debugging == true) {
-                        setTimeout(function () {
+                        adapter?.setTimeout(function () {
                             void adapter?.setState(
                                 'output.line',
                                 `[DEBUG] [${name}] start with ${JSON.stringify(_options)}`,
@@ -440,7 +440,7 @@ function executeScripts(
                     callback(
                         `error on backup process: Script "${name}" ${e} Please check the config of BackItUp and execute "iobroker fix"`,
                     );
-                    timerCleanFiles = setTimeout(function () {
+                    timerCleanFiles = adapter?.setTimeout(function () {
                         setImmediate(executeScripts, adapter, config, callback, scripts, code);
                     }, 150);
                     return;
@@ -450,7 +450,7 @@ function executeScripts(
                     callback(
                         `error on backup process: No valid options for "${name}" Please check the config of BackItUp and execute "iobroker fix"`,
                     );
-                    timerCleanFiles = setTimeout(function () {
+                    timerCleanFiles = adapter?.setTimeout(function () {
                         setImmediate(executeScripts, adapter, config, callback, scripts, code);
                     }, 150);
 
@@ -575,7 +575,7 @@ function executeScripts(
                             // the other direction.
                             if (config.ignoreErrors) {
                                 log.error(`[IGNORED] ${err}`);
-                                timerCleanFiles = setTimeout(function () {
+                                timerCleanFiles = adapter?.setTimeout(function () {
                                     setImmediate(executeScripts, adapter, config, callback, scripts, code);
                                 }, 150);
                             } else {
@@ -584,7 +584,7 @@ function executeScripts(
                             }
                         } else {
                             log.debug(output || 'done');
-                            timerCleanFiles = setTimeout(function () {
+                            timerCleanFiles = adapter?.setTimeout(function () {
                                 setImmediate(executeScripts, adapter, config, callback, scripts, code);
                             }, 150);
                         }
@@ -598,12 +598,12 @@ function executeScripts(
                     callback(
                         `error on backup process: Error when executing script "${name}": ${e} Please check the config of BackItUp and execute "iobroker fix"`,
                     );
-                    timerCleanFiles = setTimeout(function () {
+                    timerCleanFiles = adapter?.setTimeout(function () {
                         setImmediate(executeScripts, adapter, config, callback, scripts, code);
                     }, 150);
                 }
             } else {
-                timerCleanFiles = setTimeout(function () {
+                timerCleanFiles = adapter?.setTimeout(function () {
                     setImmediate(executeScripts, adapter, config, callback, scripts, code);
                 }, 150);
             }
@@ -613,7 +613,7 @@ function executeScripts(
 
     void adapter?.setState('output.line', `[EXIT] ${code || 0}`, true);
     createBackupLog(config, adapter);
-    clearTimeout(timerCleanFiles);
+    adapter?.clearTimeout(timerCleanFiles);
     callback?.();
 }
 

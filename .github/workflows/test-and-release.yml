@@ -32,7 +32,7 @@ jobs:
           # Uncomment the following line if your adapter cannot be installed using 'npm ci'
           install-command: 'npm i && cd src-tab && npm i -f && cd ../src-admin && npm i -f'
           # type-checking: true
-          lint: false
+          lint: true
 
   # Runs adapter tests on all supported node versions and OSes
   adapter-tests:

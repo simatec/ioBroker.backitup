@@ -1053,7 +1053,7 @@ class BackItUp extends Adapter {
             pass: this.config.ftpPassword || '', // password for FTP Server
             port: this.config.ftpPort || 21, // FTP port
             secure: this.config.ftpSecure || false, // secure FTP connection
-            signedCertificates: this.config.ftpSignedCertificates || true,
+            signedCertificates: this.config.ftpSignedCertificates !== false,
             ignoreErrors,
         };
 
