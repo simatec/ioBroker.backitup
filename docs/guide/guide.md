@@ -160,7 +160,7 @@ Was benötigen wir dafür?
 
 * Wir benötigen den Namen der Organisation
 * Es wird der Username das Hauptbenutzer (Admin) benötigt
-* Der Bolt-Pfad zur Datei influxd.bolt wird benötigt (Standard: /var/lib/influxdb2/influxd.bolt)
+* Der Bolt-Pfad zur Datei influxd.bolt wird benötigt (Standard: /var/lib/influxdb/influxd.bolt)
 
 Als erstes müssen wir den InfluxDB-Server stoppen
 
@@ -179,7 +179,7 @@ Sollte die Datenbank gestoppt sein, könnt ihr weitermachen.
 Der eigentliche Befehl zur Wiederherstellung eures Operator-Tokens erfolgt mit folgenden Befehl:
 
 ```
-sudo influxd recovery auth create-operator --org <deine_org> --username <dein_user> --bolt-path /var/lib/influxdb2/influxd.bolt
+sudo influxd recovery auth create-operator --org <deine_org> --username <dein_user> --bolt-path /var/lib/influxdb/influxd.bolt
 ```
 
 Ist die Wiederherstellung erfolgreich abgeschlossen, erhaltet ihr in der Log-Ausgabe alle Token angezeigt.
@@ -188,14 +188,10 @@ Der letzte Token in der Liste mit der Description `<dein_user>'s Recovery Token`
 Sollte eine Fehlermeldung wie z.B. `Error: bucket "authorizationsv1": bucket not found` kommen, dann ist der bolt-path nicht korrekt.
 
 
-
-Dies kann passieren, wenn eure Influxdb 2.x Installation aus einer Influxdb 1.x migriert wurde.
-Hier kann der bolt-path abweichen (/var/lib/influxdb/influxd.bolt)
-
 Solltet ihr nicht genau wissen, wo die Datei "influxd.bolt" sich im System befindet, könnt Ihr mit folgenden Befehl danach suchen.
 
 ```
-find / -name influxd.bolt
+sudo find / -name influxd.bolt
 ```
 
 Wenn Ihr den Pfad ermittelt habt, führt den Recovery-Befehl erneut aus.
@@ -216,7 +212,7 @@ In der aktuellen grafischen Oberfläche lässt sich dieses Token nicht mehr anze
 
 Dazu wie folgt vorgehen:
 
-1)  Wenn in der infllux Oberfläche bereits ein all-access API Token erstellt wurde, dann weiter mit Schritt 3
+1)  Wenn in der influx Oberfläche bereits ein all-access API Token erstellt wurde, dann weiter mit Schritt 3
 
 2)  Ein neues all-access API Token im GUI erstellen
 
