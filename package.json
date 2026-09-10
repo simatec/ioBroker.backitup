@@ -57,7 +57,7 @@
     "@googleapis/drive": "^21.0.0",
     "@iobroker/adapter-core": "^3.4.3",
     "@iobroker/js-controller-common": "^7.2.2",
-    "axios": "^1.19.0",
+    "axios": "^1.20.0",
     "cors": "^2.8.6",
     "cron-parser": "^5.10.0",
     "dropbox-v2-api": "^2.5.12",
