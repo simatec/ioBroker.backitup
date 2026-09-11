@@ -1,4 +1,4 @@
-![Logo](admin/backitup.png)
+![Logo](admin/backitup.svg)
 # ioBroker.backitup
 
 ![Number of Installations](http://iobroker.live/badges/backitup-installed.svg)
