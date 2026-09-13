@@ -1,7 +1,10 @@
 ## Changelog
+## 3.3.17 (2026-04-14)
+* (simatec) Fix vite Build
+
+
 ## 3.3.16 (2026-04-14)
 * (simatec) Fix Tab Admin
-
 
 ## 3.3.15 (2026-04-10)
 * (simatec) dependencies updated

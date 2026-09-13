@@ -61,7 +61,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 4.0.4 (2026-09-13)
 * (bluefox) Fix path
 * (simatec) dependencies updated
 * (simatec) Adaptercheck for Node.js 26 added
@@ -88,9 +88,6 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) Update Node Engine
 * (@GermanBluefox) Migrated to Admin 8
 * (simatec) Redesign Backitup Tab
-
-### 3.3.17 (2026-04-14)
-* (simatec) Fix vite Build
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

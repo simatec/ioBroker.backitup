@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "backitup",
-    "version": "4.0.3",
+    "version": "4.0.4",
     "news": {
+      "4.0.4": {
+        "en": "Fix path\ndependencies updated\nAdaptercheck for Node.js 26 added",
+        "de": "Pfad fixen\nAbhängigkeiten aktualisiert\nAdaptercheck für Node.js 26 hinzugefügt",
+        "ru": "Исправить путь\nзависимости обновлены\nДобавлена проверка адаптеров для Node.js 26",
+        "pt": "Fixar via\ndependências atualizadas\nAdição do Adaptercheck for Node.js 26",
+        "nl": "Pad repareren\nafhankelijkheden bijgewerkt\nAdaptercheck voor Node.js 26 toegevoegd",
+        "fr": "Fix Path\ndépendances mises à jour\nAdaptercheck for Node.js 26 a été ajouté",
+        "it": "Fix path\ndipendenze aggiornate\nAdaptercheck per Node.js 26 aggiunto",
+        "es": "Fijar ruta\ndependencias actualizadas\nAdaptercheck for Node.js 26 añadido",
+        "pl": "Napraw ścieżkę\naktualizacja zależności\nAdaptercheck for Node.js 26 dodano",
+        "uk": "Виправлення контуру\nзалежності оновлені\nПеревірка адаптера для Node.js 26 додано",
+        "zh-cn": "修复路径\n依赖关系已更新\n添加了 Node.js 26 的适配器检查"
+      },
       "4.0.3": {
         "en": "Fix signed FTP Certificates\nFix Backup Timeout\nFix lint check",
         "de": "Reparieren Sie signierte FTP-Zertifikate\nBackup-Timeout beheben\nLint-Prüfung reparieren",
@@ -80,19 +93,6 @@
         "pl": "Napraw Admin Tab",
         "uk": "Виправлення адміністратора вкладки",
         "zh-cn": "修复标签管理员"
-      },
-      "3.3.15": {
-        "en": "dependencies updated\nChangelog old added\nRepository cleaned up\nFix CCU Backup Timeout",
-        "de": "aktualisierte abhängigkeiten\nChangelog alt hinzugefügt\nRepository aufgeräumt\nCCU Backup Timeout reparieren",
-        "ru": "обновленные зависимости\nChangelog Old Добавить\nРепозиторий убрали\nСкачать CCU Backup Timeout",
-        "pt": "dependências atualizadas\nChangelog antigo adicionado\nRepositório limpo\nCorrigir o Tempo- limite de backup da CCU",
-        "nl": "afhankelijkheden bijgewerkt\nChangelog oud toegevoegd\nRepository opgeruimd\nRepareren CCU Backup Timeout",
-        "fr": "dépendances mises à jour\nChangelog ancien ajouté\nDépôt nettoyé\nCorrection du délai de sauvegarde du CCU",
-        "it": "dipendenze aggiornate\nChangelog vecchio aggiunto\nRepository ripulito\nRisolto il timeout di backup CCU",
-        "es": "dependencias actualizadas\nCambio viejo añadido\nRepositorio limpiado\nCorrección de tiempo de respaldo CCU",
-        "pl": "zaktualizowane zależności\nChangelog old added\nRepozytorium wyczyszczone\nNapraw czas kopii zapasowej CCU",
-        "uk": "оновлені залежності\nЗмінено:\nРепозиторій очищення\nВиправлення часу резервного копіювання CCU",
-        "zh-cn": "更新依赖关系\n已添加 Changelog 旧\n仓库清理完毕\n修复 CCU 备份超时"
       }
     },
     "titleLang": {
