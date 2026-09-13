@@ -61,6 +61,11 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (bluefox) Fix path
+* (simatec) dependencies updated
+* (simatec) Adaptercheck for Node.js 26 added
+
 ### 4.0.3 (2026-08-22)
 * (simatec) Fix signed FTP Certificates
 * (simatec) Fix Backup Timeout
