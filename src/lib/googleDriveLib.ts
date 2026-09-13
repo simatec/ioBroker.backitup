@@ -94,7 +94,7 @@ export default class GoogleDrive {
             // incompatible (private `redirectUri`). The objects are interchangeable at runtime; the
             // cast keeps the client this class has always used instead of silently swapping in
             // `google.auth.OAuth2` from the nested copy.
-            auth: this.oAuth2Client as unknown as drive_v3.Options['auth'],
+            auth: this.oAuth2Client,
         };
 
         this.drive = this.drive || new drive_v3.Drive(driveOptions);
