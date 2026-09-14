@@ -11,7 +11,7 @@
     "After the download, the restore begins without restarting ioBroker.": "Після завантаження починається відновлення без перезапуску ioBroker.",
     "All Receiver": "Весь приймач",
     "Allow only signed certificates": "Дозволити лише підписані сертифікати",
-    "Authentication": "Аутентифікація",
+    "Authentication": "Автентифікація",
     "Authorize this app by visiting": "Авторизуйте цю програму, відвідавши",
     "Authorize this app by visiting this url:": "Авторизуйте цю програму, відвідавши цю URL-адресу:",
     "Automatically delete old Influx-database before restore": "Автоматично видаляти стару базу даних Influx перед відновленням",
@@ -59,7 +59,7 @@
     "Delete old ccu backups with the exception of the last X pieces": "Видаліть старі резервні копії ccu, за винятком останніх X частин",
     "Delete old ioBroker backups with the exception of the last X pieces": "Видаліть старі резервні копії ioBroker, за винятком останніх X частин",
     "Detect config": "Визначити конфігурацію",
-    "Device ID": "ID пристрою",
+    "Device ID": "Ідентифікатор пристрою",
     "Discord instance": "Примірник Discord",
     "Discord receiver": "Приймач Discord",
     "Domain name (optional)": "Доменне ім'я (необов'язково)",
@@ -282,5 +282,5 @@
     "path": "шлях",
     "piece": "шматок",
     "ra_Close": "Закрити",
-    "seconds": "секунд"
+    "seconds": "час"
 }
