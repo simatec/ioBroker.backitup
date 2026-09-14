@@ -36,7 +36,7 @@
     "CCU hosts": "Хосты CCU",
     "CIFS": "КИФС",
     "Cancel": "Отмена",
-    "Close": "Закрывать",
+    "Close": "Закрыть",
     "Close on ready": "Закрыть по готовности",
     "Config found in %s, but nothing changed": "Конфигурация найдена в %s, но ничего не изменилось",
     "Config taken from %s": "Конфигурация взята из %s",
@@ -108,7 +108,7 @@
     "Homematic CCU": "Домашний блок CCU",
     "Homematic CCU backup": "Резервное копирование Homematic CCU",
     "Host Type": "Тип хоста",
-    "IP address": "айпи адрес",
+    "IP address": "IP-адрес",
     "IP address or hostname": "IP-адрес или имя хоста",
     "IP of the CCU": "ИП ЦКУ",
     "If the tab does not open, please deactivate your popup blocker.": "Если вкладка не открывается, отключите блокировку всплывающих окон.",
@@ -282,5 +282,5 @@
     "path": "путь",
     "piece": "кусок",
     "ra_Close": "Закрывать",
-    "seconds": "секунды"
+    "seconds": "секунд"
 }
