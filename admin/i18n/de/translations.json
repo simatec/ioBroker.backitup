@@ -36,7 +36,7 @@
     "CCU hosts": "CCU-Hosts",
     "CIFS": "CIFS",
     "Cancel": "Abbrechen",
-    "Close": "Schließen",
+    "Close": "Zumachen",
     "Close on ready": "Schließen wenn Fertig",
     "Config found in %s, but nothing changed": "Konfiguration in %s gefunden, aber nichts geändert",
     "Config taken from %s": "Konfiguration übernommen von %s",
