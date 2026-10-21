@@ -25,6 +25,8 @@ interface MySqlOptions {
     /** path to mysqldump; falls back to `mysqldump` from PATH */
     exe?: string;
     mysqlQuick?: boolean;
+    /** Pass --single-transaction to mysqldump */
+    mysqlSingleTransaction?: boolean;
     /** from `mysqlSkipSSL` in the adapter config */
     skipSSL?: boolean;
     mySqlMulti?: boolean;
@@ -119,7 +121,7 @@ async function startBackup(ctx: BackItUpContext, options: MySqlOptions): Promise
 
     await new Promise<void>((resolve, reject) => {
         exec(
-            `${options.exe ? options.exe : 'mysqldump'}  -u ${options.user} -p${options.pass} ${options.dbName} -h ${options.host} -P ${options.port}${options.mysqlQuick ? ' --quick' : ''}${options.skipSSL ? ' --skip-ssl' : ''} > ${fileNameMysql}`,
+            `${options.exe ? options.exe : 'mysqldump'}  -u ${options.user} -p${options.pass} ${options.dbName} -h ${options.host} -P ${options.port}${options.mysqlQuick ? ' --quick' : ''}${options.mysqlSingleTransaction ? ' --single-transaction' : ''}${options.skipSSL ? ' --skip-ssl' : ''} > ${fileNameMysql}`,
             { maxBuffer: 10 * 1024 * 1024 },
             error => {
                 if (error) {
