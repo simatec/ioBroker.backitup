@@ -502,7 +502,11 @@ class BackItUp extends Adapter {
                         const { createClient } = await import('webdav');
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
                         const agent = new (require('node:https') as typeof HttpsModule).Agent({
-                            rejectUnauthorized: Boolean(obj.message.config.signedCertificates),
+                            // jsonConfig sends the checkbox as a string ("true"/"false"), and
+                            // Boolean("false") is true - so the option was never switched off here.
+                            rejectUnauthorized: !['false', '', '0'].includes(
+                                String(obj.message.config.signedCertificates ?? 'true').toLowerCase(),
+                            ),
                         });
 
                         const client = createClient(obj.message.config.host, {
