@@ -29,6 +29,44 @@ const WAIT_MS = 1000;
 const DONE_DELAY_MS = 2000;
 
 /**
+ * Writes a schema v2 dashboard back through the Kubernetes-style API: created, or - when it already
+ * exists - replaced using the resource version of the current one.
+ *
+ * @param apiOptions base url, headers and agent of the request
+ * @param dashJson the stored resource
+ * @param folderUid folder the dashboard belonged to, from the folder map
+ */
+async function restoreResource(
+    apiOptions: { baseURL: string; headers: Record<string, string>; httpsAgent: https.Agent },
+    dashJson: any,
+    folderUid: string | undefined,
+): Promise<{ data: unknown }> {
+    const [group, version] = String(dashJson.apiVersion).split('/');
+    const namespace = dashJson.metadata?.namespace || 'default';
+    const name = dashJson.metadata?.name;
+    const path = `/apis/${group}/${version}/namespaces/${namespace}/dashboards`;
+
+    const folder = folderUid && folderUid !== 'general' ? folderUid : dashJson.metadata?.annotations?.['grafana.app/folder'];
+    const resource: any = {
+        apiVersion: dashJson.apiVersion,
+        kind: dashJson.kind || 'Dashboard',
+        metadata: { name, ...(folder ? { annotations: { 'grafana.app/folder': folder } } : {}) },
+        spec: dashJson.spec,
+    };
+
+    try {
+        return await axios.post(path, resource, apiOptions);
+    } catch (err: any) {
+        if (err?.response?.status !== 409) {
+            throw err;
+        }
+        const current = await axios.get(`${path}/${name}`, apiOptions);
+        resource.metadata.resourceVersion = current.data?.metadata?.resourceVersion;
+        return axios.put(`${path}/${name}`, resource, apiOptions);
+    }
+}
+
+/**
  * Pushes the unpacked datasources, folders and dashboards back into Grafana.
  *
  * Always resolves - every failure is only logged.
@@ -196,17 +234,21 @@ async function postData(
                         dashJson.folderUid = folderUid;
                     }
 
-                    await axios
-                        .post('/api/dashboards/db', dashJson, apiOptions)
+                    // Schema v2 dashboards are stored as a Kubernetes-style resource (see lib/scripts/36-grafana)
+                    const restoreRequest = dashJson.apiVersion && dashJson.spec
+                        ? restoreResource(apiOptions, dashJson, folderUid)
+                        : axios.post('/api/dashboards/db', dashJson, apiOptions);
+
+                    await restoreRequest
                         .then(result =>
                             ctx.log.debug(
                                 `dashboard restore for "${dashBoardName}" finish: ${JSON.stringify(result.data)}`,
                             ),
                         )
                         .catch(err =>
-                            // Same unguarded `err.response` access as above.
+                            // `err.response` is missing on network-level failures.
                             ctx.log.debug(
-                                `cannot restore dashboard "${dashBoardName}": ${JSON.stringify(err.response.data)}`,
+                                `cannot restore dashboard "${dashBoardName}": ${JSON.stringify(err.response?.data ?? err.message)}`,
                             ),
                         );
                 }),
