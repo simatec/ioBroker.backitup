@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="76" viewBox="0 4 100 76" role="img" aria-label="BackItUp">
+    <defs>
+        <linearGradient id="bkCloud" x1="14" y1="14" x2="88" y2="62" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#7CD8FF" />
+            <stop offset="0.5" stop-color="#2FA4FF" />
+            <stop offset="1" stop-color="#1667F2" />
+        </linearGradient>
+        <!-- side shading of the database slices: darker edges, bright middle -->
+        <linearGradient id="bkDbSide" x1="37" y1="0" x2="63" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#1A5CE6" />
+            <stop offset="0.4" stop-color="#4FB8FF" />
+            <stop offset="0.62" stop-color="#7CD2FF" />
+            <stop offset="1" stop-color="#1A52D0" />
+        </linearGradient>
+        <linearGradient id="bkDbTop" x1="37" y1="32" x2="63" y2="42" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#A6E6FF" />
+            <stop offset="1" stop-color="#5BB8FF" />
+        </linearGradient>
+        <filter id="bkGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="2.2" result="blur" />
+            <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        <!-- keeps a gap between the cloud outline and the database in front of it -->
+        <mask id="bkCut" maskUnits="userSpaceOnUse" x="0" y="4" width="100" height="76">
+            <rect x="0" y="4" width="100" height="76" fill="#FFF" />
+            <path d="M37 37A13 4.5 0 0 1 63 37V66A13 4.5 0 0 1 37 66Z" fill="#000" stroke="#000" stroke-width="8" />
+        </mask>
+    </defs>
+    <!-- cloud outline -->
+    <path
+        d="M26 60H72A16 16 0 0 0 74.5 28.2A22 22 0 0 0 33 33.88A14 14 0 1 0 26 60Z"
+        fill="none"
+        stroke="url(#bkCloud)"
+        stroke-width="6"
+        stroke-linejoin="round"
+        mask="url(#bkCut)"
+        filter="url(#bkGlow)"
+    />
+    <!-- database: top cap and three slices -->
+    <g filter="url(#bkGlow)">
+        <ellipse cx="50" cy="37" rx="13" ry="4.5" fill="url(#bkDbTop)" />
+        <path d="M37 37v7a13 4.5 0 0 0 26 0v-7a13 4.5 0 0 1 -26 0Z" fill="url(#bkDbSide)" />
+        <path d="M37 48v7a13 4.5 0 0 0 26 0v-7a13 4.5 0 0 1 -26 0Z" fill="url(#bkDbSide)" />
+        <path d="M37 59v7a13 4.5 0 0 0 26 0v-7a13 4.5 0 0 1 -26 0Z" fill="url(#bkDbSide)" />
+    </g>
+</svg>

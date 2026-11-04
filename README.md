@@ -61,6 +61,16 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (bluefox) Tab redesigned, new logo and adapter icon
+* (bluefox) Existing backups can be downloaded from the tab
+* (bluefox) Upload accepts plain ioBroker backups (`iobroker backup`), also renamed ones
+* (bluefox) A click on the status of the last backup opens the log of that run
+* (bluefox) Failed backup runs save their log too
+* (bluefox) Clear error message if the InfluxDB program (`influx`/`influxd`) is not installed
+* (bluefox) The Homematic tile is only shown if the CCU backup is enabled
+* (bluefox) Updated `@iobroker/gui-components` to 10.4.0
+
 ### 4.0.4 (2026-09-13)
 * (bluefox) Fix path
 * (simatec) dependencies updated

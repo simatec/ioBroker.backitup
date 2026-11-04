@@ -1,6 +1,7 @@
 // targz for Backup and Restore
 import { createReadStream, createWriteStream } from 'node:fs';
 import { createGzip, createGunzip, type ZlibOptions } from 'node:zlib';
+import { join } from 'node:path';
 import { pack, extract } from 'tar-fs';
 
 /**
@@ -119,4 +120,43 @@ export async function compressAsync(opts: CompressOptions): Promise<void> {
  */
 export async function decompressAsync(opts: DecompressOptions): Promise<void> {
     return new Promise((resolve, reject) => decompress(opts, err => (err ? reject(err) : resolve())));
+}
+
+/**
+ * Checks whether a .tar.gz file is an ioBroker backup made by js-controller (`iobroker backup`).
+ * Such an archive holds `backup/objects.jsonl` (current format) or `backup/backup.json` (older
+ * controllers). Nothing is written to disk: every entry is skipped, and the read stops as soon as
+ * one of them is seen.
+ *
+ * @param file path of the archive
+ * @returns false for any other archive and for files that are not readable as .tar.gz
+ */
+export async function isIobrokerBackupArchive(file: string): Promise<boolean> {
+    return new Promise(resolve => {
+        let settled = false;
+        const source = createReadStream(file);
+        const done = (result: boolean): void => {
+            if (!settled) {
+                settled = true;
+                source.destroy();
+                resolve(result);
+            }
+        };
+
+        const tarStream = extract(join(file, '..'), {
+            // `map` sees every entry header before `ignore` skips it
+            map: header => {
+                if (header?.name && /^(\.\/)?backup\/(backup\.json|objects\.jsonl)$/.test(header.name)) {
+                    done(true);
+                }
+                return header;
+            },
+            ignore: () => true,
+        });
+
+        source
+            .on('error', () => done(false))
+            .pipe(createGunzip().on('error', () => done(false)))
+            .pipe(tarStream.on('error', () => done(false)).on('finish', () => done(false)));
+    });
 }

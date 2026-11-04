@@ -5,7 +5,7 @@
     "dependencies": {
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.1",
-        "@iobroker/gui-components": "^10.0.8",
+        "@iobroker/gui-components": "^10.4.0",
         "@iobroker/json-config": "^9.0.11",
         "@module-federation/runtime": "^2.8.1",
         "@mui/icons-material": "^9.2.0",
@@ -15,13 +15,13 @@
         "@types/react": "^19.2.18",
         "@types/react-dom": "^19.2.4",
         "@vitejs/plugin-react": "^6.0.5",
-        "vite": "^8.2.0",
         "file-saver": "^2.0.5",
         "react": "^19.2.8",
         "react-dom": "^19.2.8",
         "react-dropzone": "^19.1.1",
         "react-icons": "^5.7.0",
-        "typescript": "~6.0.3"
+        "typescript": "~6.0.3",
+        "vite": "^8.2.0"
     },
     "scripts": {
         "start": "vite --host",
