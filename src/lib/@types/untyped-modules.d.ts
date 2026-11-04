@@ -1,6 +1,6 @@
 /**
- * Ambient declarations for the three runtime dependencies that ship no types and have no
- * `@types` package on npm: `tar-fs`, `dropbox-v2-api` and `node-wol`.
+ * Ambient declarations for the runtime dependencies that ship no types and have no
+ * `@types` package on npm: `tar-fs`, `@esm2cjs/got` and `node-wol`.
  *
  * These deliberately describe only the surface BackItUp actually uses instead of trying to be a
  * complete typing of those libraries - a partial but accurate declaration is more useful than a
@@ -58,28 +58,6 @@ declare module 'tar-fs' {
      * @param opts entry selection and header rewriting
      */
     function extract(cwd: string, opts?: ExtractOptions): Writable;
-}
-
-declare module 'dropbox-v2-api' {
-    import type { Readable } from 'node:stream';
-
-    interface DropboxRequest {
-        /** API path, e.g. `files/list_folder`, `files/upload`, `files/download`, `files/delete` */
-        resource: string;
-        parameters?: Record<string, unknown>;
-        /** Set for upload calls - the local file to send */
-        readStream?: NodeJS.ReadableStream;
-    }
-
-    type DropboxCallback = (err: any, result: any, response?: any) => void;
-
-    /**
-     * Returned by `authenticate`. Calling it performs one API request; the returned stream is only
-     * meaningful for download calls, which pipe it into a write stream.
-     */
-    type DropboxClient = (request: DropboxRequest, callback: DropboxCallback) => Readable;
-
-    function authenticate(options: { token: string }): DropboxClient;
 }
 
 /**
