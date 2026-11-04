@@ -1,11 +1,9 @@
-import { createReadStream, existsSync, statSync } from 'node:fs';
+import { existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-import { authenticate } from 'dropbox-v2-api';
+import type { Dropbox, files } from 'dropbox';
 
-import Dropbox from '../dropboxLib';
+import { createClient, dropboxErrorText, listFolder, uploadFile } from '../dropboxLib';
 import type { BackItUpContext, BackItUpProps } from '../types';
-
-type DropboxClient = ReturnType<typeof authenticate>;
 
 interface DropboxUploadOptions {
     accessToken?: string;
@@ -24,9 +22,6 @@ interface DropboxUploadOptions {
     ccuEvents?: unknown[];
 }
 
-/** Files above this size go through a chunked upload session */
-const SINGLE_SHOT_LIMIT_MB = 100;
-
 /**
  * Uploads every file of this run, one after the other.
  *
@@ -34,78 +29,38 @@ const SINGLE_SHOT_LIMIT_MB = 100;
  * stopped there without ever reporting - the whole backup run hung on it. It is skipped with a
  * warning now, and the files after it are still sent.
  *
+ * Every file goes through an upload session of the SDK now, there is no size limit for a
+ * single-shot upload anymore. The step waits until Dropbox has committed each file; the old
+ * chunked upload reported success as soon as the last request had been sent.
+ *
  * @param dbx authenticated dropbox client
- * @param dropbox helper holding the chunked upload
  * @param dir target directory
  * @param fileNames the files to send; this list is consumed
  * @param ctx run context, for the logger and the error store
  */
-async function copyFiles(
-    dbx: DropboxClient,
-    dropbox: Dropbox,
-    dir: string,
-    fileNames: string[],
-    ctx: BackItUpContext,
-): Promise<void> {
+async function copyFiles(dbx: Dropbox, dir: string, fileNames: string[], ctx: BackItUpContext): Promise<void> {
     while (fileNames.length) {
-        let fileName;
+        const fileName = (fileNames.shift() as string).replace(/\\/g, '/');
+        const onlyFileName = fileName.split('/').pop() as string;
+
+        if (!existsSync(fileName)) {
+            ctx.log.error(`Dropbox: File "${fileName}" not found`);
+            continue;
+        }
+
+        ctx.log.debug(`Dropbox: Copy ${onlyFileName}...`);
+
+        if (!statSync(fileName).size) {
+            ctx.log.warn(`Dropbox: File "${fileName}" is empty and was not sent`);
+            continue;
+        }
+
         try {
-            fileName = fileNames.shift() as string;
-            fileName = fileName.replace(/\\/g, '/');
-            const onlyFileName = fileName.split('/').pop() as string;
-
-            if (!existsSync(fileName)) {
-                ctx.log.error(`Dropbox: File "${fileName}" not found`);
-                continue;
-            }
-
-            ctx.log.debug(`Dropbox: Copy ${onlyFileName}...`);
-            const fileSize = statSync(fileName).size;
-
-            if (!fileSize) {
-                ctx.log.warn(`Dropbox: File "${fileName}" is empty and was not sent`);
-                continue;
-            }
-
-            if (Math.round((fileSize / (1024 * 1024)) * 10) / 10 <= SINGLE_SHOT_LIMIT_MB) {
-                const readStream = createReadStream(fileName);
-                readStream.on('error', err => {
-                    ctx.log.error(`readStream Dropbox: ${err}`);
-                });
-                await new Promise<void>(resolve => {
-                    dbx(
-                        {
-                            resource: 'files/upload',
-                            parameters: {
-                                path: join(dir, onlyFileName).replace(/\\/g, '/'),
-                            },
-                            readStream,
-                        },
-                        err => {
-                            try {
-                                if (err) {
-                                    ctx.errors.dropbox = JSON.stringify(err);
-                                    ctx.log.error(`upload Dropbox: ${JSON.stringify(err)}`);
-                                }
-                            } catch (e) {
-                                ctx.errors.dropbox = e as Error;
-                                ctx.log.error(`Dropbox callback error: ${JSON.stringify(e)}`);
-                            }
-                            resolve();
-                        },
-                    );
-                });
-            } else {
-                try {
-                    await dropbox.sessionUpload(dbx, fileName, dir, ctx.log);
-                } catch (e) {
-                    ctx.errors.dropbox = e as Error;
-                    ctx.log.error(`Dropbox sessionUpload: ${JSON.stringify(e)}`);
-                }
-            }
+            await uploadFile(dbx, fileName, join(dir, onlyFileName).replace(/\\/g, '/'), ctx.log);
         } catch (e) {
-            ctx.errors.dropbox = e as Error;
-            ctx.log.error(`Dropbox: ${JSON.stringify(e)}`);
+            const text = dropboxErrorText(e);
+            ctx.errors.dropbox = text;
+            ctx.log.error(`Dropbox: upload of ${onlyFileName} failed: ${text}`);
         }
     }
 }
@@ -113,35 +68,18 @@ async function copyFiles(
 /**
  * Deletes the given files, keeping going past any that fail.
  *
- * A client that threw synchronously used to report completion and then carry on walking the list,
- * so the step reported twice. It only logs now.
- *
  * @param dbx authenticated dropbox client
- * @param files paths to delete; this list is consumed
+ * @param paths paths to delete; this list is consumed
  * @param ctx run context, for the logger
  */
-async function deleteFiles(dbx: DropboxClient, files: string[], ctx: BackItUpContext): Promise<void> {
-    while (files.length) {
-        ctx.log.debug(`Dropbox: delete ${files[0]}`);
+async function deleteFiles(dbx: Dropbox, paths: string[], ctx: BackItUpContext): Promise<void> {
+    while (paths.length) {
+        const path = paths.shift() as string;
+        ctx.log.debug(`Dropbox: delete ${path}`);
         try {
-            await new Promise<void>(resolve => {
-                dbx(
-                    {
-                        resource: 'files/delete',
-                        parameters: {
-                            path: files.shift(),
-                        },
-                    },
-                    err => {
-                        if (err) {
-                            ctx.log.error(`Dropbox: ${JSON.stringify(err)}`);
-                        }
-                        resolve();
-                    },
-                );
-            });
+            await dbx.filesDeleteV2({ path });
         } catch (e) {
-            ctx.log.error(`Dropbox: ${JSON.stringify(e)}`);
+            ctx.log.error(`Dropbox: ${dropboxErrorText(e)}`);
         }
     }
 }
@@ -157,7 +95,7 @@ async function deleteFiles(dbx: DropboxClient, files: string[], ctx: BackItUpCon
  * @param ctx run context, for the logger
  */
 async function cleanFiles(
-    dbx: DropboxClient,
+    dbx: Dropbox,
     options: DropboxUploadOptions,
     dir: string,
     names: string[],
@@ -168,30 +106,19 @@ async function cleanFiles(
         return;
     }
 
-    const result = await new Promise<any>(resolve => {
-        dbx(
-            {
-                resource: 'files/list_folder',
-                parameters: {
-                    path: dir.replace(/^\/$/, ''),
-                },
-            },
-            (err, list) => {
-                if (err) {
-                    ctx.log.error(`Dropbox: ${JSON.stringify(err)}`);
-                }
-                resolve(list);
-            },
+    let entries: files.FileMetadataReference[];
+    try {
+        entries = (await listFolder(dbx, dir)).filter(
+            (entry): entry is files.FileMetadataReference => entry['.tag'] === 'file',
         );
-    });
-
-    if (!result || !result.entries) {
+    } catch (e) {
+        ctx.log.error(`Dropbox: ${dropboxErrorText(e)}`);
         return;
     }
 
-    const files: string[] = [];
+    const paths: string[] = [];
     names.forEach(name => {
-        const subResult = (result.entries as any[]).filter((a: any) => a.name.startsWith(name));
+        const subResult = entries.filter(entry => entry.name.startsWith(name));
         let numDel = num;
 
         // Multi-instance setups produce one file per configured target per run.
@@ -209,26 +136,16 @@ async function cleanFiles(
         }
 
         if (subResult.length > numDel) {
-            // delete oldest files
-            subResult.sort((a: any, b: any) => {
-                const at = new Date(a.client_modified).getTime();
-                const bt = new Date(b.client_modified).getTime();
-                if (at > bt) {
-                    return -1;
-                }
-                if (at < bt) {
-                    return 1;
-                }
-                return 0;
-            });
+            // delete oldest files: newest first, everything after `numDel` goes
+            subResult.sort((a, b) => new Date(b.client_modified).getTime() - new Date(a.client_modified).getTime());
 
             for (let i = numDel; i < subResult.length; i++) {
-                files.push(subResult[i].path_display);
+                paths.push(subResult[i].path_display as string);
             }
         }
     });
 
-    await deleteFiles(dbx, files, ctx);
+    await deleteFiles(dbx, paths, ctx);
 }
 
 /**
@@ -239,8 +156,6 @@ async function cleanFiles(
 export async function run(props: BackItUpProps<DropboxUploadOptions>): Promise<void> {
     const { context: ctx, options } = props;
 
-    const dropbox = new Dropbox();
-
     // Token refresh
     const db_accessToken = options.accessToken || '';
 
@@ -249,7 +164,7 @@ export async function run(props: BackItUpProps<DropboxUploadOptions>): Promise<v
     }
 
     const fileNames: string[] = JSON.parse(JSON.stringify(ctx.fileNames));
-    const dbx = authenticate({ token: db_accessToken });
+    const dbx = createClient(db_accessToken);
 
     let dir = (options.dir || '').replace(/\\/g, '/');
 
@@ -257,19 +172,13 @@ export async function run(props: BackItUpProps<DropboxUploadOptions>): Promise<v
         dir = `/${dir || ''}`;
     }
 
-    await copyFiles(dbx, dropbox, dir, fileNames, ctx);
+    await copyFiles(dbx, dir, fileNames, ctx);
 
     if (options.deleteOldBackup === true) {
         const dropboxDeleteAfter =
             options.advancedDelete === false ? options.deleteBackupAfter : options.dropboxDeleteAfter;
 
-        try {
-            await cleanFiles(dbx, options, dir, ctx.types, dropboxDeleteAfter as number, ctx);
-        } catch (cleanErr) {
-            // Only a synchronous failure of the listing call gets here, as before.
-            ctx.errors.dropbox = ctx.errors.dropbox || (cleanErr as Error);
-            throw cleanErr;
-        }
+        await cleanFiles(dbx, options, dir, ctx.types, dropboxDeleteAfter as number, ctx);
     }
 
     if (!ctx.errors.dropbox) {

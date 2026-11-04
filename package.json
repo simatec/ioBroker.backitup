@@ -60,7 +60,7 @@
     "axios": "^1.20.0",
     "cors": "^2.8.6",
     "cron-parser": "^5.10.1",
-    "dropbox-v2-api": "^2.5.12",
+    "dropbox": "10.66.0",
     "express": "^5.2.1",
     "fs-extra": "^11.4.1",
     "ftp": "^0.3.10",
