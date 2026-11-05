@@ -36,7 +36,7 @@
     "CCU hosts": "CCU 主机",
     "CIFS": "CIFS",
     "Cancel": "取消",
-    "Close": "关闭",
+    "Close": "关",
     "Close on ready": "关闭准备就绪",
     "Config found in %s, but nothing changed": "在 %s 中找到配置，但没有任何改变",
     "Config taken from %s": "配置取自 %s",
@@ -59,7 +59,7 @@
     "Delete old ccu backups with the exception of the last X pieces": "删除旧的 ccu 备份（最后 X 部分除外）",
     "Delete old ioBroker backups with the exception of the last X pieces": "删除旧的 ioBroker 备份（最后 X 部分除外）",
     "Detect config": "检测配置",
-    "Device ID": "设备ID",
+    "Device ID": "设备 ID",
     "Discord instance": "不和谐实例",
     "Discord receiver": "不和谐接收器",
     "Domain name (optional)": "域名（可选）",
@@ -282,5 +282,5 @@
     "path": "小路",
     "piece": "片",
     "ra_Close": "关闭",
-    "seconds": "秒"
+    "seconds": "秒数"
 }
