@@ -1,7 +1,7 @@
 import { existsSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { getIobDir } from './tools';
+import { getIobDir, isPureIobrokerBackup } from './tools';
 import type { BackItUpContext, BackItUpStorage } from './types';
 import type {
     BackItUpListCallback,
@@ -89,15 +89,13 @@ export default function listBackups(
             })
             .filter(
                 file =>
-                    (file.name.match(/^\d\d\d\d_\d\d_\d\d-\d\d_\d\d_\d\d_backupiobroker\.tar\.gz$/) ||
+                    (isPureIobrokerBackup(file.name) ||
                         creators.includes(file.name.split('_')[0]) ||
                         creators.includes(file.name.split('.')[0])) &&
                     file.name.split('.').pop() === 'gz',
             )
             .forEach(file => {
-                const type = file.name.match(/^\d\d\d\d_\d\d_\d\d-\d\d_\d\d_\d\d_backupiobroker\.tar\.gz$/)
-                    ? 'iobroker'
-                    : file.name.split('_')[0];
+                const type = isPureIobrokerBackup(file.name) ? 'iobroker' : file.name.split('_')[0];
                 local[type] = local[type] || [];
                 local[type].push(file);
             });

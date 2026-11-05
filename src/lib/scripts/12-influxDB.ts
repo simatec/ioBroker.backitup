@@ -3,7 +3,7 @@ import { existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { ensureDir, remove } from 'fs-extra';
 
-import { getDate, maskSecret } from '../tools';
+import { findExecutable, getDate, maskSecret } from '../tools';
 import { compressAsync } from '../targz';
 import type { BackItUpContext, BackItUpProps } from '../types';
 
@@ -113,6 +113,14 @@ async function startBackup(ctx: BackItUpContext, options: InfluxDbOptions): Prom
     );
     const tmpDir = join(ctx.backupDir, `influxDB_${getDate()}${nameSuffix ? `_${nameSuffix}` : ''}_backupiobroker`);
 
+    // Checked before anything is created, so a missing program leaves no files behind
+    const program = options.dbversion === '2.x' ? 'influx' : 'influxd';
+    if (!findExecutable(options.exe || program)) {
+        const message = missingProgramMessage(program, options.exe);
+        ctx.errors.influxDB = message;
+        throw new Error(message);
+    }
+
     ctx.fileNames.push(fileName);
 
     ctx.log.debug('Start InfluxDB Backup ...');
@@ -219,6 +227,32 @@ async function startBackup(ctx: BackItUpContext, options: InfluxDbOptions): Prom
     if (existsSync(tmpDir)) {
         await dropTmp();
     }
+}
+
+/**
+ * Explains what to do when the backup program is missing on this host.
+ *
+ * @param program `influx` for 2.x, `influxd` for 1.x
+ * @param exe the path set in the InfluxDB settings, if any
+ */
+function missingProgramMessage(program: 'influx' | 'influxd', exe?: string): string {
+    if (exe) {
+        return `The InfluxDB program "${exe}" set in the InfluxDB settings of BackItUp does not exist on this host or is not executable. Please check the path.`;
+    }
+    if (program === 'influx') {
+        const apt = process.platform === 'linux' ? ', e.g. with "sudo apt install influxdb2-cli"' : '';
+        return (
+            'The InfluxDB command line tool "influx" is not installed on this host. ' +
+            'BackItUp needs it for the InfluxDB backup, also when InfluxDB itself runs in Docker or on another host. ' +
+            `Install it${apt} (see https://docs.influxdata.com/influxdb/v2/tools/influx-cli/), ` +
+            'or enter its full path in the InfluxDB settings of BackItUp.'
+        );
+    }
+    return (
+        'The InfluxDB program "influxd" is not installed on this host. ' +
+        'For InfluxDB 1.x BackItUp runs "influxd backup", so InfluxDB 1.x must be installed here, also when the database runs on another host. ' +
+        'Install it or enter the full path of "influxd" in the InfluxDB settings of BackItUp.'
+    );
 }
 
 /**

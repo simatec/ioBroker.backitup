@@ -1,17 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="BackItUp">
-    <circle cx="32" cy="32" r="32" fill="#FF013E" />
-    <g fill="none" stroke="#FFF" stroke-width="2">
-        <!-- clock face: ring left open at the lower left, where the arrow head sits -->
-        <path d="M12.29 30.1A19.8 19.8 0 1 1 17.4 45.38" stroke-width="4.3" />
-        <!-- minute hand -->
-        <path d="M32 16.6V32" />
-        <!-- hour hand -->
-        <path d="M32 32L40.1 40.1" stroke-linecap="round" />
-    </g>
-    <g fill="#FFF">
-        <!-- arrow head, pointing counterclockwise -->
-        <path d="M6.9 30H18.4L12.6 39.9Z" />
-        <!-- hub -->
-        <circle cx="32" cy="32" r="2.45" />
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="2 -6 96 96" role="img" aria-label="BackItUp">
+    <defs>
+        <linearGradient id="bkIconCloud" x1="14" y1="14" x2="88" y2="62" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#7CD8FF" />
+            <stop offset="0.5" stop-color="#2FA4FF" />
+            <stop offset="1" stop-color="#1667F2" />
+        </linearGradient>
+        <!-- side shading of the database slices: darker edges, bright middle -->
+        <linearGradient id="bkIconDbSide" x1="37" y1="0" x2="63" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#1A5CE6" />
+            <stop offset="0.4" stop-color="#4FB8FF" />
+            <stop offset="0.62" stop-color="#7CD2FF" />
+            <stop offset="1" stop-color="#1A52D0" />
+        </linearGradient>
+        <linearGradient id="bkIconDbTop" x1="37" y1="32" x2="63" y2="42" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#A6E6FF" />
+            <stop offset="1" stop-color="#5BB8FF" />
+        </linearGradient>
+        <filter id="bkIconGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="2" result="blur" />
+            <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        <!-- keeps a gap between the cloud outline and the database in front of it -->
+        <mask id="bkIconCut" maskUnits="userSpaceOnUse" x="0" y="-6" width="100" height="96">
+            <rect x="0" y="-6" width="100" height="96" fill="#FFF" />
+            <path d="M37 37A13 4.5 0 0 1 63 37V66A13 4.5 0 0 1 37 66Z" fill="#000" stroke="#000" stroke-width="8" />
+        </mask>
+    </defs>
+    <!-- cloud outline -->
+    <path
+        d="M26 60H72A16 16 0 0 0 74.5 28.2A22 22 0 0 0 33 33.88A14 14 0 1 0 26 60Z"
+        fill="none"
+        stroke="url(#bkIconCloud)"
+        stroke-width="6"
+        stroke-linejoin="round"
+        mask="url(#bkIconCut)"
+        filter="url(#bkIconGlow)"
+    />
+    <!-- database: top cap and three slices -->
+    <g filter="url(#bkIconGlow)">
+        <ellipse cx="50" cy="37" rx="13" ry="4.5" fill="url(#bkIconDbTop)" />
+        <path d="M37 37v7a13 4.5 0 0 0 26 0v-7a13 4.5 0 0 1 -26 0Z" fill="url(#bkIconDbSide)" />
+        <path d="M37 48v7a13 4.5 0 0 0 26 0v-7a13 4.5 0 0 1 -26 0Z" fill="url(#bkIconDbSide)" />
+        <path d="M37 59v7a13 4.5 0 0 0 26 0v-7a13 4.5 0 0 1 -26 0Z" fill="url(#bkIconDbSide)" />
     </g>
 </svg>

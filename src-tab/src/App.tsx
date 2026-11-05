@@ -2,35 +2,40 @@ import React from 'react';
 import { saveAs } from 'file-saver';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
-import { Card, CardContent, Button, AppBar, Toolbar, Tooltip, Fab, Box, CssBaseline } from '@mui/material';
+import { Box, CssBaseline, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip } from '@mui/material';
 
 import {
+    ArrowForward,
+    ChevronRight,
     CloudUploadOutlined,
+    Favorite,
+    FileDownloadOutlined,
     FormatListBulleted,
-    InfoOutlined,
+    Help,
+    History,
+    LayersOutlined,
+    MoreVert,
+    PlayArrow,
+    School,
     Search,
     SettingsBackupRestore,
-    UploadOutlined,
+    SettingsOutlined,
     StorageOutlined,
-    Help,
-    School,
-    Favorite,
-    History,
-    Alarm,
 } from '@mui/icons-material';
 
 import {
     GenericApp,
     I18n,
+    IconPlayPause,
+    IconUpload,
     Loader,
     AdminConnection,
     ScrollbarStyles,
-    type IobTheme,
     type GenericAppProps,
     type GenericAppState,
 } from '@iobroker/gui-components';
 
-import logo from './assets/backitup.svg';
+import logo from './assets/backitup-cloud.svg';
 
 import BackupHistory from './Components/BackupHistory';
 import GetBackups from './Components/GetBackups';
@@ -40,6 +45,21 @@ import UploadSettings from './Components/UploadSettings';
 import BackupNow from './Components/BackupNow';
 import SourceSelector from './Components/SourceSelector';
 import Restore from './Components/Restore';
+import HeroCard, { type HeroBackupInfo, parseLastTime } from './Components/Dashboard/HeroCard';
+import AliveLed from './Components/Dashboard/AliveLed';
+import { type HoverEffect, revealSx } from './Components/Dashboard/motion';
+import RecentBackups, { type HistoryEntry } from './Components/Dashboard/RecentBackups';
+import { StorageIcon } from './Components/Dashboard/StorageIcons';
+import { getTokens, type DashboardTokens } from './Components/Dashboard/tokens';
+import {
+    ActionTile,
+    CheckMark,
+    DashboardCard,
+    IconBox,
+    Pill,
+    RoundButton,
+    SectionHeader,
+} from './Components/Dashboard/Parts';
 
 import enLang from './i18n/en.json';
 import deLang from './i18n/de.json';
@@ -61,235 +81,79 @@ declare module '@mui/material/Button' {
 
 const isDarkThemeName = (themeName?: string): boolean => themeName === 'modernDark' || themeName === 'dark';
 
-const styles: Record<string, any> = {
-    root: {},
-    tabContent: {
-        padding: 10,
-        height: 'calc(100% - 64px - 48px - 20px)',
-        overflow: 'auto',
-    },
-    tabContentIFrame: {
-        padding: 10,
-        height: 'calc(100% - 64px - 48px - 20px - 38px)',
-        overflow: 'auto',
-    },
-    headerArea: (theme: IobTheme): React.CSSProperties => ({
-        backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background.paper : '#FFFFFF',
-        backgroundImage: 'none',
-        boxShadow: theme.palette.mode === 'dark' ? '0 1px 2px 0 rgba(0,0,0,0.4)' : '0 1px 2px 0 rgba(15, 23, 42, 0.04)',
-        borderBottom: theme.palette.mode === 'dark' ? '1px solid rgba(255,255,255,0.08)' : '1px solid #E5E7EB',
-    }),
-    header: {
-        fontSize: '1.05rem',
-        fontWeight: 700,
-        letterSpacing: '-0.01em',
-        lineHeight: '130%',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '10px',
-        p: '0.35rem 0 0.6rem 0',
-        borderBottom: '2px solid #3B82F6',
-    },
-    headerDark: {
-        color: '#E2E8F0',
-        backgroundImage: 'none',
-        borderBottom: '2px solid #29A8D8',
-    },
-    headerLight: {
-        color: '#0F2E5C',
-        backgroundImage: 'none',
-        borderBottom: '2px solid #1B6FA8',
-    },
-    subHeader: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginBottom: 8,
-        color: '#0F2E5C',
-    },
-    cardHeader: {
-        fontSize: '1.15rem',
-        lineHeight: '38px',
-        fontWeight: '700',
-        letterSpacing: '-0.01em',
-        marginBottom: 8,
-    },
-    headerIcon: {
-        height: 22,
-        width: 22,
-        fontSize: 22,
-        float: 'left',
-        margin: '0 10px 0 0',
-    },
-    historyIcon: {
-        height: 20,
-        width: 20,
-        fontSize: 20,
-        marginTop: 2,
-        flexShrink: 0,
-        opacity: 0.55,
-    },
-    icon: {
-        height: 44,
-        width: 44,
-        fontSize: 22,
-        padding: 11,
-        borderRadius: '10px',
-        boxSizing: 'content-box',
-        filter: 'none',
-    },
-    iconDiv: {
-        flexShrink: 0,
-        display: 'flex',
-        alignItems: 'flex-start',
-    },
-    iconDivLight: {},
-    iconDivDark: {},
-    textDiv: {
-        flex: 1,
-        minWidth: 0,
-    },
-    cardInner: {
-        display: 'flex',
-        alignItems: 'flex-start',
-        gap: 20,
-        padding: '20px 22px',
-        height: '100%',
-        boxSizing: 'border-box',
-    },
-    cardContent: (theme: IobTheme): React.CSSProperties => ({
-        padding: 0,
-        height: '100%',
-        borderRadius: '12px',
-        boxShadow: theme.palette.mode === 'dark' ? '0 1px 2px rgba(0,0,0,0.35)' : '0 1px 3px rgba(15, 23, 42, 0.06)',
-        backgroundImage: 'none',
-        backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.03)' : '#FFFFFF',
-        border: theme.palette.mode === 'dark' ? '1px solid rgba(255,255,255,0.08)' : '1px solid #E5E7EB',
-    }),
-    card: {
-        borderRadius: '12px',
-        transition: 'transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease',
-        '&:hover': {
-            transform: 'translateY(-2px)',
-            boxShadow: '0 6px 18px 0 rgba(15, 23, 42, 0.14)',
-        },
-    },
-    label: {
-        fontWeight: 600,
-        fontSize: '0.75em',
-        opacity: 0.55,
-        textTransform: 'uppercase',
-        letterSpacing: '0.03em',
-        marginBottom: 2,
-    },
-    value: {
-        fontSize: 'clamp(0.8em, 0.55em + 0.6vw, 0.95em)',
-        fontWeight: 600,
-    },
-    footer: {
-        fontSize: '0.85rem',
-        fontWeight: 400,
-        lineHeight: '110%',
-        textAlign: 'center',
-        marginTop: 8,
-        position: 'fixed',
-        bottom: 0,
-        width: '100%',
-        overflow: 'overlay',
-        zIndex: 997,
-        padding: '7px 0 7px 0',
-        margin: '0 0 0 -8px',
-        cursor: 'pointer',
-        borderTop: '1px solid #E5E7EB',
-        textDecoration: 'none',
-        opacity: 0.9,
-        transition: 'opacity 0.15s ease',
-    },
-    footerDark: {
-        backgroundColor: 'rgba(255,255,255,0.03)',
-        color: '#E2E8F0',
-        borderTop: '1px solid rgba(255,255,255,0.08)',
-    },
-    footerLight: {
-        backgroundColor: '#FFFFFF',
-        color: '#64748B',
-    },
-    buttonWidth: {
-        width: '100%',
-    },
-    helpButtonGroup: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '6px',
-        position: 'absolute',
-        right: 10,
-        top: 9,
-    },
-    helpButton: (theme: IobTheme) => ({
-        width: 36,
-        height: 36,
-        boxShadow: 'none',
-        backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(15, 23, 42, 0.045)',
-        color: theme.palette.mode === 'dark' ? '#CBD5E1' : '#475569',
-        transition: 'background-color 0.15s ease, box-shadow 0.15s ease',
-        '&:hover': {
-            backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.16)' : 'rgba(15, 23, 42, 0.10)',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
-        },
-    }),
+/** How many history entries are shown in "Recent backups" */
+const RECENT_BACKUPS = 3;
 
-    button: (theme: IobTheme) => ({
-        borderRadius: '8px',
-        textTransform: 'none',
-        fontWeight: 600,
-        transition: 'filter 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease',
-        '&:hover': {
-            filter: theme.palette.mode === 'dark' ? 'brightness(1.16)' : 'brightness(0.93)',
-            boxShadow: '0 4px 12px rgba(15, 23, 42, 0.20)',
-        },
-        '&:active': {
-            filter: theme.palette.mode === 'dark' ? 'brightness(1.06)' : 'brightness(0.87)',
-        },
-        '&.Mui-disabled': {
-            filter: 'none',
-            boxShadow: 'none',
-        },
-    }),
-    list: {
-        listStyleType: 'disc',
-        padding: '0 0 0 18px',
-        margin: 0,
-        overflow: 'visible',
-    },
-    listItem: {
-        marginBottom: 8,
-        lineHeight: 1.4,
-    },
-    infoListItem: {
-        display: 'flex',
-        alignItems: 'flex-start',
-        gap: 10,
-        marginBottom: 10,
-    },
+const STORAGE_OPTIONS: { name: string; type: string; label: string }[] = [
+    { name: 'cifsEnabled', type: 'cifs', label: 'NAS' },
+    { name: 'ftpEnabled', type: 'ftp', label: 'FTP' },
+    { name: 'dropboxEnabled', type: 'dropbox', label: 'Dropbox' },
+    { name: 'onedriveEnabled', type: 'onedrive', label: 'OneDrive' },
+    { name: 'googledriveEnabled', type: 'googledrive', label: 'Google Drive' },
+    { name: 'webdavEnabled', type: 'webdav', label: 'WebDAV' },
+];
+
+const BACKUP_OPTIONS: { name: string; label: string }[] = [
+    { name: 'minimalEnabled', label: 'ioBroker' },
+    { name: 'ccuEnabled', label: 'Homematic CCU backup' },
+    { name: 'jarvisEnabled', label: 'Jarvis backup' },
+    { name: 'redisEnabled', label: 'Save Redis state' },
+    { name: 'javascriptsEnabled', label: 'Javascripts backup' },
+    { name: 'zigbeeEnabled', label: 'Zigbee Backup' },
+    { name: 'esphomeEnabled', label: 'ESPHome' },
+    { name: 'zigbee2mqttEnabled', label: 'Zigbee2MQTT' },
+    { name: 'noderedEnabled', label: 'Node-Red backup' },
+    { name: 'yahkaEnabled', label: 'Yahka (Homekit) backup' },
+    { name: 'historyEnabled', label: 'History Backup' },
+    { name: 'influxDBEnabled', label: 'InfluxDB backup' },
+    { name: 'mySqlEnabled', label: 'MySql backup' },
+    { name: 'sqliteEnabled', label: 'SQLite backup' },
+    { name: 'grafanaEnabled', label: 'Grafana backup' },
+    { name: 'pgSqlEnabled', label: 'PostgreSQL Backup' },
+];
+
+const cardTitleStyle: React.CSSProperties = {
+    fontSize: '1.15rem',
+    fontWeight: 700,
+    letterSpacing: '-0.01em',
+    marginBottom: 12,
 };
 
 interface AppState extends GenericAppState {
     showBackupHistory: boolean;
-    showGetBackups: boolean;
-    showRestore: any;
+    /** 'local' lists the local backups whatever source is selected (e.g. after an upload) */
+    showGetBackups: boolean | 'local';
+    showRestore: { location: string; object: string; fileName: string } | null;
     showUploadBackup: boolean;
     backupSource: string;
     connectType: string;
     myAlive: boolean;
     restoreIfWait: number;
+    /** Raw state values. They are formatted while rendering */
     iobrokerLastTime: string;
     iobrokerNextTime: string;
     ccuLastTime: string;
     ccuNextTime: string;
+    /** oneClick.<type>: the backup runs now, also the scheduled one */
+    iobrokerRunning: boolean;
+    ccuRunning: boolean;
+    history: HistoryEntry[];
+    /** Index of the recent backup whose download is being prepared */
+    downloadIndex: number | null;
+    moreMenu: HTMLElement | null;
     systemInfo: { systemOS: string } | null;
     showUploadSettings: boolean;
-    showLogs: null | { fileName: string; timestamp: number; index: number };
-    hoverIobrokerBackup: boolean;
-    hoverCcuBackup: boolean;
+    /**
+     * `latest`: the log of the last run of this type, also of a failed one.
+     * `failedAt`: time of the failed run the user clicked on
+     */
+    showLogs: null | {
+        fileName: string;
+        timestamp: number;
+        index: number;
+        latest?: 'iobroker' | 'ccu';
+        failedAt?: string;
+    };
 }
 
 export default class App extends GenericApp<GenericAppProps, AppState> {
@@ -331,102 +195,79 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
             connectType: this.state.native.connectType,
             myAlive: false,
             restoreIfWait: 5000,
-            hoverIobrokerBackup: false,
-            hoverCcuBackup: false,
+            iobrokerRunning: false,
+            ccuRunning: false,
+            history: [],
+            downloadIndex: null,
+            moreMenu: null,
         };
     }
 
     /**
-     * Ersetzt das veraltete this.state.themeType.
-     * Ermittelt Dark/Light konsequent aus this.state.themeName
-     * (gültige Werte: 'modernLight' | 'modernDark' | 'dark' | 'light').
+     * Dark/Light is taken from this.state.themeName
+     * (valid values: 'modernLight' | 'modernDark' | 'dark' | 'light').
      */
     isDark(): boolean {
         return isDarkThemeName(this.state.themeName);
     }
 
-    /**
-     * Für Kind-Komponenten, die weiterhin eine themeType-Prop ('dark' | 'light') erwarten.
-     * Der Wert wird jetzt aus themeName abgeleitet statt aus dem veralteten State-Feld gelesen.
-     */
+    /** For child components that still expect a themeType prop ('dark' | 'light') */
     get derivedThemeType(): 'dark' | 'light' {
         return this.isDark() ? 'dark' : 'light';
     }
 
-    /**
-     * Liefert exakt dasselbe visuelle Ergebnis wie styles.button (Radius, Hover-Filter, Shadow),
-     * aber als reines inline-CSSProperties-Objekt. Notwendig für BackupNow, da diese Komponente
-     * nur ein "style"-Prop (kein sx / keine echten :hover-Pseudoklassen) unterstützt.
-     * Dadurch identisches Verhalten in allen vier Themes (modernLight, modernDark, dark, light).
-     */
-    getActionButtonStyle(hovered: boolean): React.CSSProperties {
-        const dark = this.isDark();
-        return {
-            width: '100%',
-            borderRadius: '8px',
-            textTransform: 'none',
-            fontWeight: 600,
-            transition: 'filter 0.15s ease, box-shadow 0.15s ease',
-            ...(hovered
-                ? {
-                      filter: dark ? 'brightness(1.16)' : 'brightness(0.93)',
-                      boxShadow: '0 4px 12px rgba(15, 23, 42, 0.20)',
-                  }
-                : undefined),
-        };
+    get statePrefix(): string {
+        return `${this.adapterName}.${this.instance}`;
     }
 
-    static translateTime(time: string | undefined): string {
-        if (time === 'none') {
-            return '--';
+    static parseHistory(val: ioBroker.StateValue | undefined): HistoryEntry[] {
+        if (typeof val !== 'string' || !val) {
+            return [];
         }
-        if (time === 'No backups yet') {
-            return I18n.t('No backups yet');
+        try {
+            const list = JSON.parse(val);
+            return Array.isArray(list) ? list : [];
+        } catch {
+            return [];
         }
-        if (typeof time === 'string' && time.startsWith('error')) {
-            return time.replace('error', I18n.t('Error'));
-        }
-        return time || '';
     }
 
     async onConnectionReady(): Promise<void> {
-        const myAlive = await this.socket.getState(`system.adapter.${this.adapterName}.${this.instance}.alive`);
+        const myAlive = await this.socket.getState(`system.adapter.${this.statePrefix}.alive`);
         const newState: Partial<AppState> = { myAlive: !!myAlive?.val };
 
-        if (this.state.native.minimalEnabled) {
-            const iobrokerLastTime = await this.socket.getState(
-                `${this.adapterName}.${this.instance}.history.iobrokerLastTime`,
-            );
-            const iobrokerNextTime: ioBroker.State | null | undefined = await this.socket.getState(
-                `${this.adapterName}.${this.instance}.info.iobrokerNextTime`,
-            );
-            newState.iobrokerNextTime = App.translateTime(iobrokerNextTime?.val as string | undefined);
-            newState.iobrokerLastTime = App.translateTime(iobrokerLastTime?.val as string | undefined);
-        }
+        const [iobrokerLastTime, iobrokerNextTime, ccuLastTime, ccuNextTime, history] = await Promise.all([
+            this.socket.getState(`${this.statePrefix}.history.iobrokerLastTime`),
+            this.socket.getState(`${this.statePrefix}.info.iobrokerNextTime`),
+            this.socket.getState(`${this.statePrefix}.history.ccuLastTime`),
+            this.socket.getState(`${this.statePrefix}.info.ccuNextTime`),
+            this.socket.getState(`${this.statePrefix}.history.json`),
+        ]);
+        newState.iobrokerLastTime = iobrokerLastTime?.val as string;
+        newState.iobrokerNextTime = iobrokerNextTime?.val as string;
+        newState.ccuLastTime = ccuLastTime?.val as string;
+        newState.ccuNextTime = ccuNextTime?.val as string;
+        newState.history = App.parseHistory(history?.val);
 
-        if (this.state.native.ccuEnabled) {
-            const ccuLastTime = await this.socket.getState(`${this.adapterName}.${this.instance}.history.ccuLastTime`);
-            const ccuNextTime = await this.socket.getState(`${this.adapterName}.${this.instance}.info.ccuNextTime`);
-            newState.ccuLastTime = App.translateTime(ccuLastTime?.val as string | undefined);
-            newState.ccuNextTime = App.translateTime(ccuNextTime?.val as string | undefined);
-        }
+        const [iobrokerRunning, ccuRunning] = await Promise.all([
+            this.socket.getState(`${this.statePrefix}.oneClick.iobroker`),
+            this.socket.getState(`${this.statePrefix}.oneClick.ccu`),
+        ]);
+        newState.iobrokerRunning = !!iobrokerRunning?.val;
+        newState.ccuRunning = !!ccuRunning?.val;
 
-        await this.socket.subscribeState(`system.adapter.${this.adapterName}.${this.instance}.alive`, this.onAlive);
-        await this.socket.subscribeObject(`system.adapter.${this.adapterName}.${this.instance}`, this.onSettings);
-        await this.socket.subscribeState(
-            `${this.adapterName}.${this.instance}.history.iobrokerLastTime`,
-            this.onHistory,
-        );
-        await this.socket.subscribeState(`${this.adapterName}.${this.instance}.info.iobrokerNextTime`, this.onHistory);
-        await this.socket.subscribeState(`${this.adapterName}.${this.instance}.history.ccuLastTime`, this.onHistory);
-        await this.socket.subscribeState(`${this.adapterName}.${this.instance}.info.ccuNextTime`, this.onHistory);
+        await this.socket.subscribeState(`system.adapter.${this.statePrefix}.alive`, this.onAlive);
+        await this.socket.subscribeObject(`system.adapter.${this.statePrefix}`, this.onSettings);
+        await this.socket.subscribeState(`${this.statePrefix}.history.iobrokerLastTime`, this.onHistory);
+        await this.socket.subscribeState(`${this.statePrefix}.info.iobrokerNextTime`, this.onHistory);
+        await this.socket.subscribeState(`${this.statePrefix}.history.ccuLastTime`, this.onHistory);
+        await this.socket.subscribeState(`${this.statePrefix}.info.ccuNextTime`, this.onHistory);
+        await this.socket.subscribeState(`${this.statePrefix}.history.json`, this.onHistory);
+        await this.socket.subscribeState(`${this.statePrefix}.oneClick.iobroker`, this.onHistory);
+        await this.socket.subscribeState(`${this.statePrefix}.oneClick.ccu`, this.onHistory);
 
-        if (myAlive) {
-            newState.systemInfo = await this.socket.sendTo(
-                `${this.adapterName}.${this.instance}`,
-                'getSystemInfo',
-                null,
-            );
+        if (myAlive?.val) {
+            newState.systemInfo = await this.socket.sendTo(this.statePrefix, 'getSystemInfo', null);
             newState.restoreIfWait =
                 newState.systemInfo?.systemOS === 'docker'
                     ? 10000
@@ -439,7 +280,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
     }
 
     onSettings = (id: string, obj: ioBroker.Object | null | undefined): void => {
-        if (obj && id === `system.adapter.${this.adapterName}.${this.instance}`) {
+        if (obj && id === `system.adapter.${this.statePrefix}`) {
             this.setState({ native: (obj as ioBroker.InstanceObject).native });
         }
     };
@@ -448,224 +289,815 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
         if (!state) {
             return;
         }
-        if (
-            id === `${this.adapterName}.${this.instance}.history.iobrokerLastTime` &&
-            state.val !== this.state.iobrokerLastTime
-        ) {
-            this.setState({ iobrokerLastTime: App.translateTime(state.val as string) });
-        } else if (
-            id === `${this.adapterName}.${this.instance}.history.iobrokerNextTime` &&
-            state.val !== this.state.iobrokerNextTime
-        ) {
-            this.setState({ iobrokerNextTime: App.translateTime(state.val as string) });
-        } else if (
-            id === `${this.adapterName}.${this.instance}.history.ccuLastTime` &&
-            state.val !== this.state.ccuLastTime
-        ) {
-            this.setState({ ccuLastTime: App.translateTime(state.val as string) });
-        } else if (
-            id === `${this.adapterName}.${this.instance}.history.ccuNextTime` &&
-            state.val !== this.state.ccuNextTime
-        ) {
-            this.setState({ ccuNextTime: App.translateTime(state.val as string) });
+        switch (id) {
+            case `${this.statePrefix}.history.iobrokerLastTime`:
+                this.setState({ iobrokerLastTime: state.val as string });
+                break;
+            case `${this.statePrefix}.info.iobrokerNextTime`:
+                this.setState({ iobrokerNextTime: state.val as string });
+                break;
+            case `${this.statePrefix}.history.ccuLastTime`:
+                this.setState({ ccuLastTime: state.val as string });
+                break;
+            case `${this.statePrefix}.info.ccuNextTime`:
+                this.setState({ ccuNextTime: state.val as string });
+                break;
+            case `${this.statePrefix}.history.json`:
+                this.setState({ history: App.parseHistory(state.val) });
+                break;
+            case `${this.statePrefix}.oneClick.iobroker`:
+                this.setState({ iobrokerRunning: !!state.val });
+                break;
+            case `${this.statePrefix}.oneClick.ccu`:
+                this.setState({ ccuRunning: !!state.val });
+                break;
+            default:
+                break;
         }
     };
 
-    async componentWillUnmount(): Promise<void> {
+    componentWillUnmount(): void {
         super.componentWillUnmount();
-        this.socket.unsubscribeState(`system.adapter.${this.adapterName}.${this.instance}.alive`, this.onAlive);
-        await this.socket.unsubscribeObject(`system.adapter.${this.adapterName}.${this.instance}`, this.onSettings);
-        this.socket.unsubscribeState(`${this.adapterName}.${this.instance}.history.iobrokerLastTime`, this.onHistory);
-        this.socket.unsubscribeState(`${this.adapterName}.${this.instance}.info.iobrokerNextTime`, this.onHistory);
-        this.socket.unsubscribeState(`${this.adapterName}.${this.instance}.history.ccuLastTime`, this.onHistory);
-        this.socket.unsubscribeState(`${this.adapterName}.${this.instance}.info.ccuNextTime`, this.onHistory);
+        this.socket.unsubscribeState(`system.adapter.${this.statePrefix}.alive`, this.onAlive);
+        void this.socket.unsubscribeObject(`system.adapter.${this.statePrefix}`, this.onSettings);
+        this.socket.unsubscribeState(`${this.statePrefix}.history.iobrokerLastTime`, this.onHistory);
+        this.socket.unsubscribeState(`${this.statePrefix}.info.iobrokerNextTime`, this.onHistory);
+        this.socket.unsubscribeState(`${this.statePrefix}.history.ccuLastTime`, this.onHistory);
+        this.socket.unsubscribeState(`${this.statePrefix}.info.ccuNextTime`, this.onHistory);
+        this.socket.unsubscribeState(`${this.statePrefix}.history.json`, this.onHistory);
+        this.socket.unsubscribeState(`${this.statePrefix}.oneClick.iobroker`, this.onHistory);
+        this.socket.unsubscribeState(`${this.statePrefix}.oneClick.ccu`, this.onHistory);
     }
 
     onAlive = (id: string, state: ioBroker.State | null | undefined): void => {
-        if (id === `system.adapter.${this.adapterName}.${this.instance}.alive`) {
+        if (id === `system.adapter.${this.statePrefix}.alive`) {
             if (!!state?.val !== this.state.myAlive) {
                 this.setState({ myAlive: !!state?.val });
             }
         }
     };
 
-    renderBackupInformation(): React.JSX.Element {
-        return (
-            <Card sx={styles.card}>
-                <CardContent sx={styles.cardContent}>
-                    <div style={styles.cardInner}>
-                        <div
-                            style={{
-                                ...styles.iconDiv,
-                                ...(this.isDark() ? styles.iconDivDark : styles.iconDivLight),
-                            }}
-                        >
-                            <InfoOutlined
-                                style={styles.icon}
-                                sx={{ backgroundColor: 'rgba(59,130,246,0.12)', color: '#2563EB' }}
-                            />
-                        </div>
-                        <div style={styles.textDiv}>
-                            <div style={styles.cardHeader}>{I18n.t('Backup Information')}</div>
-                            <ul style={{ ...styles.list, listStyleType: 'none', padding: 0 }}>
-                                {this.state.native.minimalEnabled && (
-                                    <li style={styles.infoListItem}>
-                                        <History style={styles.historyIcon} />
-                                        <div>
-                                            <div style={styles.label}>{I18n.t('Last ioBroker backup:')}</div>
-                                            <div style={styles.value}>{this.state.iobrokerLastTime}</div>
-                                        </div>
-                                    </li>
-                                )}
-                                {this.state.native.minimalEnabled && (
-                                    <li style={styles.infoListItem}>
-                                        <Alarm style={styles.historyIcon} />
-                                        <div>
-                                            <div style={styles.label}>{I18n.t('Next ioBroker backup:')}</div>
-                                            <div style={styles.value}>{this.state.iobrokerNextTime}</div>
-                                        </div>
-                                    </li>
-                                )}
-                                {this.state.native.ccuEnabled && (
-                                    <li style={styles.infoListItem}>
-                                        <History style={styles.historyIcon} />
-                                        <div>
-                                            <div style={styles.label}>{I18n.t('Last CCU backup:')}</div>
-                                            <div style={styles.value}>{this.state.ccuLastTime}</div>
-                                        </div>
-                                    </li>
-                                )}
-                                {this.state.native.ccuEnabled && (
-                                    <li style={styles.infoListItem}>
-                                        <Alarm style={styles.historyIcon} />
-                                        <div>
-                                            <div style={styles.label}>{I18n.t('Next CCU backup:')}</div>
-                                            <div style={styles.value}>{this.state.ccuNextTime}</div>
-                                        </div>
-                                    </li>
-                                )}
-                            </ul>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
+    /**
+     * Schedule of a backup type as text, e.g. "Daily, 02:48".
+     *
+     * @param type backup type
+     */
+    getInterval(type: 'iobroker' | 'ccu'): string {
+        const native = this.state.native;
+        const isCron = type === 'iobroker' ? native.iobrokerCron : native.ccuCron;
+        if (isCron) {
+            return `Cron: ${(type === 'iobroker' ? native.iobrokerCronJob : native.ccuCronJob) || ''}`;
+        }
+        const time: string = (type === 'iobroker' ? native.minimalTime : native.ccuTime) || '--:--';
+        const days = parseInt(type === 'iobroker' ? native.minimalEveryXDays : native.ccuEveryXDays, 10) || 1;
+
+        return days <= 1 ? I18n.t('Daily, %s', time) : I18n.t('Every %s days, %s', days.toString(), time);
+    }
+
+    openConfiguration(): void {
+        try {
+            window.parent.postMessage(`goto:tab-instances/config/system.adapter.${this.statePrefix}`, '*');
+        } catch {
+            // ignore
+        }
+    }
+
+    async saveSettings(): Promise<void> {
+        const obj = await this.socket.getObject(`system.adapter.${this.statePrefix}`);
+
+        if (obj?.common?.news) {
+            delete obj.common.news;
+        }
+        if (obj?.common?.titleLang) {
+            delete (obj.common as Partial<ioBroker.InstanceCommon>).titleLang;
+        }
+        if (obj?.common?.desc) {
+            delete obj.common.desc;
+        }
+        const blob = new Blob([JSON.stringify(obj)], {
+            type: 'application/json;charset=utf-8',
+        });
+        const now = new Date();
+        saveAs(
+            blob,
+            `${now.getFullYear()}_${(now.getMonth() + 1).toString().padStart(2, '0')}_${now.getDate().toString().padStart(2, '0')}-${this.statePrefix}.json`,
         );
     }
 
-    renderActivatedStorageOptions(): React.JSX.Element {
-        const options = [
-            { name: 'cifsEnabled', label: `NAS (${this.state.native.connectType})` },
-            { name: 'ftpEnabled', label: 'FTP' },
-            { name: 'dropboxEnabled', label: 'Dropbox' },
-            { name: 'onedriveEnabled', label: 'OneDrive' },
-            { name: 'googledriveEnabled', label: 'Google Drive' },
-            { name: 'webdavEnabled', label: 'WebDAV' },
-        ];
-        return (
-            <Card sx={styles.card}>
-                <CardContent sx={styles.cardContent}>
-                    <div style={styles.cardInner}>
-                        <div
-                            style={{
-                                ...styles.iconDiv,
-                                ...(this.isDark() ? styles.iconDivDark : styles.iconDivLight),
-                            }}
-                        >
-                            <StorageOutlined
-                                style={styles.icon}
-                                sx={{ backgroundColor: 'rgba(6,182,212,0.14)', color: '#0891B2' }}
-                            />
-                        </div>
-                        <div style={styles.textDiv}>
-                            <div style={styles.cardHeader}>{I18n.t('Activated storage options')}</div>
-                            <ul style={styles.list}>
-                                {options.map(
-                                    option =>
-                                        this.state.native[option.name] && (
-                                            <li
-                                                key={option.name}
-                                                style={{ ...styles.listItem, fontSize: '0.95em' }}
-                                            >
-                                                {I18n.t(option.label)}
-                                            </li>
-                                        ),
-                                )}
-                            </ul>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
-        );
+    /**
+     * Finds a backup from the history in the local backup directory.
+     *
+     * @param name file name of the archive
+     * @returns the full path or null if the file is not stored locally (anymore)
+     */
+    async findLocalBackup(name: string): Promise<string | null> {
+        const result: { data?: { local?: Record<string, { name: string; path: string }[]> } } | null =
+            await this.socket.sendTo(this.statePrefix, 'list', 'local');
+        const local = result?.data?.local;
+        if (local) {
+            for (const files of Object.values(local)) {
+                const file = files.find(f => f.name === name);
+                if (file) {
+                    return file.path;
+                }
+            }
+        }
+        return null;
     }
 
-    renderActivatedBackupOptions(): React.JSX.Element {
-        const options = [
-            { name: 'jarvisEnabled', label: 'Jarvis backup' },
-            { name: 'minimalEnabled', label: 'ioBroker' },
-            { name: 'ccuEnabled', label: 'Homematic CCU backup' },
-            { name: 'redisEnabled', label: 'Save Redis state' },
-            { name: 'javascriptsEnabled', label: 'Javascripts backup' },
-            { name: 'zigbeeEnabled', label: 'Zigbee Backup' },
-            { name: 'esphomeEnabled', label: 'ESPHome' },
-            { name: 'zigbee2mqttEnabled', label: 'Zigbee2MQTT' },
-            { name: 'noderedEnabled', label: 'Node-Red backup' },
-            { name: 'yahkaEnabled', label: 'Yahka (Homekit) backup' },
-            { name: 'historyEnabled', label: 'History Backup' },
-            { name: 'influxDBEnabled', label: 'InfluxDB backup' },
-            { name: 'mySqlEnabled', label: 'MySql backup' },
-            { name: 'sqliteEnabled', label: 'SQLite backup' },
-            { name: 'grafanaEnabled', label: 'Grafana backup' },
-            { name: 'pgSqlEnabled', label: 'PostgreSQL Backup' },
-        ];
-        return (
-            <Card sx={styles.card}>
-                <CardContent sx={styles.cardContent}>
-                    <div style={styles.cardInner}>
-                        <div
-                            style={{
-                                ...styles.iconDiv,
-                                ...(this.isDark() ? styles.iconDivDark : styles.iconDivLight),
-                            }}
-                        >
-                            <CloudUploadOutlined
-                                style={styles.icon}
-                                sx={{ backgroundColor: 'rgba(99,102,241,0.13)', color: '#4F46E5' }}
-                            />
-                        </div>
-                        <div style={styles.textDiv}>
-                            <div style={styles.cardHeader}>{I18n.t('Activated backup options')}</div>
-                            <ul style={styles.list}>
-                                {options.map(
-                                    option =>
-                                        this.state.native[option.name] && (
-                                            <li
-                                                key={option.name}
-                                                style={{ ...styles.listItem, fontSize: '0.95em' }}
-                                            >
-                                                {I18n.t(option.label)}
-                                            </li>
-                                        ),
-                                )}
-                            </ul>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
-        );
+    /** The file is gone from the local directory, so let the user pick it from the storages */
+    showNotFoundLocally(): void {
+        this.showToast(I18n.t('The backup file was not found locally. Please select it from the backup list.'));
+        this.setState({ showGetBackups: true });
     }
 
-    renderUploadSettingsDialog(): React.JSX.Element | null {
-        if (!this.state.showUploadSettings) {
-            return null;
+    onDownloadRecent = async (entry: HistoryEntry, index: number): Promise<void> => {
+        if (!entry.name) {
+            return;
+        }
+        this.setState({ downloadIndex: index });
+        try {
+            const path = await this.findLocalBackup(entry.name);
+            if (!path) {
+                this.showNotFoundLocally();
+                return;
+            }
+            const data: { fileName?: string; listenPort?: number; error?: string } | null = await this.socket.sendTo(
+                this.statePrefix,
+                'getFile',
+                { type: 'local', fileName: path, protocol: window.location.protocol },
+            );
+            if (!data?.listenPort) {
+                this.showToast(data?.error ? `${I18n.t('Error')}: ${data.error}` : I18n.t('Error'));
+                return;
+            }
+            saveAs(
+                `${window.location.protocol}//${window.location.hostname}:${data.listenPort}/${encodeURIComponent(data.fileName || entry.name)}`,
+            );
+        } catch (e) {
+            this.showToast(`${I18n.t('Error')}: ${e}`);
+        } finally {
+            this.setState({ downloadIndex: null });
+        }
+    };
+
+    onRestoreRecent = async (entry: HistoryEntry): Promise<void> => {
+        if (!entry.name) {
+            return;
+        }
+        try {
+            const path = await this.findLocalBackup(entry.name);
+            if (path) {
+                this.setState({ showRestore: { location: 'local', object: entry.type, fileName: path } });
+            } else {
+                this.showNotFoundLocally();
+            }
+        } catch (e) {
+            this.showToast(`${I18n.t('Error')}: ${e}`);
+        }
+    };
+
+    getBackupNowContext(): React.ComponentProps<typeof BackupNow>['oContext'] {
+        return {
+            adapterName: this.adapterName,
+            socket: this.socket,
+            instance: this.instance,
+            themeType: this.derivedThemeType,
+            dateFormat: this.socket.systemConfig?.common.dateFormat || 'DD.MM.YYYY HH:mm',
+            isFloatComma: this.socket.systemConfig?.common.isFloatComma || false,
+            theme: this.state.theme,
+            _themeName: this.state.themeName,
+            systemConfig: this.socket.systemConfig?.common || ({} as ioBroker.SystemConfigCommon),
+            onCommandRunning: (_ignore: boolean): void => {},
+            forceUpdate: (): void => {},
+        };
+    }
+
+    renderBackupNowTile(
+        t: DashboardTokens,
+        type: 'iobroker' | 'ccu',
+        enabled: boolean,
+        label: string,
+        /** A function gets the running state and shows it itself, otherwise a spinner replaces the icon */
+        icon: React.ReactNode | ((executing: boolean) => React.ReactNode),
+        primary: boolean,
+        hoverEffect?: HoverEffect,
+    ): React.JSX.Element {
+        const animated = typeof icon === 'function';
+        if (!this.state.myAlive || !enabled) {
+            return (
+                <ActionTile
+                    t={t}
+                    vertical
+                    disabled
+                    primary={primary}
+                    icon={animated ? icon(false) : icon}
+                    label={I18n.t(label)}
+                />
+            );
         }
         return (
-            <UploadSettings
-                onClose={() => this.setState({ showUploadSettings: false })}
-                socket={this.socket}
-                themeType={this.derivedThemeType}
-                adapterName={this.adapterName}
-                instance={this.instance}
+            <BackupNow
+                oContext={this.getBackupNowContext()}
+                color={this.isDark() ? 'primary' : 'grey'}
+                alive
+                onError={(): void => {}}
+                schema={{
+                    backUpType: type,
+                    label,
+                    i18n: false,
+                    variant: 'contained',
+                    type: 'custom',
+                    url: '',
+                    name: '',
+                }}
+                changed={false}
+                common={this.state.common || {}}
+                themeName={this.state.themeName}
+                data={{}}
+                originalData={{}}
+                onChange={(): void => {}}
+                renderButton={button => (
+                    <ActionTile
+                        t={t}
+                        vertical
+                        primary={primary}
+                        icon={animated ? icon(button.executing) : icon}
+                        hoverEffect={hoverEffect}
+                        label={button.label}
+                        disabled={button.disabled && !button.executing}
+                        busy={!animated && button.executing}
+                        onClick={button.executing ? undefined : button.onClick}
+                    />
+                )}
             />
+        );
+    }
+
+    renderHeader(t: DashboardTokens): React.JSX.Element {
+        return (
+            <Box
+                component="header"
+                sx={{
+                    flexShrink: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: { xs: '12px', sm: '18px' },
+                    padding: { xs: '10px 12px', sm: '12px 24px' },
+                    borderBottom: `1px solid ${t.divider}`,
+                    background: t.dark ? 'rgba(255, 255, 255, 0.015)' : '#FFFFFF',
+                }}
+            >
+                <img
+                    src={logo}
+                    alt="BackItUp"
+                    style={{
+                        height: 52,
+                        flexShrink: 0,
+                        filter: t.dark ? 'drop-shadow(0 0 8px rgba(56, 160, 255, 0.35))' : undefined,
+                    }}
+                />
+                <div style={{ flex: 1, minWidth: 0 }}>
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 10,
+                            fontSize: '1.65rem',
+                            fontWeight: 700,
+                            letterSpacing: '-0.01em',
+                            lineHeight: 1.15,
+                            color: t.text,
+                        }}
+                    >
+                        BackItUp
+                        <AliveLed
+                            socket={this.socket}
+                            instanceId={this.statePrefix}
+                            alive={this.state.myAlive}
+                        />
+                    </div>
+                    <div
+                        style={{
+                            color: t.textSecondary,
+                            fontSize: 'clamp(0.8rem, 0.7rem + 0.4vw, 1rem)',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                        }}
+                    >
+                        {I18n.t('Back up your system automatically and reliably.')}
+                    </div>
+                </div>
+                <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', gap: '12px' }}>
+                    <RoundButton
+                        t={t}
+                        title="PayPal.Me"
+                        onClick={() => window.open('https://paypal.me/mk1676', '_blank')}
+                    >
+                        <Favorite />
+                    </RoundButton>
+                    <RoundButton
+                        t={t}
+                        title="Wiki"
+                        onClick={() => window.open('https://github.com/simatec/ioBroker.backitup/wiki', '_blank')}
+                    >
+                        <School />
+                    </RoundButton>
+                    <RoundButton
+                        t={t}
+                        title={I18n.t('Show adapter documentation')}
+                        onClick={() =>
+                            window.open('https://github.com/simatec/ioBroker.backitup/blob/master/README.md', '_blank')
+                        }
+                    >
+                        <Help />
+                    </RoundButton>
+                </Box>
+                <Tooltip
+                    title={I18n.t('More')}
+                    slotProps={{ popper: { sx: { pointerEvents: 'none' } } }}
+                >
+                    <IconButton
+                        onClick={e => this.setState({ moreMenu: e.currentTarget })}
+                        sx={{ color: t.text }}
+                    >
+                        <MoreVert />
+                    </IconButton>
+                </Tooltip>
+                <Menu
+                    open={!!this.state.moreMenu}
+                    anchorEl={this.state.moreMenu}
+                    onClose={() => this.setState({ moreMenu: null })}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                >
+                    <MenuItem
+                        onClick={() => {
+                            this.setState({ moreMenu: null });
+                            this.openConfiguration();
+                        }}
+                    >
+                        <ListItemIcon>
+                            <SettingsOutlined fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText>{I18n.t('Open adapter configuration')}</ListItemText>
+                    </MenuItem>
+                    <MenuItem
+                        onClick={() => {
+                            this.setState({ moreMenu: null });
+                            window.open('https://paypal.me/mk1676', '_blank');
+                        }}
+                        sx={{ display: { xs: 'flex', sm: 'none' } }}
+                    >
+                        <ListItemIcon>
+                            <Favorite fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText>PayPal.Me</ListItemText>
+                    </MenuItem>
+                    <MenuItem
+                        onClick={() => {
+                            this.setState({ moreMenu: null });
+                            window.open('https://github.com/simatec/ioBroker.backitup/wiki', '_blank');
+                        }}
+                        sx={{ display: { xs: 'flex', sm: 'none' } }}
+                    >
+                        <ListItemIcon>
+                            <School fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText>Wiki</ListItemText>
+                    </MenuItem>
+                    <MenuItem
+                        onClick={() => {
+                            this.setState({ moreMenu: null });
+                            window.open('https://github.com/simatec/ioBroker.backitup/blob/master/README.md', '_blank');
+                        }}
+                        sx={{ display: { xs: 'flex', sm: 'none' } }}
+                    >
+                        <ListItemIcon>
+                            <Help fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText>{I18n.t('Show adapter documentation')}</ListItemText>
+                    </MenuItem>
+                </Menu>
+            </Box>
+        );
+    }
+
+    renderHero(): React.JSX.Element {
+        const native = this.state.native;
+        const both = !!native.minimalEnabled && !!native.ccuEnabled;
+        const rows: HeroBackupInfo[] = [];
+        if (native.minimalEnabled) {
+            rows.push({
+                title: both ? 'ioBroker' : undefined,
+                lastTime: this.state.iobrokerLastTime,
+                nextTime: this.state.iobrokerNextTime,
+                interval: this.getInterval('iobroker'),
+                running: this.state.iobrokerRunning,
+                onShowLog: () => this.showLatestLog('iobroker', this.state.iobrokerLastTime),
+            });
+        }
+        if (native.ccuEnabled) {
+            rows.push({
+                title: both ? I18n.t('Homematic CCU backup') : undefined,
+                lastTime: this.state.ccuLastTime,
+                nextTime: this.state.ccuNextTime,
+                interval: this.getInterval('ccu'),
+                running: this.state.ccuRunning,
+                onShowLog: () => this.showLatestLog('ccu', this.state.ccuLastTime),
+            });
+        }
+        return <HeroCard rows={rows} />;
+    }
+
+    showLatestLog(latest: 'iobroker' | 'ccu', lastTime: string): void {
+        const last = parseLastTime(lastTime);
+        this.setState({
+            showLogs: {
+                fileName: '',
+                timestamp: 0,
+                index: -1,
+                latest,
+                failedAt: last.status === 'error' ? last.text : undefined,
+            },
+        });
+    }
+
+    renderStorageOptions(t: DashboardTokens): React.JSX.Element {
+        const native = this.state.native;
+        const enabled = STORAGE_OPTIONS.filter(option => native[option.name]);
+        const list = enabled.length ? enabled : [{ name: 'local', type: 'local', label: 'Local' }];
+
+        return (
+            <DashboardCard
+                t={t}
+                style={{ padding: '18px 14px 18px 20px', display: 'flex', alignItems: 'flex-start', gap: 18 }}
+            >
+                <IconBox t={t}>
+                    <StorageOutlined fontSize="inherit" />
+                </IconBox>
+                <div style={{ flex: 1, minWidth: 0, color: t.text }}>
+                    <div style={cardTitleStyle}>{I18n.t('Storage options')}</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                        {list.map(option => (
+                            <div
+                                key={option.name}
+                                style={{ display: 'flex', alignItems: 'center', gap: 14, minWidth: 0 }}
+                            >
+                                <span
+                                    style={{
+                                        width: 28,
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        flexShrink: 0,
+                                    }}
+                                >
+                                    <StorageIcon type={option.type} />
+                                </span>
+                                <span
+                                    style={{
+                                        flex: 1,
+                                        fontSize: '1rem',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        whiteSpace: 'nowrap',
+                                    }}
+                                >
+                                    {option.type === 'cifs' && native.connectType
+                                        ? `NAS (${native.connectType})`
+                                        : I18n.t(option.label)}
+                                </span>
+                                <Pill
+                                    color={t.success}
+                                    background={t.successBg}
+                                    border={t.successBorder}
+                                >
+                                    {I18n.t('Active')}
+                                </Pill>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <Tooltip
+                    title={I18n.t('Open adapter configuration')}
+                    slotProps={{ popper: { sx: { pointerEvents: 'none' } } }}
+                >
+                    <IconButton
+                        onClick={() => this.openConfiguration()}
+                        sx={{ alignSelf: 'center', color: t.text }}
+                    >
+                        <ChevronRight />
+                    </IconButton>
+                </Tooltip>
+            </DashboardCard>
+        );
+    }
+
+    renderBackupOptions(t: DashboardTokens): React.JSX.Element {
+        const enabled = BACKUP_OPTIONS.filter(option => this.state.native[option.name]);
+
+        return (
+            <DashboardCard
+                t={t}
+                style={{ padding: '18px 20px', display: 'flex', alignItems: 'flex-start', gap: 18 }}
+            >
+                <IconBox t={t}>
+                    <LayersOutlined fontSize="inherit" />
+                </IconBox>
+                <div style={{ flex: 1, minWidth: 0, color: t.text }}>
+                    <div style={cardTitleStyle}>{I18n.t('Activated backup options')}</div>
+                    {enabled.length ? (
+                        <div
+                            style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
+                                gap: '10px 18px',
+                            }}
+                        >
+                            {enabled.map(option => (
+                                <div
+                                    key={option.name}
+                                    style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}
+                                >
+                                    <CheckMark />
+                                    <span
+                                        style={{
+                                            fontSize: '1rem',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            whiteSpace: 'nowrap',
+                                        }}
+                                    >
+                                        {I18n.t(option.label)}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div style={{ color: t.textMuted }}>{I18n.t('No backup activated')}</div>
+                    )}
+                </div>
+            </DashboardCard>
+        );
+    }
+
+    renderActions(t: DashboardTokens): React.JSX.Element {
+        const native = this.state.native;
+        return (
+            <>
+                <SectionHeader
+                    t={t}
+                    icon={<PlayArrow fontSize="inherit" />}
+                    title={I18n.t('Actions')}
+                />
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
+                        gap: 16,
+                    }}
+                >
+                    {this.renderBackupNowTile(
+                        t,
+                        'iobroker',
+                        !!native.minimalEnabled,
+                        'ioBroker start backup',
+                        executing => (
+                            <IconPlayPause
+                                running={false}
+                                pending={executing}
+                                fontSize="inherit"
+                            />
+                        ),
+                        true,
+                    )}
+                    {/* most systems have no Homematic CCU: no tile for a backup that is not configured */}
+                    {native.ccuEnabled
+                        ? this.renderBackupNowTile(
+                              t,
+                              'ccu',
+                              true,
+                              'Homematic start backup',
+                              <CloudUploadOutlined fontSize="inherit" />,
+                              false,
+                              'lift',
+                          )
+                        : null}
+                    <ActionTile
+                        t={t}
+                        vertical
+                        icon={<SettingsOutlined fontSize="inherit" />}
+                        hoverEffect="spin"
+                        label={I18n.t('Save BackItUp settings')}
+                        onClick={() => void this.saveSettings()}
+                    />
+                    <ActionTile
+                        t={t}
+                        vertical
+                        icon={<FileDownloadOutlined fontSize="inherit" />}
+                        hoverEffect="drop"
+                        label={I18n.t('Restore BackItUp settings')}
+                        onClick={() => this.setState({ showUploadSettings: true })}
+                    />
+                    <ActionTile
+                        t={t}
+                        vertical
+                        icon={<FormatListBulleted fontSize="inherit" />}
+                        hoverEffect="lines"
+                        label={I18n.t('Show backup history')}
+                        onClick={() => this.setState({ showBackupHistory: true })}
+                    />
+                </div>
+            </>
+        );
+    }
+
+    renderRecentBackups(t: DashboardTokens): React.JSX.Element {
+        return (
+            <>
+                <SectionHeader
+                    t={t}
+                    icon={<History fontSize="inherit" />}
+                    title={I18n.t('Recent backups')}
+                    right={
+                        <Box
+                            component="button"
+                            type="button"
+                            onClick={() => this.setState({ showBackupHistory: true })}
+                            sx={{
+                                appearance: 'none',
+                                border: 0,
+                                background: 'none',
+                                font: 'inherit',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                padding: '4px 6px',
+                                borderRadius: '6px',
+                                color: t.accent,
+                                fontSize: '0.95rem',
+                                fontWeight: 600,
+                                '&:hover': { textDecoration: 'underline' },
+                            }}
+                        >
+                            {I18n.t('Show history')}
+                            <ArrowForward style={{ fontSize: 20 }} />
+                        </Box>
+                    }
+                />
+                <RecentBackups
+                    t={t}
+                    entries={this.state.history.slice(0, RECENT_BACKUPS)}
+                    alive={this.state.myAlive}
+                    isFloatComma={!!this.socket.systemConfig?.common.isFloatComma}
+                    busyIndex={this.state.downloadIndex}
+                    onDownload={(entry, index) => void this.onDownloadRecent(entry, index)}
+                    onRestore={entry => void this.onRestoreRecent(entry)}
+                    onLog={(entry, index) =>
+                        this.setState({
+                            showLogs: { fileName: entry.name || '', timestamp: entry.timestamp || 0, index },
+                        })
+                    }
+                />
+            </>
+        );
+    }
+
+    renderRestore(t: DashboardTokens): React.JSX.Element {
+        return (
+            <>
+                <SectionHeader
+                    t={t}
+                    icon={<SettingsBackupRestore fontSize="inherit" />}
+                    title={I18n.t('Restore')}
+                />
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                        gap: 16,
+                    }}
+                >
+                    <Box
+                        sx={{
+                            minHeight: 52,
+                            boxSizing: 'border-box',
+                            padding: '4px 16px 6px 16px',
+                            borderRadius: '12px',
+                            background: t.tileBg,
+                            border: `1px solid ${t.tileBorder}`,
+                            display: 'flex',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <SourceSelector
+                            value={this.state.backupSource}
+                            data={this.state.native}
+                            style={{ height: 'auto' }}
+                            onChange={backupSource => {
+                                window.localStorage.setItem('BackItUp.backupSource', backupSource);
+                                this.setState({ backupSource });
+                            }}
+                        />
+                    </Box>
+                    <ActionTile
+                        t={t}
+                        icon={<Search fontSize="inherit" />}
+                        hoverEffect="wiggle"
+                        label={I18n.t('Get list')}
+                        disabled={!this.state.myAlive}
+                        onClick={() => this.setState({ showGetBackups: true })}
+                    />
+                    <ActionTile
+                        t={t}
+                        icon={<IconUpload fontSize="inherit" />}
+                        label={I18n.t('Upload Backup File')}
+                        onClick={() => this.setState({ showUploadBackup: true })}
+                    />
+                </div>
+            </>
+        );
+    }
+
+    renderDialogs(): React.JSX.Element {
+        return (
+            <>
+                {this.state.showBackupHistory ? (
+                    <BackupHistory
+                        onClose={() => this.setState({ showBackupHistory: false })}
+                        onLogs={(fileName, timestamp, index) =>
+                            this.setState({ showLogs: { fileName, timestamp, index } })
+                        }
+                        socket={this.socket}
+                        themeType={this.derivedThemeType}
+                        themeBreakpoints={this.state.theme.breakpoints.down}
+                        adapterName={this.adapterName}
+                        instance={this.instance}
+                    />
+                ) : null}
+                {this.state.showGetBackups ? (
+                    <GetBackups
+                        onClose={() => this.setState({ showGetBackups: false })}
+                        onRestore={(location, object, fileName) =>
+                            this.setState({ showRestore: { location, object, fileName }, showGetBackups: false })
+                        }
+                        socket={this.socket}
+                        themeType={this.derivedThemeType}
+                        themeBreakpoints={this.state.theme.breakpoints.down}
+                        adapterName={this.adapterName}
+                        instance={this.instance}
+                        backupSource={this.state.showGetBackups === 'local' ? 'local' : this.state.backupSource}
+                        connectType={this.state.native.connectType}
+                        allowDownload
+                    />
+                ) : null}
+                {this.state.showLogs ? (
+                    <GetLogs
+                        onClose={() => this.setState({ showLogs: null })}
+                        backupLog={this.state.showLogs}
+                        socket={this.socket}
+                        themeType={this.derivedThemeType}
+                        adapterName={this.adapterName}
+                        themeBreakpoints={this.state.theme.breakpoints.down}
+                        instance={this.instance}
+                    />
+                ) : null}
+                {this.state.showUploadBackup ? (
+                    <UploadBackup
+                        onClose={() => this.setState({ showUploadBackup: false })}
+                        onShowBackups={() => this.setState({ showUploadBackup: false, showGetBackups: 'local' })}
+                        socket={this.socket}
+                        themeType={this.derivedThemeType}
+                        themeBreakpoints={this.state.theme.breakpoints.down}
+                        adapterName={this.adapterName}
+                        instance={this.instance}
+                    />
+                ) : null}
+                {this.state.showRestore ? (
+                    <Restore
+                        alive={this.state.myAlive}
+                        location={this.state.showRestore.location}
+                        fileName={this.state.showRestore.fileName}
+                        onClose={() => this.setState({ showRestore: null })}
+                        socket={this.socket}
+                        themeType={this.derivedThemeType}
+                        adapterName={this.adapterName}
+                        instance={this.instance}
+                        restoreIfWait={this.state.restoreIfWait}
+                    />
+                ) : null}
+                {this.state.showUploadSettings ? (
+                    <UploadSettings
+                        onClose={() => this.setState({ showUploadSettings: false })}
+                        socket={this.socket}
+                        themeType={this.derivedThemeType}
+                        adapterName={this.adapterName}
+                        instance={this.instance}
+                    />
+                ) : null}
+            </>
         );
     }
 
@@ -680,6 +1112,8 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
             );
         }
 
+        const t = getTokens(this.isDark());
+
         return (
             <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={this.state.theme}>
@@ -688,444 +1122,43 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                     <div
                         className="App"
                         style={{
+                            display: 'flex',
+                            flexDirection: 'column',
                             background: this.state.theme.palette.background.default,
-                            color: this.state.theme.palette.text.primary,
+                            color: t.text,
                         }}
                     >
-                        <AppBar
-                            sx={styles.headerArea}
-                            position="static"
-                            enableColorOnDark
-                        >
-                            <Toolbar>
-                                <img
-                                    src={logo}
-                                    alt="logo"
-                                    style={{ height: 42, marginRight: 16 }}
-                                />
-                                <div>
-                                    <div
-                                        style={{
-                                            fontWeight: 700,
-                                            fontSize: 19,
-                                            color: this.isDark() ? '#F1F5F9' : '#0F2E5C',
-                                            letterSpacing: '-0.01em',
-                                        }}
-                                    >
-                                        Backitup
-                                    </div>
-                                    <div
-                                        style={{
-                                            color: this.isDark() ? '#94A3B8' : '#64748B',
-                                            fontStyle: 'normal',
-                                            fontSize: 'clamp(0.7em, 0.7em + 0.6vw, 1em)',
-                                        }}
-                                    >
-                                        {I18n.t('Backup your System …')}
-                                    </div>
-                                </div>
-                            </Toolbar>
-                            <div style={styles.helpButtonGroup}>
-                                <Tooltip
-                                    title="PayPal.Me"
-                                    slotProps={{ popper: { sx: { pointerEvents: 'none' } } }}
-                                >
-                                    <Fab
-                                        sx={styles.helpButton}
-                                        onClick={() => {
-                                            window.open('https://paypal.me/mk1676', '_blank');
-                                        }}
-                                    >
-                                        <Favorite />
-                                    </Fab>
-                                </Tooltip>
-                                <Tooltip
-                                    slotProps={{ popper: { sx: { pointerEvents: 'none' } } }}
-                                    title="Wiki"
-                                >
-                                    <Fab
-                                        sx={styles.helpButton}
-                                        onClick={() =>
-                                            window.open('https://github.com/simatec/ioBroker.backitup/wiki', '_blank')
-                                        }
-                                    >
-                                        <School />
-                                    </Fab>
-                                </Tooltip>
-                                <Tooltip
-                                    slotProps={{ popper: { sx: { pointerEvents: 'none' } } }}
-                                    title="Show adapter documentation"
-                                >
-                                    <Fab
-                                        sx={styles.helpButton}
-                                        onClick={() => {
-                                            window.open(
-                                                'https://github.com/simatec/ioBroker.backitup/blob/master/README.md',
-                                                '_blank',
-                                            );
-                                        }}
-                                    >
-                                        <Help />
-                                    </Fab>
-                                </Tooltip>
-                            </div>
-                        </AppBar>
-                        <div
-                            style={{
-                                width: 'calc(100% - 16px)',
-                                height: 'calc(100% - 104px)',
+                        {this.renderHeader(t)}
+                        <Box
+                            sx={{
+                                flex: 1,
+                                minHeight: 0,
                                 overflow: 'auto',
-                                padding: 8,
+                                padding: { xs: '14px 12px 24px', sm: '22px 24px 32px' },
                             }}
                         >
+                            {/* the blocks fade in one after another when the tab opens */}
+                            <Box sx={revealSx(0)}>{this.renderHero()}</Box>
                             <Box
-                                component="div"
                                 sx={{
-                                    m: '1rem 0 1.25rem 0',
-                                    ...styles.header,
-                                    ...(this.isDark() ? styles.headerDark : styles.headerLight),
-                                }}
-                            >
-                                <InfoOutlined style={styles.headerIcon} />
-                                <span>{I18n.t('Backup Information')}</span>
-                            </Box>
-                            <div
-                                style={{
                                     display: 'grid',
-                                    gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-                                    gap: 16,
-                                    minHeight: 260,
-                                    gridAutoRows: '1fr',
+                                    gridTemplateColumns: { xs: '1fr', md: '1fr 1.1fr' },
+                                    gap: '20px',
+                                    marginTop: '20px',
+                                    ...revealSx(1),
                                 }}
                             >
-                                {this.renderBackupInformation()}
-                                {this.renderActivatedStorageOptions()}
-                                {this.renderActivatedBackupOptions()}
-                            </div>
-                            <Box
-                                component="div"
-                                sx={{
-                                    m: '1.5rem 0 1.25rem 0',
-                                    ...styles.header,
-                                    ...(this.isDark() ? styles.headerDark : styles.headerLight),
-                                }}
-                            >
-                                <CloudUploadOutlined style={styles.headerIcon} />
-                                <span>{I18n.t('System backup')}</span>
+                                {this.renderStorageOptions(t)}
+                                {this.renderBackupOptions(t)}
                             </Box>
-                            <div
-                                style={{
-                                    display: 'grid',
-                                    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-                                    gap: 16,
-                                    justifyContent: 'space-evenly',
-                                    alignContent: 'center',
-                                    justifyItems: 'stretch',
-                                    gridAutoRows: '1fr',
-                                }}
-                            >
-                                {this.state.myAlive && this.state.native.minimalEnabled ? (
-                                    <div
-                                        onMouseEnter={() => this.setState({ hoverIobrokerBackup: true })}
-                                        onMouseLeave={() => this.setState({ hoverIobrokerBackup: false })}
-                                    >
-                                        <BackupNow
-                                            style={this.getActionButtonStyle(this.state.hoverIobrokerBackup)}
-                                            color={this.isDark() ? 'primary' : 'grey'}
-                                            oContext={{
-                                                adapterName: this.adapterName,
-                                                socket: this.socket,
-                                                instance: this.instance,
-                                                themeType: this.derivedThemeType,
-                                                dateFormat:
-                                                    this.socket.systemConfig?.common.dateFormat || 'DD.MM.YYYY HH:mm',
-                                                isFloatComma: this.socket.systemConfig?.common.isFloatComma || false,
-                                                theme: this.state.theme,
-                                                _themeName: this.state.themeName,
-                                                systemConfig:
-                                                    this.socket.systemConfig?.common ||
-                                                    ({} as ioBroker.SystemConfigCommon),
-                                                onCommandRunning: (_ignore: boolean): void => {},
-                                                forceUpdate: (): void => {},
-                                            }}
-                                            alive
-                                            onError={(): void => {}}
-                                            schema={{
-                                                backUpType: 'iobroker',
-                                                label: 'ioBroker start backup',
-                                                i18n: false,
-                                                variant: 'contained',
-                                                type: 'custom',
-                                                url: '',
-                                                name: '',
-                                            }}
-                                            changed={false}
-                                            common={this.state.common || {}}
-                                            themeName={this.state.themeName}
-                                            data={{}}
-                                            originalData={{}}
-                                            onChange={(): void => {}}
-                                        />
-                                    </div>
-                                ) : (
-                                    <Button
-                                        style={{ width: '100%' }}
-                                        sx={styles.button}
-                                        disabled
-                                        color={this.isDark() ? 'primary' : 'grey'}
-                                        variant="contained"
-                                        endIcon={<CloudUploadOutlined />}
-                                    >
-                                        {I18n.t('ioBroker start backup')}
-                                    </Button>
-                                )}
-                                {this.state.myAlive && this.state.native.ccuEnabled ? (
-                                    <div
-                                        onMouseEnter={() => this.setState({ hoverCcuBackup: true })}
-                                        onMouseLeave={() => this.setState({ hoverCcuBackup: false })}
-                                    >
-                                        <BackupNow
-                                            style={this.getActionButtonStyle(this.state.hoverCcuBackup)}
-                                            oContext={{
-                                                adapterName: this.adapterName,
-                                                socket: this.socket,
-                                                instance: this.instance,
-                                                themeType: this.derivedThemeType,
-                                                dateFormat:
-                                                    this.socket.systemConfig?.common.dateFormat || 'DD.MM.YYYY HH:mm',
-                                                isFloatComma: this.socket.systemConfig?.common.isFloatComma || false,
-                                                theme: this.state.theme,
-                                                _themeName: this.state.themeName,
-                                                systemConfig:
-                                                    this.socket.systemConfig?.common ||
-                                                    ({} as ioBroker.SystemConfigCommon),
-                                                onCommandRunning: (_ignore: boolean): void => {},
-                                                forceUpdate: (): void => {},
-                                            }}
-                                            color={this.isDark() ? 'primary' : 'grey'}
-                                            alive
-                                            schema={{
-                                                backUpType: 'ccu',
-                                                label: 'Homematic start backup',
-                                                i18n: false,
-                                                variant: 'contained',
-                                                type: 'custom',
-                                                url: '',
-                                                name: '',
-                                            }}
-                                            onError={(): void => {}}
-                                            changed={false}
-                                            common={this.state.common || {}}
-                                            themeName={this.state.themeName}
-                                            data={{}}
-                                            originalData={{}}
-                                            onChange={(): void => {}}
-                                        />
-                                    </div>
-                                ) : (
-                                    <Button
-                                        style={{ width: '100%' }}
-                                        sx={styles.button}
-                                        disabled
-                                        color={this.isDark() ? 'primary' : 'grey'}
-                                        variant="contained"
-                                        endIcon={<CloudUploadOutlined />}
-                                    >
-                                        {I18n.t('Homematic start backup')}
-                                    </Button>
-                                )}
-                                <Button
-                                    style={{ width: '100%' }}
-                                    sx={styles.button}
-                                    onClick={() => this.setState({ showBackupHistory: true })}
-                                    variant="contained"
-                                    color={this.isDark() ? 'primary' : 'grey'}
-                                    endIcon={<FormatListBulleted />}
-                                >
-                                    {I18n.t('Backup history')}
-                                </Button>
-                                <Button
-                                    style={{ width: '100%' }}
-                                    sx={styles.button}
-                                    variant="contained"
-                                    color={this.isDark() ? 'primary' : 'grey'}
-                                    onClick={async () => {
-                                        const obj = await this.socket.getObject(
-                                            `system.adapter.${this.adapterName}.${this.instance}`,
-                                        );
-
-                                        if (obj && obj.common && obj.common.news) {
-                                            delete obj.common.news;
-                                        }
-                                        if (obj && obj.common && obj.common.titleLang) {
-                                            delete obj.common.titleLang;
-                                        }
-                                        if (obj && obj.common && obj.common.desc) {
-                                            delete obj.common.desc;
-                                        }
-                                        const blob = new Blob([JSON.stringify(obj)], {
-                                            type: 'application/json;charset=utf-8',
-                                        });
-                                        const now = new Date();
-                                        saveAs(
-                                            blob,
-                                            `${now.getFullYear()}_${(now.getMonth() + 1).toString().padStart(2, '0')}_${now.getDate().toString().padStart(2, '0')}-${this.adapterName}.${this.instance}.json`,
-                                        );
-                                    }}
-                                    endIcon={<CloudUploadOutlined />}
-                                >
-                                    {I18n.t('Save BackItUp settings')}
-                                </Button>
-                            </div>
-                            <Box
-                                component="div"
-                                sx={{
-                                    m: '1.5rem 0px 1rem 0px',
-                                    ...styles.header,
-                                    ...(this.isDark() ? styles.headerDark : styles.headerLight),
-                                }}
-                            >
-                                <SettingsBackupRestore style={styles.headerIcon} />
-                                <span>{I18n.t('Restore')}</span>
-                            </Box>
-                            <div
-                                style={{
-                                    width: '100%',
-                                    display: 'grid',
-                                    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-                                    gap: 16,
-                                    justifyItems: 'stretch',
-                                    justifyContent: 'space-evenly',
-                                    alignContent: 'center',
-                                    alignItems: 'stretch',
-                                    gridAutoRows: '1fr',
-                                    marginBottom: '1rem',
-                                }}
-                            >
-                                <SourceSelector
-                                    value={this.state.backupSource}
-                                    data={this.state.native}
-                                    onChange={backupSource => {
-                                        window.localStorage.setItem('BackItUp.backupSource', backupSource);
-                                        this.setState({ backupSource });
-                                    }}
-                                />
-                                <Button
-                                    style={{ width: '100%', marginTop: '0.5rem' }}
-                                    sx={styles.button}
-                                    onClick={() => this.setState({ showGetBackups: true })}
-                                    disabled={!this.state.myAlive}
-                                    variant="contained"
-                                    color={this.isDark() ? 'primary' : 'grey'}
-                                    endIcon={<Search />}
-                                >
-                                    {I18n.t('Get list')}
-                                </Button>
-                                <Button
-                                    style={{ width: '100%', marginTop: '0.5rem' }}
-                                    sx={styles.button}
-                                    onClick={() => this.setState({ showUploadBackup: true })}
-                                    variant="contained"
-                                    color={this.isDark() ? 'primary' : 'grey'}
-                                    endIcon={<UploadOutlined />}
-                                >
-                                    {I18n.t('Upload Backup File')}
-                                </Button>
-                                <Button
-                                    style={{ width: '100%', marginTop: '0.5rem' }}
-                                    sx={styles.button}
-                                    variant="contained"
-                                    color={this.isDark() ? 'primary' : 'grey'}
-                                    onClick={() => this.setState({ showUploadSettings: true })}
-                                    endIcon={<SettingsBackupRestore />}
-                                >
-                                    {I18n.t('Restore BackItUp settings')}
-                                </Button>
-                            </div>
+                            <Box sx={revealSx(2)}>{this.renderActions(t)}</Box>
+                            <Box sx={revealSx(3)}>{this.renderRecentBackups(t)}</Box>
+                            <Box sx={revealSx(4)}>{this.renderRestore(t)}</Box>
                             {this.renderError()}
-                            <div
-                                style={{
-                                    ...styles.footer,
-                                    ...(this.isDark() ? styles.footerDark : styles.footerLight),
-                                }}
-                                onClick={() => {
-                                    try {
-                                        window.parent.postMessage(
-                                            `goto:tab-instances/config/system.adapter.backitup.${this.instance}`,
-                                            '*',
-                                        );
-                                    } catch {
-                                        // ignore
-                                    }
-                                }}
-                            >
-                                {I18n.t('All backup settings can be changed in the adapter configuration of BackItUp.')}
-                            </div>
-                        </div>
+                        </Box>
                     </div>
-                    {this.state.showBackupHistory ? (
-                        <BackupHistory
-                            onClose={() => this.setState({ showBackupHistory: false })}
-                            onLogs={(fileName, timestamp, index) =>
-                                this.setState({ showLogs: { fileName, timestamp, index } })
-                            }
-                            socket={this.socket}
-                            themeType={this.derivedThemeType}
-                            themeBreakpoints={this.state.theme.breakpoints.down}
-                            adapterName={this.adapterName}
-                            instance={this.instance}
-                        />
-                    ) : null}
-                    {this.state.showGetBackups ? (
-                        <GetBackups
-                            onClose={() => this.setState({ showGetBackups: false })}
-                            onRestore={(location, object, fileName) =>
-                                this.setState({ showRestore: { location, object, fileName }, showGetBackups: false })
-                            }
-                            socket={this.socket}
-                            themeType={this.derivedThemeType}
-                            themeBreakpoints={this.state.theme.breakpoints.down}
-                            adapterName={this.adapterName}
-                            instance={this.instance}
-                            backupSource={this.state.backupSource}
-                            connectType={this.state.native.connectType}
-                            allowDownload
-                        />
-                    ) : null}
-                    {this.state.showLogs ? (
-                        <GetLogs
-                            onClose={() => this.setState({ showLogs: null })}
-                            backupLog={this.state.showLogs}
-                            socket={this.socket}
-                            themeType={this.derivedThemeType}
-                            adapterName={this.adapterName}
-                            themeBreakpoints={this.state.theme.breakpoints.down}
-                            instance={this.instance}
-                        />
-                    ) : null}
-                    {this.state.showUploadBackup ? (
-                        <UploadBackup
-                            onClose={() => this.setState({ showUploadBackup: false })}
-                            socket={this.socket}
-                            themeType={this.derivedThemeType}
-                            adapterName={this.adapterName}
-                            instance={this.instance}
-                        />
-                    ) : null}
-                    {this.state.showRestore ? (
-                        <Restore
-                            alive={this.state.myAlive}
-                            location={this.state.showRestore.location}
-                            fileName={this.state.showRestore.fileName}
-                            onClose={() => this.setState({ showRestore: null })}
-                            socket={this.socket}
-                            themeType={this.derivedThemeType}
-                            adapterName={this.adapterName}
-                            instance={this.instance}
-                            restoreIfWait={this.state.restoreIfWait}
-                        />
-                    ) : null}
-                    {this.renderUploadSettingsDialog()}
+                    {this.renderDialogs()}
+                    {this.renderToast()}
                 </ThemeProvider>
             </StyledEngineProvider>
         );

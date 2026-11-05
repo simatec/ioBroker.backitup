@@ -3,7 +3,8 @@
 /* jslint node: true */
 
 import { existsSync, chmodSync, mkdirSync, readFileSync, rmdirSync, unlinkSync, writeFileSync } from 'node:fs';
-import { join, resolve as resolvePath } from 'node:path';
+import { rename } from 'node:fs/promises';
+import { basename, dirname, join, resolve as resolvePath } from 'node:path';
 import { getAbsoluteDefaultDataDir, Adapter, type AdapterOptions } from '@iobroker/adapter-core'; // Get common adapter utils
 import * as schedule from 'node-schedule';
 
@@ -39,6 +40,7 @@ type MulterFactory = ((options: { storage: unknown }) => {
 import type GoogleDriveType from './lib/googleDriveLib';
 import type OnedriveType from './lib/oneDriveLib';
 import type * as RestoreModule from './lib/restore';
+import type * as TargzModule from './lib/targz';
 import type { BackItUpRestoreLogger } from './lib/restore/types';
 import type { BackItUpExecuteConfig, BackItUpStorage } from './lib/types';
 import type { BackItUpListResult, BackItUpStorageEngineResultFile } from './lib/list/types';
@@ -385,6 +387,13 @@ class BackItUp extends Adapter {
                                         }
                                     } else {
                                         this.log.warn(`File ${toSaveName} not found`);
+                                        // answer anyway, the admin tab waits for it
+                                        this.sendTo(
+                                            obj.from,
+                                            obj.command,
+                                            { error: err ? String(err) : `File ${fileName} not found` },
+                                            obj.callback,
+                                        );
                                     }
                                 },
                             );
@@ -399,6 +408,9 @@ class BackItUp extends Adapter {
                             } catch (error) {
                                 this.sendTo(obj.from, obj.command, { error }, obj.callback);
                             }
+                        } else {
+                            this.log.warn(`File ${obj.message.fileName} not found`);
+                            this.sendTo(obj.from, obj.command, { error: `File ${fileName} not found` }, obj.callback);
                         }
                     } else if (obj.callback) {
                         this.invalidParameters(obj);
@@ -608,35 +620,58 @@ class BackItUp extends Adapter {
                     }
                     break;
                 case 'getLog': {
+                    // Logs of the last runs, newest first: [{ [timestamp]: text }, ...]
                     const logName = join(bashDir, `${this.namespace}.log`).replace(/\\/g, '/');
-
-                    if (existsSync(logName) && (obj?.message.backupName || obj?.message.timestamp)) {
-                        const data = readFileSync(logName, 'utf8');
-                        const backupLog = JSON.parse(data);
-                        const backupName = obj?.message.backupName ? obj.message.backupName : null;
-                        const timestamp = obj?.message.timestamp;
-                        let found = false;
-
-                        backupLog.forEach((item: Record<string, string>, index: number) => {
-                            if (Object.prototype.hasOwnProperty.call(item, timestamp)) {
-                                found = true;
-                                this.log.debug(`Printing logs of previous backup`);
-                                this.sendTo(obj.from, obj.command, item[timestamp], obj.callback);
-                            } else if (backupName !== null && Object.prototype.hasOwnProperty.call(item, backupName)) {
-                                found = true;
-                                this.log.debug(`Printing logs of previous backup`);
-                                this.sendTo(obj.from, obj.command, item[backupName], obj.callback);
-                            } else if (backupLog.length - 1 == index && !found) {
-                                this.log.debug(`No Backuplogs found`);
-                                this.sendTo(
-                                    obj.from,
-                                    obj.command,
-                                    tools._('No log is available for this backup', this.systemLang),
-                                    obj.callback,
-                                );
-                            }
-                        });
+                    const noLog = tools._('No log is available for this backup', this.systemLang);
+                    let backupLog: Record<string, string>[] = [];
+                    try {
+                        if (existsSync(logName)) {
+                            const parsed: unknown = JSON.parse(readFileSync(logName, 'utf8'));
+                            backupLog = Array.isArray(parsed) ? (parsed as Record<string, string>[]) : [];
+                        }
+                    } catch (e) {
+                        this.log.warn(`Cannot read the backup logs: ${e as Error}`);
                     }
+                    const message = (obj.message || {}) as {
+                        backupName?: string;
+                        timestamp?: number | string;
+                        latest?: 'iobroker' | 'ccu';
+                    };
+
+                    if (message.latest) {
+                        // The log of the last run of this type, also of a failed one (it is not in history.json).
+                        // The entries do not store their type: with both types active, skip the runs of the other one.
+                        const other = message.latest === 'ccu' ? 'iobroker' : 'ccu';
+                        const otherActive = other === 'ccu' ? this.config.ccuEnabled : this.config.minimalEnabled;
+                        const entry = otherActive
+                            ? backupLog.find(item => !Object.values(item).join('\n').includes(`] [${other}] `))
+                            : backupLog[0];
+                        const key = entry ? Object.keys(entry)[0] : undefined;
+                        this.sendTo(
+                            obj.from,
+                            obj.command,
+                            entry && key ? { timestamp: Number(key) || null, log: entry[key] } : { timestamp: null, log: noLog },
+                            obj.callback,
+                        );
+                        break;
+                    }
+
+                    const timestamp = message.timestamp;
+                    const backupName = message.backupName || null;
+                    let text: string | undefined;
+                    for (const item of backupLog) {
+                        if (timestamp !== undefined && Object.prototype.hasOwnProperty.call(item, timestamp)) {
+                            text = item[timestamp];
+                        } else if (backupName !== null && Object.prototype.hasOwnProperty.call(item, backupName)) {
+                            text = item[backupName];
+                        }
+                        if (text !== undefined) {
+                            break;
+                        }
+                    }
+                    this.log.debug(text !== undefined ? 'Printing logs of previous backup' : 'No Backuplogs found');
+                    // Always answer, otherwise the log dialog waits forever
+                    this.sendTo(obj.from, obj.command, text ?? noLog, obj.callback);
                     break;
                 }
             }
@@ -2163,6 +2198,58 @@ class BackItUp extends Adapter {
     }
 
     /**
+     * File name of an upload without any directory part, so it cannot leave the backup directory.
+     *
+     * @param originalName name the browser sent
+     */
+    private static safeUploadName(originalName: string | undefined): string {
+        const name = basename(String(originalName || '').replace(/\\/g, '/'))
+            // eslint-disable-next-line no-control-regex
+            .replace(/[\x00-\x1f<>:"|?*]/g, '_')
+            .trim();
+        return name && name !== '.' && name !== '..' ? name : `upload_${tools.getDate()}.tar.gz`;
+    }
+
+    /**
+     * Makes an uploaded plain ioBroker backup (`iobroker backup`) visible for list and restore.
+     *
+     * Those are recognized by their name. If the file was renamed, its content is checked, and an
+     * ioBroker backup gets a name of the form `<date>_backupiobroker-<old name>.tar.gz`.
+     *
+     * @param filePath where the upload was stored
+     * @param name file name of the upload
+     * @returns the file name the backup has now
+     */
+    private async classifyUploadedBackup(filePath: string, name: string): Promise<string> {
+        if (
+            !name.endsWith('.tar.gz') ||
+            tools.isPureIobrokerBackup(name) ||
+            /_backupiobroker[^/]*\.tar\.gz$/.test(name)
+        ) {
+            return name;
+        }
+        try {
+            // eslint-disable-next-line @typescript-eslint/no-require-imports
+            const targz = require('./lib/targz') as typeof TargzModule;
+            if (!(await targz.isIobrokerBackupArchive(filePath))) {
+                this.log.debug(`Uploaded file "${name}" is not an ioBroker backup, it is kept as it is`);
+                return name;
+            }
+            const base = name
+                .replace(/\.tar\.gz$/, '')
+                .replace(/[^\w-]+/g, '_')
+                .replace(/^_+|_+$/g, '');
+            const newName = `${tools.getDate()}_backupiobroker${base ? `-${base}` : ''}.tar.gz`;
+            await rename(filePath, join(dirname(filePath), newName));
+            this.log.info(`Uploaded file "${name}" is an ioBroker backup and was stored as "${newName}"`);
+            return newName;
+        } catch (e) {
+            this.log.warn(`Uploaded file "${name}" could not be checked: ${e}`);
+            return name;
+        }
+    }
+
+    /**
      * Starts the server the admin tab uploads backups to.
      *
      * @param protocol `'https:'` serves over TLS
@@ -2196,16 +2283,23 @@ class BackItUp extends Adapter {
         const storage = multer.diskStorage({
             destination: (req, file, callback) => callback(null, backupDir),
             filename: (req, file, callback) => {
-                this.log.debug(`Upload from ${file.originalname} started...`);
-                callback(null, file.originalname);
+                const name = BackItUp.safeUploadName(file.originalname);
+                this.log.debug(`Upload from ${name} started...`);
+                callback(null, name);
             },
         });
 
         const upload = multer({ storage });
 
         uploadServer.post('/', upload.single('files'), (req, res) => {
-            this.log.debug((req as { file?: unknown }).file as string);
-            res.json({ message: 'File(s) uploaded successfully' });
+            const file = (req as { file?: { path: string; filename: string } }).file;
+            if (!file) {
+                res.status(400).json({ error: 'No file received' });
+                return;
+            }
+            void this.classifyUploadedBackup(file.path, file.filename).then(fileName =>
+                res.json({ message: 'File(s) uploaded successfully', fileName }),
+            );
         });
 
         let httpServer: HttpModule.Server | undefined;
