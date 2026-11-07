@@ -1,7 +1,6 @@
-import { createWriteStream } from 'node:fs';
 import { join } from 'node:path';
-import { authenticate } from 'dropbox-v2-api';
 
+import { createClient, downloadToFile, dropboxErrorText, listFolder } from '../dropboxLib';
 import type { BackItUpConfigStorageDropbox } from '../types';
 import type {
     BackItUpGetFileProps,
@@ -92,51 +91,40 @@ export async function list(
         return undefined;
     }
 
-    const dbx = authenticate({ token: db_accessToken });
+    const dbx = createClient(db_accessToken);
     const dir = targetDir(dbDir, ownDir, dirMinimal);
 
-    return new Promise<BackItUpStorageEngineResult | undefined>((resolve, reject) => {
-        dbx(
-            {
-                resource: 'files/list_folder',
-                parameters: {
-                    path: dir.replace(/^\/$/, ''),
-                },
-            },
-            (err, result) => {
-                if (err && err.error_summary) {
-                    log.error(`Dropbox: ${JSON.stringify(err.error_summary)}`);
-                }
-                if (result && result.entries) {
-                    const entries: BackItUpStorageEngineResultFile[] = (result.entries as any[])
-                        .map((file: any) => ({
-                            path: file.path_display,
-                            name: file.path_display.replace(/\\/g, '/').split('/').pop() as string,
-                            size: file.size,
-                        }))
-                        .filter(
-                            file =>
-                                (types.indexOf(file.name.split('_')[0]) !== -1 ||
-                                    types.indexOf(file.name.split('.')[0]) !== -1) &&
-                                file.name.split('.').pop() == 'gz',
-                        );
+    let result: Awaited<ReturnType<typeof listFolder>>;
+    try {
+        result = await listFolder(dbx, dir);
+    } catch (e) {
+        const text = JSON.stringify(dropboxErrorText(e));
+        log.error(`Dropbox: ${text}`);
+        // eslint-disable-next-line @typescript-eslint/only-throw-error
+        throw `Dropbox: ${text}`;
+    }
 
-                    const files: BackItUpStorageEngineResult = {};
-                    entries.forEach(file => {
-                        const type = file.name.split('_')[0];
-                        files[type] = files[type] || [];
-                        files[type].push(file);
-                    });
-
-                    resolve(files);
-                } else {
-                    reject(
-                        `Dropbox: ${err?.error_summary ? JSON.stringify(err.error_summary) : 'Error on Dropbox list'}`,
-                    );
-                }
-            },
+    const entries: BackItUpStorageEngineResultFile[] = result
+        .filter(file => file['.tag'] === 'file')
+        .map(file => ({
+            path: file.path_display as string,
+            name: (file.path_display as string).replace(/\\/g, '/').split('/').pop() as string,
+            size: (file as { size?: number }).size as number,
+        }))
+        .filter(
+            file =>
+                (types.indexOf(file.name.split('_')[0]) !== -1 || types.indexOf(file.name.split('.')[0]) !== -1) &&
+                file.name.split('.').pop() == 'gz',
         );
+
+    const files: BackItUpStorageEngineResult = {};
+    entries.forEach(file => {
+        const type = file.name.split('_')[0];
+        files[type] = files[type] || [];
+        files[type].push(file);
     });
+
+    return files;
 }
 
 /**
@@ -163,40 +151,21 @@ export async function getFile(props: BackItUpGetFileProps<DropboxOptions>): Prom
     }
 
     // copy file to backupDir
-    const dbx = authenticate({ token: accessToken });
+    const dbx = createClient(accessToken);
     const onlyFileName = fileName.split('/').pop() as string;
     const dir = targetDir(dbDir, ownDir, dirMinimal);
 
-    return new Promise<void>((resolve, reject) => {
-        // Settles at most once, whichever of the write stream and the request reports first -
-        // the promise takes over the guard the old `finish` helper provided.
-        const finish = (err?: Error | string | null): void => (err ? reject(err) : resolve());
-
-        log.debug(`Dropbox: Download of "${fileName}" started`);
-
-        const writeStream = createWriteStream(toStoreName);
-        writeStream.on('error', err => {
-            if (err) {
-                log.error(`Dropbox: ${err}`);
-            }
-            finish(err);
-        });
-
-        dbx(
-            {
-                resource: 'files/download',
-                parameters: {
-                    path: join(dir.replace(/^\/$/, ''), onlyFileName).replace(/\\/g, '/'),
-                },
-            },
-            err => {
-                if (err) {
-                    log.error(`Dropbox: ${err}`);
-                } else {
-                    log.debug(`Dropbox: Download of "${fileName}" done`);
-                }
-                finish(err);
-            },
-        ).pipe(writeStream);
-    });
+    log.debug(`Dropbox: Download of "${fileName}" started`);
+    try {
+        await downloadToFile(
+            dbx,
+            join(dir.replace(/^\/$/, ''), onlyFileName).replace(/\\/g, '/'),
+            toStoreName,
+        );
+    } catch (e) {
+        const text = dropboxErrorText(e);
+        log.error(`Dropbox: ${text}`);
+        throw new Error(`Dropbox: ${text}`);
+    }
+    log.debug(`Dropbox: Download of "${fileName}" done`);
 }
