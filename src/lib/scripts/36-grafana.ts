@@ -47,6 +47,69 @@ async function sleep(ms: number): Promise<void> {
     });
 }
 
+/** A dashboard as delivered by Grafana: the classic API wrapper or a Kubernetes-style resource (schema v2) */
+interface FetchedDashboard {
+    /** `legacy`: `{ dashboard, meta }`; `resource`: `{ apiVersion, kind, metadata, spec }` */
+    kind: 'legacy' | 'resource';
+    data: any;
+}
+
+/** Versions of the Kubernetes-style dashboard API to try when the classic API refuses a dashboard */
+const RESOURCE_API_VERSIONS = ['v2beta1', 'v2', 'v1beta1'];
+
+/**
+ * Loads one dashboard.
+ *
+ * Grafana up to 11 (and every dashboard in the classic schema) answers on `/api/dashboards/uid/`.
+ * Dashboards saved in the newer schema (`dashboard.grafana.app/v2*`) are refused there with status
+ * 406, so the same dashboard is then requested from the Kubernetes-style API. The version and
+ * namespace named in the 406 message are tried first.
+ *
+ * @param options script options
+ * @param uid dashboard uid
+ */
+async function fetchDashboard(options: GrafanaOptions, uid: string): Promise<FetchedDashboard> {
+    const request = (path: string): Promise<{ data: any }> =>
+        axios({
+            method: 'get',
+            url: `${options.protocol}://${options.host}:${options.port}${path}`,
+            headers: { Authorization: `Bearer ${options.apiKey}` },
+            responseType: 'json',
+            httpsAgent: new Agent({
+                rejectUnauthorized: options.signedCertificates,
+            }),
+        });
+
+    try {
+        return { kind: 'legacy', data: (await request(`/api/dashboards/uid/${uid}`)).data };
+    } catch (err: any) {
+        if (err?.response?.status !== 406) {
+            throw err;
+        }
+
+        const hint = JSON.stringify(err.response.data ?? '').match(
+            /\/apis\/dashboard\.grafana\.app\/(v[0-9a-z]+)\/namespaces\/([^/\s"'\\]+)\/dashboards/,
+        );
+        const namespace = hint ? hint[2] : 'default';
+        const versions = hint ? [hint[1], ...RESOURCE_API_VERSIONS.filter(v => v !== hint[1])] : RESOURCE_API_VERSIONS;
+
+        let lastError: unknown = err;
+        for (const version of versions) {
+            try {
+                const result = await request(
+                    `/apis/dashboard.grafana.app/${version}/namespaces/${namespace}/dashboards/${uid}`,
+                );
+                if (result.data?.spec) {
+                    return { kind: 'resource', data: result.data };
+                }
+            } catch (e) {
+                lastError = e;
+            }
+        }
+        throw lastError;
+    }
+}
+
 /**
  * Collects dashboards, folders and datasources from the Grafana API into the staging directory.
  *
@@ -141,73 +204,63 @@ async function getData(
             log.error(`Error on Grafana Dashboard Request: ${err}`);
         }
 
-        try {
-            await Promise.all(
-                dashBoards.map(async dashBoard => {
-                    const dashBoardData = dashBoard.split(':');
-                    let dashBoardRequest;
+        await Promise.all(
+            dashBoards.map(async dashBoard => {
+                const dashBoardData = dashBoard.split(':');
+                const [uid, name] = dashBoardData;
 
-                    try {
-                        dashBoardRequest = await axios({
-                            method: 'get',
-                            url: `${options.protocol}://${options.host}:${options.port}/api/dashboards/uid/${dashBoardData[0]}`,
-                            headers: { Authorization: `Bearer ${options.apiKey}` },
-                            responseType: 'json',
-                            httpsAgent: new Agent({
-                                rejectUnauthorized: options.signedCertificates,
-                            }),
-                        });
-                    } catch (err) {
-                        ctx.errors.grafana = errText(err);
-                        log.error(`Error on Grafana Dashboard ${dashBoardData[0]} backup: ${err}`);
-                    }
-
-                    log.debug(`found Dashboard: ${dashBoardData[1]}`);
+                try {
+                    const fetched = await fetchDashboard(options, uid);
+                    log.debug(`found Dashboard: ${name}`);
                     await sleep(300);
 
-                    // Deliberately unguarded: if the request above failed this throws and is
-                    // caught by the surrounding try, exactly as before. The non-null
-                    // assertion is what tsc needs here; eslint's program runs without
-                    // strictNullChecks and therefore considers it redundant.
-                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-                    const changedJSON = dashBoardRequest!.data;
-                    const folderUid = changedJSON.meta?.folderUid || 'general';
+                    let fileData;
+                    let manualData;
 
-                    dashboardFolderMap[dashBoardData[1]] = folderUid;
+                    if (fetched.kind === 'resource') {
+                        // Schema v2: stored as the whole resource, the restore recognises it by `apiVersion`.
+                        // The server-managed fields are dropped, they are refused on create.
+                        const resource = fetched.data;
+                        const metadata = resource.metadata || {};
+                        dashboardFolderMap[name] = metadata.annotations?.['grafana.app/folder'] || 'general';
+                        resource.metadata = {
+                            name: metadata.name || uid,
+                            namespace: metadata.namespace,
+                            annotations: metadata.annotations?.['grafana.app/folder']
+                                ? { 'grafana.app/folder': metadata.annotations['grafana.app/folder'] }
+                                : undefined,
+                        };
+                        delete resource.status;
+                        fileData = resource;
+                        manualData = resource.spec;
+                    } else {
+                        const changedJSON = fetched.data;
+                        dashboardFolderMap[name] = changedJSON.meta?.folderUid || 'general';
 
-                    delete changedJSON.meta;
-                    changedJSON.dashboard.id = null;
-                    changedJSON.overwrite = true;
+                        delete changedJSON.meta;
+                        changedJSON.dashboard.id = null;
+                        changedJSON.overwrite = true;
 
-                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-                    const manuellJSON = dashBoardRequest!.data.dashboard;
-
-                    manuellJSON.id = null;
-                    try {
-                        await writeFile(
-                            join(dashboardDir, `${dashBoardData[1]}.json`).replace(/\\/g, '/'),
-                            JSON.stringify(changedJSON, null, 2),
-                        );
-                    } catch (e) {
-                        ctx.errors.grafana = errText(e);
-                        log.error(`${dashBoardData[1]}.json cannot be written: ${e}`);
+                        fileData = changedJSON;
+                        manualData = changedJSON.dashboard;
+                        manualData.id = null;
                     }
 
-                    try {
-                        await writeFile(
-                            join(dashboardManuallyDir, `${dashBoardData[1]}.json`).replace(/\\/g, '/'),
-                            JSON.stringify(manuellJSON, null, 2),
-                        );
-                    } catch (e) {
-                        ctx.errors.grafana = errText(e);
-                        log.error(`${dashBoardData[1]}.json cannot be written: ${e}`);
-                    }
-                }),
-            );
-        } catch (err) {
-            ctx.errors.grafana = errText(err);
-            log.error(`Error on Grafana Dashboard backup: ${err}`);
-        }
+                    await writeFile(
+                        join(dashboardDir, `${name}.json`).replace(/\\/g, '/'),
+                        JSON.stringify(fileData, null, 2),
+                    );
+                    await writeFile(
+                        join(dashboardManuallyDir, `${name}.json`).replace(/\\/g, '/'),
+                        JSON.stringify(manualData, null, 2),
+                    );
+                } catch (err) {
+                    // One broken dashboard must not take the others with it.
+                    ctx.errors.grafana = errText(err);
+                    log.error(`Error on Grafana Dashboard ${uid} (${name}) backup: ${err}`);
+                }
+            }),
+        );
 
         // Backup Folder UID
         try {
