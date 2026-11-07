@@ -19,6 +19,12 @@ import {
 } from 'node:fs';
 import { join, normalize } from 'node:path';
 
+/**
+ * Plain ioBroker backup written by `iobroker backup`, e.g. `2025_03_15-20_25_03_backupiobroker-migration.tar.gz`.
+ * The same rule as `isPureIobrokerBackup` in tools - repeated here, because this file has to run standalone (see above).
+ */
+const PURE_IOBROKER_BACKUP = /^\d{4}_\d\d_\d\d-\d\d_\d\d_\d\d_backupiobroker.*\.tar\.gz$/;
+
 import type { Express, RequestHandler } from 'express';
 import type * as ChildProcessModule from 'node:child_process';
 import type * as HttpModule from 'node:http';
@@ -156,7 +162,7 @@ export function getFile(
             backupType = name.split('_')[0];
         }
 
-        if (name.match(/^\d\d\d\d_\d\d_\d\d-\d\d_\d\d_\d\d_backupiobroker\.tar\.gz$/)) {
+        if (PURE_IOBROKER_BACKUP.test(name)) {
             backupType = 'iobroker';
         }
         const config = getConfig(options, backupType, storageType);
@@ -394,7 +400,7 @@ export function restore(
                     log.debug('Redis-Server stopped');
                 }
 
-                if (name.match(/^\d\d\d\d_\d\d_\d\d-\d\d_\d\d_\d\d_backupiobroker\.tar\.gz$/)) {
+                if (PURE_IOBROKER_BACKUP.test(name)) {
                     backupType = 'iobroker';
                 }
                 const config = getConfig(options, backupType) as BackItUpRestoreOptions;

@@ -173,26 +173,25 @@ function createBackupLog(config: BackItUpExecuteConfig, adapter: ioBroker.Adapte
     const logFile = join(config.notification.bashDir, `${adapter.namespace}.log`);
 
     if (existsSync(logFile)) {
-        const data = readFileSync(logFile, 'utf8');
-        const backupLog = JSON.parse(data);
-        const timestamp = config.timestamp;
-
         try {
-            backupLog.unshift({ [timestamp]: tmpLog });
+            const parsed: unknown = JSON.parse(readFileSync(logFile, 'utf8'));
+            const backupLog = Array.isArray(parsed) ? parsed : [];
+            backupLog.unshift({ [config.timestamp]: tmpLog });
+
+            if (backupLog.length > config.notification.entriesNumber) {
+                backupLog.splice(
+                    config.notification.entriesNumber,
+                    backupLog.length - config.notification.entriesNumber,
+                );
+            }
+
+            writeFileSync(logFile, JSON.stringify(backupLog));
         } catch (err) {
-            adapter.log.error(`Backup Logs could not be created: ${err}`);
+            adapter?.log.error(`Backup Logs could not be created: ${err}`);
         }
-
-        if (backupLog && backupLog.length > config.notification.entriesNumber) {
-            backupLog.splice(
-                config.notification.entriesNumber,
-                backupLog.length - config.notification.entriesNumber,
-            );
-        }
-
-        writeFileSync(logFile, JSON.stringify(backupLog));
-        tmpLog = '';
     }
+    // also when the file is missing: the next run must not start with the lines of this one
+    tmpLog = '';
 }
 
 /**
@@ -580,6 +579,10 @@ function executeScripts(
                                 }, 150);
                             } else {
                                 log.error(err as string);
+                                // The run stops here. Store its log anyway, it is the only place
+                                // that tells the user why the backup failed.
+                                createBackupLog(config, adapter);
+                                adapter?.clearTimeout(timerCleanFiles);
                                 callback?.(err);
                             }
                         } else {

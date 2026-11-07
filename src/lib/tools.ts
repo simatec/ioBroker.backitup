@@ -1,5 +1,21 @@
-import { createReadStream, createWriteStream } from 'node:fs';
-import { join } from 'node:path';
+import { accessSync, constants, createReadStream, createWriteStream, statSync } from 'node:fs';
+import { delimiter, join } from 'node:path';
+
+/**
+ * A plain ioBroker backup as `iobroker backup` (js-controller) writes it, e.g.
+ * `2024_12_27-21_08_42_backupiobroker.tar.gz` or `2025_03_15-20_25_03_backupiobroker-migration.tar.gz`.
+ * Copies renamed by a browser (`... (1).tar.gz`) match as well.
+ */
+const PURE_IOBROKER_BACKUP = /^\d{4}_\d\d_\d\d-\d\d_\d\d_\d\d_backupiobroker.*\.tar\.gz$/;
+
+/**
+ * Tells whether a file name is a plain ioBroker backup made without BackItUp.
+ *
+ * @param name file name without the directory
+ */
+export function isPureIobrokerBackup(name: string): boolean {
+    return PURE_IOBROKER_BACKUP.test(name);
+}
 
 export function getDate(d?: Date): string {
     d = d || new Date();
@@ -147,6 +163,46 @@ export async function delay(ms?: number): Promise<void> {
  */
 export function maskSecret(text: string, secret?: string | null): string {
     return secret ? text.replaceAll(secret, '****') : text;
+}
+
+/**
+ * Looks a program up the way the shell does, so a step can report "not installed" in plain words
+ * instead of the shell's "influx: not found".
+ *
+ * @param name program name, searched in PATH, or a full path
+ * @returns the full path, or null if there is no such program
+ */
+export function findExecutable(name: string): string | null {
+    const isWin = process.platform === 'win32';
+    const usable = (file: string): boolean => {
+        try {
+            if (!statSync(file).isFile()) {
+                return false;
+            }
+            if (!isWin) {
+                accessSync(file, constants.X_OK);
+            }
+            return true;
+        } catch {
+            return false;
+        }
+    };
+
+    if (name.includes('/') || name.includes('\\')) {
+        return usable(name) ? name : null;
+    }
+    const extensions = isWin ? ['', ...(process.env.PATHEXT || '.EXE;.CMD;.BAT').split(';')] : [''];
+    for (const dir of (process.env.PATH || '').split(delimiter)) {
+        if (dir) {
+            for (const ext of extensions) {
+                const file = join(dir, name + ext);
+                if (usable(file)) {
+                    return file;
+                }
+            }
+        }
+    }
+    return null;
 }
 
 export function getSize(bytes: number): string {

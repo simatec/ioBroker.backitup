@@ -97,11 +97,20 @@ interface BackupNowConfig extends ConfigItemCustom {
     backUpType: 'iobroker' | 'ccu';
 }
 
+export interface BackupNowButtonProps {
+    onClick: () => void;
+    disabled: boolean;
+    executing: boolean;
+    label: string;
+}
+
 interface BackupNowProps extends ConfigGenericProps {
     style?: React.CSSProperties;
     className?: string;
     schema: BackupNowConfig;
     color: 'primary' | 'secondary' | 'grey';
+    /** Draws the start control instead of the default button. The execution dialog stays the same. */
+    renderButton?: (props: BackupNowButtonProps) => React.ReactNode;
 }
 
 interface BackupNowState extends ConfigGenericState {
@@ -350,46 +359,59 @@ class BackupNow extends ConfigGeneric<BackupNowProps, BackupNowState> {
         ) : null;
     }
 
+    onStart = (): void =>
+        this.setState(
+            {
+                executionDialog: true,
+                executionLog: [
+                    {
+                        ts: BackupNow.getTime(),
+                        level: 'INFO',
+                        text: I18n.t('starting Backup...'),
+                        source: 'gui',
+                    },
+                ],
+                executing: true,
+            },
+            async () => {
+                this.lastExecutionLine = '';
+                await this.props.oContext.socket.setState(
+                    `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${this.props.schema.backUpType}`,
+                    true,
+                );
+            },
+        );
+
     renderItem(): React.JSX.Element {
+        const disabled = !this.props.alive || this.state.executing;
+        const label = this.props.schema.label
+            ? typeof this.props.schema.label === 'object'
+                ? this.props.schema.label[I18n.getLanguage()] || this.props.schema.label.en
+                : I18n.t(this.props.schema.label)
+            : I18n.t('Backup now');
+
         return (
             <>
-                <Button
-                    disabled={!this.props.alive || this.state.executing}
-                    onClick={() =>
-                        this.setState(
-                            {
-                                executionDialog: true,
-                                executionLog: [
-                                    {
-                                        ts: BackupNow.getTime(),
-                                        level: 'INFO',
-                                        text: I18n.t('starting Backup...'),
-                                        source: 'gui',
-                                    },
-                                ],
-                                executing: true,
-                            },
-                            async () => {
-                                this.lastExecutionLine = '';
-                                await this.props.oContext.socket.setState(
-                                    `${this.props.oContext.adapterName}.${this.props.oContext.instance}.oneClick.${this.props.schema.backUpType}`,
-                                    true,
-                                );
-                            },
-                        )
-                    }
-                    className={this.props.className}
-                    color={this.props.color}
-                    variant="contained"
-                    style={this.props.style}
-                    endIcon={<CloudUploadOutlined />}
-                >
-                    {this.props.schema.label
-                        ? typeof this.props.schema.label === 'object'
-                            ? this.props.schema.label[I18n.getLanguage()] || this.props.schema.label.en
-                            : I18n.t(this.props.schema.label)
-                        : I18n.t('Backup now')}
-                </Button>
+                {this.props.renderButton ? (
+                    this.props.renderButton({
+                        onClick: this.onStart,
+                        disabled,
+                        executing: this.state.executing,
+                        label,
+                    })
+                ) : (
+                    <Button
+                        disabled={disabled}
+                        onClick={this.onStart}
+                        className={this.props.className}
+                        color={this.props.color}
+                        variant="contained"
+                        style={this.props.style}
+                        endIcon={<CloudUploadOutlined />}
+                    >
+                        {label}
+                    </Button>
+                )}
                 {this.renderExecutionDialog()}
             </>
         );
