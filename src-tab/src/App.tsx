@@ -122,16 +122,21 @@ function Spacer(): React.JSX.Element {
 }
 
 /**
- * Unit behind a time of day, the same words the adapter uses for the next backup
- * (`timePattern` in src/lib/tools.ts, e.g. de: '%d um %t Uhr'). Languages without a unit there have none here.
+ * Time of day with its unit, for all languages of the tab - like the adapter writes the next backup
+ * (`timePattern` in src/lib/tools.ts, e.g. de: '%d um %t Uhr'). `%t` is replaced by the time.
  */
-const TIME_UNITS: Record<string, string> = {
-    en: 'Hours',
-    de: 'Uhr',
-    es: 'horas',
-    pt: 'horas',
-    uk: 'годині',
-    fr: 'heures',
+const TIME_FORMATS: Record<string, string> = {
+    en: '%t Hours',
+    de: '%t Uhr',
+    es: '%t horas',
+    fr: '%t heures',
+    it: 'ore %t',
+    nl: '%t uur',
+    pl: 'godz. %t',
+    pt: '%t horas',
+    ru: '%t ч.',
+    uk: '%t год.',
+    'zh-cn': '%t 时',
 };
 
 const cardTitleStyle: React.CSSProperties = {
@@ -373,9 +378,9 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
         const time: string = (type === 'iobroker' ? native.minimalTime : native.ccuTime) || '--:--';
         const days = parseInt(type === 'iobroker' ? native.minimalEveryXDays : native.ccuEveryXDays, 10) || 1;
 
-        // the unit behind the time ("22:35 Uhr"), as the adapter writes it for the next backup
-        const unit = TIME_UNITS[I18n.getLanguage()];
-        const timeText = unit && time !== '--:--' ? `${time} ${unit}` : time;
+        // the time with its unit ("22:35 Uhr"), as the adapter writes it for the next backup
+        const format = TIME_FORMATS[I18n.getLanguage()] || TIME_FORMATS.en;
+        const timeText = time !== '--:--' ? format.replace('%t', time) : time;
 
         return days <= 1 ? I18n.t('Daily, %s', timeText) : I18n.t('Every %s days, %s', days.toString(), timeText);
     }
