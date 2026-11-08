@@ -26,10 +26,15 @@ import { join, normalize } from 'node:path';
 const PURE_IOBROKER_BACKUP = /^\d{4}_\d\d_\d\d-\d\d_\d\d_\d\d_backupiobroker.*\.tar\.gz$/;
 
 /**
- * Backup of a Homematic CCU (`homematic_..._backupiobroker.tar.sbk`). It can be downloaded, but only the CCU
- * itself can restore it. The same rule as `isCcuBackup` in tools - repeated here for the same reason.
+ * Homematic CCU backup (`homematic_..._backupiobroker.tar.sbk`). With "own directory" it lies in the CCU directory.
  */
 const CCU_BACKUP = /^homematic_.*\.sbk$/;
+
+/**
+ * Backups that can be downloaded, but not restored by BackItUp: Homematic CCU, remote Redis and remote Zigbee2MQTT.
+ * The same rule as `isDownloadOnlyBackup` in tools - repeated here, because this file has to run standalone.
+ */
+const DOWNLOAD_ONLY_BACKUP = /^(homematic_.*\.sbk|redis-remote_.*_backupiobroker\.tar\.gz|zigbee2mqtt_.*_backup\.zip)$/;
 
 import type { Express, RequestHandler } from 'express';
 import type * as ChildProcessModule from 'node:child_process';
@@ -356,9 +361,9 @@ export function restore(
         const name = fileName!.split('/').pop()!;
         const toSaveName = join(backupDir, name);
 
-        if (CCU_BACKUP.test(name)) {
-            log.error('Homematic CCU backups cannot be restored by BackItUp. Please restore them in the CCU.');
-            callback({ error: 'Homematic CCU backups cannot be restored by BackItUp' });
+        if (DOWNLOAD_ONLY_BACKUP.test(name)) {
+            log.error(`${name} cannot be restored by BackItUp. Please restore it in the system it comes from.`);
+            callback({ error: 'This backup cannot be restored by BackItUp' });
             return;
         }
 

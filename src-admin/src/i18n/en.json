@@ -91,5 +91,5 @@
   "ioBroker will not be restarted for this restore type.": "ioBroker will not be restarted for this restore type.",
   "ra_Close": "Close",
   "starting Backup...": "starting Backup...",
-  "Homematic CCU backups can only be restored in the CCU": "Homematic CCU backups can only be restored in the CCU"
+  "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "This backup cannot be restored by BackItUp. Please restore it in the system it comes from."
 }

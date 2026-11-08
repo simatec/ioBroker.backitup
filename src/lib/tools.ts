@@ -18,31 +18,41 @@ export function isPureIobrokerBackup(name: string): boolean {
 }
 
 /**
- * Backup of a Homematic CCU / RaspberryMatic, e.g. `homematic_2025_03_15-20_25_03_3.79.6_backupiobroker.tar.sbk`.
- * It is made by the CCU itself: BackItUp can list and download it, but not restore it.
+ * Backups that BackItUp can list and download, but not restore: they are made by another system
+ * and have to be restored there.
+ *
+ * - `homematic_..._backupiobroker.tar.sbk`: made by the Homematic CCU / RaspberryMatic
+ * - `redis-remote_..._backupiobroker.tar.gz`: dump of a remote Redis server
+ * - `zigbee2mqtt_..._backup.zip`: backup of a remote Zigbee2MQTT instance (its own zip format)
  */
-const CCU_BACKUP = /^homematic_.*\.sbk$/;
+const DOWNLOAD_ONLY_BACKUPS: { pattern: RegExp; type: string; creator: string }[] = [
+    { pattern: /^homematic_.*\.sbk$/, type: 'ccu', creator: 'ccu' },
+    { pattern: /^redis-remote_.*_backupiobroker\.tar\.gz$/, type: 'redis-remote', creator: 'redis' },
+    { pattern: /^zigbee2mqtt_.*_backup\.zip$/, type: 'zigbee2mqtt', creator: 'zigbee2mqtt' },
+];
 
 /**
- * Tells whether a file name is a Homematic CCU backup (`.sbk`), which BackItUp cannot restore.
+ * Tells whether a backup can only be downloaded, because BackItUp cannot restore it.
  *
  * @param name file name without the directory
  */
-export function isCcuBackup(name: string): boolean {
-    return CCU_BACKUP.test(name);
+export function isDownloadOnlyBackup(name: string): boolean {
+    return DOWNLOAD_ONLY_BACKUPS.some(entry => entry.pattern.test(name));
 }
 
 /**
  * Decides under which type a file found on a storage is listed.
- * BackItUp archives (`<type>_..._backupiobroker.tar.gz`) are listed under their type, CCU backups under `ccu`.
+ * BackItUp archives (`<type>_..._backupiobroker.tar.gz`) are listed under their type, the download-only backups
+ * under `ccu`, `redis-remote` and `zigbee2mqtt`.
  *
  * @param name file name without the directory
  * @param types names of the configured creators (iobroker, ccu, mysql, ...)
  * @returns the type or null, if the file is no backup of BackItUp
  */
 export function listedBackupType(name: string, types: string[]): string | null {
-    if (isCcuBackup(name)) {
-        return types.includes('ccu') ? 'ccu' : null;
+    const downloadOnly = DOWNLOAD_ONLY_BACKUPS.find(entry => entry.pattern.test(name));
+    if (downloadOnly) {
+        return types.includes(downloadOnly.creator) ? downloadOnly.type : null;
     }
     if (name.split('.').pop() !== 'gz') {
         return null;

@@ -149,5 +149,5 @@
     "No log for the failed run": "Нет лога для неудачного запуска",
     "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "Запуск %s прервался до сохранения лога. Сообщение об ошибке находится в логе ioBroker экземпляра %s.",
     "Below is the last saved run.": "Ниже показан последний сохранённый запуск.",
-    "Homematic CCU backups can only be restored in the CCU": "Резервные копии Homematic CCU можно восстановить только в CCU"
+    "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "Эту резервную копию нельзя восстановить с помощью BackItUp. Восстановите её в системе, из которой она получена."
 }
