@@ -109,7 +109,7 @@ export default function RecentBackups(props: RecentBackupsProps): React.JSX.Elem
     if (!props.entries.length) {
         return (
             <DashboardCard t={t}>
-                <div style={{ padding: '22px', textAlign: 'center', color: t.textMuted }}>
+                <div style={{ padding: '14px', textAlign: 'center', color: t.textMuted }}>
                     {I18n.t('No backups yet')}
                 </div>
             </DashboardCard>
@@ -121,7 +121,7 @@ export default function RecentBackups(props: RecentBackupsProps): React.JSX.Elem
     return (
         <DashboardCard
             t={t}
-            style={{ padding: '6px 18px' }}
+            style={{ padding: '2px 14px' }}
         >
             {props.entries.map((entry, index) => {
                 const ok = !entry.error || entry.error === 'none';
@@ -137,13 +137,13 @@ export default function RecentBackups(props: RecentBackupsProps): React.JSX.Elem
                             sx={{
                                 display: 'grid',
                                 gridTemplateColumns: {
-                                    xs: '28px minmax(0, 1fr) 40px 40px',
-                                    md: '28px minmax(160px, 1.6fr) minmax(120px, 1fr) minmax(110px, auto) minmax(80px, 0.7fr) 40px 40px',
+                                    xs: '22px minmax(0, 1fr) 34px 34px',
+                                    md: '22px minmax(160px, 1.6fr) minmax(120px, 1fr) minmax(110px, auto) minmax(80px, 0.7fr) 34px 34px',
                                 },
                                 alignItems: 'center',
-                                columnGap: '16px',
-                                minHeight: 52,
-                                padding: '4px 0',
+                                columnGap: '14px',
+                                minHeight: 40,
+                                padding: '2px 0',
                                 borderBottom: index < props.entries.length - 1 ? `1px solid ${t.rowDivider}` : 'none',
                                 color: t.text,
                             }}
@@ -155,7 +155,7 @@ export default function RecentBackups(props: RecentBackupsProps): React.JSX.Elem
                             <Box
                                 component="span"
                                 sx={{
-                                    fontSize: '0.95rem',
+                                    fontSize: '0.88rem',
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
                                     whiteSpace: { xs: 'normal', md: 'nowrap' },
@@ -168,12 +168,12 @@ export default function RecentBackups(props: RecentBackupsProps): React.JSX.Elem
                                 sx={{
                                     display: { xs: 'none', md: 'flex' },
                                     alignItems: 'center',
-                                    gap: '10px',
+                                    gap: '8px',
                                     minWidth: 0,
-                                    fontSize: '0.95rem',
+                                    fontSize: '0.88rem',
                                 }}
                             >
-                                <TypeIcon style={{ fontSize: 20, color: t.textSecondary }} />
+                                <TypeIcon style={{ fontSize: 18, color: t.textSecondary }} />
                                 <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                     {I18n.t(TYPE_LABELS[entry.type] || entry.type)}
                                 </span>
@@ -204,7 +204,7 @@ export default function RecentBackups(props: RecentBackupsProps): React.JSX.Elem
                             <Box
                                 sx={{
                                     display: { xs: 'none', md: 'block' },
-                                    fontSize: '0.95rem',
+                                    fontSize: '0.88rem',
                                     textAlign: 'right',
                                     whiteSpace: 'nowrap',
                                 }}
@@ -223,9 +223,9 @@ export default function RecentBackups(props: RecentBackupsProps): React.JSX.Elem
                                         sx={{ color: t.text }}
                                     >
                                         {props.busyIndex === index ? (
-                                            <CircularProgress size={20} />
+                                            <CircularProgress size={18} />
                                         ) : (
-                                            <FileDownloadOutlined />
+                                            <FileDownloadOutlined fontSize="small" />
                                         )}
                                     </IconButton>
                                 </span>
@@ -235,7 +235,7 @@ export default function RecentBackups(props: RecentBackupsProps): React.JSX.Elem
                                 onClick={e => setMenu({ anchor: e.currentTarget, index })}
                                 sx={{ color: t.text }}
                             >
-                                <MoreHoriz />
+                                <MoreHoriz fontSize="small" />
                             </IconButton>
                         </Box>
                     </NewRow>

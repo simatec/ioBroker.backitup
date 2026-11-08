@@ -65,17 +65,17 @@ export function SectionHeader(props: {
             style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 12,
-                padding: '0 2px 10px 2px',
-                margin: '26px 0 14px 0',
+                gap: 10,
+                padding: '0 2px 6px 2px',
+                margin: '16px 0 10px 0',
                 borderBottom: `1px solid ${props.t.divider}`,
             }}
         >
-            <span style={{ display: 'flex', color: props.t.accent, fontSize: 26 }}>{props.icon}</span>
+            <span style={{ display: 'flex', color: props.t.accent, fontSize: 22 }}>{props.icon}</span>
             <span
                 style={{
                     flex: 1,
-                    fontSize: '1.2rem',
+                    fontSize: '1.05rem',
                     fontWeight: 700,
                     letterSpacing: '-0.01em',
                     color: props.t.text,
@@ -90,7 +90,7 @@ export function SectionHeader(props: {
 
 /** Small round "ok" mark used in the option list */
 export function CheckMark(props: { size?: number; color?: string }): React.JSX.Element {
-    const size = props.size || 22;
+    const size = props.size || 18;
     return (
         <span
             style={{
@@ -116,8 +116,8 @@ export function StatusMark(props: { ok: boolean; t: DashboardTokens }): React.JS
     return (
         <span
             style={{
-                width: 24,
-                height: 24,
+                width: 20,
+                height: 20,
                 borderRadius: '50%',
                 background: color,
                 color: '#FFFFFF',
@@ -127,7 +127,7 @@ export function StatusMark(props: { ok: boolean; t: DashboardTokens }): React.JS
                 flexShrink: 0,
             }}
         >
-            {props.ok ? <Check style={{ fontSize: 17 }} /> : <Close style={{ fontSize: 16 }} />}
+            {props.ok ? <Check style={{ fontSize: 14 }} /> : <Close style={{ fontSize: 13 }} />}
         </span>
     );
 }
@@ -148,9 +148,9 @@ export function Pill(props: {
         display: 'inline-flex',
         alignItems: 'center',
         gap: 6,
-        padding: props.large ? '5px 16px' : '3px 12px',
+        padding: props.large ? '3px 12px' : '2px 10px',
         borderRadius: 999,
-        fontSize: props.large ? '0.95rem' : '0.82rem',
+        fontSize: props.large ? '0.85rem' : '0.78rem',
         fontWeight: 600,
         lineHeight: 1.3,
         whiteSpace: 'nowrap',
@@ -167,7 +167,7 @@ export function Pill(props: {
             sx={{
                 font: 'inherit',
                 cursor: 'pointer',
-                paddingRight: props.large ? '10px !important' : '8px !important',
+                paddingRight: props.large ? '8px !important' : '6px !important',
                 transition: 'filter 0.15s ease, transform 0.15s ease',
                 '&:hover': { filter: 'brightness(1.25)' },
                 '&:hover .bk-pill-arrow': { transform: 'translateX(3px)' },
@@ -180,7 +180,7 @@ export function Pill(props: {
             {props.children}
             <ChevronRight
                 className="bk-pill-arrow"
-                style={{ fontSize: props.large ? 20 : 16 }}
+                style={{ fontSize: props.large ? 18 : 16 }}
             />
         </Box>
     ) : (
@@ -217,9 +217,9 @@ export function RoundButton(props: {
                 size="small"
                 onClick={props.onClick}
                 sx={{
-                    width: 40,
-                    height: 40,
-                    minHeight: 40,
+                    width: 36,
+                    height: 36,
+                    minHeight: 36,
                     boxShadow: 'none',
                     backgroundColor: props.t.roundButtonBg,
                     color: props.t.roundButtonColor,
@@ -268,18 +268,18 @@ export function ActionTile(props: {
                 font: 'inherit',
                 width: '100%',
                 height: '100%',
-                minHeight: props.vertical ? 116 : 52,
+                minHeight: props.vertical ? 84 : 44,
                 boxSizing: 'border-box',
                 display: 'flex',
                 flexDirection: props.vertical ? 'column' : 'row',
                 alignItems: 'center',
                 justifyContent: props.vertical ? 'center' : 'flex-start',
-                gap: props.vertical ? '10px' : '14px',
-                padding: props.vertical ? '16px 12px' : '0 16px',
+                gap: props.vertical ? '6px' : '12px',
+                padding: props.vertical ? '10px 10px' : '0 14px',
                 borderRadius: '12px',
                 cursor: props.disabled ? 'default' : 'pointer',
                 textAlign: props.vertical ? 'center' : 'left',
-                fontSize: '0.95rem',
+                fontSize: '0.88rem',
                 fontWeight: 600,
                 lineHeight: 1.3,
                 color: primary ? PRIMARY_TILE.text : t.text,
@@ -310,12 +310,12 @@ export function ActionTile(props: {
                 style={{
                     display: 'flex',
                     color: primary ? PRIMARY_TILE.text : t.tileIcon,
-                    fontSize: props.vertical ? 36 : 26,
+                    fontSize: props.vertical ? 28 : 22,
                 }}
             >
                 {props.busy ? (
                     <CircularProgress
-                        size={props.vertical ? 32 : 22}
+                        size={props.vertical ? 26 : 20}
                         sx={{ color: primary ? PRIMARY_TILE.text : t.tileIcon }}
                     />
                 ) : (

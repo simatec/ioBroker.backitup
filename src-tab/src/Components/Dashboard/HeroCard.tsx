@@ -49,7 +49,7 @@ function formatNextTime(raw: string | undefined): string {
 }
 
 const labelStyle: React.CSSProperties = {
-    fontSize: '0.78rem',
+    fontSize: '0.72rem',
     fontWeight: 600,
     letterSpacing: '0.12em',
     textTransform: 'uppercase',
@@ -177,11 +177,11 @@ function VerticalDivider(): React.JSX.Element {
 
 function InfoLine(props: { icon: React.ReactNode; label: string; value: string; upper?: boolean }): React.JSX.Element {
     return (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16, minWidth: 0 }}>
-            <span style={{ display: 'flex', color: HERO.icon, fontSize: 34, flexShrink: 0 }}>{props.icon}</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}>
+            <span style={{ display: 'flex', color: HERO.icon, fontSize: 26, flexShrink: 0 }}>{props.icon}</span>
             <div style={{ minWidth: 0 }}>
-                <div style={props.upper ? labelStyle : { fontSize: '0.95rem', color: HERO.label }}>{props.label}</div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 700, color: HERO.text, marginTop: 2 }}>{props.value}</div>
+                <div style={props.upper ? labelStyle : { fontSize: '0.85rem', color: HERO.label }}>{props.label}</div>
+                <div style={{ fontSize: '1rem', fontWeight: 700, color: HERO.text, marginTop: 1 }}>{props.value}</div>
             </div>
         </div>
     );
@@ -196,27 +196,27 @@ function BackupRow(props: { info: HeroBackupInfo; index: number; count: number }
                 display: 'flex',
                 flexWrap: { xs: 'wrap', md: 'nowrap' },
                 alignItems: 'center',
-                gap: { xs: '18px', md: '40px' },
+                gap: { xs: '12px', md: '28px' },
                 flex: 1,
                 minWidth: 0,
-                pt: props.index > 0 ? '16px' : 0,
-                pb: props.index < props.count - 1 ? '16px' : 0,
+                pt: props.index > 0 ? '10px' : 0,
+                pb: props.index < props.count - 1 ? '10px' : 0,
                 borderTop: props.index > 0 ? `1px solid ${HERO.divider}` : 'none',
             }}
         >
-            <div style={{ flex: '1 1 280px', minWidth: 0 }}>
+            <div style={{ flex: '1 1 240px', minWidth: 0 }}>
                 {props.info.title ? (
-                    <div style={{ ...labelStyle, color: HERO.icon, marginBottom: 4 }}>{props.info.title}</div>
+                    <div style={{ ...labelStyle, color: HERO.icon, marginBottom: 2 }}>{props.info.title}</div>
                 ) : null}
                 <div style={labelStyle}>{I18n.t('Last backup')}</div>
                 <div
                     style={{
-                        fontSize: 'clamp(1.3rem, 0.9rem + 1.1vw, 2rem)',
+                        fontSize: 'clamp(1.1rem, 0.85rem + 0.7vw, 1.5rem)',
                         fontWeight: 700,
                         letterSpacing: '-0.01em',
                         lineHeight: 1.2,
                         color: HERO.text,
-                        margin: '6px 0 12px 0',
+                        margin: '2px 0 8px 0',
                     }}
                 >
                     {last.text}
@@ -282,11 +282,11 @@ function BackupRow(props: { info: HeroBackupInfo; index: number; count: number }
             <VerticalDivider />
             <Box
                 sx={{
-                    flex: '1 1 260px',
+                    flex: '1 1 220px',
                     minWidth: 0,
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '14px',
+                    gap: '8px',
                     position: 'relative',
                 }}
             >
@@ -320,7 +320,7 @@ export default function HeroCard(props: { rows: HeroBackupInfo[] }): React.JSX.E
                 border: `1px solid ${HERO.border}`,
                 boxShadow: HERO.shadow,
                 color: HERO.text,
-                padding: { xs: '20px', md: '24px 32px' },
+                padding: { xs: '14px 16px', md: '16px 24px' },
             }}
         >
             <Waves active={running} />
@@ -330,7 +330,7 @@ export default function HeroCard(props: { rows: HeroBackupInfo[] }): React.JSX.E
                     display: 'flex',
                     flexWrap: { xs: 'wrap', md: 'nowrap' },
                     alignItems: 'center',
-                    gap: { xs: '18px', md: '40px' },
+                    gap: { xs: '12px', md: '28px' },
                 }}
             >
                 <Box
@@ -339,15 +339,15 @@ export default function HeroCard(props: { rows: HeroBackupInfo[] }): React.JSX.E
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        width: { xs: 110, md: 220 },
+                        width: { xs: 80, md: 140 },
                     }}
                 >
                     <AnimatedLogo
                         active={running}
                         style={{
                             width: '100%',
-                            maxWidth: 190,
-                            filter: 'drop-shadow(0 0 16px rgba(56, 160, 255, 0.55))',
+                            maxWidth: 120,
+                            filter: 'drop-shadow(0 0 12px rgba(56, 160, 255, 0.55))',
                         }}
                     />
                 </Box>
@@ -363,7 +363,7 @@ export default function HeroCard(props: { rows: HeroBackupInfo[] }): React.JSX.E
                             />
                         ))
                     ) : (
-                        <div style={{ fontSize: '1.1rem', fontWeight: 600, color: HERO.label }}>
+                        <div style={{ fontSize: '1rem', fontWeight: 600, color: HERO.label }}>
                             {I18n.t('No backup activated')}
                         </div>
                     )}

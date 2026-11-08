@@ -28,6 +28,10 @@ export interface DashboardTokens {
     roundButtonBg: string;
     roundButtonHoverBg: string;
     roundButtonColor: string;
+    /** Dropdown menus (backup source) */
+    menuBg: string;
+    menuShadow: string;
+    menuHover: string;
     success: string;
     successBg: string;
     successBorder: string;
@@ -61,6 +65,9 @@ const DARK: DashboardTokens = {
     roundButtonBg: 'rgba(255, 255, 255, 0.07)',
     roundButtonHoverBg: 'rgba(255, 255, 255, 0.16)',
     roundButtonColor: '#E2E8F0',
+    menuBg: '#16233A',
+    menuShadow: '0 12px 32px rgba(0, 0, 0, 0.5)',
+    menuHover: 'rgba(255, 255, 255, 0.06)',
     success: '#4ADE80',
     successBg: 'rgba(34, 197, 94, 0.14)',
     successBorder: 'rgba(74, 222, 128, 0.45)',
@@ -94,6 +101,9 @@ const LIGHT: DashboardTokens = {
     roundButtonBg: 'rgba(15, 23, 42, 0.05)',
     roundButtonHoverBg: 'rgba(15, 23, 42, 0.11)',
     roundButtonColor: '#334155',
+    menuBg: '#FFFFFF',
+    menuShadow: '0 12px 32px rgba(15, 23, 42, 0.14)',
+    menuHover: 'rgba(15, 23, 42, 0.045)',
     success: '#15803D',
     successBg: 'rgba(34, 197, 94, 0.12)',
     successBorder: 'rgba(22, 163, 74, 0.4)',

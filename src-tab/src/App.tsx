@@ -43,13 +43,13 @@ import GetLogs from './Components/GetLogs';
 import UploadBackup from './Components/UploadBackup';
 import UploadSettings from './Components/UploadSettings';
 import BackupNow from './Components/BackupNow';
-import SourceSelector from './Components/SourceSelector';
 import Restore from './Components/Restore';
 import HeroCard, { type HeroBackupInfo, parseLastTime } from './Components/Dashboard/HeroCard';
 import AliveLed from './Components/Dashboard/AliveLed';
 import { type HoverEffect, revealSx } from './Components/Dashboard/motion';
 import RecentBackups, { type HistoryEntry } from './Components/Dashboard/RecentBackups';
 import { StorageIcon } from './Components/Dashboard/StorageIcons';
+import SourceSelect from './Components/Dashboard/SourceSelect';
 import { getTokens, type DashboardTokens } from './Components/Dashboard/tokens';
 import {
     ActionTile,
@@ -112,11 +112,20 @@ const BACKUP_OPTIONS: { name: string; label: string }[] = [
     { name: 'pgSqlEnabled', label: 'PostgreSQL Backup' },
 ];
 
+/**
+ * Takes the free height of the page between two blocks, so the dashboard fills the screen without
+ * an empty area at the bottom. It never grows above `MAX_SPACER` and shrinks to 0 if the page has to scroll.
+ */
+const MAX_SPACER = 28;
+function Spacer(): React.JSX.Element {
+    return <Box sx={{ flex: '1 1 0', maxHeight: MAX_SPACER, minHeight: 0 }} />;
+}
+
 const cardTitleStyle: React.CSSProperties = {
-    fontSize: '1.15rem',
+    fontSize: '1rem',
     fontWeight: 700,
     letterSpacing: '-0.01em',
-    marginBottom: 12,
+    marginBottom: 6,
 };
 
 interface AppState extends GenericAppState {
@@ -542,8 +551,8 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                     flexShrink: 0,
                     display: 'flex',
                     alignItems: 'center',
-                    gap: { xs: '12px', sm: '18px' },
-                    padding: { xs: '10px 12px', sm: '12px 24px' },
+                    gap: { xs: '10px', sm: '14px' },
+                    padding: { xs: '6px 12px', sm: '8px 20px' },
                     borderBottom: `1px solid ${t.divider}`,
                     background: t.dark ? 'rgba(255, 255, 255, 0.015)' : '#FFFFFF',
                 }}
@@ -552,7 +561,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                     src={logo}
                     alt="BackItUp"
                     style={{
-                        height: 52,
+                        height: 40,
                         flexShrink: 0,
                         filter: t.dark ? 'drop-shadow(0 0 8px rgba(56, 160, 255, 0.35))' : undefined,
                     }}
@@ -563,7 +572,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                             display: 'flex',
                             alignItems: 'center',
                             gap: 10,
-                            fontSize: '1.65rem',
+                            fontSize: '1.35rem',
                             fontWeight: 700,
                             letterSpacing: '-0.01em',
                             lineHeight: 1.15,
@@ -580,7 +589,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                     <div
                         style={{
                             color: t.textSecondary,
-                            fontSize: 'clamp(0.8rem, 0.7rem + 0.4vw, 1rem)',
+                            fontSize: 'clamp(0.75rem, 0.7rem + 0.25vw, 0.9rem)',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
@@ -589,7 +598,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                         {I18n.t('Back up your system automatically and reliably.')}
                     </div>
                 </div>
-                <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', gap: '12px' }}>
+                <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', gap: '8px' }}>
                     <RoundButton
                         t={t}
                         title="PayPal.Me"
@@ -732,18 +741,21 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
         return (
             <DashboardCard
                 t={t}
-                style={{ padding: '18px 14px 18px 20px', display: 'flex', alignItems: 'flex-start', gap: 18 }}
+                style={{ padding: '12px 8px 12px 14px', display: 'flex', alignItems: 'flex-start', gap: 14 }}
             >
-                <IconBox t={t}>
+                <IconBox
+                    t={t}
+                    size={40}
+                >
                     <StorageOutlined fontSize="inherit" />
                 </IconBox>
                 <div style={{ flex: 1, minWidth: 0, color: t.text }}>
                     <div style={cardTitleStyle}>{I18n.t('Storage options')}</div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                         {list.map(option => (
                             <div
                                 key={option.name}
-                                style={{ display: 'flex', alignItems: 'center', gap: 14, minWidth: 0 }}
+                                style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}
                             >
                                 <span
                                     style={{
@@ -758,7 +770,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                 <span
                                     style={{
                                         flex: 1,
-                                        fontSize: '1rem',
+                                        fontSize: '0.92rem',
                                         overflow: 'hidden',
                                         textOverflow: 'ellipsis',
                                         whiteSpace: 'nowrap',
@@ -785,6 +797,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                 >
                     <IconButton
                         onClick={() => this.openConfiguration()}
+                        size="small"
                         sx={{ alignSelf: 'center', color: t.text }}
                     >
                         <ChevronRight />
@@ -800,9 +813,12 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
         return (
             <DashboardCard
                 t={t}
-                style={{ padding: '18px 20px', display: 'flex', alignItems: 'flex-start', gap: 18 }}
+                style={{ padding: '12px 14px', display: 'flex', alignItems: 'flex-start', gap: 14 }}
             >
-                <IconBox t={t}>
+                <IconBox
+                    t={t}
+                    size={40}
+                >
                     <LayersOutlined fontSize="inherit" />
                 </IconBox>
                 <div style={{ flex: 1, minWidth: 0, color: t.text }}>
@@ -812,18 +828,18 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                             style={{
                                 display: 'grid',
                                 gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
-                                gap: '10px 18px',
+                                gap: '6px 16px',
                             }}
                         >
                             {enabled.map(option => (
                                 <div
                                     key={option.name}
-                                    style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}
+                                    style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}
                                 >
                                     <CheckMark />
                                     <span
                                         style={{
-                                            fontSize: '1rem',
+                                            fontSize: '0.92rem',
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis',
                                             whiteSpace: 'nowrap',
@@ -854,8 +870,8 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                 <div
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
-                        gap: 16,
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+                        gap: 12,
                     }}
                 >
                     {this.renderBackupNowTile(
@@ -934,16 +950,16 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '8px',
-                                padding: '4px 6px',
+                                padding: '2px 6px',
                                 borderRadius: '6px',
                                 color: t.accent,
-                                fontSize: '0.95rem',
+                                fontSize: '0.88rem',
                                 fontWeight: 600,
                                 '&:hover': { textDecoration: 'underline' },
                             }}
                         >
                             {I18n.t('Show history')}
-                            <ArrowForward style={{ fontSize: 20 }} />
+                            <ArrowForward style={{ fontSize: 18 }} />
                         </Box>
                     }
                 />
@@ -976,32 +992,19 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                 <div
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                        gap: 16,
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                        gap: 12,
                     }}
                 >
-                    <Box
-                        sx={{
-                            minHeight: 52,
-                            boxSizing: 'border-box',
-                            padding: '4px 16px 6px 16px',
-                            borderRadius: '12px',
-                            background: t.tileBg,
-                            border: `1px solid ${t.tileBorder}`,
-                            display: 'flex',
-                            alignItems: 'center',
+                    <SourceSelect
+                        t={t}
+                        value={this.state.backupSource}
+                        data={this.state.native}
+                        onChange={backupSource => {
+                            window.localStorage.setItem('BackItUp.backupSource', backupSource);
+                            this.setState({ backupSource });
                         }}
-                    >
-                        <SourceSelector
-                            value={this.state.backupSource}
-                            data={this.state.native}
-                            style={{ height: 'auto' }}
-                            onChange={backupSource => {
-                                window.localStorage.setItem('BackItUp.backupSource', backupSource);
-                                this.setState({ backupSource });
-                            }}
-                        />
-                    </Box>
+                    />
                     <ActionTile
                         t={t}
                         icon={<Search fontSize="inherit" />}
@@ -1134,25 +1137,31 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                                 flex: 1,
                                 minHeight: 0,
                                 overflow: 'auto',
-                                padding: { xs: '14px 12px 24px', sm: '22px 24px 32px' },
+                                display: 'flex',
+                                flexDirection: 'column',
+                                padding: { xs: '10px 10px 16px', sm: '14px 20px 20px' },
                             }}
                         >
                             {/* the blocks fade in one after another when the tab opens */}
                             <Box sx={revealSx(0)}>{this.renderHero()}</Box>
+                            <Spacer />
                             <Box
                                 sx={{
                                     display: 'grid',
                                     gridTemplateColumns: { xs: '1fr', md: '1fr 1.1fr' },
-                                    gap: '20px',
-                                    marginTop: '20px',
+                                    gap: '14px',
+                                    marginTop: '14px',
                                     ...revealSx(1),
                                 }}
                             >
                                 {this.renderStorageOptions(t)}
                                 {this.renderBackupOptions(t)}
                             </Box>
+                            <Spacer />
                             <Box sx={revealSx(2)}>{this.renderActions(t)}</Box>
+                            <Spacer />
                             <Box sx={revealSx(3)}>{this.renderRecentBackups(t)}</Box>
+                            <Spacer />
                             <Box sx={revealSx(4)}>{this.renderRestore(t)}</Box>
                             {this.renderError()}
                         </Box>
