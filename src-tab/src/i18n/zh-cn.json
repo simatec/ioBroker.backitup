@@ -148,5 +148,6 @@
     "Copy log": "复制日志",
     "No log for the failed run": "失败的运行没有日志",
     "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "%s 的运行在保存日志之前已中止。错误信息位于 %s 的 ioBroker 日志中。",
-    "Below is the last saved run.": "下面显示的是最后保存的运行。"
+    "Below is the last saved run.": "下面显示的是最后保存的运行。",
+    "Homematic CCU backups can only be restored in the CCU": "Homematic CCU 备份只能在 CCU 中恢复"
 }

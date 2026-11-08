@@ -148,5 +148,6 @@
     "Copy log": "Protokoll kopieren",
     "No log for the failed run": "Kein Log für den fehlgeschlagenen Lauf",
     "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "Der Lauf vom %s wurde abgebrochen, bevor sein Log gespeichert wurde. Die Fehlermeldung steht im ioBroker-Log von %s.",
-    "Below is the last saved run.": "Unten steht der zuletzt gespeicherte Lauf."
+    "Below is the last saved run.": "Unten steht der zuletzt gespeicherte Lauf.",
+    "Homematic CCU backups can only be restored in the CCU": "Homematic CCU-Backups können nur in der CCU wiederhergestellt werden"
 }

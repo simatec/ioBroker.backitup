@@ -8,6 +8,7 @@ import type {
     BackItUpStorageEngineResult,
     BackItUpStorageEngineResultFile,
 } from './types';
+import { listedBackupType } from '../tools';
 
 /**
  * The engines are handed either the storage node itself or the enclosing creator node, which
@@ -175,12 +176,7 @@ export async function list(
                                 name: file.name.replace(/\\/g, '/').split('/').pop() as string,
                                 size: file.size,
                             }))
-                            .filter(
-                                file =>
-                                    (types.indexOf(file.name.split('_')[0]) !== -1 ||
-                                        types.indexOf(file.name.split('.')[0]) !== -1) &&
-                                    file.name.split('.').pop() == 'gz',
-                            );
+                            .filter(file => listedBackupType(file.name, types) !== null);
                     } catch (e) {
                         log.error(`FTP: error on ftp list: ${e} please check the ftp config!!`);
                     }
@@ -188,7 +184,7 @@ export async function list(
                     const files: BackItUpStorageEngineResult = {};
                     try {
                         entries.forEach(file => {
-                            const type = file.name.split('_')[0];
+                            const type = listedBackupType(file.name, types) as string;
                             files[type] = files[type] || [];
                             files[type].push(file);
                         });

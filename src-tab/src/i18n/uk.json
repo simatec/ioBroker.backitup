@@ -148,5 +148,6 @@
     "Copy log": "Копіювати журнал",
     "No log for the failed run": "Немає логу для невдалого запуску",
     "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "Запуск %s перервався до збереження логу. Повідомлення про помилку є в лозі ioBroker екземпляра %s.",
-    "Below is the last saved run.": "Нижче показано останній збережений запуск."
+    "Below is the last saved run.": "Нижче показано останній збережений запуск.",
+    "Homematic CCU backups can only be restored in the CCU": "Резервні копії Homematic CCU можна відновити лише в CCU"
 }

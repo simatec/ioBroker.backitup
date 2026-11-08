@@ -17,6 +17,42 @@ export function isPureIobrokerBackup(name: string): boolean {
     return PURE_IOBROKER_BACKUP.test(name);
 }
 
+/**
+ * Backup of a Homematic CCU / RaspberryMatic, e.g. `homematic_2025_03_15-20_25_03_3.79.6_backupiobroker.tar.sbk`.
+ * It is made by the CCU itself: BackItUp can list and download it, but not restore it.
+ */
+const CCU_BACKUP = /^homematic_.*\.sbk$/;
+
+/**
+ * Tells whether a file name is a Homematic CCU backup (`.sbk`), which BackItUp cannot restore.
+ *
+ * @param name file name without the directory
+ */
+export function isCcuBackup(name: string): boolean {
+    return CCU_BACKUP.test(name);
+}
+
+/**
+ * Decides under which type a file found on a storage is listed.
+ * BackItUp archives (`<type>_..._backupiobroker.tar.gz`) are listed under their type, CCU backups under `ccu`.
+ *
+ * @param name file name without the directory
+ * @param types names of the configured creators (iobroker, ccu, mysql, ...)
+ * @returns the type or null, if the file is no backup of BackItUp
+ */
+export function listedBackupType(name: string, types: string[]): string | null {
+    if (isCcuBackup(name)) {
+        return types.includes('ccu') ? 'ccu' : null;
+    }
+    if (name.split('.').pop() !== 'gz') {
+        return null;
+    }
+    if (types.includes(name.split('_')[0]) || types.includes(name.split('.')[0])) {
+        return name.split('_')[0];
+    }
+    return null;
+}
+
 export function getDate(d?: Date): string {
     d = d || new Date();
 

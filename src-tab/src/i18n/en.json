@@ -148,5 +148,6 @@
   "Copy log": "Copy log",
   "No log for the failed run": "No log for the failed run",
   "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.",
-  "Below is the last saved run.": "Below is the last saved run."
+  "Below is the last saved run.": "Below is the last saved run.",
+  "Homematic CCU backups can only be restored in the CCU": "Homematic CCU backups can only be restored in the CCU"
 }

@@ -148,5 +148,6 @@
     "Copy log": "Copiar registro",
     "No log for the failed run": "No hay registro de la ejecución fallida",
     "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "La ejecución del %s se detuvo antes de guardar su registro. El mensaje de error está en el registro de ioBroker de %s.",
-    "Below is the last saved run.": "Abajo se muestra la última ejecución guardada."
+    "Below is the last saved run.": "Abajo se muestra la última ejecución guardada.",
+    "Homematic CCU backups can only be restored in the CCU": "Las copias de seguridad de Homematic CCU solo se pueden restaurar en la CCU"
 }

@@ -148,5 +148,6 @@
     "Copy log": "Copier le journal",
     "No log for the failed run": "Aucun journal pour l'exécution échouée",
     "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "L'exécution du %s s'est arrêtée avant l'enregistrement de son journal. Le message d'erreur se trouve dans le journal ioBroker de %s.",
-    "Below is the last saved run.": "Ci-dessous la dernière exécution enregistrée."
+    "Below is the last saved run.": "Ci-dessous la dernière exécution enregistrée.",
+    "Homematic CCU backups can only be restored in the CCU": "Les sauvegardes Homematic CCU ne peuvent être restaurées que dans la CCU"
 }

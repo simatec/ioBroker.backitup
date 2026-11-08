@@ -90,5 +90,6 @@
   "ioBroker will be restarted during restore.": "ioBroker sera redémarré pendant la restauration.",
   "ioBroker will not be restarted for this restore type.": "ioBroker ne sera pas redémarré pour ce type de restauration.",
   "ra_Close": "Fermer",
-  "starting Backup...": "démarrage de la sauvegarde..."
+  "starting Backup...": "démarrage de la sauvegarde...",
+  "Homematic CCU backups can only be restored in the CCU": "Les sauvegardes Homematic CCU ne peuvent être restaurées que dans la CCU"
 }

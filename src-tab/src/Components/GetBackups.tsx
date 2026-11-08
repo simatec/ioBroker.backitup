@@ -382,6 +382,8 @@ export default function GetBackups(props: GetBackupsProps): React.JSX.Element {
 
     const renderRow = (location: string, object: string, backup: BackupFile, index: number): React.JSX.Element => {
         const busy = busyPath === backup.path;
+        /** A CCU backup can be downloaded, but only the CCU itself can restore it */
+        const restorable = object !== 'ccu';
         return (
             <Box
                 key={backup.path}
@@ -471,29 +473,35 @@ export default function GetBackups(props: GetBackupsProps): React.JSX.Element {
                         </Tooltip>
                     ) : null}
                     <Tooltip
-                        title={I18n.t('Restore Backup File')}
+                        title={
+                            restorable
+                                ? I18n.t('Restore Backup File')
+                                : I18n.t('Homematic CCU backups can only be restored in the CCU')
+                        }
                         slotProps={{ popper: { sx: { pointerEvents: 'none' } } }}
                     >
-                        <Button
-                            size="small"
-                            variant="outlined"
-                            disabled={!!busyPath}
-                            onClick={() => props.onRestore(location, object, backup.path)}
-                            startIcon={fullScreen ? undefined : <SettingsBackupRestore />}
-                            sx={{
-                                height: 36,
-                                minWidth: fullScreen ? 36 : undefined,
-                                px: fullScreen ? 0 : '14px',
-                                borderRadius: '10px',
-                                textTransform: 'none',
-                                fontWeight: 600,
-                                color: t.accent,
-                                borderColor: t.iconBoxBorder,
-                                '&:hover': { borderColor: t.accent, background: t.iconBoxBg },
-                            }}
-                        >
-                            {fullScreen ? <SettingsBackupRestore fontSize="small" /> : I18n.t('Restore')}
-                        </Button>
+                        <span style={{ display: 'inline-flex' }}>
+                            <Button
+                                size="small"
+                                variant="outlined"
+                                disabled={!!busyPath || !restorable}
+                                onClick={() => props.onRestore(location, object, backup.path)}
+                                startIcon={fullScreen ? undefined : <SettingsBackupRestore />}
+                                sx={{
+                                    height: 36,
+                                    minWidth: fullScreen ? 36 : undefined,
+                                    px: fullScreen ? 0 : '14px',
+                                    borderRadius: '10px',
+                                    textTransform: 'none',
+                                    fontWeight: 600,
+                                    color: t.accent,
+                                    borderColor: t.iconBoxBorder,
+                                    '&:hover': { borderColor: t.accent, background: t.iconBoxBg },
+                                }}
+                            >
+                                {fullScreen ? <SettingsBackupRestore fontSize="small" /> : I18n.t('Restore')}
+                            </Button>
+                        </span>
                     </Tooltip>
                 </div>
             </Box>

@@ -11,6 +11,7 @@ import type {
     BackItUpStorageEngineResult,
     BackItUpStorageEngineResultFile,
 } from './types';
+import { listedBackupType } from '../tools';
 
 /**
  * The engines are handed either the storage node itself or the enclosing creator node, which
@@ -165,16 +166,11 @@ export async function list(
                 name: file.filename.replace(/\\/g, '/').split('/').pop() as string,
                 size: file.size,
             }))
-            .filter(
-                file =>
-                    (types.indexOf(file.name.split('_')[0]) !== -1 ||
-                        types.indexOf(file.name.split('.')[0]) !== -1) &&
-                    file.name.split('.').pop() == 'gz',
-            );
+            .filter(file => listedBackupType(file.name, types) !== null);
 
         const files: BackItUpStorageEngineResult = {};
         entries.forEach(file => {
-            const type = file.name.split('_')[0];
+            const type = listedBackupType(file.name, types) as string;
             files[type] = files[type] || [];
             files[type].push(file);
         });

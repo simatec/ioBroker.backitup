@@ -2,7 +2,7 @@ import { exec } from 'node:child_process';
 import { existsSync, readdirSync, statSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { getIobDir } from '../tools';
+import { getIobDir, listedBackupType } from '../tools';
 import type { BackItUpConfigStorageCifs, BackItUpLogger, BackItUpStorage } from '../types';
 import type {
     BackItUpGetFileProps,
@@ -96,15 +96,10 @@ function nasList(
                             const stat = statSync(file);
                             return { path: file, name: file.split('/').pop() as string, size: stat.size };
                         })
-                        .filter(
-                            file =>
-                                (types.indexOf(file.name.split('_')[0]) !== -1 ||
-                                    types.indexOf(file.name.split('.')[0]) !== -1) &&
-                                file.name.split('.').pop() == 'gz',
-                        );
+                        .filter(file => listedBackupType(file.name, types) !== null);
 
                     result.forEach(file => {
-                        const type = file.name.split('_')[0];
+                        const type = listedBackupType(file.name, types) as string;
                         files[type] = files[type] || [];
                         files[type].push(file);
                     });

@@ -90,5 +90,6 @@
   "ioBroker will be restarted during restore.": "Під час відновлення ioBroker буде перезапущено.",
   "ioBroker will not be restarted for this restore type.": "ioBroker не буде перезапущено для цього типу відновлення.",
   "ra_Close": "Закрити",
-  "starting Backup...": "запуск резервного копіювання..."
+  "starting Backup...": "запуск резервного копіювання...",
+  "Homematic CCU backups can only be restored in the CCU": "Резервні копії Homematic CCU можна відновити лише в CCU"
 }

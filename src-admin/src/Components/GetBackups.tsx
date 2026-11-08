@@ -326,24 +326,35 @@ const GetBackups = (props: GetBackupsProps): JSX.Element => {
                                                                             </Fab>
                                                                         </Tooltip>
                                                                     ) : null}
-                                                                    <Tooltip title={I18n.t('Restore Backup File')}>
-                                                                        <Fab
-                                                                            size="small"
-                                                                            color={
-                                                                                props.themeType === 'dark'
-                                                                                    ? 'primary'
-                                                                                    : ('grey' as any)
-                                                                            }
-                                                                            onClick={() =>
-                                                                                props.onRestore(
-                                                                                    location,
-                                                                                    object,
-                                                                                    backup.path,
-                                                                                )
-                                                                            }
-                                                                        >
-                                                                            <History />
-                                                                        </Fab>
+                                                                    <Tooltip
+                                                                        title={
+                                                                            object === 'ccu'
+                                                                                ? I18n.t(
+                                                                                      'Homematic CCU backups can only be restored in the CCU',
+                                                                                  )
+                                                                                : I18n.t('Restore Backup File')
+                                                                        }
+                                                                    >
+                                                                        <span>
+                                                                            <Fab
+                                                                                size="small"
+                                                                                disabled={object === 'ccu'}
+                                                                                color={
+                                                                                    props.themeType === 'dark'
+                                                                                        ? 'primary'
+                                                                                        : ('grey' as any)
+                                                                                }
+                                                                                onClick={() =>
+                                                                                    props.onRestore(
+                                                                                        location,
+                                                                                        object,
+                                                                                        backup.path,
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                <History />
+                                                                            </Fab>
+                                                                        </span>
                                                                     </Tooltip>
                                                                 </div>
                                                             </TableCell>

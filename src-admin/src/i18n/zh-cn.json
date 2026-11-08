@@ -90,5 +90,6 @@
   "ioBroker will be restarted during restore.": "ioBroker 将在恢复期间重新启动。",
   "ioBroker will not be restarted for this restore type.": "对于此恢复类型，ioBroker 将不会重新启动。",
   "ra_Close": "关闭",
-  "starting Backup...": "开始备份..."
+  "starting Backup...": "开始备份...",
+  "Homematic CCU backups can only be restored in the CCU": "Homematic CCU 备份只能在 CCU 中恢复"
 }

@@ -25,6 +25,12 @@ import { join, normalize } from 'node:path';
  */
 const PURE_IOBROKER_BACKUP = /^\d{4}_\d\d_\d\d-\d\d_\d\d_\d\d_backupiobroker.*\.tar\.gz$/;
 
+/**
+ * Backup of a Homematic CCU (`homematic_..._backupiobroker.tar.sbk`). It can be downloaded, but only the CCU
+ * itself can restore it. The same rule as `isCcuBackup` in tools - repeated here for the same reason.
+ */
+const CCU_BACKUP = /^homematic_.*\.sbk$/;
+
 import type { Express, RequestHandler } from 'express';
 import type * as ChildProcessModule from 'node:child_process';
 import type * as HttpModule from 'node:http';
@@ -165,7 +171,11 @@ export function getFile(
         if (PURE_IOBROKER_BACKUP.test(name)) {
             backupType = 'iobroker';
         }
-        const config = getConfig(options, backupType, storageType);
+        let config = getConfig(options, backupType === 'homematic' ? 'ccu' : backupType, storageType);
+        if (CCU_BACKUP.test(name) && config && typeof config === 'object') {
+            // with "own directory" the CCU backup lies in the CCU directory (`dir`), not in the one of the ioBroker backup
+            config = { ...config, ownDir: false };
+        }
         if (storageType !== 'local') {
             // eslint-disable-next-line @typescript-eslint/no-require-imports
             const engine = require(`./list/${storageType}`) as BackItUpStorageEngine;
@@ -345,6 +355,12 @@ export function restore(
 
         const name = fileName!.split('/').pop()!;
         const toSaveName = join(backupDir, name);
+
+        if (CCU_BACKUP.test(name)) {
+            log.error('Homematic CCU backups cannot be restored by BackItUp. Please restore them in the CCU.');
+            callback({ error: 'Homematic CCU backups cannot be restored by BackItUp' });
+            return;
+        }
 
         getFile(options, storageType!, fileName!, toSaveName, log as unknown as ioBroker.Logger, err => {
             if (!err && existsSync(toSaveName)) {

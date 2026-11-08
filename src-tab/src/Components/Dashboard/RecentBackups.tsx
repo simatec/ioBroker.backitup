@@ -262,7 +262,7 @@ export default function RecentBackups(props: RecentBackupsProps): React.JSX.Elem
                     <ListItemText>{I18n.t('Open Backup Log')}</ListItemText>
                 </MenuItem>
                 <MenuItem
-                    disabled={!props.alive || !menuEntry?.name}
+                    disabled={!props.alive || !menuEntry?.name || menuEntry?.type === 'ccu'}
                     onClick={() => {
                         if (menu && menuEntry) {
                             props.onRestore(menuEntry, menu.index);
@@ -273,7 +273,15 @@ export default function RecentBackups(props: RecentBackupsProps): React.JSX.Elem
                     <ListItemIcon>
                         <SettingsBackupRestore fontSize="small" />
                     </ListItemIcon>
-                    <ListItemText>{I18n.t('Restore Backup File')}</ListItemText>
+                    <ListItemText
+                        secondary={
+                            menuEntry?.type === 'ccu'
+                                ? I18n.t('Homematic CCU backups can only be restored in the CCU')
+                                : undefined
+                        }
+                    >
+                        {I18n.t('Restore Backup File')}
+                    </ListItemText>
                 </MenuItem>
             </Menu>
         </DashboardCard>

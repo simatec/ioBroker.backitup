@@ -148,5 +148,6 @@
     "Copy log": "Kopiuj dziennik",
     "No log for the failed run": "Brak logu dla nieudanego uruchomienia",
     "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "Uruchomienie z %s zostało przerwane przed zapisaniem logu. Komunikat o błędzie znajduje się w logu ioBroker instancji %s.",
-    "Below is the last saved run.": "Poniżej ostatnie zapisane uruchomienie."
+    "Below is the last saved run.": "Poniżej ostatnie zapisane uruchomienie.",
+    "Homematic CCU backups can only be restored in the CCU": "Kopie zapasowe Homematic CCU można przywrócić tylko w CCU"
 }
