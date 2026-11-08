@@ -72,7 +72,11 @@ function storageType(label: string): string {
 }
 
 /** Small column title above the list */
-function ColumnTitle(props: { t: DashboardTokens; children: React.ReactNode; align?: 'right' }): JSX.Element {
+function ColumnTitle(props: {
+    t: DashboardTokens;
+    children: React.ReactNode;
+    align?: 'right' | 'center';
+}): JSX.Element {
     return (
         <span
             style={{
@@ -90,9 +94,13 @@ function ColumnTitle(props: { t: DashboardTokens; children: React.ReactNode; ali
     );
 }
 
+/**
+ * Columns of the list. Header and rows are subgrids of one grid, so the `auto` columns (result, size, log)
+ * get the same width in every row - also when a column title is wider than its content.
+ */
 const COLUMNS = {
-    xs: '22px minmax(0, 1fr) 36px',
-    md: '22px minmax(200px, 2fr) minmax(130px, 1fr) minmax(110px, auto) minmax(120px, 1fr) minmax(70px, auto) 36px',
+    xs: '22px minmax(0, 1fr) auto',
+    md: '22px minmax(200px, 2fr) minmax(130px, 1fr) auto minmax(120px, 1fr) auto auto',
 };
 
 export default function BackupHistory(props: BackupHistoryProps): JSX.Element {
@@ -125,10 +133,10 @@ export default function BackupHistory(props: BackupHistoryProps): JSX.Element {
             <Box
                 key={`${entry.timestamp || entry.date}_${entry.name}_${index}`}
                 sx={{
+                    gridColumn: '1 / -1',
                     display: 'grid',
-                    gridTemplateColumns: COLUMNS,
+                    gridTemplateColumns: 'subgrid',
                     alignItems: 'center',
-                    columnGap: '14px',
                     minHeight: 52,
                     padding: '6px 0',
                     borderBottom: index < count - 1 ? `1px solid ${t.rowDivider}` : 'none',
@@ -263,6 +271,7 @@ export default function BackupHistory(props: BackupHistoryProps): JSX.Element {
                         onClick={() => props.onLogs(entry.name, entry.timestamp, index)}
                         aria-label={I18n.t('Open Backup Log')}
                         sx={{
+                            justifySelf: 'center',
                             width: 36,
                             height: 36,
                             borderRadius: '10px',
@@ -307,30 +316,37 @@ export default function BackupHistory(props: BackupHistoryProps): JSX.Element {
                 t={t}
                 style={{ padding: fullScreen ? '2px 12px' : '4px 16px' }}
             >
-                <Box
-                    sx={{
-                        display: { xs: 'none', md: 'grid' },
-                        gridTemplateColumns: COLUMNS.md,
-                        columnGap: '14px',
-                        alignItems: 'center',
-                        padding: '10px 0 8px',
-                        borderBottom: `1px solid ${t.divider}`,
-                    }}
-                >
-                    <span />
-                    <ColumnTitle t={t}>{I18n.t('Backup time')}</ColumnTitle>
-                    <ColumnTitle t={t}>{I18n.t('Type')}</ColumnTitle>
-                    <span />
-                    <ColumnTitle t={t}>{I18n.t('Source type')}</ColumnTitle>
-                    <ColumnTitle
-                        t={t}
-                        align="right"
+                <Box sx={{ display: 'grid', gridTemplateColumns: COLUMNS, columnGap: '14px' }}>
+                    <Box
+                        sx={{
+                            gridColumn: '1 / -1',
+                            display: { xs: 'none', md: 'grid' },
+                            gridTemplateColumns: 'subgrid',
+                            alignItems: 'center',
+                            padding: '10px 0 8px',
+                            borderBottom: `1px solid ${t.divider}`,
+                        }}
                     >
-                        {I18n.t('File size')}
-                    </ColumnTitle>
-                    <ColumnTitle t={t}>{I18n.t('Log')}</ColumnTitle>
+                        <span />
+                        <ColumnTitle t={t}>{I18n.t('Backup time')}</ColumnTitle>
+                        <ColumnTitle t={t}>{I18n.t('Type')}</ColumnTitle>
+                        <span />
+                        <ColumnTitle t={t}>{I18n.t('Source type')}</ColumnTitle>
+                        <ColumnTitle
+                            t={t}
+                            align="right"
+                        >
+                            {I18n.t('File size')}
+                        </ColumnTitle>
+                        <ColumnTitle
+                            t={t}
+                            align="center"
+                        >
+                            {I18n.t('Log')}
+                        </ColumnTitle>
+                    </Box>
+                    {history.map((entry, index) => renderRow(entry, index, history.length))}
                 </Box>
-                {history.map((entry, index) => renderRow(entry, index, history.length))}
             </DashboardCard>
         );
     }
