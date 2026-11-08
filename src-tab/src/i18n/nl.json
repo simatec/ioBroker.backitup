@@ -148,5 +148,6 @@
     "Copy log": "Log kopiëren",
     "No log for the failed run": "Geen log voor de mislukte run",
     "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "De run van %s stopte voordat het log werd opgeslagen. De foutmelding staat in het ioBroker-log van %s.",
-    "Below is the last saved run.": "Hieronder staat de laatst opgeslagen run."
+    "Below is the last saved run.": "Hieronder staat de laatst opgeslagen run.",
+    "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "Deze back-up kan niet door BackItUp worden hersteld. Herstel hem in het systeem waar hij vandaan komt."
 }

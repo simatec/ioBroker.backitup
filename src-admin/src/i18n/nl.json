@@ -90,5 +90,6 @@
   "ioBroker will be restarted during restore.": "ioBroker wordt tijdens het herstel opnieuw opgestart.",
   "ioBroker will not be restarted for this restore type.": "ioBroker wordt voor dit hersteltype niet opnieuw opgestart.",
   "ra_Close": "Dichtbij",
-  "starting Backup...": "Back-up starten..."
+  "starting Backup...": "Back-up starten...",
+  "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "Deze back-up kan niet door BackItUp worden hersteld. Herstel hem in het systeem waar hij vandaan komt."
 }

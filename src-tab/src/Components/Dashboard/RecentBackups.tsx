@@ -15,6 +15,7 @@ import { I18n } from '@iobroker/gui-components';
 import { type DashboardTokens } from './tokens';
 import { DashboardCard, Pill, StatusMark } from './Parts';
 import { flash, NO_MOTION, slideIn } from './motion';
+import { isDownloadOnlyBackup } from '../downloadOnly';
 
 /**
  * Row that slides in and lights up once, if it appears while the tab is open (a new backup).
@@ -117,6 +118,8 @@ export default function RecentBackups(props: RecentBackupsProps): React.JSX.Elem
     }
 
     const menuEntry = menu ? props.entries[menu.index] : null;
+    /** Backups of other systems (CCU, remote Redis, remote Zigbee2MQTT) can be downloaded, but not restored */
+    const downloadOnly = menuEntry?.type === 'ccu' || isDownloadOnlyBackup(menuEntry?.name);
 
     return (
         <DashboardCard
@@ -262,7 +265,7 @@ export default function RecentBackups(props: RecentBackupsProps): React.JSX.Elem
                     <ListItemText>{I18n.t('Open Backup Log')}</ListItemText>
                 </MenuItem>
                 <MenuItem
-                    disabled={!props.alive || !menuEntry?.name}
+                    disabled={!props.alive || !menuEntry?.name || downloadOnly}
                     onClick={() => {
                         if (menu && menuEntry) {
                             props.onRestore(menuEntry, menu.index);
@@ -273,7 +276,17 @@ export default function RecentBackups(props: RecentBackupsProps): React.JSX.Elem
                     <ListItemIcon>
                         <SettingsBackupRestore fontSize="small" />
                     </ListItemIcon>
-                    <ListItemText>{I18n.t('Restore Backup File')}</ListItemText>
+                    <ListItemText
+                        secondary={
+                            downloadOnly
+                                ? I18n.t(
+                                      'This backup cannot be restored by BackItUp. Please restore it in the system it comes from.',
+                                  )
+                                : undefined
+                        }
+                    >
+                        {I18n.t('Restore Backup File')}
+                    </ListItemText>
                 </MenuItem>
             </Menu>
         </DashboardCard>

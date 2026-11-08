@@ -25,6 +25,17 @@ import { join, normalize } from 'node:path';
  */
 const PURE_IOBROKER_BACKUP = /^\d{4}_\d\d_\d\d-\d\d_\d\d_\d\d_backupiobroker.*\.tar\.gz$/;
 
+/**
+ * Homematic CCU backup (`homematic_..._backupiobroker.tar.sbk`). With "own directory" it lies in the CCU directory.
+ */
+const CCU_BACKUP = /^homematic_.*\.sbk$/;
+
+/**
+ * Backups that can be downloaded, but not restored by BackItUp: Homematic CCU, remote Redis and remote Zigbee2MQTT.
+ * The same rule as `isDownloadOnlyBackup` in tools - repeated here, because this file has to run standalone.
+ */
+const DOWNLOAD_ONLY_BACKUP = /^(homematic_.*\.sbk|redis-remote_.*_backupiobroker\.tar\.gz|zigbee2mqtt_.*_backup\.zip)$/;
+
 import type { Express, RequestHandler } from 'express';
 import type * as ChildProcessModule from 'node:child_process';
 import type * as HttpModule from 'node:http';
@@ -165,7 +176,11 @@ export function getFile(
         if (PURE_IOBROKER_BACKUP.test(name)) {
             backupType = 'iobroker';
         }
-        const config = getConfig(options, backupType, storageType);
+        let config = getConfig(options, backupType === 'homematic' ? 'ccu' : backupType, storageType);
+        if (CCU_BACKUP.test(name) && config && typeof config === 'object') {
+            // with "own directory" the CCU backup lies in the CCU directory (`dir`), not in the one of the ioBroker backup
+            config = { ...config, ownDir: false };
+        }
         if (storageType !== 'local') {
             // eslint-disable-next-line @typescript-eslint/no-require-imports
             const engine = require(`./list/${storageType}`) as BackItUpStorageEngine;
@@ -345,6 +360,12 @@ export function restore(
 
         const name = fileName!.split('/').pop()!;
         const toSaveName = join(backupDir, name);
+
+        if (DOWNLOAD_ONLY_BACKUP.test(name)) {
+            log.error(`${name} cannot be restored by BackItUp. Please restore it in the system it comes from.`);
+            callback({ error: 'This backup cannot be restored by BackItUp' });
+            return;
+        }
 
         getFile(options, storageType!, fileName!, toSaveName, log as unknown as ioBroker.Logger, err => {
             if (!err && existsSync(toSaveName)) {

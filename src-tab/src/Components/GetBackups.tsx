@@ -28,6 +28,7 @@ import yahkaIcon from '../assets/yahka.png';
 import type { Breakpoint } from '@mui/system';
 
 import { getTokens, type DashboardTokens } from './Dashboard/tokens';
+import { isDownloadOnlyBackup } from './downloadOnly';
 import { DashboardCard } from './Dashboard/Parts';
 import { DialogHeader, dialogSx, errorText } from './Dashboard/DialogParts';
 import { StorageIcon } from './Dashboard/StorageIcons';
@@ -382,6 +383,8 @@ export default function GetBackups(props: GetBackupsProps): React.JSX.Element {
 
     const renderRow = (location: string, object: string, backup: BackupFile, index: number): React.JSX.Element => {
         const busy = busyPath === backup.path;
+        /** Backups of other systems (CCU, remote Redis, remote Zigbee2MQTT) can be downloaded, but not restored */
+        const restorable = !isDownloadOnlyBackup(backup.name);
         return (
             <Box
                 key={backup.path}
@@ -471,29 +474,37 @@ export default function GetBackups(props: GetBackupsProps): React.JSX.Element {
                         </Tooltip>
                     ) : null}
                     <Tooltip
-                        title={I18n.t('Restore Backup File')}
+                        title={
+                            restorable
+                                ? I18n.t('Restore Backup File')
+                                : I18n.t(
+                                      'This backup cannot be restored by BackItUp. Please restore it in the system it comes from.',
+                                  )
+                        }
                         slotProps={{ popper: { sx: { pointerEvents: 'none' } } }}
                     >
-                        <Button
-                            size="small"
-                            variant="outlined"
-                            disabled={!!busyPath}
-                            onClick={() => props.onRestore(location, object, backup.path)}
-                            startIcon={fullScreen ? undefined : <SettingsBackupRestore />}
-                            sx={{
-                                height: 36,
-                                minWidth: fullScreen ? 36 : undefined,
-                                px: fullScreen ? 0 : '14px',
-                                borderRadius: '10px',
-                                textTransform: 'none',
-                                fontWeight: 600,
-                                color: t.accent,
-                                borderColor: t.iconBoxBorder,
-                                '&:hover': { borderColor: t.accent, background: t.iconBoxBg },
-                            }}
-                        >
-                            {fullScreen ? <SettingsBackupRestore fontSize="small" /> : I18n.t('Restore')}
-                        </Button>
+                        <span style={{ display: 'inline-flex' }}>
+                            <Button
+                                size="small"
+                                variant="outlined"
+                                disabled={!!busyPath || !restorable}
+                                onClick={() => props.onRestore(location, object, backup.path)}
+                                startIcon={fullScreen ? undefined : <SettingsBackupRestore />}
+                                sx={{
+                                    height: 36,
+                                    minWidth: fullScreen ? 36 : undefined,
+                                    px: fullScreen ? 0 : '14px',
+                                    borderRadius: '10px',
+                                    textTransform: 'none',
+                                    fontWeight: 600,
+                                    color: t.accent,
+                                    borderColor: t.iconBoxBorder,
+                                    '&:hover': { borderColor: t.accent, background: t.iconBoxBg },
+                                }}
+                            >
+                                {fullScreen ? <SettingsBackupRestore fontSize="small" /> : I18n.t('Restore')}
+                            </Button>
+                        </span>
                     </Tooltip>
                 </div>
             </Box>

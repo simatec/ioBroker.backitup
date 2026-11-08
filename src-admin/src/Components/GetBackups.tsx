@@ -33,6 +33,7 @@ import zigbee2mqttIcon from '../assets/zigbee2mqtt.png';
 import javascriptIcon from '../assets/javascript.png';
 import jarvisIcon from '../assets/jarvis.png';
 import yahkaIcon from '../assets/yahka.png';
+import { isDownloadOnlyBackup } from './downloadOnly';
 
 function parseSize(bytes: number): string {
     if (bytes > 1024 * 1024 * 512) {
@@ -326,24 +327,37 @@ const GetBackups = (props: GetBackupsProps): JSX.Element => {
                                                                             </Fab>
                                                                         </Tooltip>
                                                                     ) : null}
-                                                                    <Tooltip title={I18n.t('Restore Backup File')}>
-                                                                        <Fab
-                                                                            size="small"
-                                                                            color={
-                                                                                props.themeType === 'dark'
-                                                                                    ? 'primary'
-                                                                                    : ('grey' as any)
-                                                                            }
-                                                                            onClick={() =>
-                                                                                props.onRestore(
-                                                                                    location,
-                                                                                    object,
-                                                                                    backup.path,
-                                                                                )
-                                                                            }
-                                                                        >
-                                                                            <History />
-                                                                        </Fab>
+                                                                    <Tooltip
+                                                                        title={
+                                                                            isDownloadOnlyBackup(backup.name)
+                                                                                ? I18n.t(
+                                                                                      'This backup cannot be restored by BackItUp. Please restore it in the system it comes from.',
+                                                                                  )
+                                                                                : I18n.t('Restore Backup File')
+                                                                        }
+                                                                    >
+                                                                        <span>
+                                                                            <Fab
+                                                                                size="small"
+                                                                                disabled={isDownloadOnlyBackup(
+                                                                                    backup.name,
+                                                                                )}
+                                                                                color={
+                                                                                    props.themeType === 'dark'
+                                                                                        ? 'primary'
+                                                                                        : ('grey' as any)
+                                                                                }
+                                                                                onClick={() =>
+                                                                                    props.onRestore(
+                                                                                        location,
+                                                                                        object,
+                                                                                        backup.path,
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                <History />
+                                                                            </Fab>
+                                                                        </span>
                                                                     </Tooltip>
                                                                 </div>
                                                             </TableCell>

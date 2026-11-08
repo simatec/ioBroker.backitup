@@ -17,6 +17,52 @@ export function isPureIobrokerBackup(name: string): boolean {
     return PURE_IOBROKER_BACKUP.test(name);
 }
 
+/**
+ * Backups that BackItUp can list and download, but not restore: they are made by another system
+ * and have to be restored there.
+ *
+ * - `homematic_..._backupiobroker.tar.sbk`: made by the Homematic CCU / RaspberryMatic
+ * - `redis-remote_..._backupiobroker.tar.gz`: dump of a remote Redis server
+ * - `zigbee2mqtt_..._backup.zip`: backup of a remote Zigbee2MQTT instance (its own zip format)
+ */
+const DOWNLOAD_ONLY_BACKUPS: { pattern: RegExp; type: string; creator: string }[] = [
+    { pattern: /^homematic_.*\.sbk$/, type: 'ccu', creator: 'ccu' },
+    { pattern: /^redis-remote_.*_backupiobroker\.tar\.gz$/, type: 'redis-remote', creator: 'redis' },
+    { pattern: /^zigbee2mqtt_.*_backup\.zip$/, type: 'zigbee2mqtt', creator: 'zigbee2mqtt' },
+];
+
+/**
+ * Tells whether a backup can only be downloaded, because BackItUp cannot restore it.
+ *
+ * @param name file name without the directory
+ */
+export function isDownloadOnlyBackup(name: string): boolean {
+    return DOWNLOAD_ONLY_BACKUPS.some(entry => entry.pattern.test(name));
+}
+
+/**
+ * Decides under which type a file found on a storage is listed.
+ * BackItUp archives (`<type>_..._backupiobroker.tar.gz`) are listed under their type, the download-only backups
+ * under `ccu`, `redis-remote` and `zigbee2mqtt`.
+ *
+ * @param name file name without the directory
+ * @param types names of the configured creators (iobroker, ccu, mysql, ...)
+ * @returns the type or null, if the file is no backup of BackItUp
+ */
+export function listedBackupType(name: string, types: string[]): string | null {
+    const downloadOnly = DOWNLOAD_ONLY_BACKUPS.find(entry => entry.pattern.test(name));
+    if (downloadOnly) {
+        return types.includes(downloadOnly.creator) ? downloadOnly.type : null;
+    }
+    if (name.split('.').pop() !== 'gz') {
+        return null;
+    }
+    if (types.includes(name.split('_')[0]) || types.includes(name.split('.')[0])) {
+        return name.split('_')[0];
+    }
+    return null;
+}
+
 export function getDate(d?: Date): string {
     d = d || new Date();
 

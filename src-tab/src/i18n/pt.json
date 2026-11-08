@@ -148,5 +148,6 @@
     "Copy log": "Copiar log",
     "No log for the failed run": "Nenhum registo da execução falhada",
     "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "A execução de %s parou antes de o registo ser guardado. A mensagem de erro está no registo do ioBroker de %s.",
-    "Below is the last saved run.": "Abaixo está a última execução guardada."
+    "Below is the last saved run.": "Abaixo está a última execução guardada.",
+    "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "Este backup não pode ser restaurado pelo BackItUp. Restaure-o no sistema de onde ele veio."
 }

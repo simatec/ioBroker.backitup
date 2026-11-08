@@ -148,5 +148,6 @@
     "Copy log": "复制日志",
     "No log for the failed run": "失败的运行没有日志",
     "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "%s 的运行在保存日志之前已中止。错误信息位于 %s 的 ioBroker 日志中。",
-    "Below is the last saved run.": "下面显示的是最后保存的运行。"
+    "Below is the last saved run.": "下面显示的是最后保存的运行。",
+    "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "BackItUp 无法恢复此备份。请在其来源系统中恢复。"
 }

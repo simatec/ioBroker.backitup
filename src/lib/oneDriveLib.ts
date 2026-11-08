@@ -3,6 +3,7 @@ import axios from 'axios';
 import { createReadStream, createWriteStream, statSync } from 'node:fs';
 import got from '@esm2cjs/got';
 import { basename } from 'node:path';
+import { listedBackupType } from './tools';
 
 const OAUTH_URL = 'https://onedriveauth.simateccloud.de/v2.0';
 const redirect_uri = 'https://onedriveauth.simateccloud.de/v2.0/nativeclient';
@@ -317,16 +318,12 @@ export default class onedrive {
                     size: file.size,
                     id: file.id,
                 }))
-                .filter(
-                    file =>
-                        (types.includes(file.name.split('_')[0]) || types.includes(file.name.split('.')[0])) &&
-                        file.name.endsWith('.gz'),
-                );
+                .filter(file => listedBackupType(file.name, types) !== null);
 
             // Group by type
             const files: OneDriveBackups = {};
             for (const file of entries) {
-                const type = file.name.split('_')[0];
+                const type = listedBackupType(file.name, types) as string;
                 if (!files[type]) {
                     files[type] = [];
                 }
