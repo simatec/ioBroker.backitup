@@ -20,6 +20,7 @@ import { Close, FormatListBulleted, BugReport } from '@mui/icons-material';
 
 import { type AdminConnection, I18n, type ThemeType } from '@iobroker/gui-components';
 import type { Breakpoint } from '@mui/system';
+import { formatHistorySize, type HistorySize } from './historySize';
 
 interface BackupHistoryProps {
     themeBreakpoints: (key: Breakpoint | number) => string;
@@ -43,7 +44,7 @@ const ResponsiveTableCell: React.CSSProperties = {
 export default function BackupHistory(props: BackupHistoryProps): JSX.Element {
     const fullScreen = useMediaQuery(props.themeBreakpoints('sm'));
     const [backupHistory, setBackupHistory] = useState<
-        { date: string; type: string; name: string; storage: string[]; filesize: number; timestamp: number }[]
+        ({ date: string; type: string; name: string; storage: string[]; timestamp: number } & HistorySize)[]
     >([]);
 
     useEffect(() => {
@@ -90,7 +91,9 @@ export default function BackupHistory(props: BackupHistoryProps): JSX.Element {
                                     <TableCell>
                                         {typeof entry.storage === 'object' ? entry.storage.join(', ') : entry.storage}
                                     </TableCell>
-                                    <TableCell>{entry.filesize}</TableCell>
+                                    <TableCell>
+                                        {formatHistorySize(entry, !!props.socket.systemConfig?.common.isFloatComma)}
+                                    </TableCell>
                                     <TableCell>
                                         <Tooltip title={I18n.t('Open Backup Log')}>
                                             <Fab
@@ -127,7 +130,7 @@ export default function BackupHistory(props: BackupHistoryProps): JSX.Element {
                                     </TableCell>
                                     <TableCell style={ResponsiveTableCell}>
                                         <strong>{`${I18n.t('File size')}: `}</strong>
-                                        {entry.filesize}
+                                        {formatHistorySize(entry, !!props.socket.systemConfig?.common.isFloatComma)}
                                     </TableCell>
                                     <TableCell
                                         style={{

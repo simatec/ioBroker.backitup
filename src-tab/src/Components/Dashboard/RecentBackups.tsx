@@ -16,6 +16,7 @@ import { type DashboardTokens } from './tokens';
 import { DashboardCard, Pill, StatusMark } from './Parts';
 import { flash, NO_MOTION, slideIn } from './motion';
 import { isDownloadOnlyBackup } from '../downloadOnly';
+import { formatHistorySize } from '../historySize';
 
 /**
  * Row that slides in and lights up once, if it appears while the tab is open (a new backup).
@@ -48,6 +49,8 @@ export interface HistoryEntry {
     type: string;
     storage: string | string[];
     filesize: string | null;
+    /** exact size in bytes; missing in entries of older versions */
+    filesizeBytes?: number;
     error: string;
     timestamp?: number;
 }
@@ -56,29 +59,6 @@ const TYPE_LABELS: Record<string, string> = {
     iobroker: 'ioBroker',
     ccu: 'Homematic CCU backup',
 };
-
-/**
- * The adapter stores the size as "<n> MB". Large archives are easier to read in GB.
- *
- * @param size value of the history entry
- * @param isFloatComma use a comma as decimal separator
- */
-function formatSize(size: string | null, isFloatComma: boolean): string {
-    if (!size) {
-        return '--';
-    }
-    const mb = parseFloat(size);
-    if (Number.isNaN(mb)) {
-        return size;
-    }
-    let text: string;
-    if (mb >= 1024) {
-        text = `${(mb / 1024).toFixed(2)} GB`;
-    } else {
-        text = `${mb} MB`;
-    }
-    return isFloatComma ? text.replace('.', ',') : text;
-}
 
 interface RecentBackupsProps {
     t: DashboardTokens;
@@ -212,7 +192,7 @@ export default function RecentBackups(props: RecentBackupsProps): React.JSX.Elem
                                     whiteSpace: 'nowrap',
                                 }}
                             >
-                                {formatSize(entry.filesize, props.isFloatComma)}
+                                {formatHistorySize(entry, props.isFloatComma)}
                             </Box>
                             <Tooltip
                                 title={I18n.t('Download Backup File')}

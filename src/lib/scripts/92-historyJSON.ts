@@ -30,25 +30,37 @@ interface HistoryJsonEntry {
     type: string;
     storage: string | string[];
     filesize: string | null;
+    /** exact size in bytes */
+    filesizeBytes: number | null;
     error: string;
     timestamp: number | undefined;
 }
 
 /**
- * Size of the produced archive, in whole megabytes.
+ * Size of the produced archive.
+ *
+ * `filesize` keeps its old format "<n> MB" in whole megabytes, but an archive below 1 MB (e.g. a
+ * Homematic CCU backup) is written as a fraction ("0.75 MB") instead of "0 MB".
+ * `filesizeBytes` is the exact size for the GUI.
  *
  * @param fileName archive to measure, if it exists
  * @param log logger of the running step
  */
-async function fileSizeCheck(fileName: string | undefined, log: BackItUpLogger): Promise<string | null> {
-    let fileSize: string | null = null;
-
+async function fileSizeCheck(
+    fileName: string | undefined,
+    log: BackItUpLogger,
+): Promise<{ filesize: string | null; filesizeBytes: number | null }> {
     if (fileName && existsSync(fileName)) {
         const stats = await stat(fileName).catch(err => log.warn(`Filesize error: ${err}`));
-
-        fileSize = stats ? `${Math.floor(stats.size / (1024 * 1024))} MB` : null;
+        if (stats) {
+            const mb = stats.size / (1024 * 1024);
+            return {
+                filesize: `${mb >= 1 || !stats.size ? Math.floor(mb) : Number(mb.toPrecision(2))} MB`,
+                filesizeBytes: stats.size,
+            };
+        }
     }
-    return fileSize;
+    return { filesize: null, filesizeBytes: null };
 }
 
 /**
@@ -132,7 +144,7 @@ export async function run(props: BackItUpProps<HistoryJsonOptions>): Promise<voi
                     name: fileName ? fileName.split('/').pop() : undefined,
                     type: options.name,
                     storage: storage.length > 1 ? storage : storage[0],
-                    filesize: await fileSizeCheck(fileName, ctx.log),
+                    ...(await fileSizeCheck(fileName, ctx.log)),
                     error: errorMessage,
                     timestamp: ctx.timestamp,
                 });
