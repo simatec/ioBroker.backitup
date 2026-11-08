@@ -121,6 +121,24 @@ function Spacer(): React.JSX.Element {
     return <Box sx={{ flex: '1 1 0', maxHeight: MAX_SPACER, minHeight: 0 }} />;
 }
 
+/**
+ * Time of day with its unit, for all languages of the tab - like the adapter writes the next backup
+ * (`timePattern` in src/lib/tools.ts, e.g. de: '%d um %t Uhr'). `%t` is replaced by the time.
+ */
+const TIME_FORMATS: Record<string, string> = {
+    en: '%t Hours',
+    de: '%t Uhr',
+    es: '%t horas',
+    fr: '%t heures',
+    it: 'ore %t',
+    nl: '%t uur',
+    pl: 'godz. %t',
+    pt: '%t horas',
+    ru: '%t ч.',
+    uk: '%t год.',
+    'zh-cn': '%t 时',
+};
+
 const cardTitleStyle: React.CSSProperties = {
     fontSize: '1rem',
     fontWeight: 700,
@@ -360,7 +378,11 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
         const time: string = (type === 'iobroker' ? native.minimalTime : native.ccuTime) || '--:--';
         const days = parseInt(type === 'iobroker' ? native.minimalEveryXDays : native.ccuEveryXDays, 10) || 1;
 
-        return days <= 1 ? I18n.t('Daily, %s', time) : I18n.t('Every %s days, %s', days.toString(), time);
+        // the time with its unit ("22:35 Uhr"), as the adapter writes it for the next backup
+        const format = TIME_FORMATS[I18n.getLanguage()] || TIME_FORMATS.en;
+        const timeText = time !== '--:--' ? format.replace('%t', time) : time;
+
+        return days <= 1 ? I18n.t('Daily, %s', timeText) : I18n.t('Every %s days, %s', days.toString(), timeText);
     }
 
     openConfiguration(): void {

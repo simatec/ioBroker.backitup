@@ -62,6 +62,13 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (simatec) many small Fixes
+* (simatec) Added InfluxDB Warning before Restore 
+* (simatec) Added Download from all Backups Types from Backup Tab
+* (simatec) Fix MySQL Backup
+* (simatec) Fix Webdav
+* (simatec) Fix Grafana Backup
+* (simatec) Tab History redesigned
 * (bluefox) Tab redesigned, new logo and adapter icon
 * (bluefox) Existing backups can be downloaded from the tab
 * (bluefox) Upload accepts plain ioBroker backups (`iobroker backup`), also renamed ones

@@ -90,5 +90,6 @@
   "ioBroker will be restarted during restore.": "ioBroker sera redémarré pendant la restauration.",
   "ioBroker will not be restarted for this restore type.": "ioBroker ne sera pas redémarré pour ce type de restauration.",
   "ra_Close": "Fermer",
-  "starting Backup...": "démarrage de la sauvegarde..."
+  "starting Backup...": "démarrage de la sauvegarde...",
+  "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "Cette sauvegarde ne peut pas être restaurée par BackItUp. Veuillez la restaurer dans le système dont elle provient."
 }
