@@ -55,7 +55,7 @@ export interface HistoryEntry {
     timestamp?: number;
 }
 
-const TYPE_LABELS: Record<string, string> = {
+export const TYPE_LABELS: Record<string, string> = {
     iobroker: 'ioBroker',
     ccu: 'Homematic CCU backup',
 };
