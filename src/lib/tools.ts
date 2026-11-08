@@ -1,5 +1,6 @@
+import { execFileSync } from 'node:child_process';
 import { accessSync, constants, createReadStream, createWriteStream, statSync } from 'node:fs';
-import { delimiter, join } from 'node:path';
+import { join } from 'node:path';
 
 /**
  * A plain ioBroker backup as `iobroker backup` (js-controller) writes it, e.g.
@@ -237,16 +238,29 @@ export function findExecutable(name: string): string | null {
     if (name.includes('/') || name.includes('\\')) {
         return usable(name) ? name : null;
     }
-    const extensions = isWin ? ['', ...(process.env.PATHEXT || '.EXE;.CMD;.BAT').split(';')] : [''];
-    for (const dir of (process.env.PATH || '').split(delimiter)) {
-        if (dir) {
-            for (const ext of extensions) {
-                const file = join(dir, name + ext);
-                if (usable(file)) {
-                    return file;
-                }
+    // The search is left to the shell (`command -v`) or to Windows (`where`), so it follows the
+    // same PATH the program is started with later. The name is passed as an argument, never as
+    // part of the command line.
+    try {
+        const output = isWin
+            ? execFileSync('where', [name], {
+                  encoding: 'utf8',
+                  stdio: ['ignore', 'pipe', 'ignore'],
+                  windowsHide: true,
+              })
+            : execFileSync('sh', ['-c', 'command -v -- "$1"', 'sh', name], {
+                  encoding: 'utf8',
+                  stdio: ['ignore', 'pipe', 'ignore'],
+              });
+        for (const line of output.split(/\r?\n/)) {
+            const file = line.trim();
+            // `command -v` also names shell builtins and aliases without a path - those are no program
+            if (file && (file.includes('/') || file.includes('\\')) && usable(file)) {
+                return file;
             }
         }
+    } catch {
+        // not found: `command -v` and `where` exit with a non-zero status
     }
     return null;
 }
