@@ -154,5 +154,15 @@
     "No log for the failed run": "失败的运行没有日志",
     "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "%s 的运行在保存日志之前已中止。错误信息位于 %s 的 ioBroker 日志中。",
     "Below is the last saved run.": "下面显示的是最后保存的运行。",
-    "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "BackItUp 无法恢复此备份。请在其来源系统中恢复。"
+    "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "BackItUp 无法恢复此备份。请在其来源系统中恢复。",
+    "Drag and drop a configuration file here": "将配置文件拖放到此处",
+    "Load a saved BackItUp configuration file (.json).": "加载已保存的 BackItUp 配置文件（.json）。",
+    "The settings of this instance are replaced by the file. The instance restarts afterwards.": "此实例的设置将被该文件替换，之后实例会重新启动。",
+    "Apply": "应用",
+    "Configuration restored successfully. The popup will close automatically": "配置已成功恢复，窗口将自动关闭",
+    "Cannot parse JSON": "无法解析 JSON",
+    "Restore completed successfully!": "恢复成功完成！",
+    "Restore was canceled!": "恢复已取消！",
+    "Cannot get status": "无法获取状态",
+    "(Maximal file size is %s)": "（最大文件大小为 %s）"
 }

@@ -5,7 +5,6 @@ import type { BackItUpLogger, BackItUpProps } from '../types';
 interface DiscordOptions extends NotificationOptions {
     name: string;
     debugging?: boolean;
-    adapter: ioBroker.Adapter;
     discord: {
         enabled?: boolean;
         instance?: string | null;
@@ -59,7 +58,7 @@ export async function run(props: BackItUpProps<DiscordOptions>): Promise<void> {
             }
 
             // Note: unlike the other channels this one has no `onlyError` check and always sends.
-            sendMessage(options, ctx.log, messageText);
+            sendMessage(ctx.adapter, options, ctx.log, messageText);
         } else {
             let errorMessage = buildErrorMessage(ctx, options, options.discord.systemLang);
 
@@ -70,7 +69,7 @@ export async function run(props: BackItUpProps<DiscordOptions>): Promise<void> {
                 // ignore
             }
 
-            sendMessage(options, ctx.log, errorMessage);
+            sendMessage(ctx.adapter, options, ctx.log, errorMessage);
         }
     }
 }
@@ -78,16 +77,17 @@ export async function run(props: BackItUpProps<DiscordOptions>): Promise<void> {
 /**
  * Delivers to a single user or to a server channel, depending on how `target` is written.
  *
+ * @param adapter the running adapter - the run context carries it, the options do not
  * @param options script options
  * @param log adapter logger
  * @param message text to deliver
  */
-function sendMessage(options: DiscordOptions, log: BackItUpLogger, message: string): void {
+function sendMessage(adapter: ioBroker.Adapter, options: DiscordOptions, log: BackItUpLogger, message: string): void {
     const target = options.discord.target as string;
 
     if (target.match(/^\d+$/)) {
         // send to a single user
-        options.adapter.sendTo(
+        adapter.sendTo(
             options.discord.instance as string,
             'sendMessage',
             {
@@ -95,7 +95,7 @@ function sendMessage(options: DiscordOptions, log: BackItUpLogger, message: stri
                 content: `**Backitup**:\n${message}`,
             },
             (ret: any) => {
-                if (ret.err) {
+                if (ret?.err) {
                     log.warn(`Error sending Discord message: ${ret.err}`);
                 }
             },
@@ -103,7 +103,7 @@ function sendMessage(options: DiscordOptions, log: BackItUpLogger, message: stri
     } else if (target.match(/^\d+\/\d+$/)) {
         // send to a server channel
         const [serverId, channelId] = target.split('/');
-        options.adapter.sendTo(
+        adapter.sendTo(
             options.discord.instance as string,
             'sendMessage',
             {
@@ -112,7 +112,7 @@ function sendMessage(options: DiscordOptions, log: BackItUpLogger, message: stri
                 content: `**Backitup**:\n${message}`,
             },
             (ret: any) => {
-                if (ret.err) {
+                if (ret?.err) {
                     log.warn(`Error sending Discord message: ${ret.err}`);
                 }
             },

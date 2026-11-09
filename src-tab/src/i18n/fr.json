@@ -154,5 +154,15 @@
     "No log for the failed run": "Aucun journal pour l'exécution échouée",
     "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "L'exécution du %s s'est arrêtée avant l'enregistrement de son journal. Le message d'erreur se trouve dans le journal ioBroker de %s.",
     "Below is the last saved run.": "Ci-dessous la dernière exécution enregistrée.",
-    "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "Cette sauvegarde ne peut pas être restaurée par BackItUp. Veuillez la restaurer dans le système dont elle provient."
+    "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "Cette sauvegarde ne peut pas être restaurée par BackItUp. Veuillez la restaurer dans le système dont elle provient.",
+    "Drag and drop a configuration file here": "Glissez-déposez un fichier de configuration ici",
+    "Load a saved BackItUp configuration file (.json).": "Charger un fichier de configuration BackItUp enregistré (.json).",
+    "The settings of this instance are replaced by the file. The instance restarts afterwards.": "Les paramètres de cette instance sont remplacés par le fichier. L'instance redémarre ensuite.",
+    "Apply": "Appliquer",
+    "Configuration restored successfully. The popup will close automatically": "Configuration restaurée avec succès. La fenêtre se fermera automatiquement",
+    "Cannot parse JSON": "Impossible de lire le JSON",
+    "Restore completed successfully!": "Restauration terminée avec succès !",
+    "Restore was canceled!": "La restauration a été annulée !",
+    "Cannot get status": "Impossible d'obtenir l'état",
+    "(Maximal file size is %s)": "(Taille maximale du fichier : %s)"
 }

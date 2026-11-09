@@ -154,5 +154,15 @@
     "No log for the failed run": "Нет лога для неудачного запуска",
     "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "Запуск %s прервался до сохранения лога. Сообщение об ошибке находится в логе ioBroker экземпляра %s.",
     "Below is the last saved run.": "Ниже показан последний сохранённый запуск.",
-    "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "Эту резервную копию нельзя восстановить с помощью BackItUp. Восстановите её в системе, из которой она получена."
+    "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "Эту резервную копию нельзя восстановить с помощью BackItUp. Восстановите её в системе, из которой она получена.",
+    "Drag and drop a configuration file here": "Перетащите сюда файл конфигурации",
+    "Load a saved BackItUp configuration file (.json).": "Загрузить сохранённый файл конфигурации BackItUp (.json).",
+    "The settings of this instance are replaced by the file. The instance restarts afterwards.": "Настройки этого экземпляра будут заменены данными из файла. После этого экземпляр перезапустится.",
+    "Apply": "Применить",
+    "Configuration restored successfully. The popup will close automatically": "Конфигурация успешно восстановлена. Окно закроется автоматически",
+    "Cannot parse JSON": "Не удалось разобрать JSON",
+    "Restore completed successfully!": "Восстановление успешно завершено!",
+    "Restore was canceled!": "Восстановление было прервано!",
+    "Cannot get status": "Не удалось получить статус",
+    "(Maximal file size is %s)": "(Максимальный размер файла: %s)"
 }

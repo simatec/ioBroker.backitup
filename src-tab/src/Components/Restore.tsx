@@ -1,90 +1,42 @@
 import React, { Component } from 'react';
 
-import {
-    Button,
-    Checkbox,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    FormControlLabel,
-    LinearProgress,
-} from '@mui/material';
+import { Alert, Button, Dialog, DialogActions } from '@mui/material';
 
-import { Close, SettingsBackupRestore } from '@mui/icons-material';
+import {
+    Close,
+    FolderZipOutlined,
+    InfoOutlined,
+    RestartAlt,
+    SettingsBackupRestore,
+    WarningAmberOutlined,
+} from '@mui/icons-material';
 
 import { I18n, DialogError, type AdminConnection, type ThemeType } from '@iobroker/gui-components';
 import type { ExecutionLine } from './types';
 
-const styles: Record<string, React.CSSProperties> = {
-    paper: {
-        height: 'calc(100% - 64px)',
-    },
-    textTime: {
-        display: 'inline-block',
-        width: 95,
-    },
-    responseTextTime: {
-        display: 'inline-block',
-        width: 70,
-    },
-    textLevel: {
-        display: 'inline-block',
-        width: 50,
-    },
-    'textLevel-ERROR': {
-        color: 'red',
-    },
-    'textLevel-WARN': {
-        color: 'orange',
-    },
-    'textLevel-INFO': {
-        color: '#00b204',
-    },
-    textSource: {
-        display: 'inline-block',
-        width: 100,
-        textAlign: 'left',
-    },
-    text: {
-        display: 'inline-block',
-    },
-    responseText: {
-        display: 'inline-block',
-        wordWrap: 'break-word',
-    },
-    textLine: {
-        whiteSpace: 'nowrap',
-    },
-    responseTextLine: {
-        whiteSpace: 'normal',
-    },
-    dialogContent: {
-        position: 'relative',
-        padding: 16,
-    },
-    logContainer: {
-        fontSize: 12,
-        fontFamily: 'monospace',
-        padding: 8,
-        border: '1px solid grey',
-        borderRadius: 5,
-        overflow: 'auto',
-        boxSizing: 'border-box',
-        height: 'calc(100% - 16px - 4px)',
-        width: 'calc(100% - 16px)',
-    },
-    responseLogContainer: {
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 15,
-    },
-    dialogActions: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'stretch',
-    },
+import { getTokens, type DashboardTokens } from './Dashboard/tokens';
+import { DialogHeader, dialogSx } from './Dashboard/DialogParts';
+import { DashboardCard, IconBox } from './Dashboard/Parts';
+import { StorageIcon } from './Dashboard/StorageIcons';
+import {
+    CloseOnReady,
+    DIALOG_BUTTON_SX,
+    ExecutionLogBox,
+    type RunState,
+    RunStatus,
+    titleText,
+} from './Dashboard/ExecutionLog';
+
+/** Names of the storages as the list files them */
+const LOCATION_LABELS: Record<string, string> = {
+    local: 'Local',
+    'nas / copy': 'NAS',
+    cifs: 'NAS',
+    ftp: 'FTP',
+    dropbox: 'Dropbox',
+    onedrive: 'OneDrive',
+    googledrive: 'Google Drive',
+    webdav: 'WebDAV',
 };
 
 interface RestoreProps {
@@ -116,6 +68,8 @@ interface RestoreState {
         statusColor: string;
     };
     error?: string;
+    /** exit code of the restore without restart, null while it runs */
+    exitCode: string | null;
 }
 
 /**
@@ -227,6 +181,7 @@ class Restore extends Component<RestoreProps, RestoreState> {
             isFullScreen: false,
             messages,
             showRestoreDialog: false,
+            exitCode: null,
             restoreProcess: {
                 done: false,
                 log: [],
@@ -390,8 +345,8 @@ class Restore extends Component<RestoreProps, RestoreState> {
             this.setState({ executionLog });
 
             if ((state.val as string).startsWith('[EXIT]')) {
-                this.setState({ executing: false });
                 const code = (state.val as string).match(/^\[EXIT] ([-\d]+)/);
+                this.setState({ executing: false, exitCode: code ? code[1] : '0' });
                 if (this.state.closeOnReady && (!code || code[1] === '0')) {
                     this.closeTimeout =
                         this.closeTimeout ||
@@ -463,133 +418,211 @@ class Restore extends Component<RestoreProps, RestoreState> {
         this.setState({ isFullScreen });
     };
 
-    static renderLine(line: ExecutionLine, i: number, isFullScreen: boolean): React.JSX.Element {
-        return (
-            <div
-                key={i}
-                style={{ ...(isFullScreen ? styles.responseTextLine : styles.textLine) }}
-            >
-                <div style={{ ...styles.textTime, ...(line.level ? styles[`textLevel-${line.level}`] || {} : {}) }}>
-                    {line.ts}
-                </div>
-                <div style={{ ...styles.textLevel, ...(line.level ? styles[`textLevel-${line.level}`] || {} : {}) }}>
-                    {line.level}
-                </div>
-                <div style={{ ...styles.textSource, ...(line.level ? styles[`textLevel-${line.level}`] || {} : {}) }}>
-                    {line.source}
-                </div>
-                <div
-                    style={{
-                        ...(isFullScreen ? styles.responseText : styles.text),
-                        ...(line.level ? styles[`textLevel-${line.level}`] || {} : {}),
-                    }}
-                >
-                    {line.text}
-                </div>
-            </div>
+    /** The lines of the restore web server, with the long final message replaced by a hint */
+    getRestoreLog(): string[] {
+        return this.state.restoreProcess.log.map(line =>
+            line.includes('Restore completed successfully!!')
+                ? I18n.t(
+                      'After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.',
+                  )
+                : line,
         );
     }
 
-    static renderRestoreLine(line: string, i: number, isFullScreen: boolean): React.JSX.Element {
-        return (
-            <div
-                key={i}
-                style={{ ...(isFullScreen ? styles.responseTextLine : styles.textLine) }}
-            >
-                {!line.includes('Restore completed successfully!!') ? (
-                    <div
-                        style={{
-                            ...(isFullScreen ? styles.responseText : styles.text),
-                            color: line.startsWith('[ERROR]')
-                                ? '#FF0000'
-                                : line.includes('Restore completed successfully')
-                                  ? '#00b204'
-                                  : undefined,
-                        }}
-                    >
-                        {line}
-                    </div>
-                ) : (
-                    <div
-                        style={{
-                            ...(isFullScreen ? styles.responseText : styles.text),
-                            color: line.includes('Restore completed successfully!!') ? '#00b204' : undefined,
-                        }}
-                    >
-                        {I18n.t(
-                            'After the restart, all adapters are installed. Please be patient.\nDepending on the system, it may take some time until all adapters are available again.',
-                        )}
-                    </div>
-                )}
-            </div>
-        );
-    }
-
-    renderRestoreDialog(): React.JSX.Element | null {
+    renderRestoreDialog(t: DashboardTokens): React.JSX.Element | null {
         if (!this.state.showRestoreDialog) {
             return null;
         }
+        const process = this.state.restoreProcess;
+        const compact = this.state.isFullScreen;
+        // the restore web server reports the result as a color
+        const state: RunState = !process.done
+            ? 'running'
+            : process.statusColor === '#00b204'
+              ? 'success'
+              : process.statusColor
+                ? 'error'
+                : 'success';
+        const phase = process.startFinish ? I18n.t(process.startFinish).replace(/^\[|\]$/g, '') : '';
+        const close = (): void => {
+            this.props.onClose();
+            this.setState({ showRestoreDialog: false });
+            // maybe to reload here, as the version of admin could change
+        };
+
         return (
             <Dialog
                 open={!0}
-                onClose={() => {
-                    this.state.restoreProcess.done && this.setState({ showRestoreDialog: false });
-                }}
+                onClose={() => process.done && close()}
                 maxWidth="lg"
                 fullWidth
-                fullScreen={this.state.isFullScreen}
-                sx={{ '& .MuiDialog-paper': styles.paper }}
+                fullScreen={compact}
+                sx={dialogSx(t, compact)}
+                slotProps={{ paper: { style: { height: compact ? undefined : 'calc(100% - 64px)' } } }}
             >
-                <DialogTitle style={{ color: this.state.restoreProcess.statusColor }}>
-                    <SettingsBackupRestore style={{ width: 24, height: 24, margin: '0 10px -4px 0' }} />
-                    {I18n.t(this.state.restoreProcess.startFinish)}
-                    {this.state.restoreProcess.restoreStatus ? (
-                        <span style={{ marginLeft: 10, marginRight: 10 }}>-</span>
-                    ) : null}
-                    {I18n.t(this.state.restoreProcess.restoreStatus) || '...'}
-                </DialogTitle>
-                <DialogContent style={styles.dialogContent}>
-                    {!this.state.restoreProcess.done ? (
-                        <LinearProgress
-                            style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 24,
-                                width: 'calc(100% - 64px)',
-                            }}
-                        />
-                    ) : (
-                        <div style={{ height: 4, width: 'calc(100% - 64px)' }} />
-                    )}
-                    <div
-                        style={{
-                            ...styles.logContainer,
-                            ...(this.state.isFullScreen ? styles.responseLogContainer : undefined),
-                            backgroundColor: this.props.themeType === 'dark' ? '#111' : '#EEE',
-                        }}
-                        ref={this.textRefRestore}
-                    >
-                        {this.state.restoreProcess.log.map((line, i) =>
-                            Restore.renderRestoreLine(line, i, this.state.isFullScreen),
-                        )}
-                    </div>
-                </DialogContent>
-                <DialogActions style={{ ...(this.state.isFullScreen ? styles.dialogActions : undefined) }}>
+                <DialogHeader
+                    t={t}
+                    compact={compact}
+                    icon={<RestartAlt fontSize="inherit" />}
+                    title={titleText('BackItUp restore execution')}
+                    subtitle={this.props.fileName.split(/[\\/]/).pop()}
+                    onClose={close}
+                    closeDisabled={!process.done}
+                />
+                <div
+                    style={{
+                        flex: 1,
+                        minHeight: 0,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 14,
+                        padding: compact ? '14px 10px' : '18px 24px',
+                    }}
+                >
+                    <RunStatus
+                        t={t}
+                        state={state}
+                        text={
+                            process.restoreStatus ||
+                            (phase ? `${phase} ...` : I18n.t('The ioBroker is currently being restored'))
+                        }
+                        detail={process.restoreStatus && phase ? phase : undefined}
+                    />
+                    <ExecutionLogBox
+                        t={t}
+                        lines={this.getRestoreLog()}
+                        compact={compact}
+                        boxRef={this.textRefRestore}
+                    />
+                </div>
+                <DialogActions
+                    sx={{
+                        padding: compact ? '10px 14px' : '12px 24px 18px',
+                        borderTop: `1px solid ${t.divider}`,
+                    }}
+                >
                     <Button
-                        disabled={!this.state.restoreProcess.done}
+                        disabled={!process.done}
                         variant="contained"
-                        onClick={() => {
-                            this.props.onClose();
-                            this.setState({ showRestoreDialog: false });
-                            // maybe to reload here, as the version of admin could change
-                        }}
+                        onClick={close}
                         startIcon={<Close />}
-                        color={this.props.themeType === 'dark' ? 'primary' : 'grey'}
+                        sx={DIALOG_BUTTON_SX}
                     >
                         {I18n.t('Close')}
                     </Button>
                 </DialogActions>
             </Dialog>
+        );
+    }
+
+    /** What is restored and from where */
+    renderFileCard(t: DashboardTokens): React.JSX.Element {
+        const name = this.props.fileName.split(/[\\/]/).pop() || this.props.fileName;
+        const location = this.props.location === 'nas / copy' ? 'cifs' : this.props.location;
+        return (
+            <DashboardCard
+                t={t}
+                style={{ padding: '14px 16px', display: 'flex', alignItems: 'center', gap: 14, flexShrink: 0 }}
+            >
+                <IconBox
+                    t={t}
+                    size={44}
+                >
+                    <FolderZipOutlined fontSize="inherit" />
+                </IconBox>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                    <div
+                        style={{ fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                        title={name}
+                    >
+                        {name}
+                    </div>
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 8,
+                            marginTop: 4,
+                            fontSize: '0.85rem',
+                            color: t.textSecondary,
+                        }}
+                    >
+                        <StorageIcon
+                            type={location}
+                            size={16}
+                        />
+                        {I18n.t(LOCATION_LABELS[this.props.location] || this.props.location)}
+                    </div>
+                </div>
+            </DashboardCard>
+        );
+    }
+
+    /** Hints before the restore starts */
+    renderHints(t: DashboardTokens): React.JSX.Element {
+        // the first hint (restart or not) goes on top, unless it is the first of numbered steps
+        const first = this.state.messages[0] && !this.state.messages[0].number ? this.state.messages[0] : null;
+        const rest = first ? this.state.messages.slice(1) : this.state.messages;
+        const offset = first ? 2 : 1;
+        return (
+            <>
+                {first ? (
+                    <Alert
+                        severity={this.state.isStopped ? 'warning' : 'info'}
+                        icon={this.state.isStopped ? <WarningAmberOutlined /> : <InfoOutlined />}
+                        sx={{ flexShrink: 0, borderRadius: '12px' }}
+                    >
+                        {first.text}
+                    </Alert>
+                ) : null}
+                {rest.length ? (
+                    <DashboardCard
+                        t={t}
+                        style={{ padding: '6px 16px', flexShrink: 0 }}
+                    >
+                        {rest.map((message, i) => (
+                            <div
+                                key={i}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'flex-start',
+                                    gap: 12,
+                                    padding: '10px 0',
+                                    borderBottom: i < rest.length - 1 ? `1px solid ${t.rowDivider}` : 'none',
+                                    fontSize: '0.92rem',
+                                    lineHeight: '22px',
+                                }}
+                            >
+                                {message.number ? (
+                                    <span
+                                        style={{
+                                            width: 22,
+                                            height: 22,
+                                            borderRadius: '50%',
+                                            flexShrink: 0,
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            fontSize: '0.75rem',
+                                            fontWeight: 700,
+                                            color: t.accent,
+                                            background: t.iconBoxBg,
+                                            border: `1px solid ${t.iconBoxBorder}`,
+                                        }}
+                                    >
+                                        {i + offset}
+                                    </span>
+                                ) : (
+                                    <InfoOutlined
+                                        style={{ fontSize: 20, color: t.accent, flexShrink: 0, marginTop: 1 }}
+                                    />
+                                )}
+                                <span>{message.text}</span>
+                            </div>
+                        ))}
+                    </DashboardCard>
+                ) : null}
+            </>
         );
     }
 
@@ -640,105 +673,119 @@ class Restore extends Component<RestoreProps, RestoreState> {
     }
 
     render(): React.JSX.Element {
+        const t = getTokens(this.props.themeType === 'dark');
+        const compact = this.state.isFullScreen;
+        const started = this.state.executing || this.state.done;
+        const ok = this.state.exitCode === '0';
+        const running = this.state.executing || (this.state.done && this.state.exitCode === null);
+
         return (
             <Dialog
                 open={!0}
                 onClose={() => !this.state.executing && this.props.onClose()}
-                maxWidth="lg"
+                maxWidth={started ? 'lg' : 'md'}
                 fullWidth
-                fullScreen={this.state.isFullScreen}
-                sx={{ '& .MuiDialog-paper': styles.paper }}
+                fullScreen={compact}
+                sx={dialogSx(t, compact)}
+                slotProps={{ paper: { style: { height: started && !compact ? 'calc(100% - 64px)' : undefined } } }}
             >
-                <DialogTitle>
-                    <SettingsBackupRestore style={{ width: 24, height: 24, margin: '0 10px -4px 0' }} />
-                    {I18n.t('BackItUp restore execution')}
-                </DialogTitle>
-                <DialogContent style={styles.dialogContent}>
-                    {this.state.executing ? (
-                        <LinearProgress
-                            style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 24,
-                                width: 'calc(100% - 64px)',
-                            }}
-                        />
-                    ) : (
-                        <div style={{ height: 4, width: 'calc(100% - 64px)' }} />
-                    )}
-                    {this.state.executing || this.state.done ? (
-                        <div
-                            style={{
-                                ...styles.logContainer,
-                                ...(this.state.isFullScreen ? styles.responseLogContainer : undefined),
-                                backgroundColor: this.props.themeType === 'dark' ? '#111' : '#EEE',
-                            }}
-                            ref={this.textRef}
-                        >
-                            {this.state.executionLog.map((line, i) =>
-                                Restore.renderLine(line, i, this.state.isFullScreen),
-                            )}
-                        </div>
-                    ) : null}
-                    {!this.state.executing && !this.state.done ? (
-                        <div>
-                            <ul>
-                                {this.state.messages.map((message, i) => (
-                                    <li key={i}>
-                                        {message.number ? `${i + 1}. ` : null}
-                                        <span style={{ fontSize: 'medium' }}>{message.text}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ) : null}
-                </DialogContent>
-                <DialogActions style={{ ...(this.state.isFullScreen ? styles.dialogActions : undefined) }}>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                disabled={this.state.done}
-                                checked={this.state.closeOnReady}
-                                onChange={e => this.setState({ closeOnReady: e.target.checked })}
+                <DialogHeader
+                    t={t}
+                    compact={compact}
+                    icon={<SettingsBackupRestore fontSize="inherit" />}
+                    title={titleText('BackItUp restore execution')}
+                    subtitle={started ? this.props.fileName.split(/[\\/]/).pop() : undefined}
+                    onClose={() => this.props.onClose()}
+                    closeDisabled={this.state.executing}
+                />
+                <div
+                    style={{
+                        flex: 1,
+                        minHeight: 0,
+                        overflow: started ? undefined : 'auto',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 14,
+                        padding: compact ? '14px 10px' : '18px 24px',
+                    }}
+                >
+                    {started ? (
+                        <>
+                            <RunStatus
+                                t={t}
+                                state={running ? 'running' : ok ? 'success' : 'error'}
+                                text={
+                                    running
+                                        ? I18n.t('The ioBroker is currently being restored')
+                                        : ok
+                                          ? I18n.t('Restore completed successfully!')
+                                          : I18n.t('Restore was canceled!')
+                                }
                             />
-                        }
-                        label={I18n.t('Close on ready')}
+                            <ExecutionLogBox
+                                t={t}
+                                lines={this.state.executionLog}
+                                compact={compact}
+                                boxRef={this.textRef}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            {this.renderFileCard(t)}
+                            {this.renderHints(t)}
+                        </>
+                    )}
+                </div>
+                <DialogActions
+                    sx={{
+                        gap: 1,
+                        flexWrap: 'wrap',
+                        padding: compact ? '10px 14px' : '12px 24px 18px',
+                        borderTop: `1px solid ${t.divider}`,
+                    }}
+                >
+                    <CloseOnReady
+                        t={t}
+                        checked={this.state.closeOnReady}
+                        disabled={this.state.done}
+                        onChange={closeOnReady => this.setState({ closeOnReady })}
                     />
                     <Button
-                        style={{ marginTop: this.state.isFullScreen ? 10 : 0 }}
-                        variant="contained"
-                        disabled={this.state.executing || this.state.done}
-                        onClick={() =>
-                            this.setState(
-                                {
-                                    executionLog: [
-                                        {
-                                            ts: Restore.getTime(),
-                                            level: 'INFO',
-                                            text: 'starting Restore...',
-                                            source: 'gui',
-                                        },
-                                    ],
-                                },
-                                () => this.doRestore(),
-                            )
-                        }
-                        color={this.props.themeType === 'dark' ? 'primary' : 'grey'}
-                    >
-                        {I18n.t('Restore')}
-                    </Button>
-                    <Button
-                        style={{ marginTop: this.state.isFullScreen ? 10 : 0 }}
-                        color={this.props.themeType === 'dark' ? 'primary' : 'grey'}
-                        variant="contained"
+                        variant="outlined"
                         disabled={this.state.executing}
                         onClick={() => this.props.onClose()}
+                        sx={{ ...DIALOG_BUTTON_SX, color: t.textSecondary, borderColor: t.tileBorder }}
                     >
                         {this.state.done ? I18n.t('Close') : I18n.t('Cancel')}
                     </Button>
+                    {started ? null : (
+                        <Button
+                            variant="contained"
+                            startIcon={<SettingsBackupRestore />}
+                            onClick={() =>
+                                this.setState(
+                                    {
+                                        exitCode: null,
+                                        executionLog: [
+                                            {
+                                                ts: Restore.getTime(),
+                                                level: 'INFO',
+                                                text: 'starting Restore...',
+                                                source: 'gui',
+                                            },
+                                        ],
+                                    },
+                                    () => this.doRestore(),
+                                )
+                            }
+                            sx={DIALOG_BUTTON_SX}
+                        >
+                            {I18n.t('Restore')}
+                        </Button>
+                    )}
                 </DialogActions>
                 {this.renderError()}
-                {this.renderRestoreDialog()}
+                {this.renderRestoreDialog(t)}
             </Dialog>
         );
     }

@@ -158,6 +158,10 @@ export function getFile(
     log: ioBroker.Logger,
     callback: (error?: Error | string | null, toSaveName?: string) => void,
 ): void {
+    // The list files NAS backups under 'nas / copy' and the GUI sends that key - the module is lib/list/cifs
+    if (storageType === 'nas / copy') {
+        storageType = 'cifs';
+    }
     if (existsSync(toSaveName)) {
         callback(null, toSaveName);
     } else {
@@ -182,8 +186,14 @@ export function getFile(
             config = { ...config, ownDir: false };
         }
         if (storageType !== 'local') {
-            // eslint-disable-next-line @typescript-eslint/no-require-imports
-            const engine = require(`./list/${storageType}`) as BackItUpStorageEngine;
+            let engine: BackItUpStorageEngine;
+            try {
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
+                engine = require(`./list/${storageType}`) as BackItUpStorageEngine;
+            } catch (e) {
+                callback(`Unknown storage "${storageType}": ${e}`);
+                return;
+            }
             // Downloading only needs the logger; the scratch pad belongs to a backup run.
             const context: BackItUpContext = {
                 adapter: null,

@@ -22,7 +22,7 @@ function sync2files(src, dst) {
 function sync() {
     // sync2files(`${__dirname}/src-admin/src/BackupNow.jsx`, `${__dirname}/src-tab/src/Components/BackupNow.jsx`);
     sync2files(`${__dirname}/src-admin/src/Components/SourceSelector.tsx`, `${__dirname}/src-tab/src/Components/SourceSelector.tsx`);
-    sync2files(`${__dirname}/src-admin/src/Components/Restore.tsx`, `${__dirname}/src-tab/src/Components/Restore.tsx`);
+    // Restore.tsx is no longer synced: the tab has its own version in the dashboard design
     sync2files(`${__dirname}/src-admin/src/Components/types.d.ts`, `${__dirname}/src-tab/src/Components/types.d.ts`);
 }
 
