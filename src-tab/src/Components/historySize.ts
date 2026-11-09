@@ -1,4 +1,3 @@
-/** Size fields of an entry of the state history.json */
 export interface HistorySize {
     /** "<n> MB" - whole megabytes, below 1 MB as a fraction (older versions wrote "0 MB") */
     filesize?: string | number | null;

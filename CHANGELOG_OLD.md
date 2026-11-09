@@ -1,7 +1,18 @@
 ## Changelog
+## 4.0.0 (2026-08-04)
+* (simatec) dependencies updated
+* (simatec) Fix Translation
+* (simatec) small Fixes
+* (simatec) Integrated token encryption
+* (simatec) Fix Yahka Backup
+* (@GermanBluefox) Updated GUI packages und removed linter errors
+* (simatec) Update Node Engine
+* (@GermanBluefox) Migrated to Admin 8
+* (simatec) Redesign Backitup Tab
+
+
 ## 3.3.17 (2026-04-14)
 * (simatec) Fix vite Build
-
 
 ## 3.3.16 (2026-04-14)
 * (simatec) Fix Tab Admin

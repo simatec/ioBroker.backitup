@@ -118,6 +118,46 @@ interface RestoreState {
     error?: string;
 }
 
+/**
+ * Hints for an InfluxDB restore. 1.x restores a database (`influxd restore -portable -db`), 2.x a
+ * bucket (`influx restore --bucket`); both fail when the target already exists or the program
+ * (`influxd` / `influx`) is missing on the ioBroker host.
+ *
+ * @param version InfluxDB version of the backup; both variants are listed when it is unknown
+ */
+function influxDBMessages(version?: string): { text: string; number: boolean }[] {
+    const messages = [{ text: I18n.t('The InfluxDB adapter must be stopped before the restore.'), number: false }];
+    if (version !== '2.x') {
+        messages.push({
+            text: I18n.t(
+                'InfluxDB 1.x: The database to be restored must not exist. Delete it after stopping the InfluxDB adapter.',
+            ),
+            number: false,
+        });
+        messages.push({
+            text: I18n.t(
+                'InfluxDB 1.x: The program "influxd" must be installed on the ioBroker host, or its path must be entered in the InfluxDB settings of BackItUp.',
+            ),
+            number: false,
+        });
+    }
+    if (version !== '1.x') {
+        messages.push({
+            text: I18n.t(
+                'InfluxDB 2.x: The bucket to be restored must not exist. Delete it after stopping the InfluxDB adapter.',
+            ),
+            number: false,
+        });
+        messages.push({
+            text: I18n.t(
+                'InfluxDB 2.x: The command line tool "influx" must be installed on the ioBroker host, or its path must be entered in the InfluxDB settings of BackItUp.',
+            ),
+            number: false,
+        });
+    }
+    return messages;
+}
+
 class Restore extends Component<RestoreProps, RestoreState> {
     lastExecutionLine: string;
     textRef: React.RefObject<HTMLDivElement | null>;
@@ -171,7 +211,11 @@ class Restore extends Component<RestoreProps, RestoreState> {
             });
         } else {
             messages[0] = { text: I18n.t('ioBroker will not be restarted for this restore type.'), number: false };
-            messages[1] = { text: I18n.t('Confirm with "Restore".'), number: false };
+            if (this.props.fileName.includes('influxDB')) {
+                // Both variants until componentDidMount has read which InfluxDB version applies
+                messages.push(...influxDBMessages());
+            }
+            messages.push({ text: I18n.t('Confirm with "Restore".'), number: false });
         }
 
         this.state = {
@@ -367,6 +411,41 @@ class Restore extends Component<RestoreProps, RestoreState> {
         );
         this.updateFullScreenMode();
         window.addEventListener('resize', this.updateFullScreenMode);
+        await this.updateInfluxDBMessages();
+    }
+
+    /**
+     * Narrows the InfluxDB hints to the version of the backup: the configured one, or in multi mode
+     * the one of the target whose name suffix is part of the file name.
+     */
+    async updateInfluxDBMessages(): Promise<void> {
+        if (!this.props.fileName.includes('influxDB') || this.state.isStopped) {
+            return;
+        }
+        try {
+            const obj = await this.props.socket.getObject(
+                `system.adapter.${this.props.adapterName}.${this.props.instance}`,
+            );
+            const native = obj?.native as
+                | {
+                      influxDBVersion?: string;
+                      influxDBMulti?: boolean;
+                      influxDBEvents?: { nameSuffix?: string; dbversion?: string }[];
+                  }
+                | undefined;
+            let version = native?.influxDBVersion;
+            if (native?.influxDBMulti) {
+                version = (native.influxDBEvents || []).find(
+                    event => event.nameSuffix && this.props.fileName.includes(`_${event.nameSuffix}_backupiobroker`),
+                )?.dbversion;
+            }
+            const messages = this.state.messages;
+            this.setState({
+                messages: [messages[0], ...influxDBMessages(version), messages[messages.length - 1]],
+            });
+        } catch {
+            // keep both variants
+        }
     }
 
     componentWillUnmount(): void {

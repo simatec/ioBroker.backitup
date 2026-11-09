@@ -21,6 +21,11 @@
   "Config found in %s, but nothing changed": "Configuração encontrada em %s, mas nada mudou",
   "Config taken from %s": "Configuração retirada de %s",
   "Confirm with \"Restore\" and the download begins. Please wait until the download is finished!": "Confirme em “Restaurar” e o download começa. Aguarde até que o download termine!",
+  "The InfluxDB adapter must be stopped before the restore.": "O adaptador InfluxDB deve ser parado antes da restauração.",
+  "InfluxDB 1.x: The database to be restored must not exist. Delete it after stopping the InfluxDB adapter.": "InfluxDB 1.x: O banco de dados a ser restaurado não deve existir. Exclua-o após parar o adaptador InfluxDB.",
+  "InfluxDB 1.x: The program \"influxd\" must be installed on the ioBroker host, or its path must be entered in the InfluxDB settings of BackItUp.": "InfluxDB 1.x: O programa \"influxd\" deve estar instalado no host do ioBroker, ou o seu caminho deve ser informado nas configurações do InfluxDB do BackItUp.",
+  "InfluxDB 2.x: The bucket to be restored must not exist. Delete it after stopping the InfluxDB adapter.": "InfluxDB 2.x: O bucket a ser restaurado não deve existir. Exclua-o após parar o adaptador InfluxDB.",
+  "InfluxDB 2.x: The command line tool \"influx\" must be installed on the ioBroker host, or its path must be entered in the InfluxDB settings of BackItUp.": "InfluxDB 2.x: A ferramenta de linha de comando \"influx\" deve estar instalada no host do ioBroker, ou o seu caminho deve ser informado nas configurações do InfluxDB do BackItUp.",
   "Confirm with \"Restore\".": "Confirme com \"Restaurar\".",
   "Detect config": "Detectar configuração",
   "Discord receiver": "Receptor de discórdia",
@@ -90,5 +95,6 @@
   "ioBroker will be restarted during restore.": "O ioBroker será reiniciado durante a restauração.",
   "ioBroker will not be restarted for this restore type.": "O ioBroker não será reiniciado para este tipo de restauração.",
   "ra_Close": "Fechar",
-  "starting Backup...": "iniciando o backup..."
+  "starting Backup...": "iniciando o backup...",
+  "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "Este backup não pode ser restaurado pelo BackItUp. Restaure-o no sistema de onde ele veio."
 }

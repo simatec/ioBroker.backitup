@@ -61,7 +61,14 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 5.0.0 (2026-11-08)
+* (simatec) many small Fixes
+* (simatec) Added InfluxDB Warning before Restore 
+* (simatec) Added Download from all Backups Types from Backup Tab
+* (simatec) Fix MySQL Backup
+* (simatec) Fix Webdav
+* (simatec) Fix Grafana Backup
+* (simatec) Tab History redesigned
 * (bluefox) Tab redesigned, new logo and adapter icon
 * (bluefox) Existing backups can be downloaded from the tab
 * (bluefox) Upload accepts plain ioBroker backups (`iobroker backup`), also renamed ones
@@ -87,17 +94,6 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 
 ### 4.0.1 (2026-08-07)
 * (simatec) Fix Backitup Tab
-
-### 4.0.0 (2026-08-04)
-* (simatec) dependencies updated
-* (simatec) Fix Translation
-* (simatec) small Fixes
-* (simatec) Integrated token encryption
-* (simatec) Fix Yahka Backup
-* (@GermanBluefox) Updated GUI packages und removed linter errors
-* (simatec) Update Node Engine
-* (@GermanBluefox) Migrated to Admin 8
-* (simatec) Redesign Backitup Tab
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
