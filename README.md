@@ -61,6 +61,15 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (simatec) Fix download of backups from a NAS ("Copy" mode, and CIFS / NFS when the file is not in the mounted directory)
+* (simatec) CCU backups in an own NAS directory (CIFS / NFS) are listed and can be downloaded
+* (simatec) Fix Discord notification ("Cannot read properties of undefined (reading 'sendTo')")
+* (simatec) Tab: restore console, restore log, backup log and loading the BackItUp settings in the new design
+* (simatec) Tab: the restore console shows the result of restores without ioBroker restart
+* (simatec) Tab: the JSON file is checked before the BackItUp settings are loaded
+* (simatec) Tab: missing translations added
+
 ### 5.0.0 (2026-11-08)
 * (simatec) many small Fixes
 * (simatec) Added InfluxDB Warning before Restore 

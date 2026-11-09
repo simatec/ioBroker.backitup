@@ -294,6 +294,26 @@ class Restore extends Component<RestoreProps, RestoreState> {
         this.polling = setInterval(() => this.pollStatus(), 1000);
     }
 
+    /**
+     * Text after "[EXIT]": a number (0 = ok) or, for the restores without ioBroker restart, the
+     * result of the restore script, e.g. "Grafana restore done" or "redis restore broken".
+     *
+     * @param line the [EXIT] line of output.line
+     */
+    static exitText(line: string): string {
+        return line.replace(/^\[EXIT]\s*/, '').trim();
+    }
+
+    /**
+     * Whether a restore ended successfully: exit code 0 or "... restore done" of the restore scripts
+     *
+     * @param line the [EXIT] line of output.line
+     */
+    static isExitOk(line: string): boolean {
+        const text = Restore.exitText(line);
+        return !text || text === '0' || /restore done$/i.test(text);
+    }
+
     static getTime(): string {
         const date = new Date();
         return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}.${date.getMilliseconds().toString().padStart(3, '0')}`;
@@ -318,16 +338,13 @@ class Restore extends Component<RestoreProps, RestoreState> {
                         ts: now,
                         text: parts[3],
                     });
-                } else if ((state.val as string).startsWith('[EXIT]')) {
-                    const code = (state.val as string).match(/^\[EXIT] ([-\d]+)/);
+                } else if (line.startsWith('[EXIT]')) {
+                    const ok = Restore.isExitOk(line);
                     executionLog.push({
-                        level: code![1] === '0' ? 'INFO' : 'ERROR',
+                        level: ok ? 'INFO' : 'ERROR',
                         source: 'gui',
                         ts: now,
-                        text:
-                            code![1] === '0'
-                                ? I18n.t('Restore completed successfully!')
-                                : I18n.t('Restore was canceled!'),
+                        text: ok ? I18n.t('Restore completed successfully!') : I18n.t('Restore was canceled!'),
                     });
                 } else {
                     executionLog.push({ text: line });
@@ -344,10 +361,11 @@ class Restore extends Component<RestoreProps, RestoreState> {
 
             this.setState({ executionLog });
 
-            if ((state.val as string).startsWith('[EXIT]')) {
-                const code = (state.val as string).match(/^\[EXIT] ([-\d]+)/);
-                this.setState({ executing: false, exitCode: code ? code[1] : '0' });
-                if (this.state.closeOnReady && (!code || code[1] === '0')) {
+            const exitLine = lines.map(line => line.trim()).find(line => line.startsWith('[EXIT]'));
+            if (exitLine) {
+                const ok = Restore.isExitOk(exitLine);
+                this.setState({ executing: false, exitCode: ok ? '0' : Restore.exitText(exitLine) || '1' });
+                if (this.state.closeOnReady && ok) {
                     this.closeTimeout =
                         this.closeTimeout ||
                         setTimeout(() => {
@@ -650,7 +668,13 @@ class Restore extends Component<RestoreProps, RestoreState> {
                     } else if (this.state.isStopped) {
                         setTimeout(() => this.startPolling(), this.props.restoreIfWait || 5000);
                     } else {
-                        this.setState({ done: true, executing: false });
+                        // the answer carries the result as well, in case the [EXIT] line got lost
+                        const exit = `[EXIT] ${result.exitCode ?? 0}`;
+                        this.setState({
+                            done: true,
+                            executing: false,
+                            exitCode: this.state.exitCode ?? (Restore.isExitOk(exit) ? '0' : Restore.exitText(exit)),
+                        });
                     }
                 } catch (error: any) {
                     this.setState({ error: error.toString(), executing: false });
