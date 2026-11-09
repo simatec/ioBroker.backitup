@@ -1,4 +1,8 @@
 ## Changelog
+## 4.0.1 (2026-08-07)
+* (simatec) Fix Backitup Tab
+
+
 ## 4.0.0 (2026-08-04)
 * (simatec) dependencies updated
 * (simatec) Fix Translation
@@ -9,7 +13,6 @@
 * (simatec) Update Node Engine
 * (@GermanBluefox) Migrated to Admin 8
 * (simatec) Redesign Backitup Tab
-
 
 ## 3.3.17 (2026-04-14)
 * (simatec) Fix vite Build

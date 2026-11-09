@@ -61,7 +61,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 5.0.1 (2026-11-09)
 * (simatec) Fix download of backups from a NAS ("Copy" mode, and CIFS / NFS when the file is not in the mounted directory)
 * (simatec) CCU backups in an own NAS directory (CIFS / NFS) are listed and can be downloaded
 * (simatec) Fix Discord notification ("Cannot read properties of undefined (reading 'sendTo')")
@@ -100,9 +100,6 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 ### 4.0.2 (2026-08-18)
 * (simatec) Fix Backitup Tab
 * (simatec) dependencies updated
-
-### 4.0.1 (2026-08-07)
-* (simatec) Fix Backitup Tab
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
