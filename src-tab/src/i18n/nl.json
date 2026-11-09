@@ -154,5 +154,15 @@
     "No log for the failed run": "Geen log voor de mislukte run",
     "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "De run van %s stopte voordat het log werd opgeslagen. De foutmelding staat in het ioBroker-log van %s.",
     "Below is the last saved run.": "Hieronder staat de laatst opgeslagen run.",
-    "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "Deze back-up kan niet door BackItUp worden hersteld. Herstel hem in het systeem waar hij vandaan komt."
+    "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "Deze back-up kan niet door BackItUp worden hersteld. Herstel hem in het systeem waar hij vandaan komt.",
+    "Drag and drop a configuration file here": "Sleep een configuratiebestand hierheen",
+    "Load a saved BackItUp configuration file (.json).": "Een opgeslagen BackItUp-configuratiebestand (.json) laden.",
+    "The settings of this instance are replaced by the file. The instance restarts afterwards.": "De instellingen van deze instantie worden vervangen door het bestand. De instantie wordt daarna opnieuw gestart.",
+    "Apply": "Toepassen",
+    "Configuration restored successfully. The popup will close automatically": "Configuratie succesvol hersteld. Het venster sluit automatisch",
+    "Cannot parse JSON": "JSON kan niet worden gelezen",
+    "Restore completed successfully!": "Herstel succesvol voltooid!",
+    "Restore was canceled!": "Herstel is afgebroken!",
+    "Cannot get status": "Status kan niet worden opgehaald",
+    "(Maximal file size is %s)": "(Maximale bestandsgrootte is %s)"
 }

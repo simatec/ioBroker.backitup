@@ -154,5 +154,15 @@
   "No log for the failed run": "No log for the failed run",
   "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.": "The run of %s stopped before its log was saved. The error message is in the ioBroker log of %s.",
   "Below is the last saved run.": "Below is the last saved run.",
-  "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "This backup cannot be restored by BackItUp. Please restore it in the system it comes from."
+  "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.": "This backup cannot be restored by BackItUp. Please restore it in the system it comes from.",
+  "Drag and drop a configuration file here": "Drag and drop a configuration file here",
+  "Load a saved BackItUp configuration file (.json).": "Load a saved BackItUp configuration file (.json).",
+  "The settings of this instance are replaced by the file. The instance restarts afterwards.": "The settings of this instance are replaced by the file. The instance restarts afterwards.",
+  "Apply": "Apply",
+  "Configuration restored successfully. The popup will close automatically": "Configuration restored successfully. The popup will close automatically",
+  "Cannot parse JSON": "Cannot parse JSON",
+  "Restore completed successfully!": "Restore completed successfully!",
+  "Restore was canceled!": "Restore was canceled!",
+  "Cannot get status": "Cannot get status",
+  "(Maximal file size is %s)": "(Maximal file size is %s)"
 }

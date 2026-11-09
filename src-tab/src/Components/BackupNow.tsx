@@ -1,16 +1,7 @@
 import React from 'react';
 
-import {
-    Button,
-    Checkbox,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    FormControlLabel,
-    LinearProgress,
-} from '@mui/material';
-import { CloudUploadOutlined } from '@mui/icons-material';
+import { Button, Dialog, DialogActions } from '@mui/material';
+import { Close, CloudUploadOutlined } from '@mui/icons-material';
 
 import { I18n } from '@iobroker/gui-components';
 
@@ -21,76 +12,16 @@ import {
     type ConfigItemCustom,
 } from '@iobroker/json-config';
 
-const styles: Record<string, React.CSSProperties> = {
-    paper: {
-        height: 'calc(100% - 64px)',
-    },
-    textTime: {
-        display: 'inline-block',
-        width: 95,
-    },
-    responseTextTime: {
-        display: 'inline-block',
-        width: 70,
-    },
-    textLevel: {
-        display: 'inline-block',
-        width: 50,
-    },
-    'textLevel-ERROR': {
-        color: 'red',
-    },
-    'textLevel-WARN': {
-        color: 'orange',
-    },
-    'textLevel-INFO': {
-        color: '#00b204',
-    },
-    textSource: {
-        display: 'inline-block',
-        width: 100,
-        textAlign: 'left',
-    },
-    text: {
-        display: 'inline-block',
-    },
-    responseText: {
-        display: 'inline-block',
-        wordWrap: 'break-word',
-    },
-    textLine: {
-        whiteSpace: 'nowrap',
-    },
-    responseTextLine: {
-        whiteSpace: 'normal',
-    },
-    dialogContent: {
-        position: 'relative',
-        padding: 16,
-    },
-    logContainer: {
-        fontSize: 12,
-        fontFamily: 'monospace',
-        padding: 8,
-        border: '1px solid grey',
-        borderRadius: 5,
-        overflow: 'auto',
-        boxSizing: 'border-box',
-        height: 'calc(100% - 16px - 4px)',
-        width: 'calc(100% - 16px)',
-    },
-    responseLogContainer: {
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 15,
-    },
-    dialogActions: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'stretch',
-    },
-};
+import { getTokens } from './Dashboard/tokens';
+import { DialogHeader, dialogSx } from './Dashboard/DialogParts';
+import {
+    CloseOnReady,
+    DIALOG_BUTTON_SX,
+    ExecutionLogBox,
+    type LogLine,
+    RunStatus,
+    titleText,
+} from './Dashboard/ExecutionLog';
 
 interface BackupNowConfig extends ConfigItemCustom {
     variant: 'contained' | 'outlined' | 'text';
@@ -116,10 +47,13 @@ interface BackupNowProps extends ConfigGenericProps {
 interface BackupNowState extends ConfigGenericState {
     executing: boolean;
     executionDialog: boolean;
-    executionLog: { level?: string; source?: string; ts?: string; text: string }[];
+    executionLog: LogLine[];
     closeOnReady: boolean;
-    styles: Record<string, React.CSSProperties>;
     isFullScreen: boolean;
+    /** exit code of the last run, null while it runs */
+    exitCode: string | null;
+    /** label of the button that started the run */
+    runLabel: string;
 }
 
 class BackupNow extends ConfigGeneric<BackupNowProps, BackupNowState> {
@@ -135,8 +69,9 @@ class BackupNow extends ConfigGeneric<BackupNowProps, BackupNowState> {
             executionDialog: false,
             executionLog: [],
             closeOnReady: false,
-            styles,
             isFullScreen: false,
+            exitCode: null,
+            runLabel: '',
         };
         this.lastExecutionLine = '';
         this.textRef = React.createRef();
@@ -197,8 +132,8 @@ class BackupNow extends ConfigGeneric<BackupNowProps, BackupNowState> {
             this.setState({ executionLog });
 
             if (state.val.toString().startsWith('[EXIT]')) {
-                this.setState({ executing: false });
                 const code = state.val.toString().match(/^\[EXIT] ([-\d]+)/);
+                this.setState({ executing: false, exitCode: code ? code[1] : '0' });
                 if (this.state.closeOnReady && (!code || code[1] === '0')) {
                     this.closeTimeout ||= setTimeout(() => {
                         this.closeTimeout = null;
@@ -254,115 +189,96 @@ class BackupNow extends ConfigGeneric<BackupNowProps, BackupNowState> {
         this.setState({ isFullScreen });
     };
 
-    renderLine(line: { level?: string; source?: string; ts?: string; text: string }, i: number): React.JSX.Element {
-        return (
-            <div
-                key={i}
-                style={{
-                    ...(this.state.isFullScreen ? this.state.styles.responseTextLine : this.state.styles.textLine),
-                }}
-            >
-                <div
-                    style={{
-                        ...this.state.styles.textTime,
-                        ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined),
-                    }}
-                >
-                    {line.ts}
-                </div>
-                <div
-                    style={{
-                        ...this.state.styles.textLevel,
-                        ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined),
-                    }}
-                >
-                    {line.level}
-                </div>
-                <div
-                    style={{
-                        ...this.state.styles.textSource,
-                        ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined),
-                    }}
-                >
-                    {line.source}
-                </div>
-                <div
-                    style={{
-                        ...(this.state.isFullScreen ? this.state.styles.responseText : this.state.styles.text),
-                        ...(line.level ? this.state.styles[`textLevel-${line.level}`] : undefined),
-                    }}
-                >
-                    {line.text}
-                </div>
-            </div>
-        );
-    }
-
     renderExecutionDialog(): React.JSX.Element | null {
-        return this.state.executionDialog ? (
+        if (!this.state.executionDialog) {
+            return null;
+        }
+        const t = getTokens(this.props.oContext.themeType === 'dark');
+        const compact = this.state.isFullScreen;
+        const close = (): void => this.setState({ executionDialog: false });
+        const ok = this.state.exitCode === '0';
+
+        return (
             <Dialog
                 open={!0}
-                onClose={() => this.setState({ executionDialog: false })}
+                onClose={close}
                 maxWidth="lg"
                 fullWidth
-                fullScreen={this.state.isFullScreen}
-                sx={{ '& .MuiDialog-paper': this.state.styles.paper }}
+                fullScreen={compact}
+                sx={dialogSx(t, compact)}
+                slotProps={{ paper: { style: { height: compact ? undefined : 'calc(100% - 64px)' } } }}
             >
-                <DialogTitle>
-                    <CloudUploadOutlined style={{ width: 24, height: 24, margin: '0 10px -4px 0' }} />
-                    {I18n.t('BackItUp execution:')}
-                </DialogTitle>
-                <DialogContent style={this.state.styles.dialogContent}>
-                    {this.state.executing ? (
-                        <LinearProgress
-                            style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 24,
-                                width: 'calc(100% - 64px)',
-                            }}
-                        />
-                    ) : (
-                        <div style={{ height: 4, width: 'calc(100% - 64px)' }} />
-                    )}
-                    <div
-                        style={{
-                            ...this.state.styles.logContainer,
-                            ...(this.state.isFullScreen ? this.state.styles.responseLogContainer : undefined),
-                            backgroundColor: this.props.oContext.themeType === 'dark' ? '#111' : '#EEE',
-                        }}
-                        ref={this.textRef}
-                    >
-                        {this.state.executionLog.map((line, i) => this.renderLine(line, i))}
-                    </div>
-                </DialogContent>
-                <DialogActions style={{ ...(this.state.isFullScreen ? this.state.styles.dialogActions : undefined) }}>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                disabled={!this.state.executing}
-                                checked={this.state.closeOnReady}
-                                onChange={e => this.setState({ closeOnReady: e.target.checked })}
-                            />
+                <DialogHeader
+                    t={t}
+                    compact={compact}
+                    icon={<CloudUploadOutlined fontSize="inherit" />}
+                    title={titleText('BackItUp execution:')}
+                    subtitle={this.state.runLabel || undefined}
+                    onClose={close}
+                />
+                <div
+                    style={{
+                        flex: 1,
+                        minHeight: 0,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 14,
+                        padding: compact ? '14px 10px' : '18px 24px',
+                    }}
+                >
+                    <RunStatus
+                        t={t}
+                        state={
+                            this.state.executing || this.state.exitCode === null ? 'running' : ok ? 'success' : 'error'
                         }
-                        label={I18n.t('Close on ready')}
+                        text={
+                            this.state.executing || this.state.exitCode === null
+                                ? I18n.t('Backup is running...')
+                                : ok
+                                  ? I18n.t('The backup was successfully created!')
+                                  : I18n.t('The backup could not be created completely!')
+                        }
+                    />
+                    <ExecutionLogBox
+                        t={t}
+                        lines={this.state.executionLog}
+                        compact={compact}
+                        boxRef={this.textRef}
+                    />
+                </div>
+                <DialogActions
+                    sx={{
+                        gap: 1,
+                        flexWrap: 'wrap',
+                        padding: compact ? '10px 14px' : '12px 24px 18px',
+                        borderTop: `1px solid ${t.divider}`,
+                    }}
+                >
+                    <CloseOnReady
+                        t={t}
+                        checked={this.state.closeOnReady}
+                        disabled={!this.state.executing}
+                        onChange={closeOnReady => this.setState({ closeOnReady })}
                     />
                     <Button
                         variant="contained"
-                        color={this.props.color}
-                        onClick={() => this.setState({ executionDialog: false })}
+                        onClick={close}
+                        startIcon={<Close />}
+                        sx={DIALOG_BUTTON_SX}
                     >
                         {I18n.t('Close')}
                     </Button>
                 </DialogActions>
             </Dialog>
-        ) : null;
+        );
     }
 
     onStart = (): void =>
         this.setState(
             {
                 executionDialog: true,
+                exitCode: null,
+                runLabel: this.getLabel(),
                 executionLog: [
                     {
                         ts: BackupNow.getTime(),
@@ -382,13 +298,17 @@ class BackupNow extends ConfigGeneric<BackupNowProps, BackupNowState> {
             },
         );
 
-    renderItem(): React.JSX.Element {
-        const disabled = !this.props.alive || this.state.executing;
-        const label = this.props.schema.label
+    getLabel(): string {
+        return this.props.schema.label
             ? typeof this.props.schema.label === 'object'
                 ? this.props.schema.label[I18n.getLanguage()] || this.props.schema.label.en
                 : I18n.t(this.props.schema.label)
             : I18n.t('Backup now');
+    }
+
+    renderItem(): React.JSX.Element {
+        const disabled = !this.props.alive || this.state.executing;
+        const label = this.getLabel();
 
         return (
             <>
