@@ -211,7 +211,8 @@ export default function listBackups(
 
     // With "own directory" the CCU backups are uploaded into the CCU directory of the storage, which the
     // listing above does not read (it uses the directory of the ioBroker backup). Read it additionally.
-    // A mounted NAS is skipped: there the files are in the mounted backup directory anyway.
+    // A NAS mounted with CIFS / NFS holds the ioBroker directory on the backup directory, so the CCU
+    // directory is mounted for a moment onto a second mount point (`separateMount`).
     const ccu = config.ccu;
     if (isNode(ccu) && ccu.enabled) {
         for (const attr in ccu) {
@@ -223,12 +224,17 @@ export default function listBackups(
                 !isNode(storageConfig) ||
                 storageConfig.type !== 'storage' ||
                 storageConfig.ownDir !== true ||
-                !storages[attr] ||
-                (attr === 'cifs' && storageConfig.mountType !== 'Copy')
+                !storages[attr]
             ) {
                 continue;
             }
-            run(attr, { ...storageConfig, ownDir: false }, ['ccu']);
+            run(
+                attr,
+                attr === 'cifs'
+                    ? { ...storageConfig, ownDir: false, separateMount: true }
+                    : { ...storageConfig, ownDir: false },
+                ['ccu'],
+            );
         }
     }
 

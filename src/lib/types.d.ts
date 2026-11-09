@@ -234,6 +234,11 @@ export interface BackItUpConfigStorageCifs extends BackItUpConfigStorage {
     cacheLoose: boolean;
     mountType: 'CIFS' | 'NFS' | 'Copy' | 'Expert';
     mount: string;
+    /**
+     * Set by lib/list only: list `dir` through a second mount point instead of the backup directory,
+     * because the backup directory holds the mount of another directory (the own CCU directory).
+     */
+    separateMount?: boolean;
     /** specify if CIFS mount should be used */
     user: string;
     /** password for NAS Server */
