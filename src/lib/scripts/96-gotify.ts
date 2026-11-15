@@ -1,5 +1,5 @@
 import { _, delay } from '../tools';
-import { buildErrorMessage, type NotificationOptions } from '../notificationText';
+import { buildErrorMessage, nasHost, type NotificationOptions } from '../notificationText';
 import type { BackItUpProps } from '../types';
 
 interface GotifyOptions extends NotificationOptions {
@@ -70,7 +70,7 @@ export async function run(props: BackItUpProps<GotifyOptions>): Promise<void> {
                 if (options.cifs && options.cifs.enabled) {
                     const m = `${storageNum++}. ${_(`NAS (${options.cifs.mountType})`, options.gotify.systemLang)} (%h%d)%k`;
                     storageOptions += m
-                        .replace('%h', options.cifs.mount as string)
+                        .replace('%h', nasHost(options.cifs))
                         .replace('%d', options.cifs.dir as string)
                         .replace('%k', '\n');
                 }
