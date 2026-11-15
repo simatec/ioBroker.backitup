@@ -137,7 +137,7 @@
     },
     "platform": "Javascript/Node.js",
     "mode": "daemon",
-    "compact": true,
+    "compact": false,
     "icon": "backitup.svg",
     "messagebox": true,
     "stopBeforeUpdate": true,
