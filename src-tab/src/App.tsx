@@ -5,7 +5,6 @@ import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { Box, CssBaseline, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip } from '@mui/material';
 
 import {
-    ArrowForward,
     ChevronRight,
     CloudUploadOutlined,
     Favorite,
@@ -943,7 +942,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                         vertical
                         icon={<FormatListBulleted fontSize="inherit" />}
                         hoverEffect="lines"
-                        label={I18n.t('Show backup history')}
+                        label={I18n.t('Show history')}
                         onClick={() => this.setState({ showBackupHistory: true })}
                     />
                 </div>
@@ -958,32 +957,6 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                     t={t}
                     icon={<History fontSize="inherit" />}
                     title={I18n.t('Recent backups')}
-                    right={
-                        <Box
-                            component="button"
-                            type="button"
-                            onClick={() => this.setState({ showBackupHistory: true })}
-                            sx={{
-                                appearance: 'none',
-                                border: 0,
-                                background: 'none',
-                                font: 'inherit',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                padding: '2px 6px',
-                                borderRadius: '6px',
-                                color: t.accent,
-                                fontSize: '0.88rem',
-                                fontWeight: 600,
-                                '&:hover': { textDecoration: 'underline' },
-                            }}
-                        >
-                            {I18n.t('Show history')}
-                            <ArrowForward style={{ fontSize: 18 }} />
-                        </Box>
-                    }
                 />
                 <RecentBackups
                     t={t}
