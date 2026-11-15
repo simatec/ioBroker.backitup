@@ -620,6 +620,18 @@ class BackItUp extends Adapter {
                             });
                         }
 
+                        // A saved slave instance that was deleted in the meantime has no entry above, so
+                        // the select showed it but could not deselect it (#1570). It stays selectable,
+                        // marked as missing, until it is removed from the list.
+                        for (const instance of this.config.slaveInstance || []) {
+                            if (!resultInstances.find(entry => entry.value === instance)) {
+                                resultInstances.push({
+                                    label: `${instance} (${tools._('no longer exists', this.systemLang)})`,
+                                    value: instance,
+                                });
+                            }
+                        }
+
                         this.sendTo(obj.from, obj.command, resultInstances, obj.callback);
                     }
                     break;
@@ -1965,6 +1977,35 @@ class BackItUp extends Adapter {
             num = 0;
         }
 
+        /** Moves on to the next slave, or finishes the round. */
+        const advance = (): void => {
+            num!++;
+
+            if (this.config.slaveInstance.length > 1 && num != this.config.slaveInstance.length) {
+                const next = num!;
+                this.slaveTimeOut = setTimeout(
+                    () => void this.startSlaveBackup(this.config.slaveInstance[next], next),
+                    3000,
+                );
+            } else {
+                this.log.debug('slave backups are completed');
+
+                if (this.config.onedriveEnabled) {
+                    void this.renewOnedriveToken();
+                }
+            }
+        };
+
+        // A deleted instance has no alive state, so it would only be reported as "not running" (#1570)
+        const instanceObject = await this.getForeignObjectAsync(`system.adapter.${slaveInstance}`).catch(() => null);
+        if (!instanceObject) {
+            this.log.warn(
+                `${slaveInstance} no longer exists. Please remove it from the slave instances in the BackItUp settings`,
+            );
+            advance();
+            return;
+        }
+
         try {
             const currentState = await this.getForeignStateAsync(`system.adapter.${slaveInstance}.alive`);
 
@@ -1980,25 +2021,6 @@ class BackItUp extends Adapter {
         this.waitToSlaveBackup = setTimeout(async () => {
             try {
                 const currentStateAfter = await this.getForeignStateAsync(`system.adapter.${slaveInstance}.alive`);
-
-                /** Moves on to the next slave, or finishes the round. */
-                const advance = (): void => {
-                    num!++;
-
-                    if (this.config.slaveInstance.length > 1 && num != this.config.slaveInstance.length) {
-                        const next = num!;
-                        this.slaveTimeOut = setTimeout(
-                            () => void this.startSlaveBackup(this.config.slaveInstance[next], next),
-                            3000,
-                        );
-                    } else {
-                        this.log.debug('slave backups are completed');
-
-                        if (this.config.onedriveEnabled) {
-                            void this.renewOnedriveToken();
-                        }
-                    }
-                };
 
                 if (currentStateAfter && currentStateAfter.val && currentStateAfter.val === true) {
                     const sendToSlave = await this.sendToAsync(slaveInstance, 'slaveBackup', {

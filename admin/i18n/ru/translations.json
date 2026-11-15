@@ -235,6 +235,7 @@
     "Slave": "Раб",
     "Slave Instances stopping after backup": "Подчиненные экземпляры останавливаются после резервного копирования",
     "Slave instances": "Подчиненные экземпляры",
+    "no longer exists": "больше не существует",
     "Slave name suffix": "Суффикс имени раба",
     "Some features of BackItUp require additional adapters and tools. For detailed information please read the documentation of BackItUp!": "Некоторые функции BackItUp требуют дополнительных адаптеров и инструментов. Для получения подробной информации прочтите документацию BackItUp!",
     "Source type": "Тип источника",

@@ -235,6 +235,7 @@
     "Slave": "奴隶",
     "Slave Instances stopping after backup": "备份后从属实例停止",
     "Slave instances": "从属实例",
+    "no longer exists": "已不存在",
     "Slave name suffix": "从机名称后缀",
     "Some features of BackItUp require additional adapters and tools. For detailed information please read the documentation of BackItUp!": "BackItUp 的某些功能需要额外的适配器和工具。有关详细信息，请阅读 BackItUp 的文档！",
     "Source type": "来源类型",

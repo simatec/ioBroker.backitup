@@ -235,6 +235,7 @@
     "Slave": "Niewolnik",
     "Slave Instances stopping after backup": "Instancje podrzędne zatrzymują się po utworzeniu kopii zapasowej",
     "Slave instances": "Instancje niewolników",
+    "no longer exists": "już nie istnieje",
     "Slave name suffix": "Sufiks imienia niewolnika",
     "Some features of BackItUp require additional adapters and tools. For detailed information please read the documentation of BackItUp!": "Niektóre funkcje BackItUp wymagają dodatkowych adapterów i narzędzi. Aby uzyskać szczegółowe informacje, przeczytaj dokumentację BackItUp!",
     "Source type": "Rodzaj źródła",

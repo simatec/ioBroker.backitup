@@ -235,6 +235,7 @@
     "Slave": "Раб",
     "Slave Instances stopping after backup": "Підлеглі екземпляри зупиняються після резервного копіювання",
     "Slave instances": "Підлеглі екземпляри",
+    "no longer exists": "більше не існує",
     "Slave name suffix": "Суфікс імені раба",
     "Some features of BackItUp require additional adapters and tools. For detailed information please read the documentation of BackItUp!": "Для деяких функцій BackItUp потрібні додаткові адаптери та інструменти. Для отримання детальної інформації прочитайте документацію BackItUp!",
     "Source type": "Тип джерела",
