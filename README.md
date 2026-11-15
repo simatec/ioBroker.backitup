@@ -61,8 +61,7 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 5.0.2 (2026-11-15)
 * (simatec) Tab: download and restore from the recent backups also find backups on the storages (NAS, cloud)
 * (simatec) Tab: only one link to the backup history
 * (simatec) Fix notification: the NAS server is only shown for CIFS and NFS
@@ -106,10 +105,6 @@ When you allow iobroker GmbH to collect diagnostic data, then also your installa
 * (simatec) Fix signed FTP Certificates
 * (simatec) Fix Backup Timeout
 * (simatec) Fix lint check
-
-### 4.0.2 (2026-08-18)
-* (simatec) Fix Backitup Tab
-* (simatec) dependencies updated
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

@@ -1,7 +1,11 @@
 ## Changelog
+## 4.0.2 (2026-08-18)
+* (simatec) Fix Backitup Tab
+* (simatec) dependencies updated
+
+
 ## 4.0.1 (2026-08-07)
 * (simatec) Fix Backitup Tab
-
 
 ## 4.0.0 (2026-08-04)
 * (simatec) dependencies updated
