@@ -235,6 +235,7 @@
     "Slave": "Slave",
     "Slave Instances stopping after backup": "Slave-Instanzen nach dem Backup stoppen",
     "Slave instances": "Slave-Instanzen",
+    "no longer exists": "existiert nicht mehr",
     "Slave name suffix": "Slave-Namenssuffix",
     "Some features of BackItUp require additional adapters and tools. For detailed information please read the documentation of BackItUp!": "Einige Funktionen von Backitup erfordern zusätzliche Adapter und Tools. Detaillierte Informationen finden Sie in der Dokumentation von Backitup!",
     "Source type": "Backup Quelle",
