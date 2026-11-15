@@ -5,7 +5,6 @@ import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { Box, CssBaseline, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip } from '@mui/material';
 
 import {
-    ArrowForward,
     ChevronRight,
     CloudUploadOutlined,
     Favorite,
@@ -416,27 +415,41 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
     }
 
     /**
-     * Finds a backup from the history in the local backup directory.
+     * Searches one listing of the adapter (`list` command) for a file name.
      *
+     * @param source storage to list, '' for all storages
      * @param name file name of the archive
-     * @returns the full path or null if the file is not stored locally (anymore)
+     * @returns where the file is, or null
      */
-    async findLocalBackup(name: string): Promise<string | null> {
-        const result: { data?: { local?: Record<string, { name: string; path: string }[]> } } | null =
-            await this.socket.sendTo(this.statePrefix, 'list', 'local');
-        const local = result?.data?.local;
-        if (local) {
-            for (const files of Object.values(local)) {
-                const file = files.find(f => f.name === name);
+    async findInList(source: string, name: string): Promise<{ location: string; path: string } | null> {
+        const result: { data?: Record<string, Record<string, { name: string; path: string }[]>> } | null =
+            await this.socket.sendTo(this.statePrefix, 'list', source);
+        const data = result?.data || {};
+        // the local directory first: nothing has to be downloaded from there
+        const locations = Object.keys(data).sort((a, b) => (a === 'local' ? -1 : b === 'local' ? 1 : 0));
+        for (const location of locations) {
+            for (const files of Object.values(data[location] || {})) {
+                const file = (files || []).find(f => f.name === name);
                 if (file) {
-                    return file.path;
+                    return { location, path: file.path };
                 }
             }
         }
         return null;
     }
 
-    /** The file is gone from the local directory, so let the user pick it from the storages */
+    /**
+     * Finds a backup from the history: in the local backup directory, otherwise on the storages.
+     * A CCU backup, for example, is often only on the storages (own CCU directory on the NAS, cloud).
+     *
+     * @param name file name of the archive
+     * @returns where the file is, or null if no storage holds it (anymore)
+     */
+    async findBackup(name: string): Promise<{ location: string; path: string } | null> {
+        return (await this.findInList('local', name)) || (await this.findInList('', name));
+    }
+
+    /** No storage holds the file, so let the user pick it from the list */
     showNotFoundLocally(): void {
         this.showToast(I18n.t('The backup file was not found locally. Please select it from the backup list.'));
         this.setState({ showGetBackups: true });
@@ -448,15 +461,15 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
         }
         this.setState({ downloadIndex: index });
         try {
-            const path = await this.findLocalBackup(entry.name);
-            if (!path) {
+            const found = await this.findBackup(entry.name);
+            if (!found) {
                 this.showNotFoundLocally();
                 return;
             }
             const data: { fileName?: string; listenPort?: number; error?: string } | null = await this.socket.sendTo(
                 this.statePrefix,
                 'getFile',
-                { type: 'local', fileName: path, protocol: window.location.protocol },
+                { type: found.location, fileName: found.path, protocol: window.location.protocol },
             );
             if (!data?.listenPort) {
                 this.showToast(data?.error ? `${I18n.t('Error')}: ${data.error}` : I18n.t('Error'));
@@ -477,9 +490,9 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
             return;
         }
         try {
-            const path = await this.findLocalBackup(entry.name);
-            if (path) {
-                this.setState({ showRestore: { location: 'local', object: entry.type, fileName: path } });
+            const found = await this.findBackup(entry.name);
+            if (found) {
+                this.setState({ showRestore: { location: found.location, object: entry.type, fileName: found.path } });
             } else {
                 this.showNotFoundLocally();
             }
@@ -943,7 +956,7 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                         vertical
                         icon={<FormatListBulleted fontSize="inherit" />}
                         hoverEffect="lines"
-                        label={I18n.t('Show backup history')}
+                        label={I18n.t('Show history')}
                         onClick={() => this.setState({ showBackupHistory: true })}
                     />
                 </div>
@@ -958,32 +971,6 @@ export default class App extends GenericApp<GenericAppProps, AppState> {
                     t={t}
                     icon={<History fontSize="inherit" />}
                     title={I18n.t('Recent backups')}
-                    right={
-                        <Box
-                            component="button"
-                            type="button"
-                            onClick={() => this.setState({ showBackupHistory: true })}
-                            sx={{
-                                appearance: 'none',
-                                border: 0,
-                                background: 'none',
-                                font: 'inherit',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                padding: '2px 6px',
-                                borderRadius: '6px',
-                                color: t.accent,
-                                fontSize: '0.88rem',
-                                fontWeight: 600,
-                                '&:hover': { textDecoration: 'underline' },
-                            }}
-                        >
-                            {I18n.t('Show history')}
-                            <ArrowForward style={{ fontSize: 18 }} />
-                        </Box>
-                    }
                 />
                 <RecentBackups
                     t={t}
