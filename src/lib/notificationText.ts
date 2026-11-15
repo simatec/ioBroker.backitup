@@ -26,6 +26,17 @@ interface StorageEntry {
 }
 
 /**
+ * Server shown in front of the NAS directory. Only CIFS and NFS mount a server; for "Copy" and
+ * "Expert" the admin hides the server field but keeps its old value, which then showed up as a
+ * stale IP in the notification (#1471).
+ *
+ * @param cifs the NAS target
+ */
+export function nasHost(cifs: StorageEntry): string {
+    return cifs.mountType === 'CIFS' || cifs.mountType === 'NFS' ? cifs.mount || '' : '';
+}
+
+/**
  * The parts of a notification step's options both builders read: the shared context, the configured
  * targets and every credential that has to be masked.
  */
@@ -201,7 +212,7 @@ export function buildStorageList(options: NotificationOptions, systemLang: strin
     if (options.cifs?.enabled) {
         const m = `${storageNum++}. ${_(`NAS (${options.cifs.mountType})`, systemLang)} (%h%d)%k`;
         storageOptions += m
-            .replace('%h', options.cifs.mount as string)
+            .replace('%h', nasHost(options.cifs))
             .replace('%d', options.cifs.dir as string)
             .replace('%k', '\n');
     }
