@@ -30,7 +30,7 @@ interface WebDavUploadOptions {
 /**
  * Uploads every file of this run, one after the other.
  *
- * A failed upload is logged but does not stop the remaining files, as before.
+ * A failed upload is recorded and logged but does not stop the remaining files.
  *
  * @param client connected webdav client
  * @param dir target directory
@@ -45,6 +45,7 @@ async function copyFiles(client: WebDAVClient, dir: string, fileNames: string[],
 
         if (!existsSync(fileName)) {
             ctx.log.error(`WebDAV: File "${fileName}" not found`);
+            ctx.errors.webdav = ctx.errors.webdav || `File "${fileName}" not found`;
             continue;
         }
 
@@ -61,6 +62,8 @@ async function copyFiles(client: WebDAVClient, dir: string, fileNames: string[],
                 contentLength: fileContent.length,
             } as never);
         } catch (e) {
+            // Recorded, so the run is reported as failed and the local backups are kept (#1498)
+            ctx.errors.webdav = ctx.errors.webdav || (e as Error);
             ctx.log.error(`WebDAV: ${e}`);
         }
     }
@@ -225,11 +228,16 @@ export async function run(props: BackItUpProps<WebDavUploadOptions>): Promise<vo
         const webdavDeleteAfter =
             options.advancedDelete === false ? options.deleteBackupAfter : options.webdavDeleteAfter;
 
-        try {
-            await cleanFiles(client, options, dir, ctx.types, webdavDeleteAfter as number, ctx);
-        } catch (cleanErr) {
-            ctx.errors.webdav = ctx.errors.webdav || (cleanErr as Error);
-            throw cleanErr;
+        if (ctx.errors.webdav) {
+            // Nothing is deleted on the target after a failed run, as for the local backups (#1498)
+            ctx.log.warn('Old backups on WebDAV were not deleted because of errors in this run');
+        } else {
+            try {
+                await cleanFiles(client, options, dir, ctx.types, webdavDeleteAfter as number, ctx);
+            } catch (cleanErr) {
+                ctx.errors.webdav = ctx.errors.webdav || (cleanErr as Error);
+                throw cleanErr;
+            }
         }
     }
 

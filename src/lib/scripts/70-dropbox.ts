@@ -45,6 +45,7 @@ async function copyFiles(dbx: Dropbox, dir: string, fileNames: string[], ctx: Ba
 
         if (!existsSync(fileName)) {
             ctx.log.error(`Dropbox: File "${fileName}" not found`);
+            ctx.errors.dropbox = ctx.errors.dropbox || `File "${fileName}" not found`;
             continue;
         }
 
@@ -52,6 +53,8 @@ async function copyFiles(dbx: Dropbox, dir: string, fileNames: string[], ctx: Ba
 
         if (!statSync(fileName).size) {
             ctx.log.warn(`Dropbox: File "${fileName}" is empty and was not sent`);
+            // An empty archive is no backup; the run is reported as failed
+            ctx.errors.dropbox = ctx.errors.dropbox || `File "${fileName}" is empty and was not sent`;
             continue;
         }
 
@@ -178,7 +181,12 @@ export async function run(props: BackItUpProps<DropboxUploadOptions>): Promise<v
         const dropboxDeleteAfter =
             options.advancedDelete === false ? options.deleteBackupAfter : options.dropboxDeleteAfter;
 
-        await cleanFiles(dbx, options, dir, ctx.types, dropboxDeleteAfter as number, ctx);
+        if (ctx.errors.dropbox) {
+            // Nothing is deleted on the target after a failed run, as for the local backups (#1498)
+            ctx.log.warn('Old backups on Dropbox were not deleted because of errors in this run');
+        } else {
+            await cleanFiles(dbx, options, dir, ctx.types, dropboxDeleteAfter as number, ctx);
+        }
     }
 
     if (!ctx.errors.dropbox) {

@@ -45,6 +45,7 @@ async function copyFiles(
 
         if (!existsSync(fileName)) {
             ctx.log.error(`Onedrive: File "${fileName}" not found`);
+            ctx.errors.onedrive = ctx.errors.onedrive || `File "${fileName}" not found`;
             continue;
         }
 
@@ -67,8 +68,10 @@ async function copyFiles(
             );
         } catch (err) {
             if (err) {
-                ctx.errors.onedrive = JSON.stringify(err);
-                ctx.log.error(`upload Onedrive: ${JSON.stringify(err)}`);
+                // JSON.stringify turns an Error into "{}", which is what the notification showed
+                const text = err instanceof Error ? err.message : typeof err === 'string' ? err : JSON.stringify(err);
+                ctx.errors.onedrive = text;
+                ctx.log.error(`upload Onedrive: ${text}`);
             }
         }
     }
@@ -227,11 +230,16 @@ export async function run(props: BackItUpProps<OneDriveUploadOptions>): Promise<
         const onedriveDeleteAfter =
             options.advancedDelete === false ? options.deleteBackupAfter : options.onedriveDeleteAfter;
 
-        try {
-            await cleanFiles(od_accessToken, options, dir, ctx.types, onedriveDeleteAfter as number, ctx);
-        } catch (cleanErr) {
-            ctx.errors.onedrive = ctx.errors.onedrive || (cleanErr as Error);
-            throw cleanErr;
+        if (ctx.errors.onedrive) {
+            // Nothing is deleted on the target after a failed run, as for the local backups (#1498)
+            ctx.log.warn('Old backups on OneDrive were not deleted because of errors in this run');
+        } else {
+            try {
+                await cleanFiles(od_accessToken, options, dir, ctx.types, onedriveDeleteAfter as number, ctx);
+            } catch (cleanErr) {
+                ctx.errors.onedrive = ctx.errors.onedrive || (cleanErr as Error);
+                throw cleanErr;
+            }
         }
     }
 
