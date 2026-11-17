@@ -32,7 +32,7 @@ interface GoogleDriveUploadOptions {
  * @param gDrive client instance
  * @param dir target directory
  * @param fileNames the files to send; this list is consumed
- * @param ctx run context, for the logger
+ * @param ctx run context, for the logger and the error store
  */
 async function copyFiles(gDrive: GoogleDrive, dir: string, fileNames: string[], ctx: BackItUpContext): Promise<void> {
     while (fileNames.length) {
@@ -42,6 +42,7 @@ async function copyFiles(gDrive: GoogleDrive, dir: string, fileNames: string[], 
 
         if (!existsSync(fileName)) {
             ctx.log.error(`Google Drive: File "${fileName}" not found`);
+            ctx.errors.googledrive = ctx.errors.googledrive || `File "${fileName}" not found`;
             // The original waited 150ms before the next file here too; the API is rate limited.
             await new Promise(resolve => setTimeout(resolve, 150));
             continue;
@@ -62,9 +63,12 @@ async function copyFiles(gDrive: GoogleDrive, dir: string, fileNames: string[], 
             try {
                 await gDrive.writeFile(folderId as string, onlyFileName, readStream, ctx.log);
             } catch (err) {
+                // Recorded, so the run is reported as failed and the local backups are kept (#1498)
+                ctx.errors.googledrive = ctx.errors.googledrive || (err as Error);
                 ctx.log.error(`Google Drive writeFile failed: ${err}`);
             }
         } catch (err) {
+            ctx.errors.googledrive = ctx.errors.googledrive || (err as Error);
             ctx.log.error(`Google Drive writeFile Error: ${err}`);
         }
 
@@ -216,11 +220,16 @@ export async function run(props: BackItUpProps<GoogleDriveUploadOptions>): Promi
         const googledriveDeleteAfter =
             options.advancedDelete === false ? options.deleteBackupAfter : options.googledriveDeleteAfter;
 
-        try {
-            await cleanFiles(gDrive, options, dir, ctx.types, googledriveDeleteAfter as number, ctx);
-        } catch (cleanErr) {
-            ctx.errors.googledrive = ctx.errors.googledrive || (cleanErr as Error);
-            throw cleanErr;
+        if (ctx.errors.googledrive) {
+            // Nothing is deleted on the target after a failed run, as for the local backups (#1498)
+            ctx.log.warn('Old backups on Google Drive were not deleted because of errors in this run');
+        } else {
+            try {
+                await cleanFiles(gDrive, options, dir, ctx.types, googledriveDeleteAfter as number, ctx);
+            } catch (cleanErr) {
+                ctx.errors.googledrive = ctx.errors.googledrive || (cleanErr as Error);
+                throw cleanErr;
+            }
         }
     }
 

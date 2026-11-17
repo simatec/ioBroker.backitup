@@ -185,7 +185,12 @@ export async function run(props: BackItUpProps<CifsCopyOptions>): Promise<void> 
         // The original wraps this call in `if (…)` with its own TODO noting that cleanFiles returns
         // nothing - so the condition is always false and 'cifs' is never recorded as done on this
         // path. The dead branch is dropped here; the call and its effect are unchanged.
-        cleanFiles(dir, options, ctx.types, options.deleteBackupAfter as number, ctx);
+        if (ctx.errors.cifs) {
+            // Nothing is deleted on the target after a failed run, as for the local backups (#1498)
+            ctx.log.warn('Old backups on the NAS were not deleted because of errors in this run');
+        } else {
+            cleanFiles(dir, options, ctx.types, options.deleteBackupAfter as number, ctx);
+        }
     } else if (!ctx.errors.cifs) {
         ctx.done.push('cifs');
     }

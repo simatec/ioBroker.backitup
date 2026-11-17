@@ -55,6 +55,7 @@ async function uploadFiles(client: Client, dir: string, fileNames: string[], ctx
             });
         } else {
             ctx.log.error(`File "${fileName}" not found`);
+            ctx.errors.ftp = ctx.errors.ftp || `File "${fileName}" not found`;
         }
     }
 }
@@ -211,7 +212,12 @@ export async function run(props: BackItUpProps<FtpUploadOptions>): Promise<void>
                         options.advancedDelete === false ? options.deleteBackupAfter : options.ftpDeleteAfter;
 
                     try {
-                        await cleanFiles(client, options, dir, ctx.types, ftpDeleteAfter as number, ctx);
+                        if (ctx.errors.ftp) {
+                            // Nothing is deleted on the target after a failed run, as for the local backups (#1498)
+                            ctx.log.warn('Old backups on FTP were not deleted because of errors in this run');
+                        } else {
+                            await cleanFiles(client, options, dir, ctx.types, ftpDeleteAfter as number, ctx);
+                        }
                     } catch (err) {
                         // Only a synchronous failure of the listing call gets here, as before. Note
                         // that an upload error does not: the step is still counted as done then.
