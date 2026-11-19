@@ -140,6 +140,10 @@
     "compact": false,
     "icon": "backitup.svg",
     "messagebox": true,
+    "supportedMessages": {
+        "help": true,
+        "custom": true
+    },
     "stopBeforeUpdate": true,
     "connectionType": "local",
     "dataSource": "assumption",

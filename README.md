@@ -57,10 +57,16 @@ This adapter uses the service `Sentry.io` to automatically report exceptions and
 When the adapter crashes or another Code error happens, this error message that also appears in the ioBroker log is submitted to Sentry.
 When you allow iobroker GmbH to collect diagnostic data, then also your installation ID (this is just a unique ID **without** any additional infos about you, email, name or such) is included. This allows Sentry to group errors and show how many unique users are affected by such an error. All of this helps me to provide error-free adapters that basically never crash.
 
+## Messages for scripts and AI agents
+`sendTo('backitup.0', 'help', {})` answers with a description of the messages and states of the adapter for AI agents (e.g. pi-agent) and script authors; the answer lists all commands with `write` (whether a command changes something).
+
 **************************************************************************************************************
 <!-- ### **WORK IN PROGRESS** -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (bluefox) Added the message "help": a description of all messages for AI agents (e.g. pi-agent), and common.supportedMessages.help
+
 ### 5.0.2 (2026-11-15)
 * (simatec) Tab: download and restore from the recent backups also find backups on the storages (NAS, cloud)
 * (simatec) Tab: only one link to the backup history

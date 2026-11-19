@@ -49,3 +49,54 @@ describe('Adapter config typing', () => {
         );
     });
 });
+
+/**
+ * The message `help` (src/lib/help.ts) describes the messages for AI agents. Its list of commands has to
+ * follow the switch in `onMessage` of src/main.ts, and the text has to name every command.
+ */
+describe('Message help', () => {
+    const main = readFileSync(path.join(ROOT, 'src', 'main.ts'), 'utf8');
+    const help = readFileSync(path.join(ROOT, 'src', 'lib', 'help.ts'), 'utf8');
+
+    const start = main.indexOf('private async onMessage(');
+    const end = main.indexOf('private async updateAccessTokens(', start);
+    const handled = [...main.slice(start, end).matchAll(/case '([^']+)':/g)].map(m => m[1]);
+    const commands = [...help.matchAll(/\{ command: '([^']+)', write: (true|false) \}/g)].map(m => ({
+        command: m[1],
+        write: m[2] === 'true',
+    }));
+    const marker = 'export const HELP = `';
+    const text = help.slice(help.indexOf(marker) + marker.length, help.lastIndexOf('`;'));
+
+    it('lists exactly the commands onMessage answers', () => {
+        assert.ok(start > -1 && end > start, 'onMessage not found in src/main.ts');
+        assert.deepStrictEqual(commands.map(c => c.command).sort(), [...handled].sort());
+    });
+
+    it('lists every command once', () => {
+        const names = commands.map(c => c.command);
+        assert.deepStrictEqual(names, [...new Set(names)]);
+    });
+
+    it('names every command in the text', () => {
+        for (const { command } of commands.filter(c => c.command !== 'help')) {
+            assert.ok(text.includes(command), command);
+        }
+    });
+
+    it('marks the commands that change something as write', () => {
+        const write = Object.fromEntries(commands.map(c => [c.command, c.write]));
+        for (const command of ['restore', 'getFile', 'slaveBackup', 'uploadFile']) {
+            assert.strictEqual(write[command], true, command);
+        }
+        for (const command of ['help', 'list', 'getLog', 'getFileSystemInfo', 'getSystemInfo']) {
+            assert.strictEqual(write[command], false, command);
+        }
+    });
+
+    it('keeps the lines short', () => {
+        for (const line of text.split('\n')) {
+            assert.ok(line.length <= 120, line);
+        }
+    });
+});
