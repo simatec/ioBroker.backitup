@@ -12,6 +12,7 @@ import * as tools from './lib/tools';
 import executeScripts from './lib/execute';
 import * as systemCheck from './lib/systemCheck';
 import TokenRefresher from './lib/tokenRefresher';
+import { COMMANDS, HELP } from './lib/help';
 
 // Loaded on demand further down, so the adapter start stays cheap - only the types come in here.
 import type * as ChildProcessModule from 'node:child_process';
@@ -225,6 +226,13 @@ class BackItUp extends Adapter {
     private async onMessage(obj: ioBroker.Message): Promise<void> {
         if (obj) {
             switch (obj.command) {
+                case 'help':
+                    // a description of all messages for AI agents and scripts
+                    if (obj.callback) {
+                        this.sendTo(obj.from, obj.command, { help: HELP, commands: COMMANDS }, obj.callback);
+                    }
+                    break;
+
                 case 'list':
                     try {
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
