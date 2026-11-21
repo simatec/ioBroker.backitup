@@ -157,6 +157,11 @@ Wer nicht nur eine CCU sichern will, kann die Option "Sicherung mehrerer Systeme
 > [!IMPORTANT]
 > Ein Backup der CCU kann nur mit dem User `Admin` der CCU durchgeführt werden!
 
+#### openccu-lite
+Für [openccu-lite](https://github.com/openccu-lite/openccu-lite) wird unter "System" `openccu-lite` gewählt (in der Tabelle mehrerer Systeme je Zeile). Statt Benutzer und Passwort braucht BackItUp dann ein API-Token mit dem Bereich `backup`, das in der Weboberfläche von openccu-lite unter System > Fernzugriff > API-Tokens angelegt wird. Die Verbindung läuft immer über HTTPS; bei einem selbstsignierten Zertifikat muss "Nur signierte Zertifikate zulassen" ausgeschaltet werden.
+
+openccu-lite erstellt das Backup zunächst auf dem System (bei großen Installationen kann das einige Minuten dauern, BackItUp wartet bis zu 30 Minuten) und BackItUp lädt es anschließend herunter. Die Datei ist dieselbe, die die Weboberfläche von openccu-lite herunterlädt: ein CCU-kompatibles `.sbk`, oder `.sbk.age`, wenn dort die Verschlüsselung der Backups eingeschaltet ist. Zeitplan, Speicherorte, Aufbewahrung und Benachrichtigungen sind dieselben wie beim CCU-Backup.
+
 ### Mysql-Backup
 Dieses separat einstellbare Backup wird, sofern es aktiviert ist, bei jedem Backup ioBroker erstellt und nach Ablauf der angegebenen Vorhaltezeit auch gelöscht. FTP oder CIFS sind für dieses Backup ebenfalls gültig, sofern bei den anderen ioBroker-Backup-Typen eingestellt.
 
@@ -649,6 +654,9 @@ Eine detailierte Anleitung zum Restore mit `ioBroker.backitup` und auch zum manu
     - Den Befehl: „/bin/restoreBackup.sh /user/local/tmp/EuerBackupDateiname“ auf der Raspberrymatic ausführen.
     - Den Befehl: “reboot“ auf der Raspberrymatic ausführen, um den PI neu zu starten
     - Alternativ kann das Backup natürlich auch wie gewohnt über das Webinterface wieder hergestellt werden.
+
+***Restore eines openccu-lite Backups:***
+    - Das Backup wird in der Weboberfläche von openccu-lite unter Sicherung > Sicherung einspielen hochgeladen; dort wird auch ein verschlüsseltes Backup (`.sbk.age`) wiederhergestellt.
 
 ### Restore einer InfluxDB Datenbank
 

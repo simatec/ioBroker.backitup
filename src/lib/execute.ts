@@ -88,7 +88,7 @@ const NESTED_SECRETS: Record<string, string[]> = {
 };
 
 /** Secrets masked directly on the options object */
-const TOP_LEVEL_SECRETS = ['accessToken', 'pass', 'accessJson', 'apiKey', 'z2mPassword'];
+const TOP_LEVEL_SECRETS = ['accessToken', 'pass', 'token', 'accessJson', 'apiKey', 'z2mPassword'];
 
 /** Secrets masked two levels down, e.g. `_options.iobroker.cifs.pass` */
 const DEEP_SECRETS: Record<string, string[]> = {
@@ -98,7 +98,7 @@ const DEEP_SECRETS: Record<string, string[]> = {
     ftp: ['pass'],
     googledrive: ['accessJson'],
     mysql: ['pass'],
-    ccu: ['pass'],
+    ccu: ['pass', 'token'],
     webdav: ['pass'],
     grafana: ['pass', 'apiKey'],
     zigbee2mqtt: ['z2mPassword'],
@@ -410,6 +410,16 @@ function executeScripts(
                     for (const secret of TOP_LEVEL_SECRETS) {
                         if (_options[secret] !== undefined) {
                             _options[secret] = '****';
+                        }
+                    }
+                    // the CCU table of several systems carries a password or an API token per row
+                    if (Array.isArray(_options.ccuEvents)) {
+                        for (const event of _options.ccuEvents) {
+                            for (const secret of ['pass', 'token']) {
+                                if (event && event[secret]) {
+                                    event[secret] = '****';
+                                }
+                            }
                         }
                     }
 
