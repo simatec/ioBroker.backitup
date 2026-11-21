@@ -430,11 +430,15 @@ export interface BackItUpConfigComplexCreatorIoBroker extends BackItUpConfigComp
 
 export interface BackItUpConfigComplexCreatorCCU extends BackItUpConfigComplexCreator {
     name: 'ccu';
+    system: 'ccu' | 'openccu-lite'; // a classic CCU (WebUI login) or openccu-lite (backup API)
+    token: string; // API token of openccu-lite
     host: string; // IP-address CCU
     user: string; // username CCU
     usehttps: boolean; // Use https for CCU Connect
     pass: string; // password der CCU
     ccuEvents: {
+        system?: 'ccu' | 'openccu-lite';
+        token?: string;
         host: string;
         user: string;
         pass: string;
@@ -460,6 +464,8 @@ export interface BackItUpAdapterOptions {
     ccuDeleteAfter: number;
     ccuEnabled: boolean;
     ccuEvents: {
+        system?: 'ccu' | 'openccu-lite';
+        token?: string;
         host: string;
         user: string;
         pass: string;
@@ -473,7 +479,9 @@ export interface BackItUpAdapterOptions {
     ccuNameSuffix: string;
     ccuPassword: string;
     ccuSignedCertificates: boolean;
+    ccuSystem: 'ccu' | 'openccu-lite';
     ccuTime: string;
+    ccuToken: string;
     ccuUsehttps: boolean;
     ccuUser: string;
 

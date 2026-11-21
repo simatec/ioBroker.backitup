@@ -163,6 +163,11 @@ If you don't want to secure just one CCU, you can activate the "Securing multipl
 > [!IMPORTANT]
 > A backup of the CCU can only be carried out with the user `Admin` of the CCU!
 
+#### openccu-lite
+For [openccu-lite](https://github.com/openccu-lite/openccu-lite) choose `openccu-lite` under "System" (in the table of several systems, per row). Instead of a user and password BackItUp then needs an API token with the scope `backup`, created in openccu-lite's web UI under System > Remote access > API tokens. The connection always uses HTTPS; for a self-signed certificate switch off "Allow only signed certificates".
+
+openccu-lite first builds the backup on the system (on a large installation this can take a few minutes; BackItUp waits up to 30 minutes), then BackItUp downloads it. The file is the one openccu-lite's web UI downloads: a CCU compatible `.sbk`, or `.sbk.age` when backup encryption is switched on there. Schedule, storages, retention and notifications are the same as for the CCU backup.
+
 ### Mysql backup
 If activated, this separately adjustable backup is created with every ioBroker backup and is also deleted after the specified retention time has expired. FTP or CIFS are also valid for this backup if the other ioBroker backup types are set.
 
@@ -612,6 +617,9 @@ Detailed instructions for restoring with Backup and also for manual restoring ca
     - Execute the command: “/bin/restoreBackup.sh /user/local/tmp/BackupFileName” on the RaspberryMatic.
     - Execute the command: “reboot“ on the RaspberryMatic to restart the PI
     - Alternatively, the backup can of course also be restored as usual via the web interface.
+
+***Restore an openccu-lite backup:***
+    - Upload the backup in openccu-lite's web UI under Backup > Restore a backup; an encrypted backup (`.sbk.age`) is restored there as well.
 
 
 ### Restoring an InfluxDB database

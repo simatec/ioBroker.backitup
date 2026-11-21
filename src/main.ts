@@ -1516,6 +1516,8 @@ class BackItUp extends Adapter {
             discord,
             notification,
 
+            system: this.config.ccuSystem || 'ccu', // 'ccu' or 'openccu-lite'
+            token: this.config.ccuToken || '', // API token of openccu-lite (scope "backup")
             host: this.config.ccuHost, // IP-address CCU
             user: this.config.ccuUser, // username CCU
             usehttps: this.config.ccuUsehttps, // Use https for CCU Connect
@@ -2064,6 +2066,10 @@ class BackItUp extends Adapter {
                 if (this.config.ccuEvents[i].pass) {
                     const val = this.config.ccuEvents[i].pass;
                     this.config.ccuEvents[i].pass = val ? decrypt(secret, val) : '';
+                }
+                if (this.config.ccuEvents[i].token) {
+                    const val = this.config.ccuEvents[i].token;
+                    this.config.ccuEvents[i].token = val ? decrypt(secret, val) : '';
                 }
             }
         }

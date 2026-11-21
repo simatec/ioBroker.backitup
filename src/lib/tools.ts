@@ -22,12 +22,13 @@ export function isPureIobrokerBackup(name: string): boolean {
  * Backups that BackItUp can list and download, but not restore: they are made by another system
  * and have to be restored there.
  *
- * - `homematic_..._backupiobroker.tar.sbk`: made by the Homematic CCU / RaspberryMatic
+ * - `homematic_..._backupiobroker.tar.sbk`: made by the Homematic CCU / RaspberryMatic / openccu-lite
+ *   (`.sbk.age`: an openccu-lite backup with backup encryption switched on)
  * - `redis-remote_..._backupiobroker.tar.gz`: dump of a remote Redis server
  * - `zigbee2mqtt_..._backup.zip`: backup of a remote Zigbee2MQTT instance (its own zip format)
  */
 const DOWNLOAD_ONLY_BACKUPS: { pattern: RegExp; type: string; creator: string }[] = [
-    { pattern: /^homematic_.*\.sbk$/, type: 'ccu', creator: 'ccu' },
+    { pattern: /^homematic_.*\.sbk(\.age)?$/, type: 'ccu', creator: 'ccu' },
     { pattern: /^redis-remote_.*_backupiobroker\.tar\.gz$/, type: 'redis-remote', creator: 'redis' },
     { pattern: /^zigbee2mqtt_.*_backup\.zip$/, type: 'zigbee2mqtt', creator: 'zigbee2mqtt' },
 ];
